@@ -20,6 +20,10 @@ An iPhone word game where you rebuild Bible verses (KJV) from a letter wheel, le
 - Verses checked against the Project Gutenberg KJV: 396 exact; 6 small differences to confirm against a second source.
 - Next: Noah test picture, then build the 1.0 app (web app in a Swift WKWebView shell, like Weekly Table).
 
+## Known issues for the 1.0 build
+
+- Long verses (for example Genesis 28:15) make the verse card tall enough to push the letter wheel down, and the Hint, Shuffle and Bonus labels are cut off on a 390-point-wide phone. The real level screen must shrink the verse text or scroll the card.
+
 ## Rebuild the levels
 
 ```
@@ -42,4 +46,8 @@ Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `l
 | 4 | A Token of a Covenant (Noah) | Done, style test passed Oct 24 |
 | 5 | Get Thee Out of Thy Country (Abram) | Done Oct 24 |
 | 6 | Is Any Thing Too Hard? (Mamre) | Done Oct 24 |
+| 7 | God Will Provide | Done Oct 24 |
+| 8 | Surely the LORD Is in This Place (Jacob's ladder) | Done Oct 24 |
+| 9 | God Meant It unto Good (Joseph) | Done Oct 24 |
+| 10 | Holy Ground (the burning bush) | Done Oct 24 · **Batch 1 complete** |
 | 47 | A Lamp unto My Feet (Psalm 119) | Done (Picture B, darker style) |
