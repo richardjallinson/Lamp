@@ -19,7 +19,7 @@ An iPhone word game where you rebuild Bible verses (KJV) from a letter wheel, le
 
 - 149 stories, all 66 books, 402 verses, 1,181 levels, 402 daily puzzles.
 - Verses checked against the Project Gutenberg KJV: 396 exact; 6 small differences to confirm against a second source.
-- Pictures: stories 1–18 and 20 done, plus 47; still to make in Batch 2: 11 and 19.
+- Pictures: stories 1–20 done (the whole free part, Genesis–Deuteronomy) plus 47. Next: Batch 3 (stories 21–30).
 - App 1.0 built: journey map, levels, from memory, daily verse, streak, verses gathered, settings, unlock. Web app fully tested in a browser; the Xcode shell still needs its first build on a Mac.
 
 ## Known issues for the 1.0 build
@@ -52,6 +52,7 @@ Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `l
 | 8 | Surely the LORD Is in This Place (Jacob's ladder) | Done Oct 24 |
 | 9 | God Meant It unto Good (Joseph) | Done Oct 24 |
 | 10 | Holy Ground (the burning bush) | Done Oct 24 · **Batch 1 complete** |
+| 11 | Let My People Go (Passover) | Done Oct 24 (second version: mark added on the lintel, Exodus 12:7) |
 | 12 | The LORD Shall Fight for You (Red Sea) | Done Oct 24 |
 | 13 | The Ten Commandments | Done Oct 24 |
 | 14 | Love Thy Neighbour | Done Oct 24 |
@@ -59,5 +60,6 @@ Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `l
 | 16 | The LORD Bless Thee | Done Oct 24 |
 | 17 | A Star out of Jacob | Done Oct 24 |
 | 18 | Hear, O Israel | Done Oct 24 |
-| 20 | He Will Not Fail Thee | Done Oct 24 |
+| 19 | Choose Life (Mount Nebo) | Done Oct 24 |
+| 20 | He Will Not Fail Thee | Done Oct 24 · **Batch 2 complete: every free story (Genesis–Deuteronomy) has its painting** |
 | 47 | A Lamp unto My Feet (Psalm 119) | Done (Picture B, darker style) |
