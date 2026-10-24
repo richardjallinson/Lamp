@@ -42,6 +42,7 @@ Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `l
 
 | No. | Story | Status |
 |---|---|---|
+| 0 | **Title painting**: the New Jerusalem coming down, its front gate shaped like Jerusalem's Golden Gate, open, with the word LAMP | Done Oct 24 (start screen) |
 | 1 | Let There Be Light (Creation) | Done (Picture A, the style reference) |
 | 2 | A Garden Eastward in Eden | Done Oct 24 |
 | 3 | Where Art Thou? (the Fall) | Done Oct 24 (second version; a fake signature was painted out) |
