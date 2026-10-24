@@ -36,7 +36,7 @@ On an iPhone the sounds follow the ring/silent switch.
 
 ## First build on your Mac
 
-1. Unzip `lamp-apple-v01.zip` and open `Lamp.xcodeproj`.
+1. Unzip the newest `lamp-apple-vXX.zip` and open `Lamp.xcodeproj`.
 2. Click **Lamp** at the top of the file list, then the **Lamp** target, then **Signing & Capabilities**.
    - Team: choose your developer team.
    - Bundle Identifier: `com.richardallinson.Lamp` (already set).
