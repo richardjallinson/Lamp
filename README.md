@@ -37,5 +37,9 @@ Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `l
 | No. | Story | Status |
 |---|---|---|
 | 1 | Let There Be Light (Creation) | Done (Picture A, the style reference) |
+| 2 | A Garden Eastward in Eden | Done Oct 24 |
+| 3 | Where Art Thou? (the Fall) | Redo: first version showed unclothed figures; prompt now says no people |
 | 4 | A Token of a Covenant (Noah) | Done, style test passed Oct 24 |
+| 5 | Get Thee Out of Thy Country (Abram) | Done Oct 24 |
+| 6 | Is Any Thing Too Hard? (Mamre) | Done Oct 24 |
 | 47 | A Lamp unto My Feet (Psalm 119) | Done (Picture B, darker style) |
