@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0B1328">
+<meta name="format-detection" content="telephone=no">
+<title>Lamp</title>
+<link rel="stylesheet" href="css/lamp.css">
+</head>
+<body>
+
+<div id="main" class="screen">
+  <div class="scroll" id="view"></div>
+  <nav class="tabs" aria-label="Sections">
+    <button class="tab" data-tab="journey" aria-current="page"><span id="ti-map"></span>Journey</button>
+    <button class="tab" data-tab="today"><span id="ti-sun"></span>Today</button>
+    <button class="tab" data-tab="gathered"><span id="ti-book"></span>Gathered</button>
+    <button class="tab" data-tab="settings"><span id="ti-gear"></span>Settings</button>
+  </nav>
+  <div class="toast" id="mtoast" role="status" aria-live="polite"></div>
+</div>
+
+<div id="level" class="screen" hidden>
+  <div id="bg" aria-hidden="true"></div>
+  <div class="top">
+    <button class="pill" id="lback" aria-label="Back">‹ Back</button>
+    <span class="pill streak" id="lstreak" aria-label="Lamp streak"></span>
+    <span class="pill" id="loil" aria-label="Lamp oil"></span>
+  </div>
+  <div class="ttl" id="ttl"></div>
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="board" id="board"></div>
+  <div class="spacer"></div>
+  <div id="play"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="js/levels.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/store.js"></script>
+<script src="js/game.js"></script>
+<script src="js/app.js"></script>
+<script>
+  ["map","sun","book","gear"].forEach(function(k){document.getElementById("ti-"+k).innerHTML=Lamp.ICON[k];});
+</script>
+</body>
+</html>

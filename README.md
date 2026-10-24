@@ -13,16 +13,18 @@ An iPhone word game where you rebuild Bible verses (KJV) from a letter wheel, le
 | `preview/` | `lamp-preview.html`: play all 149 stories · `lamp-pictures.html`: picture prompt list |
 | `demo/` | The original playable demo |
 | `images/` | Finished paintings, named `lamp-NNN-story` |
+| `app/` | **Lamp 1.0**: the game (`app/www`) and the Xcode project (`app/Lamp.xcodeproj`). See `app/README.md`. |
 
 ## Status
 
 - 149 stories, all 66 books, 402 verses, 1,181 levels, 402 daily puzzles.
 - Verses checked against the Project Gutenberg KJV: 396 exact; 6 small differences to confirm against a second source.
-- Next: Noah test picture, then build the 1.0 app (web app in a Swift WKWebView shell, like Weekly Table).
+- Pictures: Batch 1 (stories 1–10) done.
+- App 1.0 built: journey map, levels, from memory, daily verse, streak, verses gathered, settings, unlock. Web app fully tested in a browser; the Xcode shell still needs its first build on a Mac.
 
 ## Known issues for the 1.0 build
 
-- Long verses (for example Genesis 28:15) make the verse card tall enough to push the letter wheel down, and the Hint, Shuffle and Bonus labels are cut off on a 390-point-wide phone. The real level screen must shrink the verse text or scroll the card.
+- Fixed in the 1.0 app: long verses now shrink their text and the card scrolls, so the wheel and buttons always fit (checked on every level at iPhone SE and iPhone 15 sizes).
 
 ## Rebuild the levels
 
