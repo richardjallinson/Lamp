@@ -2,12 +2,31 @@
 """Build preview/lamp-preview.html: the original demo, driven by out/levels.json (all stories)."""
 import json, re, sys, os
 demo_path, levels_path, out_path = sys.argv[1:4]
+images_dir = sys.argv[4] if len(sys.argv) > 4 else None  # optional: folder of finished lamp-NNN-id.jpg pictures
 html = open(demo_path, encoding="utf-8").read()
 data = json.load(open(levels_path, encoding="utf-8"))
 imgs = re.findall(r'img:"(data:image[^"]+)"', html)
 IMG_A, IMG_B = imgs[0], imgs[1]
 start = html.index("const STORIES=[")
 end = html.index("];", start) + 2
+def extra_images():
+    """Finished paintings from images_dir, shrunk to 720 px wide, keyed by story id."""
+    out = {}
+    if not images_dir:
+        return out
+    import base64, io
+    from PIL import Image
+    for f in sorted(os.listdir(images_dir)):
+        m = re.match(r"lamp-\d{3}-([a-z]+)\.(jpg|jpeg|png)$", f)
+        if not m:
+            continue
+        im = Image.open(os.path.join(images_dir, f)).convert("RGB").resize((720, 1280))
+        buf = io.BytesIO()
+        im.save(buf, "JPEG", quality=72, optimize=True)
+        out[m.group(1)] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+    return out
+
+
 # compact data for the page
 stories = []
 for s in data["stories"]:
@@ -21,7 +40,7 @@ daily = [{"ref": d["display"], "words": d["words"], "wheel": d["wheel"], "hide":
 js = ("const IMG_A=" + json.dumps(IMG_A) + ",IMG_B=" + json.dumps(IMG_B) + ";\n"
       "const RAW=" + json.dumps(stories, ensure_ascii=False, separators=(",", ":")) + ";\n"
       "const DAILY=" + json.dumps(daily, ensure_ascii=False, separators=(",", ":")) + ";\n"
-      "const PAINT={creation:IMG_A,lamp:IMG_B};\n"
+      "const PAINT=Object.assign({creation:IMG_A,lamp:IMG_B}," + json.dumps(extra_images()) + ");\n"
       "const STORIES=RAW.map(s=>({...s,img:PAINT[s.id]||'',verse:s.verses[s.key].words,ref:s.verses[s.key].ref}));\n"
       "(function(){const d=new Date(),dn=Math.floor((d-new Date(2026,9,1))/864e5),p=DAILY[((dn%DAILY.length)+DAILY.length)%DAILY.length];\n"
       " STORIES.push({id:'daily',daily:true,title:'Today’s verse',book:'Daily',ref:p.ref,img:IMG_B,verse:p.words,verses:[{ref:p.ref,words:p.words}],key:0,note:p.note,\n"
