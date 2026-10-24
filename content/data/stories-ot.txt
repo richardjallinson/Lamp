@@ -1,0 +1,564 @@
+# LAMP story list — Old Testament (KJV)
+# Format:
+#   == id | Title
+#   draw: what the painting shows (used for the picture prompt)
+#   Book C:V | exact KJV text          (prefix "* " marks the key verse used for "from memory")
+#   note: "Why it matters" (shown after the story)
+#   must: optional words that must be hidden somewhere in this story, e.g. "must: LAMP, LIGHT"
+#   recall: optional exact clause of the key verse to rebuild from memory (auto-picked if the verse is long)
+# Stories must stay in Bible order. Text must match the KJV source exactly; the checker verifies it.
+
+== creation | Let There Be Light
+draw: EXISTING Picture A — vast dark ocean, golden light breaking through swirling clouds
+Genesis 1:1 | In the beginning God created the heaven and the earth.
+* Genesis 1:3 | And God said, Let there be light: and there was light.
+Genesis 1:31 | And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day.
+must: LIGHT
+note: The Bible opens with God speaking light into darkness. Light is the first thing named in creation, and the same theme returns at the very end of Revelation.
+
+== eden | A Garden Eastward in Eden
+draw: a lush garden at sunrise, a river winding between fruit trees, mist over green meadows, no people
+* Genesis 1:27 | So God created man in his own image, in the image of God created he him; male and female created he them.
+Genesis 2:7 | And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul.
+Genesis 2:8 | And the LORD God planted a garden eastward in Eden; and there he put the man whom he had formed.
+note: Every person is made in the image of God. That is the root of human dignity, and it is stated before anything else is said about us.
+
+== fall | Where Art Thou?
+draw: a single fruit tree at twilight in the garden, a serpent coiled on a low branch, the garden gate glowing far behind
+* Genesis 3:9 | And the LORD God called unto Adam, and said unto him, Where art thou?
+Genesis 3:15 | And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel.
+Genesis 3:19 | In the sweat of thy face shalt thou eat bread, till thou return unto the ground; for out of it wast thou taken: for dust thou art, and unto dust shalt thou return.
+note: After the first sin, God comes looking for man. Genesis 3:15 is often called the first gospel: the promise of a seed of the woman who would crush the serpent.
+
+== noah | A Token of a Covenant
+draw: the wooden ark resting on a mountain top after the flood, a rainbow arching across a clearing sky, still water below
+Genesis 6:8 | But Noah found grace in the eyes of the LORD.
+Genesis 7:1 | And the LORD said unto Noah, Come thou and all thy house into the ark; for thee have I seen righteous before me in this generation.
+* Genesis 9:13 | I do set my bow in the cloud, and it shall be for a token of a covenant between me and the earth.
+note: The rainbow is God's own sign that he will never again destroy the earth by flood. It is the first covenant named in the Bible, and it is made with every living creature.
+
+== abram | Get Thee Out of Thy Country
+draw: a desert caravan of camels and tents setting out at dawn across wide plains, seen from far behind, stars fading above
+Genesis 12:1 | Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee:
+Genesis 12:2 | And I will make of thee a great nation, and I will bless thee, and make thy name great; and thou shalt be a blessing:
+* Genesis 15:6 | And he believed in the LORD; and he counted it to him for righteousness.
+note: Abram left everything on God's word alone. Genesis 15:6 is quoted three times in the New Testament (Romans 4:3, Galatians 3:6, James 2:23) to show that righteousness comes by faith.
+
+== mamre | Is Any Thing Too Hard?
+draw: tents beneath great oak trees at Mamre in the evening, a cooking fire, three travellers seen only as distant silhouettes on the path
+* Genesis 18:14 | Is any thing too hard for the LORD? At the time appointed I will return unto thee, according to the time of life, and Sarah shall have a son.
+Genesis 21:6 | And Sarah said, God hath made me to laugh, so that all that hear will laugh with me.
+note: Sarah was ninety when Isaac was born. His name means "he laughs", and the promise came true at exactly the time appointed.
+
+== provide | God Will Provide
+draw: a lone mountain top at first light, a ram caught by its horns in a thicket beside a stone altar, no people
+* Genesis 22:8 | And Abraham said, My son, God will provide himself a lamb for a burnt offering: so they went both of them together.
+Genesis 22:13 | And Abraham lifted up his eyes, and looked, and behold behind him a ram caught in a thicket by his horns: and Abraham went and took the ram, and offered him up for a burnt offering in the stead of his son.
+Genesis 22:14 | And Abraham called the name of that place Jehovahjireh: as it is said to this day, In the mount of the LORD it shall be seen.
+note: Jehovahjireh means "the LORD will see to it" or "the LORD will provide." A substitute died in the son's place, a picture the New Testament sees fulfilled in Christ.
+
+== ladder | Surely the LORD Is in This Place
+draw: a rocky hillside at night, a stone used as a pillow, a stairway of golden light rising into a starry sky
+Genesis 28:12 | And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven: and behold the angels of God ascending and descending on it.
+Genesis 28:15 | And, behold, I am with thee, and will keep thee in all places whither thou goest, and will bring thee again into this land; for I will not leave thee, until I have done that which I have spoken to thee of.
+* Genesis 28:16 | And Jacob awaked out of his sleep, and he said, Surely the LORD is in this place; and I knew it not.
+note: Jacob was running away when God met him. He named the place Bethel, "house of God." Jesus refers to this ladder in John 1:51.
+
+== joseph | God Meant It unto Good
+draw: a richly coloured coat lying on a rock in the desert, and far away the granaries of Egypt along the Nile at sunset
+Genesis 37:3 | Now Israel loved Joseph more than all his children, because he was the son of his old age: and he made him a coat of many colours.
+* Genesis 50:20 | But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive.
+note: Joseph was sold by his brothers, falsely accused and forgotten in prison, yet God used every step to save his family. This is one of the clearest pictures of providence in Scripture.
+
+== bush | Holy Ground
+draw: a desert bush burning with bright golden fire that does not consume it, on a mountainside, a pair of sandals left on the ground
+Exodus 3:2 | And the angel of the LORD appeared unto him in a flame of fire out of the midst of a bush: and he looked, and, behold, the bush burned with fire, and the bush was not consumed.
+* Exodus 3:5 | And he said, Draw not nigh hither: put off thy shoes from off thy feet, for the place whereon thou standest is holy ground.
+Exodus 3:14 | And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you.
+note: Here God reveals his name, I AM. Jesus takes up the same words in John 8:58, "Before Abraham was, I am."
+
+== passover | Let My People Go
+draw: an Egyptian village street at night, one doorway glowing with lamplight, a red mark on its doorposts, a full moon over the palms
+* Exodus 5:1 | And afterward Moses and Aaron went in, and told Pharaoh, Thus saith the LORD God of Israel, Let my people go, that they may hold a feast unto me in the wilderness.
+Exodus 12:13 | And the blood shall be to you for a token upon the houses where ye are: and when I see the blood, I will pass over you, and the plague shall not be upon you to destroy you, when I smite the land of Egypt.
+note: The Passover lamb's blood marked the houses God would pass over. Paul writes, "Christ our passover is sacrificed for us" (1 Corinthians 5:7).
+
+== redsea | The LORD Shall Fight for You
+draw: towering walls of sea water parted on either side of a dry path, a pillar of fire glowing behind, night turning to dawn
+Exodus 14:13 | And Moses said unto the people, Fear ye not, stand still, and see the salvation of the LORD, which he will shew to you to day: for the Egyptians whom ye have seen to day, ye shall see them again no more for ever.
+* Exodus 14:14 | The LORD shall fight for you, and ye shall hold your peace.
+Exodus 14:21 | And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all that night, and made the sea dry land, and the waters were divided.
+note: Trapped between the sea and Pharaoh's army, Israel was told to stand still. The deliverance at the Red Sea is remembered throughout the Psalms and the prophets.
+
+== sinai | The Ten Commandments
+draw: Mount Sinai wrapped in dark storm clouds and lightning, two blank stone tablets resting on a rock in the foreground
+Exodus 20:2 | I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage.
+* Exodus 20:3 | Thou shalt have no other gods before me.
+Exodus 20:12 | Honour thy father and thy mother: that thy days may be long upon the land which the LORD thy God giveth thee.
+note: The commandments begin with what God had already done: he brought them out of slavery. The law was given to a people already redeemed. Paul calls the fifth "the first commandment with promise" (Ephesians 6:2).
+
+== neighbour | Love Thy Neighbour
+draw: a wheat field at harvest with the corners left uncut, sheaves stacked, a village on a hill in warm evening light
+Leviticus 19:2 | Speak unto all the congregation of the children of Israel, and say unto them, Ye shall be holy: for I the LORD your God am holy.
+* Leviticus 19:18 | Thou shalt not avenge, nor bear any grudge against the children of thy people, but thou shalt love thy neighbour as thyself: I am the LORD.
+note: Jesus called this the second great commandment (Matthew 22:39). It sits in Leviticus beside the law to leave the corners of the field for the poor (19:9-10).
+
+== feasts | The Feasts of the LORD
+draw: a full moon rising over Jerusalem's hills in spring, lamps lit in courtyards, a table set with unleavened bread
+Leviticus 23:2 | Speak unto the children of Israel, and say unto them, Concerning the feasts of the LORD, which ye shall proclaim to be holy convocations, even these are my feasts.
+* Leviticus 23:4 | These are the feasts of the LORD, even holy convocations, which ye shall proclaim in their seasons.
+Leviticus 23:5 | In the fourteenth day of the first month at even is the LORD's passover.
+note: The Hebrew word for feasts, moedim, means "appointed times." Leviticus 23 sets out God's calendar, from Passover in spring to Tabernacles in autumn.
+
+== blessing | The LORD Bless Thee
+draw: the sun rising over a camp of tents in the wilderness, soft golden light spreading across the sand, smoke rising from cook fires
+* Numbers 6:24 | The LORD bless thee, and keep thee:
+Numbers 6:25 | The LORD make his face shine upon thee, and be gracious unto thee:
+Numbers 6:26 | The LORD lift up his countenance upon thee, and give thee peace.
+note: This is the priestly blessing Aaron spoke over Israel. Silver scrolls with these words, from about 600 BC, were found at Ketef Hinnom in Jerusalem. They are among the oldest Bible texts known.
+
+== star | A Star out of Jacob
+draw: a bronze serpent on a tall pole above a desert camp at dusk, a single bright star rising over the far hills
+Numbers 21:8 | And the LORD said unto Moses, Make thee a fiery serpent, and set it upon a pole: and it shall come to pass, that every one that is bitten, when he looketh upon it, shall live.
+* Numbers 23:19 | God is not a man, that he should lie; neither the son of man, that he should repent: hath he said, and shall he not do it? or hath he spoken, and shall he not make it good?
+Numbers 24:17 | I shall see him, but not now: I shall behold him, but not nigh: there shall come a Star out of Jacob, and a Sceptre shall rise out of Israel, and shall smite the corners of Moab, and destroy all the children of Sheth.
+note: Jesus applied the bronze serpent to himself in John 3:14. Balaam was hired to curse Israel but could only bless, and he foresaw a Star and a Sceptre coming out of Jacob.
+
+== shema | Hear, O Israel
+draw: the wooden doorpost of a stone house with a small case fixed to it, morning light, the hills of Canaan beyond
+* Deuteronomy 6:4 | Hear, O Israel: The LORD our God is one LORD:
+Deuteronomy 6:5 | And thou shalt love the LORD thy God with all thine heart, and with all thy soul, and with all thy might.
+Deuteronomy 6:6 | And these words, which I command thee this day, shall be in thine heart:
+note: The Shema is still prayed by Jewish people every morning and evening. Jesus named it the first and greatest commandment (Mark 12:29-30).
+
+== nebo | Choose Life
+draw: a lone figure seen from behind on the top of Mount Nebo, looking out over the Jordan valley and the promised land in golden haze
+* Deuteronomy 29:29 | The secret things belong unto the LORD our God: but those things which are revealed belong unto us and to our children for ever, that we may do all the words of this law.
+Deuteronomy 30:19 | I call heaven and earth to record this day against you, that I have set before you life and death, blessing and cursing: therefore choose life, that both thou and thy seed may live:
+note: At the end of his life Moses set two ways before the people. God's revealed word is given so that it can be lived, not just studied.
+
+== notfail | He Will Not Fail Thee
+draw: a river crossing at dawn, the Jordan flowing between reeds, the promised land green on the far side, a column of people seen from far behind
+Deuteronomy 31:6 | Be strong and of a good courage, fear not, nor be afraid of them: for the LORD thy God, he it is that doth go with thee; he will not fail thee, nor forsake thee.
+* Deuteronomy 31:8 | And the LORD, he it is that doth go before thee; he will be with thee, he will not fail thee, neither forsake thee: fear not, neither be dismayed.
+note: Moses spoke these words as he handed leadership to Joshua. Hebrews 13:5 quotes the promise: "I will never leave thee, nor forsake thee."
+
+== joshua | Be Strong and of a Good Courage
+draw: an open scroll on a stone beside a riverbank camp at dawn, spears and tents in soft focus, the walls of Jericho far off
+Joshua 1:8 | This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein: for then thou shalt make thy way prosperous, and then thou shalt have good success.
+* Joshua 1:9 | Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest.
+note: Joshua's success was tied to meditating on God's word day and night. The command to be strong comes three times in this one chapter.
+
+== shechem | Choose You This Day
+draw: a great oak tree beside a large standing stone at Shechem, hills all around, evening light
+Joshua 24:15 | And if it seem evil unto you to serve the LORD, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the Amorites, in whose land ye dwell: but as for me and my house, we will serve the LORD.
+* Joshua 24:24 | And the people said unto Joshua, The LORD our God will we serve, and his voice will we obey.
+note: Joshua set up a great stone under the oak as a witness to this promise (24:26). "As for me and my house" is still painted over many front doors.
+
+== gideon | Thou Mighty Man of Valour
+draw: a stone winepress hidden among rocks, a fleece of wool on the threshing floor wet with dew, early morning
+* Judges 6:12 | And the angel of the LORD appeared unto him, and said unto him, The LORD is with thee, thou mighty man of valour.
+Judges 6:14 | And the LORD looked upon him, and said, Go in this thy might, and thou shalt save Israel from the hand of the Midianites: have not I sent thee?
+Judges 21:25 | In those days there was no king in Israel: every man did that which was right in his own eyes.
+note: Gideon was hiding when God called him a mighty man of valour. The book of Judges ends in disorder because everyone did what was right in his own eyes.
+
+== ruth | Whither Thou Goest
+draw: a golden barley field at harvest near Bethlehem, a young woman gleaning seen from behind, sheaves left along the edge
+Ruth 1:16 | And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:
+* Ruth 2:12 | The LORD recompense thy work, and a full reward be given thee of the LORD God of Israel, under whose wings thou art come to trust.
+note: Ruth was a Moabite widow who chose Israel's God. She became the great-grandmother of King David and is named in the genealogy of Jesus (Matthew 1:5).
+
+== samuel | Speak; for Thy Servant Heareth
+draw: the inside of the tabernacle at night, a golden lampstand burning low, a sleeping mat on the floor, deep shadows
+1 Samuel 1:27 | For this child I prayed; and the LORD hath given me my petition which I asked of him:
+1 Samuel 3:3 | And ere the lamp of God went out in the temple of the LORD, where the ark of God was, and Samuel was laid down to sleep;
+* 1 Samuel 3:10 | And the LORD came, and stood, and called as at other times, Samuel, Samuel. Then Samuel answered, Speak; for thy servant heareth.
+note: Samuel was the answer to his mother Hannah's prayer. God called him by name while the lamp of God was still burning.
+
+== goliath | The Battle Is the LORD's
+draw: the valley of Elah, a clear brook with five smooth stones in the water and a shepherd's sling on the bank, armies as tiny tents on two hills
+1 Samuel 16:7 | But the LORD said unto Samuel, Look not on his countenance, or on the height of his stature; because I have refused him: for the LORD seeth not as man seeth; for man looketh on the outward appearance, but the LORD looketh on the heart.
+* 1 Samuel 17:45 | Then said David to the Philistine, Thou comest to me with a sword, and with a spear, and with a shield: but I come to thee in the name of the LORD of hosts, the God of the armies of Israel, whom thou hast defied.
+1 Samuel 17:47 | And all this assembly shall know that the LORD saveth not with sword and spear: for the battle is the LORD's, and he will give you into our hands.
+note: God chose the youngest son, the one his family overlooked. David fought in the name of the LORD, not with Saul's armour.
+
+== rock | The LORD Is My Rock
+draw: a rocky mountain stronghold at sunset, cliffs and caves like the wilderness of En Gedi, a harp resting on a stone ledge
+2 Samuel 7:16 | And thine house and thy kingdom shall be established for ever before thee: thy throne shall be established for ever.
+* 2 Samuel 22:2 | And he said, The LORD is my rock, and my fortress, and my deliverer;
+2 Samuel 22:31 | As for God, his way is perfect; the word of the LORD is tried: he is a buckler to all them that trust in him.
+note: God promised David a throne established for ever. The New Testament opens by calling Jesus "the son of David" (Matthew 1:1).
+
+== solomon | An Understanding Heart
+draw: Solomon's temple in Jerusalem at dawn, golden light on stone and cedar, smoke rising from the altar court
+* 1 Kings 3:9 | Give therefore thy servant an understanding heart to judge thy people, that I may discern between good and bad: for who is able to judge this thy so great a people?
+1 Kings 4:29 | And God gave Solomon wisdom and understanding exceeding much, and largeness of heart, even as the sand that is on the sea shore.
+1 Kings 8:27 | But will God indeed dwell on the earth? behold, the heaven and heaven of heavens cannot contain thee; how much less this house that I have builded?
+note: Solomon could have asked for anything and asked for wisdom. At the temple's dedication he confessed that no building could contain God.
+
+== elijah | A Still Small Voice
+draw: fire falling from a dark sky onto a stone altar on Mount Carmel, water in the trench around it turning to steam, the sea far below
+1 Kings 18:21 | And Elijah came unto all the people, and said, How long halt ye between two opinions? if the LORD be God, follow him: but if Baal, then follow him. And the people answered him not a word.
+* 1 Kings 18:39 | And when all the people saw it, they fell on their faces: and they said, The LORD, he is the God; the LORD, he is the God.
+1 Kings 19:12 | And after the earthquake a fire; but the LORD was not in the fire: and after the fire a still small voice.
+note: After the fire fell on Carmel, Elijah fled in fear. God spoke to him not in wind, earthquake or fire, but in a still small voice.
+
+== elisha | They That Be with Us
+draw: hills around a small walled town at night, ringed by horses and chariots of fire glowing in the darkness, no riders' faces
+2 Kings 2:11 | And it came to pass, as they still went on, and talked, that, behold, there appeared a chariot of fire, and horses of fire, and parted them both asunder; and Elijah went up by a whirlwind into heaven.
+* 2 Kings 6:16 | And he answered, Fear not: for they that be with us are more than they that be with them.
+2 Kings 6:17 | And Elisha prayed, and said, LORD, I pray thee, open his eyes, that he may see. And the LORD opened the eyes of the young man; and he saw: and, behold, the mountain was full of horses and chariots of fire round about Elisha.
+note: Elisha's servant saw only the enemy army until God opened his eyes. Hebrews 1:14 describes angels as ministering spirits sent for those who will inherit salvation.
+
+== greatness | Thine Is the Greatness
+draw: the ark of the covenant carried in procession up to Jerusalem, golden cymbals and harps catching the light, people seen only from behind
+* 1 Chronicles 16:34 | O give thanks unto the LORD; for he is good; for his mercy endureth for ever.
+1 Chronicles 29:11 | Thine, O LORD, is the greatness, and the power, and the glory, and the victory, and the majesty: for all that is in the heaven and in the earth is thine; thine is the kingdom, O LORD, and thou art exalted as head above all.
+note: David sang this when the ark came to Jerusalem. His prayer in 29:11 echoes in the closing words of the Lord's Prayer, "thine is the kingdom, and the power, and the glory."
+
+== heal | Heal Their Land
+draw: green fields and terraced hills after a long drought, rain clouds parting, sunlight on wet earth, the temple far away on its hill
+* 2 Chronicles 7:14 | If my people, which are called by my name, shall humble themselves, and pray, and seek my face, and turn from their wicked ways; then will I hear from heaven, and will forgive their sin, and will heal their land.
+2 Chronicles 16:9 | For the eyes of the LORD run to and fro throughout the whole earth, to shew himself strong in the behalf of them whose heart is perfect toward him. Herein thou hast done foolishly: therefore from henceforth thou shalt have wars.
+note: God gave this promise to Solomon after the temple was dedicated. The order is humble, pray, seek and turn; then God hears, forgives and heals.
+
+== ezra | Prepared His Heart
+draw: an open scroll on a stone table beside an oil lamp, the foundations of the rebuilt temple behind in morning light
+* Ezra 7:10 | For Ezra had prepared his heart to seek the law of the LORD, and to do it, and to teach in Israel statutes and judgments.
+Ezra 3:11 | And they sang together by course in praising and giving thanks unto the LORD; because he is good, for his mercy endureth for ever toward Israel. And all the people shouted with a great shout, when they praised the LORD, because the foundation of the house of the LORD was laid.
+note: Ezra's order is a pattern for every Bible teacher: seek the word, do it, then teach it.
+
+== nehemiah | The Joy of the LORD
+draw: the rebuilt walls and gates of Jerusalem at sunrise, scaffolding just removed, stones fresh and golden
+Nehemiah 8:10 | Then he said unto them, Go your way, eat the fat, and drink the sweet, and send portions unto them for whom nothing is prepared: for this day is holy unto our Lord: neither be ye sorry; for the joy of the LORD is your strength.
+* Nehemiah 6:15 | So the wall was finished in the twenty and fifth day of the month Elul, in fifty and two days.
+note: The wall went up in fifty-two days despite open opposition. When the law was read and the people wept, they were told that the joy of the LORD was their strength.
+
+== esther | For Such a Time as This
+draw: a Persian palace hall with tall columns and hanging lamps, a golden sceptre held out from an empty throne, rich curtains
+* Esther 4:14 | For if thou altogether holdest thy peace at this time, then shall there enlargement and deliverance arise to the Jews from another place; but thou and thy father's house shall be destroyed: and who knoweth whether thou art come to the kingdom for such a time as this?
+Esther 4:16 | Go, gather together all the Jews that are present in Shushan, and fast ye for me, and neither eat nor drink three days, night or day: I also and my maidens will fast likewise; and so will I go in unto the king, which is not according to the law: and if I perish, I perish.
+note: God's name never appears in Esther, yet his hand is on every page. The deliverance is still remembered every year at Purim.
+
+== job | I Know That My Redeemer Liveth
+draw: a vast night sky full of stars over a lonely desert plain, the first glow of morning on the horizon
+Job 1:21 | And said, Naked came I out of my mother's womb, and naked shall I return thither: the LORD gave, and the LORD hath taken away; blessed be the name of the LORD.
+* Job 19:25 | For I know that my redeemer liveth, and that he shall stand at the latter day upon the earth:
+Job 38:4 | Where wast thou when I laid the foundations of the earth? declare, if thou hast understanding.
+note: In his deepest loss Job still looked for a living Redeemer. God answered him from the whirlwind, not with an explanation but by showing his own greatness.
+
+== tree | Like a Tree Planted
+draw: a great green tree planted by a clear river, heavy with fruit, its leaves shining in late afternoon light
+Psalms 1:1 | Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful.
+* Psalms 1:2 | But his delight is in the law of the LORD; and in his law doth he meditate day and night.
+Psalms 1:3 | And he shall be like a tree planted by the rivers of water, that bringeth forth his fruit in his season; his leaf also shall not wither; and whatsoever he doeth shall prosper.
+note: The whole book of Psalms opens with meditating on God's word. Jeremiah 17:7-8 uses the same picture of a tree by the water.
+
+== heavens | The Heavens Declare
+draw: the Milky Way arching over dark hills, a crescent moon, a shepherd's fire small in the valley below
+Psalms 8:3 | When I consider thy heavens, the work of thy fingers, the moon and the stars, which thou hast ordained;
+Psalms 8:4 | What is man, that thou art mindful of him? and the son of man, that thou visitest him?
+* Psalms 19:1 | The heavens declare the glory of God; and the firmament sheweth his handywork.
+note: David, a shepherd under the open sky, saw the stars as a message about their Maker. Paul makes the same point in Romans 1:20.
+
+== shepherd | The LORD Is My Shepherd
+draw: green pastures beside still water in a quiet valley, a flock of sheep grazing, a shepherd's staff leaning on a rock
+* Psalms 23:1 | The LORD is my shepherd; I shall not want.
+Psalms 23:2 | He maketh me to lie down in green pastures: he leadeth me beside the still waters.
+Psalms 23:3 | He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.
+note: David, once a shepherd himself, wrote of God as his shepherd. Jesus said, "I am the good shepherd" (John 10:11).
+
+== goodness | Goodness and Mercy
+draw: a narrow path through a deep shadowed valley opening onto a lit house and table in the distance, a lamp in the window
+Psalms 23:4 | Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.
+Psalms 23:5 | Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.
+* Psalms 23:6 | Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever.
+note: In the valley the psalm changes from "he" to "thou." God is no longer only talked about; he is talked to. The psalm ends at home in God's house.
+
+== refuge | God Is Our Refuge
+draw: a stone fortress on a high rock above a stormy sea, waves breaking far below, calm light within its gate
+Psalms 27:1 | The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?
+Psalms 46:1 | God is our refuge and strength, a very present help in trouble.
+* Psalms 46:10 | Be still, and know that I am God: I will be exalted among the heathen, I will be exalted in the earth.
+note: Psalm 46 inspired Martin Luther's hymn "A Mighty Fortress Is Our God." "Be still" here means stop striving and know who is God.
+
+== clean | Create in Me a Clean Heart
+draw: fresh snow on a quiet hillside at dawn, a clear stream running through it, a sprig of hyssop on a stone
+Psalms 51:7 | Purge me with hyssop, and I shall be clean: wash me, and I shall be whiter than snow.
+* Psalms 51:10 | Create in me a clean heart, O God; and renew a right spirit within me.
+note: David wrote Psalm 51 after Nathan confronted him over his sin with Bathsheba. The word "create" is the same Hebrew word used in Genesis 1:1, because only God can make a new heart.
+
+== number | Teach Us to Number Our Days
+draw: ancient mountains under a sky of slowly turning stars, an hourglass on a rock in the foreground, dawn on the horizon
+Psalms 90:2 | Before the mountains were brought forth, or ever thou hadst formed the earth and the world, even from everlasting to everlasting, thou art God.
+Psalms 90:4 | For a thousand years in thy sight are but as yesterday when it is past, and as a watch in the night.
+* Psalms 90:12 | So teach us to number our days, that we may apply our hearts unto wisdom.
+note: Psalm 90 is titled "A Prayer of Moses," which makes it probably the oldest psalm. Peter echoes verse 4 in 2 Peter 3:8: one day is with the Lord as a thousand years.
+
+== wings | Under His Wings
+draw: a great eagle with outspread wings sheltering its young on a high cliff nest, storm clouds parting behind
+* Psalms 91:1 | He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty.
+Psalms 91:4 | He shall cover thee with his feathers, and under his wings shalt thou trust: his truth shall be thy shield and buckler.
+Psalms 91:11 | For he shall give his angels charge over thee, to keep thee in all thy ways.
+note: The psalm promises shelter to the one who dwells, not just visits. Satan quoted verse 11 to tempt Jesus (Matthew 4:6), and Jesus answered with Scripture.
+
+== bless | Bless the LORD, O My Soul
+draw: the gates of a city at sunrise with crowds entering, seen from behind, banners and palm branches, light flooding through the arch
+Psalms 100:4 | Enter into his gates with thanksgiving, and into his courts with praise: be thankful unto him, and bless his name.
+Psalms 103:1 | Bless the LORD, O my soul: and all that is within me, bless his holy name.
+* Psalms 103:12 | As far as the east is from the west, so far hath he removed our transgressions from us.
+note: East and west never meet. That is how far God removes forgiven sin. Psalm 103 then reminds us to "forget not all his benefits."
+
+== cornerstone | This Is the Day
+draw: a single great cornerstone set at the corner of a new stone building, sunrise light, a builder's discarded rubble pile nearby
+Psalms 118:22 | The stone which the builders refused is become the head stone of the corner.
+* Psalms 118:24 | This is the day which the LORD hath made; we will rejoice and be glad in it.
+Psalms 150:6 | Let every thing that hath breath praise the LORD. Praise ye the LORD.
+note: Jesus applied Psalm 118:22 to himself (Matthew 21:42), and Peter preached it (Acts 4:11). The Psalms end with every breathing thing called to praise.
+
+== lamp | A Lamp unto My Feet
+draw: EXISTING Picture B — an oil lamp lighting a dark path at night (optional redo in Picture A style)
+Psalms 119:11 | Thy word have I hid in mine heart, that I might not sin against thee.
+* Psalms 119:105 | Thy word is a lamp unto my feet, and a light unto my path.
+Psalms 119:130 | The entrance of thy words giveth light; it giveth understanding unto the simple.
+must: LAMP, WORD, LIGHT
+note: Psalm 119 is the longest chapter in the Bible: 176 verses, arranged in 22 sections, one for each letter of the Hebrew alphabet, all about God's word. This game takes its name from verse 105.
+
+== hills | I Will Lift Up Mine Eyes
+draw: a traveller's path winding up through rolling hills toward Jerusalem, seen from behind, morning mist in the valleys
+* Psalms 121:1 | I will lift up mine eyes unto the hills, from whence cometh my help.
+Psalms 121:2 | My help cometh from the LORD, which made heaven and earth.
+Psalms 121:8 | The LORD shall preserve thy going out and thy coming in from this time forth, and even for evermore.
+note: This is one of the Songs of Degrees, sung by pilgrims going up to Jerusalem for the feasts. Help comes not from the hills, but from the Maker of the hills.
+
+== wonderfully | Fearfully and Wonderfully Made
+draw: dawn breaking over the sea at the far edge of the world, light reaching into every shadow of the waves
+Psalms 139:7 | Whither shall I go from thy spirit? or whither shall I flee from thy presence?
+* Psalms 139:14 | I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.
+Psalms 139:23 | Search me, O God, and know my heart: try me, and know my thoughts:
+note: There is nowhere God is not present, not even "the uttermost parts of the sea" (139:9). He knew each of us before we were born.
+
+== wisdom | The Beginning of Knowledge
+draw: a quiet study with an open scroll, an oil lamp and a window looking out on a garden spring
+* Proverbs 1:7 | The fear of the LORD is the beginning of knowledge: but fools despise wisdom and instruction.
+Proverbs 4:23 | Keep thy heart with all diligence; for out of it are the issues of life.
+Proverbs 15:1 | A soft answer turneth away wrath: but grievous words stir up anger.
+note: Proverbs begins where all wisdom begins, with the fear of the LORD. Then it turns to practical life: the heart and the tongue.
+
+== trust | Trust in the LORD
+draw: a stony path winding straight up through a wide valley to a lit city on a hill, the way made clear by evening light
+* Proverbs 3:5 | Trust in the LORD with all thine heart; and lean not unto thine own understanding.
+Proverbs 3:6 | In all thy ways acknowledge him, and he shall direct thy paths.
+note: "Lean not" pictures resting your whole weight on something. The promise is that God will make your paths straight.
+
+== tower | A Strong Tower
+draw: a tall stone watchtower in a vineyard on a hillside at dusk, light in its window, a path leading up to the door
+Proverbs 16:9 | A man's heart deviseth his way: but the LORD directeth his steps.
+* Proverbs 18:10 | The name of the LORD is a strong tower: the righteous runneth into it, and is safe.
+Proverbs 22:6 | Train up a child in the way he should go: and when he is old, he will not depart from it.
+note: We make our plans, but the LORD directs our steps. In trouble the righteous run to his name, which means to his character.
+
+== season | A Time to Every Purpose
+draw: one great tree shown through the seasons, blossoms on one side and autumn gold on the other, under a wide sky
+* Ecclesiastes 3:1 | To every thing there is a season, and a time to every purpose under the heaven:
+Ecclesiastes 3:11 | He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no man can find out the work that God maketh from the beginning to the end.
+Ecclesiastes 12:13 | Let us hear the conclusion of the whole matter: Fear God, and keep his commandments: for this is the whole duty of man.
+note: The Preacher searched for meaning "under the sun" and found everything empty without God. His conclusion is that God has made everything beautiful in its time.
+
+== song | The Winter Is Past
+draw: a vineyard in spring, blossoms on the vines and almond trees, turtle doves on a stone wall, soft rain clouds moving away
+* Song of Solomon 2:11 | For, lo, the winter is past, the rain is over and gone;
+Song of Solomon 2:12 | The flowers appear on the earth; the time of the singing of birds is come, and the voice of the turtle is heard in our land;
+Song of Solomon 8:7 | Many waters cannot quench love, neither can the floods drown it: if a man would give all the substance of his house for love, it would utterly be contemned.
+note: The Song celebrates love between bride and groom as a gift from God. The "turtle" is the turtledove, whose call marked the coming of spring.
+
+== reason | Come Now, and Let Us Reason
+draw: fresh white wool and fresh snow beside a scarlet cloth on a stone, in clear morning light, a ploughshare leaning nearby
+* Isaiah 1:18 | Come now, and let us reason together, saith the LORD: though your sins be as scarlet, they shall be as white as snow; though they be red like crimson, they shall be as wool.
+Isaiah 2:4 | And he shall judge among the nations, and shall rebuke many people: and they shall beat their swords into plowshares, and their spears into pruninghooks: nation shall not lift up sword against nation, neither shall they learn war any more.
+note: God invites guilty people to reason with him, and offers cleansing. Isaiah 2:4 looks ahead to a kingdom of peace; its words are carved on a wall across from the United Nations in New York.
+
+== holy | Here Am I; Send Me
+draw: a vast temple filled with smoke and golden light, a high throne only suggested by brightness, a burning coal on an altar
+Isaiah 6:3 | And one cried unto another, and said, Holy, holy, holy, is the LORD of hosts: the whole earth is full of his glory.
+* Isaiah 6:8 | Also I heard the voice of the Lord, saying, Whom shall I send, and who will go for us? Then said I, Here am I; send me.
+note: Isaiah saw the LORD's holiness and his own sin, was cleansed, and then volunteered. John 12:41 says Isaiah saw Christ's glory.
+
+== immanuel | Unto Us a Child Is Born
+draw: a great light dawning over dark hills of Galilee, villages still in shadow, the first rays reaching the valleys
+Isaiah 7:14 | Therefore the Lord himself shall give you a sign; Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel.
+Isaiah 9:2 | The people that walked in darkness have seen a great light: they that dwell in the land of the shadow of death, upon them hath the light shined.
+* Isaiah 9:6 | For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace.
+note: Immanuel means "God with us" (Matthew 1:23). These prophecies were written about 700 years before Jesus was born.
+
+== comfort | The Word of Our God Shall Stand
+draw: a desert highway straightened through the wilderness, wild grass and flowers withering at its edge, a clear dawn ahead
+Isaiah 40:1 | Comfort ye, comfort ye my people, saith your God.
+Isaiah 40:3 | The voice of him that crieth in the wilderness, Prepare ye the way of the LORD, make straight in the desert a highway for our God.
+* Isaiah 40:8 | The grass withereth, the flower fadeth: but the word of our God shall stand for ever.
+note: All four Gospels apply 40:3 to John the Baptist. Grass and flowers fade, but God's word lasts for ever (1 Peter 1:24-25).
+
+== eagles | Wings as Eagles
+draw: an eagle soaring high above mountain peaks at sunrise, wings spread on the wind, clouds far below
+Isaiah 40:29 | He giveth power to the faint; and to them that have no might he increaseth strength.
+* Isaiah 40:31 | But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint.
+Isaiah 41:10 | Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.
+note: To "wait upon the LORD" is to hope in him with expectation. Strength is exchanged, not earned.
+
+== counsel | My Counsel Shall Stand
+draw: rain falling on a wide landscape and rising again as mist, crops springing up, a distant mountain under the open sky
+Isaiah 46:10 | Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:
+* Isaiah 55:8 | For my thoughts are not your thoughts, neither are your ways my ways, saith the LORD.
+Isaiah 55:11 | So shall my word be that goeth forth out of my mouth: it shall not return unto me void, but it shall accomplish that which I please, and it shall prosper in the thing whereto I sent it.
+note: Only God declares the end from the beginning. Like rain that waters the earth (55:10), his word always does what he sends it to do.
+
+== servant | Wounded for Our Transgressions
+draw: a flock of sheep scattered across rocky hills at dusk, one lamb standing alone in a pool of light
+Isaiah 53:5 | But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed.
+* Isaiah 53:6 | All we like sheep have gone astray; we have turned every one to his own way; and the LORD hath laid on him the iniquity of us all.
+note: Isaiah 53 describes the suffering servant in detail. In Acts 8:35 Philip began at this passage and preached Jesus. A complete copy of Isaiah was found among the Dead Sea Scrolls.
+
+== arise | Arise, Shine
+draw: Jerusalem's walls lit by a great golden sunrise, light pouring over the city while the surrounding land is still dark
+* Isaiah 60:1 | Arise, shine; for thy light is come, and the glory of the LORD is risen upon thee.
+Isaiah 61:1 | The Spirit of the Lord GOD is upon me; because the LORD hath anointed me to preach good tidings unto the meek; he hath sent me to bind up the brokenhearted, to proclaim liberty to the captives, and the opening of the prison to them that are bound;
+note: Jesus read Isaiah 61:1 in the synagogue at Nazareth and said, "This day is this scripture fulfilled in your ears" (Luke 4:21).
+
+== potter | Before I Formed Thee
+draw: a potter's workshop, a clay vessel turning on the wheel, finished jars on shelves, warm light through the doorway
+* Jeremiah 1:5 | Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations.
+Jeremiah 18:6 | O house of Israel, cannot I do with you as this potter? saith the LORD. Behold, as the clay is in the potter's hand, so are ye in mine hand, O house of Israel.
+note: God knew Jeremiah before he was born and called him to speak to the nations. At the potter's house he learned that God can reshape a marred vessel.
+
+== peace | Thoughts of Peace
+draw: a family's lamp-lit home in Babylon by a river, willow trees, and a road leading west toward a far-off dawn
+* Jeremiah 29:11 | For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.
+Jeremiah 29:13 | And ye shall seek me, and find me, when ye shall search for me with all your heart.
+Jeremiah 33:3 | Call unto me, and I will answer thee, and shew thee great and mighty things, which thou knowest not.
+note: This promise was sent to exiles in Babylon, with a set time of seventy years (29:10). Daniel read this very letter in Daniel 9:2.
+
+== morning | New Every Morning
+draw: the ruins of a city at first light, new grass growing between fallen stones, a bright sunrise breaking through
+Lamentations 3:22 | It is of the LORD's mercies that we are not consumed, because his compassions fail not.
+* Lamentations 3:23 | They are new every morning: great is thy faithfulness.
+Lamentations 3:24 | The LORD is my portion, saith my soul; therefore will I hope in him.
+note: Written over the ruins of Jerusalem, Lamentations has hope at its exact centre. The hymn "Great Is Thy Faithfulness" comes from verse 23.
+
+== bones | Can These Bones Live?
+draw: a wide valley at dawn with pale scattered stones and old bones half hidden in grass, a strong wind sweeping through and light breaking over the hills
+Ezekiel 36:26 | A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh.
+* Ezekiel 37:3 | And he said unto me, Son of man, can these bones live? And I answered, O Lord GOD, thou knowest.
+Ezekiel 37:4 | Again he said unto me, Prophesy upon these bones, and say unto them, O ye dry bones, hear the word of the LORD.
+note: God promised a new heart and new life for a people who seemed dead. Ezekiel 37 pictures the nation of Israel being brought back to life by God's word and Spirit.
+
+== purposed | Daniel Purposed in His Heart
+draw: a simple meal of vegetables and water on a table in a Babylonian palace room, a window looking toward the west
+Daniel 1:8 | But Daniel purposed in his heart that he would not defile himself with the portion of the king's meat, nor with the wine which he drank: therefore he requested of the prince of the eunuchs that he might not defile himself.
+* Daniel 2:20 | Daniel answered and said, Blessed be the name of God for ever and ever: for wisdom and might are his:
+Daniel 2:21 | And he changeth the times and the seasons: he removeth kings, and setteth up kings: he giveth wisdom unto the wise, and knowledge to them that know understanding:
+note: Daniel decided ahead of time, as a teenager far from home. When God revealed the king's dream to him, his first response was praise.
+
+== stone | A Kingdom Never Destroyed
+draw: a colossal statue of gold, silver, bronze and iron standing on a plain, a stone cut from a distant mountain flying toward its feet
+* Daniel 2:22 | He revealeth the deep and secret things: he knoweth what is in the darkness, and the light dwelleth with him.
+Daniel 2:44 | And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever.
+note: Nebuchadnezzar's image showed a series of kingdoms from Babylon onward. The stone cut out without hands becomes a mountain that fills the whole earth (2:35).
+
+== furnace | But If Not
+draw: a blazing furnace in the plain of Dura at night, four figures seen only as dark silhouettes walking calmly in the flames
+* Daniel 3:17 | If it be so, our God whom we serve is able to deliver us from the burning fiery furnace, and he will deliver us out of thine hand, O king.
+Daniel 3:18 | But if not, be it known unto thee, O king, that we will not serve thy gods, nor worship the golden image which thou hast set up.
+Daniel 3:25 | He answered and said, Lo, I see four men loose, walking in the midst of the fire, and they have no hurt; and the form of the fourth is like the Son of God.
+note: Their faith did not depend on being rescued: "but if not." They went into the fire, and they were not alone in it.
+
+== wall | Weighed in the Balances
+draw: a vast Babylonian banquet hall lit by lamps, golden cups on long tables, a strange bright glow on the plaster wall opposite the lampstand, no writing
+Daniel 5:25 | And this is the writing that was written, MENE, MENE, TEKEL, UPHARSIN.
+* Daniel 5:27 | TEKEL; Thou art weighed in the balances, and art found wanting.
+note: Belshazzar drank from the temple vessels and that same night Babylon fell to the Medes and Persians (5:30). Secular records confirm Belshazzar was co-regent with his father Nabonidus.
+
+== lions | The Lions' Den
+draw: an open window in an upper room facing toward Jerusalem at evening, and below, a stone den where lions lie peacefully in a shaft of light
+Daniel 6:10 | Now when Daniel knew that the writing was signed, he went into his house; and his windows being open in his chamber toward Jerusalem, he kneeled upon his knees three times a day, and prayed, and gave thanks before his God, as he did aforetime.
+* Daniel 6:22 | My God hath sent his angel, and hath shut the lions' mouths, that they have not hurt me: forasmuch as before him innocency was found in me; and also before thee, O king, have I done no hurt.
+note: Daniel kept praying "as he did aforetime," even when it became illegal. He was well over eighty years old.
+
+== wise | They That Be Wise Shall Shine
+draw: a night sky blazing with stars over the river Tigris, a scroll open on the bank in the starlight
+Daniel 9:24 | Seventy weeks are determined upon thy people and upon thy holy city, to finish the transgression, and to make an end of sins, and to make reconciliation for iniquity, and to bring in everlasting righteousness, and to seal up the vision and prophecy, and to anoint the most Holy.
+* Daniel 12:3 | And they that be wise shall shine as the brightness of the firmament; and they that turn many to righteousness as the stars for ever and ever.
+note: The seventy weeks prophecy came to Daniel while he was praying over Jeremiah's seventy years. Daniel's book ends with the promise that the wise will shine like the stars.
+
+== hosea | As the Morning
+draw: soft spring rain falling on ploughed fields at sunrise, puddles catching the gold light, a farmhouse in the distance
+Hosea 6:3 | Then shall we know, if we follow on to know the LORD: his going forth is prepared as the morning; and he shall come unto us as the rain, as the latter and former rain unto the earth.
+* Hosea 6:6 | For I desired mercy, and not sacrifice; and the knowledge of God more than burnt offerings.
+note: Jesus quoted Hosea 6:6 twice (Matthew 9:13; 12:7). God wants hearts that know him, not ritual alone.
+
+== joel | I Will Pour Out My Spirit
+draw: green fields restored after a locust plague, new crops rising, a bright sky with rays pouring down over the land
+Joel 2:25 | And I will restore to you the years that the locust hath eaten, the cankerworm, and the caterpiller, and the palmerworm, my great army which I sent among you.
+* Joel 2:28 | And it shall come to pass afterward, that I will pour out my spirit upon all flesh; and your sons and your daughters shall prophesy, your old men shall dream dreams, your young men shall see visions:
+note: Peter quoted Joel 2:28 on the day of Pentecost (Acts 2:16-17). God promises to restore even the years that were lost.
+
+== amos | Let Judgment Run Down as Waters
+draw: a mighty stream rushing down from mountains through a dry valley, fig trees and sheepfolds along its banks
+Amos 3:7 | Surely the Lord GOD will do nothing, but he revealeth his secret unto his servants the prophets.
+* Amos 5:24 | But let judgment run down as waters, and righteousness as a mighty stream.
+note: Amos was a herdsman and a gatherer of sycamore fruit, not a professional prophet. Dr Martin Luther King Jr quoted 5:24 in his "I Have a Dream" speech.
+
+== obadiah | The Kingdom Shall Be the LORD's
+draw: red rock cliffs of Edom with city dwellings carved into the stone, and far across the valley Mount Zion in morning light
+* Obadiah 1:15 | For the day of the LORD is near upon all the heathen: as thou hast done, it shall be done unto thee: thy reward shall return upon thine own head.
+Obadiah 1:21 | And saviours shall come up on mount Zion to judge the mount of Esau; and the kingdom shall be the LORD's.
+note: Obadiah is the shortest book of the Old Testament, one chapter of 21 verses. Edom trusted its cliffs, but the kingdom belongs to the LORD.
+
+== jonah | Salvation Is of the LORD
+draw: a stormy sea at night with a small wooden ship above, and beneath the waves the dark shape of a great fish
+Jonah 1:17 | Now the LORD had prepared a great fish to swallow up Jonah. And Jonah was in the belly of the fish three days and three nights.
+* Jonah 2:9 | But I will sacrifice unto thee with the voice of thanksgiving; I will pay that that I have vowed. Salvation is of the LORD.
+note: Jesus pointed to Jonah's three days and three nights as the sign of his own death and resurrection (Matthew 12:40).
+
+== micah | Walk Humbly with Thy God
+draw: the small town of Bethlehem on its hill at night, terraced olive groves, a single bright star overhead
+Micah 5:2 | But thou, Bethlehem Ephratah, though thou be little among the thousands of Judah, yet out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting.
+* Micah 6:8 | He hath shewed thee, O man, what is good; and what doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?
+note: Micah named Bethlehem as the Messiah's birthplace about 700 years ahead; the chief priests quoted it to Herod (Matthew 2:5-6). Micah 6:8 sums up what God requires.
+
+== nahum | A Strong Hold in the Day of Trouble
+draw: a mountain fortress standing firm above a whirlwind storm, clouds of dust rolling over the plain below
+Nahum 1:3 | The LORD is slow to anger, and great in power, and will not at all acquit the wicked: the LORD hath his way in the whirlwind and in the storm, and the clouds are the dust of his feet.
+* Nahum 1:7 | The LORD is good, a strong hold in the day of trouble; and he knoweth them that trust in him.
+note: Nahum foretold the fall of Nineveh, which happened in 612 BC. The same God who judges the proud is a stronghold to those who trust him.
+
+== habakkuk | The Just Shall Live by His Faith
+draw: a watchtower on a city wall at dawn, a clay tablet propped against the parapet, a barren fig tree below and the sun rising
+Habakkuk 2:3 | For the vision is yet for an appointed time, but at the end it shall speak, and not lie: though it tarry, wait for it; because it will surely come, it will not tarry.
+Habakkuk 2:4 | Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith.
+* Habakkuk 3:18 | Yet I will rejoice in the LORD, I will joy in the God of my salvation.
+note: "The just shall live by his faith" is quoted three times in the New Testament (Romans 1:17, Galatians 3:11, Hebrews 10:38). Habakkuk chose joy even with no figs, no fruit and no flock.
+
+== zephaniah | He Will Rejoice over Thee
+draw: Jerusalem at dawn with lamps still burning in the windows, a gentle golden light over the whole city, birds rising
+Zephaniah 3:9 | For then will I turn to the people a pure language, that they may all call upon the name of the LORD, to serve him with one consent.
+* Zephaniah 3:17 | The LORD thy God in the midst of thee is mighty; he will save, he will rejoice over thee with joy; he will rest in his love, he will joy over thee with singing.
+note: Most of Zephaniah warns of the day of the LORD, but it ends with God himself singing over his people.
+
+== haggai | Consider Your Ways
+draw: the half-built second temple in Jerusalem, stone foundations and scaffolding, a bright sky promising rain
+* Haggai 1:5 | Now therefore thus saith the LORD of hosts; Consider your ways.
+Haggai 2:9 | The glory of this latter house shall be greater than of the former, saith the LORD of hosts: and in this place will I give peace, saith the LORD of hosts.
+note: Haggai's four messages are each dated to the day in 520 BC. The latter house was greater because the Messiah himself would walk in it.
+
+== zechariah | Not by Might, nor by Power
+draw: a golden lampstand between two olive trees, oil flowing to its lamps, set on a hillside facing the Mount of Olives at dawn
+* Zechariah 4:6 | Then he answered and spake unto me, saying, This is the word of the LORD unto Zerubbabel, saying, Not by might, nor by power, but by my spirit, saith the LORD of hosts.
+Zechariah 9:9 | Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass.
+Zechariah 14:9 | And the LORD shall be king over all the earth: in that day shall there be one LORD, and his name one.
+note: Zechariah 9:9 was fulfilled when Jesus rode into Jerusalem (Matthew 21:5). Chapter 14 looks ahead to the day the LORD is king over all the earth.
+
+== malachi | The Sun of Righteousness
+draw: the sun rising over fields with calves running free from their stall, warm light streaming across the grass
+* Malachi 3:6 | For I am the LORD, I change not; therefore ye sons of Jacob are not consumed.
+Malachi 4:2 | But unto you that fear my name shall the Sun of righteousness arise with healing in his wings; and ye shall go forth, and grow up as calves of the stall.
+note: Malachi is the last book of the Old Testament. After it, about four hundred years passed before the next prophet, John the Baptist, appeared.

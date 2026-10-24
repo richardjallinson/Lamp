@@ -1,0 +1,31 @@
+# Lamp: Bible Word Puzzle
+
+An iPhone word game where you rebuild Bible verses (KJV) from a letter wheel, level by level, until you can say them from memory. A painting lights up behind each story as you play.
+
+*Thy word is a lamp unto my feet, and a light unto my path.* (Psalm 119:105)
+
+## Folders
+
+| Folder | What's in it |
+|---|---|
+| `docs/` | Project handoff: concept, market research, 1.0 scope, design, plan |
+| `content/` | Story list (master files), level generator, checks and the generated app data (`content/out/levels.json`). See `content/README.md`. |
+| `preview/` | `lamp-preview.html`: play all 149 stories · `lamp-pictures.html`: picture prompt list |
+| `demo/` | The original playable demo |
+| `images/` | Finished paintings, named `lamp-NNN-story` |
+
+## Status
+
+- 149 stories, all 66 books, 402 verses, 1,181 levels, 402 daily puzzles.
+- Verses checked against the Project Gutenberg KJV: 396 exact; 6 small differences to confirm against a second source.
+- Next: Noah test picture, then build the 1.0 app (web app in a Swift WKWebView shell, like Weekly Table).
+
+## Rebuild the levels
+
+```
+cd content/tools
+python3 lamp_levels.py build
+python3 lamp_levels.py check --kjv ../data/kjv-gutenberg.txt
+```
+
+© Richard J. Allinson. KJV text is public domain in Canada and the US.
