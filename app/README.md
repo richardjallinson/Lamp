@@ -8,6 +8,8 @@ app/
   Lamp/                 Swift shell, icon, entitlements, privacy manifest, StoreKit test file
   www/                  the game: index.html, css/, js/, img/
   tools/build_www.py    copies levels and finished pictures into www/
+  tools/make_sounds.py  makes every sound from scratch and packs them into www/js/sounds.js
+  sounds/               the sounds as mp3 (the .wav masters are rebuilt by make_sounds.py)
   tools/make_xcodeproj.py  rewrites the project file after adding Swift files
 ```
 
@@ -21,6 +23,16 @@ app/
 | `haptic` | Light tap, success or warning vibration |
 | `share` | The iOS share sheet with a verse or daily result |
 | `review` | The App Store rating prompt (asked once, after the third story) |
+
+## Sound
+
+All sounds are original, made in code by `tools/make_sounds.py`, so there is nothing to license.
+They use the D major pentatonic scale: harp-like notes for letters (each added letter plays the
+next note up, so spelling a word plays a little tune), a harp strum for a word found, bells for
+bonus words and the daily verse, a soft low note for a wrong word, a sparkle for hints, a chord
+for a finished level and a longer rising shimmer when a story's lamp lights up. Optional ambient
+music (D, B minor, G, A, 32 seconds, looping seamlessly) is **off** until switched on in Settings.
+On an iPhone the sounds follow the ring/silent switch.
 
 ## First build on your Mac
 

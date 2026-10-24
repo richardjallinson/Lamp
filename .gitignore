@@ -6,3 +6,4 @@ xcuserdata/
 DerivedData/
 *.xcuserstate
 app/Lamp.xcodeproj/project.xcworkspace/xcuserdata/
+app/sounds/*.wav

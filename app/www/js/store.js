@@ -14,7 +14,7 @@
     daily: {},      // "YYYY-MM-DD" -> {hints, secs}
     fav: {},        // storyId -> true
     bonus: {},      // levelId -> [bonus words found]
-    settings: { text: "m", sound: true, haptics: true, cb: false },
+    settings: { text: "m", sound: true, music: false, haptics: true, cb: false },
     unlocked: false,
     tutorial: false,
     last: null,     // storyId last played
@@ -129,22 +129,60 @@
     return true;
   };
 
-  /* ---------- feedback: sound and vibration ---------- */
-  let ctx = null;
-  Lamp.sound = function (kind) {
-    if (!Lamp.state.settings.sound) return;
-    try {
-      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-      const notes = { tap: [660], word: [523, 784], bonus: [880], level: [523, 659, 784], bad: [196] }[kind] || [440];
-      notes.forEach((f, i) => {
-        const o = ctx.createOscillator(), g = ctx.createGain(), t0 = ctx.currentTime + i * 0.09;
-        o.type = kind === "bad" ? "triangle" : "sine"; o.frequency.value = f;
-        g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(kind === "tap" ? 0.04 : 0.12, t0 + 0.015);
-        g.gain.exponentialRampToValueAtTime(0.0001, t0 + (kind === "tap" ? 0.08 : 0.35));
-        o.connect(g).connect(ctx.destination); o.start(t0); o.stop(t0 + 0.4);
+  /* ---------- feedback: sound, music and vibration ----------
+     Sounds are original recordings made by app/tools/make_sounds.py, embedded in js/sounds.js.
+     They are decoded once, after the first touch (iPhones only allow audio after a touch). */
+  let ctx = null, master = null, buffers = {}, decoding = false, musicSrc = null, musicGain = null;
+  function audio() {
+    if (!ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+    }
+    if (ctx.state === "suspended") ctx.resume();
+    if (!decoding && window.LAMP_SOUNDS) {
+      decoding = true;
+      Object.keys(window.LAMP_SOUNDS).forEach((k) => {
+        try {
+          const b64 = window.LAMP_SOUNDS[k].split(",")[1], bin = atob(b64), u8 = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+          ctx.decodeAudioData(u8.buffer, (buf) => { buffers[k] = buf; if (k === "music") Lamp.musicUpdate(); }, () => {});
+        } catch (e) {}
       });
-    } catch (e) {}
+    }
+    return ctx;
+  }
+  Lamp.sound = function (kind, index) {
+    if (!Lamp.state.settings.sound) return;
+    const c = audio(); if (!c) return;
+    const name = kind === "tap" ? "tap" + (Math.min(Math.max(index || 0, 0), 6) + 1) : kind;
+    const buf = buffers[name]; if (!buf) return;
+    const src = c.createBufferSource(), g = c.createGain();
+    g.gain.value = { tap: 0.55, shuffle: 0.6, bad: 0.7 }[kind] || 0.85;
+    src.buffer = buf; src.connect(g).connect(master); src.start();
   };
+  /* Quiet ambient music: off unless switched on in Settings. Loops seamlessly. */
+  Lamp.musicUpdate = function () {
+    const want = !!Lamp.state.settings.music && !document.hidden && Lamp.audioUnlocked;
+    if (want) {
+      const c = audio(); if (!c || musicSrc || !buffers.music) return;
+      const L = window.LAMP_MUSIC_LOOP || { start: 0.2, length: 32 };
+      musicSrc = c.createBufferSource(); musicGain = c.createGain();
+      musicSrc.buffer = buffers.music; musicSrc.loop = true; musicSrc.loopStart = L.start; musicSrc.loopEnd = L.start + L.length;
+      musicGain.gain.setValueAtTime(0.0001, c.currentTime); musicGain.gain.exponentialRampToValueAtTime(0.32, c.currentTime + 2.5);
+      musicSrc.connect(musicGain).connect(master); musicSrc.start(0, L.start);
+    } else if (musicSrc) {
+      const s = musicSrc, g = musicGain; musicSrc = null; musicGain = null;
+      try { g.gain.setValueAtTime(g.gain.value, ctx.currentTime); g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8); s.stop(ctx.currentTime + 0.9); } catch (e) {}
+    }
+  };
+  function unlock() {
+    Lamp.audioUnlocked = true; audio(); Lamp.musicUpdate();
+    document.removeEventListener("pointerdown", unlock, true); document.removeEventListener("touchend", unlock, true);
+  }
+  document.addEventListener("pointerdown", unlock, true);
+  document.addEventListener("touchend", unlock, true);
+  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state === "suspended") ctx.resume(); Lamp.musicUpdate(); });
   Lamp.haptic = function (style) {
     if (!Lamp.state.settings.haptics) return;
     if (!Lamp.native("haptic", { style })) { try { navigator.vibrate && navigator.vibrate(style === "error" ? [20, 40, 20] : 12); } catch (e) {} }

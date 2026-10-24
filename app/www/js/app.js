@@ -159,7 +159,8 @@
     let h = '<div class="head"><div class="brand">Settings</div></div>';
     h += '<div class="group"><div class="row"><span class="l"><b>Verse text size</b><small>Changes the size of verses in levels.</small></span><span class="sizes">' +
       [["s", "A", 14], ["m", "A", 17], ["l", "A", 21]].map(([k, l, px]) => '<button data-size="' + k + '" aria-pressed="' + (st.text === k) + '" style="font-size:' + px + 'px" aria-label="' + { s: "Small", m: "Medium", l: "Large" }[k] + '">' + l + "</button>").join("") + "</span></div>" +
-      '<div class="row"><span class="l"><b>Sound</b><small>Soft tones when letters and words are found.</small></span>' + sw("sound", st.sound) + "</div>" +
+      '<div class="row"><span class="l"><b>Sound effects</b><small>Harp notes as you spell, bells for words found.</small></span>' + sw("sound", st.sound) + "</div>" +
+      '<div class="row"><span class="l"><b>Music</b><small>Quiet background music while you play.</small></span>' + sw("music", st.music) + "</div>" +
       '<div class="row"><span class="l"><b>Vibration</b><small>Gentle taps on your iPhone.</small></span>' + sw("haptics", st.haptics) + "</div>" +
       '<div class="row"><span class="l"><b>Colour-blind friendly colours</b><small>Blue and orange instead of cream and gold.</small></span>' + sw("cb", st.cb) + "</div></div>";
     h += '<div class="group">' + (Lamp.state.unlocked
@@ -235,7 +236,7 @@
       const s = D.stories.find((x) => x.id === b.dataset.share), k = s.verses[s.key];
       Lamp.copyText("“" + k.w.join(" ") + "” " + k.ref + " (KJV)\nLearned by heart with Lamp: Bible Word Puzzle", null);
     }));
-    v.querySelectorAll("[data-set]").forEach((b) => (b.onclick = () => { const k = b.dataset.set; Lamp.state.settings[k] = !Lamp.state.settings[k]; Lamp.save(); Lamp.render(); if (k === "haptics" && Lamp.state.settings.haptics) Lamp.haptic("light"); }));
+    v.querySelectorAll("[data-set]").forEach((b) => (b.onclick = () => { const k = b.dataset.set; Lamp.state.settings[k] = !Lamp.state.settings[k]; Lamp.save(); Lamp.render(); if (k === "haptics" && Lamp.state.settings.haptics) Lamp.haptic("light"); if (k === "music") Lamp.musicUpdate(); if (k === "sound" && Lamp.state.settings.sound) Lamp.sound("bonus"); }));
     v.querySelectorAll("[data-size]").forEach((b) => (b.onclick = () => { Lamp.state.settings.text = b.dataset.size; Lamp.save(); Lamp.render(); }));
     v.querySelectorAll("[data-unlock]").forEach((b) => (b.onclick = () => Lamp.showUnlock(null)));
     v.querySelectorAll("[data-restore]").forEach((b) => (b.onclick = () => { if (!Lamp.native("restore")) mainToast("Restore works in the App Store version"); else mainToast("Checking the App Store…"); }));

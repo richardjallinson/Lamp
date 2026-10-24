@@ -131,14 +131,14 @@
     wh.addEventListener("pointerdown", (e) => {
       stopDemo(); drag = true; moved = false; undoTap = false; wh.setPointerCapture(e.pointerId);
       const h = hitAt(e); downHit = h;
-      if (h != null) { if (sel.length && sel[sel.length - 1] === h) undoTap = true; else if (!sel.includes(h)) { sel.push(h); Lamp.sound("tap"); } }
+      if (h != null) { if (sel.length && sel[sel.length - 1] === h) undoTap = true; else if (!sel.includes(h)) { sel.push(h); Lamp.sound("tap", sel.length - 1); } }
       drawSel();
     });
     wh.addEventListener("pointermove", (e) => {
       if (!drag) return;
       const h = hitAt(e);
       if (h != null && h !== downHit) moved = true;
-      if (moved && h != null) { if (sel[sel.length - 2] === h) sel.pop(); else if (!sel.includes(h)) { sel.push(h); Lamp.sound("tap"); } }
+      if (moved && h != null) { if (sel[sel.length - 2] === h) sel.pop(); else if (!sel.includes(h)) { sel.push(h); Lamp.sound("tap", sel.length - 1); } }
       const p = localPt(e); drawSel(moved ? p[0] : null, moved ? p[1] : null);
     });
     const end = () => { if (!drag) return; drag = false; if (moved) submit(); else { if (undoTap) sel.pop(); drawSel(); } };
@@ -147,7 +147,7 @@
     $("bClr").onclick = () => { stopDemo(); sel = []; drawSel(); };
     $("bHint").onclick = hint;
     $("bShuf").onclick = () => {
-      stopDemo(); sel = [];
+      stopDemo(); sel = []; Lamp.sound("shuffle");
       for (let i = letters.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [letters[i], letters[j]] = [letters[j], letters[i]]; }
       placeLetters(); drawSel();
     };
@@ -235,7 +235,7 @@
     Lamp.state.oil--; Lamp.save();
     G.hintsUsed++; G.hints[t] = (G.hints[t] || 0) + 1;
     if (G.hints[t] >= t.length) G.found.push(t);
-    renderTop(); renderBoard(); Lamp.haptic("light");
+    renderTop(); renderBoard(); Lamp.haptic("light"); Lamp.sound("hint");
     if (lv.hide.every((x) => G.found.includes(x))) setTimeout(levelDone, 650);
   }
 
@@ -253,7 +253,7 @@
       const i = +b.dataset.i, need = VERSE[G.built];
       if (norm(VERSE[i]) === norm(need)) {
         const twin = [...$("tiles").children].find((x) => !x.classList.contains("used") && norm(VERSE[+x.dataset.i]) === norm(need));
-        (twin || b).classList.add("used"); G.built++; renderBoard(); Lamp.sound("tap");
+        (twin || b).classList.add("used"); G.built++; renderBoard(); Lamp.sound("tap", (G.built - 1 - (L().start || 0)) % 7);
         if (G.built === VERSE.length) setTimeout(storyDone, 500);
       } else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); Lamp.haptic("error"); }
     };
@@ -277,11 +277,12 @@
     const lv = L();
     const marked = VERSE.map((w) => (lv.hide.includes(norm(w)) ? "<mark>" + esc(w.replace(/[^A-Za-z]/g, "")) + "</mark>" + esc(w.replace(/[A-Za-z]/g, "")) : esc(w))).join(" ");
     const first = recordLevel();
-    Lamp.sound("level");
-    if (G.mode === "daily") { lit(1); setTimeout(() => dailyCard(first), 700); return; }
+    Lamp.sound(G.mode === "daily" ? "daily" : "level");
+    const still = stillHere();
+    if (G.mode === "daily") { lit(1); setTimeout(() => still() && dailyCard(first), 700); return; }
     lit((G.lv + 1) / LEVELS.length);
     const nextIsRecall = LEVELS[G.lv + 1] && LEVELS[G.lv + 1].recall;
-    setTimeout(() => sheet(
+    setTimeout(() => still() && sheet(
       '<div class="kick">Level ' + (G.lv + 1) + " complete</div><h2>Well done</h2>" +
       '<div class="v">' + marked + '</div><div class="r">' + esc(curVerse().ref) + " · KJV</div>" +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
@@ -290,18 +291,21 @@
       '<button class="cta alt" data-act="leave">Back to ' + esc(G.story.book) + "</button>",
       { next: () => { G.lv++; resetLevel(); start(); }, leave: close }), 900);
   }
+  /* Result cards appear after a short pause; skip them if the player has already left the level. */
+  function stillHere() { const g = G, lv = G.lv; return () => G === g && G.lv === lv && !$("level").hidden; }
   function resetLevel() { G.found = []; G.hints = {}; G.built = 0; G.order = []; }
   function storyDone() {
     const st = G.story, firstTime = !Lamp.state.completed[st.id];
     const first = recordLevel();
     if (firstTime) { Lamp.state.completed[st.id] = Lamp.today(); Lamp.state.oil += 2; Lamp.save(); }
-    lit(1); Lamp.sound("level"); Lamp.haptic("success");
+    lit(1); Lamp.sound("story"); Lamp.haptic("success");
+    const still = stillHere();
     const idx = D.stories.indexOf(st), nx = D.stories[idx + 1];
     const nextOpen = nx && (nx.free || Lamp.state.unlocked);
     const key = st.verses[st.key];
     const done = Object.keys(Lamp.state.completed).length;
     if (firstTime && done === 3 && !Lamp.state.reviewAsked) { Lamp.state.reviewAsked = true; Lamp.save(); setTimeout(() => Lamp.native("review"), 2500); }
-    setTimeout(() => sheet(
+    setTimeout(() => still() && sheet(
       '<div class="kick">Story complete' + (firstTime ? " · +2 oil" : "") + "</div><h2>" + esc(st.title) + "</h2>" +
       '<div class="v">“' + esc(key.w.join(" ")) + '”</div><div class="r">' + esc(key.ref) + " · KJV</div>" +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
