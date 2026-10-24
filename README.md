@@ -29,3 +29,13 @@ python3 lamp_levels.py check --kjv ../data/kjv-gutenberg.txt
 ```
 
 © Richard J. Allinson. KJV text is public domain in Canada and the US.
+
+## Pictures
+
+Finished paintings go in `images/` as 1080×1920 JPEGs of about 200 KB, named `lamp-NNN-story.jpg`. The full-size originals are kept in `images/originals/`. The level preview picks up every finished picture automatically when it is rebuilt.
+
+| No. | Story | Status |
+|---|---|---|
+| 1 | Let There Be Light (Creation) | Done (Picture A, the style reference) |
+| 4 | A Token of a Covenant (Noah) | Done, style test passed Oct 24 |
+| 47 | A Lamp unto My Feet (Psalm 119) | Done (Picture B, darker style) |

@@ -31,7 +31,7 @@ cd tools
 python3 lamp_levels.py build                      # regenerate out/ from data/
 python3 lamp_levels.py check                      # automatic checks
 python3 lamp_levels.py check --kjv en_kjv.json pg10.txt   # also verify every verse against KJV files
-python3 make_preview.py ../../demo/lamp-demo.html ../out/levels.json ../../preview/lamp-preview.html
+python3 make_preview.py ../../demo/lamp-demo.html ../out/levels.json ../../preview/lamp-preview.html ../../images
 python3 make_picture_page.py ../out/picture-list.csv ../../preview/lamp-pictures.html picture-page-template.html
 ```
 
