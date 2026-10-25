@@ -29,7 +29,8 @@
     coat: { name: "Coat of Skins", img: "relic-coat.webp", story: "fall",
       v: "Unto Adam also and to his wife did the LORD God make coats of skins, and clothed them.", ref: "Genesis 3:21" },
   };
-  const ORDER = ["days", "onyx", "coat"];
+  const ORDER = ["days", "onyx", "coat"];      // the Garden Gate satchel
+  const ALL = ORDER.slice();                     // every relic, in story order (more are added by js/puzzles.js)
   const SEALS = { creation: { relic: "days", title: "Light the Days", run: lightTheDays }, eden: { relic: "onyx", title: "The Four Rivers", run: fourRivers },
     fall: { relic: "coat", title: "The Garden Gate", run: null } };
 
@@ -37,7 +38,7 @@
   function A() {
     const s = Lamp.state;
     if (!s.adv || typeof s.adv !== "object") s.adv = {};
-    s.adv.relics = s.adv.relics || {}; s.adv.seals = s.adv.seals || {}; s.adv.gate = s.adv.gate || {};
+    s.adv.relics = s.adv.relics || {}; s.adv.seals = s.adv.seals || {}; s.adv.gate = s.adv.gate || {}; s.adv.p = s.adv.p || {};
     return s.adv;
   }
   const has = (r) => !!A().relics[r];
@@ -584,10 +585,10 @@
     /* the Adventure card on the Journey screen */
     card() {
       const a = A(), gateReady = done("fall") || has("coat");
-      let h = '<div class="advcard"><div class="advhead"><h3>The Adventure</h3><small>Relics ' + ORDER.filter(has).length + " of " + ORDER.length + "</small></div>";
-      h += '<div class="advrelics">' + ORDER.map((r) => has(r) ? '<button class="advrelic" data-adv="relic:' + r + '" aria-label="' + esc(RELICS[r].name) + '"><img src="' + IMG + RELICS[r].img + '" alt=""></button>'
+      let h = '<div class="advcard"><div class="advhead"><h3>The Adventure</h3><small>Relics ' + ALL.filter(has).length + " of " + ALL.length + "</small></div>";
+      h += '<div class="advrelics">' + ALL.map((r) => has(r) ? '<button class="advrelic" data-adv="relic:' + r + '" aria-label="' + esc(RELICS[r].name) + '"><img src="' + IMG + RELICS[r].img + '" alt=""></button>'
         : '<span class="advrelic empty" aria-label="Not found yet"></span>').join("") + "</div>";
-      ["creation", "eden"].forEach((id) => { if (done(id) && !a.seals[id]) h += '<button class="advrow" data-adv="seal:' + id + '"><b>Break the seal: ' + esc(SEALS[id].title) + "</b><small>" + esc(story(id).title) + " · earns the " + esc(RELICS[SEALS[id].relic].name) + "</small></button>"; });
+      D.stories.map((x) => x.id).filter((id) => SEALS[id] && id !== "fall").forEach((id) => { if (done(id) && !a.seals[id]) h += '<button class="advrow" data-adv="seal:' + id + '"><b>Break the seal: ' + esc(SEALS[id].title) + "</b><small>" + esc(story(id).title) + " · earns the " + esc(RELICS[SEALS[id].relic].name) + "</small></button>"; });
       h += '<button class="advrow gate' + (gateReady ? "" : " locked") + '" data-adv="gate"><b>The Garden Gate</b><small>' +
         (a.gate.open ? "Open · the way of the tree of life" : gateReady ? "A chamber to solve · Genesis 3" : "Finish “Where Art Thou?” to reach the gate") + "</small></button></div>";
       return h;
@@ -603,7 +604,7 @@
     devSkip() {
       if (!root) return false;
       if (root.querySelector(".asheet")) { const b = root.querySelector(".asheet [data-act]"); b && b.click(); return true; }
-      if (mode === "creation" || mode === "eden") { const m = mode; mode = null; sealDone(m, null); return true; }
+      if (mode && SEALS[mode] && mode !== "fall") { const m = mode; mode = null; sealDone(m, null); return true; }
       if (mode === "gate") {
         ["days", "onyx", "coat"].forEach((r) => (A().relics[r] = 1));
         ["light", "onyx", "keyed", "rest", "coat"].forEach((k) => (G()[k] = 1));
@@ -611,7 +612,15 @@
       }
       return false;
     },
-    devReset() { Lamp.state.adv = { relics: {}, seals: {}, gate: {} }; Lamp.save(); },
+    devReset() { Lamp.state.adv = { relics: {}, seals: {}, gate: {}, p: {} }; Lamp.save(); },
+    /* for js/puzzles.js: add a relic and a story seal, and the shared pieces a puzzle needs */
+    addRelic(key, def) { RELICS[key] = def; if (!ALL.includes(key)) ALL.push(key); },
+    register(id, def) { SEALS[id] = def; },
+    kit: {
+      open(title, opts, id) { const r = open(title, opts); mode = id; return r; },
+      say, card, sealDone: (id, st) => sealDone(id, st), snd, sfx, buzz, esc, story, IMG, A, shut: () => shut(),
+      root: () => root,
+    },
   };
   function giveRelicAndGate() { open("The Garden Gate", { satchel: true, hint: gateHint }); mode = "gate"; gateScene(false); giveRelic("coat", () => { satchel(); gateScene(true); }); }
   function giveRelicView(r) {

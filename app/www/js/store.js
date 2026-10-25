@@ -20,7 +20,7 @@
     intro: false,   // the full start screen has been seen once
     introAgain: false,   // tester tools: play the full start screen once more
     flaw: 0,        // flawless word levels in a row (no wrong words, no hints); every 3 earn a drop of oil
-    adv: { relics: {}, seals: {}, gate: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
+    adv: { relics: {}, seals: {}, gate: {}, p: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
     last: null,     // storyId last played
     reviewAsked: false,
   };
@@ -56,7 +56,7 @@
     m.flaw = (a.savedAt >= b.savedAt ? a.flaw : b.flaw) || 0;
     const flags = (x, y) => Object.assign({}, (x || {}), (y || {}));
     const aa = a.adv || {}, ba = b.adv || {};
-    m.adv = { relics: flags(aa.relics, ba.relics), seals: flags(aa.seals, ba.seals), gate: flags(aa.gate, ba.gate) };
+    m.adv = { relics: flags(aa.relics, ba.relics), seals: flags(aa.seals, ba.seals), gate: flags(aa.gate, ba.gate), p: flags(aa.p, ba.p) };
     m.reviewAsked = !!(a.reviewAsked || b.reviewAsked);
     return m;
   }
