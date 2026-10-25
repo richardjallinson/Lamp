@@ -13,6 +13,18 @@
   let tab = "journey", book = null, gatheredMode = "verses", query = "";
 
   const isOpen = (s) => s.free || Lamp.state.unlocked;
+  /* The adventure order: a story opens once the story before it is finished and its puzzle (seal) is solved.
+     (So far this applies to the stories with crossword levels, Genesis, and to the story right after them.) */
+  function blockedBy(s) {
+    if (Lamp.state.devOpen) return null;
+    const i = D.stories.indexOf(s), prev = D.stories[i - 1];
+    if (!prev) return null;
+    const crossStory = prev.levels.some((l) => l.cross);
+    if (Lamp.adv && Lamp.adv.pending(prev.id) && (crossStory || isDone(prev))) return { prev, seal: true };
+    if (crossStory && !isDone(prev)) return { prev, seal: false };
+    return null;
+  }
+  Lamp.blockedBy = blockedBy;
   const levelsDone = (s) => Math.min(Lamp.state.progress[s.id] || 0, s.levels.length);
   const isDone = (s) => !!Lamp.state.completed[s.id];
   const bookName = (b) => (b === "Psalms" ? "Psalms" : b);
@@ -70,10 +82,10 @@
     let h = '<div class="head"><div class="brand">Lamp</div>' + pills() + "</div>";
     h += '<p class="lede">' + (total ? total + " of " + D.stories.length + " stories complete." : "Rebuild the Bible, verse by verse, until you know it by heart.") + "</p>";
     h += '<button class="hero" data-story="' + st.id + '" style="' + imgStyle(st) + '">' +
-      '<span class="kick">' + (done ? "Continue · " : open ? "Start · " : "Locked · ") + esc(st.book) + "</span><b>" + esc(st.title) + "</b>" +
+      '<span class="kick">' + (blockedBy(st) && !done ? "Puzzle first · " : done ? "Continue · " : open ? "Start · " : "Locked · ") + esc(st.book) + "</span><b>" + esc(st.title) + "</b>" +
       "<small>" + esc(st.verses[st.key].ref) + " · " + (done ? "level " + (done + 1) + " of " + st.levels.length : st.levels.length + " levels") + "</small>" +
       '<span class="bar-prog"><i style="width:' + Math.round((100 * done) / st.levels.length) + '%"></i></span>' +
-      '<span class="go">' + (open ? (done ? "Continue" : "Play") : "Unlock") + "</span></button>";
+      '<span class="go">' + (blockedBy(st) && !done ? "Solve the puzzle" : open ? (done ? "Continue" : "Play") : "Unlock") + "</span></button>";
     h += '<button class="daily" data-go="today"><span class="ic">' + ICON.lamp + "</span><span><b>Today’s verse</b><small>" +
       (dailyDone ? "Solved today. A new verse arrives tomorrow." : "Daily verse #" + Lamp.dailyNumber() + " · the same puzzle for everyone") + '</small></span><span class="chev">›</span></button>';
     h += weekRow() + '<div class="streakline">' + (s.lit ? "Your lamp is lit today." : s.n ? "Play one level today to keep your lamp lit." : "Finish one level to light your lamp.") + "</div>";
@@ -101,8 +113,9 @@
       (list[0] && !isOpen(list[0]) ? " · unlock to play" : "") + "</p>";
     h += '<div class="stories">' + list.map((s) => {
       const d = levelsDone(s), f = isDone(s) ? 1 : d / s.levels.length, open = isOpen(s);
-      return '<button class="scard" data-story="' + s.id + '"><span class="paint' + (s.img ? "" : " none") + '" style="' + imgStyle(s, "filter:brightness(" + (0.35 + 0.65 * f).toFixed(2) + ") saturate(" + (0.55 + 0.45 * f).toFixed(2) + ")") + '"></span>' +
-        (isDone(s) ? '<span class="badge" aria-label="Complete">' + ICON.check + "</span>" : !open ? '<span class="badge" aria-label="Locked">' + ICON.lock + "</span>" : "") +
+      const wait = blockedBy(s);
+      return '<button class="scard' + (wait ? " waiting" : "") + '" data-story="' + s.id + '"><span class="paint' + (s.img ? "" : " none") + '" style="' + imgStyle(s, "filter:brightness(" + (0.35 + 0.65 * f).toFixed(2) + ") saturate(" + (0.55 + 0.45 * f).toFixed(2) + ")") + '"></span>' +
+        (isDone(s) ? '<span class="badge" aria-label="Complete">' + ICON.check + "</span>" : !open || wait ? '<span class="badge" aria-label="Locked">' + ICON.lock + "</span>" : "") +
         '<span class="txt"><b>' + esc(s.title) + "</b><small>" + esc(s.verses[s.key].ref) + " · " + (isDone(s) ? "complete" : d ? d + " of " + s.levels.length + " levels" : s.levels.length + " levels") + "</small></span></button>";
     }).join("") + "</div>";
     return h;
@@ -216,6 +229,16 @@
   function openStory(id) {
     const s = D.stories.find((x) => x.id === id);
     if (!isOpen(s)) { Lamp.showUnlock(s); return; }
+    const wait = blockedBy(s);
+    if (wait && !isDone(s)) {
+      const p = wait.prev;
+      Lamp.sheet('<div class="kick">The way is sealed</div><h2>' + esc(s.title) + "</h2>" +
+        "<p>" + (wait.seal ? "Solve the puzzle of “" + esc(p.title) + "” to open this story." : "Finish “" + esc(p.title) + "” and solve its puzzle to open this story.") + "</p>" +
+        (wait.seal ? '<button class="cta" data-act="seal">' + (p.id === "fall" ? "Go to the Garden Gate" : "Solve: " + esc(Lamp.adv.sealTitle(p.id))) + "</button>" : '<button class="cta" data-act="prev">Play “' + esc(p.title) + "”</button>") +
+        '<button class="cta alt" data-act="x">Not now</button>',
+        { seal: () => (p.id === "fall" ? Lamp.adv.openGate() : Lamp.adv.startSeal(p.id)), prev: () => openStory(p.id), x: () => {} });
+      return;
+    }
     Lamp.playStory(s, false);
   }
   function wire() {

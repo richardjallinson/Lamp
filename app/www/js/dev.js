@@ -69,6 +69,7 @@
       '<div class="row"><span class="l"><b>Skip button</b><small>Finish any level, card or puzzle with one tap.</small></span><button class="switch" role="switch" aria-checked="' + (st.devskip !== false) + '" data-set="devskip"></button></div>' +
       row("unlock", "Unlock all stories", Lamp.state.unlocked ? "All 66 books are open." : "Open every book without buying (test only).") +
       row("oil", "Fill the lamp", "Add 10 drops of oil.") +
+      '<div class="row"><span class="l"><b>Open every story</b><small>Ignore the adventure order (puzzles still work).</small></span><button class="switch" role="switch" aria-checked="' + !!Lamp.state.devOpen + '" data-dev="open"></button></div>' +
       row("first3", "Finish Creation, Eden and the Fall", "Marks the first three stories done, so the seals and the gate are ready.") +
       row("gate", "Go to the Garden Gate", "Opens the chamber straight away.") +
       row("advreset", "Reset the adventure only", "Clears relics, seals and the gate. Stories stay done.") +
@@ -79,6 +80,7 @@
     const b = e.target.closest("[data-dev]"); if (!b) return;
     const a = b.dataset.dev, s = Lamp.state, toast = (t) => Lamp.mainToast && Lamp.mainToast(t);
     if (a === "unlock") { s.unlocked = true; Lamp.save(); toast("All stories unlocked (test)"); }
+    if (a === "open") { s.devOpen = !s.devOpen; Lamp.save(); toast(s.devOpen ? "Every story is open (test)" : "Stories open in order again"); }
     if (a === "oil") { s.oil += 10; Lamp.save(); toast("+10 oil"); }
     if (a === "first3") {
       ["creation", "eden", "fall"].forEach((id) => { const st = D.stories.find((x) => x.id === id); s.progress[id] = st.levels.length; if (!s.completed[id]) s.completed[id] = Lamp.today(); });

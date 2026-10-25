@@ -44,6 +44,10 @@ python3 make_picture_page.py ../out/picture-list.csv ../../preview/lamp-pictures
 - The wheel is shuffled so it never spells a hidden word in order.
 - `bonus` lists every real word on the wheel, so any real word a player finds earns oil.
 
+## Crossword levels (prototype: Genesis)
+
+`tools/lamp_crosswords.py` (run after `build`) writes `out/crosswords.json`: five Wordscapes-style crosswords per Genesis story, getting harder (wheels of 4, 5, 5, 6, 7 letters; 3 to 7 words). Every grid word is a dictionary word that appears in the KJV, preferring words from the story's own verses and chapters. Crosswords 3–5 have a gold word (the seed word); the last one uses the story's clue word for the puzzle that follows (`CLUES`). `app/tools/build_www.py` mixes them in: crossword, verse, crossword, verse… then "from memory", 10 levels per story.
+
 ## Automatic checks
 
 Every hidden word is in its verse and spellable from the wheel · every bonus word is spellable, in the word list and not blocked · wheel sizes fit the stage · stories are in Bible order, one book each · every verse has a level and every story ends with one from-memory level · from-memory spans are within limits · no odd characters (curly quotes, stray spaces) in verse text · notes and picture descriptions present · total level count within 1,000–1,200 · all 66 books covered · with `--kjv`: every reference exists and every verse matches the source word for word (wording differences are errors; capitals and punctuation are warnings).

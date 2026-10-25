@@ -1,0 +1,2676 @@
+{
+"creation": [
+{
+"wheel": "ADME",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "MADE",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "DAM",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "MAD",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DAME",
+"MEAD",
+"MED"
+]
+},
+{
+"wheel": "HATRE",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "EARTH",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "THE",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "HEAR",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "HEART",
+"r": 0,
+"c": 1,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HATER",
+"RATHE",
+"HARE",
+"HART",
+"HATE",
+"HEAT",
+"RATE",
+"RATH",
+"RHEA",
+"RHET",
+"TAHR",
+"TARE",
+"TEAR",
+"THAR",
+"ARE",
+"ART",
+"ATE",
+"EAR",
+"EAT",
+"ERA",
+"ERT",
+"ETA",
+"HAE",
+"HAT",
+"HER",
+"RAH",
+"RAT",
+"RTE",
+"TAR",
+"TEA",
+"TER"
+]
+},
+{
+"wheel": "YEVRE",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "EVERY",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "EVER",
+"r": 1,
+"c": 2,
+"d": 1
+},
+{
+"w": "ERE",
+"r": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "VERY",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "EYE",
+"r": 1,
+"c": 0,
+"d": 0
+}
+],
+"gold": "EVERY",
+"clue": false,
+"bonus": [
+"VEERY",
+"EYER",
+"EYRE",
+"VEER",
+"EVE",
+"REV",
+"RYE",
+"YER"
+]
+},
+{
+"wheel": "ENVEAH",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "HEAVEN",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "EVEN",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "HEAVE",
+"r": 0,
+"c": 1,
+"d": 0
+},
+{
+"w": "HAVE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "EVE",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "HAVEN",
+"r": 0,
+"c": 1,
+"d": 1
+}
+],
+"gold": "HEAVEN",
+"clue": false,
+"bonus": [
+"VENAE",
+"EAVE",
+"NAVE",
+"VANE",
+"VENA",
+"ANE",
+"AVE",
+"AVN",
+"HAE",
+"HEN",
+"NAE",
+"NAH",
+"NAV",
+"NEE",
+"VAN"
+]
+},
+{
+"wheel": "VNHTEES",
+"w": 7,
+"h": 5,
+"words": [
+{
+"w": "SEVENTH",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "THE",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "SEVEN",
+"r": 2,
+"c": 2,
+"d": 0
+},
+{
+"w": "THESE",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "SET",
+"r": 4,
+"c": 4,
+"d": 0
+},
+{
+"w": "SENT",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "SHE",
+"r": 2,
+"c": 2,
+"d": 1
+}
+],
+"gold": "SEVENTH",
+"clue": true,
+"bonus": [
+"EVENTS",
+"EVENS",
+"EVENT",
+"SENTE",
+"SHEEN",
+"SHEET",
+"TEENS",
+"TENSE",
+"THEES",
+"VENTS",
+"EVEN",
+"EVES",
+"HENS",
+"HENT",
+"HEST",
+"NEST",
+"NETS",
+"SEEN",
+"SENE",
+"TEEN",
+"TEES",
+"TENS",
+"THEE",
+"THEN",
+"VENT",
+"VEST",
+"VETS",
+"ENS",
+"EST",
+"EVE",
+"HEN",
+"HES",
+"NEE",
+"NET",
+"SEE",
+"SEN",
+"TEE",
+"TEN",
+"VET"
+]
+}
+],
+"eden": [
+{
+"wheel": "LMEA",
+"w": 4,
+"h": 4,
+"words": [
+{
+"w": "MALE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "MEAL",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "LAME",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"ALE",
+"ELM",
+"LAM",
+"LEA",
+"MEL"
+]
+},
+{
+"wheel": "EHTRA",
+"w": 5,
+"h": 3,
+"words": [
+{
+"w": "EARTH",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "EAT",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "HER",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "THE",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HATER",
+"HEART",
+"RATHE",
+"HARE",
+"HART",
+"HATE",
+"HEAR",
+"HEAT",
+"RATE",
+"RATH",
+"RHEA",
+"RHET",
+"TAHR",
+"TARE",
+"TEAR",
+"THAR",
+"ARE",
+"ART",
+"ATE",
+"EAR",
+"ERA",
+"ERT",
+"ETA",
+"HAE",
+"HAT",
+"RAH",
+"RAT",
+"RTE",
+"TAR",
+"TEA",
+"TER"
+]
+},
+{
+"wheel": "YVREE",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "EVERY",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "EYE",
+"r": 2,
+"c": 2,
+"d": 1
+},
+{
+"w": "VERY",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "ERE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "EVER",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "EVERY",
+"clue": false,
+"bonus": [
+"VEERY",
+"EYER",
+"EYRE",
+"VEER",
+"EVE",
+"REV",
+"RYE",
+"YER"
+]
+},
+{
+"wheel": "FAEELM",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "FEMALE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "MALE",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "FAME",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "LEAF",
+"r": 2,
+"c": 5,
+"d": 1
+},
+{
+"w": "FLEE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "FLAME",
+"r": 0,
+"c": 1,
+"d": 0
+}
+],
+"gold": "FEMALE",
+"clue": false,
+"bonus": [
+"FLEAM",
+"ALEE",
+"ELEM",
+"FEAL",
+"FEEL",
+"FEME",
+"FLAM",
+"FLEA",
+"LAME",
+"MEAL",
+"ALE",
+"EEL",
+"ELF",
+"ELM",
+"EMF",
+"FAM",
+"FEE",
+"FEM",
+"LAM",
+"LEA",
+"LEE",
+"MEL"
+]
+},
+{
+"wheel": "SLRVRIE",
+"w": 7,
+"h": 6,
+"words": [
+{
+"w": "RIVERS",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "RIVER",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "LIVE",
+"r": 3,
+"c": 2,
+"d": 0
+},
+{
+"w": "LIVES",
+"r": 3,
+"c": 2,
+"d": 0
+},
+{
+"w": "RISE",
+"r": 1,
+"c": 6,
+"d": 1
+},
+{
+"w": "SILVER",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "EVIL",
+"r": 0,
+"c": 2,
+"d": 1
+}
+],
+"gold": "RIVERS",
+"clue": true,
+"bonus": [
+"LIVERS",
+"SLIVER",
+"EVILS",
+"LIVER",
+"LIVRE",
+"RIELS",
+"RILES",
+"RISER",
+"RIVES",
+"SLIER",
+"VEILS",
+"VILER",
+"ERRS",
+"ISLE",
+"LEIS",
+"LIES",
+"LIRE",
+"REVS",
+"RIEL",
+"RILE",
+"RIVE",
+"SIRE",
+"VEIL",
+"VIER",
+"VIES",
+"VILE",
+"VISE",
+"ELS",
+"ERR",
+"IRE",
+"ISL",
+"LEI",
+"LEV",
+"LIE",
+"LIS",
+"LVI",
+"REL",
+"RES",
+"REV",
+"RIV",
+"SER",
+"SIR",
+"SRI",
+"VEL",
+"VIE",
+"VIL"
+]
+}
+],
+"fall": [
+{
+"wheel": "ODRL",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "LORD",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROD",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOL",
+"DOR",
+"ORD"
+]
+},
+{
+"wheel": "HWREE",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "WHERE",
+"r": 1,
+"c": 0,
+"d": 0
+},
+{
+"w": "HER",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "HERE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "WERE",
+"r": 0,
+"c": 2,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HEWER",
+"EWER",
+"WEER",
+"WHEE",
+"ERE",
+"EWE",
+"HEW",
+"WEE"
+]
+},
+{
+"wheel": "AMONW",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "WOMAN",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "WON",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "MAN",
+"r": 2,
+"c": 2,
+"d": 1
+},
+{
+"w": "NOW",
+"r": 4,
+"c": 2,
+"d": 0
+},
+{
+"w": "OWN",
+"r": 1,
+"c": 0,
+"d": 1
+}
+],
+"gold": "WOMAN",
+"clue": false,
+"bonus": [
+"MOAN",
+"NOMA",
+"AWN",
+"MAW",
+"MOA",
+"MON",
+"MOW",
+"NOM",
+"WAN"
+]
+},
+{
+"wheel": "LACDLE",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "CALLED",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "ALL",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "DEAL",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "LACE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "CALL",
+"r": 4,
+"c": 2,
+"d": 0
+},
+{
+"w": "LEAD",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "CALLED",
+"clue": false,
+"bonus": [
+"CELLA",
+"CLADE",
+"DECAL",
+"LACED",
+"LADLE",
+"ACED",
+"CADE",
+"CELL",
+"CLAD",
+"DACE",
+"DALE",
+"DECL",
+"DELL",
+"LADE",
+"LEAL",
+"ACE",
+"ALE",
+"CAD",
+"CAL",
+"DEC",
+"DEL",
+"ELD",
+"ELL",
+"LAC",
+"LAD",
+"LEA",
+"LED"
+]
+},
+{
+"wheel": "NLIGTH",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "LIGHT",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "HIN",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "THIN",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "THING",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "TIN",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "NIGH",
+"r": 4,
+"c": 0,
+"d": 0
+},
+{
+"w": "NIGHT",
+"r": 4,
+"c": 0,
+"d": 0
+}
+],
+"gold": "LIGHT",
+"clue": true,
+"bonus": [
+"GLINT",
+"GILT",
+"HILT",
+"HING",
+"HINT",
+"LING",
+"LINT",
+"LITH",
+"TING",
+"GIN",
+"HIT",
+"IGN",
+"INT",
+"LIN",
+"LIT",
+"NIL",
+"NIT",
+"TIL"
+]
+}
+],
+"noah": [
+{
+"wheel": "ESYE",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "EYES",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "EYE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "SEE",
+"r": 0,
+"c": 2,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"YES"
+]
+},
+{
+"wheel": "EACRG",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "GRACE",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "CARE",
+"r": 1,
+"c": 2,
+"d": 1
+},
+{
+"w": "RAGE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "ARE",
+"r": 0,
+"c": 4,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"CAGER",
+"ACRE",
+"CAGE",
+"CRAG",
+"GEAR",
+"RACE",
+"ACE",
+"AGE",
+"AGR",
+"ARC",
+"CAR",
+"EAR",
+"ERA",
+"ERG",
+"GAR",
+"GER",
+"RAG",
+"REC",
+"REG"
+]
+},
+{
+"wheel": "COLUD",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "CLOUD",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "COLD",
+"r": 2,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "LOUD",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "COULD",
+"r": 0,
+"c": 1,
+"d": 0
+}
+],
+"gold": "CLOUD",
+"clue": false,
+"bonus": [
+"CLOD",
+"LUDO",
+"COD",
+"COL",
+"CUD",
+"DOC",
+"DOL",
+"DUO",
+"OUD",
+"UDO"
+]
+},
+{
+"wheel": "ROEFBE",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "BEFORE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "BORE",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "FREE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "ROBE",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "FOR",
+"r": 0,
+"c": 1,
+"d": 0
+},
+{
+"w": "BEER",
+"r": 5,
+"c": 2,
+"d": 0
+}
+],
+"gold": "BEFORE",
+"clue": false,
+"bonus": [
+"BEEF",
+"BREE",
+"FEER",
+"FORB",
+"FORE",
+"FROE",
+"REEF",
+"BEE",
+"BOR",
+"BRO",
+"ERE",
+"FEE",
+"FER",
+"FOB",
+"FOE",
+"FRO",
+"ORB",
+"ORE",
+"REF",
+"ROB",
+"ROE"
+]
+},
+{
+"wheel": "DIWNWO",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "WINDOW",
+"r": 4,
+"c": 0,
+"d": 0
+},
+{
+"w": "WON",
+"r": 2,
+"c": 2,
+"d": 1
+},
+{
+"w": "NOW",
+"r": 2,
+"c": 5,
+"d": 1
+},
+{
+"w": "OWN",
+"r": 2,
+"c": 1,
+"d": 0
+},
+{
+"w": "DOWN",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "WIDOW",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "WIND",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "WINDOW",
+"clue": true,
+"bonus": [
+"NODI",
+"WINO",
+"DIN",
+"DON",
+"DOW",
+"IND",
+"ION",
+"NOD",
+"WIN",
+"WOW"
+]
+}
+],
+"abram": [
+{
+"wheel": "ODLR",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "LORD",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROD",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOL",
+"DOR",
+"ORD"
+]
+},
+{
+"wheel": "HSEOU",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "HOUSE",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "SHE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "SHOE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "USE",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HOES",
+"HOSE",
+"HUES",
+"HES",
+"HOE",
+"HOS",
+"HUE",
+"OHS",
+"SOU",
+"SUE"
+]
+},
+{
+"wheel": "AGRET",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "GREAT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "ARE",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "GET",
+"r": 4,
+"c": 2,
+"d": 0
+},
+{
+"w": "AGE",
+"r": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "ART",
+"r": 0,
+"c": 4,
+"d": 1
+}
+],
+"gold": "GREAT",
+"clue": false,
+"bonus": [
+"GATER",
+"GRATE",
+"TARGE",
+"GATE",
+"GEAR",
+"RAGE",
+"RATE",
+"TARE",
+"TEAR",
+"AGR",
+"ATE",
+"EAR",
+"EAT",
+"ERA",
+"ERG",
+"ERT",
+"ETA",
+"GAR",
+"GAT",
+"GER",
+"RAG",
+"RAT",
+"REG",
+"RTE",
+"TAG",
+"TAR",
+"TEA",
+"TER"
+]
+},
+{
+"wheel": "OTNNIA",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "NATION",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "ANOINT",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "INTO",
+"r": 5,
+"c": 1,
+"d": 0
+},
+{
+"w": "TIN",
+"r": 1,
+"c": 5,
+"d": 1
+},
+{
+"w": "ANON",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "NOT",
+"r": 1,
+"c": 3,
+"d": 0
+}
+],
+"gold": "NATION",
+"clue": false,
+"bonus": [
+"ANION",
+"ANTI",
+"IOTA",
+"TAIN",
+"AIN",
+"AIT",
+"ANN",
+"ANT",
+"INN",
+"INT",
+"ION",
+"NIT",
+"NON",
+"OAT",
+"TAN",
+"TON"
+]
+},
+{
+"wheel": "LERAAT",
+"w": 7,
+"h": 5,
+"words": [
+{
+"w": "ALTAR",
+"r": 0,
+"c": 2,
+"d": 0
+},
+{
+"w": "ALTER",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "TALE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "RATE",
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "EAT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "LET",
+"r": 2,
+"c": 4,
+"d": 0
+},
+{
+"w": "TEAR",
+"r": 1,
+"c": 0,
+"d": 1
+}
+],
+"gold": "ALTAR",
+"clue": true,
+"bonus": [
+"ALATE",
+"ALERT",
+"AREAL",
+"ARTEL",
+"LATER",
+"RATAL",
+"RATEL",
+"REATA",
+"TALER",
+"ALAE",
+"ALAR",
+"AREA",
+"EARL",
+"LATE",
+"RALE",
+"RATA",
+"REAL",
+"TAEL",
+"TALA",
+"TARE",
+"TEAL",
+"ALA",
+"ALE",
+"ALT",
+"ARE",
+"ART",
+"ATE",
+"EAR",
+"ERA",
+"ERT",
+"ETA",
+"LAR",
+"LAT",
+"LEA",
+"RAT",
+"REL",
+"RTE",
+"TAR",
+"TEA",
+"TEL",
+"TER"
+]
+}
+],
+"mamre": [
+{
+"wheel": "RLOD",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "LORD",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROD",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOL",
+"DOR",
+"ORD"
+]
+},
+{
+"wheel": "HINTG",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "THING",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "THIN",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "NIGHT",
+"r": 1,
+"c": 0,
+"d": 0
+},
+{
+"w": "NIGH",
+"r": 0,
+"c": 1,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HING",
+"HINT",
+"TING",
+"GIN",
+"HIN",
+"HIT",
+"IGN",
+"INT",
+"NIT",
+"TIN"
+]
+},
+{
+"wheel": "TERWA",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "WATER",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "EAT",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "WAR",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "ART",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "ARE",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "WATER",
+"clue": false,
+"bonus": [
+"RATE",
+"TARE",
+"TEAR",
+"WARE",
+"WART",
+"WEAR",
+"WERT",
+"ATE",
+"AWE",
+"EAR",
+"ERA",
+"ERT",
+"ETA",
+"RAT",
+"RAW",
+"RTE",
+"TAR",
+"TAW",
+"TEA",
+"TER",
+"WAT",
+"WET"
+]
+},
+{
+"wheel": "REUTNR",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "RETURN",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "TEN",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "TURN",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "RUN",
+"r": 2,
+"c": 4,
+"d": 1
+},
+{
+"w": "TRUE",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "RENT",
+"r": 4,
+"c": 2,
+"d": 0
+}
+],
+"gold": "RETURN",
+"clue": false,
+"bonus": [
+"TURNER",
+"RERUN",
+"TRUER",
+"TUNER",
+"NEUT",
+"RUNE",
+"RUNT",
+"TERN",
+"TERR",
+"TUNE",
+"ERR",
+"ERT",
+"NET",
+"NUT",
+"RTE",
+"RUE",
+"RUT",
+"TER",
+"TUN",
+"URN"
+]
+},
+{
+"wheel": "ACEUSEB",
+"w": 7,
+"h": 5,
+"words": [
+{
+"w": "BECAUSE",
+"r": 4,
+"c": 0,
+"d": 0
+},
+{
+"w": "SEA",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "CAUSE",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "EASE",
+"r": 1,
+"c": 1,
+"d": 1
+},
+{
+"w": "ABUSE",
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "CEASE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "SEE",
+"r": 0,
+"c": 4,
+"d": 1
+}
+],
+"gold": "BECAUSE",
+"clue": false,
+"bonus": [
+"BEAUS",
+"CUBES",
+"SAUCE",
+"SCUBA",
+"ACES",
+"BASE",
+"BEAU",
+"BEES",
+"CABS",
+"CASE",
+"CAUS",
+"CUBE",
+"CUBS",
+"CUES",
+"ECUS",
+"SCAB",
+"ABS",
+"ACE",
+"BEE",
+"BUS",
+"CAB",
+"CUB",
+"CUE",
+"EAU",
+"ECU",
+"SAC",
+"SEC",
+"SUB",
+"SUE",
+"USE"
+]
+}
+],
+"provide": [
+{
+"wheel": "TEWN",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "WENT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "TEN",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "NEW",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"NEWT",
+"NET",
+"WEN",
+"WET"
+]
+},
+{
+"wheel": "NTRBU",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "BURNT",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "TURN",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "BUT",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "BURN",
+"r": 3,
+"c": 1,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"BRUNT",
+"BRUT",
+"BUNT",
+"RUNT",
+"BUN",
+"BUR",
+"NUB",
+"NUT",
+"RUB",
+"RUN",
+"RUT",
+"TUB",
+"TUN",
+"URN"
+]
+},
+{
+"wheel": "ORHSN",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "HORNS",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "HOR",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "HORN",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "NOR",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "SON",
+"r": 0,
+"c": 4,
+"d": 1
+}
+],
+"gold": "HORNS",
+"clue": false,
+"bonus": [
+"HONS",
+"NOSH",
+"RHOS",
+"SORN",
+"HON",
+"HOS",
+"NOS",
+"OHS",
+"RHO"
+]
+},
+{
+"wheel": "TEIDLF",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "LIFTED",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "LIFE",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "DIE",
+"r": 3,
+"c": 5,
+"d": 1
+},
+{
+"w": "LET",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "LEFT",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "FIELD",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "LIFTED",
+"clue": false,
+"bonus": [
+"DELFT",
+"FELID",
+"FETID",
+"FILED",
+"FILET",
+"FLIED",
+"FLITE",
+"TILDE",
+"TILED",
+"DEFT",
+"DEIL",
+"DELI",
+"DIET",
+"EDIT",
+"FELT",
+"FILE",
+"FLED",
+"FLIT",
+"IDLE",
+"LIED",
+"LIEF",
+"LIFT",
+"LITE",
+"TIDE",
+"TIED",
+"TILE",
+"DEF",
+"DEL",
+"DIT",
+"EFT",
+"ELD",
+"ELF",
+"FED",
+"FID",
+"FIE",
+"FIT",
+"LED",
+"LEI",
+"LID",
+"LIE",
+"LIT",
+"TED",
+"TEL",
+"TIE",
+"TIL"
+]
+},
+{
+"wheel": "IDEHNB",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "BEHIND",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "BIND",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "HID",
+"r": 5,
+"c": 1,
+"d": 0
+},
+{
+"w": "HIDE",
+"r": 5,
+"c": 1,
+"d": 0
+},
+{
+"w": "END",
+"r": 1,
+"c": 5,
+"d": 1
+},
+{
+"w": "BEND",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "DINE",
+"r": 0,
+"c": 1,
+"d": 1
+}
+],
+"gold": "BEHIND",
+"clue": true,
+"bonus": [
+"BIDE",
+"BINE",
+"HIED",
+"HIND",
+"NIDE",
+"BED",
+"BEN",
+"BID",
+"BIN",
+"DEB",
+"DEN",
+"DIB",
+"DIE",
+"DIN",
+"EDH",
+"HEN",
+"HIE",
+"HIN",
+"IND",
+"NEB",
+"NIB"
+]
+}
+],
+"ladder": [
+{
+"wheel": "DALN",
+"w": 4,
+"h": 4,
+"words": [
+{
+"w": "LAND",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "LAD",
+"r": 1,
+"c": 1,
+"d": 1
+},
+{
+"w": "AND",
+"r": 0,
+"c": 3,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": []
+},
+{
+"wheel": "EHATR",
+"w": 5,
+"h": 3,
+"words": [
+{
+"w": "EARTH",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "ART",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "EAT",
+"r": 0,
+"c": 2,
+"d": 0
+},
+{
+"w": "THE",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HATER",
+"HEART",
+"RATHE",
+"HARE",
+"HART",
+"HATE",
+"HEAR",
+"HEAT",
+"RATE",
+"RATH",
+"RHEA",
+"RHET",
+"TAHR",
+"TARE",
+"TEAR",
+"THAR",
+"ARE",
+"ATE",
+"EAR",
+"ERA",
+"ERT",
+"ETA",
+"HAE",
+"HAT",
+"HER",
+"RAH",
+"RAT",
+"RTE",
+"TAR",
+"TEA",
+"TER"
+]
+},
+{
+"wheel": "EPCAL",
+"w": 6,
+"h": 4,
+"words": [
+{
+"w": "PLACE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "PLEA",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "LACE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "LEAP",
+"r": 1,
+"c": 2,
+"d": 0
+},
+{
+"w": "CLAP",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": "PLACE",
+"clue": false,
+"bonus": [
+"CAPE",
+"PACE",
+"PALE",
+"PEAL",
+"ACE",
+"ALE",
+"ALP",
+"APE",
+"CAL",
+"CAP",
+"LAC",
+"LAP",
+"LEA",
+"PAL",
+"PEA",
+"PEC"
+]
+},
+{
+"wheel": "DEHOBL",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "BEHOLD",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "OLD",
+"r": 3,
+"c": 3,
+"d": 1
+},
+{
+"w": "HELD",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "HOLD",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "HOLE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "BOLD",
+"r": 0,
+"c": 5,
+"d": 1
+}
+],
+"gold": "BEHOLD",
+"clue": false,
+"bonus": [
+"DHOLE",
+"HOLED",
+"LOBED",
+"BLED",
+"BODE",
+"BOLE",
+"DOLE",
+"HOED",
+"LOBE",
+"LODE",
+"BED",
+"BEL",
+"BOD",
+"DEB",
+"DEL",
+"DOB",
+"DOE",
+"DOL",
+"EDH",
+"ELD",
+"HOB",
+"HOD",
+"HOE",
+"LED",
+"LOB",
+"ODE",
+"OLE"
+]
+},
+{
+"wheel": "LPLIRA",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "PILLAR",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "AIR",
+"r": 2,
+"c": 4,
+"d": 1
+},
+{
+"w": "ILL",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "PAIR",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "LIAR",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "ALL",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "LAP",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": "PILLAR",
+"clue": true,
+"bonus": [
+"ARIL",
+"LAIR",
+"LARI",
+"LIRA",
+"PAIL",
+"PALL",
+"PILL",
+"RAIL",
+"RALL",
+"RIAL",
+"RILL",
+"AIL",
+"ALP",
+"LAR",
+"LIP",
+"PAL",
+"PAR",
+"RAP",
+"RIA",
+"RIP"
+]
+}
+],
+"joseph": [
+{
+"wheel": "OEMR",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "MORE",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROE",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OMER",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"EMO",
+"ORE",
+"REM",
+"ROM"
+]
+},
+{
+"wheel": "EODVL",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "LOVED",
+"r": 1,
+"c": 0,
+"d": 0
+},
+{
+"w": "DOVE",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "LOVE",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "OLD",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOLE",
+"LODE",
+"VELD",
+"VOLE",
+"DEL",
+"DOE",
+"DOL",
+"ELD",
+"LED",
+"LEV",
+"ODE",
+"OLE",
+"VEL",
+"VOE",
+"VOL"
+]
+},
+{
+"wheel": "MTAEN",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "MEANT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "EAT",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "MAN",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "NAME",
+"r": 0,
+"c": 1,
+"d": 0
+},
+{
+"w": "TEN",
+"r": 4,
+"c": 1,
+"d": 0
+}
+],
+"gold": "MEANT",
+"clue": false,
+"bonus": [
+"AMENT",
+"AMEN",
+"ANTE",
+"ETNA",
+"MANE",
+"MATE",
+"MEAN",
+"MEAT",
+"META",
+"NEAT",
+"TAME",
+"TEAM",
+"AMT",
+"ANE",
+"ANT",
+"ATE",
+"ATM",
+"ETA",
+"MAT",
+"MEN",
+"MET",
+"NAE",
+"NET",
+"TAM",
+"TAN",
+"TEA"
+]
+},
+{
+"wheel": "RTAEFH",
+"w": 7,
+"h": 5,
+"words": [
+{
+"w": "FATHER",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "EARTH",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "AFTER",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "THE",
+"r": 0,
+"c": 2,
+"d": 0
+},
+{
+"w": "HEAR",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "FEAR",
+"r": 1,
+"c": 6,
+"d": 1
+}
+],
+"gold": "FATHER",
+"clue": false,
+"bonus": [
+"HATER",
+"HEART",
+"RATHE",
+"FARE",
+"FATE",
+"FATH",
+"FEAT",
+"FETA",
+"FRAE",
+"FRAT",
+"FRET",
+"HAFT",
+"HARE",
+"HART",
+"HATE",
+"HEAT",
+"HEFT",
+"RAFT",
+"RATE",
+"RATH",
+"REFT",
+"RHEA",
+"RHET",
+"TAHR",
+"TARE",
+"TEAR",
+"TERF",
+"THAR",
+"AFT",
+"ARE",
+"ART",
+"ATE",
+"EAR",
+"EAT",
+"EFT",
+"ERA",
+"ERT",
+"ETA",
+"FAR",
+"FAT",
+"FER",
+"HAE",
+"HAT",
+"HER",
+"RAH",
+"RAT",
+"REF",
+"RTE",
+"TAR",
+"TEA",
+"TER"
+]
+},
+{
+"wheel": "FSTHIF",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "FIFTH",
+"r": 2,
+"c": 1,
+"d": 0
+},
+{
+"w": "HIS",
+"r": 2,
+"c": 5,
+"d": 1
+},
+{
+"w": "FIST",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "SIFT",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "STIFF",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "FISH",
+"r": 0,
+"c": 1,
+"d": 0
+},
+{
+"w": "THIS",
+"r": 1,
+"c": 5,
+"d": 1
+}
+],
+"gold": "FIFTH",
+"clue": true,
+"bonus": [
+"FIFTHS",
+"SHIFT",
+"TIFFS",
+"FITS",
+"HIST",
+"HITS",
+"TIFF",
+"FIT",
+"HIT",
+"IFS",
+"ITS",
+"SIT"
+]
+}
+]
+}

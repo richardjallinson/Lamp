@@ -260,3 +260,23 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 #reveal.on .rv-tap{opacity:1;animation:rv-pulse 2.4s ease-in-out 5s infinite}
 @keyframes rv-pulse{50%{opacity:.35}}
 .thumb>div.tap{cursor:pointer}
+
+/* ---------- crossword levels (Wordscapes-style grid over the painting) ---------- */
+#bg{transition:filter 1.4s ease,transform 1.6s ease}
+#level.cross::before{background:linear-gradient(180deg,rgba(8,13,30,.7) 0%,rgba(8,13,30,.12) 20%,rgba(8,13,30,.05) 45%,rgba(8,13,30,.35) 62%,rgba(8,13,30,.84) 100%)}
+.board.xboard{background:none;border:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:min(42vh,calc(100vh - 460px));min-height:180px;max-height:42vh;overflow:visible}
+.xgrid{position:relative;margin:0 auto;flex:none}
+.xgrid b{position:absolute;width:calc(var(--xs) - 4px);height:calc(var(--xs) - 4px);margin:2px;box-sizing:border-box;border-radius:calc(var(--xs) * .16);
+  background:rgba(12,16,34,.62);border:1px solid rgba(243,233,206,.28);box-shadow:0 2px 6px rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;font:800 calc(var(--xs) * .56)/1 var(--ui);color:var(--ink)}
+.xgrid b.f{background:var(--cream);border-color:var(--cream)}
+.xgrid b.h{background:var(--hint);border-color:var(--hint)}
+.xgrid b.gold{border:2px solid #F5C451;box-shadow:0 0 10px rgba(245,196,81,.55)}
+.xgrid b.gold.f{background:linear-gradient(180deg,#FFE29A,#E3B54F);color:#3a2a06}
+.xgrid b.new{animation:pop .4s ease both}
+.board.xboard .ref{margin-top:10px;text-shadow:0 1px 6px #000}
+.goldtag{color:#FFD46E}
+.sheet .v.xwords{font-family:var(--ui);font-size:16px;letter-spacing:.06em;line-height:2}
+.sheet .v.xwords mark{padding:2px 7px;margin:0 2px;border-radius:6px}
+.sheet .v.xwords mark.gold{background:#F5C451;color:#3a2a06}
+.sheet .note.goldnote{background:rgba(245,196,81,.16)}

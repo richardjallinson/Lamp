@@ -588,7 +588,7 @@
       let h = '<div class="advcard"><div class="advhead"><h3>The Adventure</h3><small>Relics ' + ALL.filter(has).length + " of " + ALL.length + "</small></div>";
       h += '<div class="advrelics">' + ALL.map((r) => has(r) ? '<button class="advrelic" data-adv="relic:' + r + '" aria-label="' + esc(RELICS[r].name) + '"><img src="' + IMG + RELICS[r].img + '" alt=""></button>'
         : '<span class="advrelic empty" aria-label="Not found yet"></span>').join("") + "</div>";
-      D.stories.map((x) => x.id).filter((id) => SEALS[id] && id !== "fall").forEach((id) => { if (done(id) && !a.seals[id]) h += '<button class="advrow" data-adv="seal:' + id + '"><b>Break the seal: ' + esc(SEALS[id].title) + "</b><small>" + esc(story(id).title) + " · earns the " + esc(RELICS[SEALS[id].relic].name) + "</small></button>"; });
+      D.stories.map((x) => x.id).filter((id) => SEALS[id] && id !== "fall").forEach((id) => { if (done(id) && !a.seals[id]) h += '<button class="advrow" data-adv="seal:' + id + '"><b>Solve the puzzle: ' + esc(SEALS[id].title) + "</b><small>" + esc(story(id).title) + " · earns the " + esc(RELICS[SEALS[id].relic].name) + "</small></button>"; });
       h += '<button class="advrow gate' + (gateReady ? "" : " locked") + '" data-adv="gate"><b>The Garden Gate</b><small>' +
         (a.gate.open ? "Open · the way of the tree of life" : gateReady ? "A chamber to solve · Genesis 3" : "Finish “Where Art Thou?” to reach the gate") + "</small></button></div>";
       return h;

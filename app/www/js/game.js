@@ -55,6 +55,11 @@
     const bg = $("bg");
     bg.classList.toggle("none", !img);
     bg.style.backgroundImage = img ? "url(img/" + img + ")" : "";
+    /* each level frames the painting a little differently (until there are more paintings per story) */
+    const F = [[1, 50, 50], [1.18, 30, 35], [1.12, 70, 60], [1.25, 50, 25], [1.15, 25, 70], [1.22, 75, 30], [1.1, 40, 80], [1.28, 60, 45], [1.16, 50, 65], [1, 50, 50]];
+    const f = G.mode === "daily" ? F[0] : F[G.lv % F.length];
+    bg.style.transform = "scale(" + f[0] + ")"; bg.style.transformOrigin = f[1] + "% " + f[2] + "%";
+    $("level").classList.toggle("cross", !!(L() && L().cross));
   }
   function lit(frac, instant) {
     const b = $("bg");
@@ -102,7 +107,35 @@
       return esc(w);
     }).join(" ");
   }
-  function renderBoard() {
+  /* ---------- crossword level ---------- */
+  function crossCells() {
+    const X = L().cross, cells = {};
+    X.words.forEach((w) => {
+      const got = G.found.includes(w.w), h = G.hints[w.w] || 0;
+      for (let i = 0; i < w.w.length; i++) {
+        const k = (w.r + (w.d ? i : 0)) + "," + (w.c + (w.d ? 0 : i)), c = cells[k] || (cells[k] = { ch: w.w[i], show: false, hint: false, gold: false, words: [] });
+        if (got) c.show = true; else if (i < h) c.hint = true;
+        if (X.gold === w.w) c.gold = true;
+        c.words.push(w.w);
+      }
+    });
+    return cells;
+  }
+  function renderCross(fresh) {
+    const X = L().cross, cells = crossCells(), b = $("board");
+    b.classList.add("xboard");
+    const W = Math.min(b.clientWidth || 340, 460) - 8, H = Math.max(160, (b.clientHeight || window.innerHeight * 0.4) - 8);
+    const size = Math.max(22, Math.min(48, Math.floor(Math.min(W / X.w, H / X.h))));
+    let h = '<div class="xgrid" style="width:' + size * X.w + "px;height:" + size * X.h + "px;--xs:" + size + 'px">';
+    Object.keys(cells).forEach((k) => {
+      const [r, c] = k.split(",").map(Number), x = cells[k], isNew = fresh && x.words.includes(fresh) && x.show;
+      h += '<b class="' + (x.show ? "f" : x.hint ? "h" : "") + (x.gold ? " gold" : "") + (isNew ? " new" : "") + '" style="left:' + c * size + "px;top:" + r * size + 'px">' + (x.show || x.hint ? x.ch : "") + "</b>";
+    });
+    b.innerHTML = h + "</div>" + '<div class="ref">' + (X.gold ? '<span class="goldtag">Gold squares hide a word</span>' : "Every word is in the KJV") + "</div>";
+  }
+  function renderBoard(fresh) {
+    if (L().cross) { renderCross(fresh); return; }
+    $("board").classList.remove("xboard");
     const ref = curVerse().ref, vs = "--vs:calc(var(--verse-size) * " + verseScale(VERSE.length) + ")";
     if (L().recall) {
       const given = VERSE.slice(0, L().start || 0).map(esc).join(" ");
@@ -128,6 +161,7 @@
   /* ---------- wheel level ---------- */
   function defaultTip() {
     const n = L().hide.length;
+    if (L().cross) return L().cross.gold ? "Fill the crossword. The gold squares hide a word to remember." : "Fill the crossword: " + n + " words from the story.";
     return L().tip || (n > 1 ? n + " words are missing. Find them all." : "One word is missing.");
   }
   function renderWheelLevel() {
@@ -223,7 +257,7 @@
     if (lv.hide.includes(w)) {
       if (G.found.includes(w)) toast("Already found");
       else {
-        G.found.push(w); renderBoard(); toast("✓ " + w.toLowerCase()); Lamp.sound("word"); Lamp.haptic("success");
+        G.found.push(w); renderBoard(w); toast("✓ " + w.toLowerCase()); Lamp.sound("word"); Lamp.haptic("success");
         if (lv.hide.every((x) => G.found.includes(x))) setTimeout(levelDone, 650);
       }
     } else if (lv.bonus.includes(w)) {
@@ -310,7 +344,7 @@
   }
   function levelDone() {
     const lv = L();
-    const marked = VERSE.map((w) => (lv.hide.includes(norm(w)) ? "<mark>" + esc(w.replace(/[^A-Za-z]/g, "")) + "</mark>" + esc(w.replace(/[A-Za-z]/g, "")) : esc(w))).join(" ");
+    const marked = lv.cross ? lv.hide.map((w) => (w === lv.cross.gold ? '<mark class="gold">' + w + "</mark>" : "<mark>" + w + "</mark>")).join(" ") : VERSE.map((w) => (lv.hide.includes(norm(w)) ? "<mark>" + esc(w.replace(/[^A-Za-z]/g, "")) + "</mark>" + esc(w.replace(/[A-Za-z]/g, "")) : esc(w))).join(" ");
     const first = recordLevel();
     Lamp.sound(G.mode === "daily" ? "daily" : "level");
     const still = stillHere();
@@ -338,7 +372,8 @@
     const head = flawless && Math.random() < 0.5 ? praise(["clean"]) : praise(kinds);
     setTimeout(() => still() && sheet(
       '<div class="kick">Level ' + (G.lv + 1) + " complete</div><h2>" + esc(head) + "</h2>" +
-      '<div class="v">' + marked + '</div><div class="r">' + esc(curVerse().ref) + " · KJV</div>" +
+      '<div class="v' + (lv.cross ? " xwords" : "") + '">' + marked + '</div><div class="r">' + (lv.cross ? "Crossword · " + esc(G.story.title) : esc(curVerse().ref) + " · KJV") + "</div>" +
+      (lv.cross && lv.cross.gold ? '<div class="note goldnote">' + ICON.star + " <b>Gold word: " + esc(lv.cross.gold) + ".</b> " + (lv.cross.clue ? "Remember it: it will help you with the puzzle ahead." : "Keep it in mind as the story goes on.") + "</div>" : "") +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
       (G.bonusFound.length ? '<div class="note">Bonus words: <b>' + esc(G.bonusFound.join(", ").toLowerCase()) + "</b></div>" : "") +
       (flawNote ? '<div class="note flaw">' + pips(Lamp.state.flaw, Lamp.state.flaw === 0) + flawNote + "</div>" : "") +
@@ -369,7 +404,7 @@
     if (first) gifts.push("Your lamp is lit for today");
     if (firstTime) gifts.push("Verse gathered");
     let clue = "";
-    if (seal) clue = st.id === "fall" ? "The way to the tree of life is kept. Go to the Garden Gate." : "A seal guards this story’s relic: " + Lamp.adv.sealTitle(st.id) + ".";
+    if (seal) clue = st.id === "fall" ? "The way to the tree of life is kept. Go to the Garden Gate." : "A puzzle stands before the next story: " + Lamp.adv.sealTitle(st.id) + ".";
     else if (nx) { const kv = nx.verses[nx.key].w; clue = "Next, in " + nx.book + ": “" + kv.slice(0, 7).join(" ").replace(/[,;:.]$/, "") + (kv.length > 7 ? "…" : "") + "”"; }
     else clue = "You have reached the end of the Bible.";
     setTimeout(() => { if (!still()) return; if (st.img) Lamp.showPainting(st, () => still() && storyCard(), { gifts, clue }); else storyCard(); }, 1300);
@@ -382,9 +417,10 @@
       '<div class="thumb"><div style="' + (st.img ? "background-image:url(img/" + st.img + ")" : "background:radial-gradient(circle at 50% 30%,rgba(201,162,74,.6),#141A33 70%)") + '"></div><p>' +
       (firstTime ? "The painting is fully lit and the verse is added to Verses gathered." : "You know this one by heart.") +
       (nx ? " Next story: <b>" + esc(nx.title) + "</b>." : " You have reached the end of the Bible.") + "</p></div>" +
-      (seal ? '<div class="note">' + ICON.star + " <b>A seal guards this story’s relic.</b> Solve it to add the relic to your satchel.</div>" +
-        '<button class="cta" data-act="seal">' + (st.id === "fall" ? "Go to the Garden Gate" : "Break the seal: " + esc(Lamp.adv.sealTitle(st.id))) + "</button>" : "") +
-      (nx ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
+      (seal ? '<div class="note">' + ICON.star + " <b>A puzzle guards this story’s relic.</b> Solve it to add the relic to your satchel and open the way ahead.</div>" +
+        '<button class="cta" data-act="seal">' + (st.id === "fall" ? "Go to the Garden Gate" : "Solve the puzzle: " + esc(Lamp.adv.sealTitle(st.id))) + "</button>" +
+        (nx && Lamp.blockedBy && Lamp.blockedBy(nx) ? '<p class="sealnote">The next story, “' + esc(nx.title) + "”, opens when the puzzle is solved.</p>" : "") : "") +
+      (nx && !(seal && Lamp.blockedBy && Lamp.blockedBy(nx)) ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>',
       { seal: () => { const go = () => Lamp.adv.startSeal(st.id); if (st.id === "fall" && Lamp.narr) Lamp.narr.ending(st, null, "Go to the Garden Gate", go); else go(); },
         next: () => { const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }; if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },

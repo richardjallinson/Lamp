@@ -23,6 +23,7 @@
     adv: { relics: {}, seals: {}, gate: {}, p: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
     last: null,     // storyId last played
     reviewAsked: false,
+    devOpen: false,   // tester tools: every story open, ignoring the adventure order
   };
   const clone = (o) => JSON.parse(JSON.stringify(o));
 

@@ -33,6 +33,29 @@ for f in sorted(os.listdir(img_src)):
         shutil.copy(os.path.join(img_src, f), os.path.join(img_dst, f))
         have[m.group(2)] = f
 
+# the crossword levels (content/tools/lamp_crosswords.py): stories that have them get 10 levels,
+# crossword and verse in turn, ending with "from memory"
+cw_path = os.path.join(ROOT, "content", "out", "crosswords.json")
+CROSS = json.load(open(cw_path, encoding="utf-8")) if os.path.exists(cw_path) else {}
+
+
+def mix(s, levels):
+    xs = CROSS.get(s["id"])
+    if not xs:
+        return levels
+    verse_lv = [lv for lv in levels if not lv.get("recall")]
+    recall = [lv for lv in levels if lv.get("recall")]
+    n = len(verse_lv)
+    pick = [verse_lv[round(i * (n - 1) / 3)] for i in range(4)] if n >= 4 else verse_lv
+    out = []
+    for i, x in enumerate(xs):
+        out.append({"id": s["id"] + "-x" + str(i + 1), "v": s["key"], "wheel": x["wheel"], "hide": [w["w"] for w in x["words"]],
+                    "bonus": x["bonus"], "cross": {"w": x["w"], "h": x["h"], "words": x["words"], "gold": x["gold"], "clue": x["clue"]}})
+        if i < len(pick):
+            out.append(pick[i])
+    return out + recall
+
+
 stories = []
 for s in data["stories"]:
     levels = []
@@ -49,7 +72,7 @@ for s in data["stories"]:
         "n": s["n"], "id": s["id"], "title": s["title"], "book": s["book"], "free": s["free"],
         "key": s["key"], "note": s["note"], "img": have.get(s["id"]),
         "verses": [{"ref": v["display"], "w": v["words"]} for v in s["verses"]],
-        "levels": levels,
+        "levels": mix(s, levels),
     })
 daily = [{"ref": d["display"], "w": d["words"], "wheel": d["wheel"], "hide": d["hide"],
           "bonus": d["bonus"], "story": d["story"]} for d in data["daily"]]
