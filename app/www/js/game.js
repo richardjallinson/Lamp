@@ -39,7 +39,7 @@
   function show() {
     $("level").hidden = false; $("main").hidden = true;
     G.found = []; G.hints = {}; G.built = 0; G.order = []; G.hintsUsed = 0; G.t0 = Date.now();
-    G.bonusFound = [];
+    G.bonusFound = []; G.lvMiss = 0; G.lvHint = 0;
     start(true);
   }
   function close() {
@@ -234,6 +234,7 @@
       }
     } else {
       wd.classList.remove("bad"); void wd.offsetWidth; wd.classList.add("bad");
+      if (w.length >= 2) G.lvMiss = (G.lvMiss || 0) + 1;   // a wrong word breaks a flawless level
       toast(w.length < 2 ? "Too short" : "Not in this level"); Lamp.sound("bad"); Lamp.haptic("error");
     }
     setTimeout(() => { if ($("word") && !sel.length) $("word").textContent = ""; }, 700);
@@ -243,7 +244,7 @@
     if (!t) return;
     if (Lamp.state.oil < 1) { toast("Out of oil. Find bonus words to earn more"); return; }
     Lamp.state.oil--; Lamp.save();
-    G.hintsUsed++; G.hints[t] = (G.hints[t] || 0) + 1;
+    G.hintsUsed++; G.lvHint = (G.lvHint || 0) + 1; G.hints[t] = (G.hints[t] || 0) + 1;
     if (G.hints[t] >= t.length) G.found.push(t);
     renderTop(); renderBoard(); Lamp.haptic("light"); Lamp.sound("hint");
     if (lv.hide.every((x) => G.found.includes(x))) setTimeout(levelDone, 650);
@@ -265,7 +266,7 @@
         const twin = [...$("tiles").children].find((x) => !x.classList.contains("used") && norm(VERSE[+x.dataset.i]) === norm(need));
         (twin || b).classList.add("used"); G.built++; renderBoard(); Lamp.sound("tap", (G.built - 1 - (L().start || 0)) % 7);
         if (G.built === VERSE.length) setTimeout(storyDone, 500);
-      } else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); Lamp.haptic("error"); }
+      } else { G.lvMiss = (G.lvMiss || 0) + 1; b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); Lamp.haptic("error"); }
     };
   }
 
@@ -321,19 +322,30 @@
       else if (G.bonusFound.length) kinds.splice(0, 1, "bonus");
       else if (!G.hintsUsed) kinds.splice(0, 1, "clean");
     }
-    const head = praise(kinds);
+    /* flawless levels (no wrong words, no hints): three in a row fill a drop of oil */
+    const flawless = !G.lvMiss && !G.lvHint;
+    let flawNote = "";
+    if (flawless) {
+      Lamp.state.flaw = (Lamp.state.flaw || 0) + 1;
+      if (Lamp.state.flaw >= 3) { Lamp.state.flaw = 0; Lamp.state.oil += 1; flawNote = "<b>Three flawless levels in a row.</b> +1 oil for your lamp."; renderTop(); }
+      else flawNote = "<b>Flawless.</b> " + Lamp.state.flaw + " of 3 in a row: no mistakes, no hints. Three earn a drop of oil.";
+      Lamp.save();
+    } else if (Lamp.state.flaw) { Lamp.state.flaw = 0; Lamp.save(); }
+    const pips = (n, full) => '<span class="pips">' + [0, 1, 2].map((i) => '<i class="' + (full || i < n ? "on" : "") + '"></i>').join("") + "</span>";
+    const head = flawless && Math.random() < 0.5 ? praise(["clean"]) : praise(kinds);
     setTimeout(() => still() && sheet(
       '<div class="kick">Level ' + (G.lv + 1) + " complete</div><h2>" + esc(head) + "</h2>" +
       '<div class="v">' + marked + '</div><div class="r">' + esc(curVerse().ref) + " · KJV</div>" +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
       (G.bonusFound.length ? '<div class="note">Bonus words: <b>' + esc(G.bonusFound.join(", ").toLowerCase()) + "</b></div>" : "") +
+      (flawNote ? '<div class="note flaw">' + pips(Lamp.state.flaw, Lamp.state.flaw === 0) + flawNote + "</div>" : "") +
       '<button class="cta" data-act="next">' + (nextIsRecall ? "Final level: from memory" : "Next level") + "</button>" +
       '<button class="cta alt" data-act="leave">Back to ' + esc(G.story.book) + "</button>",
       { next: () => { G.lv++; resetLevel(); start(); }, leave: close }), 900);
   }
   /* Result cards appear after a short pause; skip them if the player has already left the level. */
   function stillHere() { const g = G, lv = G.lv; return () => G === g && G.lv === lv && !$("level").hidden; }
-  function resetLevel() { G.found = []; G.hints = {}; G.built = 0; G.order = []; }
+  function resetLevel() { G.found = []; G.hints = {}; G.built = 0; G.order = []; G.lvMiss = 0; G.lvHint = 0; }
   function storyDone() {
     const st = G.story, firstTime = !Lamp.state.completed[st.id];
     const first = recordLevel();

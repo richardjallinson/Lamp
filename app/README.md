@@ -48,7 +48,7 @@ painted scenes you tap through, like Myst.
 
 | Story | Seal | Relic |
 |---|---|---|
-| Let There Be Light | Light the Days: tap the seven days of creation in order | Stone of Days |
+| Let There Be Light | Light the Days: each round shows what God spoke that day (Genesis 1); drag or tap the matching stone chip into the dial | Stone of Days |
 | A Garden Eastward in Eden | The Four Rivers: word search (Genesis 2:10-14) | Onyx Stone |
 | Where Art Thou? | The Garden Gate chamber | Coat of Skins |
 
@@ -58,6 +58,14 @@ lay the Coat of Skins on the threshold → the gate opens (Revelation 22:14) →
 Progress is saved in `adv` (relics, seals, gate steps) and merged with iCloud like the rest. The Journey screen shows
 an Adventure card with the relics, any seals still to break, and the gate. Hints in the adventure cost one drop of oil.
 Paintings: `images/originals/adventure/garden-gate/`; rebuild with `python3 app/tools/make_adventure_assets.py`.
+
+## Oil rewards for solving well
+
+- **Story seals** (first time only): +1 oil for **Flawless** (no mistakes, no hints) and +1 for **Swift**
+  (Light the Days under 60 s; the Four Rivers under 150 s, up to 2 wrong drags allowed). The Garden Gate:
+  +1 for opening it with no hints and no wrong spelling.
+- **Word levels:** a level with no wrong words and no hints is **Flawless**; three in a row earn +1 oil
+  (shown as three drops on the level-complete card). A mistake or hint starts the count again.
 
 ## Narration
 

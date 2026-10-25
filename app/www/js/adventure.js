@@ -156,13 +156,23 @@
   }
 
   /* ---------- relic reward ---------- */
-  function giveRelic(r, then) {
+  /* oil for solving well: +1 with no mistakes and no hints, +1 more if quick (only the first time a seal is broken) */
+  function rewards(st) {
+    if (!st) return "";
+    const lines = [], clean = !st.hints && st.misses <= (st.allow || 0), quick = !st.hints && st.swift && st.secs <= st.swift;
+    if (clean) lines.push("<b>Flawless</b> · no mistakes, no hints · +1 oil");
+    if (quick) lines.push("<b>Swift</b> · solved in " + Math.round(st.secs) + " seconds · +1 oil");
+    const oil = lines.length; if (oil) { Lamp.state.oil += oil; Lamp.save(); }
+    return oil ? '<div class="rewards">' + lines.map((l) => "<div>" + Lamp.ICON.oil + " " + l + "</div>").join("") + "</div>"
+      : '<div class="rewards none">Solve a seal with no mistakes or hints, or quickly, to earn drops of oil.</div>';
+  }
+  function giveRelic(r, then, extra) {
     const R = RELICS[r], first = !has(r);
     A().relics[r] = 1; Lamp.save();
     snd("story"); buzz("success");
     card('<div class="kick">' + (first ? "Relic found" : "Relic") + '</div><img class="relic-big" src="' + IMG + R.img + '" alt=""><h2>' + esc(R.name) + "</h2>" +
       '<div class="v">“' + esc(R.v) + '”</div><div class="r">' + esc(R.ref) + " · KJV</div>" +
-      "<p>" + (first ? "Added to your satchel. Relics open the chambers on the way ahead." : "It is already in your satchel.") + "</p>" +
+      "<p>" + (first ? "Added to your satchel. Relics open the chambers on the way ahead." : "It is already in your satchel.") + "</p>" + (extra || "") +
       '<button class="cta" data-act="go">Continue</button>', { go: then });
   }
   function afterSeal(id) {
@@ -176,13 +186,15 @@
       leave: () => { shut(true); Lamp.closeLevel && Lamp.closeLevel(); },
     });
   }
-  function sealDone(id) {
+  function sealDone(id, stats) {
+    const first = !A().seals[id];
     A().seals[id] = 1; Lamp.save();
-    giveRelic(SEALS[id].relic, () => afterSeal(id));
+    giveRelic(SEALS[id].relic, () => afterSeal(id), first ? rewards(stats) : "");
   }
 
   /* ======================================================================
-     Creation — Light the Days: tap the days of creation in order.
+     Creation — Light the Days. Each round shows the words God spoke on the next day;
+     the player drags (or taps) the matching stone chip into the dial, day by day.
      ====================================================================== */
   const DAYS = [
     ["Let there be light", "Genesis 1:3"], ["Let there be a firmament in the midst of the waters", "Genesis 1:6"],
@@ -192,29 +204,69 @@
     ["And he rested on the seventh day from all his work which he had made", "Genesis 2:2"],
   ];
   function lightTheDays() {
-    let next = 0, misses = 0;
-    open("Story seal · Creation", { hint: () => nudge(true) });
+    let next = 0, misses = 0, run = 0, hints = 0, busy = false;
+    const t0 = Date.now();
+    open("Story seal · Creation", { hint: () => { hints++; nudge(); say("This chip matches the words for day " + (next + 1) + "."); } });
     const st = story("creation");
     $("adv-scene").innerHTML = '<div class="seal"><div class="bgp" style="background-image:url(img/' + st.img + ')"></div><h1>Light the Days</h1>' +
-      '<p class="how">Light the seven days of creation in order, from the first day to the day God rested.</p>' +
+      '<p class="how">Read what God spoke on each day, then set the matching stone into the dial.</p>' +
       '<div class="ddial" id="ld-dial"><img class="base" src="' + IMG + 'dial.webp" alt="">' +
       DAYS.map((_, i) => '<img class="day" id="ld-d' + i + '" src="' + IMG + "day-" + (i + 1) + '.webp" alt="">').join("") + "</div>" +
-      '<div class="line" id="ld-line"></div><div class="dcards" id="ld-cards"></div></div>';
+      '<div class="line clue" id="ld-line" aria-live="polite"></div><div class="dcards" id="ld-cards"></div></div>';
     const order = [0, 1, 2, 3, 4, 5, 6].sort(() => Math.random() - 0.5);
-    const cards = $("ld-cards");
-    cards.innerHTML = order.map((i) => '<button class="dcard" data-day="' + i + '" aria-label="Day symbol"><img src="' + IMG + "card-" + (i + 1) + '.webp" alt=""></button>').join("");
-    function nudge(force) { const c = cards.querySelector('[data-day="' + next + '"]'); if (c && (force || misses >= 2)) c.classList.add("nudge"); }
-    cards.querySelectorAll(".dcard").forEach((b) => (b.onclick = () => {
+    const cards = $("ld-cards"), dial = $("ld-dial");
+    cards.innerHTML = order.map((i) => '<button class="dcard" data-day="' + i + '" aria-label="Stone chip"><img src="' + IMG + "card-" + (i + 1) + '.webp" alt=""></button>').join("");
+    function clue() {
+      $("ld-line").innerHTML = '<span class="dayno">Day ' + (next + 1) + "</span>“" + esc(DAYS[next][0]) + "”<small>" + esc(DAYS[next][1]) + "</small>";
+      $("ld-line").classList.remove("pop"); void $("ld-line").offsetWidth; $("ld-line").classList.add("pop");
+    }
+    function nudge() { cards.querySelectorAll(".nudge").forEach((c) => c.classList.remove("nudge")); const c = cards.querySelector('[data-day="' + next + '"]'); if (c) c.classList.add("nudge"); }
+    clue();
+    function back(b) {   // a wrong chip slides home with a little shake
+      b.classList.remove("drag"); b.style.transform = ""; snd("bad"); buzz("error");
+      setTimeout(() => { b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }, 260);
+    }
+    function place(b) {
       const d = +b.dataset.day;
-      if (d !== next) { misses++; snd("bad"); buzz("error"); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); nudge(); return; }
-      misses = 0; b.classList.add("gone"); $("ld-d" + d).classList.add("on"); snd("tap", d); buzz("light");
-      $("ld-line").innerHTML = "“" + esc(DAYS[d][0]) + "”<small>Day " + (d + 1) + " · " + esc(DAYS[d][1]) + "</small>";
-      next++;
-      if (next === 7) {
-        setTimeout(() => { $("ld-dial").classList.add("done"); snd("level"); }, 500);
-        setTimeout(() => sealDone("creation"), 3000);
-      }
-    }));
+      if (d !== next) { misses++; run++; back(b); if (run >= 2) nudge(); return; }
+      run = 0; busy = true;
+      const r = b.getBoundingClientRect(), dr = dial.getBoundingClientRect(), a = d * STEP * Math.PI / 180;
+      const tx = dr.left + dr.width / 2 + Math.sin(a) * dr.width * 0.33 - (r.left + r.width / 2);
+      const ty = dr.top + dr.height / 2 - Math.cos(a) * dr.height * 0.33 - (r.top + r.height / 2);
+      const prev = b.style.transform && b.style.transform.match(/translate\(([-\d.]+)px, ?([-\d.]+)px\)/);
+      const px = prev ? +prev[1] : 0, py = prev ? +prev[2] : 0;
+      b.classList.remove("drag", "nudge"); b.classList.add("flying");
+      b.style.transform = "translate(" + (px + tx) + "px," + (py + ty) + "px) rotate(" + d * STEP + "deg) scale(.5)";
+      snd("tap", d); buzz("light");
+      setTimeout(() => {
+        b.classList.add("gone"); $("ld-d" + d).classList.add("on"); sfx("click");
+        next++; busy = false;
+        if (next < 7) { clue(); return; }
+        $("ld-line").innerHTML = "“And God saw every thing that he had made, and, behold, it was very good.”<small>Genesis 1:31</small>";
+        setTimeout(() => { dial.classList.add("done"); snd("level"); sfx("stone"); }, 300);
+        setTimeout(() => sealDone("creation", { misses, hints, secs: (Date.now() - t0) / 1000, swift: 60 }), 2900);
+      }, 560);
+    }
+    /* drag a chip onto the stone, or simply tap it */
+    cards.querySelectorAll(".dcard").forEach((b) => {
+      let sx = 0, sy = 0, moved = false, down = false;
+      b.addEventListener("pointerdown", (e) => { if (busy || b.classList.contains("gone")) return; down = true; moved = false; sx = e.clientX; sy = e.clientY; b.setPointerCapture(e.pointerId); });
+      b.addEventListener("pointermove", (e) => {
+        if (!down) return; const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (!moved && Math.hypot(dx, dy) < 8) return;
+        moved = true; b.classList.add("drag"); b.style.transform = "translate(" + dx + "px," + dy + "px) scale(1.08)";
+      });
+      const up = (e) => {
+        if (!down) return; down = false;
+        if (!moved) { place(b); return; }
+        const dr = dial.getBoundingClientRect();
+        const over = e.clientX > dr.left && e.clientX < dr.right && e.clientY > dr.top && e.clientY < dr.bottom;
+        if (over) { b.style.transform = b.style.transform.replace(/ scale\([\d.]+\)/, ""); place(b); }
+        else { b.classList.remove("drag"); b.style.transform = ""; }
+      };
+      b.addEventListener("pointerup", up); b.addEventListener("pointercancel", up);
+      b.addEventListener("click", (e) => e.preventDefault());
+    });
   }
 
   /* ======================================================================
@@ -248,8 +300,10 @@
   function fourRivers() {
     let g = null;
     for (let seed = 2210; !g; seed++) g = makeGrid(seed);
-    const found = new Set();
+    const found = new Set(), t0 = Date.now();
+    let hints = 0, misses = 0;
     open("Story seal · Eden", { hint: () => {
+      hints++;
       const left = EDEN_WORDS.filter((w) => !found.has(w)); if (!left.length) return;
       const w = left[0], at = locate(w); if (!at) return;
       const cell = grid.children[at[0] * 10 + at[1]]; cell.classList.remove("hint"); void cell.offsetWidth; cell.classList.add("hint");
@@ -301,8 +355,8 @@
           EUPHRATES: "“And the fourth river is Euphrates.” Genesis 2:14", ONYX: "“there is bdellium and the onyx stone.” Genesis 2:12",
           GOLD: "“And the gold of that land is good.” Genesis 2:12", TREE: "“the tree of life also in the midst of the garden.” Genesis 2:9" };
         $("wline").textContent = notes[hit] || hit + " found.";
-        if (found.size === EDEN_WORDS.length) { setTimeout(() => snd("level"), 400); setTimeout(() => sealDone("eden"), 1600); }
-      } else if (path.length > 1) { snd("bad"); }
+        if (found.size === EDEN_WORDS.length) { setTimeout(() => snd("level"), 400); setTimeout(() => sealDone("eden", { misses, hints, allow: 2, secs: (Date.now() - t0) / 1000, swift: 150 }), 1600); }
+      } else if (path.length > 1) { misses++; snd("bad"); }
       start = null; path = []; paint();
     };
     grid.addEventListener("pointerup", end); grid.addEventListener("pointercancel", end);
@@ -315,7 +369,7 @@
   function G() { return A().gate; }
   function setG(k) { G()[k] = 1; Lamp.save(); satchel(); }
   function gateHint() {
-    const g = G();
+    const g = G(); g.hints = (g.hints || 0) + 1; Lamp.save();
     const tips = !g.light ? "The blank stone in the middle of the gate. Look closely, and bring your lamp."
       : !g.onyx ? (has("onyx") ? "The hollow at the top of the stone waits for a stone of its own. Choose the Onyx Stone in your satchel, then tap the hollow." : "You need the Onyx Stone. It is found by breaking the seal of “A Garden Eastward in Eden”.")
       : !g.keyed ? (has("days") ? "The dial will not turn. Choose the Stone of Days in your satchel, then tap the centre of the dial." : "You need the Stone of Days, from the seal of “Let There Be Light”.")
@@ -424,6 +478,7 @@
             setTimeout(() => { slots.classList.remove("on"); socket.classList.add("pulse"); say("A hollow at the top of the stone catches the light. It is waiting for something."); }, 4200);
           } else {
             snd("bad"); buzz("error");
+            G().miss = (G().miss || 0) + 1; Lamp.save();
             say("Not quite. Think of the first thing God spoke into being.");
             setTimeout(() => { got.length = 0; [...slots.children].forEach((s) => (s.textContent = "")); LET.forEach((_, k) => $("pg" + k).classList.remove("used")); }, 700);
           }
@@ -507,6 +562,7 @@
       card('<div class="kick">The Garden Gate · open</div><h2>The way of the tree of life</h2>' +
         '<div class="v">“Blessed are they that do his commandments, that they may have right to the tree of life, and may enter in through the gates into the city.”</div><div class="r">Revelation 22:14 · KJV</div>' +
         "<p>" + (fresh ? "The first chamber is open. What was closed in Genesis is opened again at the end of the Bible. " : "") + "The journey goes on: <b>" + esc(nx.title) + "</b>.</p>" +
+        (fresh ? rewards({ hints: G().hints || 0, misses: G().miss || 0 }) : "") +
         '<button class="cta" data-act="next">Continue to Noah</button><button class="cta alt" data-act="stay">Stay in the garden</button><button class="cta alt" data-act="leave">Back to the journey</button>', {
         next: () => { shut(true); Lamp.playStory(nx, false); },
         stay: () => {},

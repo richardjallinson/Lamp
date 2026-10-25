@@ -73,7 +73,18 @@
 #adv .dcard{width:min(22vw,96px);aspect-ratio:1;border-radius:14px;border:1px solid rgba(201,162,74,.4);background:radial-gradient(circle at 50% 35%,rgba(70,60,40,.9),rgba(14,16,30,.95));
   display:flex;align-items:center;justify-content:center;padding:6px;cursor:pointer;transition:transform .25s,opacity .4s}
 #adv .dcard img{max-width:100%;max-height:100%;display:block}
-#adv .dcard.gone{opacity:0;transform:scale(.6);pointer-events:none}
+#adv .dcard.gone{opacity:0;pointer-events:none;visibility:hidden}
+#adv .dcard.drag{transition:none;z-index:5;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.6),0 0 18px rgba(245,196,81,.45);cursor:grabbing}
+#adv .dcard.flying{transition:transform .55s cubic-bezier(.3,.7,.3,1),opacity .55s;z-index:5;position:relative;opacity:.85}
+#adv .dcards{touch-action:none}
+#adv .line.clue{min-height:4.6em;padding:10px 14px;border-radius:14px;background:rgba(8,12,28,.6);border:1px solid rgba(201,162,74,.3);max-width:28em;box-sizing:border-box}
+#adv .line.clue.pop{animation:adv-clue .5s ease}
+@keyframes adv-clue{from{opacity:0;transform:translateY(6px)}}
+#adv .dayno{display:block;font:800 11px/1.2 var(--ui);font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:#E3BC5C;margin-bottom:4px}
+#adv .asheet .rewards{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:#F4ECD6;font:600 14px/1.5 var(--ui);color:#3A3F55}
+#adv .asheet .rewards svg{width:16px;height:16px;vertical-align:-3px}
+#adv .asheet .rewards b{color:#141A33}
+#adv .asheet .rewards.none{background:transparent;padding:0;font-size:13px;color:#6B6F7E}
 #adv .dcard.nudge{animation:adv-nudge 1.2s ease-in-out infinite}
 @keyframes adv-nudge{50%{transform:translateY(-6px);box-shadow:0 0 18px rgba(245,196,81,.6)}}
 #adv .shake{animation:adv-shake .4s}
