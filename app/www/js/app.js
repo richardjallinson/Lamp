@@ -169,6 +169,7 @@
       ? '<div class="row"><span class="l"><b>Full Bible unlocked</b><small>All 66 books, ' + D.stories.length + " stories. Thank you.</small></span>" + ICON.check.replace("<svg", '<svg style="width:22px;height:22px;color:var(--gold)"') + "</div>"
       : '<button class="row" data-unlock="1"><span class="l"><b>Unlock the full Bible</b><small>Genesis to Revelation, one payment, no ads.</small></span><span style="color:var(--gold);font-weight:700">›</span></button>') +
       '<button class="row" data-restore="1"><span class="l"><b>Restore purchase</b><small>Use this after reinstalling or on a new iPhone.</small></span></button></div>';
+    if (Lamp.tester && Lamp.testerHTML) h += Lamp.testerHTML();
     h += '<div class="group"><button class="row" data-reset="1"><span class="l"><b style="color:#F0A59A">Reset progress</b><small>Clears stories, streak, oil and gathered verses on this iPhone.</small></span></button></div>';
     h += '<p class="small-print">Lamp ' + VERSION + " · King James Version text<br>No account, no ads, no tracking. Your progress stays on this iPhone and in your own iCloud.</p>";
     h += '<p class="small-print">“Thy word is a lamp unto my feet, and a light unto my path.” Psalm 119:105</p>';

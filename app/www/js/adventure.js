@@ -66,9 +66,9 @@
   const buzz = (s) => Lamp.haptic && Lamp.haptic(s);
 
   /* ---------- the layer ---------- */
-  let root = null, sayTimer = 0, selected = null, onClose = null;
+  let root = null, sayTimer = 0, selected = null, onClose = null, mode = null;   // mode: which seal or chamber is open (for tester Skip)
   function open(title, opts) {
-    shut(true);
+    shut(true); mode = null;
     root = document.createElement("div");
     root.id = "adv"; root.setAttribute("role", "dialog"); root.setAttribute("aria-label", title);
     root.innerHTML = '<div class="adv-scene" id="adv-scene"></div>' +
@@ -207,6 +207,7 @@
     let next = 0, misses = 0, run = 0, hints = 0, busy = false;
     const t0 = Date.now();
     open("Story seal · Creation", { hint: () => { hints++; nudge(); say("This chip matches the words for day " + (next + 1) + "."); } });
+    mode = "creation";
     const st = story("creation");
     $("adv-scene").innerHTML = '<div class="seal"><div class="bgp" style="background-image:url(img/' + st.img + ')"></div><h1>Light the Days</h1>' +
       '<p class="how">Read what God spoke on each day, then set the matching stone into the dial.</p>' +
@@ -309,6 +310,7 @@
       const cell = grid.children[at[0] * 10 + at[1]]; cell.classList.remove("hint"); void cell.offsetWidth; cell.classList.add("hint");
       say("Look for " + w + " starting here.");
     } });
+    mode = "eden";
     const st = story("eden");
     $("adv-scene").innerHTML = '<div class="seal"><div class="bgp" style="background-image:url(img/' + st.img + ')"></div><h1>The Four Rivers</h1>' +
       '<p class="how">“And a river went out of Eden to water the garden; and from thence it was parted, and became into four heads.” Genesis 2:10</p>' +
@@ -381,6 +383,7 @@
   function openGate() {
     const r = open("The Garden Gate", { satchel: true, hint: gateHint });
     if (!r) return;
+    mode = "gate";
     gateScene(true);
   }
   function gateScene(arrive, stopping) {
@@ -562,7 +565,7 @@
       card('<div class="kick">The Garden Gate · open</div><h2>The way of the tree of life</h2>' +
         '<div class="v">“Blessed are they that do his commandments, that they may have right to the tree of life, and may enter in through the gates into the city.”</div><div class="r">Revelation 22:14 · KJV</div>' +
         "<p>" + (fresh ? "The first chamber is open. What was closed in Genesis is opened again at the end of the Bible. " : "") + "The journey goes on: <b>" + esc(nx.title) + "</b>.</p>" +
-        (fresh ? rewards({ hints: G().hints || 0, misses: G().miss || 0 }) : "") +
+        (fresh && !G().skipped ? rewards({ hints: G().hints || 0, misses: G().miss || 0 }) : "") +
         '<button class="cta" data-act="next">Continue to Noah</button><button class="cta alt" data-act="stay">Stay in the garden</button><button class="cta alt" data-act="leave">Back to the journey</button>', {
         next: () => { shut(true); Lamp.playStory(nx, false); },
         stay: () => {},
@@ -596,8 +599,21 @@
       if (k === "relic") { open(RELICS[v].name, {}); giveRelicView(v); }
     },
     relics: RELICS,
+    /* tester tools only (js/dev.js): finish the open seal or chamber at once, with no oil reward */
+    devSkip() {
+      if (!root) return false;
+      if (root.querySelector(".asheet")) { const b = root.querySelector(".asheet [data-act]"); b && b.click(); return true; }
+      if (mode === "creation" || mode === "eden") { const m = mode; mode = null; sealDone(m, null); return true; }
+      if (mode === "gate") {
+        ["days", "onyx", "coat"].forEach((r) => (A().relics[r] = 1));
+        ["light", "onyx", "keyed", "rest", "coat"].forEach((k) => (G()[k] = 1));
+        G().open = 1; G().skipped = 1; A().seals.fall = 1; Lamp.save(); mode = null; openView(true); return true;
+      }
+      return false;
+    },
+    devReset() { Lamp.state.adv = { relics: {}, seals: {}, gate: {} }; Lamp.save(); },
   };
-  function giveRelicAndGate() { open("The Garden Gate", { satchel: true, hint: gateHint }); gateScene(false); giveRelic("coat", () => { satchel(); gateScene(true); }); }
+  function giveRelicAndGate() { open("The Garden Gate", { satchel: true, hint: gateHint }); mode = "gate"; gateScene(false); giveRelic("coat", () => { satchel(); gateScene(true); }); }
   function giveRelicView(r) {
     const R = RELICS[r];
     card('<div class="kick">Relic · in your satchel</div><img class="relic-big" src="' + IMG + R.img + '" alt=""><h2>' + esc(R.name) + "</h2>" +

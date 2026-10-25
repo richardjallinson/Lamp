@@ -18,6 +18,7 @@
     unlocked: false,
     tutorial: false,
     intro: false,   // the full start screen has been seen once
+    introAgain: false,   // tester tools: play the full start screen once more
     flaw: 0,        // flawless word levels in a row (no wrong words, no hints); every 3 earn a drop of oil
     adv: { relics: {}, seals: {}, gate: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
     last: null,     // storyId last played

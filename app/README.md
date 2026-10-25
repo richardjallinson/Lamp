@@ -67,6 +67,14 @@ Paintings: `images/originals/adventure/garden-gate/`; rebuild with `python3 app/
 - **Word levels:** a level with no wrong words and no hints is **Flawless**; three in a row earn +1 oil
   (shown as three drops on the level-complete card). A mistake or hint starts the count again.
 
+## Tester tools (for Richard while building)
+
+`www/js/dev.js`, on while `TESTER = true`. A **Skip** button floats at the top whenever there is something to get
+past: one tap finishes a word level and moves to the next, closes a story card, breaks a story seal, opens the
+Garden Gate, or skips the start screen. Skipping never earns oil. **Settings → Tester tools**: Skip button on/off,
+unlock all stories, +10 oil, finish Creation/Eden/the Fall, go to the Garden Gate, reset the adventure only, show the
+full start screen again.
+
 ## Narration
 
 `www/js/narration.js`. The Lamplighter (voice: Oliver Silk, ElevenLabs) reads a story's opening over its painting
@@ -100,6 +108,7 @@ If the build stops with an error, copy the red message into the chat.
 
 ## Before App Store submission
 
+- **Turn off the tester tools:** in `www/js/dev.js` set `const TESTER = false;` (removes the Skip button and the Tester tools in Settings).
 - In App Store Connect, create a **Non-Consumable** In-App Purchase with Product ID `com.richardallinson.Lamp.fullbible`, price about $4.99, and add it to the 1.0 version.
 - App Privacy: **Data Not Collected**.
 - The app icon in `Lamp/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png` is a placeholder (a gold lamp on navy) and can be replaced.

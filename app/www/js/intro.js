@@ -13,7 +13,7 @@
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
   const $ = (id) => document.getElementById(id);
   const hasProgress = () => Object.keys(Lamp.state.progress || {}).some((k) => Lamp.state.progress[k] > 0);
-  const seen = () => !!Lamp.state.intro || hasProgress();
+  const seen = () => !!Lamp.state.intro || (hasProgress() && !Lamp.state.introAgain);   // introAgain: tester tools replay
 
   /* ---------- music: decoded while the screen waits, played on the tap ---------- */
   function decode() {
@@ -66,7 +66,7 @@
   function arrive() { stage.classList.add("gone"); Lamp.haptic && Lamp.haptic("success"); }
   function toTitle() {
     stage.classList.add("title");
-    if (!Lamp.state.intro) { Lamp.state.intro = true; Lamp.save(); }
+    if (!Lamp.state.intro || Lamp.state.introAgain) { Lamp.state.intro = true; delete Lamp.state.introAgain; Lamp.save(); }
     setTimeout(() => { const b = $("in-begin"); if (b) b.focus({ preventScroll: true }); }, 900);
   }
 

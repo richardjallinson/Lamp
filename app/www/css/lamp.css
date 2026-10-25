@@ -233,3 +233,9 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 .pips{display:inline-flex;gap:4px;flex:none;margin-top:4px}
 .pips i{width:10px;height:14px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:#E2DAC4}
 .pips i.on{background:linear-gradient(180deg,#F5C451,#C9A24A);box-shadow:0 0 6px rgba(245,196,81,.6)}
+
+/* tester tools (js/dev.js; off for the App Store) */
+#devskip{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 58px);transform:translateX(-50%);z-index:60;display:none;
+  padding:7px 14px;border-radius:999px;border:1.5px dashed #F0A59A;background:rgba(40,10,10,.82);color:#FFD9D2;font:800 13px/1 var(--ui);letter-spacing:.04em;cursor:pointer}
+#devskip.on{display:block}
+.group.tester{border:1.5px dashed rgba(240,165,154,.6)}
