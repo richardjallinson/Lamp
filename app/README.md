@@ -11,6 +11,8 @@ app/
   tools/make_sounds.py  makes every sound from scratch and packs them into www/js/sounds.js
   sounds/               the sounds as mp3 (the .wav masters are rebuilt by make_sounds.py)
   tools/make_xcodeproj.py  rewrites the project file after adding Swift files
+  tools/make_intro_assets.py  makes the start screen pictures in www/img/start/
+  tools/make_title_music.py   makes the start screen music (sounds/title*.mp3, www/js/intro-sounds.js)
 ```
 
 ## What the shell does
@@ -23,6 +25,19 @@ app/
 | `haptic` | Light tap, success or warning vibration |
 | `share` | The iOS share sheet with a verse or daily result |
 | `review` | The App Store rating prompt (asked once, after the third story) |
+
+## Start screen
+
+Every time the app opens, the start screen (`www/js/intro.js`, `www/css/intro.css`) shows the clay lamp
+in the dark. Tap it and it lights; the lamp flies up the golden road of the New Jerusalem painting,
+behind the painted LAMP letters and through the gate on the music's hit, then "Begin the journey"
+(or "Continue the journey") opens the game.
+
+- **First time:** the full version, about 9 seconds, with Psalm 119:105 held on screen for three seconds.
+- **After that:** a quick version, about 2 seconds, with its own short music cue.
+- **Skip** goes straight to the end. The ambient music (if switched on) waits until the start screen closes.
+- Pictures come from `images/lamp-000-title.jpg`, `images/originals/lamp-clay-unlit.png` and
+  `images/originals/video/flame-original.mp4`; rebuild them with `python3 app/tools/make_intro_assets.py`.
 
 ## Sound
 

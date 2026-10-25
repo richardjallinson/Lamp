@@ -17,6 +17,7 @@
     settings: { text: "m", sound: true, music: false, haptics: true, cb: false },
     unlocked: false,
     tutorial: false,
+    intro: false,   // the full start screen has been seen once
     last: null,     // storyId last played
     reviewAsked: false,
   };
@@ -48,6 +49,7 @@
     for (const k of keys(a.bonus, b.bonus)) m.bonus[k] = [...new Set([...(a.bonus[k] || []), ...(b.bonus[k] || [])])];
     m.unlocked = !!(a.unlocked || b.unlocked);
     m.tutorial = !!(a.tutorial || b.tutorial);
+    m.intro = !!(a.intro || b.intro);
     m.reviewAsked = !!(a.reviewAsked || b.reviewAsked);
     return m;
   }
@@ -71,7 +73,7 @@
     Lamp.native("save", { state: json });
   };
   Lamp.resetAll = function () {
-    const keep = { unlocked: Lamp.state.unlocked, settings: Lamp.state.settings };
+    const keep = { unlocked: Lamp.state.unlocked, settings: Lamp.state.settings, intro: Lamp.state.intro };
     Lamp.state = Object.assign(clone(DEFAULT), keep, { tutorial: true });
     Lamp.save();
     Lamp.native("reset");
@@ -152,6 +154,8 @@
     }
     return ctx;
   }
+  /* the start screen plays its own music through the same audio context */
+  Lamp.audioOut = function () { const c = audio(); return c ? { ctx: c, out: master } : null; };
   Lamp.sound = function (kind, index) {
     if (!Lamp.state.settings.sound) return;
     const c = audio(); if (!c) return;
@@ -163,7 +167,7 @@
   };
   /* Quiet ambient music: off unless switched on in Settings. Loops seamlessly. */
   Lamp.musicUpdate = function () {
-    const want = !!Lamp.state.settings.music && !document.hidden && Lamp.audioUnlocked;
+    const want = !!Lamp.state.settings.music && !document.hidden && Lamp.audioUnlocked && !Lamp.introOn;
     if (want) {
       const c = audio(); if (!c || musicSrc || !buffers.music) return;
       const L = window.LAMP_MUSIC_LOOP || { start: 0.2, length: 32 };
