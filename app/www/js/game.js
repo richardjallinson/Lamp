@@ -17,7 +17,7 @@
   Lamp.playStory = function (story, fromStart) {
     const done = Lamp.state.progress[story.id] || 0;
     const start = fromStart || done >= story.levels.length ? 0 : done;
-    G = { mode: "story", story, lv: start, replay: done >= story.levels.length };
+    G = { mode: "story", story, lv: start, sStart: start, replay: done >= story.levels.length };
     Lamp.state.last = story.id; Lamp.save();
     show();
   };
@@ -68,6 +68,8 @@
     VERSE = curVerse().w;
     if (L().recall) { G.built = L().start || 0; G.order = []; }
     G.bonusFound = (Lamp.state.bonus[L().id] || []).slice();
+    /* the letters play this era's instrument, with a different little tune each level */
+    if (Lamp.setInstrument) Lamp.setInstrument(Lamp.eraOf(G.story).inst, (G.story ? D.stories.indexOf(G.story) * 3 : 0) + G.lv + (G.mode === "daily" ? Lamp.dailyNumber() : 0));
     paint();
     lit(G.mode === "daily" ? 0.6 : G.lv / LEVELS.length, fresh);
     $("lback").textContent = "‹ " + (G.mode === "daily" ? "Today" : G.story.book);
@@ -325,6 +327,7 @@
     /* flawless levels (no wrong words, no hints): three in a row fill a drop of oil */
     const flawless = !G.lvMiss && !G.lvHint;
     let flawNote = "";
+    if (flawless) G.sFlaw = (G.sFlaw || 0) + 1;
     if (flawless) {
       Lamp.state.flaw = (Lamp.state.flaw || 0) + 1;
       if (Lamp.state.flaw >= 3) { Lamp.state.flaw = 0; Lamp.state.oil += 1; flawNote = "<b>Three flawless levels in a row.</b> +1 oil for your lamp."; renderTop(); }
@@ -359,7 +362,17 @@
     const seal = Lamp.adv && Lamp.adv.pending(st.id);   // the adventure: this story has a seal to break
     if (firstTime && done === 3 && !Lamp.state.reviewAsked) { Lamp.state.reviewAsked = true; Lamp.save(); setTimeout(() => Lamp.native("review"), 2500); }
     /* the finished painting first, full screen (tap to go on), then the story-complete card */
-    setTimeout(() => { if (!still()) return; if (st.img) Lamp.showPainting(st, () => still() && storyCard()); else storyCard(); }, 1300);
+    /* what the painting screen tells you: what you earned, and a clue to what comes next */
+    const gifts = [];
+    if (firstTime) gifts.push("+2 oil for your lamp");
+    if (G.sStart === 0 && (G.sFlaw || 0) + (!G.lvMiss && !G.lvHint ? 1 : 0) >= st.levels.length) gifts.push("Flawless: not one mistake or hint");
+    if (first) gifts.push("Your lamp is lit for today");
+    if (firstTime) gifts.push("Verse gathered");
+    let clue = "";
+    if (seal) clue = st.id === "fall" ? "The way to the tree of life is kept. Go to the Garden Gate." : "A seal guards this story’s relic: " + Lamp.adv.sealTitle(st.id) + ".";
+    else if (nx) { const kv = nx.verses[nx.key].w; clue = "Next, in " + nx.book + ": “" + kv.slice(0, 7).join(" ").replace(/[,;:.]$/, "") + (kv.length > 7 ? "…" : "") + "”"; }
+    else clue = "You have reached the end of the Bible.";
+    setTimeout(() => { if (!still()) return; if (st.img) Lamp.showPainting(st, () => still() && storyCard(), { gifts, clue }); else storyCard(); }, 1300);
     const storyCard = () => {
     const sh = sheet(
       '<div class="kick">Story complete' + (firstTime ? " · +2 oil" : "") + "</div><h2>" + esc(st.title) + "</h2>" +
@@ -382,12 +395,15 @@
     setTimeout(() => still() && Lamp.narr && Lamp.narr.verse(st.id), 1900);   // the Lamplighter reads the verse over the painting
   }
   /* A story's painting, full screen and fully lit: shown when the story is finished, and from the card's thumbnail. */
-  Lamp.showPainting = function (st, then) {
+  Lamp.showPainting = function (st, then, extra) {
+    const gifts = (extra && extra.gifts) || [], clue = extra && extra.clue;
     const old = document.getElementById("reveal"); if (old) old.remove();
     const el = document.createElement("div");
     el.id = "reveal"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", st.title + ", painting");
     el.innerHTML = '<div class="rv-blur" style="background-image:url(img/' + st.img + ')"></div><img class="rv-img" src="img/' + st.img + '" alt="">' +
       '<div class="rv-cap"><div class="rv-kick">' + esc(st.book) + '</div><div class="rv-ttl">' + esc(st.title) + '</div><div class="rv-ref">' + esc(st.verses[st.key].ref) + "</div>" +
+      (gifts.length ? '<div class="rv-gifts">' + gifts.map((g) => "<span>" + esc(g) + "</span>").join("") + "</div>" : "") +
+      (clue ? '<div class="rv-clue">' + esc(clue) + "</div>" : "") +
       '<div class="rv-tap">Tap to continue</div></div>';
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add("on"));

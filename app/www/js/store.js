@@ -151,16 +151,34 @@
     if (ctx.state !== "running") { try { ctx.resume(); } catch (e) {} }   // also after "interrupted" (iPhone: after the narration voice plays)
     if (!decoding && window.LAMP_SOUNDS) {
       decoding = true;
-      Object.keys(window.LAMP_SOUNDS).forEach((k) => {
-        try {
-          const b64 = window.LAMP_SOUNDS[k].split(",")[1], bin = atob(b64), u8 = new Uint8Array(bin.length);
-          for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-          ctx.decodeAudioData(u8.buffer, (buf) => { buffers[k] = buf; if (k === "music") Lamp.musicUpdate(); }, () => {});
-        } catch (e) {}
-      });
+      Object.keys(window.LAMP_SOUNDS).filter((k) => !instKey(k)).forEach(decodeOne);
+      if (Lamp.inst) decodeInst(Lamp.inst);
     }
     return ctx;
   }
+  /* the letter instruments (one per era, see eras.js) are decoded only when a story of that era is played */
+  const instKey = (k) => /^[a-z]+([1-7]|W)$/.test(k) && !/^tap/.test(k);
+  const decodedInst = {};
+  function decodeInst(inst) {
+    if (!ctx || inst === "harp" || decodedInst[inst] || !window.LAMP_SOUNDS) return;
+    decodedInst[inst] = true;
+    Object.keys(window.LAMP_SOUNDS).filter((k) => k.indexOf(inst) === 0 && instKey(k)).forEach(decodeOne);
+  }
+  function decodeOne(k) {
+    try {
+      const b64 = window.LAMP_SOUNDS[k].split(",")[1], bin = atob(b64), u8 = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+      ctx.decodeAudioData(u8.buffer, (buf) => { buffers[k] = buf; if (k === "music") Lamp.musicUpdate(); }, () => {});
+    } catch (e) {}
+  }
+  /* Each level gets one of these little tunes for its letters (scale steps 0-6), so picking letters plays a melody */
+  const TUNES = [[0, 1, 2, 3, 4, 5, 6], [0, 2, 1, 3, 2, 4, 3, 5, 4, 6], [0, 4, 2, 5, 3, 6, 4], [2, 1, 3, 2, 4, 3, 5, 4, 6],
+    [0, 1, 2, 4, 3, 5, 6, 5], [4, 2, 0, 1, 3, 5, 6], [0, 2, 4, 3, 1, 3, 5, 6], [1, 0, 2, 4, 3, 5, 4, 6]];
+  Lamp.setInstrument = function (inst, seed) {
+    Lamp.inst = inst || "harp";
+    Lamp.tune = TUNES[Math.abs(seed | 0) % TUNES.length];
+    decodeInst(Lamp.inst);
+  };
   /* the start screen plays its own music through the same audio context */
   Lamp.audioOut = function () { const c = audio(); return c ? { ctx: c, out: master } : null; };
   /* the music goes quiet while the Lamplighter speaks */
@@ -171,8 +189,11 @@
   Lamp.sound = function (kind, index) {
     if (!Lamp.state.settings.sound) return;
     const c = audio(); if (!c) return;
-    const name = kind === "tap" ? "tap" + (Math.min(Math.max(index || 0, 0), 6) + 1) : kind;
-    const buf = buffers[name]; if (!buf) return;
+    const inst = Lamp.inst || "harp", tune = Lamp.tune || TUNES[0];
+    let name = kind, fall = kind;
+    if (kind === "tap") { const i = Math.max(index || 0, 0), step = tune[i % tune.length] + 1; fall = "tap" + step; name = inst === "harp" ? fall : inst + step; }
+    else if (kind === "word" && inst !== "harp") name = inst + "W";
+    const buf = buffers[name] || buffers[fall]; if (!buf) return;
     const src = c.createBufferSource(), g = c.createGain();
     g.gain.value = { tap: 0.55, shuffle: 0.6, bad: 0.7 }[kind] || 0.85;
     src.buffer = buf; src.connect(g).connect(master); src.start();

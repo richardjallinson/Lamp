@@ -166,6 +166,60 @@ for k, n in enumerate(["A5", "F#5", "D6"]):
 sounds["daily"] = finish(s, wet=0.32, tail=1.2, peak=0.65)
 
 
+# ---------------------------------------------------------------- instruments for the letters, one per era of the Bible
+# Each era (see www/js/eras.js) has its own instrument and its own seven-note scale, so picking letters
+# sounds different from story to story. <inst>1..7 are the letter notes (low to high), <inst>W the word-found flourish.
+def env_ad(t, a, d):
+    return np.minimum(1, t / a) * np.exp(-t / d)
+
+
+def additive(freq, sec, partials, a=0.01, d=0.5, vib=0.0, scoop=0.0, noise=0.0, nlo=500, nhi=4000, cutoff=None):
+    t = np.arange(int(SR * sec)) / SR
+    f = freq * (1 + vib * np.sin(2 * np.pi * 5.2 * t) * np.minimum(1, t / 0.25) - scoop * np.exp(-t / 0.05))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    x = sum(amp * np.sin(n * ph + rng.uniform(0, 6.28)) for n, amp in partials)
+    if noise:
+        x = x + noise * highpass(lowpass(rng.normal(0, 1, len(t)), nhi), nlo)
+    if cutoff:
+        x = lowpass(x, cutoff)
+    return x * env_ad(t, a, d)
+
+
+INSTR = {
+    # name: (scale low->high, voice function)
+    "harp": None,  # the original tap1..7 / word
+    "pipe": (["D4", "F4", "G4", "A4", "C5", "D5", "F5"],
+             lambda f: additive(f, 0.75, [(1, 1), (2, 0.18), (3, 0.08)], a=0.035, d=0.35, vib=0.006, scoop=0.03, noise=0.06, nlo=1200, nhi=6000)),
+    "horn": (["A#3", "D4", "F4", "A#4", "D5", "F5", "A#5"],
+             lambda f: additive(f, 0.8, [(n, 1 / n ** 1.1) for n in range(1, 9)], a=0.03, d=0.32, vib=0.004, scoop=0.015, cutoff=2600)),
+    "oud": (["D3", "D#3", "F#3", "G3", "A3", "A#3", "C4"],
+            lambda f: lowpass(pluck(f, 0.9, bright=0.75, decay=0.989), 3500) + 0.25 * lowpass(pluck(f * 2.003, 0.9, bright=0.4, decay=0.986), 3000)),
+    "lyre": (["G4", "A4", "B4", "D5", "E5", "G5", "A5"],
+             lambda f: pluck(f, 0.9, bright=0.6, decay=0.993) + 0.5 * pluck(f * 1.004, 0.9, bright=0.45, decay=0.992)),
+    "dulcimer": (["C5", "D5", "E5", "G5", "A5", "C6", "D6"],
+                 lambda f: pluck(f, 0.9, bright=0.8, decay=0.994) + 0.7 * pluck(f * 0.997, 0.9, bright=0.8, decay=0.994) + 0.12 * bell(f * 2, 0.9, 0.4)),
+    "strings": (["A3", "C4", "D4", "E4", "G4", "A4", "C5"],
+                lambda f: additive(f, 0.85, [(n, 1 / n) for n in range(1, 10)], a=0.06, d=0.45, vib=0.008, cutoff=2400)),
+    "flute": (["F4", "G4", "A4", "C5", "D5", "F5", "G5"],
+              lambda f: additive(f, 0.75, [(1, 1), (2, 0.25), (3, 0.06)], a=0.03, d=0.38, vib=0.007, noise=0.035, nlo=2000, nhi=8000)),
+    "wood": (["E4", "F#4", "G#4", "B4", "C#5", "E5", "F#5"],
+             lambda f: additive(f, 0.7, [(1, 1), (4, 0.3), (10, 0.06)], a=0.002, d=0.22)),
+    "bells": (["D5", "E5", "F#5", "A5", "B5", "D6", "E6"],
+              lambda f: bell(f, 1.1, 0.8)),
+}
+for name, spec in INSTR.items():
+    if not spec:
+        continue
+    scale, voice = spec
+    for i, note in enumerate(scale):
+        sounds[f"{name}{i + 1}"] = finish(voice(hz(note)), wet=0.22, tail=0.4, peak=0.55)
+    s = silence(0.1)
+    for k, i in enumerate([0, 2, 4, 6]):
+        s = place(s, voice(hz(scale[i])), 0.07 * k, 0.6)
+    s = place(s, bell(hz(scale[6]) * 2, 1.4, 0.5), 0.2, 0.08)
+    sounds[f"{name}W"] = finish(s, wet=0.26, tail=0.7, peak=0.68)
+
+
 # ---------------------------------------------------------------- ambient music (exactly periodic loop)
 def music(loop=32.0, total=None):
     """Slow pad chords D - Bm - G - A, 8 s each. Every frequency (including the chorus wobble) is a
@@ -208,7 +262,7 @@ packed = {}
 for name, x in list(sounds.items()) + [("music", music())]:
     wav, mp3 = os.path.join(OUT, name + ".wav"), os.path.join(OUT, name + ".mp3")
     write_wav(wav, x)
-    rate = "80k" if name == "music" else "96k"
+    rate = "80k" if name == "music" else ("64k" if name[-1:].isdigit() or name.endswith("W") and name != "W" else "96k")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-ac", "1", "-b:a", rate, mp3], check=True)
     packed[name] = "data:audio/mpeg;base64," + base64.b64encode(open(mp3, "rb").read()).decode()
     print(f"{name:8s} {len(x) / SR:5.2f}s  {os.path.getsize(mp3) // 1024:4d} KB")

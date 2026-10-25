@@ -251,7 +251,12 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 #reveal .rv-kick{font:700 11px/1.2 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 #reveal .rv-ttl{margin-top:6px;font:700 26px/1.15 var(--display);color:var(--cream);text-shadow:0 2px 12px #000}
 #reveal .rv-ref{margin-top:4px;font:700 12px/1.2 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:rgba(243,233,206,.75)}
-#reveal .rv-tap{margin-top:14px;font:600 13px/1 var(--ui);color:rgba(243,233,206,.6);opacity:0;transition:opacity 1s ease 3s}
-#reveal.on .rv-tap{opacity:1;animation:rv-pulse 2.4s ease-in-out 4s infinite}
+#reveal .rv-gifts{margin-top:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;opacity:0;transform:translateY(6px);transition:opacity .9s ease 2.4s,transform .9s ease 2.4s}
+#reveal .rv-gifts span{padding:5px 10px;border-radius:999px;border:1px solid rgba(201,162,74,.6);background:rgba(20,26,51,.6);font:700 12px/1.2 var(--ui);color:var(--gold)}
+#reveal .rv-clue{margin:12px auto 0;max-width:340px;font:italic 400 16px/1.4 var(--display);color:var(--cream);text-shadow:0 2px 10px #000;opacity:0;transition:opacity 1.2s ease 3.2s}
+#reveal.on .rv-gifts{opacity:1;transform:none}
+#reveal.on .rv-clue{opacity:1}
+#reveal .rv-tap{margin-top:14px;font:600 13px/1 var(--ui);color:rgba(243,233,206,.6);opacity:0;transition:opacity 1s ease 4s}
+#reveal.on .rv-tap{opacity:1;animation:rv-pulse 2.4s ease-in-out 5s infinite}
 @keyframes rv-pulse{50%{opacity:.35}}
 .thumb>div.tap{cursor:pointer}
