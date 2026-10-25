@@ -91,6 +91,7 @@
   }
   function shut(quiet) {
     if (!root) return;
+    Lamp.narr && Lamp.narr.stop();
     const r = root, cb = onClose; root = null; onClose = null; selected = null;
     clearTimeout(sayTimer); window.removeEventListener("resize", fitAll);
     r.classList.remove("on"); setTimeout(() => r.remove(), 450);
@@ -170,7 +171,8 @@
     card('<div class="kick">Seal broken</div><h2>' + esc(st.title) + "</h2><p>" + (nx ? "Next story: <b>" + esc(nx.title) + "</b>." : "") + "</p>" +
       (nx ? '<button class="cta" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>', {
-      next: () => { shut(true); if (nextOpen) Lamp.playStory(nx, false); else { Lamp.closeLevel && Lamp.closeLevel(); Lamp.showUnlock(nx); } },
+      next: () => { shut(true); const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { Lamp.closeLevel && Lamp.closeLevel(); Lamp.showUnlock(nx); } };
+        if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },
       leave: () => { shut(true); Lamp.closeLevel && Lamp.closeLevel(); },
     });
   }
@@ -258,6 +260,7 @@
       '<p class="how">“And a river went out of Eden to water the garden; and from thence it was parted, and became into four heads.” Genesis 2:10</p>' +
       '<div class="wgrid" id="wg" role="grid" aria-label="Word search"></div><div class="wlist" id="wl"></div>' +
       '<div class="line" id="wline">Drag across the letters to find each word.</div></div>';
+    Lamp.narr && Lamp.narr.play("gen-02-rivers");
     const grid = $("wg"), list = $("wl");
     grid.innerHTML = g.map((row, r) => row.map((ch, c) => '<span class="wc" data-r="' + r + '" data-c="' + c + '">' + ch + "</span>").join("")).join("");
     function drawList() { list.innerHTML = EDEN_WORDS.map((w) => '<span class="' + (RIVERS.includes(w) ? "river " : "") + (found.has(w) ? "done" : "") + '">' + w + "</span>").join(""); }
@@ -496,6 +499,7 @@
     const f = document.createElement("div"); f.className = "flash on"; $("adv-scene").appendChild(f);
     requestAnimationFrame(() => requestAnimationFrame(() => f.classList.remove("on")));
     box.classList.add("push");
+    if (fresh && Lamp.narr) setTimeout(() => Lamp.narr.play("gate-open"), 2600);
     hot(box, 0.3, 0.2, 0.7, 0.62, "The tree of life", () => say("“Blessed are they that do his commandments, that they may have right to the tree of life, and may enter in through the gates into the city.”", "Revelation 22:14"));
     setTimeout(() => {
       if (!root) return;

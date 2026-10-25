@@ -108,9 +108,19 @@
       const rest = VERSE.slice(G.built).map((w) => w.replace(/[A-Za-z]/g, "_")).join(" ");
       $("board").innerHTML = '<div class="verse built" style="' + vs + '">' + (given ? '<span class="given">' + given + "</span> " : "") + built + (G.built > (L().start || 0) ? " " : "") +
         '<span class="ghost">' + rest + '</span></div><div class="ref">' + esc(ref) + " · from memory</div>";
+      fitBoard(verseScale(VERSE.length));
       return;
     }
     $("board").innerHTML = '<div class="verse" style="' + vs + '">' + boardHTML() + '</div><div class="ref">' + esc(ref) + "</div>";
+    fitBoard(verseScale(VERSE.length));
+  }
+  /* Long verses on small screens: shrink the text until the whole verse and its reference fit the card. */
+  function fitBoard(scale) { requestAnimationFrame(() => fitNow(scale, 0)); }   // after the wheel and buttons are laid out
+  function fitNow(scale, tries) {
+    const b = $("board"), v = b.querySelector(".verse"); if (!v) return;
+    if (!b.clientHeight) { if (tries < 30) requestAnimationFrame(() => fitNow(scale, tries + 1)); return; }   // level screen not shown yet
+    let s = scale;
+    while (b.scrollHeight > b.clientHeight + 1 && s > 0.58) { s -= 0.04; v.style.setProperty("--vs", "calc(var(--verse-size) * " + s.toFixed(2) + ")"); }
   }
 
   /* ---------- wheel level ---------- */
@@ -348,7 +358,10 @@
         '<button class="cta" data-act="seal">' + (st.id === "fall" ? "Go to the Garden Gate" : "Break the seal: " + esc(Lamp.adv.sealTitle(st.id))) + "</button>" : "") +
       (nx ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>',
-      { seal: () => Lamp.adv.startSeal(st.id), next: () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }, leave: close }), 1300);
+      { seal: () => { const go = () => Lamp.adv.startSeal(st.id); if (st.id === "fall" && Lamp.narr) Lamp.narr.ending(st, null, "Go to the Garden Gate", go); else go(); },
+        next: () => { const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }; if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },
+        leave: () => { Lamp.narr && Lamp.narr.stop(); close(); } }), 1300);
+    setTimeout(() => still() && Lamp.narr && Lamp.narr.verse(st.id), 1900);   // the Lamplighter reads the verse
   }
   function dailyCard(first) {
     const secs = Math.round((Date.now() - G.t0) / 1000), mm = Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0");

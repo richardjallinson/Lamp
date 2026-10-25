@@ -121,7 +121,7 @@ button.pill{cursor:pointer}
 .dots i.on{background:var(--gold)}
 .dots i.done{background:var(--gold-soft)}
 .board{margin:12px auto 0;width:100%;max-width:460px;padding:14px 14px 12px;border-radius:16px;background:var(--glass);border:1px solid rgba(201,162,74,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-sizing:border-box;
-  max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .verse{font:600 var(--vs,var(--verse-size))/1.5 var(--display);color:var(--cream);text-align:center;text-wrap:balance}
 .blank{display:inline-flex;gap:3px;vertical-align:-5px;margin:0 2px}
 .blank b{width:calc(var(--vs,var(--verse-size)) * .9);height:calc(var(--vs,var(--verse-size)) * 1.15);border-radius:5px;background:rgba(251,248,240,.12);border:1px solid rgba(243,233,206,.45);display:inline-flex;align-items:center;justify-content:center;font:800 calc(var(--vs,var(--verse-size)) * .68)/1 var(--ui);color:var(--ink)}

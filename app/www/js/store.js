@@ -14,7 +14,7 @@
     daily: {},      // "YYYY-MM-DD" -> {hints, secs}
     fav: {},        // storyId -> true
     bonus: {},      // levelId -> [bonus words found]
-    settings: { text: "m", sound: true, music: false, haptics: true, cb: false },
+    settings: { text: "m", sound: true, music: false, haptics: true, cb: false, narr: true },
     unlocked: false,
     tutorial: false,
     intro: false,   // the full start screen has been seen once
@@ -160,6 +160,11 @@
   }
   /* the start screen plays its own music through the same audio context */
   Lamp.audioOut = function () { const c = audio(); return c ? { ctx: c, out: master } : null; };
+  /* the music goes quiet while the Lamplighter speaks */
+  Lamp.duck = function (on) {
+    if (!musicGain || !ctx) return;
+    try { const t = ctx.currentTime; musicGain.gain.cancelScheduledValues(t); musicGain.gain.setValueAtTime(musicGain.gain.value, t); musicGain.gain.linearRampToValueAtTime(on ? 0.07 : 0.32, t + (on ? 0.4 : 1.2)); } catch (e) {}
+  };
   Lamp.sound = function (kind, index) {
     if (!Lamp.state.settings.sound) return;
     const c = audio(); if (!c) return;

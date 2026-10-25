@@ -59,6 +59,15 @@ Progress is saved in `adv` (relics, seals, gate steps) and merged with iCloud li
 an Adventure card with the relics, any seals still to break, and the gate. Hints in the adventure cost one drop of oil.
 Paintings: `images/originals/adventure/garden-gate/`; rebuild with `python3 app/tools/make_adventure_assets.py`.
 
+## Narration
+
+`www/js/narration.js`. The Lamplighter (voice: Oliver Silk, ElevenLabs) reads a story's opening over its painting
+before the first level, reads the verse aloud on the story-complete card, and reads what happened next, with
+"Coming up" and the next story, when the player moves on. Text is always on screen; **Settings → Narration**
+switches the voice off. Background music goes quiet while he speaks. Recorded so far: Creation, Eden, the Fall
+and the Garden Gate. Files: `../audio/narration/` (processed) copied to `www/audio/narration/` by `build_www.py`;
+originals and the processing command are in `../audio/`.
+
 ## Sound
 
 All sounds are original, made in code by `tools/make_sounds.py`, so there is nothing to license.
