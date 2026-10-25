@@ -33,7 +33,7 @@
   const audio = new Audio();
   audio.preload = "auto";
   let onEnd = null;
-  audio.addEventListener("ended", () => { Lamp.duck && Lamp.duck(false); const f = onEnd; onEnd = null; f && f(); });
+  audio.addEventListener("ended", () => { Lamp.audioOut && Lamp.audioOut(); Lamp.duck && Lamp.duck(false); const f = onEnd; onEnd = null; f && f(); });
   const voiceOn = () => Lamp.state.settings.narr !== false;
   function play(name, ended) {
     stop();

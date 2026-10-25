@@ -145,7 +145,7 @@
       if (!AC) return null;
       ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
     }
-    if (ctx.state === "suspended") ctx.resume();
+    if (ctx.state !== "running") { try { ctx.resume(); } catch (e) {} }   // also after "interrupted" (iPhone: after the narration voice plays)
     if (!decoding && window.LAMP_SOUNDS) {
       decoding = true;
       Object.keys(window.LAMP_SOUNDS).forEach((k) => {
@@ -195,7 +195,7 @@
   }
   document.addEventListener("pointerdown", unlock, true);
   document.addEventListener("touchend", unlock, true);
-  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state === "suspended") ctx.resume(); Lamp.musicUpdate(); });
+  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state !== "running") ctx.resume(); Lamp.musicUpdate(); });
   Lamp.haptic = function (style) {
     if (!Lamp.state.settings.haptics) return;
     if (!Lamp.native("haptic", { style })) { try { navigator.vibrate && navigator.vibrate(style === "error" ? [20, 40, 20] : 12); } catch (e) {} }
