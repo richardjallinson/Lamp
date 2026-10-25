@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""Lamp start screen score: a 15-second cinematic cue, made from scratch (original, royalty-free).
+"""Lamp start screen score, made from scratch (original, royalty-free).
 
-  python3 app/tools/make_title_music.py      -> app/sounds/title.wav and title.mp3
+  python3 app/tools/make_title_music.py      -> app/sounds/title.mp3 (17 s, first launch)
+                                               and title-short.mp3 (8.4 s, later launches)
+
+The full cue's opening is held 2 s longer than the timeline below so the verse can be read:
+every time from 2.6 s on is 2 s later, and the hit lands at 8.6 s as the lamp enters the gate.
+The short cue goes straight from the tap to a two-second rise and the hit at 2.0 s.
 
 Timeline (matches the start screen):
   0.0 s  the tap: timpani boom, low string drone on D, sub rumble
@@ -19,9 +24,7 @@ import numpy as np
 from scipy.signal import butter, lfilter, fftconvolve
 
 SR = 44100
-DUR = 15.0
-N = int(SR * DUR)
-T = np.arange(N) / SR
+DUR = N = T = None   # set per cue in make()
 APP = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rng = np.random.default_rng(2112)  # Revelation 21:2
 
@@ -134,54 +137,79 @@ def crash(t0):
     return hp(rng.normal(0, 1, N), 3500) * np.exp(-tt / 2.2) * np.clip(tt / 0.004, 0, 1) * (T >= t0) * 0.6
 
 
-# ---------------------------------------------------------------- the cue
-mix = np.zeros(N)
-# 0.0 the tap
-mix += timpani(0.02, hz("D2"), 1.3, 3.0)
-mix += lp(rng.normal(0, 1, N), 90) * env(0.0, 1.5, 5.0, 3.0) * 0.7                    # sub rumble
-mix += strings(["D2", "A2", "D3"], env(0.05, 2.4, 0.4, 0.8), 500, 1400) * 0.32         # low drone
-# 1.2 hushed choir, D minor
-mix += choir(["D4", "F4", "A4"], env(1.2, 1.8, 0.0, 0.9)) * 0.10
-# 2.6 the light spreads: Bb major, then C major
-mix += strings(["Bb2", "F3", "Bb3", "D4", "F4"], env(2.5, 1.6, 1.0, 0.9), 700, 2800) * 0.22
-mix += choir(["D4", "F4", "Bb4"], env(2.6, 1.5, 1.0, 0.9)) * 0.10
-mix += strings(["C3", "G3", "C4", "E4", "G4"], env(4.6, 1.2, 0.75, 0.3), 900, 3600) * 0.27
-mix += choir(["E4", "G4", "C5"], env(4.6, 1.2, 0.75, 0.3)) * 0.13
-mix += roll(4.9, 6.6)
-mix += cymbal_swell(5.0, 6.62)
-# 6.6 the New Jerusalem: D major
-hit = 6.6
-mix += timpani(hit, hz("D2"), 1.6, 3.2) + timpani(hit, hz("A1"), 0.8, 3.0)
-mix += crash(hit)
-mix += brass(["D3", "A3", "D4", "F#4", "A4"], hit) * 0.20
-mix += strings(["D2", "A2", "D3", "F#3", "A3", "D4", "F#4", "A4", "D5"], env(hit - 0.05, 0.12, 2.5, 5.5), 2000, 5000) * 0.18
-mix += choir(["A3", "D4", "F#4", "A4", "D5"], env(hit, 0.3, 2.5, 5.5)) * 0.16
-mix += lp(rng.normal(0, 1, N), 70) * env(hit, 0.05, 0.6, 2.5) * 2.0                       # sub drop
+# ---------------------------------------------------------------- the cues
+def full_cue(S=2.0):
+    """The first-launch cue. S stretches the quiet opening so the verse can be read."""
+    hit = 6.6 + S
+    mix = np.zeros(N)
+    mix += timpani(0.02, hz("D2"), 1.3, 3.0)
+    mix += lp(rng.normal(0, 1, N), 90) * env(0.0, 1.5, 5.0 + S, 3.0) * 0.7                    # sub rumble
+    mix += strings(["D2", "A2", "D3"], env(0.05, 2.4, 0.4 + S, 0.8), 500, 1400) * 0.32         # low drone
+    mix += choir(["D4", "F4", "A4"], env(1.2, 1.8, S, 0.9)) * 0.10                              # hushed choir, D minor
+    mix += strings(["Bb2", "F3", "Bb3", "D4", "F4"], env(2.5 + S, 1.6, 1.0, 0.9), 700, 2800) * 0.22   # the light spreads
+    mix += choir(["D4", "F4", "Bb4"], env(2.6 + S, 1.5, 1.0, 0.9)) * 0.10
+    mix += strings(["C3", "G3", "C4", "E4", "G4"], env(4.6 + S, 1.2, 0.75, 0.3), 900, 3600) * 0.27
+    mix += choir(["E4", "G4", "C5"], env(4.6 + S, 1.2, 0.75, 0.3)) * 0.13
+    mix += roll(4.9 + S, hit)
+    mix += cymbal_swell(5.0 + S, hit + 0.02)
+    return mix, hit, 0.6
 
-# dynamics: hold the opening back so the arrival of the city lands hard
-build = np.where(T < hit - 0.05, 0.42 + 0.58 * np.clip((T - 0.6) / (hit - 0.65), 0, 1) ** 1.8, 1.0)
-boom_zone = np.exp(-np.clip(T, 0, None) / 0.9)                 # but keep the first boom strong
-mix = mix * np.maximum(build, boom_zone * 0.9)
 
-# hall reverb
-n_ir = int(SR * 3.6)
-t_ir = np.arange(n_ir) / SR
-ir = lp(rng.normal(0, 1, n_ir) * np.exp(-t_ir / 0.75), 5000)
-ir[: int(SR * 0.02)] = 0
-ir /= np.sqrt(np.sum(ir ** 2))
-wet = fftconvolve(mix, ir)[:N]
-out = 0.7 * mix + 0.45 * wet
-out = hp(out, 28)
-out = np.tanh(out / (np.percentile(np.abs(out), 99.9) * 0.9))     # gentle glue, no hard clipping
-out *= 0.89 / np.max(np.abs(out))
-fade = int(SR * 1.5)
-out[-fade:] *= np.linspace(1, 0, fade) ** 2
-out[: int(SR * 0.003)] *= np.linspace(0, 1, int(SR * 0.003))
+def short_cue():
+    """The quick cue for later launches: tap, a two-second rise, the hit as the lamp enters the gate."""
+    hit = 2.0
+    mix = np.zeros(N)
+    mix += timpani(0.02, hz("D2"), 1.2, 2.5)
+    mix += lp(rng.normal(0, 1, N), 90) * env(0.0, 0.6, 1.2, 1.0) * 0.6
+    mix += strings(["D2", "A2", "D3"], env(0.05, 0.5, 0.6, 0.8), 500, 1400) * 0.3
+    mix += strings(["C3", "G3", "C4", "E4", "G4"], env(0.35, 1.2, 0.4, 0.3), 900, 3600) * 0.27
+    mix += choir(["E4", "G4", "C5"], env(0.35, 1.2, 0.4, 0.3)) * 0.13
+    mix += roll(0.55, hit)
+    mix += cymbal_swell(0.7, hit + 0.02)
+    return mix, hit, 0.1
 
-os.makedirs(os.path.join(APP, "sounds"), exist_ok=True)
-wav, mp3 = os.path.join(APP, "sounds", "title.wav"), os.path.join(APP, "sounds", "title.mp3")
-with wave.open(wav, "wb") as w:
-    w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
-    w.writeframes(np.int16(out * 32767).tobytes())
-subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-ac", "1", "-b:a", "128k", mp3], check=True)
-print("title", DUR, "s", os.path.getsize(mp3) // 1024, "KB")
+
+def finish(mix, hit, build_from):
+    """The D major arrival, dynamics, hall reverb and fade (shared by both cues)."""
+    mix += timpani(hit, hz("D2"), 1.6, 3.2) + timpani(hit, hz("A1"), 0.8, 3.0)
+    mix += crash(hit)
+    mix += brass(["D3", "A3", "D4", "F#4", "A4"], hit) * 0.20
+    mix += strings(["D2", "A2", "D3", "F#3", "A3", "D4", "F#4", "A4", "D5"], env(hit - 0.05, 0.12, 2.5, 5.5), 2000, 5000) * 0.18
+    mix += choir(["A3", "D4", "F#4", "A4", "D5"], env(hit, 0.3, 2.5, 5.5)) * 0.16
+    mix += lp(rng.normal(0, 1, N), 70) * env(hit, 0.05, 0.6, 2.5) * 2.0                       # sub drop
+    # dynamics: hold the opening back so the arrival at the gate lands hard
+    build = np.where(T < hit - 0.05, 0.42 + 0.58 * np.clip((T - build_from) / (hit - 0.05 - build_from), 0, 1) ** 1.8, 1.0)
+    boom_zone = np.exp(-np.clip(T, 0, None) / 0.9)                 # but keep the first boom strong
+    mix = mix * np.maximum(build, boom_zone * 0.9)
+    n_ir = int(SR * 3.6)
+    t_ir = np.arange(n_ir) / SR
+    ir = lp(rng.normal(0, 1, n_ir) * np.exp(-t_ir / 0.75), 5000)
+    ir[: int(SR * 0.02)] = 0
+    ir /= np.sqrt(np.sum(ir ** 2))
+    wet = fftconvolve(mix, ir)[:N]
+    out = 0.7 * mix + 0.45 * wet
+    out = hp(out, 28)
+    out = np.tanh(out / (np.percentile(np.abs(out), 99.9) * 0.9))     # gentle glue, no hard clipping
+    out *= 0.89 / np.max(np.abs(out))
+    fade = int(SR * 1.5)
+    out[-fade:] *= np.linspace(1, 0, fade) ** 2
+    out[: int(SR * 0.003)] *= np.linspace(0, 1, int(SR * 0.003))
+    return out
+
+
+def make(name, dur, cue):
+    global DUR, N, T
+    DUR, N = dur, int(SR * dur)
+    T = np.arange(N) / SR
+    out = finish(*cue())
+    os.makedirs(os.path.join(APP, "sounds"), exist_ok=True)
+    wav, mp3 = os.path.join(APP, "sounds", name + ".wav"), os.path.join(APP, "sounds", name + ".mp3")
+    with wave.open(wav, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes(np.int16(out * 32767).tobytes())
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-ac", "1", "-b:a", "128k", mp3], check=True)
+    print(name, DUR, "s", os.path.getsize(mp3) // 1024, "KB")
+
+
+make("title", 17.0, full_cue)          # first launch: hit at 8.6 s
+make("title-short", 8.4, short_cue)    # later launches: hit at 2.0 s
