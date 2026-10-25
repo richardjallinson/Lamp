@@ -619,7 +619,7 @@
     kit: {
       open(title, opts, id) { const r = open(title, opts); mode = id; return r; },
       say, card, sealDone: (id, st) => sealDone(id, st), snd, sfx, buzz, esc, story, IMG, A, shut: () => shut(),
-      root: () => root,
+      root: () => root, scene, hot, setMode: (id) => (mode = id),
     },
   };
   function giveRelicAndGate() { open("The Garden Gate", { satchel: true, hint: gateHint }); mode = "gate"; gateScene(false); giveRelic("coat", () => { satchel(); gateScene(true); }); }
