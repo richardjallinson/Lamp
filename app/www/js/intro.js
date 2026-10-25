@@ -40,6 +40,8 @@
     }, 20);
   }
 
+  Lamp.playCue = music;   // the adventure plays the short cue when a chamber opens
+
   /* ---------- the gate's position on this screen (the painting is drawn with background-size: cover) ---------- */
   function gatePoint() {
     const r = stage.getBoundingClientRect(), k = Math.max(r.width / PIC.w, r.height / PIC.h);

@@ -77,6 +77,7 @@
     h += '<button class="daily" data-go="today"><span class="ic">' + ICON.lamp + "</span><span><b>Today’s verse</b><small>" +
       (dailyDone ? "Solved today. A new verse arrives tomorrow." : "Daily verse #" + Lamp.dailyNumber() + " · the same puzzle for everyone") + '</small></span><span class="chev">›</span></button>';
     h += weekRow() + '<div class="streakline">' + (s.lit ? "Your lamp is lit today." : s.n ? "Play one level today to keep your lamp lit." : "Finish one level to light your lamp.") + "</div>";
+    if (Lamp.adv) h += Lamp.adv.card();
     [["Old Testament", OT], ["New Testament", NT]].forEach(([name, books]) => {
       h += '<div class="testament"><h3>' + name + '</h3><div class="books">';
       books.forEach((b) => {
@@ -241,6 +242,7 @@
     v.querySelectorAll("[data-unlock]").forEach((b) => (b.onclick = () => Lamp.showUnlock(null)));
     v.querySelectorAll("[data-restore]").forEach((b) => (b.onclick = () => { if (!Lamp.native("restore")) mainToast("Restore works in the App Store version"); else mainToast("Checking the App Store…"); }));
     v.querySelectorAll("[data-reset]").forEach((b) => (b.onclick = confirmReset));
+    v.querySelectorAll("[data-adv]").forEach((b) => (b.onclick = () => Lamp.adv.click(b.dataset.adv)));
   }
 
   document.addEventListener("DOMContentLoaded", () => {

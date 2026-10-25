@@ -13,6 +13,7 @@ app/
   tools/make_xcodeproj.py  rewrites the project file after adding Swift files
   tools/make_intro_assets.py  makes the start screen pictures in www/img/start/
   tools/make_title_music.py   makes the start screen music (sounds/title*.mp3, www/js/intro-sounds.js)
+  tools/make_adventure_assets.py  makes the adventure pictures in www/img/adv/
 ```
 
 ## What the shell does
@@ -38,6 +39,25 @@ behind the painted LAMP letters and through the gate on the music's hit, then "B
 - **Skip** goes straight to the end. The ambient music (if switched on) waits until the start screen closes.
 - Pictures come from `images/lamp-000-title.jpg`, `images/originals/lamp-clay-unlit.png` and
   `images/originals/video/flame-original.mp4`; rebuild them with `python3 app/tools/make_intro_assets.py`.
+
+## The adventure (pilot)
+
+`www/js/adventure.js` and `www/css/adventure.css`. Finishing a story offers its **story seal**, a short puzzle
+built on that story's scripture; breaking it earns a **relic** for the satchel. Relics open **chambers**:
+painted scenes you tap through, like Myst.
+
+| Story | Seal | Relic |
+|---|---|---|
+| Let There Be Light | Light the Days: tap the seven days of creation in order | Stone of Days |
+| A Garden Eastward in Eden | The Four Rivers: word search (Genesis 2:10-14) | Onyx Stone |
+| Where Art Thou? | The Garden Gate chamber | Coat of Skins |
+
+The Garden Gate: the lamp reveals hidden letters on the stone → spell LIGHT → set the Onyx Stone in the hollow →
+the dial of days rises → the Stone of Days unlocks it → turn it to the day of rest → the flaming sword is still →
+lay the Coat of Skins on the threshold → the gate opens (Revelation 22:14) → on to Noah.
+Progress is saved in `adv` (relics, seals, gate steps) and merged with iCloud like the rest. The Journey screen shows
+an Adventure card with the relics, any seals still to break, and the gate. Hints in the adventure cost one drop of oil.
+Paintings: `images/originals/adventure/garden-gate/`; rebuild with `python3 app/tools/make_adventure_assets.py`.
 
 ## Sound
 

@@ -18,6 +18,7 @@
     unlocked: false,
     tutorial: false,
     intro: false,   // the full start screen has been seen once
+    adv: { relics: {}, seals: {}, gate: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
     last: null,     // storyId last played
     reviewAsked: false,
   };
@@ -50,6 +51,9 @@
     m.unlocked = !!(a.unlocked || b.unlocked);
     m.tutorial = !!(a.tutorial || b.tutorial);
     m.intro = !!(a.intro || b.intro);
+    const flags = (x, y) => Object.assign({}, (x || {}), (y || {}));
+    const aa = a.adv || {}, ba = b.adv || {};
+    m.adv = { relics: flags(aa.relics, ba.relics), seals: flags(aa.seals, ba.seals), gate: flags(aa.gate, ba.gate) };
     m.reviewAsked = !!(a.reviewAsked || b.reviewAsked);
     return m;
   }

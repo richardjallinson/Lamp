@@ -334,6 +334,7 @@
     const nextOpen = nx && (nx.free || Lamp.state.unlocked);
     const key = st.verses[st.key];
     const done = Object.keys(Lamp.state.completed).length;
+    const seal = Lamp.adv && Lamp.adv.pending(st.id);   // the adventure: this story has a seal to break
     if (firstTime && done === 3 && !Lamp.state.reviewAsked) { Lamp.state.reviewAsked = true; Lamp.save(); setTimeout(() => Lamp.native("review"), 2500); }
     setTimeout(() => still() && sheet(
       '<div class="kick">Story complete' + (firstTime ? " · +2 oil" : "") + "</div><h2>" + esc(st.title) + "</h2>" +
@@ -343,9 +344,11 @@
       '<div class="thumb"><div style="' + (st.img ? "background-image:url(img/" + st.img + ")" : "background:radial-gradient(circle at 50% 30%,rgba(201,162,74,.6),#141A33 70%)") + '"></div><p>' +
       (firstTime ? "The painting is fully lit and the verse is added to Verses gathered." : "You know this one by heart.") +
       (nx ? " Next story: <b>" + esc(nx.title) + "</b>." : " You have reached the end of the Bible.") + "</p></div>" +
-      (nx ? '<button class="cta" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
+      (seal ? '<div class="note">' + ICON.star + " <b>A seal guards this story’s relic.</b> Solve it to add the relic to your satchel.</div>" +
+        '<button class="cta" data-act="seal">' + (st.id === "fall" ? "Go to the Garden Gate" : "Break the seal: " + esc(Lamp.adv.sealTitle(st.id))) + "</button>" : "") +
+      (nx ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>',
-      { next: () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }, leave: close }), 1300);
+      { seal: () => Lamp.adv.startSeal(st.id), next: () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }, leave: close }), 1300);
   }
   function dailyCard(first) {
     const secs = Math.round((Date.now() - G.t0) / 1000), mm = Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0");

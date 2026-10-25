@@ -1,0 +1,175 @@
+/* Lamp — the adventure: story seals, relics, the satchel and the chambers (Myst-style painted scenes).
+   Everything lives in one full-screen layer, #adv, above the game. Single dark look by design. */
+#adv{position:fixed;inset:0;max-width:560px;margin:0 auto;z-index:40;background:#05070F;color:#FBF8F0;overflow:hidden;font-family:var(--ui);
+  -webkit-user-select:none;user-select:none;touch-action:manipulation;opacity:0;transition:opacity .45s ease}
+#adv.on{opacity:1}
+#adv .adv-scene{position:absolute;inset:0;overflow:hidden;touch-action:none}
+#adv .adv-box{position:absolute;transform-origin:52.3% 47%;}
+#adv .adv-box>img.bgimg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#adv .hot{position:absolute;border-radius:14px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#adv .hot:focus-visible{outline:2px solid rgba(245,196,81,.8);outline-offset:2px}
+#adv .hot.pulse{animation:adv-pulse 1.8s ease-in-out infinite}
+@keyframes adv-pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,196,81,0)}50%{box-shadow:0 0 26px 6px rgba(245,196,81,.55),inset 0 0 22px rgba(245,196,81,.35)}}
+
+/* top bar and the narrator line */
+#adv .adv-top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;z-index:5;
+  background:linear-gradient(180deg,rgba(5,7,15,.85),rgba(5,7,15,0))}
+#adv .adv-top .ttl{flex:1;text-align:center;font:700 11px/1.2 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#E3BC5C;text-shadow:0 1px 8px #000}
+#adv .abtn{min-height:38px;min-width:38px;padding:0 12px;border-radius:999px;border:1px solid rgba(201,162,74,.45);background:rgba(12,18,40,.7);color:#F3E9CE;
+  font:700 14px/1 var(--ui);display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#adv .abtn svg{width:18px;height:18px}
+#adv .say{position:absolute;left:14px;right:14px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:5;padding:12px 16px;border-radius:16px;
+  background:rgba(8,12,28,.82);border:1px solid rgba(201,162,74,.3);font:600 16px/1.45 var(--display);color:#FBF8F0;text-align:center;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;pointer-events:none}
+#adv .say.on{opacity:1;transform:none}
+#adv .say small{display:block;margin-top:4px;font:700 11px/1.2 var(--ui);letter-spacing:.16em;text-transform:uppercase;color:#C9A24A}
+
+/* the satchel */
+#adv .satchel{position:absolute;left:0;right:0;bottom:0;z-index:6;display:flex;align-items:center;gap:10px;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(0deg,rgba(5,7,15,.92),rgba(5,7,15,.6) 70%,rgba(5,7,15,0))}
+#adv .satchel .lbl{font:700 10px/1.2 var(--ui);letter-spacing:.18em;text-transform:uppercase;color:#C9A24A;writing-mode:vertical-rl;transform:rotate(180deg)}
+#adv .relic{width:62px;height:62px;border-radius:14px;border:1px solid rgba(201,162,74,.35);background:radial-gradient(circle at 50% 40%,rgba(201,162,74,.18),rgba(12,18,40,.75));
+  display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;position:relative;transition:transform .2s,border-color .2s,box-shadow .2s}
+#adv .relic img{max-width:84%;max-height:84%;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+#adv .relic.empty{border-style:dashed;opacity:.45;cursor:default}
+#adv .relic.sel{border-color:#F5C451;box-shadow:0 0 0 2px rgba(245,196,81,.5),0 0 18px rgba(245,196,81,.45);transform:translateY(-4px)}
+#adv .relic.used{opacity:.3}
+
+/* reward and message cards inside the adventure */
+#adv .asheet{position:absolute;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:rgba(6,10,24,.55);animation:adv-fade .3s ease}
+@keyframes adv-fade{from{opacity:0}}
+#adv .asheet .card{width:100%;box-sizing:border-box;max-height:92%;overflow:auto;background:var(--cream,#FBF8F0);color:#141A33;border-radius:22px 22px 0 0;
+  padding:22px 22px calc(20px + env(safe-area-inset-bottom,0px));animation:adv-up .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes adv-up{from{transform:translateY(40px);opacity:.4}}
+#adv .asheet .kick{font:800 12px/1 var(--ui);letter-spacing:.18em;text-transform:uppercase;color:#9A7722}
+#adv .asheet h2{margin:8px 0 6px;font:700 30px/1.1 var(--display);color:#141A33}
+#adv .asheet .v{font:600 19px/1.45 var(--display);margin:8px 0 4px}
+#adv .asheet .r{font:800 12px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#6B6F7E;margin-bottom:12px}
+#adv .asheet .relic-big{display:block;margin:4px auto 6px;width:min(46vw,190px);height:auto;filter:drop-shadow(0 10px 22px rgba(154,119,34,.45));animation:adv-relic 1.2s cubic-bezier(.2,1.3,.4,1)}
+@keyframes adv-relic{from{transform:scale(.4) rotate(-12deg);opacity:0}}
+#adv .asheet .cta{display:block;width:100%;min-height:52px;margin-top:10px;border-radius:14px;border:none;background:#141A33;color:#FBF8F0;font:800 16px/1 var(--ui);cursor:pointer}
+#adv .asheet .cta.alt{background:transparent;color:#141A33;border:1.5px solid #D9CFB6}
+#adv .asheet p{font:500 15px/1.5 var(--ui);color:#3A3F55;margin:6px 0}
+
+/* ---------- seal puzzles: shared ---------- */
+#adv .seal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:calc(64px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box;gap:12px}
+#adv .seal .bgp{position:absolute;inset:0;background:center/cover no-repeat;filter:brightness(.32) saturate(.8);z-index:-1}
+#adv .seal h1{margin:0;font:700 clamp(26px,7.5vw,34px)/1.1 var(--display);text-align:center;color:#FBF8F0;text-shadow:0 2px 14px #000}
+#adv .seal .how{margin:0;font:600 15px/1.45 var(--ui);color:rgba(243,233,206,.85);text-align:center;max-width:30em;text-shadow:0 1px 8px #000}
+#adv .seal .line{min-height:3.2em;font:italic 600 17px/1.45 var(--display);color:#F5E7C2;text-align:center;text-shadow:0 1px 10px #000;transition:opacity .4s}
+#adv .seal .line small{display:block;font:700 11px/1.3 var(--ui);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:#C9A24A;margin-top:4px}
+#adv .seal .bar{display:flex;gap:10px;margin-top:auto}
+
+/* Light the Days */
+#adv .ddial{position:relative;width:min(70vw,300px,38vh);aspect-ratio:1}
+#adv .ddial img{position:absolute;inset:0;width:100%;height:100%}
+#adv .ddial .base{filter:brightness(.28) saturate(.3)}
+#adv .ddial .day{opacity:0;transition:opacity .8s ease,filter .8s;filter:drop-shadow(0 0 0 rgba(245,196,81,0))}
+#adv .ddial .day.on{opacity:1;filter:drop-shadow(0 0 10px rgba(245,196,81,.55))}
+#adv .ddial.done{animation:adv-spin 2.4s cubic-bezier(.3,0,.2,1)}
+#adv .ddial.done .base{filter:none;transition:filter 1.2s}
+@keyframes adv-spin{to{transform:rotate(360deg)}}
+#adv .dcards{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:400px}
+#adv .dcard{width:min(22vw,96px);aspect-ratio:1;border-radius:14px;border:1px solid rgba(201,162,74,.4);background:radial-gradient(circle at 50% 35%,rgba(70,60,40,.9),rgba(14,16,30,.95));
+  display:flex;align-items:center;justify-content:center;padding:6px;cursor:pointer;transition:transform .25s,opacity .4s}
+#adv .dcard img{max-width:100%;max-height:100%;display:block}
+#adv .dcard.gone{opacity:0;transform:scale(.6);pointer-events:none}
+#adv .dcard.nudge{animation:adv-nudge 1.2s ease-in-out infinite}
+@keyframes adv-nudge{50%{transform:translateY(-6px);box-shadow:0 0 18px rgba(245,196,81,.6)}}
+#adv .shake{animation:adv-shake .4s}
+@keyframes adv-shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+
+/* the Four Rivers word search */
+#adv .wgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;width:min(92vw,400px);touch-action:none;padding:8px;border-radius:16px;
+  background:rgba(10,16,34,.78);border:1px solid rgba(201,162,74,.35);box-sizing:border-box}
+#adv .wc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font:700 clamp(15px,4.6vw,20px)/1 var(--display);color:#F3E9CE;transition:background .15s,color .15s}
+#adv .wc.sel{background:rgba(245,196,81,.85);color:#141A33}
+#adv .wc.f-river{background:rgba(94,160,214,.55);color:#fff}
+#adv .wc.f-gold{background:rgba(201,162,74,.55);color:#fff}
+#adv .wc.hint{animation:adv-hintc 1s ease-in-out 3}
+@keyframes adv-hintc{50%{background:rgba(245,196,81,.9);color:#141A33}}
+#adv .wlist{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;max-width:400px;font:700 13px/1.4 var(--ui);letter-spacing:.08em}
+#adv .wlist span{color:rgba(243,233,206,.85)}
+#adv .wlist span.river{color:#9DCBF0}
+#adv .wlist span.done{text-decoration:line-through;opacity:.45}
+
+/* ---------- the Garden Gate ---------- */
+#adv .sword{position:absolute;left:52.3%;top:46.5%;height:44%;width:auto;transform:translate(-50%,-50%);pointer-events:none;transition:opacity 1.6s ease,top 1.6s ease,height 1.6s ease;
+  filter:drop-shadow(0 0 18px rgba(255,140,40,.55))}
+#adv .sword-turn{position:absolute;inset:0;animation:adv-turn 2.6s linear infinite;transform-style:preserve-3d;transform-origin:52.3% 46.5%}
+#adv .swordwrap{position:absolute;left:0;top:0;width:100%;height:100%;perspective:600px;pointer-events:none}
+@keyframes adv-turn{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+#adv .swordwrap .bob{position:absolute;inset:0;animation:adv-bob 3.2s ease-in-out infinite}
+@keyframes adv-bob{50%{transform:translateY(-1.2%)}}
+#adv.still .swordwrap .sword-turn,#adv.still .swordwrap .bob{animation:none}
+#adv.still .sword{opacity:0;top:60%;height:30%}
+#adv .seam{position:absolute;left:52.3%;top:28.2%;height:38.7%;width:.6%;transform:translateX(-50%);background:linear-gradient(90deg,rgba(255,200,90,0),rgba(255,236,170,.95),rgba(255,200,90,0));
+  mix-blend-mode:screen;opacity:.45;animation:adv-seam 2.6s ease-in-out infinite;pointer-events:none;transition:width 1.8s ease,opacity 1s}
+@keyframes adv-seam{50%{opacity:.8}}
+#adv .seam.wide{width:30%;opacity:1;animation:none}
+#adv .coat-laid{position:absolute;left:52.3%;top:68.2%;width:17%;transform:translate(-50%,-50%) scale(.6);opacity:0;transition:opacity .8s,transform .9s cubic-bezier(.2,1.2,.4,1);pointer-events:none;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.7))}
+#adv .coat-laid.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#adv .flash{position:absolute;inset:0;z-index:4;background:radial-gradient(circle at 52% 47%,#FFFBEA 0%,#FFE7A3 35%,#F5C451 70%,#C9A24A 100%);opacity:0;pointer-events:none;transition:opacity .9s ease}
+#adv .flash.on{opacity:1;transition:opacity .5s ease}
+#adv .adv-box.zoom{transition:transform 2.1s cubic-bezier(.5,0,.8,.5);transform:scale(1.9)}
+#adv .adv-box.push{animation:adv-push 7s ease-out forwards}
+@keyframes adv-push{from{transform:scale(1.14)}to{transform:scale(1)}}
+
+/* the stone panel: lamp light in the dark */
+#adv .dark{position:absolute;inset:0;background:rgba(2,3,8,.93);pointer-events:none;transition:opacity 1.6s ease;
+  -webkit-mask-image:radial-gradient(circle at var(--mx,-200px) var(--my,-200px),transparent 0,transparent var(--lr,70px),#000 calc(var(--lr,70px) * 1.8));
+  mask-image:radial-gradient(circle at var(--mx,-200px) var(--my,-200px),transparent 0,transparent var(--lr,70px),#000 calc(var(--lr,70px) * 1.8))}
+#adv .dark.gone{opacity:0}
+#adv .handlamp{position:absolute;width:86px;pointer-events:none;opacity:0;transition:opacity .3s;z-index:3}
+#adv .handlamp.on{opacity:1}
+#adv .handlamp img{width:100%;display:block}
+#adv .handlamp .hf{position:absolute;left:19.5%;bottom:32%;width:21%;transform:translateX(-50%)}
+#adv .glyph{position:absolute;transform:translate(-50%,-50%);font:700 clamp(40px,12vw,64px)/1 var(--display);color:#FFE7A3;
+  text-shadow:0 0 14px rgba(255,200,90,.95),0 0 34px rgba(255,170,60,.6);opacity:0;transition:transform .35s;cursor:default}
+#adv .glyph.seen,#adv .glyph.tap{opacity:.95;transition:opacity .6s,transform .35s}
+#adv .glyph.tap{cursor:pointer}
+#adv .glyph.used{opacity:.18;transform:translate(-50%,-50%) scale(.85)}
+#adv .slots{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);display:flex;gap:8px;opacity:0;transition:opacity .6s;pointer-events:none}
+#adv .slots.on{opacity:1}
+#adv .slots i{width:min(11vw,48px);height:min(13vw,56px);border-radius:10px;border:1.5px solid rgba(255,214,120,.55);background:rgba(10,8,4,.55);display:flex;align-items:center;justify-content:center;
+  font:700 clamp(24px,7vw,34px)/1 var(--display);font-style:normal;color:#FFE7A3;text-shadow:0 0 10px rgba(255,190,80,.8)}
+#adv .lit-panel{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(255,220,140,.35),rgba(255,200,100,0) 60%);mix-blend-mode:screen;opacity:0;transition:opacity 1.6s;pointer-events:none}
+#adv .lit-panel.on{opacity:1}
+#adv .onyx-set{position:absolute;left:50.2%;top:16.3%;width:16%;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:opacity .8s,transform .9s cubic-bezier(.2,1.3,.4,1);pointer-events:none;
+  filter:drop-shadow(0 0 16px rgba(255,190,90,.7))}
+#adv .onyx-set.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* the dial of days */
+#adv .dialscene{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(4,5,12,.78);
+  opacity:0;transition:opacity .6s;pointer-events:none}
+#adv .dialscene.on{opacity:1;pointer-events:auto}
+#adv .gdial{position:relative;width:min(80vw,340px,46vh);aspect-ratio:1;touch-action:none;transform:translateY(30px) scale(.85);transition:transform 1s cubic-bezier(.2,1.1,.4,1)}
+#adv .dialscene.on .gdial{transform:none}
+#adv .gdial .wheel{position:absolute;inset:0;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+#adv .gdial .wheel.drag{transition:none}
+#adv .gdial img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#adv .gdial img.hubstone{inset:auto;height:auto;object-fit:contain;position:absolute;left:50%;top:50%;width:30%;transform:translate(-50%,-50%) scale(.4);opacity:0;transition:opacity .8s,transform .9s cubic-bezier(.2,1.3,.4,1)}
+#adv .gdial.keyed img.hubstone{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#adv .gdial .hubhot{position:absolute;left:35%;top:35%;width:30%;height:30%;border-radius:50%;cursor:pointer}
+#adv .gdial .marker{position:absolute;left:50%;top:-16px;transform:translateX(-50%);width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:20px solid #F5C451;
+  filter:drop-shadow(0 0 8px rgba(245,196,81,.8))}
+#adv .gdial.solved{filter:drop-shadow(0 0 26px rgba(245,196,81,.7))}
+#adv .dialbtns{display:flex;gap:18px}
+@media (prefers-reduced-motion:reduce){#adv *{animation:none!important}}
+
+/* ---------- the Adventure card on the Journey screen ---------- */
+.advcard{margin-top:16px;padding:14px;border-radius:18px;background:linear-gradient(160deg,rgba(28,36,70,.9),rgba(12,18,40,.95));border:1px solid rgba(201,162,74,.4)}
+.advhead{display:flex;align-items:baseline;justify-content:space-between}
+.advhead h3{margin:0;font:700 22px/1.1 var(--display);color:var(--cream)}
+.advhead small{font:700 11px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.advrelics{display:flex;gap:10px;margin:12px 0 4px}
+.advrelic{width:58px;height:58px;border-radius:14px;border:1px solid rgba(201,162,74,.4);background:radial-gradient(circle at 50% 40%,rgba(201,162,74,.2),rgba(12,18,40,.8));
+  display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.advrelic img{max-width:84%;max-height:84%}
+.advrelic.empty{border-style:dashed;opacity:.4;cursor:default}
+.advrow{display:block;width:100%;text-align:left;margin-top:8px;padding:12px 14px;border-radius:14px;border:1px solid rgba(201,162,74,.35);background:rgba(255,255,255,.04);color:var(--cream);cursor:pointer}
+.advrow b{display:block;font:700 18px/1.2 var(--display)}
+.advrow small{display:block;margin-top:3px;font:600 13px/1.3 var(--ui);color:var(--muted)}
+.advrow.gate{background:linear-gradient(90deg,rgba(201,162,74,.22),rgba(201,162,74,.04))}
+.advrow.locked{opacity:.55}
