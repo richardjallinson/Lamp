@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Lamp Start Screen</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -15,13 +16,13 @@ body{margin:0;background:var(--night);color:var(--cream);font-family:var(--ui);o
 
 /* the painting, revealed by a growing circle of light around the lamp */
 #paint{position:absolute;inset:0;background:url(__BG__) center/cover no-repeat;opacity:0;filter:brightness(.55) saturate(.8);
-  -webkit-mask-image:radial-gradient(circle at 50% 46%,#000 calc(var(--r) - 18%),transparent var(--r));mask-image:radial-gradient(circle at 50% 46%,#000 calc(var(--r) - 18%),transparent var(--r));
+  -webkit-mask-image:radial-gradient(circle at 40% 46%,#000 calc(var(--r) - 18%),transparent var(--r));mask-image:radial-gradient(circle at 40% 46%,#000 calc(var(--r) - 18%),transparent var(--r));
   transition:--r 3.2s cubic-bezier(.3,.1,.2,1),opacity 1.2s ease,filter 3s ease}
 #stage.reveal #paint{--r:150%;opacity:1;filter:brightness(.92) saturate(1)}
 #shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,7,15,.15) 0%,rgba(5,7,15,0) 40%,rgba(5,7,15,.2) 60%,rgba(5,7,15,.88) 100%)}
 
-/* glow around the flame */
-#glow{position:absolute;left:50%;top:46%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);
+/* glow around the flame (lives inside #lamp, centred on the wick hole) */
+#glow{position:absolute;left:var(--fx);top:var(--fy);width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;
   background:radial-gradient(circle,rgba(255,214,120,.55) 0%,rgba(245,196,81,.18) 35%,rgba(245,196,81,0) 70%);
   transition:width 2.4s cubic-bezier(.2,.7,.2,1),height 2.4s cubic-bezier(.2,.7,.2,1),opacity 1s;opacity:0}
 #stage.lit #glow{width:min(150vw,820px);height:min(150vw,820px);opacity:1;animation:breathe 3.4s ease-in-out 2.4s infinite}
@@ -29,15 +30,21 @@ body{margin:0;background:var(--night);color:var(--cream);font-family:var(--ui);o
 
 canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
-/* the lamp */
-#lamp{position:absolute;left:50%;top:46%;width:min(46vw,210px);transform:translate(-50%,-38%);transition:top 1.6s cubic-bezier(.4,0,.2,1),width 1.6s cubic-bezier(.4,0,.2,1),filter 1s}
-#lamp svg{width:100%;height:auto;display:block;overflow:visible}
-#stage:not(.lit) #lamp{filter:grayscale(.85) brightness(.45)}
-#flame{transform-origin:50% 92%;transform:scale(0);transition:transform .9s cubic-bezier(.2,1.4,.4,1)}
-#stage.lit #flame{transform:scale(1);animation:flicker 2.2s ease-in-out .9s infinite}
+/* the lamp: Richard's clay oil lamp painting; the app adds the flame at the wick hole */
+#lamp{--fx:19.5%;--fy:68%;position:absolute;left:50%;top:46%;width:min(66vw,300px);aspect-ratio:700/464;transform:translate(-50%,-40%);transition:top 1.6s cubic-bezier(.4,0,.2,1),width 1.6s cubic-bezier(.4,0,.2,1)}
+#clay,#warm{position:absolute;inset:0;width:100%;height:100%;display:block}
+#clay{filter:brightness(.42) saturate(.55) drop-shadow(0 10px 18px rgba(0,0,0,.7));transition:filter 1.4s ease}
+#stage.lit #clay{filter:brightness(1.02) saturate(1.05) drop-shadow(0 12px 22px rgba(0,0,0,.75))}
+#warm{background:radial-gradient(circle at var(--fx) 40%,rgba(255,200,110,.95) 0%,rgba(255,150,60,.45) 22%,rgba(255,120,40,.12) 48%,transparent 75%);
+  mix-blend-mode:screen;-webkit-mask:url(__LAMP__) center/100% 100% no-repeat;mask:url(__LAMP__) center/100% 100% no-repeat;opacity:0;transition:opacity 1.2s ease .3s}
+#stage.lit #warm{opacity:.6;animation:warm 2.2s ease-in-out 1.6s infinite}
+@keyframes warm{50%{opacity:.48}}
+#flame{position:absolute;left:var(--fx);bottom:calc(100% - var(--fy));width:21%;transform:translateX(-50%)}
+#flame svg{width:100%;height:auto;display:block;overflow:visible;transform-origin:50% 96%;transform:scale(0);transition:transform .9s cubic-bezier(.2,1.4,.4,1)}
+#stage.lit #flame svg{transform:scale(1);animation:flicker 2.2s ease-in-out .9s infinite}
 @keyframes flicker{0%,100%{transform:scale(1,1) skewX(0)}20%{transform:scale(.96,1.05) skewX(-2deg)}45%{transform:scale(1.03,.97) skewX(1.5deg)}70%{transform:scale(.98,1.04) skewX(-1deg)}}
-#stage.title #lamp{top:58%;width:min(20vw,86px)}
-#stage.title #glow{top:58%;width:min(90vw,460px);height:min(90vw,460px)}
+#stage.title #lamp{top:58%;width:min(30vw,132px)}
+#stage.title #glow{width:min(90vw,460px);height:min(90vw,460px)}
 
 /* text */
 .verse{position:absolute;left:0;right:0;top:61%;padding:0 max(28px,env(safe-area-inset-left,0px));text-align:center;font:600 clamp(23px,6.6vw,30px)/1.45 var(--display);color:var(--cream);text-shadow:0 2px 18px rgba(0,0,0,.85);transition:opacity 1s,top 1.6s cubic-bezier(.4,0,.2,1)}
@@ -74,32 +81,29 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .toast{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--cream);color:#141A33;padding:12px 18px;border-radius:14px;font:700 14px/1.4 var(--ui);text-align:center;max-width:80%;opacity:0;pointer-events:none;transition:opacity .3s}
 .toast.on{opacity:1}
 button:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
-@media (max-height:720px){#stage.title #lamp{top:51%;width:min(17vw,72px)}#stage.title #glow{top:51%}.titleblock{top:59%}.cta{bottom:calc(62px + env(safe-area-inset-bottom,0px))}}
+@media (max-height:720px){#stage.title #lamp{top:51%;width:min(26vw,112px)}.titleblock{top:59%}.cta{bottom:calc(62px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
 
 <div id="stage" role="application" aria-label="Lamp start screen">
   <div id="paint" aria-hidden="true"></div>
   <div id="shade" aria-hidden="true"></div>
-  <div id="glow" aria-hidden="true"></div>
   <canvas id="embers" aria-hidden="true"></canvas>
   <div id="lamp" aria-hidden="true">
-    <svg viewBox="0 0 24 24">
-      <defs>
-        <radialGradient id="fl" cx="50%" cy="70%" r="65%"><stop offset="0" stop-color="#FFFBE6"/><stop offset=".45" stop-color="#FFE08A"/><stop offset="1" stop-color="#F0A63A"/></radialGradient>
-        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2BE63"/><stop offset="1" stop-color="#8E6B22"/></linearGradient>
-        <filter id="soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation=".55"/></filter>
-      </defs>
-      <g id="flame">
+    <div id="glow"></div>
+    <img id="clay" src="__LAMP__" alt="">
+    <div id="warm"></div>
+    <div id="flame">
+      <svg viewBox="7.6 0 8.8 11.6">
+        <defs>
+          <radialGradient id="fl" cx="50%" cy="70%" r="65%"><stop offset="0" stop-color="#FFFBE6"/><stop offset=".45" stop-color="#FFE08A"/><stop offset="1" stop-color="#F0A63A"/></radialGradient>
+          <filter id="soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation=".55"/></filter>
+        </defs>
         <path d="M12 1.6c2 2.8 3.1 4.8 3.1 6.4A3.1 3.1 0 0 1 12 11.1 3.1 3.1 0 0 1 8.9 8c0-1.6 1.1-3.6 3.1-6.4z" fill="#F5B444" filter="url(#soft)" opacity=".9"/>
         <path d="M12 2.5c1.7 2.4 2.6 4.1 2.6 5.4A2.6 2.6 0 0 1 12 10.5a2.6 2.6 0 0 1-2.6-2.6c0-1.3.9-3 2.6-5.4z" fill="url(#fl)"/>
         <path d="M12 5.4c.7 1 1.1 1.8 1.1 2.4a1.1 1.1 0 0 1-2.2 0c0-.6.4-1.4 1.1-2.4z" fill="#FFFDF2"/>
-      </g>
-      <rect x="11.4" y="9.9" width="1.2" height="2" rx=".5" fill="#3A2A12"/>
-      <path d="M3 15.5c2.5 0 3.5-2 6-2h6c2.6 0 4.2 1.4 6 1.4-.7 2.6-3.4 4.6-7 4.6H9.5c-3.4 0-5.6-1.6-6.5-4z" fill="url(#body)"/>
-      <path d="M5 15.6c1.8-.2 2.6-1.3 4.4-1.3h5.3" stroke="#FFF1C2" stroke-width=".35" fill="none" opacity=".55" stroke-linecap="round"/>
-      <rect x="9.5" y="11.5" width="5" height="2" rx="1" fill="url(#body)"/>
-    </svg>
+      </svg>
+    </div>
   </div>
 
   <div id="prompt">Tap to light the lamp<small>Lamp · Bible Word Puzzle</small></div>
@@ -163,8 +167,8 @@ button:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
   var embers=(function(){
     var cv=document.getElementById('embers'), c=cv.getContext('2d'), ps=[], run=false, raf=0, W=0, H=0, dpr=1;
     function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;c.setTransform(dpr,0,0,dpr,0,0);}
-    function spawn(){var lamp=document.getElementById('lamp').getBoundingClientRect(),st=stage.getBoundingClientRect();
-      return {x:lamp.left-st.left+lamp.width*(.45+Math.random()*.1),y:lamp.top-st.top+lamp.height*.25,vx:(Math.random()-.5)*.35,vy:-(.35+Math.random()*.9),life:0,max:180+Math.random()*200,r:.6+Math.random()*1.6};}
+    function spawn(){var f=document.getElementById('flame').getBoundingClientRect(),st=stage.getBoundingClientRect();
+      return {x:f.left-st.left+f.width*(.35+Math.random()*.3),y:f.top-st.top+f.height*.25,vx:(Math.random()-.5)*.35,vy:-(.35+Math.random()*.9),life:0,max:180+Math.random()*200,r:.6+Math.random()*1.6};}
     function tick(){c.clearRect(0,0,W,H);
       if(run&&ps.length<70&&Math.random()<.5)ps.push(spawn());
       ps=ps.filter(function(p){p.life++;p.x+=p.vx+Math.sin((p.life+p.r*40)/22)*.25;p.y+=p.vy;var a=1-p.life/p.max;if(a<=0)return false;
