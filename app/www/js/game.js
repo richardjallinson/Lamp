@@ -273,6 +273,28 @@
     const n = Lamp.streak().n;
     return n > 1 ? n + " days in a row. One rest day a week never breaks it." : "Come back tomorrow to keep it burning. One rest day a week never breaks it.";
   }
+  /* Level-complete headlines: picked at random, never one of the last dozen shown. */
+  const PRAISE = {
+    any: ["Well done", "Nice job", "Great work", "Keep going", "Beautiful", "That's it", "Nicely done", "Good going",
+      "Wonderful", "Spot on", "Way to go", "You got it", "Lovely work", "Bright work", "Shining", "Keep it burning",
+      "Well found", "Light on your path", "Word by word", "Steady on", "On your way", "Brilliant", "Excellent",
+      "Splendid", "Right on", "Good and faithful", "Hidden in your heart", "Line upon line", "Burning bright",
+      "Another lamp lit", "Onward", "Press on", "Perfect", "Superb", "You're glowing", "Strong work", "Neatly done",
+      "That's the word", "Treasure found", "Well remembered"],
+    clean: ["Flawless", "No hints needed", "All on your own", "Clean as a whistle", "Sharp eyes", "Not a hint in sight"],
+    bonus: ["Bonus words too", "Extra oil earned", "Above and beyond", "Digging deeper"],
+    almost: ["Nearly there", "One more to go", "The last step awaits", "Almost home"],
+  };
+  const recentPraise = [];
+  function praise(kinds) {
+    let pool = [];
+    kinds.forEach((k) => { pool = pool.concat(PRAISE[k]); });
+    let fresh = pool.filter((p) => !recentPraise.includes(p));
+    if (!fresh.length) fresh = pool;
+    const pick = fresh[Math.floor(Math.random() * fresh.length)];
+    recentPraise.push(pick); if (recentPraise.length > 12) recentPraise.shift();
+    return pick;
+  }
   function levelDone() {
     const lv = L();
     const marked = VERSE.map((w) => (lv.hide.includes(norm(w)) ? "<mark>" + esc(w.replace(/[^A-Za-z]/g, "")) + "</mark>" + esc(w.replace(/[A-Za-z]/g, "")) : esc(w))).join(" ");
@@ -282,8 +304,16 @@
     if (G.mode === "daily") { lit(1); setTimeout(() => still() && dailyCard(first), 700); return; }
     lit((G.lv + 1) / LEVELS.length);
     const nextIsRecall = LEVELS[G.lv + 1] && LEVELS[G.lv + 1].recall;
+    // a special headline about a quarter of the time when it fits (no hints, bonus words, next is the last level)
+    const kinds = ["any"];
+    if (Math.random() < 0.25) {
+      if (nextIsRecall) kinds.splice(0, 1, "almost");
+      else if (G.bonusFound.length) kinds.splice(0, 1, "bonus");
+      else if (!G.hintsUsed) kinds.splice(0, 1, "clean");
+    }
+    const head = praise(kinds);
     setTimeout(() => still() && sheet(
-      '<div class="kick">Level ' + (G.lv + 1) + " complete</div><h2>Well done</h2>" +
+      '<div class="kick">Level ' + (G.lv + 1) + " complete</div><h2>" + esc(head) + "</h2>" +
       '<div class="v">' + marked + '</div><div class="r">' + esc(curVerse().ref) + " · KJV</div>" +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
       (G.bonusFound.length ? '<div class="note">Bonus words: <b>' + esc(G.bonusFound.join(", ").toLowerCase()) + "</b></div>" : "") +
