@@ -71,11 +71,13 @@ def layout(words, rnd, tries=500):
     best = None
     for _ in range(tries):
         order = [words[0]] + rnd.sample(words[1:], len(words) - 1)
-        grid, placed = {}, []
+        grid, dirs, placed = {}, {}, []
 
         def put(w, r, c, d):
             for i, ch in enumerate(w):
-                grid[(r + (i if d else 0), c + (0 if d else i))] = ch
+                p = (r + (i if d else 0), c + (0 if d else i))
+                grid[p] = ch
+                dirs.setdefault(p, set()).add(d)
             placed.append((w, r, c, d))
 
         def ok(w, r, c, d):
@@ -87,7 +89,7 @@ def layout(words, rnd, tries=500):
                 p = (r + dr * i, c + dc * i)
                 g = grid.get(p)
                 if g:
-                    if g != ch:
+                    if g != ch or d in dirs[p]:   # a word may only cross another, never lie along it
                         return False
                     cross += 1
                 else:   # a new square must not touch a neighbour alongside it
@@ -187,6 +189,7 @@ def make_story(st, dic, block, kjv, freq, rnd):
         if not best:
             raise SystemExit(f"{st['id']}: no crossword for step {k + 1}")
         _, seed, wheel, placed, gw, gh, cands = best
+        check_grid(st["id"], placed)
         used_seeds.add(seed)
         grid_words = [p[0] for p in placed]
         used_words.update(grid_words)
@@ -200,6 +203,39 @@ def make_story(st, dic, block, kjv, freq, rnd):
                     "words": [{"w": p[0], "r": p[1], "c": p[2], "d": p[3]} for p in placed],
                     "gold": seed if k >= GOLD_FROM else None, "clue": bool(clue), "bonus": bonus})
     return out
+
+
+def check_grid(sid, placed):
+    """Every word must be visible on its own: no word lies inside another, and every square is in a word."""
+    seen = {}
+    for w, r, c, d in placed:
+        for i in range(len(w)):
+            p = (r + (i if d else 0), c + (0 if d else i))
+            if d in seen.get(p, set()):
+                raise SystemExit(f"{sid}: {w} runs along another word")
+            seen.setdefault(p, set()).add(d)
+    # every row and column: each run of 2+ letters must be exactly one of the grid's words
+    grid = {}
+    for w, r, c, d in placed:
+        for i, ch in enumerate(w):
+            grid[(r + (i if d else 0), c + (0 if d else i))] = ch
+    words = {(w, r, c, d) for w, r, c, d in placed}
+    rows = max(p[0] for p in grid) + 1
+    cols = max(p[1] for p in grid) + 1
+    for d in (0, 1):
+        for a in range(rows if d == 0 else cols):
+            run, start = "", None
+            for b in range((cols if d == 0 else rows) + 1):
+                p = (a, b) if d == 0 else (b, a)
+                ch = grid.get(p)
+                if ch:
+                    if not run:
+                        start = p
+                    run += ch
+                    continue
+                if len(run) >= 2 and (run, start[0], start[1], d) not in words:
+                    raise SystemExit(f"{sid}: the grid shows {run}, which is not one of its words")
+                run = ""
 
 
 def relayout(words, rnd):
