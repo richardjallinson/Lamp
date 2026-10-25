@@ -358,7 +358,10 @@
     const done = Object.keys(Lamp.state.completed).length;
     const seal = Lamp.adv && Lamp.adv.pending(st.id);   // the adventure: this story has a seal to break
     if (firstTime && done === 3 && !Lamp.state.reviewAsked) { Lamp.state.reviewAsked = true; Lamp.save(); setTimeout(() => Lamp.native("review"), 2500); }
-    setTimeout(() => still() && sheet(
+    /* the finished painting first, full screen (tap to go on), then the story-complete card */
+    setTimeout(() => { if (!still()) return; if (st.img) Lamp.showPainting(st, () => still() && storyCard()); else storyCard(); }, 1300);
+    const storyCard = () => {
+    const sh = sheet(
       '<div class="kick">Story complete' + (firstTime ? " · +2 oil" : "") + "</div><h2>" + esc(st.title) + "</h2>" +
       '<div class="v">“' + esc(key.w.join(" ")) + '”</div><div class="r">' + esc(key.ref) + " · KJV</div>" +
       (first ? '<div class="note">' + ICON.lamp + " <b>Your lamp is lit for today.</b> " + streakLine() + "</div>" : "") +
@@ -372,9 +375,28 @@
       '<button class="cta alt" data-act="leave">Back to the journey</button>',
       { seal: () => { const go = () => Lamp.adv.startSeal(st.id); if (st.id === "fall" && Lamp.narr) Lamp.narr.ending(st, null, "Go to the Garden Gate", go); else go(); },
         next: () => { const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }; if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },
-        leave: () => { Lamp.narr && Lamp.narr.stop(); close(); } }), 1300);
-    setTimeout(() => still() && Lamp.narr && Lamp.narr.verse(st.id), 1900);   // the Lamplighter reads the verse
+        leave: () => { Lamp.narr && Lamp.narr.stop(); close(); } });
+    const th = sh.querySelector(".thumb>div");
+    if (th && st.img) { th.classList.add("tap"); th.setAttribute("role", "button"); th.setAttribute("aria-label", "See the painting"); th.onclick = () => Lamp.showPainting(st, () => {}); }
+    };
+    setTimeout(() => still() && Lamp.narr && Lamp.narr.verse(st.id), 1900);   // the Lamplighter reads the verse over the painting
   }
+  /* A story's painting, full screen and fully lit: shown when the story is finished, and from the card's thumbnail. */
+  Lamp.showPainting = function (st, then) {
+    const old = document.getElementById("reveal"); if (old) old.remove();
+    const el = document.createElement("div");
+    el.id = "reveal"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", st.title + ", painting");
+    el.innerHTML = '<div class="rv-blur" style="background-image:url(img/' + st.img + ')"></div><img class="rv-img" src="img/' + st.img + '" alt="">' +
+      '<div class="rv-cap"><div class="rv-kick">' + esc(st.book) + '</div><div class="rv-ttl">' + esc(st.title) + '</div><div class="rv-ref">' + esc(st.verses[st.key].ref) + "</div>" +
+      '<div class="rv-tap">Tap to continue</div></div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(() => el.classList.add("on"));
+    let ready = false; setTimeout(() => (ready = true), 900);
+    el.addEventListener("click", () => {
+      if (!ready) return;
+      el.classList.remove("on"); setTimeout(() => el.remove(), 500); then && then();
+    });
+  };
   function dailyCard(first) {
     const secs = Math.round((Date.now() - G.t0) / 1000), mm = Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0");
     const hu = G.hintsUsed, fl = hu === 0 ? 3 : hu === 1 ? 2 : 1, lamps = "🪔".repeat(fl) + "·".repeat(3 - fl), dn = Lamp.dailyNumber();

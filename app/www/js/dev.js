@@ -22,6 +22,7 @@
   document.addEventListener("DOMContentLoaded", () => document.body.appendChild(btn));
 
   function where() {
+    if ($("reveal")) return "reveal";
     if ($("narr")) return "narr";
     if ($("intro") && !$("intro").classList.contains("closing")) return "intro";
     if ($("adv")) return "adv";
@@ -52,7 +53,8 @@
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
     const w = where();
-    if (w === "narr") { const b = document.querySelector("#narr .ncta"); b && b.click(); }
+    if (w === "reveal") { $("reveal").click(); setTimeout(() => $("reveal") && $("reveal").click(), 950); }
+    else if (w === "narr") { const b = document.querySelector("#narr .ncta"); b && b.click(); }
     else if (w === "intro") { const s = $("in-skip"), b = $("in-begin"); if ($("intro").classList.contains("title")) b && b.click(); else if ($("intro").classList.contains("lit")) s && s.click(); else { const l = $("in-light"); l && l.click(); } }
     else if (w === "adv") { Lamp.adv && Lamp.adv.devSkip(); }
     else if (w === "level") skipLevel();
