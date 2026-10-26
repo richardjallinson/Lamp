@@ -8,7 +8,7 @@
   /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
      The progress saved by an older build, here and in iCloud, is set aside.
      !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
-  const BUILD = "v1s";
+  const BUILD = "v1t";
   const FRESH_EACH_BUILD = true;
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.build = BUILD;

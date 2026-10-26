@@ -92,3 +92,15 @@
 .welcome .wpromo b{display:block;font:400 18px/1.2 "Baskerville",Georgia,serif;letter-spacing:.1em;text-transform:uppercase;color:#F5D27A}
 .welcome .wpromo span{font:italic 600 14px/1.4 var(--display)}
 #intro .in-sub{line-height:1.55}
+/* the start screen on taller iPhones: larger lettering, like the small-phone layout Richard chose */
+@media (min-height:721px){
+  #intro .in-title{top:8.5%}
+  #intro .in-lamp-word{font-size:clamp(84px,27vw,132px)}
+  #intro .in-sub{font-size:clamp(17px,5.1vw,22px);letter-spacing:.3em;margin-right:-.3em}
+  #intro .in-rule{margin:16px auto 14px}
+  #intro .in-tag{font-size:clamp(18px,5.1vw,22px)}
+  #intro .in-begin{min-height:62px;font-size:19px;min-width:min(84vw,340px)}
+  #intro .in-promo{font-size:14px}
+  #intro .in-promo b{font-size:14.5px}
+  #intro .in-credit{font-size:14.5px}
+}
