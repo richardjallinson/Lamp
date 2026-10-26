@@ -104,6 +104,7 @@
       embers.stop(); timers.forEach(clearTimeout);
       stage.remove(); stage = null;
       Lamp.introOn = false; Lamp.musicUpdate && Lamp.musicUpdate();
+      Lamp.afterIntro && Lamp.afterIntro();
     }, 750);
   }
 
@@ -152,6 +153,7 @@
       '<div class="in-title" aria-label="Lamp, Bible Word Puzzle"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle</div></div>' +
       '<div class="in-titleblock"><div class="in-tag">Thy word is a lamp unto my feet.<br>' + (back ? "Your journey continues." : "Your journey begins.") + "</div></div>" +
       '<button class="in-begin" id="in-begin">' + (back ? "Continue the journey" : "Begin the journey") + "</button>" +
+      '<div class="in-promo">Coming soon: <b>The Final Seven Years</b><br>A journey through Daniel and Revelation</div>' +
       '<div class="in-credit">Created by Richard J. Allinson</div>' +
       '<button class="in-skip" id="in-skip" aria-label="Skip">Skip</button>' +
       '<button class="in-sr" id="in-light">Light the lamp</button>';

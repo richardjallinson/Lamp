@@ -24,7 +24,8 @@
     last: null,     // storyId last played
     reviewAsked: false,
     devOpen: false,
-    build: null,      // the build that saved this progress (see js/release.js)   // tester tools: every story open, ignoring the adventure order
+    build: null,
+    welcomed: false,  // the first-time welcome has been shown      // the build that saved this progress (see js/release.js)   // tester tools: every story open, ignoring the adventure order
   };
   const clone = (o) => JSON.parse(JSON.stringify(o));
 

@@ -89,6 +89,7 @@
     h += '<button class="daily" data-go="today"><span class="ic">' + ICON.lamp + "</span><span><b>Today’s verse</b><small>" +
       (dailyDone ? "Solved today. A new verse arrives tomorrow." : "Daily verse #" + Lamp.dailyNumber() + " · the same puzzle for everyone") + '</small></span><span class="chev">›</span></button>';
     h += weekRow() + '<div class="streakline">' + (s.lit ? "Your lamp is lit today." : s.n ? "Play one level today to keep your lamp lit." : "Finish one level to light your lamp.") + "</div>";
+    if (Lamp.fsy) h += Lamp.fsy.card();
     if (Lamp.adv) h += Lamp.adv.card();
     [["Old Testament", OT], ["New Testament", NT]].forEach(([name, books]) => {
       h += '<div class="testament"><h3>' + name + '</h3><div class="books">';
@@ -191,11 +192,27 @@
   }
 
   /* ---------- unlock ---------- */
+  /* the first time the app is opened: how Lamp works, and what is coming */
+  Lamp.afterIntro = function () {
+    if (Lamp.state.welcomed) return;
+    Lamp.state.welcomed = true; Lamp.save();
+    const sh = Lamp.sheet('<div class="welcome"><div class="kick">Welcome to Lamp</div><h2>Thy word is a lamp unto my feet</h2>' +
+      '<div class="wstep"><i>1</i><p><b>Spell the words.</b> Swipe the letters on the wheel to fill crosswords and complete real King James verses.</p></div>' +
+      '<div class="wstep"><i>2</i><p><b>Learn it by heart.</b> Each story ends with its key verse rebuilt from memory.</p></div>' +
+      '<div class="wstep"><i>3</i><p><b>Solve the way forward.</b> A puzzle at the end of each story earns a relic and opens the next story.</p></div>' +
+      '<div class="wstep"><i>4</i><p><b>Keep your lamp filled.</b> Bonus words earn oil; oil buys hints.</p></div>' +
+      '<div class="wpromo"><b>The Final Seven Years</b><span>A prophecy investigation through Daniel and Revelation. The first chapter is ready to play now; more are coming soon.</span></div>' +
+      '<button class="cta" data-act="go">Begin in Genesis</button><button class="cta alt" data-act="fsy">Try The Final Seven Years</button></div>',
+      { go: () => {}, fsy: () => Lamp.fsy && Lamp.fsy.open() });
+    void sh;
+  };
   Lamp.showUnlock = function (story) {
     if (Lamp.preview) {
       Lamp.sheet('<div class="kick">Coming Soon!</div><h2>' + (story ? esc(story.title) : "More of the Bible") + "</h2>" +
         "<p>This first edition of Lamp covers <b>Genesis and Exodus</b>. " + (story ? esc(bookName(story.book)) + " and the rest of the Bible arrive" : "The rest of the Bible arrives") +
-        " in free updates, story by story, all the way to Revelation.</p>" + '<button class="cta" data-act="close">Back to the journey</button>', { close: () => {} });
+        " in free updates, story by story, all the way to Revelation.</p>" +
+        (story && (story.book === "Daniel" || story.book === "Revelation") ? '<div class="note"><b>The Final Seven Years.</b> Daniel and Revelation become a prophecy investigation, from the book by Richard J. Allinson. The first chapter is ready to play now.</div><button class="cta gold" data-act="fsy">Play the first chapter</button>' : "") +
+        '<button class="cta' + (story && (story.book === "Daniel" || story.book === "Revelation") ? " alt" : "") + '" data-act="close">Back to the journey</button>', { close: () => {}, fsy: () => Lamp.fsy && Lamp.fsy.open() });
       return;
     }
     const price = Lamp.price || "$4.99", rest = D.stories.length - FREE_STORIES;
@@ -274,6 +291,7 @@
     v.querySelectorAll("[data-unlock]").forEach((b) => (b.onclick = () => Lamp.showUnlock(null)));
     v.querySelectorAll("[data-restore]").forEach((b) => (b.onclick = () => { if (!Lamp.native("restore")) mainToast("Restore works in the App Store version"); else mainToast("Checking the App Store…"); }));
     v.querySelectorAll("[data-reset]").forEach((b) => (b.onclick = confirmReset));
+    v.querySelectorAll("[data-fsy]").forEach((b) => (b.onclick = () => Lamp.fsy.open()));
     v.querySelectorAll("[data-adv]").forEach((b) => (b.onclick = () => Lamp.adv.click(b.dataset.adv)));
   }
 
