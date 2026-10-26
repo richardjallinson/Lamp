@@ -1,4 +1,4 @@
-/* Lamp — the Lamplighter's narration (voice: Oliver Silk, ElevenLabs; files in audio/narration/).
+/* Lamp — the Lamplighter's narration (voice: Hank – Deep and Engaging Narrator, ElevenLabs; files in audio/narration/).
 
    - Story opening: before the first level of a story, its painting fills the screen and the Lamplighter
      sets the scene (text always shown; the voice can be switched off in Settings).
