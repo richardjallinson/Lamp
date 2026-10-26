@@ -68,7 +68,8 @@
       learned: "Walked out from the Eastern Gate, the Mishnah's courts add up to about 187 cubits to the sanctuary. That distance ends at the northern bedrock." },
     { id: "middle", title: "The middle of the court", ref: "2 Chronicles 7:7", run: clueMiddle,
       v: "Moreover Solomon hallowed the middle of the court that was before the house of the LORD: for there he offered burnt offerings, and the fat of the peace offerings, because the brasen altar which Solomon had made was not able to receive the burnt offerings.",
-      learned: "The middle of the court had to stay open for offerings. The Dome of the Rock stands in that middle, so the Temple could not have stood there." },
+      learned: "The middle of the court had to stay open for offerings. The Dome of the Rock stands in that middle, so the Temple could not have stood there.",
+      note: "When I showed this verse to a guide at the Temple Institute in Jerusalem, after asking him about the brazen altar, he said: “This is First Temple times. This is remarkable.”" },
   ];
 
   /* Richard's own photographs from Jerusalem (December 2023 and 2024) */
@@ -85,6 +86,7 @@
     if (cur === "ark") K.say(p.ti.wings ? "The staves stay where God put them: in the rings, never taken out." : "Tap each cherub so its wings stretch out over the mercy seat, and its face looks to the other.", "", 5200);
     else if (cur === "courts") K.say("Begin at the Eastern Gate: the Court of the Women first, then the men of Israel, then the priests, the altar, the sanctuary, and last of all the Holy of Holies.", "", 6000);
     else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
+    else if (cur === "vessels") K.say("Tap every vessel to see what it was for. The one that gave light to the Holy Place is named again in Revelation 11:4.", "", 5600);
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
     else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
     else if (cur === "gate") K.say("“This gate shall be SHUT… because the LORD hath ENTERED in by it… It is for the PRINCE.”", "Ezekiel 44:2–3", 5600);
@@ -119,7 +121,7 @@
       '<button class="fbtn glow" id="fgo">Begin in the Old City</button>');
     $("fgo").onclick = () => { K.sfx("click"); stops(); };
   }
-  function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.scroll) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
+  function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.vessels && p.ti.scroll) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
   const STOPS = [
     { id: "ti", n: 1, title: "The Temple Institute", sub: "The Ark, the courts, the instruments and a parchment", run: institute },
     { id: "olives", n: 2, title: "The Mount of Olives", sub: "Look back across the valley at the sealed gate", run: olives },
@@ -149,6 +151,7 @@
     { id: "ark", title: "The Ark of the Covenant", ref: "Exodus 25:15, 20", run: ark },
     { id: "courts", title: "Walk the Courts", ref: "Psalm 100:4", run: courts },
     { id: "lock", title: "The instrument case", ref: "Psalm 150:3", run: lock },
+    { id: "vessels", title: "The Temple vessels", ref: "Exodus 25–30", run: vessels },
     { id: "scroll", title: "The parchment", ref: "Ezekiel 43:2", run: scroll, needs: "lock" },
   ];
   function institute() {
@@ -156,7 +159,7 @@
     if (!p.ti.entered) {
       const s = stage('<div class="fkick">Stop 1 · The Old City</div><h1>The Temple Institute</h1>' +
         photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
-        '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at four things.”<small>The Lamplighter</small></div>' +
+        '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at five things.”<small>The Lamplighter</small></div>' +
         '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The stops"));
       wire(s, stops); $("fgo").onclick = () => { K.sfx("stone"); p.ti.entered = 1; save(); institute(); };
       return;
@@ -297,10 +300,73 @@
     if (!seenN()) K.say("Silver trumpets, harps, a great lyre, a shofar. Tap them in the photograph.", "", 3600);
   }
 
+  /* 1c2. the Temple vessels: what each was for, and its Scripture */
+  const GOLD = "#E3B54F", GOLD2 = "#B8862E", COP = "#C9783A";
+  const svgw = (inner) => '<svg viewBox="0 0 200 120" class="fvessel" aria-hidden="true"><rect width="200" height="120" rx="10" fill="#141A33"/>' + inner + "</svg>";
+  const horns = (x, y, w, c) => [x, x + w].map((hx) => '<path d="M' + (hx - 7) + " " + (y + 2) + " L" + (hx - 3) + " " + (y - 12) + " L" + (hx + 3) + " " + (y - 12) + " L" + (hx + 7) + " " + (y + 2) + 'Z" fill="' + c + '" stroke="#5A4318" stroke-width="1.5"/>').join("");
+  const ART = {
+    altar: svgw('<polygon points="20,106 180,106 168,96 32,96" fill="#8A8A8A" opacity=".5"/><polygon points="120,96 190,112 190,96" fill="#7A6A4A" opacity=".7"/>' + '<rect x="46" y="40" width="108" height="56" rx="3" fill="' + COP + '" stroke="#5A4318" stroke-width="2"/>' + horns(52, 40, 96, COP) + '<rect x="58" y="52" width="84" height="6" fill="#8A4A1A"/><path d="M80 34 q6 -12 0 -22 q14 8 8 22Z M110 34 q-6 -10 2 -20 q12 10 0 20Z" fill="#E0502A"/>'),
+    incense: svgw('<rect x="62" y="92" width="76" height="10" rx="2" fill="' + GOLD2 + '"/>' + '<rect x="68" y="42" width="64" height="52" rx="3" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><rect x="64" y="38" width="72" height="6" rx="2" fill="#F5D27A" stroke="#5A4318"/>' + horns(72, 40, 56, GOLD) + '<path d="M100 36 q-14 -14 0 -24 q14 -8 0 -4" fill="none" stroke="#F3E9CE" stroke-width="3" opacity=".7" stroke-linecap="round"/>'),
+    table: svgw('<rect x="40" y="58" width="120" height="10" rx="2" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><rect x="48" y="68" width="8" height="38" fill="' + GOLD2 + '"/><rect x="144" y="68" width="8" height="38" fill="' + GOLD2 + '"/>' + [0, 1, 2, 3, 4, 5].map((i) => '<rect x="' + (50 + i * 17) + '" y="40" width="14" height="9" rx="3" fill="#E8C98A" stroke="#8A6A2A"/><rect x="' + (50 + i * 17) + '" y="49" width="14" height="9" rx="3" fill="#D9B676" stroke="#8A6A2A"/>').join("")),
+    garments: svgw('<rect x="36" y="10" width="128" height="18" rx="3" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><text x="100" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#5A4318">HOLINESS TO THE LORD</text><rect x="50" y="36" width="100" height="74" rx="6" fill="#2A2F6A" stroke="' + GOLD + '" stroke-width="3"/>' + [0, 1, 2].map((r) => [0, 1, 2, 3].map((c) => '<rect x="' + (58 + c * 22) + '" y="' + (44 + r * 21) + '" width="18" height="17" rx="3" fill="' + ["#C0392B", "#2E8B57", "#E8C66A", "#3A7BD5", "#8E44AD", "#F5F5F5", "#D35400", "#7FB3D5", "#E91E63", "#16A085", "#B8860B", "#9B59B6"][r * 4 + c] + '" stroke="' + GOLD + '"/>').join("")).join("")),
+  };
+  const VESSELS = [
+    { id: "menorah", name: "The menorah", heb: "the golden lampstand", photo: ["menorah.jpg", "The golden menorah in the Jewish Quarter, recreated by the Temple Institute", "Photo: Richard J. Allinson, Jewish Quarter, Jerusalem"], ref: "Exodus 25:31, 37",
+      v: "And thou shalt make a candlestick of pure gold: of beaten work shall the candlestick be made… And thou shalt make the seven lamps thereof: and they shall light the lamps thereof, that they may give light over against it.",
+      what: "One piece of beaten gold, with seven lamps. It stood in the Holy Place, on the south side, and the priests lit it every evening and trimmed it every morning (Exodus 27:20–21; 30:7–8). Its light was the only light in the sanctuary. The plaque beside this one says it was recreated for the first time since the destruction of the Second Temple, according to the Temple Institute’s research.",
+      tie: "Zechariah saw it with two olive trees beside it (Zechariah 4:2–3), and Revelation 11:4 names the Two Witnesses: “These are the two olive trees, and the two candlesticks standing before the God of the earth.”" },
+    { id: "incense", name: "The golden altar of incense", heb: "mizbach hazahav", art: "incense", ref: "Exodus 30:7–8",
+      v: "And Aaron shall burn thereon sweet incense every morning: when he dresseth the lamps, he shall burn incense upon it. And when Aaron lighteth the lamps at even, he shall burn incense upon it, a perpetual incense before the LORD throughout your generations.",
+      what: "A small golden altar, a cubit square and two cubits high, standing just before the veil that hides the Holy of Holies. A priest burned sweet incense on it every morning and every evening, when the lamps were tended. Each morning the ashes were cleared from it by hand.",
+      tie: "David prayed: “Let my prayer be set forth before thee as incense” (Psalm 141:2), and in Revelation 8:3–4 the smoke of the incense goes up with the prayers of the saints." },
+    { id: "table", name: "The table of showbread", heb: "shulchan", art: "table", ref: "Leviticus 24:5–8",
+      v: "And thou shalt take fine flour, and bake twelve cakes thereof… And thou shalt set them in two rows, six on a row, upon the pure table before the LORD… Every sabbath he shall set it in order before the LORD continually.",
+      what: "A golden table in the Holy Place, opposite the menorah. Twelve loaves, one for each tribe of Israel, stood in two rows of six, and the priests set out fresh bread every Sabbath. The bread was never absent: “thou shalt set upon the table shewbread before me alway” (Exodus 25:30).",
+      tie: "The twelve loaves say that all twelve tribes stand before God, always. The Temple Institute has completed this table." },
+    { id: "altar", name: "The brazen altar", heb: "mizbach haolah", art: "altar", ref: "Exodus 27:1–2",
+      v: "And thou shalt make an altar of shittim wood, five cubits long, and five cubits broad; the altar shall be foursquare: and the height thereof shall be three cubits… and thou shalt overlay it with brass.",
+      what: "The great altar of the court, overlaid with brass, where the daily offering was burned: a lamb every morning and every evening, without fail (Exodus 29:38–39). Its fire was never to go out. Solomon’s altar in the Temple was far larger, twenty cubits square (2 Chronicles 4:1), and still “was not able to receive the burnt offerings”, so he hallowed the middle of the court (2 Chronicles 7:7). That is Clue 5, on the Temple Mount.",
+      tie: "Where this altar stood is the question the whole mystery turns on." },
+    { id: "garments", name: "The High Priest’s garments", heb: "bigdei kehunah", art: "garments", ref: "Exodus 28:36–38",
+      v: "And thou shalt make a plate of pure gold, and grave upon it, like the engravings of a signet, HOLINESS TO THE LORD.",
+      what: "Eight garments for the High Priest, with a gold plate on his forehead and a breastplate of twelve stones, each engraved with the name of a tribe (Exodus 28:15–21). He wore them to serve in the sanctuary, and on the Day of Atonement he entered the Holy of Holies. The Temple Institute says it has completed the breastplate, the ephod and the gold plate.",
+      tie: "He carried the names of Israel “upon his heart” whenever he went in before the LORD (Exodus 28:29)." },
+  ];
+  function vessels() {
+    cur = "vessels"; const x = EXHIBITS[3], p = P(); p.ti.vseen = p.ti.vseen || {};
+    const n = () => Object.keys(p.ti.vseen).length;
+    const s = exhibit(x, '<div class="fverse">“And thou shalt make a candlestick of pure gold… And thou shalt make the seven lamps thereof.”<small>Exodus 25:31, 37</small></div>' +
+      '<div class="fq">Every vessel of the Temple had a purpose, and Scripture says what it was. Tap each one in turn.</div>' +
+      '<div class="fchips three vess" id="fnames">' + VESSELS.map((c) => '<button data-k="' + c.id + '"' + (p.ti.vseen[c.id] ? ' class="seen"' : "") + "><b>" + esc(c.name) + "</b></button>").join("") + "</div>" +
+      '<div class="fsmall" id="fseen"></div><div id="fvq"></div>', "menorah.jpg");
+    const line = () => { $("fseen").textContent = "Looked at " + n() + " of " + VESSELS.length + "."; };
+    const question = () => {
+      if (n() < VESSELS.length || p.ti.vessels || $("fvq").innerHTML) return;
+      $("fvq").innerHTML = '<div class="fq">One last question. Which vessel gave the Holy Place its only light, and is named again in Revelation 11:4?</div><div class="fchoices"><button data-a="0">The table of showbread</button><button data-a="1">The menorah</button><button data-a="0">The brazen altar</button></div>';
+      $("fvq").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
+        if (b.dataset.a !== "1") { wrong("Read Exodus 25:37 again: which vessel held lamps?"); return; }
+        K.sfx("click");
+        exhibitDone("vessels", '<div class="kick">Exhibit 4 · Exodus 25–30</div><h2>Everything is ready</h2>' + photo("menorah.jpg", VESSELS[0].photo[1], VESSELS[0].photo[2]) +
+          "<p><b>What it shows.</b> The lampstand, the incense altar, the table, the altar of the court and the High Priest’s garments: each has a purpose Scripture gave it, and each has been made again. The vessels are ready. <b>The place is the missing piece.</b></p>" +
+          '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>");
+      }));
+      $("fvq").scrollIntoView({ behavior: "smooth", block: "end" });
+    };
+    line(); question();
+    s.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => {
+      const c = VESSELS.find((y) => y.id === b.dataset.k); K.sfx("click");
+      p.ti.vseen[c.id] = 1; save(); b.classList.add("seen"); line();
+      K.card('<div class="kick">Temple vessel · ' + esc(c.heb) + "</div><h2>" + esc(c.name) + "</h2>" + (c.photo ? photo(c.photo[0], c.photo[1], c.photo[2]) : '<div class="fart">' + ART[c.art] + "</div>") +
+        '<div class="v">“' + esc(c.v) + '”</div><div class="r">' + esc(c.ref) + " · KJV</div>" +
+        "<p><b>Its purpose in the Temple.</b> " + esc(c.what) + "</p>" + "<p>" + esc(c.tie) + "</p>" + '<button class="cta" data-act="x">Back to the vessels</button>', { x: question });
+    }));
+    if (!n()) K.say("Five vessels, each with a purpose. Start with the menorah.", "", 3600);
+  }
+
   /* 1d. the parchment: Ezekiel 43:2, read with the letter wheel */
   const SCROLL = { text: ["And, behold, the glory of the God of Israel came from the way of the ", "EAST", ": and his voice was like a noise of many ", "WATERS", ": and the earth shined with his ", "GLORY", "."], rounds: [["WATERS", ["EAST", "WATERS"]], ["GLORY", ["GLORY"]]] };
   function scroll() {
-    cur = "scroll"; const x = EXHIBITS[3]; const found = new Set(); let round = 0;
+    cur = "scroll"; const x = EXHIBITS[4]; const found = new Set(); let round = 0;
     const s = exhibit(x, '<div class="fq">The parchment is a verse of Ezekiel, but three words have faded. Spell them from the letters on the wheel: tap or drag the letters in order.</div>' +
       '<div class="fscroll" id="fscroll"></div>' + '<div class="fwordrow"><button class="fmini" id="fclr" aria-label="Clear letters">✕</button><div class="fword" id="fword">&nbsp;</div><button class="fmini go" id="fgo" aria-label="Check word">✓</button></div>' +
       '<div class="fwheel" id="fwheel"><svg id="flines"></svg></div><div class="fsmall" id="fhow">Three words are missing. This wheel spells two of them.</div>', "ark.jpg");
@@ -319,7 +385,7 @@
         wrong(w.length < 3 ? "Longer words." : "Not a faded word. Read the verse around the gap."); return false;
       });
     };
-    const scrollDone = () => K.root() && exhibitDone("scroll", '<div class="kick">Exhibit 4 · Ezekiel 43:2</div><h2>The glory from the east</h2>' +
+    const scrollDone = () => K.root() && exhibitDone("scroll", '<div class="kick">Exhibit 5 · Ezekiel 43:2</div><h2>The glory from the east</h2>' +
       '<div class="v">“And, behold, the glory of the God of Israel came from the way of the east: and his voice was like a noise of many waters: and the earth shined with his glory.”</div><div class="r">Ezekiel 43:2 · KJV</div>' +
       "<p><b>What it shows.</b> Ezekiel saw the glory of God enter the Temple <b>from the east</b>, through the east gate (Ezekiel 43:4). The Temple faced east, toward the Mount of Olives. If you want to know where the Temple stood, stand on that mountain and look back.</p>" +
       '<p class="fgo">Next stop: the Mount of Olives.</p>');
@@ -438,7 +504,7 @@
     wire(s, stops);
     s.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
       const c = CLUES[+b.dataset.c]; K.sfx("click");
-      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + '</p><button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
+      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") + '<button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
       c.run(c);
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
@@ -447,7 +513,7 @@
   }
   function solved(c) {
     P().clues[c.id] = 1; save(); K.snd("word"); K.buzz("success");
-    K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" +
+    K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") +
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>', { x: () => board() });
   }
   function clueScreen(c, html) {
