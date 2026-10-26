@@ -284,7 +284,7 @@
     v.querySelectorAll("[data-fav]").forEach((b) => (b.onclick = () => { const id = b.dataset.fav; if (Lamp.state.fav[id]) delete Lamp.state.fav[id]; else Lamp.state.fav[id] = true; Lamp.save(); Lamp.render(); }));
     v.querySelectorAll("[data-share]").forEach((b) => (b.onclick = () => {
       const s = D.stories.find((x) => x.id === b.dataset.share), k = s.verses[s.key];
-      Lamp.copyText("“" + k.w.join(" ") + "” " + k.ref + " (KJV)\nLearned by heart with Lamp: Bible Word Puzzle", null);
+      Lamp.copyText("“" + k.w.join(" ") + "” " + k.ref + " (KJV)\nLearned by heart with Lamp: Bible Word Adventure", null);
     }));
     v.querySelectorAll("[data-set]").forEach((b) => (b.onclick = () => { const k = b.dataset.set; Lamp.state.settings[k] = !Lamp.state.settings[k]; Lamp.save(); Lamp.render(); if (k === "haptics" && Lamp.state.settings.haptics) Lamp.haptic("light"); if (k === "music") Lamp.musicUpdate(); if (k === "narr" && !Lamp.state.settings.narr && Lamp.narr) Lamp.narr.stop(); if (k === "sound" && Lamp.state.settings.sound) Lamp.sound("bonus"); }));
     v.querySelectorAll("[data-size]").forEach((b) => (b.onclick = () => { Lamp.state.settings.text = b.dataset.size; Lamp.save(); Lamp.render(); }));

@@ -91,3 +91,4 @@
 .welcome .wpromo{margin:12px 0 4px;padding:12px;border-radius:12px;background:#141A33;color:#F3E9CE;text-align:center}
 .welcome .wpromo b{display:block;font:400 18px/1.2 "Baskerville",Georgia,serif;letter-spacing:.1em;text-transform:uppercase;color:#F5D27A}
 .welcome .wpromo span{font:italic 600 14px/1.4 var(--display)}
+#intro .in-sub{line-height:1.55}

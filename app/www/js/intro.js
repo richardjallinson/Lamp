@@ -148,9 +148,9 @@
       '<div id="in-flame"><img src="img/start/flame.webp" alt=""></div></div>' +
       '<div class="in-layer" id="in-open"></div>' +
       '<div class="in-layer" id="in-shade"></div>' +
-      '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>Lamp · Bible Word Puzzle</small></div>' +
+      '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>Lamp · Bible Word Puzzle Adventure</small></div>' +
       '<div class="in-verse" aria-live="polite">' + WORDS.map((w) => "<span>" + w + "</span>").join(" ") + '<span class="in-ref">Psalm 119:105</span></div>' +
-      '<div class="in-title" aria-label="Lamp, Bible Word Puzzle"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle</div></div>' +
+      '<div class="in-title" aria-label="Lamp, Bible Word Puzzle Adventure"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle<br>Adventure</div></div>' +
       '<div class="in-titleblock"><div class="in-tag">Thy word is a lamp unto my feet.<br>' + (back ? "Your journey continues." : "Your journey begins.") + "</div></div>" +
       '<button class="in-begin" id="in-begin">' + (back ? "Continue the journey" : "Begin the journey") + "</button>" +
       '<div class="in-promo">Coming soon: <b>The Final Seven Years</b><br>A journey through Daniel and Revelation</div>' +
