@@ -85,7 +85,7 @@
   }
   function stage(html, bg) {
     const sb = $("adv-say"); if (sb) sb.classList.remove("on");
-    $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(img/start/' + (bg || "title.jpg") + ')"></div>' + html + "</div>";
+    $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(img/start/' + (bg || "fsy-cover.jpg") + ')"></div>' + html + "</div>";
     return $("adv-scene").querySelector(".fsy");
   }
 
@@ -219,7 +219,7 @@
     p.done = 1; save(); K.snd("level"); K.sfx("stone"); K.buzz("success");
     const was = p.theory === "rock" ? "<p>You first thought the Temple stood under the Dome of the Rock, as most people do. The evidence pointed north.</p>" : p.theory === "spirits" ? "<p>Your first guess was right: the evidence points north.</p>" : "";
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
-      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>', "title-open.jpg");
+      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>', "fsy-cover.jpg");
     void s;
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
@@ -247,7 +247,7 @@
   function hub() {
     if (!K.root()) K.open(BOOK, {}, "fsy-hub");
     const p = P();
-    stage('<div class="fkick">Daniel and Revelation</div><h1>' + BOOK + '</h1><div class="fsub">The investigation, from the book by Richard J. Allinson</div><div class="fchap">' +
+    stage('<img class="fcover" src="img/start/fsy-cover.jpg" alt="The Final Seven Years, by Richard Allinson"><div class="fsub">The investigation through Daniel and Revelation, from the book by Richard J. Allinson</div><div class="fchap">' +
       CHAPTERS.map((c) => '<button class="fch' + (c.play ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (c.play && p.done ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (c.play ? "" : "<em>Coming soon</em>") + "</span></button>").join("") + "</div>");
     $("adv-scene").querySelectorAll("[data-ch]").forEach((b) => (b.onclick = () => {
       const c = CHAPTERS.find((x) => x.id === b.dataset.ch);
