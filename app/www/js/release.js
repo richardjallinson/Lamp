@@ -5,7 +5,14 @@
   "use strict";
   const FIRST_RELEASE = true;
   const OPEN_BOOKS = ["Genesis", "Exodus"];
+  /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
+     The progress saved by an older build, here and in iCloud, is set aside.
+     !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
+  const BUILD = "v1q";
+  const FRESH_EACH_BUILD = true;
   const Lamp = (window.Lamp = window.Lamp || {});
+  Lamp.build = BUILD;
+  Lamp.freshEachBuild = FRESH_EACH_BUILD;
   Lamp.preview = FIRST_RELEASE;
   Lamp.openBooks = OPEN_BOOKS;
   if (!FIRST_RELEASE || !window.LAMP_DATA) return;

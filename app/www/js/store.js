@@ -23,7 +23,8 @@
     adv: { relics: {}, seals: {}, gate: {}, p: {} },   // the adventure: relics found, story seals broken, Garden Gate steps
     last: null,     // storyId last played
     reviewAsked: false,
-    devOpen: false,   // tester tools: every story open, ignoring the adventure order
+    devOpen: false,
+    build: null,      // the build that saved this progress (see js/release.js)   // tester tools: every story open, ignoring the adventure order
   };
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
@@ -59,6 +60,7 @@
     const aa = a.adv || {}, ba = b.adv || {};
     m.adv = { relics: flags(aa.relics, ba.relics), seals: flags(aa.seals, ba.seals), gate: flags(aa.gate, ba.gate), p: flags(aa.p, ba.p) };
     m.reviewAsked = !!(a.reviewAsked || b.reviewAsked);
+    m.build = a.build || b.build || null;
     return m;
   }
 
@@ -74,8 +76,16 @@
   };
 
   Lamp.state = loadLocal();
+  /* a new build starts from the very first scene (js/release.js) */
+  const staleBuild = (s) => Lamp.freshEachBuild && Lamp.build && s.build !== Lamp.build;
+  if (staleBuild(Lamp.state)) {
+    Lamp.state = Object.assign(clone(DEFAULT), { settings: Lamp.state.settings, build: Lamp.build });
+    try { localStorage.setItem(KEY, JSON.stringify(Lamp.state)); } catch (e) {}
+    Lamp.freshStart = true;
+  }
   Lamp.save = function () {
     Lamp.state.savedAt = Date.now();
+    if (Lamp.build) Lamp.state.build = Lamp.build;
     const json = JSON.stringify(Lamp.state);
     try { localStorage.setItem(KEY, json); } catch (e) {}
     Lamp.native("save", { state: json });
@@ -94,6 +104,7 @@
     if (msg.type === "cloudState" && msg.state) {
       try {
         const incoming = normalise(JSON.parse(msg.state));
+        if (staleBuild(incoming)) { Lamp.save(); return; }   // iCloud still holds an older build's progress: replace it
         Lamp.state = mergeStates(Lamp.state, incoming);
         try { localStorage.setItem(KEY, JSON.stringify(Lamp.state)); } catch (e) {}
         Lamp.refresh && Lamp.refresh();

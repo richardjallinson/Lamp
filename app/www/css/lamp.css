@@ -264,16 +264,18 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 /* ---------- crossword levels (Wordscapes-style grid over the painting) ---------- */
 #bg{transition:filter 1.4s ease,transform 1.6s ease}
 #level.cross::before{background:linear-gradient(180deg,rgba(8,13,30,.7) 0%,rgba(8,13,30,.12) 20%,rgba(8,13,30,.05) 45%,rgba(8,13,30,.35) 62%,rgba(8,13,30,.84) 100%)}
-.board.xboard{background:none;border:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:min(42vh,calc(100vh - 460px));min-height:180px;max-height:42vh;overflow:visible}
+.board.xboard{background:none;border:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1 1 auto;height:auto;min-height:150px;max-height:none;overflow:hidden}
+#level.cross .spacer{flex:0 0 6px;min-height:6px}
 .xgrid{position:relative;margin:0 auto;flex:none}
-.xgrid b{position:absolute;width:calc(var(--xs) - 4px);height:calc(var(--xs) - 4px);margin:2px;box-sizing:border-box;border-radius:calc(var(--xs) * .16);
+.xgrid b{position:absolute;padding:2px;box-sizing:border-box;background:none!important;border:none!important;box-shadow:none!important;display:block}
+.xgrid b>i{font-style:normal;width:100%;height:100%;box-sizing:border-box;border-radius:calc(var(--xs) * .16);
   background:rgba(12,16,34,.62);border:1px solid rgba(243,233,206,.28);box-shadow:0 2px 6px rgba(0,0,0,.35);
   display:flex;align-items:center;justify-content:center;font:800 calc(var(--xs) * .56)/1 var(--ui);color:var(--ink)}
-.xgrid b.f{background:var(--cream);border-color:var(--cream)}
-.xgrid b.h{background:var(--hint);border-color:var(--hint)}
-.xgrid b.gold{border:2px solid #F5C451;box-shadow:0 0 10px rgba(245,196,81,.55)}
-.xgrid b.gold.f{background:linear-gradient(180deg,#FFE29A,#E3B54F);color:#3a2a06}
-.xgrid b.new{animation:pop .4s ease both}
+.xgrid b.f>i{background:var(--cream);border-color:var(--cream)}
+.xgrid b.h>i{background:var(--hint);border-color:var(--hint)}
+.xgrid b.gold>i{border:2px solid #F5C451;box-shadow:0 0 10px rgba(245,196,81,.55)}
+.xgrid b.gold.f>i{background:linear-gradient(180deg,#FFE29A,#E3B54F);color:#3a2a06}
+.xgrid b.new>i{animation:pop .4s ease both}
 .board.xboard .ref{margin-top:10px;text-shadow:0 1px 6px #000}
 .goldtag{color:#FFD46E}
 .sheet .v.xwords{font-family:var(--ui);font-size:16px;letter-spacing:.06em;line-height:2}

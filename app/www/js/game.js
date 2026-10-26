@@ -124,15 +124,23 @@
   function renderCross(fresh) {
     const X = L().cross, cells = crossCells(), b = $("board");
     b.classList.add("xboard");
-    const W = Math.min(b.clientWidth || 340, 460) - 8, H = Math.max(160, (b.clientHeight || window.innerHeight * 0.4) - 8);
-    const size = Math.max(22, Math.min(48, Math.floor(Math.min(W / X.w, H / X.h))));
-    let h = '<div class="xgrid" style="width:' + size * X.w + "px;height:" + size * X.h + "px;--xs:" + size + 'px">';
+    let h = '<div class="xgrid" style="aspect-ratio:' + X.w + "/" + X.h + '">';
     Object.keys(cells).forEach((k) => {
       const [r, c] = k.split(",").map(Number), x = cells[k], isNew = fresh && x.words.includes(fresh) && x.show;
-      h += '<b class="' + (x.show ? "f" : x.hint ? "h" : "") + (x.gold ? " gold" : "") + (isNew ? " new" : "") + '" style="left:' + c * size + "px;top:" + r * size + 'px">' + (x.show || x.hint ? x.ch : "") + "</b>";
+      h += '<b class="' + (x.show ? "f" : x.hint ? "h" : "") + (x.gold ? " gold" : "") + (isNew ? " new" : "") + '" style="left:' + (100 * c) / X.w + "%;top:" + (100 * r) / X.h + "%;width:" + 100 / X.w + "%;height:" + 100 / X.h + '%"><i>' + (x.show || x.hint ? x.ch : "") + "</i></b>";
     });
     b.innerHTML = h + "</div>" + '<div class="ref">' + (X.gold ? '<span class="goldtag">Gold squares hide a word</span>' : "Every word is in the KJV") + "</div>";
+    fitCross(0);
   }
+  /* size the grid to the space the board really has, once the screen is laid out */
+  function fitCross(tries) {
+    const b = $("board"), g = b.querySelector(".xgrid"), ref = b.querySelector(".ref"); if (!g || !L().cross) return;
+    if (!b.clientHeight) { if (tries < 30) requestAnimationFrame(() => fitCross(tries + 1)); return; }
+    const X = L().cross, availW = Math.min(b.clientWidth, 460) - 8, availH = b.clientHeight - (ref ? ref.offsetHeight + 12 : 30) - 8;
+    const size = Math.max(18, Math.min(48, Math.floor(Math.min(availW / X.w, availH / X.h))));
+    g.style.width = size * X.w + "px"; g.style.height = size * X.h + "px"; g.style.setProperty("--xs", size + "px");
+  }
+  window.addEventListener("resize", () => { if (G && L() && L().cross) fitCross(0); });
   function renderBoard(fresh) {
     if (L().cross) { renderCross(fresh); return; }
     $("board").classList.remove("xboard");
