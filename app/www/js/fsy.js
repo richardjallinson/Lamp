@@ -1,18 +1,20 @@
 /* Lamp — "The Final Seven Years": the prophecy investigation, based on Richard J. Allinson's book.
-   Prototype: one playable chapter, "Where Was the Temple?" (the book's chapter 3), and the chapters to come.
-
-   A chapter is a mystery: the Lamplighter asks a question, the player states a first theory, gathers five clues
-   (each a small puzzle), places the answer on the map, and the reveal is confirmed from Scripture.
+   Episode 1, "The Jerusalem Mystery": four stops in Jerusalem.
+     1. The Temple Institute — the Ark (Exodus 25), Walk the Courts (Psalm 100:4), the instrument lock (Psalm 150:3),
+        and a parchment read with the letter wheel (Ezekiel 43:2).
+     2. The Mount of Olives — the line of sight to the Eastern Gate (Zechariah 14:4).
+     3. The Temple Mount — where was the Temple? Five clues, the verdict, and the Measuring Reed (Revelation 11:1–2).
+     4. The Eastern Gate, from inside — "this gate shall be shut" (Ezekiel 44:2–3), and the cliffhanger.
    Progress lives in Lamp.state.adv.p.fsy. */
 (function () {
   "use strict";
   const Lamp = window.Lamp;
   if (!Lamp || !Lamp.adv || !Lamp.adv.kit) return;
   const K = Lamp.adv.kit, esc = K.esc, $ = (id) => document.getElementById(id);
-  const BOOK = "The Final Seven Years";
+  const BOOK = "The Final Seven Years", EP = "The Jerusalem Mystery";
 
   const CHAPTERS = [
-    { id: "temple", n: 1, title: "Where Was the Temple?", tease: "The Third Temple will stand where the first one stood. But where was that?", play: !!Lamp.fsyOpen },
+    { id: "temple", n: 1, title: EP, tease: "A Temple will stand again in Jerusalem. Follow the clues from the Temple Institute to the sealed Eastern Gate.", play: !!Lamp.fsyOpen },
     { id: "weeks", n: 2, title: "The Seventy Weeks", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin?" },
     { id: "horns", n: 3, title: "The Ten Horns", tease: "Daniel saw ten kings rise together. Are they rising now?" },
     { id: "babylon", n: 4, title: "Mystery, Babylon the Great", tease: "A woman rides the beast and reigns over the kings of the earth. Who is she?" },
@@ -23,8 +25,9 @@
   ];
 
   K.A(); // make sure the adventure state exists
-  function P() { const a = K.A(); a.p.fsy = a.p.fsy || { clues: {} }; a.p.fsy.clues = a.p.fsy.clues || {}; return a.p.fsy; }
+  function P() { const a = K.A(); a.p.fsy = a.p.fsy || { clues: {} }; a.p.fsy.clues = a.p.fsy.clues || {}; a.p.fsy.ti = a.p.fsy.ti || {}; return a.p.fsy; }
   const save = () => Lamp.save();
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
   /* ---------- the Temple Mount map (north at the top; drawn, not painted) ---------- */
   const SPOT = { gate: [262, 160], spirits: [138, 160], rock: [142, 236], south: [150, 372], olives: [292, 160] };
@@ -49,7 +52,7 @@
       (o.extra || "") + "</svg>";
   }
 
-  /* ---------- the five clues ---------- */
+  /* ---------- the five clues on the Temple Mount ---------- */
   const CLUES = [
     { id: "floor", title: "The threshing floor", ref: "2 Chronicles 3:1", run: clueFloor,
       v: "Then Solomon began to build the house of the LORD at Jerusalem in mount Moriah, where the LORD appeared unto David his father, in the place that David had prepared in the threshingfloor of Ornan the Jebusite.",
@@ -68,35 +71,316 @@
       learned: "The middle of the court had to stay open for offerings. The Dome of the Rock stands in that middle, so the Temple could not have stood there." },
   ];
 
-  /* Richard's own photographs from the Temple Mount (December 2023 and 2024) */
-  const photo = (f, cap) => '<figure class="fphoto"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + '<small>Photo: Richard J. Allinson, on the Temple Mount</small></figcaption></figure>';
+  /* Richard's own photographs from Jerusalem (December 2023 and 2024) */
+  const photo = (f, cap, by) => '<figure class="fphoto"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "<small>" + esc(by || "Photo: Richard J. Allinson, on the Temple Mount") + "</small></figcaption></figure>";
+  const TI = "Photo: Richard J. Allinson, at the Temple Institute";
   CLUES[0].photo = ["bedrock.jpg", "The bedrock inside the Dome of the Spirits: flat, level, natural rock"];
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
   CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
   let st = null;   // this visit: misses and hints, for the rewards
-  function chapter() {
+  let cur = "";    // which stop is open, for the hint
+  function hint() {
+    st.hints++;
+    const p = P();
+    if (cur === "ark") K.say(p.ti.wings ? "The staves stay where God put them: in the rings, never taken out." : "Tap each cherub so its wings stretch out over the mercy seat, and its face looks to the other.", "", 5200);
+    else if (cur === "courts") K.say("Begin at the Eastern Gate: the Court of the Women first, then the men of Israel, then the priests, the altar, the sanctuary, and last of all the Holy of Holies.", "", 6000);
+    else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
+    else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
+    else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
+    else if (cur === "gate") K.say("“This gate shall be SHUT… because the LORD hath ENTERED in by it… It is for the PRINCE.”", "Ezekiel 44:2–3", 5600);
+    else {
+      const left = CLUES.filter((c) => !p.clues[c.id]);
+      if (left.length) K.say("Open the clue “" + left[0].title + "” in your journal. Every clue is in the Scripture or the history it quotes.", "", 5200);
+      else K.say("All five clues point the same way. Place the Holy of Holies where the flat summit, the gate's line and the cubits meet.", "", 5600);
+    }
+  }
+  function stage(html, bg) {
+    const sb = $("adv-say"); if (sb) sb.classList.remove("on");
+    $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(' + (bg ? "img/fsy/" + bg : "img/start/fsy-cover.jpg") + ')"></div>' + html + "</div>";
+    return $("adv-scene").querySelector(".fsy");
+  }
+  const wrong = (msg) => { st.misses++; K.snd("bad"); K.buzz("error"); K.say(msg, "", 4600); };
+  const back = (label) => '<button class="fback" data-back="1">‹ ' + esc(label) + "</button>";
+  function wire(s, fn) { const b = s.querySelector("[data-back]"); if (b) b.onclick = () => { K.sfx("click"); fn(); }; }
+
+  /* ================================================================ the episode ================================================================ */
+  function episode() {
     st = { misses: 0, hints: 0, t0: Date.now() };
-    K.open(BOOK + " · Chapter 1", { hint: hint }, "fsy");
+    K.open(BOOK + " · Episode 1", { hint: hint }, "fsy");
+    const p = P();
+    if (!p.began) { p.began = 1; save(); return intro(); }
+    stops();
+  }
+  function intro() {
+    cur = "";
+    const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
+      '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. <b>Only one thing is missing: the place.</b> For thirteen centuries the world has assumed it knew where the Temple stood. Come with me through Jerusalem, look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
+      photo("ti-outside.jpg", "The Old City of Jerusalem. The investigation begins at the Temple Institute.", TI) +
+      '<button class="fbtn glow" id="fgo">Begin in the Old City</button>');
+    $("fgo").onclick = () => { K.sfx("click"); stops(); };
+  }
+  function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.scroll) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
+  const STOPS = [
+    { id: "ti", n: 1, title: "The Temple Institute", sub: "The Ark, the courts, the instruments and a parchment", run: institute },
+    { id: "olives", n: 2, title: "The Mount of Olives", sub: "Look back across the valley at the sealed gate", run: olives },
+    { id: "mount", n: 3, title: "The Temple Mount", sub: "Five clues. Where did the Holy of Holies stand?", run: chapter },
+    { id: "gate", n: 4, title: "The Eastern Gate", sub: "“This gate shall be shut”", run: gate },
+  ];
+  function stops() {
+    cur = "";
+    const p = P();
+    let next = STOPS.findIndex((x) => !done(x.id)); if (next < 0) next = STOPS.length;
+    const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
+      '<div class="fsub">' + (next >= STOPS.length ? "Episode 1 solved" : "Stop " + (next + 1) + " of 4") + "</div>" +
+      '<div class="fjournal fstops">' + STOPS.map((x, i) => '<button class="fclue' + (done(x.id) ? " done" : i > next ? " locked" : "") + '" data-s="' + i + '"><i>' + (done(x.id) ? "✓" : x.n) + "</i><span><b>" + esc(x.title) + "</b><small>" + esc(x.sub) + "</small></span></button>").join("") + "</div>" +
+      (next >= STOPS.length ? '<button class="fbtn" id="fend">What comes next</button>' : ""));
+    s.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
+      const i = +b.dataset.s; K.sfx("click");
+      if (i > next) { K.say("First finish “" + STOPS[next].title + "”.", "", 2800); return; }
+      STOPS[i].run();
+    }));
+    const en = $("fend"); if (en) en.onclick = ending;
+    if (next === 0 && !p.ti.ark) K.say("Four stops in Jerusalem. Begin at the Temple Institute, where the vessels of the Temple wait.", "", 4600);
+    void p;
+  }
+
+  /* ================================================================ 1. the Temple Institute ================================================================ */
+  const EXHIBITS = [
+    { id: "ark", title: "The Ark of the Covenant", ref: "Exodus 25:15, 20", run: ark },
+    { id: "courts", title: "Walk the Courts", ref: "Psalm 100:4", run: courts },
+    { id: "lock", title: "The instrument case", ref: "Psalm 150:3", run: lock },
+    { id: "scroll", title: "The parchment", ref: "Ezekiel 43:2", run: scroll, needs: "lock" },
+  ];
+  function institute() {
+    cur = ""; const p = P();
+    if (!p.ti.entered) {
+      const s = stage('<div class="fkick">Stop 1 · The Old City</div><h1>The Temple Institute</h1>' +
+        photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
+        '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at four things.”<small>The Lamplighter</small></div>' +
+        '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The stops"));
+      wire(s, stops); $("fgo").onclick = () => { K.sfx("stone"); p.ti.entered = 1; save(); institute(); };
+      return;
+    }
+    const s = stage('<div class="fkick">Stop 1 · The Temple Institute</div><h1>The exhibition hall</h1>' +
+      photo("ti-hall.jpg", "Inside the Temple Institute", TI) +
+      '<div class="fjournal">' + EXHIBITS.map((x, i) => '<button class="fclue' + (p.ti[x.id] ? " done" : x.needs && !p.ti[x.needs] ? " locked" : "") + '" data-e="' + i + '"><i>' + (p.ti[x.id] ? "✓" : i + 1) + "</i><span><b>" + esc(x.title) + "</b><small>" + esc(x.ref) + "</small></span></button>").join("") + "</div>" +
+      (done("ti") ? '<button class="fbtn glow" id="fgo">Leave for the Mount of Olives</button>' : "") + back("The stops"));
+    wire(s, stops);
+    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => {
+      const x = EXHIBITS[+b.dataset.e]; K.sfx("click");
+      if (x.needs && !P().ti[x.needs]) { K.say("The parchment lies inside the instrument case. Open the case first.", "", 3200); return; }
+      x.run();
+    }));
+    const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); stops(); };
+    if (!p.ti.ark) K.say("Begin with the Ark. Read what God told Moses about it.", "", 3200);
+  }
+  function exhibitDone(id, html, acts) {
+    const p = P(); p.ti[id] = 1; save(); K.snd("word"); K.buzz("success");
+    K.card(html + '<button class="cta" data-act="x">Back to the hall</button>', Object.assign({ x: institute }, acts || {}));
+  }
+  function exhibit(x, html, bg) {
+    const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("The hall"), bg);
+    wire(s, institute); return s;
+  }
+
+  /* 1a. the Ark: fold the cherubim's wings over the mercy seat, and leave the staves in the rings */
+  function ark() {
+    cur = "ark"; const x = EXHIBITS[0], p = P(), w = p.ti.wingState || { l: 0, r: 0 };
+    const img = () => "ark-" + (w.l && w.r ? "both" : w.l ? "left" : w.r ? "right" : "open") + ".jpg";
+    const s = exhibit(x, '<div class="fverse">“And the cherubims shall stretch forth their wings on high, covering the mercy seat with their wings, and their faces shall look one to another; toward the mercy seat shall the faces of the cherubims be.”<small>Exodus 25:20</small></div>' +
+      '<div class="fq">The model’s cherubim are set wrong. Tap each cherub to set its wings as Moses was told.</div>' +
+      '<div class="fark" id="fark"><img src="img/fsy/' + img() + '" alt="A model of the Ark of the Covenant"><button class="fhit" data-w="l" aria-label="The cherub on the left" style="left:4%;top:2%;width:40%;height:38%"></button><button class="fhit" data-w="r" aria-label="The cherub on the right" style="left:56%;top:2%;width:40%;height:38%"></button></div>' +
+      '<div id="fstaves"></div>', "ark.jpg");
+    const draw = () => { $("fark").querySelector("img").src = "img/fsy/" + img(); };
+    s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
+      if (p.ti.wings) return;
+      w[b.dataset.w] = w[b.dataset.w] ? 0 : 1; p.ti.wingState = w; save(); K.sfx("stone"); draw();
+      if (w.l && w.r) {
+        p.ti.wings = 1; save(); K.snd("word"); K.buzz("success");
+        K.say("Wings on high, covering the mercy seat, face to face. Now the staves.", "", 3400);
+        setTimeout(() => K.root() && staves(), 1200);
+      } else if (w.l || w.r) K.say("One cherub is set. Now the other, so their faces look one to another.", "", 3000);
+    }));
+    function staves() {
+      $("fstaves").innerHTML = '<div class="fverse">“The staves shall be in the rings of the ark: they shall not be taken from it.”<small>Exodus 25:15</small></div><div class="fq">The guide offers to draw the carrying staves out of the rings, so you can see the Ark on its own. What do you say?</div>' +
+        '<div class="fchoices"><button data-a="0">Draw them out</button><button data-a="1">Leave them in the rings</button></div>';
+      $("fstaves").querySelectorAll("[data-a]").forEach((c) => (c.onclick = () => {
+        if (c.dataset.a !== "1") { wrong("Read Exodus 25:15 again. Were the staves ever to come out?"); return; }
+        K.sfx("click");
+        exhibitDone("ark", '<div class="kick">Exhibit 1 · Exodus 25</div><h2>The Ark of the Covenant</h2>' + photo("ark.jpg", "The Ark of the Covenant, as made ready by the Temple Institute", TI) +
+          '<p><b>What it shows.</b> God gave Moses every detail of the Ark: the wings of the cherubim stretched over the mercy seat, their faces one to another, and the staves never to leave the rings. The Ark was always ready to be carried, always ready to move. <b>It was made for a place.</b></p>' +
+          '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>");
+      }));
+      $("fstaves").scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+    if (p.ti.wings) staves();
+  }
+
+  /* 1b. walk the courts in order from the Eastern Gate */
+  const COURTS = [["The Court of the Women", "135 cubits"], ["The Court of Israel", "11 cubits"], ["The Court of the Priests", "11 cubits"], ["The Altar", "32 cubits"], ["The Sanctuary", "the Holy Place"], ["The Holy of Holies", "the innermost room"]];
+  function courts() {
+    cur = "courts"; const x = EXHIBITS[1]; let at = 0;
+    const order = shuffle(COURTS.map((c, i) => i));
+    const s = exhibit(x, '<div class="fverse">“Enter into his gates with thanksgiving, and into his courts with praise.”<small>Psalm 100:4</small></div>' +
+      photo("ti-plan.jpg", "The plan of the Temple and its courts, at the Temple Institute", TI) +
+      '<div class="fq">Walk the Temple as a pilgrim did: in at the Eastern Gate, then court by court, inward. Tap the courts in order.</div>' +
+      '<div class="fpath" id="fpath"><span class="fstep done">The Eastern Gate</span></div>' +
+      '<div class="fchips" id="fchips">' + order.map((i) => '<button data-i="' + i + '"><b>' + esc(COURTS[i][0]) + "</b><small>" + esc(COURTS[i][1]) + "</small></button>").join("") + "</div>", "ti-plan.jpg");
+    s.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => {
+      const i = +b.dataset.i;
+      if (i !== at) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong(at === 0 ? "A pilgrim came in at the gate and stood first in the largest court, open to all." : i < at ? "You have walked that court already." : "Not yet. Which court comes next, going inward?"); return; }
+      K.sfx("stone"); b.classList.add("used"); at++;
+      const sp = document.createElement("span"); sp.className = "fstep"; sp.textContent = COURTS[i][0]; $("fpath").appendChild(sp);
+      if (at === COURTS.length) setTimeout(() => K.root() && exhibitDone("courts", '<div class="kick">Exhibit 2 · Psalm 100:4</div><h2>Walk the Courts</h2>' + photo("ti-model.jpg", "A model of the Temple, at the Temple Institute", TI) +
+        "<p><b>What it shows.</b> From the Eastern Gate a pilgrim walked west, inward: the Court of the Women, 135 cubits; then the Court of Israel, the Court of the Priests and the altar, another 52 cubits. <b>187 cubits from the gate stood the sanctuary.</b> Remember that number: it will be paced out on the Temple Mount.</p>" +
+        '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>"), 700);
+      else K.say(at === 1 ? "Through the Court of the Women, 135 cubits long. Now the men of Israel's court." : at === 4 ? "Past the altar. Only the house itself is left." : "", "", 2800);
+    }));
+  }
+
+  /* 1c. the instrument case: pick the three instruments of Psalm 150:3 */
+  const INSTR = [["Trumpet", 1], ["Timbrel", 0], ["Psaltery", 1], ["Cymbals", 0], ["Harp", 1], ["Organ", 0]];
+  function lock() {
+    cur = "lock"; const x = EXHIBITS[2]; const got = [];
+    const s = exhibit(x, '<div class="fverse">“Praise him with the sound of the trumpet: praise him with the psaltery and harp.”<small>Psalm 150:3</small></div>' +
+      photo("ti-instruments.jpg", "Harps, lyres and silver trumpets made for the Temple, at the Temple Institute", TI) +
+      '<div class="fq">The case is locked with three turning dials, each carved with an instrument. Set them to the three instruments of <b>verse 3</b>.</div>' +
+      '<div class="fslots" id="fslots"><span></span><span></span><span></span></div>' +
+      '<div class="fchips six" id="fchips">' + shuffle(INSTR.map((c, i) => i)).map((i) => '<button data-i="' + i + '"><b>' + INSTR[i][0] + "</b></button>").join("") + "</div>", "ti-instruments.jpg");
+    s.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => {
+      const it = INSTR[+b.dataset.i];
+      if (!it[1]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong("The " + it[0].toLowerCase() + " is praised in Psalm 150 too, but not in verse 3. Read verse 3 again."); return; }
+      if (b.classList.contains("used")) return;
+      K.sfx("stone"); b.classList.add("used"); got.push(it[0]);
+      $("fslots").children[got.length - 1].textContent = it[0];
+      if (got.length === 3) setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
+        "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
+        "<p><b>What it shows.</b> The psalms were sung in the courts you just walked, with these instruments. The Temple was a place of music and praise, not only of sacrifice.</p>" +
+        '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>"), 600);
+      else K.say(got.length === 1 ? "One dial set. Two more." : "Two dials set. One more.", "", 2200);
+    }));
+  }
+
+  /* 1d. the parchment: Ezekiel 43:2, read with the letter wheel */
+  const SCROLL = { text: ["And, behold, the glory of the God of Israel came from the way of the ", "EAST", ": and his voice was like a noise of many ", "WATERS", ": and the earth shined with his ", "GLORY", "."], rounds: [["WATERS", ["EAST", "WATERS"]], ["GLORY", ["GLORY"]]] };
+  function scroll() {
+    cur = "scroll"; const x = EXHIBITS[3]; const found = new Set(); let round = 0;
+    const s = exhibit(x, '<div class="fq">The parchment is a verse of Ezekiel, but three words have faded. Spell them from the letters on the wheel: tap or drag the letters in order.</div>' +
+      '<div class="fscroll" id="fscroll"></div>' + '<div class="fwordrow"><button class="fmini" id="fclr" aria-label="Clear letters">✕</button><div class="fword" id="fword">&nbsp;</div><button class="fmini go" id="fgo" aria-label="Check word">✓</button></div>' +
+      '<div class="fwheel" id="fwheel"><svg id="flines"></svg></div><div class="fsmall" id="fhow">Three words are missing. This wheel spells two of them.</div>', "ark.jpg");
+    const drawScroll = () => { $("fscroll").innerHTML = SCROLL.text.map((t, i) => i % 2 ? '<b class="' + (found.has(t) ? "got" : "gap") + '">' + (found.has(t) ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + '<small>Ezekiel 43:2</small>'; };
+    drawScroll();
+    const startRound = () => {
+      const [letters, targets] = SCROLL.rounds[round];
+      $("fhow").textContent = round === 0 ? "Three words are missing. This wheel spells two of them." : "One word left. A new wheel for it.";
+      wheel($("fwheel"), $("flines"), $("fword"), $("fgo"), $("fclr"), shuffle(letters.split("")), (w) => {
+        if (targets.includes(w) && !found.has(w)) {
+          found.add(w); K.snd("word"); K.buzz("success"); drawScroll(); K.say("✓ " + w, "", 1400);
+          if (targets.every((t) => found.has(t))) { round++; if (round < SCROLL.rounds.length) setTimeout(startRound, 700); else setTimeout(scrollDone, 900); }
+          return true;
+        }
+        if (found.has(w)) { K.say("Already found.", "", 1600); return false; }
+        wrong(w.length < 3 ? "Longer words." : "Not a faded word. Read the verse around the gap."); return false;
+      });
+    };
+    const scrollDone = () => K.root() && exhibitDone("scroll", '<div class="kick">Exhibit 4 · Ezekiel 43:2</div><h2>The glory from the east</h2>' +
+      '<div class="v">“And, behold, the glory of the God of Israel came from the way of the east: and his voice was like a noise of many waters: and the earth shined with his glory.”</div><div class="r">Ezekiel 43:2 · KJV</div>' +
+      "<p><b>What it shows.</b> Ezekiel saw the glory of God enter the Temple <b>from the east</b>, through the east gate (Ezekiel 43:4). The Temple faced east, toward the Mount of Olives. If you want to know where the Temple stood, stand on that mountain and look back.</p>" +
+      '<p class="fgo">Next stop: the Mount of Olives.</p>');
+    startRound();
+  }
+  /* a small letter wheel of our own (the game's wheel belongs to the level screen) */
+  function wheel(wh, lines, wordEl, goBtn, clrBtn, letters, submit) {
+    wh.querySelectorAll(".lt").forEach((n) => n.remove());
+    let sel = [], drag = false, moved = false, downHit = null, undoTap = false;
+    letters.forEach((c, i) => {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / letters.length, d = document.createElement("div");
+      d.className = "lt"; d.textContent = c; d.style.left = 50 + 34 * Math.cos(a) + "%"; d.style.top = 50 + 34 * Math.sin(a) + "%"; d.dataset.i = i; wh.appendChild(d);
+    });
+    const nodes = [...wh.querySelectorAll(".lt")];
+    const hitAt = (e) => { let best = null; nodes.forEach((n) => { const b = n.getBoundingClientRect(); if (Math.hypot(e.clientX - b.left - b.width / 2, e.clientY - b.top - b.height / 2) < b.width * 0.62) best = +n.dataset.i; }); return best; };
+    const draw = (px, py) => {
+      const r = wh.getBoundingClientRect();
+      nodes.forEach((n) => n.classList.toggle("sel", sel.includes(+n.dataset.i)));
+      const pts = sel.map((i) => { const b = nodes[i].getBoundingClientRect(); return [b.left + b.width / 2 - r.left, b.top + b.height / 2 - r.top]; });
+      if (drag && pts.length && px != null) pts.push([px, py]);
+      lines.setAttribute("viewBox", "0 0 " + r.width + " " + r.height);
+      lines.innerHTML = pts.length > 1 ? '<polyline points="' + pts.map((p) => p.join(",")).join(" ") + '" fill="none" stroke="#C9A24A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>' : "";
+      wordEl.innerHTML = sel.map((i) => letters[i]).join("") || "&nbsp;";
+      goBtn.classList.toggle("on", sel.length > 0); clrBtn.classList.toggle("on", sel.length > 0);
+    };
+    const go = () => { const w = sel.map((i) => letters[i]).join(""); sel = []; draw(); if (w) { const ok = submit(w); wordEl.textContent = w; wordEl.classList.toggle("ok", !!ok); setTimeout(() => { if (wordEl.isConnected && !sel.length) { wordEl.innerHTML = "&nbsp;"; wordEl.classList.remove("ok"); } }, 900); } };
+    wh.onpointerdown = (e) => {
+      drag = true; moved = false; undoTap = false; wh.setPointerCapture(e.pointerId);
+      const h = hitAt(e); downHit = h;
+      if (h != null) { if (sel.length && sel[sel.length - 1] === h) undoTap = true; else if (!sel.includes(h)) { sel.push(h); Lamp.sound && Lamp.sound("tap", sel.length - 1); } }
+      draw();
+    };
+    wh.onpointermove = (e) => {
+      if (!drag) return; const h = hitAt(e);
+      if (h != null && h !== downHit) moved = true;
+      if (moved && h != null) { if (sel[sel.length - 2] === h) sel.pop(); else if (!sel.includes(h)) { sel.push(h); Lamp.sound && Lamp.sound("tap", sel.length - 1); } }
+      const r = wh.getBoundingClientRect(); draw(moved ? e.clientX - r.left : null, moved ? e.clientY - r.top : null);
+    };
+    const end = () => { if (!drag) return; drag = false; if (moved) go(); else { if (undoTap) sel.pop(); draw(); } };
+    wh.onpointerup = end; wh.onpointercancel = end;
+    goBtn.onclick = go; clrBtn.onclick = () => { sel = []; draw(); };
+    draw();
+  }
+
+  /* ================================================================ 2. the Mount of Olives ================================================================ */
+  function olivesSVG(found) {
+    return '<svg class="fpan" viewBox="0 0 360 220" role="img" aria-label="The view west from the Mount of Olives: the Kidron valley, the city wall with the sealed Eastern Gate, and the domes above it">' +
+      '<defs><linearGradient id="osky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2A5A"/><stop offset="1" stop-color="#C9A24A"/></linearGradient></defs>' +
+      '<rect width="360" height="220" fill="url(#osky)"/>' +
+      '<ellipse cx="300" cy="46" rx="9" ry="9" fill="#FBF0C8"/>' +
+      '<path d="M0 120 L60 112 L120 108 L200 104 L260 108 L360 112 L360 220 L0 220Z" fill="#7A6A4A"/>' +
+      '<rect x="40" y="96" width="280" height="30" fill="#D9C7A0" stroke="#5A4318"/>' +
+      [50, 80, 110, 140, 200, 230, 260, 290].map((x) => '<rect x="' + x + '" y="92" width="8" height="6" fill="#D9C7A0" stroke="#5A4318" stroke-width=".6"/>').join("") +
+      '<path d="M100 96 A28 28 0 0 1 156 96Z" fill="#F0C64A" stroke="#7A5A2A"/><rect x="104" y="86" width="48" height="10" fill="#E3B54F" stroke="#7A5A2A"/>' +
+      '<path d="M206 96 A12 12 0 0 1 230 96Z" fill="#D9C7A0" stroke="#5A4318"/>' +
+      '<rect x="166" y="100" width="28" height="26" rx="2" fill="#B9A27A" stroke="#5A4318"/><path d="M171 126 V112 A9 9 0 0 1 189 112 V126Z" fill="#8A7A5A" stroke="#5A4318"/><line x1="180" y1="112" x2="180" y2="126" stroke="#5A4318"/>' +
+      (found ? '<rect x="162" y="96" width="36" height="32" rx="4" fill="none" stroke="#E0502A" stroke-width="2.5" stroke-dasharray="5 3"/>' : "") +
+      '<path d="M0 220 L0 150 Q40 140 80 150 Q130 160 180 150 Q240 140 300 150 Q340 156 360 150 L360 220Z" fill="#5A6A3A"/>' +
+      [20, 60, 110, 250, 300, 340].map((x) => '<ellipse cx="' + x + '" cy="160" rx="14" ry="10" fill="#7A8A4A"/><rect x="' + (x - 1.5) + '" y="160" width="3" height="12" fill="#5A4318"/>').join("") +
+      '<text x="6" y="214" font-size="8" fill="#F3E9CE" font-weight="700">THE MOUNT OF OLIVES · looking west across the Kidron valley</text>' +
+      "</svg>";
+  }
+  function olives() {
+    cur = "olives"; const p = P();
+    const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
+      '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
+      '<div class="fq">From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
+      '<div class="fviewwrap" id="fv">' + olivesSVG(false) + '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:26%;top:36%;width:18%;height:22%"></button><button class="fhit" data-h="gate" aria-label="The sealed gate" style="left:43%;top:42%;width:14%;height:20%"></button><button class="fhit" data-h="small" aria-label="The small dome" style="left:56%;top:36%;width:12%;height:22%"></button></div>' +
+      '<div class="fsmall">A drawn view, until Richard’s photograph from the Mount of Olives is added.</div>' + back("The stops"));
+    wire(s, stops);
+    s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
+      const h = b.dataset.h;
+      if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall itself.", "", 3600); return; }
+      if (h === "small") { K.say("The small Dome of the Spirits, on the northern rise. Not a gate. Look lower, in the wall.", "", 3600); return; }
+      K.sfx("stone"); $("fv").innerHTML = olivesSVG(true);
+      setTimeout(() => {
+        if (!K.root()) return;
+        p.olives = 1; save(); K.snd("word"); K.buzz("success");
+        K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("gate-inside.jpg", "The Eastern Gate, walled shut for five hundred years", "Photo: Richard J. Allinson, from inside the Temple Mount") +
+          "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
+          "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
+          '<p class="fgo">Next stop: the Temple Mount itself.</p><button class="cta" data-act="x">To the Temple Mount</button>', { x: stops });
+      }, 900);
+    }));
+  }
+
+  /* ================================================================ 3. the Temple Mount ================================================================ */
+  function chapter() {
+    cur = "";
     const p = P();
     if (p.done) return board(true);
     if (!p.theory) return opening();
     board();
   }
-  function hint() {
-    st.hints++;
-    const p = P(), left = CLUES.filter((c) => !p.clues[c.id]);
-    if (left.length) K.say("Open the clue “" + left[0].title + "” in your journal. Every clue is in the Scripture or the history it quotes.", "", 5200);
-    else K.say("All five clues point the same way. Place the Holy of Holies where the flat summit, the gate's line and the cubits meet.", "", 5600);
-  }
-  function stage(html, bg) {
-    const sb = $("adv-say"); if (sb) sb.classList.remove("on");
-    $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(img/start/' + (bg || "fsy-cover.jpg") + ')"></div>' + html + "</div>";
-    return $("adv-scene").querySelector(".fsy");
-  }
-
   function opening() {
-    const s = stage('<div class="fkick">' + BOOK + ' · Chapter 1</div><h1>Where Was the Temple?</h1>' +
-      '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. It will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
+    const s = stage('<div class="fkick">Stop 3 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
+      '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
       '<div class="fq">Before you look at the clues: where do you think the Holy of Holies stood?</div>' +
       '<div class="fchoices"><button data-t="rock">Under the golden Dome of the Rock</button><button data-t="spirits">On the small northern rise</button><button data-t="unsure">I don’t know yet</button></div>');
@@ -108,18 +392,21 @@
   }
 
   function board(finished) {
+    cur = "";
     const p = P(), found = CLUES.filter((c) => p.clues[c.id]).length;
     const s = stage('<div class="fkick">Where Was the Temple? · Clues ' + found + " of 5</div>" +
       '<div class="fmapwrap">' + mapSVG({ measure: finished }) + "</div>" +
       '<div class="fjournal">' + CLUES.map((c, i) => '<button class="fclue' + (p.clues[c.id] ? " done" : "") + '" data-c="' + i + '"><i>' + (p.clues[c.id] ? "✓" : i + 1) + "</i><span><b>" + esc(c.title) + "</b><small>" + esc(c.ref) + "</small></span></button>").join("") + "</div>" +
-      (finished ? '<button class="fbtn" id="fend">The answer, and what comes next</button>' : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>'));
+      (finished ? '<button class="fbtn" id="fend">' + (p.gateDone ? "What comes next" : "On to the Eastern Gate") + "</button>" : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>') +
+      back("The stops"));
+    wire(s, stops);
     s.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
       const c = CLUES[+b.dataset.c]; K.sfx("click");
       if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + '</p><button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
       c.run(c);
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
-    const en = $("fend"); if (en) en.onclick = ending;
+    const en = $("fend"); if (en) en.onclick = () => (p.gateDone ? ending() : stops());
     if (!finished && found === 0) K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200);
   }
   function solved(c) {
@@ -127,7 +414,6 @@
     K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" +
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>', { x: () => board() });
   }
-  const wrong = (msg) => { st.misses++; K.snd("bad"); K.buzz("error"); K.say(msg, "", 4600); };
   function clueScreen(c, html) {
     const s = stage('<div class="fkick">Clue · ' + esc(c.ref) + "</div><h1>" + esc(c.title) + '</h1><div class="fverse">“' + esc(c.v) + "”</div>" + html +
       '<button class="fback" id="fback">‹ Journal</button>');
@@ -165,7 +451,7 @@
   }
   /* 3. draw the line west from the Eastern Gate */
   function clueLine(c) {
-    const s = clueScreen(c, '<div class="fq">Tap the Eastern Gate on the map to look straight west, as the Temple faced.</div><div class="fmapwrap small" id="fm">' + mapSVG({}) + "</div>");
+    const s = clueScreen(c, '<div class="fq">You stood on the Mount of Olives and looked at the gate. Now tap the Eastern Gate on the map to look straight west, as the Temple faced.</div><div class="fmapwrap small" id="fm">' + mapSVG({}) + "</div>");
     const go = () => {
       $("fm").innerHTML = mapSVG({ line: true }); K.sfx("stone");
       setTimeout(() => {
@@ -180,7 +466,7 @@
   /* 4. pace out the cubits from the gate */
   function clueCubits(c) {
     let v = 0;
-    const s = clueScreen(c, '<div class="fq">The Mishnah lists the courts from the Eastern Gate: the Court of the Women, 135 cubits, then the Court of Israel, the Court of the Priests, the altar and the steps, another 52 cubits. Pace out the whole distance.</div>' +
+    const s = clueScreen(c, '<div class="fq">You walked these courts at the Temple Institute: the Court of the Women, 135 cubits, then the Court of Israel, the Court of the Priests, the altar and the steps, another 52 cubits. Pace out the whole distance from the Eastern Gate.</div>' +
       '<div class="fmapwrap small" id="fm">' + mapSVG({ pace: 0 }) + '</div><div class="fpace"><button id="fminus">−</button><b id="fval">0 cubits</b><button id="fplus">+</button></div><button class="fbtn" id="fstop">Stop here</button>');
     const draw = () => { $("fm").innerHTML = mapSVG({ pace: v }); $("fval").textContent = v + " cubits"; };
     $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; K.sfx("click"); draw(); };
@@ -225,7 +511,7 @@
     p.done = 1; save(); K.snd("level"); K.sfx("stone"); K.buzz("success");
     const was = p.theory === "rock" ? "<p>You first thought the Temple stood under the Dome of the Rock, as most people do. The evidence pointed north.</p>" : p.theory === "spirits" ? "<p>Your first guess was right: the evidence points north.</p>" : "";
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
-      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"), "fsy-cover.jpg");
+      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
@@ -233,31 +519,63 @@
       if (first) { K.A().relics.reed = 1; save(); }
       const stats = { misses: st.misses, hints: st.hints, secs: (Date.now() - st.t0) / 1000 };
       let oil = 0; if (first && !stats.hints && stats.misses <= 1) { oil = 2; Lamp.state.oil += 2; save(); }
-      K.card('<div class="kick">Chapter 1 solved · Relic found</div><div class="freed">' + REED_SVG + "</div><h2>The Measuring Reed</h2>" +
+      K.card('<div class="kick">The Temple Mount solved · Relic found</div><div class="freed">' + REED_SVG + "</div><h2>The Measuring Reed</h2>" +
         '<div class="v">“And there was given me a reed like unto a rod.”</div><div class="r">Revelation 11:1 · KJV</div>' + was +
         '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
-        '<button class="cta" data-act="next">What comes next</button>', { next: ending });
+        '<button class="cta" data-act="next">One stop remains: the Eastern Gate</button>', { next: stops });
     }, 4200);
   }
+
+  /* ================================================================ 4. the Eastern Gate, from inside ================================================================ */
+  const GATE = { text: ["Then said the LORD unto me; This gate shall be ", "SHUT", ", it shall not be opened, and no man shall enter in by it; because the LORD, the God of Israel, hath ", "ENTERED", " in by it, therefore it shall be shut. It is for the ", "PRINCE", "; the prince, he shall sit in it to eat bread before the LORD."],
+    chips: ["SHUT", "OPENED", "ENTERED", "DEPARTED", "PRINCE", "PRIEST"] };
+  function gate() {
+    cur = "gate"; const p = P(); let at = 1;
+    const s = stage('<div class="fkick">Stop 4 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
+      photo("gate-steps.jpg", "The steps up to the Eastern Gate, from inside", "Photo: Richard J. Allinson, inside the Temple Mount") +
+      '<div class="fnarr">“You have walked the courts, stood on the mountain, and found the place. One gate is left: the one you saw from the Mount of Olives, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
+      '<div class="fscroll" id="fscroll"></div>' +
+      '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "gate-inside.jpg");
+    wire(s, stops);
+    const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
+    drawScroll();
+    s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
+      const w = b.dataset.w;
+      if (w !== GATE.text[at]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong(w === "OPENED" ? "The very opposite. Why has no one passed through this gate for five hundred years?" : w === "DEPARTED" ? "Read on: the gate is shut because of what the LORD did at it, not what he will do." : w === "PRIEST" ? "Not a priest. A ruler, who eats bread before the LORD." : "That word fits another gap. Fill the gaps in order."); return; }
+      K.sfx("stone"); b.classList.add("used"); at += 2; drawScroll();
+      if (at >= GATE.text.length) {
+        setTimeout(() => {
+          if (!K.root()) return;
+          const first = !p.gateDone; p.gateDone = 1; save(); K.snd("level"); K.buzz("success");
+          K.card('<div class="kick">Episode 1 solved</div><h2>The gate is shut</h2>' + photo("gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount", "Photo: Richard J. Allinson, inside the Temple Mount") +
+            "<p>Ezekiel saw the glory of the LORD enter by this gate from the east, and heard the command: <b>shut it</b>. The Turks walled it with stone in 1541, and it has stayed shut. It waits for one person: <b>the Prince</b>.</p>" +
+            '<div class="fview"><b>The author’s view.</b> The Temple will stand again on the northern summit, in line with this gate. The Prince for whom the gate waits is the Messiah, and he will come to the Mount of Olives, exactly where you stood. The place is found. <b>The question now is when.</b><small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapters 3 and 15</small></div>" +
+            (first && !st.hints && st.misses <= 1 ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +1 oil</div></div>" : "") +
+            '<button class="cta" data-act="next">What comes next</button>', { next: ending });
+          if (first && !st.hints && st.misses <= 1) { Lamp.state.oil += 1; save(); }
+        }, 800);
+      } else K.say(at === 3 ? "Shut. And the reason follows." : "Entered in by it. And one more: for whom is the gate kept?", "", 3200);
+    }));
+  }
   function ending() {
-    K.card('<div class="kick">Coming soon · Chapter 2</div><h2>The Seventy Weeks</h2>' +
+    K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
-      "<p>The Temple can stand. But when? Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b></p>" +
-      '<p class="fgo">The investigation continues in new chapters, coming soon. Follow <b>THE FINAL SEVEN YEARS</b> on Facebook to hear first.</p>' +
-      '<button class="cta" data-act="list">See the chapters ahead</button><button class="cta alt" data-act="x">Back to the journey</button>',
+      "<p>The Temple can stand. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many. Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b></p>" +
+      '<p class="fgo">The investigation continues in new episodes, coming soon. Follow <b>THE FINAL SEVEN YEARS</b> on Facebook to hear first.</p>' +
+      '<button class="cta" data-act="list">See the episodes ahead</button><button class="cta alt" data-act="x">Back to the journey</button>',
       { list: hub, x: () => K.shut() });
   }
 
-  /* ---------- the chapter list ---------- */
+  /* ---------- the episode list ---------- */
   function hub() {
     if (!K.root()) K.open(BOOK, {}, "fsy-hub");
     const p = P();
     stage('<img class="fcover" src="img/start/fsy-cover.jpg" alt="The Final Seven Years, by Richard Allinson"><div class="fsub">The investigation through Daniel and Revelation, from the book by Richard J. Allinson</div><div class="fchap">' +
-      CHAPTERS.map((c) => '<button class="fch' + (c.play ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (c.play && p.done ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (c.play ? "" : "<em>Coming soon</em>") + "</span></button>").join("") + "</div>");
+      CHAPTERS.map((c) => '<button class="fch' + (c.play ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (c.play && p.gateDone ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (c.play ? "" : "<em>Coming soon</em>") + "</span></button>").join("") + "</div>");
     $("adv-scene").querySelectorAll("[data-ch]").forEach((b) => (b.onclick = () => {
       const c = CHAPTERS.find((x) => x.id === b.dataset.ch);
-      if (c.play) { K.sfx("click"); chapter(); return; }
+      if (c.play) { K.sfx("click"); episode(); return; }
       K.say("“" + c.title + "” is coming soon. Follow THE FINAL SEVEN YEARS on Facebook to hear when it arrives.", "", 4200);
     }));
   }
@@ -267,11 +585,11 @@
   Lamp.fsy = {
     chapters: CHAPTERS,
     open: hub,
-    play: chapter,
+    play: episode,
     card() {
       const p = P();
       return '<button class="fsycard" data-fsy="1"><span class="k">' + (Lamp.fsyOpen ? "Daniel · Revelation" : "Coming soon · Daniel · Revelation") + '</span><b>' + BOOK + '</b><span class="rule"></span>' +
-        "<small>" + (!Lamp.fsyOpen ? "Coming soon: a prophecy investigation through Daniel and Revelation, from the book by Richard J. Allinson." : p.done ? "Chapter 1 solved. Chapter 2, The Seventy Weeks, is coming soon." : "New: a prophecy investigation. Play the first chapter, “Where Was the Temple?”") + '</small><span class="go">' + (!Lamp.fsyOpen ? "See what’s coming" : p.done ? "See the chapters" : "Begin the investigation") + "</span></button>";
+        "<small>" + (!Lamp.fsyOpen ? "Coming soon: a prophecy investigation through Daniel and Revelation, from the book by Richard J. Allinson." : p.gateDone ? "Episode 1 solved. Episode 2, The Seventy Weeks, is coming soon." : "New: a prophecy investigation. Play Episode 1, “The Jerusalem Mystery”.") + '</small><span class="go">' + (!Lamp.fsyOpen ? "See what’s coming" : p.gateDone ? "See the episodes" : p.began ? "Continue the investigation" : "Begin the investigation") + "</span></button>";
     },
   };
 })();

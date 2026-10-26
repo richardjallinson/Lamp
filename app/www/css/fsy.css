@@ -116,3 +116,43 @@
 #adv .fphoto figcaption small{display:block;font:700 10px/1.3 var(--ui);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:#C9A24A;margin-top:3px}
 #adv .asheet .fphoto{max-width:none;margin:10px 0}
 #adv .asheet .fphoto figcaption{color:#3A3F55}
+
+/* ---- Episode 1: the stops, the Temple Institute, the Mount of Olives, the Eastern Gate ---- */
+#adv .fclue.locked{opacity:.45}
+#adv .fstops .fclue{padding:12px 14px}
+#adv .fstops .fclue b{font-size:17px}
+#adv .fhit{position:absolute;background:transparent;border:none;cursor:pointer;border-radius:12px}
+#adv .fark{position:relative;width:100%;max-width:380px;flex:none;border-radius:12px;overflow:hidden;border:2px solid rgba(201,162,74,.55);box-shadow:0 8px 22px rgba(0,0,0,.55)}
+#adv .fark img{display:block;width:100%}
+#adv .fark .fhit{animation:adv-pulse 1.8s ease-in-out infinite;border-radius:40%}
+#adv .fpath{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;width:100%;max-width:360px}
+#adv .fstep{padding:6px 10px;border-radius:999px;background:#C9A24A;color:#141A33;font:800 12px/1 var(--ui);animation:fsy-pop .35s ease}
+#adv .fstep.done{background:rgba(201,162,74,.35);color:#F5D27A}
+@keyframes fsy-pop{from{transform:scale(.6);opacity:0}}
+#adv .fchips{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:360px}
+#adv .fchips.six{grid-template-columns:1fr 1fr 1fr}
+#adv .fchips button{min-height:50px;padding:8px 10px;border-radius:12px;border:1px solid rgba(201,162,74,.55);background:rgba(12,18,40,.85);color:#F3E9CE;cursor:pointer;text-align:center}
+#adv .fchips button b{display:block;font:700 14px/1.2 var(--display)}
+#adv .fchips button small{display:block;margin-top:2px;font:600 11px/1.2 var(--ui);color:rgba(243,233,206,.6)}
+#adv .fchips button.used{visibility:hidden}
+#adv .fchips button.bad{animation:shake .35s;border-color:#E0502A}
+#adv .fslots{display:flex;gap:8px;width:100%;max-width:360px}
+#adv .fslots span{flex:1;min-height:46px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:2px dashed rgba(201,162,74,.6);background:rgba(201,162,74,.12);color:#F5D27A;font:800 13px/1 var(--ui);letter-spacing:.06em;text-transform:uppercase}
+#adv .fscroll{width:100%;max-width:360px;padding:14px 16px;border-radius:6px;background:linear-gradient(180deg,#F2E4C0,#E2CE9E);color:#3A2A10;font:italic 600 15.5px/1.55 var(--display);box-shadow:0 8px 22px rgba(0,0,0,.5);text-align:left}
+#adv .fscroll b{font-style:normal;letter-spacing:.08em;font:800 15px/1 var(--ui);padding:2px 4px;border-radius:4px}
+#adv .fscroll b.gap{color:#9A7A3A;background:rgba(120,90,40,.12)}
+#adv .fscroll b.gap.now{outline:2px solid #C9A24A}
+#adv .fscroll b.got{color:#141A33;background:#F5D27A}
+#adv .fscroll small{display:block;margin-top:6px;font:700 10px/1.2 var(--ui);font-style:normal;letter-spacing:.18em;text-transform:uppercase;color:#7A5A2A}
+#adv .fwordrow{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:360px}
+#adv .fword{min-width:120px;min-height:38px;padding:4px 14px;border-radius:10px;background:rgba(12,18,40,.75);border:1px solid rgba(201,162,74,.4);color:#F5D27A;font:800 22px/1.5 var(--ui);letter-spacing:.14em;text-align:center}
+#adv .fword.ok{background:#C9A24A;color:#141A33}
+#adv .fmini{width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,162,74,.5);background:rgba(12,18,40,.75);color:#F3E9CE;font:800 18px/1 var(--ui);opacity:.35;cursor:pointer}
+#adv .fmini.on{opacity:1}
+#adv .fmini.go.on{background:#C9A24A;color:#141A33}
+#adv .fwheel{position:relative;width:min(60vw,220px);aspect-ratio:1;border-radius:50%;background:rgba(12,18,40,.7);border:2px solid rgba(201,162,74,.8);touch-action:none;flex:none}
+#adv .fwheel svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#adv .fwheel .lt{color:#F5D27A;font-size:clamp(22px,7vw,28px)}
+#adv .fwheel .lt.sel{background:#C9A24A;color:#141A33}
+#adv .fviewwrap{position:relative;width:100%;max-width:380px;flex:none;border-radius:12px;overflow:hidden;border:2px solid rgba(201,162,74,.55);box-shadow:0 8px 22px rgba(0,0,0,.55)}
+#adv .fpan{display:block;width:100%;height:auto}
