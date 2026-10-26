@@ -209,6 +209,7 @@
         K.sfx("click");
         exhibitDone("ark", '<div class="kick">Exhibit 1 · Exodus 25</div><h2>The Ark of the Covenant</h2>' + photo("ark.jpg", "The Ark of the Covenant, as made ready by the Temple Institute", TI) +
           '<p><b>What it shows.</b> God gave Moses every detail of the Ark: the wings of the cherubim stretched over the mercy seat, their faces one to another, and the staves never to leave the rings. The Ark was always ready to be carried, always ready to move. <b>It was made for a place.</b></p>' +
+          '<p><b>What was inside.</b> The tables of the covenant, the golden pot of manna and Aaron’s rod that budded (Hebrews 9:4). It stood in the Holy of Holies behind the veil, and the high priest entered once a year, on the Day of Atonement, to sprinkle blood on the mercy seat (Leviticus 16:14–15).</p>' +
           '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>");
       }));
       $("fstaves").scrollIntoView({ behavior: "smooth", block: "end" });
@@ -240,13 +241,47 @@
 
   /* 1c. the instrument case: pick the three instruments of Psalm 150:3 */
   const INSTR = [["Trumpet", 1], ["Timbrel", 0], ["Psaltery", 1], ["Cymbals", 0], ["Harp", 1], ["Organ", 0]];
+  /* what stands in the case: each instrument, its purpose in the Temple, and its Scripture */
+  const CASE = [
+    { id: "trumpets", name: "The silver trumpets", heb: "chatzotzrot", box: [0.03, 0.01, 0.33, 0.47], ref: "Numbers 10:2, 10",
+      v: "Make thee two trumpets of silver; of a whole piece shalt thou make them: that thou mayest use them for the calling of the assembly, and for the journeying of the camps.",
+      what: "The only instruments the Torah itself commands. Each is beaten from one piece of silver. In the Temple the priests, not the Levites, blow them: over the daily offerings, at the new moons and feasts, and when the Levites’ song pauses, so the people bow. The Mishnah says never fewer than two (Arakhin 2:5). The Temple Institute has made silver trumpets like these, ready for the priests." },
+    { id: "nevel", name: "The harps", heb: "nevel · the KJV’s “psaltery”", box: [0.1, 0.42, 0.42, 0.82], ref: "Psalm 33:2",
+      v: "Praise the LORD with harp: sing unto him with the psaltery and an instrument of ten strings.",
+      what: "The nevel is the larger, deeper-voiced harp of the Levites. Harps of this kind are being built in Jerusalem for the Temple Institute; one modern Temple nevel has twenty-two strings, one for each letter of the Hebrew alphabet. In the Temple the Mishnah allowed never fewer than two nor more than six (Arakhin 2:3)." },
+    { id: "kinnor", name: "The great lyre", heb: "kinnor · the KJV’s “harp”", box: [0.39, 0.06, 0.6, 0.76], ref: "1 Chronicles 15:16",
+      v: "And David spake to the chief of the Levites to appoint their brethren to be the singers with instruments of musick, psalteries and harps and cymbals, sounding, by lifting up the voice with joy.",
+      what: "The kinnor is David’s own instrument, the one he played before Saul (1 Samuel 16:23). It was the Levites’ main instrument: never fewer than nine in the Temple, and no upper limit (Arakhin 2:5). This great kinnor, carved with the star of David, was made for the Levites to play when the Temple stands again." },
+    { id: "shofar", name: "The shofar", heb: "the ram’s horn", box: [0.56, 0.27, 0.69, 0.72], ref: "Psalm 81:3",
+      v: "Blow up the trumpet in the new moon, in the time appointed, on our solemn feast day.",
+      what: "The “trumpet” of Psalm 150:3 is really the shofar, the ram’s horn, remembering the ram caught in the thicket on this very mountain (Genesis 22:13). In the Temple it was blown with the silver trumpets on the Feast of Trumpets (Mishnah Rosh Hashanah 3:3). Here it rests on the covered stand." },
+    { id: "trumpets2", name: "More silver trumpets", heb: "chatzotzrot", box: [0.67, 0.08, 0.95, 0.47], ref: "2 Chronicles 29:27–28",
+      v: "And when the burnt offering began, the song of the LORD began also with the trumpets, and with the instruments ordained by David king of Israel. And all the congregation worshipped, and the singers sang, and the trumpeters sounded.",
+      what: "Hezekiah’s Temple service shows the order: the offering begins, the song begins, the trumpets sound, and all the congregation bows. The Temple Institute has made trumpets for the priests of the Third Temple to do the same." },
+    { id: "lyres", name: "The small lyres", heb: "kinnor", box: [0.67, 0.48, 0.95, 0.75], ref: "Psalm 137:2",
+      v: "We hanged our harps upon the willows in the midst thereof.",
+      what: "By the rivers of Babylon the captives hung up their kinnorot and could not sing the LORD’s song in a strange land. These small lyres are the same instrument, made again. In the Temple the Levites sang to the kinnor every day (Psalm 92:3), and the song was never to be silent." },
+  ];
   function lock() {
-    cur = "lock"; const x = EXHIBITS[2]; const got = [];
+    cur = "lock"; const x = EXHIBITS[2]; const got = [], p = P(); p.ti.seen = p.ti.seen || {};
+    const seenN = () => Object.keys(p.ti.seen).length;
     const s = exhibit(x, '<div class="fverse">“Praise him with the sound of the trumpet: praise him with the psaltery and harp.”<small>Psalm 150:3</small></div>' +
-      photo("ti-instruments.jpg", "Harps, lyres and silver trumpets made for the Temple, at the Temple Institute", TI) +
+      '<div class="fq">Every instrument in this case has been made for the Third Temple. Tap each one to learn what it is for.</div>' +
+      '<div class="fark fcase" id="fcase"><img src="img/fsy/ti-instruments.jpg" alt="Harps, lyres, silver trumpets and a shofar made for the Temple, at the Temple Institute">' +
+      CASE.map((c) => '<button class="fhit' + (p.ti.seen[c.id] ? " seen" : "") + '" data-k="' + c.id + '" aria-label="' + esc(c.name) + '" style="left:' + c.box[0] * 100 + "%;top:" + c.box[1] * 100 + "%;width:" + (c.box[2] - c.box[0]) * 100 + "%;height:" + (c.box[3] - c.box[1]) * 100 + '%"></button>').join("") + "</div>" +
+      '<div class="fsmall" id="fseen"></div>' +
+      '<div class="fchips three" id="fnames">' + CASE.map((c) => '<button data-k="' + c.id + '"' + (p.ti.seen[c.id] ? ' class="seen"' : "") + "><b>" + esc(c.name) + "</b></button>").join("") + "</div>" +
       '<div class="fq">The case is locked with three turning dials, each carved with an instrument. Set them to the three instruments of <b>verse 3</b>.</div>' +
       '<div class="fslots" id="fslots"><span></span><span></span><span></span></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(INSTR.map((c, i) => i)).map((i) => '<button data-i="' + i + '"><b>' + INSTR[i][0] + "</b></button>").join("") + "</div>", "ti-instruments.jpg");
+    const seenLine = () => { $("fseen").innerHTML = seenN() >= CASE.length ? "You have looked at every instrument in the case." : "Looked at " + seenN() + " of " + CASE.length + ". <small>Photo: Richard J. Allinson, at the Temple Institute</small>"; };
+    seenLine();
+    s.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => {
+      const c = CASE.find((y) => y.id === b.dataset.k); K.sfx("click");
+      p.ti.seen[c.id] = 1; save(); s.querySelectorAll('[data-k="' + c.id + '"]').forEach((e) => e.classList.add("seen")); seenLine();
+      K.card('<div class="kick">In the case · ' + esc(c.heb) + "</div><h2>" + esc(c.name) + '</h2><div class="v">“' + esc(c.v) + '”</div><div class="r">' + esc(c.ref) + " · KJV</div>" +
+        "<p><b>Its purpose in the Temple.</b> " + esc(c.what) + "</p>" + '<button class="cta" data-act="x">Back to the case</button>', { x: () => {} });
+    }));
     s.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => {
       const it = INSTR[+b.dataset.i];
       if (!it[1]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong("The " + it[0].toLowerCase() + " is praised in Psalm 150 too, but not in verse 3. Read verse 3 again."); return; }
@@ -255,10 +290,11 @@
       $("fslots").children[got.length - 1].textContent = it[0];
       if (got.length === 3) setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
         "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
-        "<p><b>What it shows.</b> The psalms were sung in the courts you just walked, with these instruments. The Temple was a place of music and praise, not only of sacrifice.</p>" +
+        "<p><b>What it shows.</b> Every instrument here is waiting for a building. The priests have their trumpets, the Levites their harps and lyres, the choir its songs. The psalms will be sung again in the courts you just walked. <b>Only the place is missing.</b></p>" +
         '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>"), 600);
       else K.say(got.length === 1 ? "One dial set. Two more." : "Two dials set. One more.", "", 2200);
     }));
+    if (!seenN()) K.say("Silver trumpets, harps, a great lyre, a shofar. Tap them in the photograph.", "", 3600);
   }
 
   /* 1d. the parchment: Ezekiel 43:2, read with the letter wheel */
