@@ -201,8 +201,8 @@
       '<div class="wstep"><i>2</i><p><b>Learn it by heart.</b> Each story ends with its key verse rebuilt from memory.</p></div>' +
       '<div class="wstep"><i>3</i><p><b>Solve the way forward.</b> A puzzle at the end of each story earns a relic and opens the next story.</p></div>' +
       '<div class="wstep"><i>4</i><p><b>Keep your lamp filled.</b> Bonus words earn oil; oil buys hints.</p></div>' +
-      '<div class="wpromo"><b>The Final Seven Years</b><span>A prophecy investigation through Daniel and Revelation. The first chapter is ready to play now; more are coming soon.</span></div>' +
-      '<button class="cta" data-act="go">Begin in Genesis</button><button class="cta alt" data-act="fsy">Try The Final Seven Years</button></div>',
+      '<div class="wpromo"><b>The Final Seven Years</b><span>A prophecy investigation through Daniel and Revelation. ' + (Lamp.fsyOpen ? "The first chapter is ready to play now; more are coming soon." : "Coming soon.") + '</span></div>' +
+      '<button class="cta" data-act="go">Begin in Genesis</button><button class="cta alt" data-act="fsy">' + (Lamp.fsyOpen ? "Try The Final Seven Years" : "See what’s coming") + '</button></div>',
       { go: () => {}, fsy: () => Lamp.fsy && Lamp.fsy.open() });
     void sh;
   };
@@ -211,7 +211,7 @@
       Lamp.sheet('<div class="kick">Coming Soon!</div><h2>' + (story ? esc(story.title) : "More of the Bible") + "</h2>" +
         "<p>This first edition of Lamp covers <b>Genesis and Exodus</b>. " + (story ? esc(bookName(story.book)) + " and the rest of the Bible arrive" : "The rest of the Bible arrives") +
         " in free updates, story by story, all the way to Revelation.</p>" +
-        (story && (story.book === "Daniel" || story.book === "Revelation") ? '<div class="note"><b>The Final Seven Years.</b> Daniel and Revelation become a prophecy investigation, from the book by Richard J. Allinson. The first chapter is ready to play now.</div><button class="cta gold" data-act="fsy">Play the first chapter</button>' : "") +
+        (story && (story.book === "Daniel" || story.book === "Revelation") ? '<div class="note"><b>The Final Seven Years.</b> Daniel and Revelation become a prophecy investigation, from the book by Richard J. Allinson. ' + (Lamp.fsyOpen ? "The first chapter is ready to play now." : "Coming soon.") + '</div><button class="cta gold" data-act="fsy">' + (Lamp.fsyOpen ? "Play the first chapter" : "See what’s coming") + '</button>' : "") +
         '<button class="cta' + (story && (story.book === "Daniel" || story.book === "Revelation") ? " alt" : "") + '" data-act="close">Back to the journey</button>', { close: () => {}, fsy: () => Lamp.fsy && Lamp.fsy.open() });
       return;
     }

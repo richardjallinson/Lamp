@@ -12,7 +12,7 @@
   const BOOK = "The Final Seven Years";
 
   const CHAPTERS = [
-    { id: "temple", n: 1, title: "Where Was the Temple?", tease: "The Third Temple will stand where the first one stood. But where was that?", play: true },
+    { id: "temple", n: 1, title: "Where Was the Temple?", tease: "The Third Temple will stand where the first one stood. But where was that?", play: !!Lamp.fsyOpen },
     { id: "weeks", n: 2, title: "The Seventy Weeks", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin?" },
     { id: "horns", n: 3, title: "The Ten Horns", tease: "Daniel saw ten kings rise together. Are they rising now?" },
     { id: "babylon", n: 4, title: "Mystery, Babylon the Great", tease: "A woman rides the beast and reigns over the kings of the earth. Who is she?" },
@@ -270,8 +270,8 @@
     play: chapter,
     card() {
       const p = P();
-      return '<button class="fsycard" data-fsy="1"><span class="k">Daniel · Revelation</span><b>' + BOOK + '</b><span class="rule"></span>' +
-        "<small>" + (p.done ? "Chapter 1 solved. Chapter 2, The Seventy Weeks, is coming soon." : "New: a prophecy investigation. Play the first chapter, “Where Was the Temple?”") + '</small><span class="go">' + (p.done ? "See the chapters" : "Begin the investigation") + "</span></button>";
+      return '<button class="fsycard" data-fsy="1"><span class="k">' + (Lamp.fsyOpen ? "Daniel · Revelation" : "Coming soon · Daniel · Revelation") + '</span><b>' + BOOK + '</b><span class="rule"></span>' +
+        "<small>" + (!Lamp.fsyOpen ? "Coming soon: a prophecy investigation through Daniel and Revelation, from the book by Richard J. Allinson." : p.done ? "Chapter 1 solved. Chapter 2, The Seventy Weeks, is coming soon." : "New: a prophecy investigation. Play the first chapter, “Where Was the Temple?”") + '</small><span class="go">' + (!Lamp.fsyOpen ? "See what’s coming" : p.done ? "See the chapters" : "Begin the investigation") + "</span></button>";
     },
   };
 })();
