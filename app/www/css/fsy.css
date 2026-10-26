@@ -110,3 +110,9 @@
 @media (max-height:720px){#intro .in-begin{bottom:calc(112px + env(safe-area-inset-bottom,0px))}#intro .in-titleblock{bottom:calc(180px + env(safe-area-inset-bottom,0px))}}
 #adv .fcover{width:min(62%,230px);border-radius:6px;box-shadow:0 14px 34px rgba(0,0,0,.75),0 0 0 1px rgba(245,196,81,.35);flex:none}
 #adv .fsy .bgp{filter:brightness(.17) saturate(.8) blur(5px);background-position:center 75%}
+#adv .fphoto{margin:4px 0;width:100%;max-width:360px;flex:none}
+#adv .fphoto img{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:12px;border:2px solid rgba(201,162,74,.55);box-shadow:0 8px 22px rgba(0,0,0,.55)}
+#adv .fphoto figcaption{margin-top:6px;font:italic 600 13.5px/1.35 var(--display);color:rgba(243,233,206,.85);text-align:center}
+#adv .fphoto figcaption small{display:block;font:700 10px/1.3 var(--ui);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:#C9A24A;margin-top:3px}
+#adv .asheet .fphoto{max-width:none;margin:10px 0}
+#adv .asheet .fphoto figcaption{color:#3A3F55}

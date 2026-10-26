@@ -68,6 +68,11 @@
       learned: "The middle of the court had to stay open for offerings. The Dome of the Rock stands in that middle, so the Temple could not have stood there." },
   ];
 
+  /* Richard's own photographs from the Temple Mount (December 2023 and 2024) */
+  const photo = (f, cap) => '<figure class="fphoto"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + '<small>Photo: Richard J. Allinson, on the Temple Mount</small></figcaption></figure>';
+  CLUES[0].photo = ["bedrock.jpg", "The bedrock inside the Dome of the Spirits: flat, level, natural rock"];
+  CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
+  CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
   let st = null;   // this visit: misses and hints, for the rewards
   function chapter() {
     st = { misses: 0, hints: 0, t0: Date.now() };
@@ -92,6 +97,7 @@
   function opening() {
     const s = stage('<div class="fkick">' + BOOK + ' · Chapter 1</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. It will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
+      photo("dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
       '<div class="fq">Before you look at the clues: where do you think the Holy of Holies stood?</div>' +
       '<div class="fchoices"><button data-t="rock">Under the golden Dome of the Rock</button><button data-t="spirits">On the small northern rise</button><button data-t="unsure">I don’t know yet</button></div>');
     s.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => {
@@ -109,7 +115,7 @@
       (finished ? '<button class="fbtn" id="fend">The answer, and what comes next</button>' : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>'));
     s.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
       const c = CLUES[+b.dataset.c]; K.sfx("click");
-      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div><p><b>What it shows.</b> ' + esc(c.learned) + '</p><button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
+      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + '</p><button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
       c.run(c);
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
@@ -118,7 +124,7 @@
   }
   function solved(c) {
     P().clues[c.id] = 1; save(); K.snd("word"); K.buzz("success");
-    K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div><p><b>What it shows.</b> ' + esc(c.learned) + "</p>" +
+    K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" +
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>', { x: () => board() });
   }
   const wrong = (msg) => { st.misses++; K.snd("bad"); K.buzz("error"); K.say(msg, "", 4600); };
@@ -219,7 +225,7 @@
     p.done = 1; save(); K.snd("level"); K.sfx("stone"); K.buzz("success");
     const was = p.theory === "rock" ? "<p>You first thought the Temple stood under the Dome of the Rock, as most people do. The evidence pointed north.</p>" : p.theory === "spirits" ? "<p>Your first guess was right: the evidence points north.</p>" : "";
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
-      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>', "fsy-cover.jpg");
+      '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"), "fsy-cover.jpg");
     void s;
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
@@ -229,7 +235,7 @@
       let oil = 0; if (first && !stats.hints && stats.misses <= 1) { oil = 2; Lamp.state.oil += 2; save(); }
       K.card('<div class="kick">Chapter 1 solved · Relic found</div><div class="freed">' + REED_SVG + "</div><h2>The Measuring Reed</h2>" +
         '<div class="v">“And there was given me a reed like unto a rod.”</div><div class="r">Revelation 11:1 · KJV</div>' + was +
-        '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" +
+        '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
         '<button class="cta" data-act="next">What comes next</button>', { next: ending });
     }, 4200);
