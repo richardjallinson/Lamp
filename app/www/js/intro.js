@@ -6,7 +6,7 @@
   "use strict";
   const Lamp = (window.Lamp = window.Lamp || {});
   const WORDS = ["Thy word is a lamp", "unto my feet,", "and a light", "unto my path."];
-  const GATE = { x: 0.5, y: 0.183 };   // where the doors are in the title painting (fraction of the picture)
+  const GATE = { x: 0.5, y: 0.5 };   // the Eastern Gate in the night Jerusalem painting (fraction of the picture)
   const PIC = { w: 1080, h: 1920 };
   let stage = null, timers = [], started = false, bufs = {}, decoding = false;
 
@@ -145,12 +145,12 @@
       '<div id="in-gate"></div>' +
       '<div id="in-lamp" aria-hidden="true"><div id="in-glow"></div><img id="in-clay" src="img/start/clay-lamp.webp" alt=""><img id="in-warm" src="img/start/clay-lamp-warm.webp" alt="">' +
       '<div id="in-flame"><img src="img/start/flame.webp" alt=""></div></div>' +
-      '<div class="in-layer" id="in-letters"></div>' +
+      '<div class="in-layer" id="in-open"></div>' +
       '<div class="in-layer" id="in-shade"></div>' +
       '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>Lamp · Bible Word Puzzle</small></div>' +
       '<div class="in-verse" aria-live="polite">' + WORDS.map((w) => "<span>" + w + "</span>").join(" ") + '<span class="in-ref">Psalm 119:105</span></div>' +
-      '<div class="in-titleblock"><div class="in-tag"><b>Genesis to Revelation</b>Sixty-six books. One story.<br>' +
-      (back ? "Your journey continues." : "Your journey begins.") + "</div></div>" +
+      '<div class="in-title" aria-label="Lamp, Bible Word Puzzle"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle</div></div>' +
+      '<div class="in-titleblock"><div class="in-tag">Thy word is a lamp unto my feet.<br>' + (back ? "Your journey continues." : "Your journey begins.") + "</div></div>" +
       '<button class="in-begin" id="in-begin">' + (back ? "Continue the journey" : "Begin the journey") + "</button>" +
       '<div class="in-credit">Created by Richard J. Allinson</div>' +
       '<button class="in-skip" id="in-skip" aria-label="Skip">Skip</button>' +

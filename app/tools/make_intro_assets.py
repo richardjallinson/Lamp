@@ -117,7 +117,35 @@ def flame():
                 quality=78, alpha_quality=70, method=5)
 
 
-title()
+def jerusalem():
+    """The start screen painting: night Jerusalem and the Eastern Gate, shut (title.jpg) and open (title-open.jpg).
+    The paintings are wide, so they are cut to a portrait 9:16 around the gate, with extra night sky added above
+    (a softened mirror of the painted sky) to make room for the LAMP title."""
+    src = os.path.join(IMG, "originals", "start")
+    extra, gate_x = 230, 715                       # rows of sky added (in the 1024-high original); the gate's centre
+    for name, out in (("jerusalem-night-a.png", "title.jpg"), ("jerusalem-night-open.png", "title-open.jpg")):
+        im = Image.open(os.path.join(src, name)).convert("RGB")
+        W, H = im.size
+        sky = im.crop((0, 0, W, extra)).transpose(Image.FLIP_TOP_BOTTOM).filter(ImageFilter.GaussianBlur(1.5))
+        tall = Image.new("RGB", (W, H + extra))
+        tall.paste(sky, (0, 0))
+        tall.paste(im, (0, extra))
+        a = np.asarray(tall).astype(np.float32)
+        seam = 40                                    # blend the join
+        for i in range(seam):
+            t = i / seam
+            a[extra - seam + i] = a[extra - seam + i] * (1 - t) + a[extra + (seam - i) % seam] * t * 0 + a[extra - seam + i] * t
+        yy = np.arange(H + extra)[:, None, None]
+        a = a * np.where(yy < extra, 0.78 + 0.22 * (yy / extra), 1.0)   # the high sky a little darker
+        tall = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+        h = H + extra
+        w = round(h * 9 / 16)
+        x0 = max(0, min(W - w, gate_x - w // 2))
+        tall.crop((x0, 0, x0 + w, h)).resize((1080, 1920), Image.LANCZOS).save(os.path.join(OUT, out), quality=86, optimize=True, progressive=True)
+    print("gate at", round((gate_x - x0) / w, 3), round((400 + extra) / h, 3))
+
+
+jerusalem()
 clay_lamp()
 flame()
 for f in sorted(os.listdir(OUT)):
