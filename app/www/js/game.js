@@ -391,7 +391,7 @@
     lit(1); Lamp.sound("story"); Lamp.haptic("success");
     const still = stillHere();
     const idx = D.stories.indexOf(st), nx = D.stories[idx + 1];
-    const nextOpen = nx && (nx.free || Lamp.state.unlocked);
+    const nextOpen = nx && (nx.free || (Lamp.state.unlocked && !Lamp.preview));
     const key = st.verses[st.key];
     const done = Object.keys(Lamp.state.completed).length;
     const seal = Lamp.adv && Lamp.adv.pending(st.id);   // the adventure: this story has a seal to break
@@ -420,10 +420,10 @@
       (seal ? '<div class="note">' + ICON.star + " <b>A puzzle guards this story’s relic.</b> Solve it to add the relic to your satchel and open the way ahead.</div>" +
         '<button class="cta" data-act="seal">' + (st.id === "fall" ? "Go to the Garden Gate" : "Solve the puzzle: " + esc(Lamp.adv.sealTitle(st.id))) + "</button>" +
         (nx && Lamp.blockedBy && Lamp.blockedBy(nx) ? '<p class="sealnote">The next story, “' + esc(nx.title) + "”, opens when the puzzle is solved.</p>" : "") : "") +
-      (nx && !(seal && Lamp.blockedBy && Lamp.blockedBy(nx)) ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
+      (nx && !(seal && Lamp.blockedBy && Lamp.blockedBy(nx)) ? '<button class="cta' + (seal ? " alt" : "") + '" data-act="next">' + (nextOpen ? "Play next story" : (Lamp.preview ? "Coming Soon!" : "Unlock the next story")) + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>',
       { seal: () => { const go = () => Lamp.adv.startSeal(st.id); if (st.id === "fall" && Lamp.narr) Lamp.narr.ending(st, null, "Go to the Garden Gate", go); else go(); },
-        next: () => { const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }; if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },
+        next: () => { const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { close(); Lamp.showUnlock(nx); } }; if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : (Lamp.preview ? "Coming Soon!" : "Unlock the next story"), go); else go(); },
         leave: () => { Lamp.narr && Lamp.narr.stop(); close(); } });
     const th = sh.querySelector(".thumb>div");
     if (th && st.img) { th.classList.add("tap"); th.setAttribute("role", "button"); th.setAttribute("aria-label", "See the painting"); th.onclick = () => Lamp.showPainting(st, () => {}); }

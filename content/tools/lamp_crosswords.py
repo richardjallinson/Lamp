@@ -21,7 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "data")
 OUT = os.path.join(HERE, "..", "out")
 
-CROSS_BOOKS = {"Genesis"}          # the prototype: Genesis first
+CROSS_BOOKS = {"Genesis", "Exodus"}          # the first edition: Genesis and Exodus
 # five crosswords per story: (wheel letters, words in the grid)
 STEPS = [(4, 3), (5, 4), (5, 5), (6, 6), (7, 7)]
 GOLD_FROM = 2                      # crosswords 3, 4 and 5 have a gold word

@@ -12,7 +12,7 @@
 
   let tab = "journey", book = null, gatheredMode = "verses", query = "";
 
-  const isOpen = (s) => s.free || Lamp.state.unlocked;
+  const isOpen = (s) => s.free || (Lamp.state.unlocked && !Lamp.preview);
   /* The adventure order: a story opens once the story before it is finished and its puzzle (seal) is solved.
      (So far this applies to the stories with crossword levels, Genesis, and to the story right after them.) */
   function blockedBy(s) {
@@ -85,7 +85,7 @@
       '<span class="kick">' + (blockedBy(st) && !done ? "Puzzle first · " : done ? "Continue · " : open ? "Start · " : "Locked · ") + esc(st.book) + "</span><b>" + esc(st.title) + "</b>" +
       "<small>" + esc(st.verses[st.key].ref) + " · " + (done ? "level " + (done + 1) + " of " + st.levels.length : st.levels.length + " levels") + "</small>" +
       '<span class="bar-prog"><i style="width:' + Math.round((100 * done) / st.levels.length) + '%"></i></span>' +
-      '<span class="go">' + (blockedBy(st) && !done ? "Solve the puzzle" : open ? (done ? "Continue" : "Play") : "Unlock") + "</span></button>";
+      '<span class="go">' + (blockedBy(st) && !done ? "Solve the puzzle" : open ? (done ? "Continue" : "Play") : Lamp.preview ? "Coming Soon!" : "Unlock") + "</span></button>";
     h += '<button class="daily" data-go="today"><span class="ic">' + ICON.lamp + "</span><span><b>Today’s verse</b><small>" +
       (dailyDone ? "Solved today. A new verse arrives tomorrow." : "Daily verse #" + Lamp.dailyNumber() + " · the same puzzle for everyone") + '</small></span><span class="chev">›</span></button>';
     h += weekRow() + '<div class="streakline">' + (s.lit ? "Your lamp is lit today." : s.n ? "Play one level today to keep your lamp lit." : "Finish one level to light your lamp.") + "</div>";
@@ -98,7 +98,7 @@
         const c = list.filter(isDone).length, open = list.some(isOpen), free = list.every((x) => x.free);
         h += '<button class="bookrow" data-book="' + esc(b) + '"><span class="nm"><b>' + esc(bookName(b)) + "</b><small>" +
           list.length + (list.length === 1 ? " story" : " stories") + " · " + c + " done</small></span>" +
-          (free && !Lamp.state.unlocked ? '<span class="tag-free">Free</span>' : "") +
+          (free && !Lamp.state.unlocked && !Lamp.preview ? '<span class="tag-free">Free</span>' : "") +
           (open ? ring(c, list.length) : '<span class="lock" aria-label="Locked">' + ICON.lock + "</span>") + "</button>";
       });
       h += "</div></div>";
@@ -110,7 +110,7 @@
     const list = byBook[b] || [];
     let h = '<div class="backbar"><button class="back" data-back="1">‹ Journey</button><span style="flex:1"></span>' + pills() + "</div>";
     h += '<h1 class="booktitle">' + esc(bookName(b)) + '</h1><p class="lede">' + list.length + (list.length === 1 ? " story" : " stories") +
-      (list[0] && !isOpen(list[0]) ? " · unlock to play" : "") + "</p>";
+      (list[0] && !isOpen(list[0]) ? (Lamp.preview ? " · Coming Soon!" : " · unlock to play") : "") + "</p>";
     h += '<div class="stories">' + list.map((s) => {
       const d = levelsDone(s), f = isDone(s) ? 1 : d / s.levels.length, open = isOpen(s);
       const wait = blockedBy(s);
@@ -178,7 +178,8 @@
       '<div class="row"><span class="l"><b>Narration</b><small>The Lamplighter reads the story and the verse aloud.</small></span>' + sw("narr", st.narr !== false) + "</div>" +
       '<div class="row"><span class="l"><b>Vibration</b><small>Gentle taps on your iPhone.</small></span>' + sw("haptics", st.haptics) + "</div>" +
       '<div class="row"><span class="l"><b>Colour-blind friendly colours</b><small>Blue and orange instead of cream and gold.</small></span>' + sw("cb", st.cb) + "</div></div>";
-    h += '<div class="group">' + (Lamp.state.unlocked
+    if (Lamp.preview) h += '<div class="group"><div class="row"><span class="l"><b>This edition: Genesis and Exodus</b><small>The rest of the Bible arrives in free updates.</small></span></div></div>';
+    else h += '<div class="group">' + (Lamp.state.unlocked
       ? '<div class="row"><span class="l"><b>Full Bible unlocked</b><small>All 66 books, ' + D.stories.length + " stories. Thank you.</small></span>" + ICON.check.replace("<svg", '<svg style="width:22px;height:22px;color:var(--gold)"') + "</div>"
       : '<button class="row" data-unlock="1"><span class="l"><b>Unlock the full Bible</b><small>Genesis to Revelation, one payment, no ads.</small></span><span style="color:var(--gold);font-weight:700">›</span></button>') +
       '<button class="row" data-restore="1"><span class="l"><b>Restore purchase</b><small>Use this after reinstalling or on a new iPhone.</small></span></button></div>';
@@ -191,6 +192,12 @@
 
   /* ---------- unlock ---------- */
   Lamp.showUnlock = function (story) {
+    if (Lamp.preview) {
+      Lamp.sheet('<div class="kick">Coming Soon!</div><h2>' + (story ? esc(story.title) : "More of the Bible") + "</h2>" +
+        "<p>This first edition of Lamp covers <b>Genesis and Exodus</b>. " + (story ? esc(bookName(story.book)) + " and the rest of the Bible arrive" : "The rest of the Bible arrives") +
+        " in free updates, story by story, all the way to Revelation.</p>" + '<button class="cta" data-act="close">Back to the journey</button>', { close: () => {} });
+      return;
+    }
     const price = Lamp.price || "$4.99", rest = D.stories.length - FREE_STORIES;
     const sh = Lamp.sheet('<div class="kick">Unlock the full Bible</div><h2>' + (story ? esc(story.title) + " is in the full Bible" : "Genesis to Revelation") + "</h2>" +
       '<div class="price">' + esc(price) + '</div><p style="margin:2px 0 0">One payment. Yours for good, on all your devices.</p>' +

@@ -178,12 +178,12 @@
   }
   function afterSeal(id) {
     const st = story(id), idx = D.stories.indexOf(st), nx = D.stories[idx + 1];
-    const nextOpen = nx && (nx.free || Lamp.state.unlocked);
+    const nextOpen = nx && (nx.free || (Lamp.state.unlocked && !Lamp.preview));
     card('<div class="kick">Seal broken</div><h2>' + esc(st.title) + "</h2><p>" + (nx ? "Next story: <b>" + esc(nx.title) + "</b>." : "") + "</p>" +
-      (nx ? '<button class="cta" data-act="next">' + (nextOpen ? "Play next story" : "Unlock the next story") + "</button>" : "") +
+      (nx ? '<button class="cta" data-act="next">' + (nextOpen ? "Play next story" : (Lamp.preview ? "Coming Soon!" : "Unlock the next story")) + "</button>" : "") +
       '<button class="cta alt" data-act="leave">Back to the journey</button>', {
       next: () => { shut(true); const go = () => { if (nextOpen) Lamp.playStory(nx, false); else { Lamp.closeLevel && Lamp.closeLevel(); Lamp.showUnlock(nx); } };
-        if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : "Unlock the next story", go); else go(); },
+        if (Lamp.narr) Lamp.narr.ending(st, nx, nextOpen ? "Play next story" : (Lamp.preview ? "Coming Soon!" : "Unlock the next story"), go); else go(); },
       leave: () => { shut(true); Lamp.closeLevel && Lamp.closeLevel(); },
     });
   }

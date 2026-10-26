@@ -33,7 +33,7 @@
 ]
 },
 {
-"wheel": "HETRA",
+"wheel": "EHTRA",
 "w": 5,
 "h": 5,
 "words": [
@@ -99,39 +99,39 @@
 ]
 },
 {
-"wheel": "EYRVE",
+"wheel": "YVREE",
 "w": 5,
 "h": 5,
 "words": [
 {
 "w": "EVERY",
-"r": 3,
+"r": 2,
 "c": 0,
-"d": 0
-},
-{
-"w": "EVER",
-"r": 1,
-"c": 2,
-"d": 1
-},
-{
-"w": "EYE",
-"r": 1,
-"c": 2,
 "d": 0
 },
 {
 "w": "ERE",
-"r": 1,
-"c": 0,
+"r": 2,
+"c": 2,
 "d": 1
 },
 {
 "w": "VERY",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "EVER",
 "r": 0,
-"c": 4,
+"c": 0,
 "d": 1
+},
+{
+"w": "EYE",
+"r": 0,
+"c": 0,
+"d": 0
 }
 ],
 "gold": "EVERY",
@@ -148,7 +148,7 @@
 ]
 },
 {
-"wheel": "AENHEV",
+"wheel": "EEHNAV",
 "w": 6,
 "h": 6,
 "words": [
@@ -210,50 +210,50 @@
 ]
 },
 {
-"wheel": "EVTHSEN",
+"wheel": "VEETSNH",
 "w": 7,
 "h": 6,
 "words": [
 {
 "w": "SEVENTH",
-"r": 3,
+"r": 2,
 "c": 0,
 "d": 0
 },
 {
-"w": "THESE",
-"r": 1,
-"c": 3,
+"w": "THE",
+"r": 2,
+"c": 5,
 "d": 1
 },
 {
-"w": "THE",
-"r": 1,
-"c": 3,
+"w": "SEVEN",
+"r": 4,
+"c": 2,
 "d": 0
 },
 {
 "w": "SHE",
-"r": 1,
+"r": 0,
 "c": 1,
 "d": 1
 },
 {
 "w": "SET",
-"r": 3,
-"c": 0,
-"d": 1
-},
-{
-"w": "SEVEN",
-"r": 5,
-"c": 2,
+"r": 0,
+"c": 1,
 "d": 0
 },
 {
 "w": "SENT",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "THESE",
 "r": 0,
-"c": 5,
+"c": 3,
 "d": 1
 }
 ],
@@ -304,26 +304,26 @@
 ],
 "eden": [
 {
-"wheel": "AELM",
+"wheel": "EALM",
 "w": 4,
 "h": 4,
 "words": [
 {
 "w": "MALE",
-"r": 1,
+"r": 0,
 "c": 0,
 "d": 0
 },
 {
 "w": "LAME",
 "r": 0,
-"c": 1,
+"c": 2,
 "d": 1
 },
 {
 "w": "MEAL",
 "r": 0,
-"c": 3,
+"c": 0,
 "d": 1
 }
 ],
@@ -338,9 +338,9 @@
 ]
 },
 {
-"wheel": "EATRH",
+"wheel": "RHETA",
 "w": 5,
-"h": 3,
+"h": 4,
 "words": [
 {
 "w": "EARTH",
@@ -349,8 +349,14 @@
 "d": 0
 },
 {
-"w": "HER",
+"w": "ARE",
 "r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "EAT",
+"r": 1,
 "c": 0,
 "d": 1
 },
@@ -358,12 +364,6 @@
 "w": "THE",
 "r": 0,
 "c": 4,
-"d": 1
-},
-{
-"w": "ARE",
-"r": 0,
-"c": 2,
 "d": 1
 }
 ],
@@ -389,12 +389,12 @@
 "ART",
 "ATE",
 "EAR",
-"EAT",
 "ERA",
 "ERT",
 "ETA",
 "HAE",
 "HAT",
+"HER",
 "RAH",
 "RAT",
 "RTE",
@@ -404,39 +404,39 @@
 ]
 },
 {
-"wheel": "YVREE",
+"wheel": "EVRYE",
 "w": 5,
 "h": 5,
 "words": [
 {
 "w": "EVERY",
-"r": 2,
+"r": 3,
 "c": 0,
 "d": 0
-},
-{
-"w": "ERE",
-"r": 0,
-"c": 2,
-"d": 1
 },
 {
 "w": "VERY",
 "r": 0,
-"c": 1,
-"d": 0
+"c": 4,
+"d": 1
 },
 {
 "w": "EYE",
-"r": 2,
-"c": 0,
+"r": 1,
+"c": 2,
+"d": 0
+},
+{
+"w": "ERE",
+"r": 1,
+"c": 2,
 "d": 1
 },
 {
 "w": "EVER",
-"r": 4,
+"r": 1,
 "c": 0,
-"d": 0
+"d": 1
 }
 ],
 "gold": "EVERY",
@@ -453,44 +453,44 @@
 ]
 },
 {
-"wheel": "EALMFE",
+"wheel": "ALEFME",
 "w": 6,
 "h": 6,
 "words": [
 {
 "w": "FEMALE",
-"r": 3,
-"c": 0,
-"d": 0
-},
-{
-"w": "FLEE",
 "r": 0,
-"c": 1,
-"d": 1
-},
-{
-"w": "LEAF",
-"r": 2,
-"c": 5,
-"d": 1
-},
-{
-"w": "MALE",
-"r": 2,
-"c": 3,
-"d": 1
-},
-{
-"w": "FAME",
-"r": 5,
 "c": 0,
 "d": 0
 },
 {
 "w": "FLAME",
 "r": 0,
-"c": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "MALE",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "LEAF",
+"r": 2,
+"c": 2,
+"d": 0
+},
+{
+"w": "FAME",
+"r": 2,
+"c": 5,
+"d": 1
+},
+{
+"w": "FLEE",
+"r": 5,
+"c": 2,
 "d": 0
 }
 ],
@@ -522,7 +522,7 @@
 ]
 },
 {
-"wheel": "SEIRVLR",
+"wheel": "IRLSVER",
 "w": 7,
 "h": 7,
 "words": [
@@ -623,7 +623,7 @@
 ],
 "fall": [
 {
-"wheel": "DORL",
+"wheel": "DROL",
 "w": 4,
 "h": 3,
 "words": [
@@ -655,7 +655,7 @@
 ]
 },
 {
-"wheel": "ERWEH",
+"wheel": "WHEER",
 "w": 5,
 "h": 5,
 "words": [
@@ -664,12 +664,6 @@
 "r": 1,
 "c": 0,
 "d": 0
-},
-{
-"w": "WERE",
-"r": 1,
-"c": 0,
-"d": 1
 },
 {
 "w": "HER",
@@ -681,6 +675,12 @@
 "w": "HERE",
 "r": 0,
 "c": 4,
+"d": 1
+},
+{
+"w": "WERE",
+"r": 1,
+"c": 0,
 "d": 1
 }
 ],
@@ -698,12 +698,24 @@
 ]
 },
 {
-"wheel": "WMAON",
+"wheel": "AOWMN",
 "w": 5,
 "h": 5,
 "words": [
 {
 "w": "WOMAN",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "MAN",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OWN",
 "r": 2,
 "c": 0,
 "d": 0
@@ -711,26 +723,14 @@
 {
 "w": "NOW",
 "r": 0,
-"c": 0,
-"d": 1
-},
-{
-"w": "OWN",
-"r": 0,
 "c": 4,
 "d": 1
 },
 {
-"w": "MAN",
-"r": 2,
-"c": 2,
-"d": 1
-},
-{
 "w": "WON",
-"r": 4,
-"c": 0,
-"d": 0
+"r": 2,
+"c": 1,
+"d": 1
 }
 ],
 "gold": "WOMAN",
@@ -748,7 +748,7 @@
 ]
 },
 {
-"wheel": "CLADEL",
+"wheel": "LDLEAC",
 "w": 6,
 "h": 5,
 "words": [
@@ -771,12 +771,6 @@
 "d": 0
 },
 {
-"w": "LACE",
-"r": 0,
-"c": 0,
-"d": 1
-},
-{
 "w": "DEAL",
 "r": 1,
 "c": 4,
@@ -787,6 +781,12 @@
 "r": 4,
 "c": 2,
 "d": 0
+},
+{
+"w": "LACE",
+"r": 0,
+"c": 0,
+"d": 1
 }
 ],
 "gold": "CALLED",
@@ -823,49 +823,49 @@
 },
 {
 "wheel": "IGLNHT",
-"w": 6,
-"h": 7,
+"w": 7,
+"h": 6,
 "words": [
 {
 "w": "LIGHT",
-"r": 4,
-"c": 1,
+"r": 2,
+"c": 0,
 "d": 0
 },
 {
-"w": "HIN",
-"r": 4,
+"w": "THIN",
+"r": 2,
 "c": 4,
 "d": 1
 },
 {
-"w": "THIN",
-"r": 6,
-"c": 1,
-"d": 0
-},
-{
-"w": "THING",
-"r": 0,
-"c": 3,
-"d": 1
-},
-{
-"w": "NIGHT",
-"r": 0,
-"c": 5,
-"d": 1
-},
-{
 "w": "TIN",
-"r": 0,
-"c": 3,
+"r": 5,
+"c": 2,
 "d": 0
 },
 {
 "w": "NIGH",
 "r": 1,
-"c": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "HIN",
+"r": 3,
+"c": 4,
+"d": 0
+},
+{
+"w": "THING",
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "NIGHT",
+"r": 0,
+"c": 2,
 "d": 0
 }
 ],
@@ -895,7 +895,7 @@
 ],
 "noah": [
 {
-"wheel": "ESEY",
+"wheel": "EESY",
 "w": 4,
 "h": 3,
 "words": [
@@ -908,14 +908,14 @@
 {
 "w": "EYE",
 "r": 0,
-"c": 2,
+"c": 0,
 "d": 1
 },
 {
 "w": "SEE",
-"r": 2,
-"c": 0,
-"d": 0
+"r": 0,
+"c": 3,
+"d": 1
 }
 ],
 "gold": null,
@@ -925,33 +925,33 @@
 ]
 },
 {
-"wheel": "GRCEA",
+"wheel": "GCAER",
 "w": 5,
 "h": 5,
 "words": [
 {
 "w": "GRACE",
-"r": 2,
+"r": 1,
 "c": 0,
 "d": 0
 },
 {
+"w": "CARE",
+"r": 1,
+"c": 3,
+"d": 1
+},
+{
 "w": "ARE",
 "r": 0,
-"c": 4,
+"c": 1,
 "d": 1
 },
 {
 "w": "RAGE",
-"r": 0,
+"r": 4,
 "c": 0,
-"d": 1
-},
-{
-"w": "CARE",
-"r": 1,
-"c": 2,
-"d": 1
+"d": 0
 }
 ],
 "gold": null,
@@ -979,37 +979,37 @@
 ]
 },
 {
-"wheel": "LCOUD",
+"wheel": "ULDOC",
 "w": 6,
 "h": 6,
 "words": [
 {
 "w": "CLOUD",
-"r": 4,
-"c": 0,
-"d": 0
-},
-{
-"w": "COULD",
-"r": 1,
-"c": 1,
-"d": 1
-},
-{
-"w": "COLD",
 "r": 2,
 "c": 0,
 "d": 0
 },
 {
+"w": "COLD",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "COULD",
+"r": 1,
+"c": 2,
+"d": 1
+},
+{
 "w": "OLD",
 "r": 0,
-"c": 3,
+"c": 4,
 "d": 1
 },
 {
 "w": "LOUD",
-"r": 0,
+"r": 4,
 "c": 2,
 "d": 0
 }
@@ -1030,7 +1030,7 @@
 ]
 },
 {
-"wheel": "EFOBER",
+"wheel": "BEOFER",
 "w": 6,
 "h": 6,
 "words": [
@@ -1041,33 +1041,33 @@
 "d": 0
 },
 {
-"w": "ROBE",
+"w": "BORE",
+"r": 0,
+"c": 5,
+"d": 1
+},
+{
+"w": "FREE",
 "r": 0,
 "c": 1,
 "d": 1
 },
 {
-"w": "BEER",
-"r": 1,
-"c": 5,
-"d": 1
-},
-{
-"w": "BORE",
-"r": 1,
-"c": 0,
+"w": "FOR",
+"r": 0,
+"c": 1,
 "d": 0
 },
 {
-"w": "FOR",
-"r": 3,
-"c": 2,
+"w": "ROBE",
+"r": 2,
+"c": 3,
 "d": 1
 },
 {
-"w": "FREE",
+"w": "BEER",
 "r": 5,
-"c": 1,
+"c": 2,
 "d": 0
 }
 ],
@@ -1098,51 +1098,51 @@
 ]
 },
 {
-"wheel": "DOWWNI",
+"wheel": "WDONIW",
 "w": 6,
 "h": 6,
 "words": [
 {
 "w": "WINDOW",
-"r": 3,
+"r": 0,
 "c": 0,
 "d": 0
 },
 {
-"w": "WON",
-"r": 3,
-"c": 0,
-"d": 1
-},
-{
 "w": "OWN",
-"r": 3,
+"r": 0,
 "c": 4,
 "d": 1
 },
 {
-"w": "DOWN",
+"w": "WON",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "NOW",
 "r": 0,
 "c": 2,
+"d": 1
+},
+{
+"w": "WIND",
+"r": 2,
+"c": 2,
+"d": 0
+},
+{
+"w": "DOWN",
+"r": 2,
+"c": 5,
 "d": 1
 },
 {
 "w": "WIDOW",
-"r": 0,
-"c": 0,
+"r": 4,
+"c": 1,
 "d": 0
-},
-{
-"w": "WIND",
-"r": 5,
-"c": 2,
-"d": 0
-},
-{
-"w": "NOW",
-"r": 1,
-"c": 5,
-"d": 1
 }
 ],
 "gold": "WINDOW",
@@ -1163,7 +1163,7 @@
 ],
 "abram": [
 {
-"wheel": "RLOD",
+"wheel": "LDOR",
 "w": 4,
 "h": 3,
 "words": [
@@ -1195,7 +1195,7 @@
 ]
 },
 {
-"wheel": "EOSUH",
+"wheel": "OUEHS",
 "w": 5,
 "h": 4,
 "words": [
@@ -1206,15 +1206,15 @@
 "d": 0
 },
 {
-"w": "SHE",
-"r": 0,
-"c": 4,
-"d": 1
-},
-{
 "w": "SHOE",
 "r": 0,
 "c": 1,
+"d": 1
+},
+{
+"w": "SHE",
+"r": 0,
+"c": 4,
 "d": 1
 },
 {
@@ -1240,7 +1240,7 @@
 ]
 },
 {
-"wheel": "ERTGA",
+"wheel": "GATRE",
 "w": 5,
 "h": 5,
 "words": [
@@ -1252,27 +1252,27 @@
 },
 {
 "w": "ART",
-"r": 0,
-"c": 4,
-"d": 1
-},
-{
-"w": "ARE",
-"r": 1,
-"c": 1,
-"d": 1
-},
-{
-"w": "AGE",
 "r": 2,
 "c": 3,
 "d": 1
 },
 {
-"w": "GET",
+"w": "AGE",
+"r": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "EAT",
 "r": 4,
-"c": 2,
+"c": 1,
 "d": 0
+},
+{
+"w": "GET",
+"r": 0,
+"c": 4,
+"d": 1
 }
 ],
 "gold": "GREAT",
@@ -1288,9 +1288,9 @@
 "TARE",
 "TEAR",
 "AGR",
+"ARE",
 "ATE",
 "EAR",
-"EAT",
 "ERA",
 "ERG",
 "ERT",
@@ -1309,45 +1309,45 @@
 ]
 },
 {
-"wheel": "AONTIN",
+"wheel": "INTNOA",
 "w": 6,
 "h": 6,
 "words": [
 {
 "w": "NATION",
-"r": 3,
+"r": 4,
 "c": 0,
 "d": 0
-},
-{
-"w": "AIN",
-"r": 3,
-"c": 1,
-"d": 1
 },
 {
 "w": "ANOINT",
-"r": 5,
-"c": 0,
-"d": 0
+"r": 0,
+"c": 5,
+"d": 1
 },
 {
 "w": "INTO",
-"r": 0,
-"c": 4,
-"d": 1
+"r": 2,
+"c": 2,
+"d": 0
 },
 {
 "w": "ANON",
 "r": 1,
-"c": 1,
-"d": 0
+"c": 0,
+"d": 1
+},
+{
+"w": "TIN",
+"r": 0,
+"c": 3,
+"d": 1
 },
 {
 "w": "NOT",
-"r": 1,
-"c": 2,
-"d": 1
+"r": 0,
+"c": 1,
+"d": 0
 }
 ],
 "gold": "NATION",
@@ -1357,6 +1357,7 @@
 "ANTI",
 "IOTA",
 "TAIN",
+"AIN",
 "AIT",
 "ANN",
 "ANT",
@@ -1367,54 +1368,53 @@
 "NON",
 "OAT",
 "TAN",
-"TIN",
 "TON"
 ]
 },
 {
-"wheel": "TALAER",
-"w": 5,
-"h": 7,
+"wheel": "LERAAT",
+"w": 7,
+"h": 5,
 "words": [
 {
 "w": "ALTAR",
-"r": 4,
-"c": 0,
-"d": 0
-},
-{
-"w": "TEAR",
-"r": 1,
-"c": 4,
-"d": 1
-},
-{
-"w": "TALE",
-"r": 2,
-"c": 1,
-"d": 0
-},
-{
-"w": "EAT",
 "r": 0,
-"c": 1,
-"d": 1
-},
-{
-"w": "LET",
-"r": 0,
-"c": 0,
+"c": 2,
 "d": 0
 },
 {
 "w": "ALTER",
-"r": 2,
+"r": 0,
 "c": 2,
 "d": 1
 },
 {
+"w": "TEAR",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "LET",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
 "w": "RATE",
-"r": 3,
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "ARE",
+"r": 4,
+"c": 1,
+"d": 0
+},
+{
+"w": "TALE",
+"r": 0,
 "c": 0,
 "d": 1
 }
@@ -1446,10 +1446,10 @@
 "ALA",
 "ALE",
 "ALT",
-"ARE",
 "ART",
 "ATE",
 "EAR",
+"EAT",
 "ERA",
 "ERT",
 "ETA",
@@ -1468,7 +1468,7 @@
 ],
 "mamre": [
 {
-"wheel": "RLOD",
+"wheel": "RDLO",
 "w": 4,
 "h": 3,
 "words": [
@@ -1500,7 +1500,7 @@
 ]
 },
 {
-"wheel": "HNIGT",
+"wheel": "NIHTG",
 "w": 5,
 "h": 4,
 "words": [
@@ -1511,9 +1511,9 @@
 "d": 0
 },
 {
-"w": "THIN",
+"w": "NIGH",
 "r": 0,
-"c": 3,
+"c": 1,
 "d": 1
 },
 {
@@ -1523,9 +1523,9 @@
 "d": 0
 },
 {
-"w": "NIGH",
+"w": "THIN",
 "r": 0,
-"c": 1,
+"c": 3,
 "d": 1
 }
 ],
@@ -1562,15 +1562,15 @@
 "d": 1
 },
 {
-"w": "EAT",
-"r": 2,
-"c": 3,
-"d": 1
-},
-{
 "w": "ARE",
 "r": 2,
 "c": 1,
+"d": 1
+},
+{
+"w": "EAT",
+"r": 2,
+"c": 3,
 "d": 1
 },
 {
@@ -1608,7 +1608,7 @@
 ]
 },
 {
-"wheel": "ENTRRU",
+"wheel": "URETNR",
 "w": 6,
 "h": 5,
 "words": [
@@ -1675,7 +1675,7 @@
 ]
 },
 {
-"wheel": "ASBUCEE",
+"wheel": "EAEBSCU",
 "w": 7,
 "h": 6,
 "words": [
@@ -1760,7 +1760,7 @@
 ],
 "provide": [
 {
-"wheel": "TNWE",
+"wheel": "ENWT",
 "w": 4,
 "h": 3,
 "words": [
@@ -1793,7 +1793,7 @@
 ]
 },
 {
-"wheel": "BTNUR",
+"wheel": "BNRUT",
 "w": 5,
 "h": 4,
 "words": [
@@ -1810,16 +1810,16 @@
 "d": 1
 },
 {
-"w": "BURN",
-"r": 3,
-"c": 1,
-"d": 0
-},
-{
 "w": "BUT",
 "r": 0,
 "c": 0,
 "d": 1
+},
+{
+"w": "BURN",
+"r": 3,
+"c": 1,
+"d": 0
 }
 ],
 "gold": null,
@@ -1842,7 +1842,7 @@
 ]
 },
 {
-"wheel": "HNROS",
+"wheel": "ONHRS",
 "w": 5,
 "h": 6,
 "words": [
@@ -1853,22 +1853,22 @@
 "d": 0
 },
 {
-"w": "HOR",
-"r": 2,
-"c": 1,
-"d": 1
-},
-{
 "w": "HORN",
 "r": 0,
 "c": 3,
 "d": 1
 },
 {
-"w": "NOR",
+"w": "HOR",
 "r": 1,
 "c": 2,
 "d": 0
+},
+{
+"w": "NOR",
+"r": 2,
+"c": 1,
+"d": 1
 },
 {
 "w": "SON",
@@ -1892,7 +1892,7 @@
 ]
 },
 {
-"wheel": "IEFDTL",
+"wheel": "LIDTEF",
 "w": 6,
 "h": 6,
 "words": [
@@ -1900,6 +1900,18 @@
 "w": "LIFTED",
 "r": 3,
 "c": 0,
+"d": 0
+},
+{
+"w": "LEFT",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "FIELD",
+"r": 1,
+"c": 1,
 "d": 0
 },
 {
@@ -1915,22 +1927,10 @@
 "d": 0
 },
 {
-"w": "LEFT",
-"r": 0,
-"c": 3,
-"d": 1
-},
-{
 "w": "LET",
 "r": 3,
 "c": 0,
 "d": 1
-},
-{
-"w": "FIELD",
-"r": 0,
-"c": 0,
-"d": 0
 }
 ],
 "gold": "LIFTED",
@@ -1984,9 +1984,9 @@
 ]
 },
 {
-"wheel": "ENIDHB",
+"wheel": "IHNDEB",
 "w": 7,
-"h": 6,
+"h": 7,
 "words": [
 {
 "w": "BEHIND",
@@ -1995,27 +1995,21 @@
 "d": 0
 },
 {
-"w": "DINE",
-"r": 0,
-"c": 2,
-"d": 1
-},
-{
-"w": "HIDE",
-"r": 0,
-"c": 0,
-"d": 0
-},
-{
-"w": "END",
+"w": "HID",
 "r": 1,
 "c": 6,
 "d": 1
 },
 {
-"w": "HID",
+"w": "HIDE",
 "r": 0,
-"c": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "BEND",
+"r": 3,
+"c": 1,
 "d": 1
 },
 {
@@ -2025,9 +2019,15 @@
 "d": 1
 },
 {
-"w": "BEND",
+"w": "HIND",
+"r": 0,
+"c": 2,
+"d": 0
+},
+{
+"w": "END",
 "r": 5,
-"c": 1,
+"c": 0,
 "d": 0
 }
 ],
@@ -2036,8 +2036,8 @@
 "bonus": [
 "BIDE",
 "BINE",
+"DINE",
 "HIED",
-"HIND",
 "NIDE",
 "BED",
 "BEN",
@@ -2060,7 +2060,7 @@
 ],
 "ladder": [
 {
-"wheel": "DNLA",
+"wheel": "ANLD",
 "w": 4,
 "h": 4,
 "words": [
@@ -2088,7 +2088,7 @@
 "bonus": []
 },
 {
-"wheel": "HRTEA",
+"wheel": "EARHT",
 "w": 5,
 "h": 3,
 "words": [
@@ -2154,9 +2154,9 @@
 ]
 },
 {
-"wheel": "ACPLE",
-"w": 5,
-"h": 6,
+"wheel": "APLEC",
+"w": 6,
+"h": 4,
 "words": [
 {
 "w": "PLACE",
@@ -2165,15 +2165,15 @@
 "d": 0
 },
 {
-"w": "PALE",
-"r": 2,
-"c": 2,
-"d": 1
-},
-{
 "w": "CLAP",
 "r": 0,
 "c": 0,
+"d": 1
+},
+{
+"w": "PLEA",
+"r": 0,
+"c": 2,
 "d": 1
 },
 {
@@ -2184,8 +2184,8 @@
 },
 {
 "w": "LEAP",
-"r": 5,
-"c": 1,
+"r": 1,
+"c": 2,
 "d": 0
 }
 ],
@@ -2194,8 +2194,8 @@
 "bonus": [
 "CAPE",
 "PACE",
+"PALE",
 "PEAL",
-"PLEA",
 "ACE",
 "ALE",
 "ALP",
@@ -2211,7 +2211,7 @@
 ]
 },
 {
-"wheel": "BOHLDE",
+"wheel": "EHLDBO",
 "w": 6,
 "h": 6,
 "words": [
@@ -2223,15 +2223,15 @@
 },
 {
 "w": "OLD",
-"r": 3,
-"c": 3,
+"r": 1,
+"c": 5,
 "d": 1
 },
 {
-"w": "HELD",
-"r": 5,
-"c": 0,
-"d": 0
+"w": "BOLD",
+"r": 2,
+"c": 3,
+"d": 1
 },
 {
 "w": "HOLE",
@@ -2241,15 +2241,15 @@
 },
 {
 "w": "HOLD",
-"r": 1,
-"c": 0,
+"r": 0,
+"c": 1,
 "d": 0
 },
 {
-"w": "BOLD",
-"r": 0,
-"c": 5,
-"d": 1
+"w": "HELD",
+"r": 5,
+"c": 0,
+"d": 0
 }
 ],
 "gold": "BEHOLD",
@@ -2285,7 +2285,7 @@
 ]
 },
 {
-"wheel": "PLILRA",
+"wheel": "ALILPR",
 "w": 6,
 "h": 5,
 "words": [
@@ -2296,15 +2296,15 @@
 "d": 0
 },
 {
-"w": "LIP",
-"r": 0,
-"c": 0,
-"d": 1
-},
-{
 "w": "AIR",
 "r": 2,
 "c": 4,
+"d": 1
+},
+{
+"w": "LAP",
+"r": 0,
+"c": 0,
 "d": 1
 },
 {
@@ -2312,6 +2312,12 @@
 "r": 4,
 "c": 1,
 "d": 0
+},
+{
+"w": "ILL",
+"r": 2,
+"c": 1,
+"d": 1
 },
 {
 "w": "ALL",
@@ -2324,12 +2330,6 @@
 "r": 0,
 "c": 2,
 "d": 0
-},
-{
-"w": "ILL",
-"r": 2,
-"c": 1,
-"d": 1
 }
 ],
 "gold": "PILLAR",
@@ -2348,8 +2348,8 @@
 "RILL",
 "AIL",
 "ALP",
-"LAP",
 "LAR",
+"LIP",
 "PAL",
 "PAR",
 "RAP",
@@ -2360,25 +2360,25 @@
 ],
 "joseph": [
 {
-"wheel": "EOMR",
+"wheel": "REMO",
 "w": 4,
 "h": 3,
 "words": [
 {
 "w": "MORE",
-"r": 2,
+"r": 0,
 "c": 0,
 "d": 0
 },
 {
 "w": "ROE",
 "r": 0,
-"c": 3,
+"c": 2,
 "d": 1
 },
 {
 "w": "OMER",
-"r": 0,
+"r": 2,
 "c": 0,
 "d": 0
 }
@@ -2393,7 +2393,7 @@
 ]
 },
 {
-"wheel": "LODVE",
+"wheel": "VLODE",
 "w": 5,
 "h": 5,
 "words": [
@@ -2404,15 +2404,15 @@
 "d": 0
 },
 {
-"w": "OLD",
-"r": 0,
-"c": 0,
-"d": 1
-},
-{
 "w": "DOVE",
 "r": 1,
 "c": 4,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 0,
+"c": 0,
 "d": 1
 },
 {
@@ -2443,7 +2443,7 @@
 ]
 },
 {
-"wheel": "ETNAM",
+"wheel": "TEAMN",
 "w": 5,
 "h": 5,
 "words": [
@@ -2454,28 +2454,28 @@
 "d": 0
 },
 {
-"w": "MAN",
+"w": "TEN",
 "r": 0,
 "c": 3,
 "d": 1
 },
 {
 "w": "EAT",
-"r": 2,
-"c": 1,
-"d": 1
-},
-{
-"w": "NAME",
 "r": 0,
 "c": 1,
 "d": 0
 },
 {
-"w": "TEN",
+"w": "MAN",
 "r": 2,
-"c": 4,
+"c": 0,
 "d": 1
+},
+{
+"w": "NAME",
+"r": 4,
+"c": 0,
+"d": 0
 }
 ],
 "gold": "MEANT",
@@ -2510,7 +2510,7 @@
 ]
 },
 {
-"wheel": "HTAREF",
+"wheel": "ARFEHT",
 "w": 7,
 "h": 5,
 "words": [
@@ -2519,12 +2519,6 @@
 "r": 4,
 "c": 1,
 "d": 0
-},
-{
-"w": "FEAR",
-"r": 1,
-"c": 6,
-"d": 1
 },
 {
 "w": "EARTH",
@@ -2546,6 +2540,12 @@
 },
 {
 "w": "HEAR",
+"r": 1,
+"c": 6,
+"d": 1
+},
+{
+"w": "FEAR",
 "r": 0,
 "c": 0,
 "d": 1
@@ -2608,7 +2608,7 @@
 ]
 },
 {
-"wheel": "HTSIFF",
+"wheel": "FIFSTH",
 "w": 6,
 "h": 6,
 "words": [
@@ -2670,6 +2670,1338 @@
 "IFS",
 "ITS",
 "SIT"
+]
+}
+],
+"bush": [
+{
+"wheel": "DRLO",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "LORD",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROD",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOL",
+"DOR",
+"ORD"
+]
+},
+{
+"wheel": "GELAN",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "ANGEL",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "GLEAN",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "ANGLE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "LEAN",
+"r": 0,
+"c": 4,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"ELAN",
+"GALE",
+"GEAN",
+"GLEN",
+"LANE",
+"LANG",
+"AGE",
+"ALE",
+"ALG",
+"ANE",
+"ENG",
+"ENL",
+"GAL",
+"GAN",
+"GEL",
+"GEN",
+"LAG",
+"LEA",
+"LEG",
+"NAE",
+"NAG",
+"NEG"
+]
+},
+{
+"wheel": "FLEAM",
+"w": 5,
+"h": 6,
+"words": [
+{
+"w": "FLAME",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "MALE",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "FAME",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "LAME",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "MEAL",
+"r": 5,
+"c": 0,
+"d": 0
+}
+],
+"gold": "FLAME",
+"clue": false,
+"bonus": [
+"FLEAM",
+"FEAL",
+"FLAM",
+"FLEA",
+"LEAF",
+"ALE",
+"ELF",
+"ELM",
+"EMF",
+"FAM",
+"FEM",
+"LAM",
+"LEA",
+"MEL"
+]
+},
+{
+"wheel": "EDLHBO",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "BEHOLD",
+"r": 5,
+"c": 0,
+"d": 0
+},
+{
+"w": "HOLE",
+"r": 2,
+"c": 1,
+"d": 1
+},
+{
+"w": "HOLD",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "BOLD",
+"r": 2,
+"c": 5,
+"d": 1
+},
+{
+"w": "HELD",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "LED",
+"r": 1,
+"c": 2,
+"d": 0
+}
+],
+"gold": "BEHOLD",
+"clue": false,
+"bonus": [
+"DHOLE",
+"HOLED",
+"LOBED",
+"BLED",
+"BODE",
+"BOLE",
+"DOLE",
+"HOED",
+"LOBE",
+"LODE",
+"BED",
+"BEL",
+"BOD",
+"DEB",
+"DEL",
+"DOB",
+"DOE",
+"DOL",
+"EDH",
+"ELD",
+"HOB",
+"HOD",
+"HOE",
+"LOB",
+"ODE",
+"OLD",
+"OLE"
+]
+},
+{
+"wheel": "ERHNOEW",
+"w": 7,
+"h": 6,
+"words": [
+{
+"w": "WHEREON",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "HER",
+"r": 3,
+"c": 1,
+"d": 1
+},
+{
+"w": "WHERE",
+"r": 1,
+"c": 4,
+"d": 1
+},
+{
+"w": "WHEN",
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "HERE",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "NOW",
+"r": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "WHO",
+"r": 0,
+"c": 1,
+"d": 0
+}
+],
+"gold": "WHEREON",
+"clue": false,
+"bonus": [
+"NOWHERE",
+"ERENOW",
+"HEREON",
+"HERON",
+"HEWER",
+"HONER",
+"NEWER",
+"OWNER",
+"RENEW",
+"WHEEN",
+"ENOW",
+"ERNE",
+"EWER",
+"HERN",
+"HERO",
+"HOER",
+"HONE",
+"HORN",
+"RHEO",
+"WEEN",
+"WEER",
+"WERE",
+"WHEE",
+"WORE",
+"WORN",
+"WREN",
+"EON",
+"ERE",
+"EWE",
+"HEN",
+"HEW",
+"HOE",
+"HON",
+"HOR",
+"HOW",
+"NEE",
+"NEW",
+"NOR",
+"ONE",
+"ORE",
+"OWE",
+"OWN",
+"RHO",
+"ROE",
+"ROW",
+"WEE",
+"WEN",
+"WOE",
+"WON"
+]
+}
+],
+"passover": [
+{
+"wheel": "NWET",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "WENT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "TEN",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "NEW",
+"r": 0,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"NEWT",
+"NET",
+"WEN",
+"WET"
+]
+},
+{
+"wheel": "TAHSI",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "SAITH",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "HAST",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "THIS",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "SAT",
+"r": 1,
+"c": 2,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HATS",
+"HIST",
+"HITS",
+"SATI",
+"AIS",
+"AIT",
+"ASH",
+"HAS",
+"HAT",
+"HIS",
+"HIT",
+"ITS",
+"SIT"
+]
+},
+{
+"wheel": "TESAF",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "FEAST",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "SET",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "EAST",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "SEA",
+"r": 2,
+"c": 2,
+"d": 1
+},
+{
+"w": "EAT",
+"r": 2,
+"c": 0,
+"d": 1
+}
+],
+"gold": "FEAST",
+"clue": false,
+"bonus": [
+"FATES",
+"FEATS",
+"EATS",
+"EFTS",
+"ETAS",
+"FAST",
+"FATE",
+"FATS",
+"FEAT",
+"FEST",
+"FETA",
+"SAFE",
+"SATE",
+"SEAT",
+"SETA",
+"TEAS",
+"AFT",
+"ATE",
+"EFT",
+"EST",
+"ETA",
+"FAT",
+"SAT",
+"TEA"
+]
+},
+{
+"wheel": "SOSHUE",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "HOUSES",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "SHOES",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "SHE",
+"r": 4,
+"c": 3,
+"d": 0
+},
+{
+"w": "SHOE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "HOUSE",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "USE",
+"r": 2,
+"c": 5,
+"d": 1
+}
+],
+"gold": "HOUSES",
+"clue": false,
+"bonus": [
+"HOSES",
+"SOUSE",
+"HOES",
+"HOSE",
+"HUES",
+"OSES",
+"SHES",
+"SOUS",
+"SUES",
+"USES",
+"HES",
+"HOE",
+"HOS",
+"HUE",
+"OHS",
+"SOU",
+"SUE"
+]
+},
+{
+"wheel": "RYOSDET",
+"w": 9,
+"h": 5,
+"words": [
+{
+"w": "DESTROY",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROSE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "STORY",
+"r": 2,
+"c": 4,
+"d": 0
+},
+{
+"w": "DOERS",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "YET",
+"r": 2,
+"c": 8,
+"d": 1
+},
+{
+"w": "STORE",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "REST",
+"r": 4,
+"c": 5,
+"d": 0
+}
+],
+"gold": "DESTROY",
+"clue": false,
+"bonus": [
+"DOTERS",
+"OYSTER",
+"SORTED",
+"STORED",
+"STRODE",
+"DORTY",
+"DOTER",
+"DOTES",
+"DYERS",
+"STROY",
+"TORSE",
+"TOYED",
+"TREYS",
+"TROYS",
+"TYROS",
+"DOER",
+"DOES",
+"DORY",
+"DOSE",
+"DOST",
+"DOTE",
+"DOTS",
+"DRYS",
+"DYER",
+"DYES",
+"ERST",
+"EYOT",
+"ODES",
+"ORES",
+"ORTS",
+"OYER",
+"REDO",
+"REDS",
+"RETD",
+"RETS",
+"RODE",
+"RODS",
+"ROES",
+"ROSY",
+"ROTE",
+"ROTS",
+"SORE",
+"SORT",
+"STER",
+"STOR",
+"TEDS",
+"TODY",
+"TOED",
+"TOES",
+"TORE",
+"TORS",
+"TOYS",
+"TRES",
+"TREY",
+"TROD",
+"TROY",
+"TYRO",
+"YEST",
+"YORE",
+"DER",
+"DEY",
+"DOE",
+"DOR",
+"DOS",
+"DOT",
+"DRY",
+"DYE",
+"EDS",
+"ERT",
+"EST",
+"ODE",
+"ORD",
+"ORE",
+"ORT",
+"RED",
+"RES",
+"ROD",
+"ROE",
+"ROT",
+"RTE",
+"RYE",
+"SER",
+"SET",
+"SOT",
+"SOY",
+"STY",
+"TED",
+"TER",
+"TOD",
+"TOE",
+"TOR",
+"TOY",
+"TRY",
+"YER",
+"YES",
+"YOD",
+"YRS"
+]
+}
+],
+"redsea": [
+{
+"wheel": "EFRA",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "FEAR",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "FAR",
+"r": 0,
+"c": 0,
+"d": 1
+},
+{
+"w": "ARE",
+"r": 0,
+"c": 2,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"FARE",
+"FRAE",
+"EAR",
+"ERA",
+"FER",
+"REF"
+]
+},
+{
+"wheel": "TDANS",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "STAND",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "AND",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "SAND",
+"r": 1,
+"c": 2,
+"d": 1
+},
+{
+"w": "SAT",
+"r": 2,
+"c": 0,
+"d": 1
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"ANTS",
+"TADS",
+"TANS",
+"ADS",
+"ANS",
+"ANT",
+"DAT",
+"SAD",
+"TAD",
+"TAN"
+]
+},
+{
+"wheel": "IFGTH",
+"w": 5,
+"h": 5,
+"words": [
+{
+"w": "FIGHT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "FIT",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "HIT",
+"r": 2,
+"c": 3,
+"d": 1
+},
+{
+"w": "FIG",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "GIFT",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": "FIGHT",
+"clue": false,
+"bonus": []
+},
+{
+"wheel": "DUASCE",
+"w": 7,
+"h": 5,
+"words": [
+{
+"w": "CAUSED",
+"r": 4,
+"c": 0,
+"d": 0
+},
+{
+"w": "USE",
+"r": 2,
+"c": 4,
+"d": 1
+},
+{
+"w": "CAUSE",
+"r": 2,
+"c": 2,
+"d": 0
+},
+{
+"w": "USED",
+"r": 0,
+"c": 6,
+"d": 1
+},
+{
+"w": "SEA",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "CASE",
+"r": 0,
+"c": 1,
+"d": 0
+}
+],
+"gold": "CAUSED",
+"clue": false,
+"bonus": [
+"SAUCED",
+"CASED",
+"DACES",
+"SAUCE",
+"ACED",
+"ACES",
+"CADE",
+"CADS",
+"CAUS",
+"CUDS",
+"CUED",
+"CUES",
+"DACE",
+"DESC",
+"DUCE",
+"DUES",
+"ECUS",
+"EDUC",
+"SCAD",
+"SCUD",
+"SUED",
+"ACE",
+"ADS",
+"AUD",
+"CAD",
+"CUD",
+"CUE",
+"DEC",
+"DUE",
+"EAU",
+"ECU",
+"EDS",
+"SAC",
+"SAD",
+"SEC",
+"SUD",
+"SUE"
+]
+},
+{
+"wheel": "SGANITA",
+"w": 7,
+"h": 7,
+"words": [
+{
+"w": "AGAINST",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "GIANTS",
+"r": 1,
+"c": 2,
+"d": 1
+},
+{
+"w": "SAINT",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "AGAIN",
+"r": 1,
+"c": 1,
+"d": 0
+},
+{
+"w": "GIANT",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "STAIN",
+"r": 2,
+"c": 6,
+"d": 1
+},
+{
+"w": "SIN",
+"r": 6,
+"c": 4,
+"d": 0
+}
+],
+"gold": "AGAINST",
+"clue": false,
+"bonus": [
+"SATANG",
+"SATING",
+"TAIGAS",
+"AGIST",
+"AGITA",
+"ANGST",
+"ANTIS",
+"GAINS",
+"GAITS",
+"GNATS",
+"SAIGA",
+"SATIN",
+"STANG",
+"STING",
+"TAIGA",
+"TANGS",
+"TINGS",
+"ANAS",
+"ANAT",
+"ANIS",
+"ANTA",
+"ANTI",
+"ANTS",
+"GAIN",
+"GAIT",
+"GATS",
+"GINS",
+"GIST",
+"GNAT",
+"INST",
+"NAGS",
+"NITS",
+"SAGA",
+"SAIN",
+"SANG",
+"SATI",
+"SIGN",
+"SING",
+"SNAG",
+"SNIT",
+"STAG",
+"TAGS",
+"TAIN",
+"TANA",
+"TANG",
+"TANS",
+"TING",
+"TINS",
+"AGA",
+"AIN",
+"AIS",
+"AIT",
+"ANA",
+"ANS",
+"ANT",
+"GAN",
+"GAS",
+"GAT",
+"GIN",
+"IGN",
+"INS",
+"INT",
+"ITS",
+"NAG",
+"NIT",
+"SAG",
+"SAT",
+"SIG",
+"SIT",
+"TAG",
+"TAN",
+"TIN"
+]
+}
+],
+"sinai": [
+{
+"wheel": "RLDO",
+"w": 4,
+"h": 3,
+"words": [
+{
+"w": "LORD",
+"r": 0,
+"c": 0,
+"d": 0
+},
+{
+"w": "ROD",
+"r": 0,
+"c": 2,
+"d": 1
+},
+{
+"w": "OLD",
+"r": 2,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"DOL",
+"DOR",
+"ORD"
+]
+},
+{
+"wheel": "UHESO",
+"w": 5,
+"h": 4,
+"words": [
+{
+"w": "HOUSE",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "SHE",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "SHOE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "USE",
+"r": 0,
+"c": 0,
+"d": 0
+}
+],
+"gold": null,
+"clue": false,
+"bonus": [
+"HOES",
+"HOSE",
+"HUES",
+"HES",
+"HOE",
+"HOS",
+"HUE",
+"OHS",
+"SOU",
+"SUE"
+]
+},
+{
+"wheel": "HALTS",
+"w": 6,
+"h": 5,
+"words": [
+{
+"w": "SHALT",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "SALT",
+"r": 0,
+"c": 4,
+"d": 1
+},
+{
+"w": "HAST",
+"r": 1,
+"c": 0,
+"d": 1
+},
+{
+"w": "LAST",
+"r": 0,
+"c": 2,
+"d": 0
+},
+{
+"w": "SAT",
+"r": 2,
+"c": 2,
+"d": 1
+}
+],
+"gold": "SHALT",
+"clue": false,
+"bonus": [
+"HALTS",
+"LATHS",
+"ALTS",
+"HALT",
+"HATS",
+"LASH",
+"LATH",
+"LATS",
+"SLAT",
+"ALT",
+"ASH",
+"HAS",
+"HAT",
+"LAT",
+"SAL"
+]
+},
+{
+"wheel": "FBOERE",
+"w": 6,
+"h": 6,
+"words": [
+{
+"w": "BEFORE",
+"r": 3,
+"c": 0,
+"d": 0
+},
+{
+"w": "FOR",
+"r": 3,
+"c": 2,
+"d": 1
+},
+{
+"w": "FREE",
+"r": 5,
+"c": 1,
+"d": 0
+},
+{
+"w": "ROBE",
+"r": 0,
+"c": 1,
+"d": 1
+},
+{
+"w": "BORE",
+"r": 1,
+"c": 0,
+"d": 0
+},
+{
+"w": "BEER",
+"r": 1,
+"c": 5,
+"d": 1
+}
+],
+"gold": "BEFORE",
+"clue": false,
+"bonus": [
+"BEEF",
+"BREE",
+"FEER",
+"FORB",
+"FORE",
+"FROE",
+"REEF",
+"BEE",
+"BOR",
+"BRO",
+"ERE",
+"FEE",
+"FER",
+"FOB",
+"FOE",
+"FRO",
+"ORB",
+"ORE",
+"REF",
+"ROB",
+"ROE"
+]
+},
+{
+"wheel": "BTHRGOU",
+"w": 7,
+"h": 6,
+"words": [
+{
+"w": "BROUGHT",
+"r": 2,
+"c": 0,
+"d": 0
+},
+{
+"w": "BUT",
+"r": 2,
+"c": 0,
+"d": 1
+},
+{
+"w": "THOU",
+"r": 2,
+"c": 6,
+"d": 1
+},
+{
+"w": "BOUGHT",
+"r": 0,
+"c": 3,
+"d": 1
+},
+{
+"w": "BOTH",
+"r": 0,
+"c": 3,
+"d": 0
+},
+{
+"w": "OUT",
+"r": 5,
+"c": 1,
+"d": 0
+},
+{
+"w": "OUR",
+"r": 0,
+"c": 1,
+"d": 1
+}
+],
+"gold": "BROUGHT",
+"clue": false,
+"bonus": [
+"TROUGH",
+"BOUGH",
+"BROTH",
+"BURGH",
+"GROUT",
+"OUGHT",
+"ROUGH",
+"THROB",
+"TOUGH",
+"TURBO",
+"BORG",
+"BORT",
+"BOUT",
+"BRUT",
+"BUHR",
+"BURG",
+"GOTH",
+"GOUT",
+"GROT",
+"GRUB",
+"HORT",
+"HOUR",
+"HURT",
+"ROUT",
+"RUTH",
+"THRU",
+"THUG",
+"TOUR",
+"TRUG",
+"BOG",
+"BOR",
+"BOT",
+"BRO",
+"BUG",
+"BUR",
+"GOB",
+"GOT",
+"GRO",
+"GUT",
+"HOB",
+"HOG",
+"HOR",
+"HOT",
+"HUB",
+"HUG",
+"HUT",
+"ORB",
+"ORG",
+"ORT",
+"RHO",
+"ROB",
+"ROT",
+"RUB",
+"RUG",
+"RUT",
+"THO",
+"TOG",
+"TOR",
+"TUB",
+"TUG",
+"UGH"
 ]
 }
 ]
