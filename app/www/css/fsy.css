@@ -104,3 +104,7 @@
   #intro .in-promo b{font-size:14.5px}
   #intro .in-credit{font-size:14.5px}
 }
+/* "Begin the journey" and the verse line sit higher, so the coming-soon line has its own space */
+#intro .in-begin{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
+#intro .in-titleblock{bottom:calc(212px + env(safe-area-inset-bottom,0px))}
+@media (max-height:720px){#intro .in-begin{bottom:calc(112px + env(safe-area-inset-bottom,0px))}#intro .in-titleblock{bottom:calc(180px + env(safe-area-inset-bottom,0px))}}
