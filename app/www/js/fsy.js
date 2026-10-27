@@ -97,7 +97,13 @@
       else K.say("All five clues point the same way. Place the Holy of Holies where the flat summit, the gate's line and the cubits meet.", "", 5600);
     }
   }
+  /* Hank's narration (audio/narration/fsy-*.mp3): only the lines recorded so far play; the rest stay silent */
+  const HAVE = new Set(["01-open", "02-outside", "02b-hall", "03-ark-verse", "04-staves", "05-courts-verse", "06-courts", "07-instruments-verse", "07b-instruments", "07c-vessels",
+    "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
+    "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger"]);
+  function V(name, then) { if (Lamp.narr && HAVE.has(name)) Lamp.narr.play("fsy-" + name, then); }
   function stage(html, bg) {
+    Lamp.narr && Lamp.narr.stop();
     const sb = $("adv-say"); if (sb) sb.classList.remove("on");
     $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(' + (bg ? "img/fsy/" + bg : "img/start/fsy-cover.jpg") + ')"></div>' + html + "</div>";
     return $("adv-scene").querySelector(".fsy");
@@ -121,6 +127,7 @@
       photo("ti-outside.jpg", "The Old City of Jerusalem. The investigation begins at the Temple Institute.", TI) +
       '<button class="fbtn glow" id="fgo">Begin in the Old City</button>');
     $("fgo").onclick = () => { K.sfx("click"); stops(); };
+    V("01-open");
   }
   function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.vessels && p.ti.scroll && p.ti.postcard) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
   const STOPS = [
@@ -162,7 +169,7 @@
         photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
         '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at five things.”<small>The Lamplighter</small></div>' +
         '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The stops"));
-      wire(s, stops); $("fgo").onclick = () => { K.sfx("stone"); p.ti.entered = 1; save(); institute(); };
+      wire(s, stops); $("fgo").onclick = () => { K.sfx("stone"); p.ti.entered = 1; save(); institute(); }; V("02-outside");
       return;
     }
     hall();
@@ -208,15 +215,18 @@
     }));
     if (p.ti.postcard) return;
     if (all) K.say("Before you leave: the guide said everyone takes a souvenir home.", "", 3600);
-    else if (left.length === EXHIBITS.length) K.say("The glints mark the exhibits. Start wherever you like: the pictures of the Ark on the far wall are a good place.", "", 4600);
+    else if (left.length === EXHIBITS.length) { if (!p.ti.heardHall) { p.ti.heardHall = 1; save(); V("02b-hall"); } } if (!all && left.length === EXHIBITS.length) K.say("The glints mark the exhibits. Start wherever you like: the pictures of the Ark on the far wall are a good place.", "", 4600);
   }
   function exhibitDone(id, html, acts) {
     const p = P(); p.ti[id] = 1; save(); K.snd("word"); K.buzz("success");
+    if (id === "scroll") V("08-parchment-verse", () => V("09-parchment")); else V({ courts: "06-courts", lock: "07b-instruments", vessels: "07c-vessels" }[id]);
     K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">Back to the entrance hall</button>', Object.assign({ x: hall }, acts || {}));
   }
   function exhibit(x, html, bg) {
     const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("Back to the entrance hall"), bg);
-    wire(s, hall); return s;
+    wire(s, hall);
+    const open = { ark: "03-ark-verse", courts: "05-courts-verse", lock: P().ti.lock ? "" : "07-instruments-verse" }[x.id]; if (open) V(open);
+    return s;
   }
 
   /* 1a. the Ark: fold the cherubim's wings over the mercy seat, and leave the staves in the rings */
@@ -240,6 +250,7 @@
     function staves() {
       $("fstaves").innerHTML = '<div class="fverse">“The staves shall be in the rings of the ark: they shall not be taken from it.”<small>Exodus 25:15</small></div><div class="fq">The guide offers to draw the carrying staves out of the rings, so you can see the Ark on its own. What do you say?</div>' +
         '<div class="fchoices"><button data-a="0">Draw them out</button><button data-a="1">Leave them in the rings</button></div>';
+      V("04-staves");
       $("fstaves").querySelectorAll("[data-a]").forEach((c) => (c.onclick = () => {
         if (c.dataset.a !== "1") { wrong("Read Exodus 25:15 again. Were the staves ever to come out?"); return; }
         K.sfx("click");
@@ -497,7 +508,7 @@
             '<button class="cta" data-act="x">Leave for the Mount of Olives</button>', { x: stops }); },
         x: () => {} });
     const pw = $("fpw"); let back2 = false;
-    const flip = () => { back2 = !back2; K.sfx("click"); pw.innerHTML = back2 ? POSTCARD_BACK : POSTCARD_FRONT; pw.classList.toggle("back", back2); if (back2) { $("ftake").style.display = ""; $("fpsm").textContent = "A note, in blue ink."; } };
+    const flip = () => { back2 = !back2; K.sfx("click"); pw.innerHTML = back2 ? POSTCARD_BACK : POSTCARD_FRONT; pw.classList.toggle("back", back2); if (back2) { $("ftake").style.display = ""; $("fpsm").textContent = "A note, in blue ink."; V("09b-postcard"); } };
     pw.onclick = flip; pw.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") flip(); };
   }
 
@@ -526,7 +537,7 @@
       '<div class="fq">The postcard brought you here. From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
       '<div class="fviewwrap" id="fv">' + olivesSVG(false) + '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:26%;top:36%;width:18%;height:22%"></button><button class="fhit" data-h="gate" aria-label="The sealed gate" style="left:43%;top:42%;width:14%;height:20%"></button><button class="fhit" data-h="small" aria-label="The small dome" style="left:56%;top:36%;width:12%;height:22%"></button></div>' +
       '<div class="fsmall">A drawn view, until Richard’s photograph from the Mount of Olives is added.</div>' + back("The stops"));
-    wire(s, stops);
+    wire(s, stops); V("10-olives");
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
       const h = b.dataset.h;
       if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall itself.", "", 3600); return; }
@@ -534,7 +545,7 @@
       K.sfx("stone"); $("fv").innerHTML = olivesSVG(true);
       setTimeout(() => {
         if (!K.root()) return;
-        p.olives = 1; save(); K.snd("word"); K.buzz("success");
+        p.olives = 1; save(); K.snd("word"); K.buzz("success"); V("11-olives-gate");
         K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("gate-inside.jpg", "The Eastern Gate, walled shut for five hundred years", "Photo: Richard J. Allinson, from inside the Temple Mount") +
           "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
           "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
@@ -557,6 +568,7 @@
       photo("dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
       '<div class="fq">Before you look at the clues: where do you think the Holy of Holies stood?</div>' +
       '<div class="fchoices"><button data-t="rock">Under the golden Dome of the Rock</button><button data-t="spirits">On the small northern rise</button><button data-t="unsure">I don’t know yet</button></div>');
+    V("12-mount-open", () => V("13-theory"));
     s.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => {
       P().theory = b.dataset.t; save(); K.sfx("click");
       K.say(b.dataset.t === "rock" ? "Most people think so. Hold on to that thought, and test it." : b.dataset.t === "spirits" ? "An unusual answer. Let's see if the evidence agrees." : "A good place to start: let the evidence decide.", "", 3600);
@@ -580,7 +592,7 @@
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
     const en = $("fend"); if (en) en.onclick = () => (p.gateDone ? ending() : stops());
-    if (!finished && found === 0) K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200);
+    if (!finished && found === 0) { K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200); V("14-journal"); }
   }
   function solved(c) {
     P().clues[c.id] = 1; save(); K.snd("word"); K.buzz("success");
@@ -591,6 +603,7 @@
     const s = stage('<div class="fkick">Clue · ' + esc(c.ref) + "</div><h1>" + esc(c.title) + '</h1><div class="fverse">“' + esc(c.v) + "”</div>" + html +
       '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => { K.sfx("click"); board(); };
+    V({ floor: "15-floor", summit: "16-summit", line: "17-line", cubits: "18-cubits", middle: "19-middle" }[c.id]);
     return s;
   }
 
@@ -677,7 +690,7 @@
       };
       $("fm").appendChild(b);
     });
-    K.say("Tap the place on the map.", "", 2400);
+    K.say("Tap the place on the map.", "", 2400); V("20-verdict");
   }
   function reveal() {
     const p = P(), first = !p.done;
@@ -686,6 +699,7 @@
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
       '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
+    V("21-reveal");
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
       if (!K.root()) return;
@@ -710,7 +724,7 @@
       '<div class="fnarr">“You have walked the courts, stood on the mountain, and found the place. One gate is left: the one you saw from the Mount of Olives, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
       '<div class="fscroll" id="fscroll"></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "gate-inside.jpg");
-    wire(s, stops);
+    wire(s, stops); V("22-gate-open");
     const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
     drawScroll();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -720,7 +734,7 @@
       if (at >= GATE.text.length) {
         setTimeout(() => {
           if (!K.root()) return;
-          const first = !p.gateDone; p.gateDone = 1; save(); K.snd("level"); K.buzz("success");
+          const first = !p.gateDone; p.gateDone = 1; save(); K.snd("level"); K.buzz("success"); V("23-gate-verse");
           K.card('<div class="kick">Episode 1 solved</div><h2>The gate is shut</h2>' + photo("gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount", "Photo: Richard J. Allinson, inside the Temple Mount") +
             "<p>Ezekiel saw the glory of the LORD enter by this gate from the east, and heard the command: <b>shut it</b>. The Turks walled it with stone in 1541, and it has stayed shut. It waits for one person: <b>the Prince</b>.</p>" +
             '<div class="fview"><b>The author’s view.</b> The Temple will stand again on the northern summit, in line with this gate. The Prince for whom the gate waits is the Messiah, and he will come to the Mount of Olives, exactly where you stood. The place is found. <b>The question now is when.</b><small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapters 3 and 15</small></div>" +
@@ -732,6 +746,7 @@
     }));
   }
   function ending() {
+    V("24-cliffhanger");
     K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
       "<p>The Temple can stand. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many. Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b></p>" +
