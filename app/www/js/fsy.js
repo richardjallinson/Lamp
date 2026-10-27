@@ -120,9 +120,11 @@
     if (cur === "hall") { const left = EXHIBITS.filter((e) => !P().ti[e.id]); K.say(left.length ? "Try “" + left[0].title + "”. Tap its glint in the photograph." : "Look at the postcard stand by the door. One card stands out.", "", 4600); }
     else if (cur === "ark") K.say(p.ti.wings ? "The staves stay where God put them: in the rings, never taken out." : "Tap each cherub so its wings stretch out over the mercy seat, and its face looks to the other.", "", 5200);
     else if (cur === "courts") K.say("Begin at the Eastern Gate: the Court of the Women first, then the men of Israel, then the priests, the altar, the sanctuary, and last of all the Holy of Holies.", "", 6000);
-    else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
-    else if (cur === "vessels") K.say("Tap every vessel to see what it was for. The one that gave light to the Holy Place is named again in Revelation 11:4.", "", 5600);
+    else if (cur === "lock") K.say(P().ti.psalter ? "Verse 3 names exactly three, in this order: the trumpet, the psaltery and the harp." : "The last psalm is Psalm 150. There is a book of Psalms on the shelves in the entrance hall.", "", 5200);
+    else if (cur === "vessels") K.say("Read each vessel’s card first. Exodus 40: the table on the north side, the lampstand on the south, the golden altar before the veil.", "", 6000);
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
+    else if (cur === "verdict") K.say("Turn the plan so its gate faces east (right), then lay its gate on the Eastern Gate. The Holy of Holies should rest on the small northern dome.", "", 6400);
+    else if (cur === "case") K.say("Pick evidence from Scripture, history and measurement, not impressions.", "", 4000);
     else if (cur === "robinson") K.say("“There shall not be left here one STONE upon ANOTHER, that shall not be THROWN down.”", "Matthew 24:2", 5200);
     else if (cur === "sign") K.say("The rusty sign in the hedge: tap it.", "", 3000);
     else if (cur === "tombs") { const l = PROPHETS.filter((x) => !(P().prophets || {})[x.id]); K.say(l.length ? "Sweep the lamp slowly across the whole wall. " + l[0].hint : "", "", 5600); }
@@ -207,7 +209,7 @@
   const EXHIBITS = [
     { id: "ark", title: "The Ark of the Covenant", ref: "Exodus 25:15, 20", run: ark },
     { id: "courts", title: "Walk the Courts", ref: "Psalm 100:4", run: courts },
-    { id: "lock", title: "The instrument case", ref: "Psalm 150:3", run: lock },
+    { id: "lock", title: "The instrument case", ref: "A lock of three dials", run: lock },
     { id: "vessels", title: "The Temple vessels", ref: "Exodus 25–30", run: vessels },
     { id: "scroll", title: "The parchment", ref: "Ezekiel 43:2", run: scroll, needs: "lock" },
   ];
@@ -258,7 +260,15 @@
       const h = b.dataset.h; K.sfx("click");
       if (h === "vessels" || h === "lock" || h === "ark" || h === "courts") { if (h === "courts") K.say("The painting shows the Temple on its mountain. Beside it, a plan of the courts.", "", 2200); openEx(h); return; }
       if (h === "priest") K.say("The white linen of an ordinary priest: “thou shalt embroider the coat of fine linen, and thou shalt make the mitre of fine linen.”", "Exodus 28:39", 5200);
-      else if (h === "books") K.say("Books on the Temple, its vessels and its service. Everything has been studied. Only the place is still argued over.", "", 4600);
+      else if (h === "books") {
+        if (p.ti.lock) { K.say("Books on the Temple, its vessels and its service. Everything has been studied. Only the place is still argued over.", "", 4600); return; }
+        S("parchment", "click"); p.ti.psalter = 1; save();
+        K.card('<div class="kick">On the bookshelf</div><h2>A Psalter, left open</h2>' +
+          "<p>Among the books on the Temple, a well-worn Book of Psalms lies open at the very last psalm: the song the Levites sang in the courts.</p>" +
+          '<div class="fpsalm"><b>Psalm 150</b><span><i>1</i> Praise ye the LORD. Praise God in his sanctuary: praise him in the firmament of his power.</span><span><i>2</i> Praise him for his mighty acts: praise him according to his excellent greatness.</span><span class="hi"><i>3</i> Praise him with the sound of the trumpet: praise him with the psaltery and harp.</span><span><i>4</i> Praise him with the timbrel and dance: praise him with stringed instruments and organs.</span><span><i>5</i> Praise him upon the loud cymbals: praise him upon the high sounding cymbals.</span><span><i>6</i> Let every thing that hath breath praise the LORD. Praise ye the LORD.</span></div>' +
+          '<button class="cta" data-act="x">Remember verse 3</button>', { x: () => {} });
+        V("07-instruments-verse");
+      }
       else if (h === "desk") {
         if (all) { K.say("The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”", "", 5200); V("guide-souvenir"); }
         else if (!p.ti.ark && !p.ti.greeted) { p.ti.greeted = 1; save(); K.say("The guide smiles. “Shalom! Take your time. Everything here was made for the Temple.”", "", 4600); V("guide-welcome", () => { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }); }
@@ -280,7 +290,7 @@
     M("puzzle", "indoor"); preS("wings", "wingsflap", "staves", "step", "dial", "lock", "harp", "knock", "parchment");
     const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("Back to the entrance hall"), bg);
     wire(s, hall);
-    const open = { ark: "03-ark-verse", courts: "05-courts-verse", lock: P().ti.lock ? "" : "07-instruments-verse" }[x.id]; if (open) V(open);
+    const open = { ark: "03-ark-verse", courts: "05-courts-verse" }[x.id]; if (open) V(open);
     return s;
   }
 
@@ -320,7 +330,7 @@
   }
 
   /* 1b. walk the courts in order from the Eastern Gate */
-  const COURTS = [["The Court of the Women", "135 cubits"], ["The Court of Israel", "11 cubits"], ["The Court of the Priests", "11 cubits"], ["The Altar", "32 cubits"], ["The Sanctuary", "the Holy Place"], ["The Holy of Holies", "the innermost room"]];
+  const COURTS = [["The Court of the Women", "135 cubits"], ["The Court of Israel", "for the men of Israel"], ["The Court of the Priests", "for the priests"], ["The Altar", "and the steps up"], ["The Sanctuary", "the Holy Place"], ["The Holy of Holies", "20 cubits square"]];
   function courts() {
     cur = "courts"; const x = EXHIBITS[1]; let at = 0;
     const order = shuffle(COURTS.map((c, i) => i));
@@ -356,7 +366,7 @@
       what: "The kinnor is David’s own instrument, the one he played before Saul (1 Samuel 16:23). It was the Levites’ main instrument: never fewer than nine in the Temple, and no upper limit (Arakhin 2:5). This great kinnor, carved with the star of David, was made for the Levites to play when the Temple stands again." },
     { id: "shofar", name: "The shofar", heb: "the ram’s horn", box: [0.56, 0.27, 0.69, 0.72], ref: "Psalm 81:3",
       v: "Blow up the trumpet in the new moon, in the time appointed, on our solemn feast day.",
-      what: "The “trumpet” of Psalm 150:3 is really the shofar, the ram’s horn, remembering the ram caught in the thicket on this very mountain (Genesis 22:13). In the Temple it was blown with the silver trumpets on the Feast of Trumpets (Mishnah Rosh Hashanah 3:3). Here it rests on the covered stand." },
+      what: "The shofar is the ram’s horn, remembering the ram caught in the thicket on this very mountain (Genesis 22:13). In the Temple it was blown with the silver trumpets on the Feast of Trumpets (Mishnah Rosh Hashanah 3:3). Here it rests on the covered stand." },
     { id: "trumpets2", name: "More silver trumpets", heb: "chatzotzrot", box: [0.67, 0.08, 0.95, 0.47], ref: "2 Chronicles 29:27–28",
       v: "And when the burnt offering began, the song of the LORD began also with the trumpets, and with the instruments ordained by David king of Israel. And all the congregation worshipped, and the singers sang, and the trumpeters sounded.",
       what: "Hezekiah’s Temple service shows the order: the offering begins, the song begins, the trumpets sound, and all the congregation bows. The Temple Institute has made trumpets for the priests of the Third Temple to do the same." },
@@ -367,16 +377,18 @@
   function lock() {
     cur = "lock"; const x = EXHIBITS[2]; const got = [], p = P(); p.ti.seen = p.ti.seen || {};
     const seenN = () => Object.keys(p.ti.seen).length;
-    const s = exhibit(x, '<div class="fverse">“Praise him with the sound of the trumpet: praise him with the psaltery and harp.”<small>Psalm 150:3</small></div>' +
+    const s = exhibit(x, (p.ti.psalter ? '<div class="fverse">“Praise him with the sound of the trumpet: praise him with the psaltery and harp.”<small>Psalm 150:3 · from the Psalter in the hall</small></div>' : "") +
       '<div class="fq">Every instrument in this case has been made for the Third Temple. Tap each one to learn what it is for.</div>' +
       '<div class="fark fcase" id="fcase"><img src="img/fsy/ti-instruments.jpg" alt="Harps, lyres, silver trumpets and a shofar made for the Temple, at the Temple Institute">' +
       CASE.map((c) => '<button class="fhit' + (p.ti.seen[c.id] ? " seen" : "") + '" data-k="' + c.id + '" aria-label="' + esc(c.name) + '" style="left:' + c.box[0] * 100 + "%;top:" + c.box[1] * 100 + "%;width:" + (c.box[2] - c.box[0]) * 100 + "%;height:" + (c.box[3] - c.box[1]) * 100 + '%"></button>').join("") + "</div>" +
       '<div class="fsmall" id="fseen"></div>' +
       '<div class="fchips three" id="fnames">' + CASE.map((c) => '<button data-k="' + c.id + '"' + (p.ti.seen[c.id] ? ' class="seen"' : "") + "><b>" + esc(c.name) + "</b></button>").join("") + "</div>" +
       (p.ti.lock ? '<div class="fok">The case stands open. A rolled parchment lies inside.</div><button class="fbtn glow" id="fparch">' + (p.ti.scroll ? "Read the parchment again" : "Read the parchment") + "</button>" :
-      '<div class="fq">The case is locked with three turning dials, each carved with an instrument. Set them to the three instruments of <b>verse 3</b>.</div>' +
-      '<div class="fslots" id="fslots"><span></span><span></span><span></span></div>' +
-      '<div class="fchips six" id="fchips">' + shuffle(INSTR.map((c, i) => i)).map((i) => '<button data-i="' + i + '"><b>' + INSTR[i][0] + "</b></button>").join("") + "</div>"), "ti-instruments.jpg");
+      '<div class="fq">The case is locked with three brass dials, each engraved with instruments. A small plate beneath them reads:</div>' +
+      '<div class="fplate">“The song of the Levites: the last psalm, the third verse.”</div>' +
+      '<div class="fdials" id="fdials">' + [0, 1, 2].map((d) => '<div class="fdial"><button data-d="' + d + '" data-s="-1" aria-label="Turn dial ' + (d + 1) + ' up">▲</button><b id="fdv' + d + '"></b><button data-d="' + d + '" data-s="1" aria-label="Turn dial ' + (d + 1) + ' down">▼</button></div>').join("") + "</div>" +
+      '<button class="fbtn" id="ftry">Try the lock</button>' +
+      (p.ti.psalter ? "" : '<div class="fsmall">Which psalm is the last? Perhaps something in the entrance hall will tell you.</div>')), "ti-instruments.jpg");
     const fp = $("fparch"); if (fp) fp.onclick = () => { S("parchment", "click"); scroll(); };
     const seenLine = () => { $("fseen").innerHTML = seenN() >= CASE.length ? "You have looked at every instrument in the case." : "Looked at " + seenN() + " of " + CASE.length + ". <small>Photo: Richard J. Allinson, at the Temple Institute</small>"; };
     seenLine();
@@ -386,18 +398,24 @@
       K.card('<div class="kick">In the case · ' + esc(c.heb) + "</div><h2>" + esc(c.name) + '</h2><div class="v">“' + esc(c.v) + '”</div><div class="r">' + esc(c.ref) + " · KJV</div>" +
         "<p><b>Its purpose in the Temple.</b> " + esc(c.what) + "</p>" + '<button class="cta" data-act="x">Back to the case</button>', { x: () => {} });
     }));
-    s.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => {
-      const it = INSTR[+b.dataset.i];
-      if (!it[1]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong("The " + it[0].toLowerCase() + " is praised in Psalm 150 too, but not in verse 3. Read verse 3 again."); return; }
-      if (b.classList.contains("used")) return;
-      S("dial", "stone"); b.classList.add("used"); got.push(it[0]); if (got.length === 3) setTimeout(() => S("lock"), 250);
-      $("fslots").children[got.length - 1].textContent = it[0];
-      if (got.length === 3) setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
+    const dials = p.ti.dials || [1, 3, 5]; let tries = 0;
+    const drawD = () => [0, 1, 2].forEach((d) => { const e = $("fdv" + d); if (e) e.textContent = INSTR[dials[d]][0]; });
+    drawD();
+    s.querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => { const d = +b.dataset.d; dials[d] = (dials[d] + +b.dataset.s + INSTR.length) % INSTR.length; p.ti.dials = dials.slice(); save(); S("dial", "click", 0.5); drawD(); }));
+    const tr = $("ftry"); if (tr) tr.onclick = () => {
+      const want = ["Trumpet", "Psaltery", "Harp"], got2 = dials.map((i) => INSTR[i][0]);
+      if (got2.join() !== want.join()) {
+        tries++;
+        wrong(!p.ti.psalter ? "The lock does not move. You need the words of that verse: look around the entrance hall." : tries < 2 ? "The lock does not move. Read the verse again, and set the dials in its order." : "Psalm 150:3, in order: the trumpet, the psaltery, the harp.");
+        return;
+      }
+      got.push(...got2);
+      S("lock");
+      setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
         "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
         "<p><b>What it shows.</b> Every instrument here is waiting for a building. The priests have their trumpets, the Levites their harps and lyres, the choir its songs. The psalms will be sung again in the courts you just walked. <b>Only the place is missing.</b></p>" +
         '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="parch">Read the parchment</button>', { parch: () => { S("parchment"); scroll(); } }), 600);
-      else K.say(got.length === 1 ? "One dial set. Two more." : "Two dials set. One more.", "", 2200);
-    }));
+    };
     if (!seenN()) K.say("Silver trumpets, harps, a great lyre, a shofar. Tap them in the photograph.", "", 3600);
   }
 
@@ -434,12 +452,31 @@
     const line = () => { $("fseen").textContent = "Looked at " + n() + " of " + VESSELS.length + "."; };
     const question = () => {
       if (n() < VESSELS.length || p.ti.vessels || $("fvq").innerHTML) return;
-      $("fvq").innerHTML = '<div class="fq">One last question. Which vessel gave the Holy Place its only light, and is named again in Revelation 11:4?</div><div class="fchoices"><button data-a="0">The table of showbread</button><button data-a="1">The menorah</button><button data-a="0">The brazen altar</button></div>';
-      $("fvq").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
-        if (b.dataset.a !== "1") { wrong("Read Exodus 25:37 again: which vessel held lamps?"); return; }
-        K.sfx("click");
+      const PL = { menorah: ["The menorah", "S"], table: ["The table", "N"], incense: ["The incense altar", "W"] }, at = {}; let pick = null;
+      $("fvq").innerHTML = '<div class="fq">Now set three of them in the Holy Place, where Moses put them in the tabernacle. Tap a vessel, then its place.</div>' +
+        '<div class="fholy" id="fholy"><svg viewBox="0 0 320 200" aria-hidden="true"><rect x="40" y="20" width="250" height="160" fill="#2A2418" stroke="#C9A24A" stroke-width="3"/><rect x="40" y="20" width="18" height="160" fill="url(#fveil)"/>' +
+        '<defs><linearGradient id="fveil" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2A4A9A"/><stop offset=".5" stop-color="#7A2A7A"/><stop offset="1" stop-color="#A02A2A"/></linearGradient></defs>' +
+        '<text x="10" y="104" class="fl">THE VEIL</text><text x="300" y="104" class="fl" text-anchor="middle" transform="rotate(90 300 104)">ENTRANCE · EAST</text><text x="165" y="14" class="fl" text-anchor="middle">NORTH</text><text x="165" y="196" class="fl" text-anchor="middle">SOUTH</text></svg>' +
+        '<button class="fslot" data-p="N" style="left:42%;top:14%">?</button><button class="fslot" data-p="S" style="left:42%;top:66%">?</button><button class="fslot" data-p="W" style="left:20%;top:40%">?</button></div>' +
+        '<div class="fchips three" id="fvch">' + Object.keys(PL).map((k) => '<button data-v="' + k + '"><b>' + PL[k][0] + "</b></button>").join("") + "</div>";
+      $("fvq").querySelectorAll("[data-v]").forEach((b) => (b.onclick = () => { pick = b.dataset.v; K.sfx("click"); $("fvq").querySelectorAll("[data-v]").forEach((e) => e.classList.toggle("sel", e === b)); }));
+      $("fvq").querySelectorAll("[data-p]").forEach((b) => (b.onclick = () => {
+        if (!pick) { K.say("First tap a vessel, then the place it belongs.", "", 2400); return; }
+        Object.keys(at).forEach((k) => { if (at[k] === pick) delete at[k]; });
+        at[b.dataset.p] = pick; S("step", "click", 0.5); pick = null;
+        $("fvq").querySelectorAll("[data-v]").forEach((e) => e.classList.remove("sel"));
+        $("fvq").querySelectorAll("[data-p]").forEach((e) => (e.textContent = at[e.dataset.p] ? PL[at[e.dataset.p]][0] : "?"));
+        if (Object.keys(at).length < 3) return;
+        const bad = Object.keys(at).filter((pl) => PL[at[pl]][1] !== pl);
+        if (bad.length) {
+          const v = at[bad[0]];
+          wrong(v === "menorah" ? "The lampstand stood “on the side of the tabernacle southward” (Exodus 40:24)." : v === "table" ? "The table stood “upon the side of the tabernacle northward, without the vail” (Exodus 40:22)." : "The golden altar stood “in the tent of the congregation before the vail” (Exodus 40:26).");
+          bad.forEach((pl) => delete at[pl]); $("fvq").querySelectorAll("[data-p]").forEach((e) => (e.textContent = at[e.dataset.p] ? PL[at[e.dataset.p]][0] : "?"));
+          return;
+        }
+        S("lock", null, 0.6);
         exhibitDone("vessels", '<div class="kick">Exhibit 4 · Exodus 25–30</div><h2>Everything is ready</h2>' + photo("temple-painting.jpg", "The Temple, as it will stand again", "Painting: Richard J. Allinson") +
-          "<p><b>What it shows.</b> The lampstand, the incense altar, the table, the altar of the court and the High Priest’s garments: each has a purpose Scripture gave it, and each has been made again. The vessels are ready. <b>The place is the missing piece.</b></p>" +
+          "<p>Table to the north, lampstand to the south, the golden altar before the veil: the Holy Place is set as Moses set it (Exodus 40:22–26).</p><p><b>What it shows.</b> The lampstand, the incense altar, the table, the altar of the court and the High Priest’s garments: each has a purpose Scripture gave it, and each has been made again. The vessels are ready. <b>The place is the missing piece.</b></p>" +
           '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>");
       }));
       $("fvq").scrollIntoView({ behavior: "smooth", block: "end" });
@@ -783,7 +820,26 @@
   }
   /* 3. draw the line west from the Eastern Gate */
   function clueLine(c) {
-    const s = clueScreen(c, '<div class="fq">You stood on the Mount of Olives and looked at the gate. Now tap the Eastern Gate on the map to look straight west, as the Temple faced.</div><div class="fmapwrap small" id="fm">' + mapSVG({}) + "</div>");
+    const s = clueScreen(c, '<div class="fq">You are standing at the Dome of the Spirits, looking east. Slide the sighting rod along the wall until it stands on the Eastern Gate’s dome.</div>' +
+      '<div class="fsight" id="fsight"><img src="img/fsy/tm-line.jpg" alt="From the Dome of the Spirits looking east to the Eastern Gate"><span class="frod" id="frod"></span></div>' +
+      '<div class="fmapwrap small" id="fm" style="display:none">' + mapSVG({}) + "</div>");
+    s.querySelector(".fphoto").remove();
+    const sight = $("fsight"), rod = $("frod"); let rx = 0.15, done = false;
+    const place = (cx) => { const r = sight.getBoundingClientRect(); rx = Math.max(0.03, Math.min(0.97, (cx - r.left) / r.width)); rod.style.left = rx * 100 + "%"; };
+    rod.style.left = rx * 100 + "%";
+    const up = () => {
+      if (done) return;
+      if (Math.abs(rx - 0.455) < 0.06) {
+        done = true; rod.style.left = "45.5%"; rod.classList.add("on"); S("stone", "stone", 0.55);
+        K.say("The gate’s dome, and the Mount of Olives rising straight behind it. You are standing on the line.", "", 4200);
+        setTimeout(() => { if (!K.root()) return; sight.insertAdjacentHTML("afterend", '<div class="fq">Now see it from above. Tap the Eastern Gate on the map and look straight west.</div>'); $("fm").style.display = ""; mapWire(); $("fm").scrollIntoView({ behavior: "smooth", block: "end" }); }, 1600);
+      } else K.say(rx < 0.455 ? "Further right, toward the small dome in the wall." : "Back a little to the left.", "", 1800);
+    };
+    let drag = false;
+    sight.addEventListener("pointerdown", (e) => { drag = true; sight.setPointerCapture(e.pointerId); place(e.clientX); });
+    sight.addEventListener("pointermove", (e) => { if (drag && !done) place(e.clientX); });
+    sight.addEventListener("pointerup", () => { if (drag) { drag = false; up(); } });
+    function mapWire() {
     const go = () => {
       $("fm").innerHTML = mapSVG({ line: true }); S("stone", "stone", 0.55);
       setTimeout(() => {
@@ -794,6 +850,7 @@
     };
     s.querySelector(".gatemk").addEventListener("click", go, { once: true });
     const hit = document.createElement("button"); hit.className = "fgatehit"; hit.setAttribute("aria-label", "The Eastern Gate"); hit.onclick = go; $("fm").appendChild(hit);
+    }
   }
   /* 4. pace out the cubits from the gate */
   function clueCubits(c) {
@@ -822,27 +879,89 @@
   }
 
   /* ---------- the verdict ---------- */
+  /* the Temple plan you built at the Institute, to scale (0.6417 map units to the cubit): its gate at (0,0), facing east */
+  const CU = 0.6417, PLAN = { women: 135 * CU, inner: 52 * CU, hoh: 20 * CU };
+  function planSVG() {
+    const w = PLAN.women, i = PLAN.inner, h = PLAN.hoh;
+    return '<g id="fplan" class="fplan">' +
+      '<rect class="pw" x="' + -w + '" y="' + -w / 2 + '" width="' + w + '" height="' + w + '"/>' +
+      '<rect class="pi" x="' + -(w + i) + '" y="' + -w / 3 + '" width="' + i + '" height="' + (w * 2) / 3 + '"/>' +
+      '<rect class="pa" x="' + -(w + i * 0.55) + '" y="-6" width="11" height="12"/>' +
+      '<rect class="ph" x="' + -(w + i + h) + '" y="' + -h / 2 + '" width="' + h + '" height="' + h + '"/>' +
+      '<rect class="pg" x="-3" y="-9" width="5" height="18"/>' +
+      '<text x="' + -w / 2 + '" y="4" text-anchor="middle">WOMEN’S COURT</text><text x="' + -(w + i + h / 2) + '" y="' + (-h / 2 - 3) + '" text-anchor="middle">HOLY OF HOLIES</text></g>';
+  }
+  const PT = (x, y, r) => { const a = (r * Math.PI) / 180; return [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]; };
   function place() {
-    M("investigation", "platform");
-    const s = stage('<div class="fkick">The verdict</div><h1>Place the Holy of Holies</h1><div class="fq">All five clues are in your journal. Where did the Holy of Holies stand?</div>' +
-      '<div class="fmapwrap" id="fm">' + mapSVG({}) + "</div>" + '<button class="fback" id="fback">‹ Journal</button>');
+    M("investigation", "platform"); cur = "verdict";
+    const s = stage('<div class="fkick">The verdict</div><h1>Lay the Temple on the Mount</h1><div class="fq">You built the Temple plan at the Institute, court by court. Now drag it onto the Mount, and turn it, until everything fits.</div>' +
+      '<div class="fmapwrap" id="fm">' + mapSVG({ extra: planSVG() }) + "</div>" +
+      '<div class="fplanbar"><button id="frot">⟳ Turn the plan</button><button class="fbtn" id="fset">Set it here</button></div>' +
+      '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => board();
-    [["rock", "The Dome of the Rock"], ["spirits", "The Dome of the Spirits"], ["south", "The southern end"]].forEach(([k, label]) => {
-      const b = document.createElement("button"); b.className = "fspot"; b.setAttribute("aria-label", label);
-      b.style.left = (SPOT[k][0] / 320) * 100 + "%"; b.style.top = (SPOT[k][1] / 420) * 100 + "%";
-      b.onclick = () => {
-        if (k === "rock") { wrong("The rock there is jagged, it is not the summit, the gate's line misses it, and it stands in the middle of the court Solomon kept open."); return; }
-        if (k === "south") { wrong("The south is Herod's added platform, filled in to make it level: not the summit, and not a threshing floor."); return; }
-        reveal();
-      };
-      $("fm").appendChild(b);
-    });
-    K.say("Tap the place on the map.", "", 2400); V("20-verdict");
+    const svg = $("fm").querySelector("svg"), g = $("fplan");
+    let tx = 120, ty = 330, r = 180, drag = null;
+    const draw = () => g.setAttribute("transform", "translate(" + tx + " " + ty + ") rotate(" + r + ")");
+    draw();
+    const pt = (e) => { const q = svg.createSVGPoint(); q.x = e.clientX; q.y = e.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); };
+    g.addEventListener("pointerdown", (e) => { const q = pt(e); drag = [q.x - tx, q.y - ty]; g.setPointerCapture(e.pointerId); g.classList.add("drag"); });
+    g.addEventListener("pointermove", (e) => { if (!drag) return; const q = pt(e); tx = q.x - drag[0]; ty = q.y - drag[1]; draw(); });
+    g.addEventListener("pointerup", () => { drag = null; g.classList.remove("drag"); S("step", "click", 0.4); });
+    $("frot").onclick = () => { r = (r + 90) % 360; S("stone", "click", 0.4); draw(); };
+    $("fset").onclick = () => {
+      const hohL = -(PLAN.women + PLAN.inner + PLAN.hoh / 2), hp = PT(hohL, 0, r), hoh = [tx + hp[0], ty + hp[1]];
+      const corners = [[0, -PLAN.women / 2], [0, PLAN.women / 2], [-(PLAN.women + PLAN.inner + PLAN.hoh), -PLAN.women / 2], [-(PLAN.women + PLAN.inner + PLAN.hoh), PLAN.women / 2]].map((c) => { const q = PT(c[0], c[1], r); return [tx + q[0], ty + q[1]]; });
+      const off = corners.some((c) => c[0] < 44 || c[0] > 268 || c[1] < 30 || c[1] > 412);
+      const near = (a, b, d) => Math.hypot(a[0] - b[0], a[1] - b[1]) < d;
+      if (r !== 0) { wrong("The Temple faced east: turn the plan until its gate looks toward the Eastern Gate and the Mount of Olives."); return; }
+      if (near([tx, ty], SPOT.gate, 20) && near(hoh, SPOT.spirits, 20)) { tx = SPOT.gate[0]; ty = SPOT.gate[1]; draw(); g.classList.add("fit"); S("lock", null, 0.7); setTimeout(() => K.root() && makeCase(), 1600); return; }
+      if (off) { wrong("Part of the Temple hangs off the edge of the Mount. Move it back onto the platform."); return; }
+      if (near(hoh, SPOT.rock, 26)) { wrong("Here the Holy of Holies sits on the jagged rock, and the Temple’s gate stands far from the Eastern Gate. The courts would cover the middle Solomon kept open."); return; }
+      if (!near([tx, ty], SPOT.gate, 26)) { wrong("The Temple’s gate must open onto the Eastern Gate: the line from the Mount of Olives runs straight through both."); return; }
+      wrong("Close. Slide it along the line until the Holy of Holies rests on flat bedrock.");
+    };
+    K.say("Drag the plan onto the Mount, and turn it to face east.", "", 3600); V("20-verdict");
+  }
+  /* before the reveal: answer a sceptic with the three strongest pieces of evidence */
+  const CASEV = [
+    ["floor", "The Temple was built on a threshing floor, and only the northern bedrock is flat (2 Chronicles 3:1)", 1],
+    ["shade", "It is a quiet, shady corner of the Mount", 0],
+    ["summit", "Josephus says the Temple stood on the very top of the mountain: the northern rise", 1],
+    ["line", "The line west from the Eastern Gate runs to the Dome of the Spirits", 1],
+    ["small", "The little dome over it looks old and simple", 0],
+    ["cubits", "The Mishnah’s 187 cubits from the Eastern Gate end at the northern bedrock", 1],
+    ["middle", "The Dome of the Rock stands in the middle of the court Solomon kept open (2 Chronicles 7:7)", 1],
+    ["crowd", "Fewer tourists go there", 0],
+  ];
+  function makeCase() {
+    cur = "case"; const p = P(); let chosen = [];
+    const s = stage('<div class="fkick">The verdict · make your case</div><h1>“Convince me”</h1>' +
+      '<div class="fhim">“So you say the Temple stood up here, at that little dome? Most people would point at the golden one. Give me your three best reasons.”<small>A sceptic on the Mount</small></div>' +
+      '<div class="fq">Choose the three strongest pieces of evidence from your journal.</div>' +
+      '<div class="fjournal" id="fcase">' + shuffle(CASEV).map((c) => '<button class="fclue" data-e="' + c[0] + '"><i></i><span><b>' + esc(c[1]) + "</b></span></button>").join("") + "</div>" +
+      '<button class="fbtn" id="fargue">Make the case</button>' + '<button class="fback" id="fback">‹ Back to the map</button>');
+    $("fback").onclick = place;
+    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => {
+      const k = b.dataset.e; K.sfx("click");
+      if (chosen.includes(k)) chosen = chosen.filter((x) => x !== k); else { if (chosen.length >= 3) chosen.shift(); chosen.push(k); }
+      s.querySelectorAll("[data-e]").forEach((e) => { const on = chosen.includes(e.dataset.e); e.classList.toggle("done", on); e.querySelector("i").textContent = on ? "✓" : ""; });
+    }));
+    $("fargue").onclick = () => {
+      if (chosen.length < 3) { K.say("Choose three.", "", 1800); return; }
+      const weak = chosen.filter((k) => !CASEV.find((c) => c[0] === k)[2]);
+      if (weak.length) { wrong("“" + (weak[0] === "shade" ? "Shade? That’s a feeling, not evidence." : weak[0] === "small" ? "Old and simple? So is half of Jerusalem." : "Fewer tourists? That proves nothing.") + " Try again.”"); return; }
+      p.case = chosen.slice(); save(); S("journal");
+      const d = document.createElement("div"); d.innerHTML = '<div class="fhim">' + "He walks over to the Dome of the Spirits, looks east to the gate, and is quiet for a while. “Hm. That’s harder to argue with than I thought.”<small>The sceptic</small></div>";
+      s.insertBefore(d, $("fargue")); $("fargue").remove(); d.scrollIntoView({ behavior: "smooth", block: "end" });
+      setTimeout(() => K.root() && reveal(), 3800);
+    };
   }
   function reveal() {
     const p = P(), first = !p.done;
     p.done = 1; save(); S("shofar", "stone"); K.buzz("success");
-    const was = p.theory === "rock" ? "<p>You first thought the Temple stood under the Dome of the Rock, as most people do. The evidence pointed north.</p>" : p.theory === "spirits" ? "<p>Your first guess was right: the evidence points north.</p>" : "";
+    const ev = (p.case || []).map((k) => (CASEV.find((c) => c[0] === k) || [])[1]).filter(Boolean);
+    const was = '<div class="fjrnl"><b>From your journal</b>' + (p.theory === "rock" ? "<p>You came thinking the Temple stood under the golden Dome of the Rock, as most people do.</p>" : p.theory === "spirits" ? "<p>You came already suspecting the northern rise.</p>" : "<p>You came with an open mind.</p>") +
+      (ev.length ? "<p>What made the case:</p><ul>" + ev.map((e) => "<li>" + esc(e) + "</li>").join("") + "</ul>" : "") + "</div>";
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
       '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
@@ -855,7 +974,8 @@
       let oil = 0; if (first && !stats.hints && stats.misses <= 1) { oil = 2; Lamp.state.oil += 2; save(); }
       K.card('<div class="kick">The Temple Mount solved · Relic found</div><div class="freed">' + REED_SVG + "</div><h2>The Measuring Reed</h2>" +
         '<div class="v">“And there was given me a reed like unto a rod.”</div><div class="r">Revelation 11:1 · KJV</div>' + was +
-        '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
+        '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" +
+        '<div class="fview"><b>From the author.</b> I first read that the Holy of Holies stood at the Dome of the Spirits in Grant R. Jeffrey’s <i>Armageddon: Appointment with Destiny</i>. I spent years investigating it afterwards, and walked the Temple Mount many times with an experienced guide. What you have just seen is where that investigation led.<small>Richard J. Allinson</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
         '<button class="cta" data-act="next">The Temple Mount today</button>', { next: today });
     }, 4200);
