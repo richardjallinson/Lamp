@@ -276,3 +276,71 @@
 #adv .fring .fr2{fill:#AA9A7C}
 #adv .fring text{font:700 17px Georgia,serif;fill:#2A2014;letter-spacing:.08em}
 #adv .fhub{fill:#5A4A34;stroke:#2A2014;stroke-width:3}
+
+/* ---- the walking route (js/fsy-route.js): viewpoints, arrows, placeholders, the map, the journal, full screen ---- */
+#adv .fwview{position:relative;width:100%;max-width:400px;aspect-ratio:3/4;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.6);box-shadow:0 10px 30px rgba(0,0,0,.6);background:#0A0C18;touch-action:manipulation}
+#adv .fwview .fwimg{display:block;width:100%;height:100%;object-fit:cover;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#adv .fph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center;
+  background:radial-gradient(ellipse at 50% 30%,hsl(var(--h) 30% 30%),hsl(var(--h) 35% 12%) 70%),#111;color:#F3E9CE}
+#adv .fph::before{content:"";position:absolute;inset:14px;border:1px dashed rgba(245,210,122,.45);border-radius:10px;pointer-events:none}
+#adv .fph .fphk{font:700 10.5px/1 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#F5D27A;padding:5px 10px;border:1px solid rgba(245,210,122,.6);border-radius:999px}
+#adv .fph b{font:400 clamp(20px,5.6vw,26px)/1.15 "Baskerville","Hoefler Text",Georgia,serif;color:#F5D27A}
+#adv .fph span{font:italic 600 14px/1.4 var(--display);color:rgba(243,233,206,.85);max-width:26em}
+#adv .fph small{font:600 10.5px/1.3 var(--ui);color:rgba(243,233,206,.5);letter-spacing:.04em}
+#adv .fph.dark{position:relative;width:100%;height:100%}
+#adv .farrow{position:absolute;width:52px;height:52px;border-radius:50%;border:2px solid rgba(245,210,122,.85);background:rgba(8,12,28,.6);color:#F5D27A;font:900 20px/1 var(--ui);cursor:pointer;backdrop-filter:blur(3px);box-shadow:0 4px 14px rgba(0,0,0,.6);animation:adv-pulse 2.4s ease-in-out infinite}
+#adv .farrow.fwd{left:50%;bottom:14px;margin-left:-26px}
+#adv .farrow.back{left:50%;bottom:14px;margin-left:-26px;animation:none;opacity:.85}
+#adv .farrow.fwd ~ .farrow.back{left:auto;right:14px;bottom:14px;margin:0}
+#adv .farrow.left{left:10px;top:50%;margin-top:-26px}
+#adv .farrow.right{right:10px;top:50%;margin-top:-26px}
+#adv .fwhot{border-radius:12px}
+#adv .fwhot span{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#FFF6CF 0,rgba(245,210,122,.9) 30%,rgba(245,210,122,0) 70%);animation:fsy-glint 2.2s ease-in-out infinite;pointer-events:none}
+#adv .fwpz{position:absolute;left:50%;top:12px;transform:translateX(-50%);max-width:88%;padding:10px 16px;border-radius:999px;border:none;background:linear-gradient(180deg,#E3BC5C,#C9A24A);color:#141A33;font:800 14px/1.2 var(--ui);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.6);animation:adv-pulse 1.8s ease-in-out infinite;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#adv .fwtools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:100%;max-width:400px}
+#adv .fwtool{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:8px 14px;border-radius:999px;border:1px solid rgba(201,162,74,.55);background:rgba(12,18,40,.82);color:#F3E9CE;font:700 13.5px/1 var(--ui);cursor:pointer}
+#adv .fwtool.go{background:linear-gradient(180deg,#E3BC5C,#C9A24A);color:#141A33;border:none;flex:1 1 100%;justify-content:center;min-height:50px;font-size:15px;animation:adv-pulse 1.8s ease-in-out infinite}
+/* the map: the light-rail line */
+#adv .fline{position:relative;display:flex;flex-direction:column;gap:6px;width:100%;max-width:380px;padding-left:22px}
+#adv .fline::before{content:"";position:absolute;left:8px;top:10px;bottom:10px;width:4px;border-radius:2px;background:linear-gradient(180deg,#C9A24A,#7A2A10)}
+#adv .fact{margin:10px 0 2px;color:#F5D27A}
+#adv .fact b{display:block;font:700 15px/1.2 var(--display)}
+#adv .fact small{display:block;font:600 11.5px/1.3 var(--ui);color:rgba(243,233,206,.6)}
+#adv .fstop{position:relative;display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;border:1px solid rgba(201,162,74,.35);background:rgba(12,18,40,.8);color:#F3E9CE;text-align:left;cursor:pointer}
+#adv .fstop::before{content:"";position:absolute;left:-19px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#2A2418;border:2px solid #C9A24A}
+#adv .fstop.done::before{background:#C9A24A}
+#adv .fstop.here{border-color:#F5D27A;background:rgba(201,162,74,.22)}
+#adv .fstop.here::before{background:#E0502A;border-color:#F5D27A;animation:adv-pulse 1.4s ease-in-out infinite}
+#adv .fstop.locked{opacity:.45}
+#adv .fstop.opt{border-style:dashed}
+#adv .fstop i{flex:none;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 12px var(--ui);font-style:normal;background:rgba(201,162,74,.25);color:#F5D27A}
+#adv .fstop.done i{background:#C9A24A;color:#141A33}
+#adv .fstop b{display:block;font:700 14.5px/1.2 var(--display)}
+#adv .fstop small{display:block;font:600 11px/1.2 var(--ui);color:rgba(243,233,206,.6)}
+/* the scales */
+#adv .fbalance{--tilt:0deg;position:relative;width:100%;max-width:340px;height:120px;flex:none}
+#adv .fbalance .fbeam{position:absolute;left:10%;right:10%;top:30px;height:6px;border-radius:3px;background:linear-gradient(90deg,#8A6A2A,#E8C66A,#8A6A2A);transform:rotate(var(--tilt));transition:transform .5s;transform-origin:center}
+#adv .fbalance::after{content:"";position:absolute;left:50%;top:30px;width:10px;height:70px;margin-left:-5px;background:#7A5A2A;border-radius:4px}
+#adv .fbalance .fpan{position:absolute;top:50px;width:36%;min-height:50px;padding:8px;border-radius:0 0 30px 30px;background:rgba(201,162,74,.85);color:#141A33;text-align:center;transition:transform .5s}
+#adv .fbalance .fpan.l{left:0;transform:translateY(calc(var(--tilt) * -2))}
+#adv .fbalance .fpan.r{right:0;transform:translateY(calc(var(--tilt) * 2))}
+#adv .fbalance .fpan b{display:block;font:800 13px/1.2 var(--ui)}
+#adv .fbalance .fpan small{display:block;font:600 11px/1.2 var(--ui)}
+#adv .fwfind .fwspot{border:2px dashed rgba(245,210,122,.55);animation:none}
+#adv .fwfind .fwspot.found{border-color:rgba(155,212,122,.9);background:rgba(155,212,122,.15)}
+#adv .fwfind{aspect-ratio:4/3;background:#1A1408}
+#adv .fwfind .fph{position:absolute}
+/* the rolling stone */
+#adv .fslide{position:relative;width:100%;max-width:340px;height:70px;flex:none;touch-action:none}
+#adv .ftrack{position:absolute;left:0;right:0;top:30px;height:10px;border-radius:5px;background:#3A3024;box-shadow:inset 0 2px 4px #000}
+#adv .fknob{position:absolute;left:0;top:5px;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#B9A27A,#5A4A34);box-shadow:0 6px 14px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;color:#2A2014;font:900 18px var(--ui)}
+#adv .fknob.on{box-shadow:0 0 0 4px rgba(155,212,122,.7),0 6px 14px rgba(0,0,0,.7)}
+/* full screen: double-tap a picture */
+#adv .fwfull{position:fixed;inset:0;z-index:60;background:#000;display:flex;align-items:center;justify-content:center;touch-action:none;overflow:hidden}
+#adv .fwfull img{max-width:100%;max-height:100%;transform-origin:center;transition:transform .05s linear;-webkit-user-drag:none;user-select:none}
+#adv .fwfull .fwx{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.5);color:#fff;font:800 18px var(--ui);cursor:pointer}
+#adv .fwfull small{position:absolute;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font:600 12px var(--ui);color:rgba(255,255,255,.6);pointer-events:none}
+#adv .fph.grid{justify-content:flex-start;padding-top:10px}
+#adv .fph.grid b{font-size:13px;color:rgba(245,210,122,.7)}
+#adv .fph.grid span{display:none}
+#adv .fwfind .fwspot::after{content:attr(aria-label);position:absolute;left:4px;right:4px;bottom:4px;font:600 10px/1.2 var(--ui);color:#F3E9CE;text-align:center;text-shadow:0 1px 4px #000}

@@ -1,0 +1,92 @@
+HANK, EPISODE 1 WALKING VERSION. Paste each line as one generation, in this order, and send the files un-renamed.
+
+[w-train-board]
+Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.
+
+[w-train-navon]
+Eighty metres underground, and now up. You have come to Jerusalem.
+
+[w-rail-stop]
+The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.
+
+[w-market-street]
+Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.
+
+[w-gabriel-street]
+Ben Yehuda Street, where the city shops. A small souvenir shop. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.
+
+[w-model-wide]
+Jerusalem as it was in the last days of the Second Temple, to the scale of one in fifty. Walk round it. Learn the courts and the gates: you will pace them out on the Mount itself.
+
+[w-jaffa-outside]
+Jaffa Gate, where the road from the sea comes in. The wall you see was built by Suleiman in 1538, on older walls, on older walls still. Find the way up onto it.
+
+[w-ramparts-stairs]
+Walk about Zion, and go round about her: tell the towers thereof. Up you go.
+
+[w-ramparts-golgotha]
+Look across the road. The rock face with the hollows of a skull: Golgotha. “And he bearing his cross went forth into a place called the place of a skull.”
+
+[w-jewish-cardo]
+The rain is easing. This was the main street of Roman Jerusalem, built after the Temple fell. The city has been rebuilt on its own ruins again and again.
+
+[w-jewish-wallsteps]
+Down the steps, and there it is.
+
+[w-wall-plaza]
+The Western Wall. Not the Temple: the retaining wall Herod built to hold up the platform the Temple stood on. People have prayed at these stones for two thousand years. Go down to them.
+
+[w-wall-arch]
+To the left, under the arch, the Wall goes on indoors. A man in a grey coat just went in.
+
+[w-wilson-hall]
+Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.
+
+[w-tunnels-entry]
+Four hundred and eighty metres of Herod’s wall, buried under the streets. Keep your hand on the stones. The Watchman said: follow them down.
+
+[w-wallagain-clear]
+The storm has passed. The way that was closed is open. Down to Damascus Gate.
+
+[w-gtomb-garden]
+Many believe this is the garden, and that the tomb. Whether or not it is, what is true is true: he is not here.
+
+[w-bazaar-steps]
+From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.
+
+[w-zion-tomb]
+By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.
+
+[w-cod-entrance]
+This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign on the wall.
+
+[w-gihon-spring]
+Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.
+
+[w-gihon-mouth]
+Hezekiah cut a tunnel from this spring through the hill to the pool inside his walls, before the Assyrians came. Five hundred and thirty-three metres, in the dark, in water. Light your lamp.
+
+[w-siloam-pool]
+Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.
+
+[w-steps-steps]
+The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.
+
+[w-steps-robinson]
+Round the south-west corner, the stones the Romans threw down still lie where they fell.
+
+[w-dung-gate]
+Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.
+
+[w-egate-steps]
+Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.
+
+[w-kidron-absalom]
+Down in the valley, the tombs. This one carries Absalom’s name, though it was cut long after him.
+
+[w-gethsemane-trees]
+Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.
+
+[w-mughrabi-entrance]
+The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.
+

@@ -1,10 +1,14 @@
 /* Lamp — "The Final Seven Years": the prophecy investigation, based on Richard J. Allinson's book.
-   Episode 1, "The Jerusalem Mystery": four stops in Jerusalem.
-     1. The Temple Institute — the Ark (Exodus 25), Walk the Courts (Psalm 100:4), the instrument lock (Psalm 150:3),
-        and a parchment read with the letter wheel (Ezekiel 43:2).
-     2. The Mount of Olives — the line of sight to the Eastern Gate (Zechariah 14:4).
-     3. The Temple Mount — where was the Temple? Five clues, the verdict, and the Measuring Reed (Revelation 11:1–2).
-     4. The Eastern Gate, from inside — "this gate shall be shut" (Ezekiel 44:2–3), and the cliffhanger.
+   Episode 1, "The Jerusalem Mystery". The route through the city (31 scenes, walked Myst-style) is in js/fsy-route.js;
+   this file holds the puzzles built first, which that route calls in their new places:
+     - the airport opening and the Watchman's first card;
+     - the Temple Institute — the Ark (Exodus 25), Walk the Courts (Psalm 100:4), the instrument lock (Psalm 150:3),
+       the vessels, a parchment read with the letter wheel (Ezekiel 43:2), and the postcard;
+     - the Tombs of the Prophets on the Mount of Olives, and the view of the sealed gate (Zechariah 14:4);
+     - Robinson's Arch (Matthew 24:2);
+     - the Temple Mount — five clues, the verdict, the Measuring Reed (Revelation 11:1–2), and the Waqf official;
+     - the Eastern Gate, from inside — "this gate shall be shut" (Ezekiel 44:2–3), and the cliffhanger.
+   Richard's films are no longer played in the game (Oct 27): stills from them are in img/fsy/w/ instead.
    Progress lives in Lamp.state.adv.p.fsy. */
 (function () {
   "use strict";
@@ -84,40 +88,13 @@
   CLUES[4].scene = ["tm-dome-rock.jpg", "The Dome of the Rock, in the middle of the great court"];
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
   CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
-  /* Richard's own films from the Temple Mount (video/fsy/*.mp4), in his own voice */
-  const FILMS = {   // in the order Richard filmed them
-    arrive: ["tm-arrive", "Up the Mughrabi bridge, past Al-Aqsa", "“This is the only gate for Jews and non-Muslims to enter the Temple Mount… There is the Al-Aqsa Mosque right here. Lots of security up here today.”"],
-    middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Here’s the Dome of the Rock. And if I turn around, there is the Al-Aqsa Mosque to the south. Very big platform. It’s huge up here.”"],
-    visitors: ["tm-visitors", "Jews on the Temple Mount today", "“Just taking a quick video of all the Jews that are coming up today, and there is quite a few.”"],
-    spirits: ["tm-spirits", "At the Dome of the Spirits: the last film", "“Inside the Dome of the Spirits is foundation stone. This is bedrock… I’m right in line with the Eastern Gate… According to Scripture, this is exactly where it will be located.”"],
-    robinson: ["robinson", "At Robinson’s Arch: the stones of the Second Temple", "“All these stones down below are the remnants of the Second Temple… Some of these stones are the size of a car. Just as Jesus said, Matthew 24, verses 1 and 2.”"],
-    tombs: ["tombs", "In the Tombs of the Prophets", "“This is the tombs of Zechariah, Haggai and Malachi… All of the graves mostly face towards the Temple Mount.”"],
-    gate: ["gate-inside", "At the Eastern Gate", "“Looking down the stairs. If I read Ezekiel chapter 40, it would mention these stairs.”"],
-  };
-  function film(key, then, label, extra) {
-    const f = FILMS[key], p = P(); p.films = p.films || {}; p.films[key] = 1; save();
-    Lamp.narr && Lamp.narr.stop();
-    let vid = null;
-    const quiet = (on) => { Lamp.duck && Lamp.duck(on); Lamp.score && Lamp.score.hush && Lamp.score.hush(on); };
-    K.card('<div class="kick">From the author · filmed on the spot</div><h2>' + esc(f[1]) + "</h2>" +
-      '<video class="ffilm" src="video/fsy/' + f[0] + '.mp4" poster="video/fsy/' + f[0] + '.jpg" controls playsinline webkit-playsinline preload="auto"></video>' +
-      '<p class="fcap">' + esc(f[2]) + "<small>Filmed and narrated by Richard J. Allinson, Jerusalem</small></p>" + (extra || "") +
-      '<button class="cta" data-act="x">' + esc(label || "Continue") + "</button>",
-      { x: () => { try { vid && vid.pause(); } catch (e) {} quiet(false); then && then(); } });
-    const sheets = document.querySelectorAll("#adv .asheet"); vid = sheets.length ? sheets[sheets.length - 1].querySelector("video") : null;
-    if (!vid) return;
-    vid.addEventListener("play", () => quiet(true)); vid.addEventListener("pause", () => quiet(false)); vid.addEventListener("ended", () => quiet(false));
-    try { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); } catch (e) {}
-  }
-  const seen = (k) => !!(P().films || {})[k];
-  const filmBtn = (k) => FILMS[k] ? '<button class="ffilmbtn" data-film="' + k + '">▶ ' + esc(FILMS[k][1]) + "<small>The author on the spot</small></button>" : "";
-  function wireFilms(el, back) { el.querySelectorAll("[data-film]").forEach((b) => (b.onclick = () => { K.sfx("click"); film(b.dataset.film, back); })); }
   /* the Watchman signs every note with a small drawn lamp */
   const WLAMP = '<svg class="fwl" viewBox="0 0 40 24" aria-label="a small drawn lamp"><path d="M4 15 Q4 9 14 9 L28 9 Q34 9 36 13 L30 15 Q22 20 12 19 Q4 18 4 15Z" fill="none" stroke="#2A3A7A" stroke-width="1.8"/><path d="M33 12 Q36 5 34 1 Q31 6 33 12Z" fill="#2A3A7A"/><circle cx="18" cy="12" r="1.6" fill="#2A3A7A"/></svg>';
   const wnote = (html) => '<div class="fwnote">' + html + WLAMP + "</div>";
   let st = null;   // this visit: misses and hints, for the rewards
   let cur = "";    // which stop is open, for the hint
   function hint() {
+    if (cur === "walk" && Lamp.fsyWalk) return Lamp.fsyWalk.hint();
     st.hints++;
     const p = P();
     if (cur === "hall") { const left = EXHIBITS.filter((e) => !P().ti[e.id]); K.say(left.length ? "Try “" + left[0].title + "”. Tap its glint in the photograph." : "Look at the postcard stand by the door. One card stands out.", "", 4600); }
@@ -150,10 +127,14 @@
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
   const preS = (...n) => Lamp.score && Lamp.score.preload(n.filter((x) => HAVE_S.has(x)).map((x) => "fsy-sfx-" + x));
-  const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null };
+  const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street",
+    /* the new tracks for the walking route (M9–M25 in the doc): until Richard makes them, the nearest finished track plays */
+    m9: "theme", m10: "hall", m11: "theme", m12: "olives", m13: "investigation", m14: "hall", m15: "puzzle", m16: "olives", m17: "theme", m18: "puzzle",
+    m19: "olives", m20: "hall", m21: "investigation", m22: "olives", m23: "olives", m24: "investigation", m25: "reveal" };
   function M(music, amb) {
     if (!Lamp.score) return;
-    const m = HAVE_M.has(music) ? music : FALL[music], a0 = amb ? "amb-" + amb : null, a = a0 && (HAVE_M.has(a0) ? a0 : FALL[a0]);
+    let m = HAVE_M.has(music) ? music : FALL[music]; if (m && !HAVE_M.has(m)) m = FALL[m] || null;
+    const a0 = amb ? "amb-" + amb : null, a = a0 && (HAVE_M.has(a0) ? a0 : FALL[a0]);
     Lamp.score.set(m ? "fsy-" + m : null, a ? "fsy-" + a : null);
   }
   function V(name, then) { if (Lamp.narr && HAVE.has(name)) Lamp.narr.play("fsy-" + name, then); }
@@ -161,6 +142,7 @@
     Lamp.narr && Lamp.narr.stop();
     const sb = $("adv-say"); if (sb) sb.classList.remove("on");
     $("adv-scene").innerHTML = '<div class="fsy"><div class="bgp" style="background-image:url(' + (bg ? "img/fsy/" + bg : "img/start/fsy-cover.jpg") + ')"></div>' + html + "</div>";
+    $("adv-scene").scrollTop = 0;
     return $("adv-scene").querySelector(".fsy");
   }
   const wrong = (msg) => { st.misses++; if (HAVE_S.has("knock")) S("knock", null, 0.9); else K.snd("bad"); K.buzz("error"); K.say(msg, "", 4600); };
@@ -175,6 +157,8 @@
     if (!p.began) { p.began = 1; save(); return intro(); }
     stops();
   }
+  /* the route map (js/fsy-route.js) replaces the old list of four stops */
+  function stops() { if (Lamp.fsyWalk) Lamp.fsyWalk.map(); }
   function intro() {
     cur = ""; M("theme", "airport");
     const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
@@ -186,38 +170,18 @@
       if (p.watchCard) { stops(); return; }
       p.watchCard = 1; save(); S("parchment");
       K.card('<div class="kick">At the luggage carousel</div><h2>Someone knew you were coming</h2>' +
-        "<p>Your bag comes round the carousel. Tucked under the strap is a folded card that was not there when you packed. No name. Only a verse, in blue ink, and a small drawn lamp.</p>" +
+        "<p>Your bag comes round the carousel. Tucked under the strap is a small leather journal that was not there when you packed. Most of its pages are blank. The last ones have been torn out. On the first page, in blue ink, in a hand that is not yours, a verse and a question, and a small drawn lamp.</p>" +
         wnote("“I have set watchmen upon thy walls, O Jerusalem, which shall never hold their peace day nor night.”<small>Isaiah 62:6</small>") +
-        "<p>A watchman, on the walls of Jerusalem. You put the card in your journal, and take the road up to the city.</p>" +
-        '<button class="cta" data-act="x">Go up to Jerusalem</button>', { x: stops });
+        wnote("“Where did the Temple stand? Don’t trust the first answer.”") +
+        "<p>A watchman, on the walls of Jerusalem. Twelve pages are missing. You put the journal in your bag, and take the train up to the city.</p>" +
+        '<button class="cta" data-act="x">To the train</button>', { x: () => { if (Lamp.fsyWalk) { Lamp.fsyWalk.W().pages[1] = 1; save(); Lamp.fsyWalk.keptDone("airport"); } } });
       V("01b-luggage");
     };
     V("01-open");
   }
-  function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.vessels && p.ti.scroll && p.ti.postcard) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
-  const STOPS = [
-    { id: "ti", n: 1, title: "The Temple Institute", sub: "The Ark, the courts, the instruments and a parchment", run: institute },
-    { id: "olives", n: 2, title: "The Mount of Olives", sub: "The Tombs of the Prophets, and the sealed gate across the valley", run: olives },
-    { id: "mount", n: 3, title: "The Temple Mount", sub: "The stones of the old Temple, then five clues. Where did the Holy of Holies stand?", run: chapter },
-    { id: "gate", n: 4, title: "The Eastern Gate", sub: "“This gate shall be shut”", run: gate },
-  ];
-  function stops() {
-    cur = ""; M("theme");
-    const p = P();
-    let next = STOPS.findIndex((x) => !done(x.id)); if (next < 0) next = STOPS.length;
-    const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
-      '<div class="fsub">' + (next >= STOPS.length ? "Episode 1 solved" : "Stop " + (next + 1) + " of 4") + "</div>" +
-      '<div class="fjournal fstops">' + STOPS.map((x, i) => '<button class="fclue' + (done(x.id) ? " done" : i > next ? " locked" : "") + '" data-s="' + i + '"><i>' + (done(x.id) ? "✓" : x.n) + "</i><span><b>" + esc(i === 1 && !p.ti.postcard ? "Stop 2 · ?" : x.title) + "</b><small>" + esc(i === 1 && !p.ti.postcard ? "Somewhere in the Temple Institute is a clue to where you go next." : x.sub) + "</small></span></button>").join("") + "</div>" +
-      (next >= STOPS.length ? '<button class="fbtn" id="fend">What comes next</button>' : ""), "temple-painting.jpg");
-    s.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
-      const i = +b.dataset.s; K.sfx("click");
-      if (i > next) { K.say("First finish “" + STOPS[next].title + "”.", "", 2800); return; }
-      STOPS[i].run();
-    }));
-    const en = $("fend"); if (en) en.onclick = ending;
-    if (next === 0 && !p.ti.ark) K.say("Four stops in Jerusalem. Begin at the Temple Institute, where the vessels of the Temple wait.", "", 4600);
-    void p;
-  }
+  /* which of the kept puzzles are finished (for the route map) */
+  function keptDone(k) { const p = P(); return k === "intro" ? !!p.watchCard : k === "institute" ? !!p.ti.postcard : k === "prophets" ? !!p.tombs : k === "olives" ? !!p.olives : k === "robinson" ? !!p.robinson : k === "mount" ? !!(p.done && p.waqf) : k === "gate" ? !!p.gateDone : false; }
+  const walkDone = (id) => Lamp.fsyWalk && Lamp.fsyWalk.keptDone(id);
 
   /* ================================================================ 1. the Temple Institute ================================================================ */
   const EXHIBITS = [
@@ -230,10 +194,10 @@
   function institute() {
     cur = ""; const p = P(); M("hall", "street");
     if (!p.ti.entered) {
-      const s = stage('<div class="fkick">Stop 1 · The Old City</div><h1>The Temple Institute</h1>' +
+      const s = stage('<div class="fkick">Act 4 · The Jewish Quarter</div><h1>The Temple Institute</h1>' +
         photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
         '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at five things.”<small>The Lamplighter</small></div>' +
-        '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The stops"));
+        '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The map"));
       wire(s, stops); $("fgo").onclick = () => { S("door", "stone"); p.ti.entered = 1; save(); institute(); }; V("02-outside");
       return;
     }
@@ -253,7 +217,7 @@
   function hall() {
     cur = "hall"; const p = P(); M("hall", "indoor");
     const all = EXHIBITS.every((e) => p.ti[e.id]), left = EXHIBITS.filter((e) => !p.ti[e.id]);
-    const s = stage('<div class="fkick">Stop 1 · The Temple Institute</div><h1>The entrance hall</h1>' +
+    const s = stage('<div class="fkick">Act 4 · The Temple Institute</div><h1>The entrance hall</h1>' +
       '<div class="fq">' + (p.ti.postcard ? "You have the postcard. The Mount of Olives is waiting." : all ? "Every exhibit is solved. Before you leave, look around the hall once more." : "Tap anything in the room to walk over to it. You can leave a puzzle and come back to it at any time.") + "</div>" +
       '<div class="fark fhall" id="fhall"><img src="img/fsy/ti-hall.jpg" alt="The entrance hall of the Temple Institute">' +
       HALL.map((h) => '<button class="fhit" data-h="' + h.k + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"></button>' +
@@ -261,9 +225,9 @@
       (all && !p.ti.postcard ? '<span class="fglint big" style="left:96.5%;top:43%"></span>' : "") + "</div>" +
       '<div class="fsmall">Photo: Richard J. Allinson, at the Temple Institute</div>' +
       '<div class="fprog">' + EXHIBITS.map((x) => '<button data-e="' + x.id + '" class="' + (p.ti[x.id] ? "done" : x.needs && !p.ti[x.needs] ? "locked" : "") + '">' + (p.ti[x.id] ? "✓ " : "") + esc(x.title.replace(/^The /, "")) + "</button>").join("") + "</div>" +
-      (p.ti.postcard ? '<button class="fbtn glow" id="fgo">Leave for the Mount of Olives</button>' : "") + back("The stops"), "ti-hall.jpg");
+      (p.ti.postcard ? '<button class="fbtn glow" id="fgo">Leave: out by the Dung Gate</button>' : "") + back("The map"), "ti-hall.jpg");
     wire(s, stops);
-    const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); stops(); };
+    const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); walkDone("institute"); };
     const openEx = (id) => {
       const x = EXHIBITS.find((e) => e.id === id);
       if (x.needs && !p.ti[x.needs]) { K.say("The parchment lies inside the instrument case. Open the case first.", "", 3200); return; }
@@ -600,10 +564,10 @@
       '<div class="fpostwrap" id="fpw" role="button" tabindex="0" aria-label="Turn the postcard over">' + POSTCARD_FRONT + "</div>" +
       '<div class="fsmall" id="fpsm" style="color:#6B5A2A">Tap the postcard to turn it over.</div>' +
       '<button class="cta" data-act="take" id="ftake" style="display:none">Take the postcard</button><button class="cta alt" data-act="x">Put it back</button>',
-      { take: () => { p.ti.postcard = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
+      { take: () => { p.ti.postcard = 1; if (Lamp.fsyWalk) Lamp.fsyWalk.W().pages[11] = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
           K.card('<div class="kick">Clue found · Zechariah 14:4</div><h2>The next stop</h2><div class="v">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”</div><div class="r">Zechariah 14:4 · KJV</div>' +
-            "<p>The postcard goes in your journal. Blue ink, and a small drawn lamp: the same hand as the card in your luggage. Someone, a watchman, wants you on the Mount of Olives, looking back at the gate. <b>The Temple faced east, toward that mountain.</b></p><p>And the man in the grey coat was at this stand before you.</p>" +
-            '<button class="cta" data-act="x">Leave for the Mount of Olives</button>', { x: stops }); },
+            "<p>The postcard is the eleventh page: blue ink, and a small drawn lamp. Someone, a watchman, wants you on the Mount of Olives, looking back at the gate. <b>The Temple faced east, toward that mountain.</b> The way there is out by the Dung Gate and down to the valley.</p><p>And the man in the grey coat was at this stand before you.</p>" +
+            '<button class="cta" data-act="x">Out by the Dung Gate</button>', { x: () => walkDone("institute") }); },
         x: () => {} });
     const pw = $("fpw"); let back2 = false;
     const flip = () => { back2 = !back2; K.sfx("click"); pw.innerHTML = back2 ? POSTCARD_BACK : POSTCARD_FRONT; pw.classList.toggle("back", back2); if (back2) { $("ftake").style.display = ""; $("fpsm").textContent = "A note, in blue ink."; V("09b-postcard"); } };
@@ -625,11 +589,12 @@
   ];
   function olivesSign() {
     cur = "sign"; M("olives", "olives");
-    const s = stage('<div class="fkick">Stop 2 · The Mount of Olives</div><h1>A sign in the ivy</h1>' +
-      '<div class="fq">The postcard brought you to the mountain. Halfway up the path, before you can see the city, something catches your eye in the hedge.</div>' +
+    const s = stage('<div class="fkick">Act 4 · The Mount of Olives · a side path</div><h1>A sign in the ivy</h1>' +
+      '<div class="fq">Halfway up the path from the Kidron tombs, before you can see the top, something catches your eye in the hedge. You could walk on. Or you could look.</div>' +
       '<div class="fviewwrap fphotoview" id="fsg"><img src="img/fsy/olives-sign.jpg" alt="A rusty sign in the ivy: Tombs of the Prophets"><button class="fhit" data-h="sign" aria-label="The rusty sign" style="left:10%;top:52%;width:70%;height:30%"></button><span class="fglint" style="left:45%;top:66%"></span></div>' +
-      '<div class="fsmall">Photo: Richard J. Allinson, on the Mount of Olives</div>' + back("The stops"));
-    wire(s, stops);
+      '<div class="fsmall">Photo: Richard J. Allinson, on the Mount of Olives</div>' +
+      '<button class="fwtool" id="fwalkon">Walk on up the hill ›</button>' + back("The map"));
+    wire(s, stops); $("fwalkon").onclick = () => { K.sfx("click"); Lamp.fsyWalk && Lamp.fsyWalk.go("olives"); };
     s.querySelector("[data-h=sign]").onclick = () => {
       S("door", "stone", 0.6);
       K.card('<div class="kick">The Tombs of the Prophets</div><h2>Down into the rock</h2>' + photo("tombs-plan.jpg", "A hand-drawn plan at the entrance: about fifty tombs, in two rings, around a central passage", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
@@ -738,36 +703,35 @@
           '<div class="v">“There was a man, whose appearance was like the appearance of brass, with a line of flax in his hand, and a measuring reed; and he stood in the gate.”</div><div class="r">Ezekiel 40:3 · KJV</div>' +
           "<p>A measuring line for the Temple. Whoever pried open the niche in the passage did not know the order, and missed it. Wound around the cord is one more note:</p>" +
           wnote("“He is looking too. Go quickly.”") +
-          '<button class="cta" data-act="x">Watch: the author in the tombs</button>', { x: () => film("tombs", afterTombs, "Climb back up to the light") });
+          '<button class="cta" data-act="x">Climb back up to the light</button>', { x: afterTombs });
         V("10d-flax");
       }, 1300);
     };
     function afterTombs() {
       K.card('<div class="kick">Out into the light</div><h2>“They face the Temple Mount”</h2>' +
         "<p>The prophets’ tombs, and their followers’ around them, were cut to face the Temple Mount. <b>So should you.</b> You climb out into the evening, the line of flax in your pocket.</p>" +
-        '<button class="cta" data-act="x">Look across at the city</button>', { x: olives });
+        '<button class="cta" data-act="x">On up to the top</button>', { x: () => walkDone("prophets") });
     }
   }
   function olives() {
-    if (!P().tombs) return olivesSign();
     cur = "olives"; const p = P(); M("olives", "olives");
-    const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
+    const s = stage('<div class="fkick">Act 4 · The top of the Mount of Olives</div><h1>The Mount of Olives</h1>' +
       '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
-      '<div class="fq">The whole city lies across the valley. Far below, on the path down into the Kidron, a man in a grey coat is walking fast toward the walls. <b>He is ahead of you.</b> Find the sealed gate in the city wall and tap it.</div>' +
+      '<div class="fq">The whole city lies across the valley. You came up past the tombs; the gate the police were guarding is somewhere in that wall. Find the sealed gate and tap it.</div>' +
       '<div class="fviewwrap fphotoview" id="fv"><img src="img/fsy/olives-view.jpg" alt="Sunset over Jerusalem from the Mount of Olives: the Kidron Valley, the eastern wall and the Dome of the Rock">' +
       '<button class="fhit" data-h="sky" aria-label="The city skyline" style="left:0;top:0;width:100%;height:22%"></button>' +
       '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:37%;top:26%;width:13%;height:20%"></button>' +
       '<button class="fhit" data-h="gate" aria-label="The sealed gate in the wall" style="left:45%;top:56%;width:12%;height:13%"></button>' +
       '<button class="fhit" data-h="wall" aria-label="The city wall" style="left:0;top:56%;width:45%;height:13%"></button>' +
       '<button class="fhit" data-h="valley" aria-label="The Kidron Valley" style="left:0;top:70%;width:100%;height:30%"></button></div>' +
-      '<div class="fsmall">Tap the sealed gate in the wall.<small>Photo: Richard J. Allinson, from the Mount of Olives at sunset</small></div>' + back("The stops"));
+      '<div class="fsmall">Tap the sealed gate in the wall.<small>Photo: Richard J. Allinson, from the Mount of Olives at sunset</small></div>' + back("The map"));
     wire(s, stops); V("10-olives");
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
       const h = b.dataset.h;
       if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall below it.", "", 3600); return; }
       if (h === "sky") { K.say("The new city, and the sun going down behind it. The gate is nearer: in the old wall.", "", 3600); return; }
       if (h === "wall") { K.say("The eastern wall of the Temple Mount. Follow it along to the right, below the golden dome: one block stands out from it.", "", 4200); return; }
-      if (h === "valley") { K.say("The Kidron Valley, olive trees and old graves. The grey coat is already crossing it, heading for the city. Look across to the wall: where is he going?", "", 4600); return; }
+      if (h === "valley") { K.say("The Kidron Valley: the tombs you passed, olive trees and old graves. Look across it to the wall.", "", 4600); return; }
       S("stone", "stone", 0.6); const mk = document.createElement("span"); mk.className = "fmark"; mk.style.cssText = "left:45%;top:56%;width:12%;height:13%"; $("fv").appendChild(mk);
       setTimeout(() => {
         if (!K.root()) return;
@@ -775,7 +739,7 @@
         K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("olives-view.jpg", "Sunset over the city from the Mount of Olives: the sealed gate is in the wall below the golden dome", "Photo: Richard J. Allinson, from the Mount of Olives") +
           "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
           "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
-          '<p class="fgo">Next stop: the Temple Mount itself. The grey coat is already on his way there.</p><button class="cta" data-act="x">To the Temple Mount</button>', { x: stops });
+          '<p class="fgo">Down the hill, at the foot of the mountain, is a garden. The last page is there.</p><button class="cta" data-act="x">Down to Gethsemane</button>', { x: () => walkDone("olives") });
       }, 900);
     }));
   }
@@ -792,13 +756,13 @@
   const STONES = { text: ["Verily I say unto you, There shall not be left here one ", "STONE", " upon ", "ANOTHER", ", that shall not be ", "THROWN", " down."], chips: ["STONE", "TEMPLE", "ANOTHER", "ALTAR", "THROWN", "RAISED"] };
   function robinson() {
     cur = "robinson"; M("investigation", "platform"); const p = P(); let at = 1;
-    const s = stage('<div class="fkick">Stop 3 · Below the southwest corner</div><h1>The stones of the Temple</h1>' +
-      photo("robinson-stones.jpg", "Beneath Robinson’s Arch: great stones from the Temple Mount, lying where they fell on the street below", "Photo: Richard J. Allinson, at the southwest corner of the Temple Mount") + filmBtn("robinson") +
+    const s = stage('<div class="fkick">Act 3 · Below the southwest corner</div><h1>The stones of the Temple</h1>' +
+      photo("robinson-stones.jpg", "Beneath Robinson’s Arch: great stones from the Temple Mount, lying where they fell on the street below", "Photo: Richard J. Allinson, at the southwest corner of the Temple Mount") +
       '<div class="fverse">“And Jesus went out, and departed from the temple: and his disciples came to him for to shew him the buildings of the temple. And Jesus said unto them, See ye not all these things?”<small>Matthew 24:1–2</small></div>' +
       '<div class="fq">What did Jesus say would happen to the Temple? Fill in his words.</div>' +
       '<div class="fscroll" id="fscroll"></div>' +
-      '<div class="fchips six" id="fchips">' + shuffle(STONES.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "robinson-stones.jpg");
-    wire(s, stops); wireFilms(s, () => {});
+      '<div class="fchips six" id="fchips">' + shuffle(STONES.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("Back to the steps"), "robinson-stones.jpg");
+    wire(s, () => Lamp.fsyWalk && Lamp.fsyWalk.go("steps"));
     const draw = () => { $("fscroll").innerHTML = STONES.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Matthew 24:2</small>"; };
     draw();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -811,22 +775,19 @@
         p.robinson = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
         K.card('<div class="kick">Clue found · Matthew 24:2</div><h2>Not one stone upon another</h2>' + photo("robinson-stones.jpg", "The stones still lie where they fell, nearly two thousand years later") +
           "<p>In AD 70 the Roman legions destroyed the Temple and threw its stones down from the Mount onto this street, just as Jesus said forty years before. Some are the size of a car. You can still see where they cracked the paving when they landed.</p>" +
-          "<p><b>The Temple Jesus spoke of is gone.</b> The Bible says another will stand. But where? The answer is up there, on the Mount itself.</p>" +
-          '<button class="cta" data-act="x">Up the Mughrabi bridge</button>', { x: opening });
+          "<p><b>The Temple Jesus spoke of is gone.</b> The Bible says another will stand. But where? Everything for it is ready, a few streets away, at the Temple Institute. Everything but the place.</p>" +
+          '<button class="cta" data-act="x">To the Temple Institute</button>', { x: () => walkDone("steps") });
       }, 700);
     }));
-    if (!seen("robinson")) film("robinson", null, "Fill in the words of Jesus");
   }
   function opening() {
-    if (!P().robinson) return robinson();
     M("investigation", "platform");
-    const s = stage('<div class="fkick">Stop 3 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
+    const s = stage('<div class="fkick">Act 5 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("tm-dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
       '<div class="fq">Before you look at the clues: where do you think the Holy of Holies stood?</div>' +
       '<div class="fchoices"><button data-t="rock">Under the golden Dome of the Rock</button><button data-t="spirits">On the small northern rise</button><button data-t="unsure">I don’t know yet</button></div>');
-    if (!seen("arrive")) film("arrive", () => V("12-mount-open", () => V("13-theory")), "Step onto the Temple Mount");
-    else V("12-mount-open", () => V("13-theory"));
+    V("12-mount-open", () => V("13-theory"));
     s.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => {
       P().theory = b.dataset.t; save(); K.sfx("click");
       K.say(b.dataset.t === "rock" ? "Most people think so. Hold on to that thought, and test it." : b.dataset.t === "spirits" ? "An unusual answer. Let's see if the evidence agrees." : "A good place to start: let the evidence decide.", "", 3600);
@@ -840,23 +801,23 @@
     const s = stage('<div class="fkick">Where Was the Temple? · Clues ' + found + " of 5</div>" +
       '<div class="fmapwrap">' + mapSVG({ measure: finished }) + "</div>" +
       '<div class="fjournal">' + CLUES.map((c, i) => '<button class="fclue fthumb' + (p.clues[c.id] ? " done" : "") + '" data-c="' + i + '"><img src="img/fsy/' + c.scene[0] + '" alt=""><i>' + (p.clues[c.id] ? "✓" : i + 1) + "</i><span><b>" + esc(c.title) + "</b><small>" + esc(c.ref) + "</small></span></button>").join("") + "</div>" +
-      (finished ? '<button class="fbtn" id="fend">' + (p.gateDone ? "What comes next" : "On to the Eastern Gate") + "</button>" : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>') +
-      back("The stops"));
+      (finished ? '<button class="fbtn" id="fend">' + (p.gateDone ? "What comes next" : p.waqf ? "On to the Eastern Gate" : "The Temple Mount today") + "</button>" : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>') +
+      back("The map"));
     wire(s, stops);
     s.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
       const c = CLUES[+b.dataset.c]; K.sfx("click");
-      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") + (FILMS[c.id] ? '<button class="cta alt" data-act="film">▶ ' + esc(FILMS[c.id][1]) + "</button>" : "") + '<button class="cta" data-act="x">Back to the journal</button>', { x: () => {}, film: () => film(c.id, () => board()) }); return; }
+      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") + '<button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
       c.run(c);
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
-    const en = $("fend"); if (en) en.onclick = () => (p.gateDone ? ending() : stops());
+    const en = $("fend"); if (en) en.onclick = () => (p.gateDone ? ending() : p.waqf ? walkDone("mount") : today());
     if (!finished && found === 0) { K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200); V("14-journal"); }
   }
   function solved(c) {
     P().clues[c.id] = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
     K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") +
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>',
-      { x: () => (FILMS[c.id] && !seen(c.id) ? film(c.id, () => board(), "Back to the journal") : board()) });
+      { x: () => board() });
   }
   function clueScreen(c, html) {
     M("puzzle", "platform"); preS("journal", "harp", "knock", "stone", "rod", "step");
@@ -933,7 +894,7 @@
   /* 4. pace out the cubits from the gate */
   function clueCubits(c) {
     let v = 0;
-    const s = clueScreen(c, '<div class="fq">Take out the line of flax from the tomb: a knot for every cubit. You walked these courts at the Institute: the Court of the Women, 135 cubits, then the courts of Israel and the priests, the altar and the steps, another 52. Pay out the line from the Eastern Gate.</div>' +
+    const s = clueScreen(c, '<div class="fq">' + (P().flax ? "Take out the line of flax from the tomb: a knot for every cubit. " : "Take out the measuring line from your satchel. ") + "You walked these courts at the Institute: the Court of the Women, 135 cubits, then the courts of Israel and the priests, the altar and the steps, another 52. Pay out the line from the Eastern Gate.</div>" +
       '<div class="fmapwrap small" id="fm">' + mapSVG({ pace: 0 }) + '</div><div class="fpace"><button id="fminus">−</button><b id="fval">0 cubits</b><button id="fplus">+</button></div><button class="fbtn" id="fstop">Stop here</button>');
     const draw = () => { $("fm").innerHTML = mapSVG({ pace: v }); $("fval").textContent = v + " cubits"; };
     $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; S("rod", "click", 0.7); draw(); };
@@ -1063,10 +1024,13 @@
   }
 
   function today() {
-    film("visitors", () => film("spirits", waqf, "…and then"), "The author’s last film",
-      '<p>Jewish visitors may come up only by the Mughrabi bridge, in groups, at set times. Many keep to the edges of the platform, so as not to walk where the Holy of Holies once stood.</p>');
+    K.card('<div class="kick">The Temple Mount today</div><h2>The visitors</h2>' + photo("tm-visitors.jpg", "Jewish visitors on the Temple Mount, keeping to the edge of the platform") +
+      '<p>Jewish visitors may come up only by the Mughrabi bridge, in groups, at set times, and may not pray aloud. Many keep to the edges of the platform, so as not to walk where the Holy of Holies once stood: and most of them think that place is under the golden dome.</p>' +
+      photo("tm-spirits.jpg", "The Dome of the Spirits, on the flat bedrock of the northern summit") +
+      '<p>You walk back to the small dome on the northern rise and stand on the bedrock, in line with the gate. Footsteps behind you on the stone.</p>' +
+      '<button class="cta" data-act="x">Turn round</button>', { x: waqf });
   }
-  /* the Waqf: what happened the moment the last film ended (an official of the Jordanian Waqf, which administers the Mount) */
+  /* the Waqf: what happened to Richard at the Dome of the Spirits (an official of the Jordanian Waqf, which administers the Mount) */
   function waqf() {
     const p = P(); p.waqf = 1; save();
     Lamp.score && Lamp.score.set(null, "fsy-amb-platform");
@@ -1098,9 +1062,9 @@
     }, 600);
     function done() {
       line('<p class="fq">I thanked him, and quickly left the Temple Mount.</p>' +
-        '<div class="fview"><b>From the author.</b> That was the end of my filming on the Mount that day. The film at the Dome of the Spirits was the last thing I shot before he came over.<small>Richard J. Allinson, Jerusalem</small></div>' +
-        '<button class="fbtn glow" id="fwgo">One stop remains: the Eastern Gate</button>');
-      $("fwgo").onclick = () => { K.sfx("click"); stops(); };
+        '<div class="fview"><b>From the author.</b> That was the end of my time on the Mount that day. I had just finished at the Dome of the Spirits when he came over.<small>Richard J. Allinson, Jerusalem</small></div>' +
+        '<button class="fbtn glow" id="fwgo">One place remains: the Eastern Gate</button>');
+      $("fwgo").onclick = () => { K.sfx("click"); walkDone("mount"); };
     }
   }
 
@@ -1109,12 +1073,12 @@
     chips: ["SHUT", "OPENED", "ENTERED", "DEPARTED", "PRINCE", "PRIEST"] };
   function gate() {
     cur = "gate"; M("gate", "chamber"); const p = P(); let at = 1;
-    const s = stage('<div class="fkick">Stop 4 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
-      photo("tm-gate-wide.jpg", "The Eastern Gate, from inside the Temple Mount: the stairs down to the sealed arches", "Photo: Richard J. Allinson, inside the Temple Mount") + filmBtn("gate") +
-      '<div class="fnarr">“You have walked the courts, stood on the mountain, and found the place. One gate is left: the one you saw from the Mount of Olives, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
+    const s = stage('<div class="fkick">Act 5 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
+      photo("tm-gate-wide.jpg", "The Eastern Gate, from inside the Temple Mount: the stairs down to the sealed arches", "Photo: Richard J. Allinson, inside the Temple Mount") +
+      '<div class="fnarr">“You have walked the whole city, stood on the mountain, and found the place. One gate is left: the one the police were guarding, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
       '<div class="fscroll" id="fscroll"></div>' +
-      '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "gate-inside.jpg");
-    wire(s, stops); wireFilms(s, () => {});
+      '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The map"), "gate-inside.jpg");
+    wire(s, stops);
     const note = (then) => {
       if (p.gateNote) { then(); return; }
       p.gateNote = 1; save(); S("parchment");
@@ -1125,7 +1089,7 @@
         '<button class="cta" data-act="x">Fill in Ezekiel’s words</button>', { x: then });
       V("22b-watchman");
     };
-    if (!seen("gate")) film("gate", () => note(() => V("22-gate-open")), "Go down the steps"); else note(() => V("22-gate-open"));
+    note(() => V("22-gate-open"));
     const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
     drawScroll();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -1140,7 +1104,7 @@
             "<p>Ezekiel saw the glory of the LORD enter by this gate from the east, and heard the command: <b>shut it</b>. The Turks walled it with stone in 1541, and it has stayed shut. It waits for one person: <b>the Prince</b>.</p>" +
             '<div class="fview"><b>The author’s view.</b> The Temple will stand again on the northern summit, in line with this gate. The Prince for whom the gate waits is the Messiah, and he will come to the Mount of Olives, exactly where you stood. The place is found. <b>The question now is when.</b><small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapters 3 and 15</small></div>" +
             (first && !st.hints && st.misses <= 1 ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +1 oil</div></div>" : "") +
-            '<button class="cta" data-act="next">What comes next</button>', { next: ending });
+            '<button class="cta" data-act="next">What comes next</button>', { next: () => (Lamp.fsyWalk ? Lamp.fsyWalk.finish("gate", ending) : ending()) });
           if (first && !st.hints && st.misses <= 1) { Lamp.state.oil += 1; save(); }
         }, 800);
       } else K.say(at === 3 ? "Shut. And the reason follows." : "Entered in by it. And one more: for whom is the gate kept?", "", 3200);
@@ -1179,15 +1143,23 @@
     play: episode,
     /* tester tools only: finish the next unfinished stop of the episode, no oil earned */
     devSkip() {
-      const p = P();
+      const p = P(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
       if (!p.began) p.began = 1;
-      if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); }
-      else if (!p.olives) { p.tombs = 1; p.tombIn = 1; p.tombOil = 1; p.flax = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; p.olives = 1; }
-      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; p.robinson = 1; K.A().relics.reed = 1; }
-      else p.gateDone = 1;
-      save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
-      stops();
+      if (Lamp.fsyWalk && Lamp.fsyWalk.devSkip()) return;
+      const nx = Lamp.fsyWalk && Lamp.fsyWalk.next(); const k = nx && nx.kept;
+      if (k === "intro") { p.watchCard = 1; Lamp.fsyWalk.W().pages[1] = 1; }
+      else if (k === "institute") { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); Lamp.fsyWalk.W().pages[11] = 1; }
+      else if (k === "prophets") { p.tombs = 1; p.tombIn = 1; p.tombOil = 1; p.flax = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; }
+      else if (k === "olives") p.olives = 1;
+      else if (k === "robinson") p.robinson = 1;
+      else if (k === "mount") { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; K.A().relics.reed = 1; }
+      else if (k === "gate") p.gateDone = 1;
+      if (nx) Lamp.fsyWalk.W().done[nx.id] = 1;
+      save(); stops();
     },
+    /* what js/fsy-route.js needs from here */
+    parts: { P, keptDone, cur: (v) => (cur = v), M, V, S, stage, wnote, photo, wrong: (m) => wrong(m), back, wire, shuffle, verse: null,
+      intro, institute, prophets: olivesSign, olives, robinson, chapter, gate, ending },
     card() {
       const p = P();
       return '<button class="fsycard" data-fsy="1"><span class="k">' + (Lamp.fsyOpen ? "Daniel · Revelation" : "Coming soon · Daniel · Revelation") + '</span><b>' + BOOK + '</b><span class="rule"></span>' +
