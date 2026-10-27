@@ -184,3 +184,4 @@
 #adv .fprog button.locked{opacity:.45}
 @keyframes fsy-glint{0%,100%{opacity:.6;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
 #adv .fhall .fglint{width:28px;height:28px;margin:-14px 0 0 -14px;background:radial-gradient(circle,#FFF6CF 0,rgba(245,210,122,.95) 30%,rgba(245,210,122,0) 70%)}
+#adv .asheet .fphoto.tall img{max-height:none}

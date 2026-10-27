@@ -73,7 +73,7 @@
   ];
 
   /* Richard's own photographs from Jerusalem (December 2023 and 2024) */
-  const photo = (f, cap, by) => '<figure class="fphoto"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "<small>" + esc(by || "Photo: Richard J. Allinson, on the Temple Mount") + "</small></figcaption></figure>";
+  const photo = (f, cap, by) => '<figure class="fphoto' + (/vessel-garments/.test(f) ? " tall" : "") + '"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "<small>" + esc(by || "Photo: Richard J. Allinson, on the Temple Mount") + "</small></figcaption></figure>";
   const TI = "Photo: Richard J. Allinson, at the Temple Institute";
   CLUES[0].photo = ["bedrock.jpg", "The bedrock inside the Dome of the Spirits: flat, level, natural rock"];
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
@@ -360,33 +360,24 @@
   }
 
   /* 1c2. the Temple vessels: what each was for, and its Scripture */
-  const GOLD = "#E3B54F", GOLD2 = "#B8862E", COP = "#C9783A";
-  const svgw = (inner) => '<svg viewBox="0 0 200 120" class="fvessel" aria-hidden="true"><rect width="200" height="120" rx="10" fill="#141A33"/>' + inner + "</svg>";
-  const horns = (x, y, w, c) => [x, x + w].map((hx) => '<path d="M' + (hx - 7) + " " + (y + 2) + " L" + (hx - 3) + " " + (y - 12) + " L" + (hx + 3) + " " + (y - 12) + " L" + (hx + 7) + " " + (y + 2) + 'Z" fill="' + c + '" stroke="#5A4318" stroke-width="1.5"/>').join("");
-  const ART = {
-    altar: svgw('<polygon points="20,106 180,106 168,96 32,96" fill="#8A8A8A" opacity=".5"/><polygon points="120,96 190,112 190,96" fill="#7A6A4A" opacity=".7"/>' + '<rect x="46" y="40" width="108" height="56" rx="3" fill="' + COP + '" stroke="#5A4318" stroke-width="2"/>' + horns(52, 40, 96, COP) + '<rect x="58" y="52" width="84" height="6" fill="#8A4A1A"/><path d="M80 34 q6 -12 0 -22 q14 8 8 22Z M110 34 q-6 -10 2 -20 q12 10 0 20Z" fill="#E0502A"/>'),
-    incense: svgw('<rect x="62" y="92" width="76" height="10" rx="2" fill="' + GOLD2 + '"/>' + '<rect x="68" y="42" width="64" height="52" rx="3" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><rect x="64" y="38" width="72" height="6" rx="2" fill="#F5D27A" stroke="#5A4318"/>' + horns(72, 40, 56, GOLD) + '<path d="M100 36 q-14 -14 0 -24 q14 -8 0 -4" fill="none" stroke="#F3E9CE" stroke-width="3" opacity=".7" stroke-linecap="round"/>'),
-    table: svgw('<rect x="40" y="58" width="120" height="10" rx="2" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><rect x="48" y="68" width="8" height="38" fill="' + GOLD2 + '"/><rect x="144" y="68" width="8" height="38" fill="' + GOLD2 + '"/>' + [0, 1, 2, 3, 4, 5].map((i) => '<rect x="' + (50 + i * 17) + '" y="40" width="14" height="9" rx="3" fill="#E8C98A" stroke="#8A6A2A"/><rect x="' + (50 + i * 17) + '" y="49" width="14" height="9" rx="3" fill="#D9B676" stroke="#8A6A2A"/>').join("")),
-    garments: svgw('<rect x="36" y="10" width="128" height="18" rx="3" fill="' + GOLD + '" stroke="#5A4318" stroke-width="2"/><text x="100" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#5A4318">HOLINESS TO THE LORD</text><rect x="50" y="36" width="100" height="74" rx="6" fill="#2A2F6A" stroke="' + GOLD + '" stroke-width="3"/>' + [0, 1, 2].map((r) => [0, 1, 2, 3].map((c) => '<rect x="' + (58 + c * 22) + '" y="' + (44 + r * 21) + '" width="18" height="17" rx="3" fill="' + ["#C0392B", "#2E8B57", "#E8C66A", "#3A7BD5", "#8E44AD", "#F5F5F5", "#D35400", "#7FB3D5", "#E91E63", "#16A085", "#B8860B", "#9B59B6"][r * 4 + c] + '" stroke="' + GOLD + '"/>').join("")).join("")),
-  };
   const VESSELS = [
     { id: "menorah", name: "The menorah", heb: "the golden lampstand", photo: ["menorah.jpg", "The golden menorah in the Jewish Quarter, recreated by the Temple Institute", "Photo: Richard J. Allinson, Jewish Quarter, Jerusalem"], ref: "Exodus 25:31, 37",
       v: "And thou shalt make a candlestick of pure gold: of beaten work shall the candlestick be made… And thou shalt make the seven lamps thereof: and they shall light the lamps thereof, that they may give light over against it.",
       what: "One piece of beaten gold, with seven lamps. It stood in the Holy Place, on the south side, and the priests lit it every evening and trimmed it every morning (Exodus 27:20–21; 30:7–8). Its light was the only light in the sanctuary. The plaque beside this one says it was recreated for the first time since the destruction of the Second Temple, according to the Temple Institute’s research.",
       tie: "Zechariah saw it with two olive trees beside it (Zechariah 4:2–3), and Revelation 11:4 names the Two Witnesses: “These are the two olive trees, and the two candlesticks standing before the God of the earth.”" },
-    { id: "incense", name: "The golden altar of incense", heb: "mizbach hazahav", art: "incense", ref: "Exodus 30:7–8",
+    { id: "incense", name: "The golden altar of incense", heb: "mizbach hazahav", photo: ["vessel-incense.jpg", "The golden altar of incense, before the veil", "Painting: Richard J. Allinson"], ref: "Exodus 30:7–8",
       v: "And Aaron shall burn thereon sweet incense every morning: when he dresseth the lamps, he shall burn incense upon it. And when Aaron lighteth the lamps at even, he shall burn incense upon it, a perpetual incense before the LORD throughout your generations.",
       what: "A small golden altar, a cubit square and two cubits high, standing just before the veil that hides the Holy of Holies. A priest burned sweet incense on it every morning and every evening, when the lamps were tended. Each morning the ashes were cleared from it by hand.",
       tie: "David prayed: “Let my prayer be set forth before thee as incense” (Psalm 141:2), and in Revelation 8:3–4 the smoke of the incense goes up with the prayers of the saints." },
-    { id: "table", name: "The table of showbread", heb: "shulchan", art: "table", ref: "Leviticus 24:5–8",
+    { id: "table", name: "The table of showbread", heb: "shulchan", photo: ["vessel-table.jpg", "The table of showbread: twelve loaves in two rows of six", "Painting: Richard J. Allinson"], ref: "Leviticus 24:5–8",
       v: "And thou shalt take fine flour, and bake twelve cakes thereof… And thou shalt set them in two rows, six on a row, upon the pure table before the LORD… Every sabbath he shall set it in order before the LORD continually.",
       what: "A golden table in the Holy Place, opposite the menorah. Twelve loaves, one for each tribe of Israel, stood in two rows of six, and the priests set out fresh bread every Sabbath. The bread was never absent: “thou shalt set upon the table shewbread before me alway” (Exodus 25:30).",
       tie: "The twelve loaves say that all twelve tribes stand before God, always. The Temple Institute has completed this table." },
-    { id: "altar", name: "The brazen altar", heb: "mizbach haolah", art: "altar", ref: "Exodus 27:1–2",
+    { id: "altar", name: "The brazen altar", heb: "mizbach haolah", photo: ["vessel-altar.jpg", "The brazen altar in the court, with its ramp", "Painting: Richard J. Allinson"], ref: "Exodus 27:1–2",
       v: "And thou shalt make an altar of shittim wood, five cubits long, and five cubits broad; the altar shall be foursquare: and the height thereof shall be three cubits… and thou shalt overlay it with brass.",
       what: "The great altar of the court, overlaid with brass, where the daily offering was burned: a lamb every morning and every evening, without fail (Exodus 29:38–39). Its fire was never to go out. Solomon’s altar in the Temple was far larger, twenty cubits square (2 Chronicles 4:1), and still “was not able to receive the burnt offerings”, so he hallowed the middle of the court (2 Chronicles 7:7). That is Clue 5, on the Temple Mount.",
       tie: "Where this altar stood is the question the whole mystery turns on." },
-    { id: "garments", name: "The High Priest’s garments", heb: "bigdei kehunah", art: "garments", ref: "Exodus 28:36–38",
+    { id: "garments", name: "The High Priest’s garments", heb: "bigdei kehunah", photo: ["vessel-garments.jpg", "The High Priest in his garments: the breastplate of twelve stones, the robe with bells and pomegranates, and the gold plate", "Painting: Richard J. Allinson"], ref: "Exodus 28:36–38",
       v: "And thou shalt make a plate of pure gold, and grave upon it, like the engravings of a signet, HOLINESS TO THE LORD.",
       what: "Eight garments for the High Priest, with a gold plate on his forehead and a breastplate of twelve stones, each engraved with the name of a tribe (Exodus 28:15–21). He wore them to serve in the sanctuary, and on the Day of Atonement he entered the Holy of Holies. The Temple Institute says it has completed the breastplate, the ephod and the gold plate.",
       tie: "He carried the names of Israel “upon his heart” whenever he went in before the LORD (Exodus 28:29)." },
@@ -415,7 +406,7 @@
     s.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => {
       const c = VESSELS.find((y) => y.id === b.dataset.k); K.sfx("click");
       p.ti.vseen[c.id] = 1; save(); b.classList.add("seen"); line();
-      K.card('<div class="kick">Temple vessel · ' + esc(c.heb) + "</div><h2>" + esc(c.name) + "</h2>" + (c.photo ? photo(c.photo[0], c.photo[1], c.photo[2]) : '<div class="fart">' + ART[c.art] + "</div>") +
+      K.card('<div class="kick">Temple vessel · ' + esc(c.heb) + "</div><h2>" + esc(c.name) + "</h2>" + photo(c.photo[0], c.photo[1], c.photo[2]) +
         '<div class="v">“' + esc(c.v) + '”</div><div class="r">' + esc(c.ref) + " · KJV</div>" +
         "<p><b>Its purpose in the Temple.</b> " + esc(c.what) + "</p>" + "<p>" + esc(c.tie) + "</p>" + '<button class="cta" data-act="x">Back to the vessels</button>', { x: question });
     }));
