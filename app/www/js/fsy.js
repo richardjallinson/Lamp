@@ -112,6 +112,9 @@
   const seen = (k) => !!(P().films || {})[k];
   const filmBtn = (k) => FILMS[k] ? '<button class="ffilmbtn" data-film="' + k + '">▶ ' + esc(FILMS[k][1]) + "<small>The author on the spot</small></button>" : "";
   function wireFilms(el, back) { el.querySelectorAll("[data-film]").forEach((b) => (b.onclick = () => { K.sfx("click"); film(b.dataset.film, back); })); }
+  /* the Watchman signs every note with a small drawn lamp */
+  const WLAMP = '<svg class="fwl" viewBox="0 0 40 24" aria-label="a small drawn lamp"><path d="M4 15 Q4 9 14 9 L28 9 Q34 9 36 13 L30 15 Q22 20 12 19 Q4 18 4 15Z" fill="none" stroke="#2A3A7A" stroke-width="1.8"/><path d="M33 12 Q36 5 34 1 Q31 6 33 12Z" fill="#2A3A7A"/><circle cx="18" cy="12" r="1.6" fill="#2A3A7A"/></svg>';
+  const wnote = (html) => '<div class="fwnote">' + html + WLAMP + "</div>";
   let st = null;   // this visit: misses and hints, for the rewards
   let cur = "";    // which stop is open, for the hint
   function hint() {
@@ -125,9 +128,10 @@
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
     else if (cur === "verdict") K.say("Turn the plan so its gate faces east (right), then lay its gate on the Eastern Gate. The Holy of Holies should rest on the small northern dome.", "", 6400);
     else if (cur === "case") K.say("Pick evidence from Scripture, history and measurement, not impressions.", "", 4000);
+    else if (cur === "seal") K.say("Turn over each note in the tombs: Haggai 1:1 is the sixth month, Zechariah 1:1 the eighth, and Malachi has no date: he is last. Outermost ring first.", "", 6400);
     else if (cur === "robinson") K.say("“There shall not be left here one STONE upon ANOTHER, that shall not be THROWN down.”", "Matthew 24:2", 5200);
     else if (cur === "sign") K.say("The rusty sign in the hedge: tap it.", "", 3000);
-    else if (cur === "tombs") { const l = PROPHETS.filter((x) => !(P().prophets || {})[x.id]); K.say(l.length ? "Sweep the lamp slowly across the whole wall. " + l[0].hint : "", "", 5600); }
+    else if (cur === "tombs") { const q = P(), l = PROPHETS.filter((x) => !(q.prophets || {})[x.id]); K.say(!q.tombOil ? "Your lamp needs oil: look high on the right, in a niche no visitor would reach." : l.length ? "Sweep the lamp slowly across the whole wall. " + l[0].hint : "All three are found: go into the central chamber.", "", 5600); }
     else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
     else if (cur === "gate") K.say("“This gate shall be SHUT… because the LORD hath ENTERED in by it… It is for the PRINCE.”", "Ezekiel 44:2–3", 5600);
     else {
@@ -177,7 +181,17 @@
       '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. <b>Only one thing is missing: the place.</b> For thirteen centuries the world has assumed it knew where the Temple stood. Come with me through Jerusalem, look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("ben-gurion.jpg", "Welcome to Israel. Ben Gurion Airport: the investigation begins here.", "Photo: Richard J. Allinson, on landing in Israel") +
       '<button class="fbtn glow" id="fgo">Go up to Jerusalem</button>');
-    $("fgo").onclick = () => { K.sfx("click"); stops(); };
+    $("fgo").onclick = () => {
+      K.sfx("click"); const p = P();
+      if (p.watchCard) { stops(); return; }
+      p.watchCard = 1; save(); S("parchment");
+      K.card('<div class="kick">At the luggage carousel</div><h2>Someone knew you were coming</h2>' +
+        "<p>Your bag comes round the carousel. Tucked under the strap is a folded card that was not there when you packed. No name. Only a verse, in blue ink, and a small drawn lamp.</p>" +
+        wnote("“I have set watchmen upon thy walls, O Jerusalem, which shall never hold their peace day nor night.”<small>Isaiah 62:6</small>") +
+        "<p>A watchman, on the walls of Jerusalem. You put the card in your journal, and take the road up to the city.</p>" +
+        '<button class="cta" data-act="x">Go up to Jerusalem</button>', { x: stops });
+      V("01b-luggage");
+    };
     V("01-open");
   }
   function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.vessels && p.ti.scroll && p.ti.postcard) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
@@ -271,7 +285,7 @@
       }
       else if (h === "desk") {
         if (all) { K.say("The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”", "", 5200); V("guide-souvenir"); }
-        else if (!p.ti.ark && !p.ti.greeted) { p.ti.greeted = 1; save(); K.say("The guide smiles. “Shalom! Take your time. Everything here was made for the Temple.”", "", 4600); V("guide-welcome", () => { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }); }
+        else if (!p.ti.ark && !p.ti.greeted) { p.ti.greeted = 1; save(); K.say("The guide smiles. “Shalom! Take your time. Everything here was made for the Temple.”", "", 4600); V("guide-welcome", () => { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.” He hands you a little map of the hall, drawn by hand in blue ink.", "", 5600); V("guide-ark"); }); }
         else if (!p.ti.ark) { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }
         else K.say("The guide smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
       }
@@ -412,7 +426,7 @@
       got.push(...got2);
       S("lock");
       setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
-        "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
+        "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>. Tied to it is a slip of paper with nothing on it but a small drawn lamp, in blue ink: the same lamp as the card in your luggage.</p>" +
         "<p><b>What it shows.</b> Every instrument here is waiting for a building. The priests have their trumpets, the Levites their harps and lyres, the choir its songs. The psalms will be sung again in the courts you just walked. <b>Only the place is missing.</b></p>" +
         '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="parch">Read the parchment</button>', { parch: () => { S("parchment"); scroll(); } }), 600);
     };
@@ -577,17 +591,18 @@
     [100, 122, 144].map((y) => '<line x1="172" y1="' + y + '" x2="282" y2="' + y + '" stroke="#C9B48A"/>').join("") +
     '<g font-family="Snell Roundhand,Segoe Script,Bradley Hand,cursive" font-size="13" fill="#2A3A7A">' +
     '<text x="16" y="40">Stand where His feet</text><text x="16" y="62">shall stand, and look</text><text x="16" y="84">back at the gate.</text>' +
-    '<text x="16" y="120" font-size="11">Zechariah 14:4</text><text x="16" y="150" font-size="12">Then you will see</text><text x="16" y="168" font-size="12">where it stood.</text></g></svg>';
+    '<text x="16" y="120" font-size="11">Zechariah 14:4</text><text x="16" y="150" font-size="12">Then you will see</text><text x="16" y="168" font-size="12">where it stood.</text></g>' +
+    '<g transform="translate(118 150) scale(.9)"><path d="M4 15 Q4 9 14 9 L28 9 Q34 9 36 13 L30 15 Q22 20 12 19 Q4 18 4 15Z" fill="none" stroke="#2A3A7A" stroke-width="1.8"/><path d="M33 12 Q36 5 34 1 Q31 6 33 12Z" fill="#2A3A7A"/></g></svg>';
   function postcard() {
     const p = P(); p.ti.postcardSeen = 1; save(); S("postcard");
     K.card('<div class="kick">The postcard stand</div><h2>One card stands out</h2>' +
-      "<p>Rows of postcards: the menorah, the Western Wall, the Temple model. But one is turned the other way, as if someone left it for you.</p>" +
+      "<p>As you reach the stand, a man in a grey coat lets go of the rack and walks out into the street without a word. The rack is still turning. Rows of postcards: the menorah, the Western Wall, the Temple model. But one is turned the other way, as if someone left it for you.</p>" +
       '<div class="fpostwrap" id="fpw" role="button" tabindex="0" aria-label="Turn the postcard over">' + POSTCARD_FRONT + "</div>" +
       '<div class="fsmall" id="fpsm" style="color:#6B5A2A">Tap the postcard to turn it over.</div>' +
       '<button class="cta" data-act="take" id="ftake" style="display:none">Take the postcard</button><button class="cta alt" data-act="x">Put it back</button>',
       { take: () => { p.ti.postcard = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
           K.card('<div class="kick">Clue found · Zechariah 14:4</div><h2>The next stop</h2><div class="v">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”</div><div class="r">Zechariah 14:4 · KJV</div>' +
-            "<p>The postcard goes in your journal. Someone wants you on the Mount of Olives, looking back at the gate. <b>The Temple faced east, toward that mountain.</b> From there, the city should give up its secret.</p>" +
+            "<p>The postcard goes in your journal. Blue ink, and a small drawn lamp: the same hand as the card in your luggage. Someone, a watchman, wants you on the Mount of Olives, looking back at the gate. <b>The Temple faced east, toward that mountain.</b></p><p>And the man in the grey coat was at this stand before you.</p>" +
             '<button class="cta" data-act="x">Leave for the Mount of Olives</button>', { x: stops }); },
         x: () => {} });
     const pw = $("fpw"); let back2 = false;
@@ -599,11 +614,14 @@
   /* ---- on the Mount of Olives: the Tombs of the Prophets (Haggai, Zechariah, Malachi, by tradition) ---- */
   const PROPHETS = [
     { id: "haggai", name: "Haggai", ref: "Haggai 2:9", v: "The glory of this latter house shall be greater than of the former, saith the LORD of hosts: and in this place will I give peace.",
-      hint: "This prophet spoke to old men who remembered Solomon’s house, and wept at how small the new one was.", at: [22, 30] },
+      hint: "This prophet spoke to old men who remembered Solomon’s house, and wept at how small the new one was.", at: [22, 30],
+      date: "In the second year of Darius the king, in the sixth month, in the first day of the month, came the word of the LORD by Haggai the prophet.", dref: "Haggai 1:1" },
     { id: "zechariah", name: "Zechariah", ref: "Zechariah 6:12", v: "Behold the man whose name is The BRANCH; and he shall grow up out of his place, and he shall build the temple of the LORD.",
-      hint: "This prophet also wrote the verse on your postcard: his feet shall stand upon the mount of Olives.", at: [63, 44] },
+      hint: "This prophet also wrote the verse on your postcard: his feet shall stand upon the mount of Olives.", at: [63, 44],
+      date: "In the eighth month, in the second year of Darius, came the word of the LORD unto Zechariah.", dref: "Zechariah 1:1" },
     { id: "malachi", name: "Malachi", ref: "Malachi 3:1", v: "Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple.",
-      hint: "This is the last prophet of the Old Testament: he speaks of a messenger sent ahead.", at: [36, 70] },
+      hint: "This is the last prophet of the Old Testament: he speaks of a messenger sent ahead.", at: [36, 70],
+      date: "The burden of the word of the LORD to Israel by Malachi. (No year, no month: the last voice, after them all.)", dref: "Malachi 1:1" },
   ];
   function olivesSign() {
     cur = "sign"; M("olives", "olives");
@@ -616,67 +634,126 @@
       S("door", "stone", 0.6);
       K.card('<div class="kick">The Tombs of the Prophets</div><h2>Down into the rock</h2>' + photo("tombs-plan.jpg", "A hand-drawn plan at the entrance: about fifty tombs, in two rings, around a central passage", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         "<p>A little-known place on the Mount of Olives: a burial cave cut into the rock, with about fifty tombs. By an old tradition, three prophets lie here: <b>Haggai, Zechariah and Malachi</b>, the last prophets of the Old Testament, who preached to the people rebuilding the Temple.</p>" +
-        "<p>It is dark below. <b>Carry your lamp along the passage</b> and look for the prophets’ tombs.</p>" +
+        "<p>It is dark below, and the steps are wet. <b>Carry your lamp along the passage</b> and look for the prophets’ tombs.</p>" +
         '<button class="cta" data-act="go">Go down the steps</button>', { go: tombs });
     };
     K.say("A rusty sign, half hidden in the hedge. Tap it.", "", 3200);
   }
   function tombs() {
-    cur = "tombs"; M("puzzle", "chamber"); preS("parchment", "harp", "knock", "journal");
+    cur = "tombs"; M("puzzle", "chamber"); preS("parchment", "harp", "knock", "journal", "stone", "lock");
     const p = P(); p.prophets = p.prophets || {};
     const left = () => PROPHETS.filter((x) => !p.prophets[x.id]);
+    const first = !p.tombIn; p.tombIn = 1; save();
     const s = stage('<div class="fkick">The Tombs of the Prophets · underground</div><h1>Carry your lamp</h1>' +
-      '<div class="fq" id="ftq">Drag your finger across the rock. Prayer notes have been tucked into three of the niches.</div>' +
+      '<div class="fq" id="ftq">' + (first ? "Fresh footprints in the dust run ahead of you. At the far end of the passage, a light moves… and goes out." : "Drag your finger across the rock. Prayer notes have been tucked into three of the niches.") + "</div>" +
       '<div class="fdarkwrap" id="fdk"><img draggable="false" src="img/fsy/tombs-passage.jpg" alt="A rock-cut passage with tomb niches">' +
       PROPHETS.map((x) => '<button class="fnote' + (p.prophets[x.id] ? " found" : "") + '" data-n="' + x.id + '" aria-label="A folded prayer note" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%">' + (p.prophets[x.id] ? "✓" : "") + "</button>").join("") +
+      (p.tombOil ? "" : '<button class="foil" id="foil" aria-label="A small clay flask" style="left:80%;top:20%"></button>') +
+      '<button class="fpried" id="fpried" aria-label="A niche, pried open" style="left:16%;top:56%"></button>' +
+      (first ? '<span class="fghost" style="left:66%;top:9%"></span>' : "") +
       '<div class="fdark" id="fdark"></div></div>' +
-      '<div class="fsmall" id="ftc">Tombs found: ' + Object.keys(p.prophets).length + " of 3</div>" + back("Up to the path"), "tombs-passage.jpg");
+      '<div class="fsmall" id="ftc"></div><div id="fsealgo"></div>' + back("Up to the path"), "tombs-passage.jpg");
     wire(s, olivesSign);
     const wrap = $("fdk"), dark = $("fdark");
     const light = (e) => { const r = wrap.getBoundingClientRect(); dark.style.setProperty("--x", ((e.clientX - r.left) / r.width) * 100 + "%"); dark.style.setProperty("--y", ((e.clientY - r.top) / r.height) * 100 + "%"); };
     wrap.addEventListener("pointermove", light); wrap.addEventListener("pointerdown", light);
+    /* the lamp is running dry: the light shrinks until the oil is found */
+    let rad = p.tombOil ? 24 : 21; dark.style.setProperty("--rad", rad + "%");
+    const tick = setInterval(() => {
+      if (!document.body.contains(dark)) { clearInterval(tick); return; }
+      if (p.tombOil) { rad = Math.min(24, rad + 1); dark.style.setProperty("--rad", rad + "%"); return; }
+      if (rad > 9) { rad -= 0.25; dark.style.setProperty("--rad", rad + "%"); if (Math.abs(rad - 13) < 0.13) K.say("Your lamp is guttering. The oil is nearly gone.", "", 3200); }
+    }, 1000);
+    const count = () => {
+      $("ftc").textContent = "Prophets’ tombs found: " + Object.keys(p.prophets).length + " of 3";
+      if (!left().length && !$("fseal")) { $("fsealgo").innerHTML = '<button class="fbtn glow" id="fseal">Go into the central chamber</button>'; $("fseal").onclick = () => { K.sfx("stone"); seal(); }; }
+    };
+    count();
+    const oil = $("foil"); if (oil) oil.onclick = () => {
+      p.tombOil = 1; save(); S("parchment", "click"); oil.remove();
+      K.card('<div class="kick">In a niche · a small clay flask</div><h2>Oil for the lamp</h2>' +
+        "<p>Wedged into a niche, where no visitor would leave it, is a small clay flask of olive oil, stoppered with wax. Tied around its neck:</p>" +
+        wnote("“Behold a candlestick all of gold… and two olive trees by it… Not by might, nor by power, but by my spirit, saith the LORD of hosts.”<small>Zechariah 4:2–3, 6</small>") +
+        "<p>Zechariah’s own vision of the lampstand, fed by two olive trees, here in Zechariah’s tomb. You fill your lamp, and the light grows strong again.</p>" +
+        '<button class="cta" data-act="x">Go on</button>', { x: () => {} });
+      V("10c-oil");
+    };
+    $("fpried").onclick = () => {
+      K.sfx("stone");
+      if (!p.pried) { p.pried = 1; save(); S("knock", null, 0.6); }
+      K.say("A niche has been pried open. The stone at its mouth is freshly scratched, and it is empty. Someone was here before you, and guessed wrong.", "", 5600);
+    };
     s.querySelectorAll("[data-n]").forEach((b) => (b.onclick = () => {
       const x = PROPHETS.find((y) => y.id === b.dataset.n);
-      if (p.prophets[x.id]) { K.say("The tomb of " + x.name + ". " + x.ref + ".", "", 2600); return; }
+      if (p.prophets[x.id]) { dated(x); return; }
       S("parchment", "click"); match(x);
     }));
     function match(x) {
       const names = shuffle(left().map((y) => y.name).concat(PROPHETS.filter((y) => p.prophets[y.id]).map((y) => y.name)));
       K.card('<div class="kick">A prayer note in the niche</div><h2>Whose tomb is this?</h2>' + photo("tombs-niche.jpg", "Prayer notes left in a tomb niche", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
-        '<div class="v">“' + esc(x.v) + "”</div><p>Someone has copied out a verse by the prophet who lies here, and tucked it into the rock. Which prophet wrote it?</p>" +
+        '<div class="v">“' + esc(x.v) + "”</div><p>Among the prayers, one note in blue ink: a verse by the prophet who lies here. Which prophet wrote it?</p>" +
         '<div class="fpick">' + names.map((n) => '<button data-act="' + n + '"' + (PROPHETS.some((y) => y.name === n && p.prophets[y.id]) ? " disabled" : "") + ">" + n + "</button>").join("") + "</div>" +
         '<button class="cta alt" data-act="x">Put it back</button>',
         Object.assign({ x: () => {} }, Object.fromEntries(PROPHETS.map((y) => [y.name, () => answer(x, y)]))));
+    }
+    function dated(x) {
+      K.card('<div class="kick">The tomb of ' + esc(x.name) + '</div><h2>On the back of the note</h2>' +
+        wnote("“" + esc(x.date) + "”<small>" + esc(x.dref) + "</small>") +
+        "<p>The front carries his word about the Temple (" + esc(x.ref) + "). The back carries the day he began to speak.</p>" +
+        '<button class="cta" data-act="x">Back to the passage</button>', { x: () => {} });
     }
     function answer(x, y) {
       if (x.id !== y.id) { wrong(x.hint); setTimeout(() => K.root() && match(x), 900); return; }
       p.prophets[x.id] = 1; save(); S("harp", null, 0.7); K.buzz("success");
       const b = s.querySelector('[data-n="' + x.id + '"]'); if (b) { b.classList.add("found"); b.textContent = "✓"; }
-      $("ftc").textContent = "Tombs found: " + Object.keys(p.prophets).length + " of 3";
-      K.say("The tomb of " + x.name + ". “" + x.ref + "”: a word about the Temple.", "", 3600);
-      if (left().length) return;
-      setTimeout(() => {
-        if (!K.root()) return;
-        p.tombs = 1; save(); S("journal");
-        K.card('<div class="kick">Clue found · three Temple prophets</div><h2>All three spoke of the Temple</h2>' +
-          "<p>Haggai: the glory of the latter house. Zechariah: the BRANCH shall build the temple. Malachi: the Lord shall suddenly come to his temple. The last three prophets of the Old Testament all point to one house, and one place.</p>" +
-          "<p>And Zechariah, buried on this mountain by tradition, is the one who wrote that the Messiah’s feet will stand here.</p>" +
-          '<button class="cta" data-act="x">Watch: the author in the tombs</button>', { x: () => film("tombs", afterTombs, "Climb back up to the light") });
-      }, 1400);
+      count(); dated(x);
     }
+    if (first) { S("step", null, 0.5); V("10b-tombs"); setTimeout(() => K.root() && K.say("Someone is down here ahead of you. Drag your finger to carry the lamp.", "", 4200), 2600); }
+    else if (!Object.keys(p.prophets).length) K.say("It is dark down here. Drag your finger to carry the lamp.", "", 3600);
+  }
+  /* the central chamber: a round stone seal with three rings */
+  const RINGS = ["Haggai", "Zechariah", "Malachi"];
+  function seal() {
+    cur = "seal"; const p = P(); const rg = p.rings || [2, 0, 1];
+    const ring = (i, rr) => '<g class="fring" data-r="' + i + '"><circle cx="150" cy="150" r="' + rr + '" class="fr' + i + '"/><text x="150" y="' + (150 - rr + 22) + '" text-anchor="middle" id="frt' + i + '">' + RINGS[rg[i]] + "</text></g>";
+    const s = stage('<div class="fkick">The Tombs of the Prophets · the central chamber</div><h1>The stone seal</h1>' +
+      '<div class="fq">In the middle of the round chamber, set into the floor, is a stone disc cut in three rings, each carved with a prophet’s name. Beside it, pressed into the dust, a note:</div>' +
+      wnote("“Count as the prophets counted. The first, outermost.”") +
+      '<div class="fsealwrap"><svg class="fsealsvg" viewBox="0 0 300 300">' + ring(0, 140) + ring(1, 100) + ring(2, 60) + '<circle cx="150" cy="150" r="22" class="fhub"/></svg></div>' +
+      '<div class="fsmall">Tap a ring to turn it. The notes in the prophets’ tombs carry their dates.</div>' +
+      '<button class="fbtn" id="fturn">Turn the seal</button>' + back("Back to the passage"), "tombs-passage.jpg");
+    wire(s, tombs);
+    s.querySelectorAll("[data-r]").forEach((g) => (g.onclick = (e) => {
+      e.stopPropagation(); const i = +g.dataset.r; rg[i] = (rg[i] + 1) % 3; p.rings = rg.slice(); save(); S("stone", "click", 0.45); $("frt" + i).textContent = RINGS[rg[i]];
+    }));
+    let tries = 0;
+    $("fturn").onclick = () => {
+      if (rg.join() !== "0,1,2") { tries++; wrong(tries < 2 ? "The seal will not turn. Read the dates on the backs of the notes." : "Haggai spoke in the sixth month, Zechariah in the eighth, and Malachi last of all. Outermost first."); return; }
+      S("stone", "stone", 0.8); setTimeout(() => S("lock", null, 0.7), 500); K.buzz("success");
+      p.flax = 1; p.tombs = 1; save();
+      setTimeout(() => {
+        if (!K.root()) return; S("journal");
+        K.card('<div class="kick">The seal turns · Ezekiel 40:3</div><h2>A line of flax</h2>' +
+          "<p>Stone grinds on stone, and the disc sinks a hand’s breadth into the floor. In the hollow beneath lies a coiled cord of flax, knotted along its length: <b>a knot for every cubit</b>.</p>" +
+          '<div class="v">“There was a man, whose appearance was like the appearance of brass, with a line of flax in his hand, and a measuring reed; and he stood in the gate.”</div><div class="r">Ezekiel 40:3 · KJV</div>' +
+          "<p>A measuring line for the Temple. Whoever pried open the niche in the passage did not know the order, and missed it. Wound around the cord is one more note:</p>" +
+          wnote("“He is looking too. Go quickly.”") +
+          '<button class="cta" data-act="x">Watch: the author in the tombs</button>', { x: () => film("tombs", afterTombs, "Climb back up to the light") });
+        V("10d-flax");
+      }, 1300);
+    };
     function afterTombs() {
       K.card('<div class="kick">Out into the light</div><h2>“They face the Temple Mount”</h2>' +
-        "<p>The prophets’ tombs, and their followers’ around them, were cut to face the Temple Mount. <b>So should you.</b> From the top of the path the whole city lies before you, and somewhere in its eastern wall is a gate.</p>" +
+        "<p>The prophets’ tombs, and their followers’ around them, were cut to face the Temple Mount. <b>So should you.</b> You climb out into the evening, the line of flax in your pocket.</p>" +
         '<button class="cta" data-act="x">Look across at the city</button>', { x: olives });
     }
-    if (!Object.keys(p.prophets).length) K.say("It is dark down here. Drag your finger to carry the lamp.", "", 3600);
   }
   function olives() {
     if (!P().tombs) return olivesSign();
     cur = "olives"; const p = P(); M("olives", "olives");
     const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
       '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
-      '<div class="fq">The postcard brought you here. From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
+      '<div class="fq">The whole city lies across the valley. Far below, on the path down into the Kidron, a man in a grey coat is walking fast toward the walls. <b>He is ahead of you.</b> Find the sealed gate in the city wall and tap it.</div>' +
       '<div class="fviewwrap fphotoview" id="fv"><img src="img/fsy/olives-view.jpg" alt="Sunset over Jerusalem from the Mount of Olives: the Kidron Valley, the eastern wall and the Dome of the Rock">' +
       '<button class="fhit" data-h="sky" aria-label="The city skyline" style="left:0;top:0;width:100%;height:22%"></button>' +
       '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:37%;top:26%;width:13%;height:20%"></button>' +
@@ -690,7 +767,7 @@
       if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall below it.", "", 3600); return; }
       if (h === "sky") { K.say("The new city, and the sun going down behind it. The gate is nearer: in the old wall.", "", 3600); return; }
       if (h === "wall") { K.say("The eastern wall of the Temple Mount. Follow it along to the right, below the golden dome: one block stands out from it.", "", 4200); return; }
-      if (h === "valley") { K.say("The Kidron Valley, with its olive trees and graves, between you and the city. Look across it to the wall.", "", 3800); return; }
+      if (h === "valley") { K.say("The Kidron Valley, olive trees and old graves. The grey coat is already crossing it, heading for the city. Look across to the wall: where is he going?", "", 4600); return; }
       S("stone", "stone", 0.6); const mk = document.createElement("span"); mk.className = "fmark"; mk.style.cssText = "left:45%;top:56%;width:12%;height:13%"; $("fv").appendChild(mk);
       setTimeout(() => {
         if (!K.root()) return;
@@ -698,7 +775,7 @@
         K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("olives-view.jpg", "Sunset over the city from the Mount of Olives: the sealed gate is in the wall below the golden dome", "Photo: Richard J. Allinson, from the Mount of Olives") +
           "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
           "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
-          '<p class="fgo">Next stop: the Temple Mount itself.</p><button class="cta" data-act="x">To the Temple Mount</button>', { x: stops });
+          '<p class="fgo">Next stop: the Temple Mount itself. The grey coat is already on his way there.</p><button class="cta" data-act="x">To the Temple Mount</button>', { x: stops });
       }, 900);
     }));
   }
@@ -856,7 +933,7 @@
   /* 4. pace out the cubits from the gate */
   function clueCubits(c) {
     let v = 0;
-    const s = clueScreen(c, '<div class="fq">You walked these courts at the Temple Institute: the Court of the Women, 135 cubits, then the Court of Israel, the Court of the Priests, the altar and the steps, another 52 cubits. Pace out the whole distance from the Eastern Gate.</div>' +
+    const s = clueScreen(c, '<div class="fq">Take out the line of flax from the tomb: a knot for every cubit. You walked these courts at the Institute: the Court of the Women, 135 cubits, then the courts of Israel and the priests, the altar and the steps, another 52. Pay out the line from the Eastern Gate.</div>' +
       '<div class="fmapwrap small" id="fm">' + mapSVG({ pace: 0 }) + '</div><div class="fpace"><button id="fminus">−</button><b id="fval">0 cubits</b><button id="fplus">+</button></div><button class="fbtn" id="fstop">Stop here</button>');
     const draw = () => { $("fm").innerHTML = mapSVG({ pace: v }); $("fval").textContent = v + " cubits"; };
     $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; S("rod", "click", 0.7); draw(); };
@@ -937,11 +1014,12 @@
   function makeCase() {
     cur = "case"; const p = P(); let chosen = [];
     const s = stage('<div class="fkick">The verdict · make your case</div><h1>“Convince me”</h1>' +
-      '<div class="fhim">“So you say the Temple stood up here, at that little dome? Most people would point at the golden one. Give me your three best reasons.”<small>A sceptic on the Mount</small></div>' +
+      '<div class="fq">You look up from the map. The man in the grey coat is standing a few paces away. He has been watching you.</div>' +
+      '<div class="fhim">“So you say the Temple stood up here, at that little dome? Most people would point at the golden one. Give me your three best reasons.”<small>The man in the grey coat</small></div>' +
       '<div class="fq">Choose the three strongest pieces of evidence from your journal.</div>' +
       '<div class="fjournal" id="fcase">' + shuffle(CASEV).map((c) => '<button class="fclue" data-e="' + c[0] + '"><i></i><span><b>' + esc(c[1]) + "</b></span></button>").join("") + "</div>" +
       '<button class="fbtn" id="fargue">Make the case</button>' + '<button class="fback" id="fback">‹ Back to the map</button>');
-    $("fback").onclick = place;
+    $("fback").onclick = place; V("grey-1");
     s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => {
       const k = b.dataset.e; K.sfx("click");
       if (chosen.includes(k)) chosen = chosen.filter((x) => x !== k); else { if (chosen.length >= 3) chosen.shift(); chosen.push(k); }
@@ -952,9 +1030,10 @@
       const weak = chosen.filter((k) => !CASEV.find((c) => c[0] === k)[2]);
       if (weak.length) { wrong("“" + (weak[0] === "shade" ? "Shade? That’s a feeling, not evidence." : weak[0] === "small" ? "Old and simple? So is half of Jerusalem." : "Fewer tourists? That proves nothing.") + " Try again.”"); return; }
       p.case = chosen.slice(); save(); S("journal");
-      const d = document.createElement("div"); d.innerHTML = '<div class="fhim">' + "He walks over to the Dome of the Spirits, looks east to the gate, and is quiet for a while. “Hm. That’s harder to argue with than I thought.”<small>The sceptic</small></div>";
-      s.insertBefore(d, $("fargue")); $("fargue").remove(); d.scrollIntoView({ behavior: "smooth", block: "end" });
-      setTimeout(() => K.root() && reveal(), 3800);
+      const d = document.createElement("div"); d.innerHTML = '<div class="fhim">' + "He walks over to the Dome of the Spirits, looks east to the gate, and is quiet for a while. Then he smiles. “Thank you. That’s all I needed.”<small>The man in the grey coat</small></div>" +
+        '<p class="fq">He turns and walks quickly toward the Mughrabi Gate, and does not look back. You have just told him where it is.</p>';
+      s.insertBefore(d, $("fargue")); $("fargue").remove(); d.scrollIntoView({ behavior: "smooth", block: "end" }); V("grey-2"); S("step", null, 0.5);
+      setTimeout(() => K.root() && reveal(), 5200);
     };
   }
   function reveal() {
@@ -978,6 +1057,7 @@
         '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" +
         '<div class="fview"><b>From the author.</b> I first read that the Holy of Holies stood at the Dome of the Spirits in Grant R. Jeffrey’s <i>Armageddon: Appointment with Destiny</i>. I spent years investigating it afterwards. I walked the Temple Mount many times, on my own and with my wife, and once with a guide, to confirm that the floor inside the Dome of the Spirits is bedrock, not paving stone laid by Herod. What you have just seen is where that investigation led.<small>Richard J. Allinson</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
+        '<p><b>And now the man in the grey coat knows it too.</b></p>' +
         '<button class="cta" data-act="next">The Temple Mount today</button>', { next: today });
     }, 4200);
   }
@@ -1035,7 +1115,17 @@
       '<div class="fscroll" id="fscroll"></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "gate-inside.jpg");
     wire(s, stops); wireFilms(s, () => {});
-    if (!seen("gate")) film("gate", () => V("22-gate-open"), "Fill in Ezekiel’s words"); else V("22-gate-open");
+    const note = (then) => {
+      if (p.gateNote) { then(); return; }
+      p.gateNote = 1; save(); S("parchment");
+      K.card('<div class="kick">Tucked into a crack in the stairs</div><h2>The Watchman’s last note</h2>' +
+        "<p>Halfway down the steps, pushed into a crack between two stones, is a folded paper. Blue ink. A small drawn lamp.</p>" +
+        wnote("“You found the place. Now so has he. Those he serves will put it on the table. Read Daniel 9:27.”") +
+        "<p>Whoever the Watchman is, he knew the grey coat would follow you. And he knew you would come here last.</p>" +
+        '<button class="cta" data-act="x">Fill in Ezekiel’s words</button>', { x: then });
+      V("22b-watchman");
+    };
+    if (!seen("gate")) film("gate", () => note(() => V("22-gate-open")), "Go down the steps"); else note(() => V("22-gate-open"));
     const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
     drawScroll();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -1060,7 +1150,8 @@
     V("24-cliffhanger"); M("cliff");
     K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
-      "<p>The Temple can stand. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many. Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b></p>" +
+      "<p>The place is found, and now it is known. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many: and the Temple Mount will be on the table.</p>" +
+      "<p>Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b> And somewhere in Jerusalem, a watchman with blue ink and a small drawn lamp is waiting to tell you when.</p>" +
       '<p class="fgo">The investigation continues in new episodes, coming soon. Follow <b>THE FINAL SEVEN YEARS</b> on Facebook to hear first.</p>' +
       '<button class="cta" data-act="list">See the episodes ahead</button><button class="cta alt" data-act="x">Back to the journey</button>',
       { list: hub, x: () => K.shut() });
@@ -1091,7 +1182,7 @@
       const p = P();
       if (!p.began) p.began = 1;
       if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); }
-      else if (!p.olives) { p.tombs = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; p.olives = 1; }
+      else if (!p.olives) { p.tombs = 1; p.tombIn = 1; p.tombOil = 1; p.flax = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; p.olives = 1; }
       else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; p.robinson = 1; K.A().relics.reed = 1; }
       else p.gateDone = 1;
       save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
