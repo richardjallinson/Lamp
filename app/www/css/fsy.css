@@ -167,3 +167,10 @@
 #adv .asheet .fvessel{display:block;width:100%;border-radius:10px}
 #adv .asheet .fnote{margin:10px 0;padding:10px 12px;border-left:3px solid #C9A24A;background:rgba(201,162,74,.14);font:italic 600 14.5px/1.5 var(--display);color:#3A3F55}
 #adv .fsy .bgp[style*="temple-painting"]{filter:brightness(.42) saturate(.95) blur(1.5px);background-position:center}
+#adv .fhall .fhit{animation:none}
+#adv .fglint{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#FFF6CF 0,rgba(245,210,122,.85) 35%,rgba(245,210,122,0) 70%);animation:fsy-glint 2.2s ease-in-out infinite}
+@keyframes fsy-glint{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.2)}}
+#adv .asheet .fpostwrap{margin:10px auto;max-width:320px;cursor:pointer;perspective:800px;transition:transform .35s}
+#adv .asheet .fpostwrap:active{transform:scale(.97)}
+#adv .asheet .fpost{display:block;width:100%;border-radius:6px;box-shadow:0 8px 20px rgba(0,0,0,.35);transform:rotate(-2deg)}
+#adv .asheet .fpostwrap.back .fpost{transform:rotate(1.5deg)}
