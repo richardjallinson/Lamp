@@ -253,3 +253,4 @@
 #adv .asheet .fjrnl{margin:10px 0;padding:10px 12px;border-radius:10px;border:1px dashed #B8862E;background:#FBF4E2;font:500 14px/1.45 var(--ui);color:#2A2F45}
 #adv .asheet .fjrnl b{font:800 11px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#7A5A2A}
 #adv .asheet .fjrnl ul{margin:4px 0 0;padding-left:18px}
+#adv .fsight img{max-height:48vh;object-fit:cover;object-position:center 30%}
