@@ -102,7 +102,11 @@
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
-  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives"]);
+  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber"]);
+  const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step"]);
+  /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
+  function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
+  const preS = (...n) => Lamp.score && Lamp.score.preload(n.filter((x) => HAVE_S.has(x)).map((x) => "fsy-sfx-" + x));
   const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null };
   function M(music, amb) {
     if (!Lamp.score) return;
@@ -231,7 +235,7 @@
     K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">Back to the entrance hall</button>', Object.assign({ x: hall }, acts || {}));
   }
   function exhibit(x, html, bg) {
-    M("puzzle", "indoor");
+    M("puzzle", "indoor"); preS("wings", "wingsflap", "staves", "step", "dial", "lock");
     const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("Back to the entrance hall"), bg);
     wire(s, hall);
     const open = { ark: "03-ark-verse", courts: "05-courts-verse", lock: P().ti.lock ? "" : "07-instruments-verse" }[x.id]; if (open) V(open);
@@ -249,9 +253,9 @@
     const draw = () => { $("fark").querySelector("img").src = "img/fsy/" + img(); };
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
       if (p.ti.wings) return;
-      w[b.dataset.w] = w[b.dataset.w] ? 0 : 1; p.ti.wingState = w; save(); K.sfx("stone"); draw();
+      w[b.dataset.w] = w[b.dataset.w] ? 0 : 1; p.ti.wingState = w; save(); S("wings", "stone"); draw();
       if (w.l && w.r) {
-        p.ti.wings = 1; save(); K.snd("word"); K.buzz("success");
+        p.ti.wings = 1; save(); K.snd("word"); K.buzz("success"); setTimeout(() => S("wingsflap"), 350);
         K.say("Wings on high, covering the mercy seat, face to face. Now the staves.", "", 3400);
         setTimeout(() => K.root() && staves(), 1200);
       } else if (w.l || w.r) K.say("One cherub is set. Now the other, so their faces look one to another.", "", 3000);
@@ -262,7 +266,7 @@
       V("04-staves");
       $("fstaves").querySelectorAll("[data-a]").forEach((c) => (c.onclick = () => {
         if (c.dataset.a !== "1") { wrong("Read Exodus 25:15 again. Were the staves ever to come out?"); return; }
-        K.sfx("click");
+        S("staves", "click");
         exhibitDone("ark", '<div class="kick">Exhibit 1 · Exodus 25</div><h2>The Ark of the Covenant</h2>' + photo("ark.jpg", "The Ark of the Covenant, as made ready by the Temple Institute", TI) +
           '<p><b>What it shows.</b> God gave Moses every detail of the Ark: the wings of the cherubim stretched over the mercy seat, their faces one to another, and the staves never to leave the rings. The Ark was always ready to be carried, always ready to move. <b>It was made for a place.</b></p>' +
           '<p><b>What was inside.</b> The tables of the covenant, the golden pot of manna and Aaron’s rod that budded (Hebrews 9:4). It stood in the Holy of Holies behind the veil, and the high priest entered once a year, on the Day of Atonement, to sprinkle blood on the mercy seat (Leviticus 16:14–15).</p>' +
@@ -286,7 +290,7 @@
     s.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => {
       const i = +b.dataset.i;
       if (i !== at) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong(at === 0 ? "A pilgrim came in at the gate and stood first in the largest court, open to all." : i < at ? "You have walked that court already." : "Not yet. Which court comes next, going inward?"); return; }
-      K.sfx("stone"); b.classList.add("used"); at++;
+      S("step", "stone"); b.classList.add("used"); at++;
       const sp = document.createElement("span"); sp.className = "fstep"; sp.textContent = COURTS[i][0]; $("fpath").appendChild(sp);
       if (at === COURTS.length) setTimeout(() => K.root() && exhibitDone("courts", '<div class="kick">Exhibit 2 · Psalm 100:4</div><h2>Walk the Courts</h2>' + photo("ti-model.jpg", "A model of the Temple, at the Temple Institute", TI) +
         "<p><b>What it shows.</b> From the Eastern Gate a pilgrim walked west, inward: the Court of the Women, 135 cubits; then the Court of Israel, the Court of the Priests and the altar, another 52 cubits. <b>187 cubits from the gate stood the sanctuary.</b> Remember that number: it will be paced out on the Temple Mount.</p>" +
@@ -344,7 +348,7 @@
       const it = INSTR[+b.dataset.i];
       if (!it[1]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong("The " + it[0].toLowerCase() + " is praised in Psalm 150 too, but not in verse 3. Read verse 3 again."); return; }
       if (b.classList.contains("used")) return;
-      K.sfx("stone"); b.classList.add("used"); got.push(it[0]);
+      S("dial", "stone"); b.classList.add("used"); got.push(it[0]); if (got.length === 3) setTimeout(() => S("lock"), 250);
       $("fslots").children[got.length - 1].textContent = it[0];
       if (got.length === 3) setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
         "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
@@ -666,8 +670,8 @@
     const s = clueScreen(c, '<div class="fq">You walked these courts at the Temple Institute: the Court of the Women, 135 cubits, then the Court of Israel, the Court of the Priests, the altar and the steps, another 52 cubits. Pace out the whole distance from the Eastern Gate.</div>' +
       '<div class="fmapwrap small" id="fm">' + mapSVG({ pace: 0 }) + '</div><div class="fpace"><button id="fminus">−</button><b id="fval">0 cubits</b><button id="fplus">+</button></div><button class="fbtn" id="fstop">Stop here</button>');
     const draw = () => { $("fm").innerHTML = mapSVG({ pace: v }); $("fval").textContent = v + " cubits"; };
-    $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; K.sfx("click"); draw(); };
-    $("fminus").onclick = () => { v = Math.max(0, v - 11); if (v > 180 && v < 194) v = 187; K.sfx("click"); draw(); };
+    $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; S("step", "click", 0.5); draw(); };
+    $("fminus").onclick = () => { v = Math.max(0, v - 11); if (v > 180 && v < 194) v = 187; S("step", "click", 0.5); draw(); };
     $("fstop").onclick = () => {
       if (v !== 187) { wrong(v < 187 ? "Not far enough. Add the two parts together: 135 and 52." : "Too far. 135 and 52 make the whole distance."); return; }
       K.sfx("stone"); K.say("187 cubits from the gate, and you stand on the flat northern bedrock.", "", 3600); setTimeout(() => K.root() && solved(c), 1400);

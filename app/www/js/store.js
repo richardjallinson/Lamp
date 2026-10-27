@@ -297,6 +297,12 @@
         else if (!me.gain && Lamp.audioUnlocked) { SC[k] = null; layer(k, me.name); }
       });
     },
+    /* a short prop sound (wings, a lock, a footstep); the first play of each also loads it */
+    sfx(name, vol) {
+      if (!scoreOn() || !Lamp.state.settings.sound || !Lamp.audioUnlocked) return;
+      loadTrack(name, (buf) => { const c = audio(); if (!c) return; const sr = c.createBufferSource(), g = c.createGain(); g.gain.value = vol || 0.75; sr.buffer = buf; sr.connect(g).connect(master); sr.start(); });
+    },
+    preload(names) { if (Lamp.audioUnlocked) names.forEach((n) => loadTrack(n, () => {})); },
     playing() { return { music: SC.music && SC.music.gain ? SC.music.name : null, amb: SC.amb && SC.amb.gain ? SC.amb.name : null }; },
   };
   function unlock() {
