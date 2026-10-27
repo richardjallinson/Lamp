@@ -555,17 +555,16 @@
       q: "From the wall you can see four landmarks. Put them in order from nearest to farthest, as the journal’s old map shows them.", no: "Look along the wall again: which is nearer?",
       items: [["The Tower of David", "just behind you"], ["The grey domes of the Holy Sepulchre", "in the Christian Quarter"], ["The golden Dome of the Rock", "on the Temple Mount"], ["The Mount of Olives", "across the valley, beyond the city"]],
       done: () => pzDone("landmarks", () => walk(scene.views[1])) }) },
-    storm: { label: "The way ahead", run: () => talk({ title: "The storm", kick: "The Ramparts Walk", who: "The Lamplighter", run: (T) => {
+    storm: { label: "The way ahead", run: () => { setTimeout(() => F.M("m13", "olives"), 50); talk({ title: "The storm", kick: "The Ramparts Walk", who: "The Lamplighter", run: (T) => {
       T.line('<div class="fq">The wind comes first, hot, then cold. Then the sky over Damascus Gate turns the colour of slate and the rain hits the wall like thrown gravel. Ahead, where the walk goes down to the gate, two men stand across the path with their hands up. Behind them, lightning.</div>');
       T.him("“Not this way. Not today.”", "A voice on the wall");
       T.choices([["Push on toward Damascus Gate", 0], ["Stop, and look at the cloud", 1]], (ok) => {
         if (!ok) { st.misses++; T.line('<div class="fq">You take three steps and the thunder is so close it has no echo. The men do not move. Neither, now, do you.</div>'); }
-        T.line(F.verse ? "" : "");
         T.line('<div class="fverse">“And the pillar of the cloud went from before their face, and stood behind them: and it came between the camp of the Egyptians and the camp of Israel; and it was a cloud and darkness to them, but it gave light by night to these.”<small>Exodus 14:19–20</small></div>');
         T.him("“A cloud that stands in the way is not always against you. Sometimes it stands between you and something. The way is closed. Turn back, and go down into the Jewish Quarter. When the sky clears, this stretch of wall will be here.”");
         T.end('<div class="fq">You turn back along the wall, the rain at your back, and come down inside the city.</div>', "Down into the Jewish Quarter", () => { W().flags.storm = 1; save(); pzDone("storm", () => finish("ramparts", () => go(byId.jewish))); });
       });
-    } }) },
+    } }); } },
     burnt: { label: "The Burnt House", run: () => order({ title: "What happened here", kick: "The Burnt House", intro: verse("For the days shall come upon thee, that thine enemies shall cast a trench about thee, and compass thee round… and they shall not leave in thee one stone upon another.", "Luke 19:43–44") +
       q("A priestly family’s house, found under two metres of ash in 1970: a spear, a stone table, coins from the year 69, and the arm bone of a young woman by the kitchen step. Put the story in order."),
       items: [["Jesus weeps over the city", "“thine enemies shall compass thee round”, about AD 30"], ["The legions surround Jerusalem", "Titus, spring of AD 70"], ["The Temple burns", "the ninth of Av, AD 70"], ["The Upper City falls and this house burns", "a month later"], ["The stones are thrown down into the street", "“not one stone upon another”"]],

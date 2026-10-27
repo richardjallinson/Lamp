@@ -755,7 +755,7 @@
   /* at the foot of the Mount, before going up: the stones the Romans threw down (Matthew 24:2) */
   const STONES = { text: ["Verily I say unto you, There shall not be left here one ", "STONE", " upon ", "ANOTHER", ", that shall not be ", "THROWN", " down."], chips: ["STONE", "TEMPLE", "ANOTHER", "ALTAR", "THROWN", "RAISED"] };
   function robinson() {
-    cur = "robinson"; M("investigation", "platform"); const p = P(); let at = 1;
+    cur = "robinson"; M("m24", "platform"); const p = P(); let at = 1;
     const s = stage('<div class="fkick">Act 3 · Below the southwest corner</div><h1>The stones of the Temple</h1>' +
       photo("robinson-stones.jpg", "Beneath Robinson’s Arch: great stones from the Temple Mount, lying where they fell on the street below", "Photo: Richard J. Allinson, at the southwest corner of the Temple Mount") +
       '<div class="fverse">“And Jesus went out, and departed from the temple: and his disciples came to him for to shew him the buildings of the temple. And Jesus said unto them, See ye not all these things?”<small>Matthew 24:1–2</small></div>' +
@@ -781,7 +781,7 @@
     }));
   }
   function opening() {
-    M("investigation", "platform");
+    M("m24", "platform");
     const s = stage('<div class="fkick">Act 5 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("tm-dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
@@ -796,7 +796,7 @@
   }
 
   function board(finished) {
-    cur = ""; M("investigation", "platform");
+    cur = ""; M("m24", "platform");
     const p = P(), found = CLUES.filter((c) => p.clues[c.id]).length;
     const s = stage('<div class="fkick">Where Was the Temple? · Clues ' + found + " of 5</div>" +
       '<div class="fmapwrap">' + mapSVG({ measure: finished }) + "</div>" +
@@ -932,7 +932,7 @@
   }
   const PT = (x, y, r) => { const a = (r * Math.PI) / 180; return [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]; };
   function place() {
-    M("investigation", "platform"); cur = "verdict";
+    M("m24", "platform"); cur = "verdict";
     const s = stage('<div class="fkick">The verdict</div><h1>Lay the Temple on the Mount</h1><div class="fq">You built the Temple plan at the Institute, court by court. Now drag it onto the Mount, and turn it, until everything fits.</div>' +
       '<div class="fmapwrap" id="fm">' + mapSVG({ extra: planSVG() }) + "</div>" +
       '<div class="fplanbar"><button id="frot">⟳ Turn the plan</button><button class="fbtn" id="fset">Set it here</button></div>' +
@@ -1006,7 +1006,7 @@
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
       '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
-    V("21-reveal"); M("reveal", "platform");
+    V("21-reveal"); M("m25", "platform");
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
       if (!K.root()) return;
