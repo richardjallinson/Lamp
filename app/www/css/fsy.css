@@ -166,3 +166,4 @@
 #adv .asheet .fart{margin:8px 0}
 #adv .asheet .fvessel{display:block;width:100%;border-radius:10px}
 #adv .asheet .fnote{margin:10px 0;padding:10px 12px;border-left:3px solid #C9A24A;background:rgba(201,162,74,.14);font:italic 600 14.5px/1.5 var(--display);color:#3A3F55}
+#adv .fsy .bgp[style*="temple-painting"]{filter:brightness(.42) saturate(.95) blur(1.5px);background-position:center}

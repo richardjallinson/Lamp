@@ -135,7 +135,7 @@
     const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
       '<div class="fsub">' + (next >= STOPS.length ? "Episode 1 solved" : "Stop " + (next + 1) + " of 4") + "</div>" +
       '<div class="fjournal fstops">' + STOPS.map((x, i) => '<button class="fclue' + (done(x.id) ? " done" : i > next ? " locked" : "") + '" data-s="' + i + '"><i>' + (done(x.id) ? "✓" : x.n) + "</i><span><b>" + esc(x.title) + "</b><small>" + esc(x.sub) + "</small></span></button>").join("") + "</div>" +
-      (next >= STOPS.length ? '<button class="fbtn" id="fend">What comes next</button>' : ""));
+      (next >= STOPS.length ? '<button class="fbtn" id="fend">What comes next</button>' : ""), "temple-painting.jpg");
     s.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
       const i = +b.dataset.s; K.sfx("click");
       if (i > next) { K.say("First finish “" + STOPS[next].title + "”.", "", 2800); return; }
@@ -346,7 +346,7 @@
       $("fvq").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
         if (b.dataset.a !== "1") { wrong("Read Exodus 25:37 again: which vessel held lamps?"); return; }
         K.sfx("click");
-        exhibitDone("vessels", '<div class="kick">Exhibit 4 · Exodus 25–30</div><h2>Everything is ready</h2>' + photo("menorah.jpg", VESSELS[0].photo[1], VESSELS[0].photo[2]) +
+        exhibitDone("vessels", '<div class="kick">Exhibit 4 · Exodus 25–30</div><h2>Everything is ready</h2>' + photo("temple-painting.jpg", "The Temple, as it will stand again", "Painting: Richard J. Allinson") +
           "<p><b>What it shows.</b> The lampstand, the incense altar, the table, the altar of the court and the High Priest’s garments: each has a purpose Scripture gave it, and each has been made again. The vessels are ready. <b>The place is the missing piece.</b></p>" +
           '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>");
       }));
