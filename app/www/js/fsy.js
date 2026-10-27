@@ -76,8 +76,42 @@
   const photo = (f, cap, by) => '<figure class="fphoto' + (/vessel-garments/.test(f) ? " tall" : "") + '"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "<small>" + esc(by || "Photo: Richard J. Allinson, on the Temple Mount") + "</small></figcaption></figure>";
   const TI = "Photo: Richard J. Allinson, at the Temple Institute";
   CLUES[0].photo = ["bedrock.jpg", "The bedrock inside the Dome of the Spirits: flat, level, natural rock"];
+  /* where each clue is found on the Mount, in Richard's photographs */
+  CLUES[0].scene = ["tm-bedrock.jpg", "Inside the Dome of the Spirits: the bedrock, flat and level, with its seam"];
+  CLUES[1].scene = ["tm-north.jpg", "The northern end of the platform: the Dome of the Spirits stands alone on the open paving"];
+  CLUES[2].scene = ["tm-line.jpg", "From the Dome of the Spirits, looking east: the Eastern Gate’s dome, and the Mount of Olives behind it"];
+  CLUES[3].scene = ["tm-gate-wide.jpg", "The Eastern Gate from inside the Mount: the place to start counting"];
+  CLUES[4].scene = ["tm-dome-rock.jpg", "The Dome of the Rock, in the middle of the great court"];
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
   CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
+  /* Richard's own films from the Temple Mount (video/fsy/*.mp4), in his own voice */
+  const FILMS = {
+    arrive: ["tm-arrive", "Up the Mughrabi bridge", "“This is the only gate for Jews and non-Muslims to enter the Temple Mount. It runs along the side of the Western Wall.”"],
+    floor: ["tm-spirits-1", "At the Dome of the Spirits", "“Inside the Dome of the Spirits is foundation stone. This is bedrock. It’s flat, it’s round, and it’s a threshing floor, just like David purchased.”"],
+    line: ["tm-spirits-2", "Looking east from the Dome of the Spirits", "“I’m right in line with the Eastern Gate, and behind that is the Mount of Olives.”"],
+    middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Very big platform. It’s huge up here.”"],
+    reveal: ["tm-spirits-3", "Room for the Third Temple", "“There’s plenty of room to put the Third Temple on this spot. According to Scripture, this is exactly where it will be located.”"],
+    visitors: ["tm-visitors", "Jews on the Temple Mount today", "“Just taking a quick video of all the Jews that are coming up today, and there is quite a few.”"],
+    gate: ["gate-inside", "At the Eastern Gate", "“Looking down the stairs. If I read Ezekiel chapter 40, it would mention these stairs.”"],
+  };
+  function film(key, then, label, extra) {
+    const f = FILMS[key], p = P(); p.films = p.films || {}; p.films[key] = 1; save();
+    Lamp.narr && Lamp.narr.stop();
+    let vid = null;
+    const quiet = (on) => { Lamp.duck && Lamp.duck(on); Lamp.score && Lamp.score.hush && Lamp.score.hush(on); };
+    K.card('<div class="kick">From the author · filmed on the spot</div><h2>' + esc(f[1]) + "</h2>" +
+      '<video class="ffilm" src="video/fsy/' + f[0] + '.mp4" poster="video/fsy/' + f[0] + '.jpg" controls playsinline webkit-playsinline preload="auto"></video>' +
+      '<p class="fcap">' + esc(f[2]) + "<small>Filmed and narrated by Richard J. Allinson, Jerusalem</small></p>" + (extra || "") +
+      '<button class="cta" data-act="x">' + esc(label || "Continue") + "</button>",
+      { x: () => { try { vid && vid.pause(); } catch (e) {} quiet(false); then && then(); } });
+    const sheets = document.querySelectorAll("#adv .asheet"); vid = sheets.length ? sheets[sheets.length - 1].querySelector("video") : null;
+    if (!vid) return;
+    vid.addEventListener("play", () => quiet(true)); vid.addEventListener("pause", () => quiet(false)); vid.addEventListener("ended", () => quiet(false));
+    try { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); } catch (e) {}
+  }
+  const seen = (k) => !!(P().films || {})[k];
+  const filmBtn = (k) => FILMS[k] ? '<button class="ffilmbtn" data-film="' + k + '">▶ ' + esc(FILMS[k][1]) + "<small>The author on the spot</small></button>" : "";
+  function wireFilms(el, back) { el.querySelectorAll("[data-film]").forEach((b) => (b.onclick = () => { K.sfx("click"); film(b.dataset.film, back); })); }
   let st = null;   // this visit: misses and hints, for the rewards
   let cur = "";    // which stop is open, for the hint
   function hint() {
@@ -565,10 +599,11 @@
     M("investigation", "platform");
     const s = stage('<div class="fkick">Stop 3 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
-      photo("dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
+      photo("tm-dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
       '<div class="fq">Before you look at the clues: where do you think the Holy of Holies stood?</div>' +
       '<div class="fchoices"><button data-t="rock">Under the golden Dome of the Rock</button><button data-t="spirits">On the small northern rise</button><button data-t="unsure">I don’t know yet</button></div>');
-    V("12-mount-open", () => V("13-theory"));
+    if (!seen("arrive")) film("arrive", () => V("12-mount-open", () => V("13-theory")), "Step onto the Temple Mount");
+    else V("12-mount-open", () => V("13-theory"));
     s.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => {
       P().theory = b.dataset.t; save(); K.sfx("click");
       K.say(b.dataset.t === "rock" ? "Most people think so. Hold on to that thought, and test it." : b.dataset.t === "spirits" ? "An unusual answer. Let's see if the evidence agrees." : "A good place to start: let the evidence decide.", "", 3600);
@@ -581,13 +616,13 @@
     const p = P(), found = CLUES.filter((c) => p.clues[c.id]).length;
     const s = stage('<div class="fkick">Where Was the Temple? · Clues ' + found + " of 5</div>" +
       '<div class="fmapwrap">' + mapSVG({ measure: finished }) + "</div>" +
-      '<div class="fjournal">' + CLUES.map((c, i) => '<button class="fclue' + (p.clues[c.id] ? " done" : "") + '" data-c="' + i + '"><i>' + (p.clues[c.id] ? "✓" : i + 1) + "</i><span><b>" + esc(c.title) + "</b><small>" + esc(c.ref) + "</small></span></button>").join("") + "</div>" +
+      '<div class="fjournal">' + CLUES.map((c, i) => '<button class="fclue fthumb' + (p.clues[c.id] ? " done" : "") + '" data-c="' + i + '"><img src="img/fsy/' + c.scene[0] + '" alt=""><i>' + (p.clues[c.id] ? "✓" : i + 1) + "</i><span><b>" + esc(c.title) + "</b><small>" + esc(c.ref) + "</small></span></button>").join("") + "</div>" +
       (finished ? '<button class="fbtn" id="fend">' + (p.gateDone ? "What comes next" : "On to the Eastern Gate") + "</button>" : found === 5 ? '<button class="fbtn glow" id="fplace">Place the Holy of Holies</button>' : '<div class="fsmall">Open a clue. Each one is a piece of evidence.</div>') +
       back("The stops"));
     wire(s, stops);
     s.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
       const c = CLUES[+b.dataset.c]; K.sfx("click");
-      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") + '<button class="cta" data-act="x">Back to the journal</button>', { x: () => {} }); return; }
+      if (p.clues[c.id]) { K.card('<div class="kick">Clue · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") + (FILMS[c.id] ? '<button class="cta alt" data-act="film">▶ ' + esc(FILMS[c.id][1]) + "</button>" : "") + '<button class="cta" data-act="x">Back to the journal</button>', { x: () => {}, film: () => film(c.id, () => board()) }); return; }
       c.run(c);
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
@@ -597,11 +632,12 @@
   function solved(c) {
     P().clues[c.id] = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
     K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") +
-      '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>', { x: () => board() });
+      '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>',
+      { x: () => (FILMS[c.id] && !seen(c.id) ? film(c.id, () => board(), "Back to the journal") : board()) });
   }
   function clueScreen(c, html) {
     M("puzzle", "platform"); preS("journal", "harp", "knock", "stone", "rod", "step");
-    const s = stage('<div class="fkick">Clue · ' + esc(c.ref) + "</div><h1>" + esc(c.title) + '</h1><div class="fverse">“' + esc(c.v) + "”</div>" + html +
+    const s = stage('<div class="fkick">Clue · ' + esc(c.ref) + "</div><h1>" + esc(c.title) + "</h1>" + photo(c.scene[0], c.scene[1]) + '<div class="fverse">“' + esc(c.v) + "”</div>" + html +
       '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => { K.sfx("click"); board(); };
     V({ floor: "15-floor", summit: "16-summit", line: "17-line", cubits: "18-cubits", middle: "19-middle" }[c.id]);
@@ -712,8 +748,14 @@
         '<div class="v">“And there was given me a reed like unto a rod.”</div><div class="r">Revelation 11:1 · KJV</div>' + was +
         '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
-        '<button class="cta" data-act="next">One stop remains: the Eastern Gate</button>', { next: stops });
+        '<button class="cta" data-act="next">Hear it from the author</button>', { next: () => film("reveal", today, "The Temple Mount today") });
     }, 4200);
+  }
+
+  function today() {
+    film("visitors", stops, "One stop remains: the Eastern Gate",
+      '<p>Jewish visitors may come up only by the Mughrabi bridge, in groups, at set times. Many keep to the edges of the platform, so as not to walk where the Holy of Holies once stood.</p>' +
+      '<div class="fview"><b>From the author.</b> Moments after I finished filming at the Dome of the Spirits, an official of the Jordanian Waqf, which administers the Mount, came over and asked what I was doing. I told him I was filming for friends. To ease the moment, I asked if I could take a selfie with him. He declined. I thanked him and left the Temple Mount.<small>Richard J. Allinson, Jerusalem</small></div>');
   }
 
   /* ================================================================ 4. the Eastern Gate, from inside ================================================================ */
@@ -722,11 +764,12 @@
   function gate() {
     cur = "gate"; M("gate", "chamber"); const p = P(); let at = 1;
     const s = stage('<div class="fkick">Stop 4 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
-      photo("gate-steps.jpg", "The steps up to the Eastern Gate, from inside", "Photo: Richard J. Allinson, inside the Temple Mount") +
+      photo("tm-gate-wide.jpg", "The Eastern Gate, from inside the Temple Mount: the stairs down to the sealed arches", "Photo: Richard J. Allinson, inside the Temple Mount") + filmBtn("gate") +
       '<div class="fnarr">“You have walked the courts, stood on the mountain, and found the place. One gate is left: the one you saw from the Mount of Olives, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
       '<div class="fscroll" id="fscroll"></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "gate-inside.jpg");
-    wire(s, stops); V("22-gate-open");
+    wire(s, stops); wireFilms(s, () => {});
+    if (!seen("gate")) film("gate", () => V("22-gate-open"), "Fill in Ezekiel’s words"); else V("22-gate-open");
     const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
     drawScroll();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {

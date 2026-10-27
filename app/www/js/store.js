@@ -231,7 +231,7 @@
      Two layers, music and ambience. Changing place crossfades; each track loops on itself with a 4-second crossfade;
      the music dips while the Lamplighter speaks. Tracks are decoded when first needed; only a few are kept in memory. */
   const TR = {}, TRORDER = [], loadingTr = {}, SC = { music: null, amb: null }, LV = { music: 0.42, amb: 0.2 }, XF = 4;
-  let ducked = false;
+  let ducked = false, hushed = false;
   const scoreOn = () => Lamp.state.settings.score !== false;
   function loadTrack(name, cb) {
     if (TR[name]) { cb(TR[name]); return; }
@@ -256,7 +256,7 @@
     const sc = document.createElement("script"); sc.src = "audio/music/" + name + ".js"; sc.onload = () => { sc.remove(); go(); }; sc.onerror = () => { sc.remove(); delete loadingTr[name]; };
     document.head.appendChild(sc);
   }
-  const target = (me) => LV[me.kind] * (me.kind === "music" && ducked ? 0.3 : 1);
+  const target = (me) => hushed ? 0.0001 : LV[me.kind] * (me.kind === "music" && ducked ? 0.3 : 1);
   function ramp(g, v, secs) { try { const t = ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(g.gain.value, 0.0001), t); g.gain.linearRampToValueAtTime(v, t + secs); } catch (e) {} }
   function startLayer(me, buf) {
     const c = audio(); if (!c) return;
@@ -303,6 +303,8 @@
       loadTrack(name, (buf) => { const c = audio(); if (!c) return; const sr = c.createBufferSource(), g = c.createGain(); g.gain.value = vol || 0.75; sr.buffer = buf; sr.connect(g).connect(master); sr.start(); });
     },
     preload(names) { if (Lamp.audioUnlocked) names.forEach((n) => loadTrack(n, () => {})); },
+    /* near silence while one of the author's films plays */
+    hush(on) { hushed = !!on; ["music", "amb"].forEach((k) => { const me = SC[k]; if (me && me.gain) ramp(me.gain, target(me), on ? 0.5 : 1.5); }); },
     playing() { return { music: SC.music && SC.music.gain ? SC.music.name : null, amb: SC.amb && SC.amb.gain ? SC.amb.name : null }; },
   };
   function unlock() {
