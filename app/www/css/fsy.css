@@ -166,6 +166,8 @@
 #adv .asheet .fart{margin:8px 0}
 #adv .asheet .fvessel{display:block;width:100%;border-radius:10px}
 #adv .asheet .fnote{margin:10px 0;padding:10px 12px;border-left:3px solid #C9A24A;background:rgba(201,162,74,.14);font:italic 600 14.5px/1.5 var(--display);color:#3A3F55}
+#adv .fphotoview img{display:block;width:100%}
+#adv .fmark{position:absolute;border:3px dashed #E0502A;border-radius:8px;animation:adv-pulse 1.2s ease-in-out infinite;pointer-events:none}
 #adv .fsy .bgp[style*="temple-painting"]{filter:brightness(.42) saturate(.95) blur(1.5px);background-position:center}
 #adv .fhall .fhit{animation:none}
 #adv .fglint{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#FFF6CF 0,rgba(245,210,122,.85) 35%,rgba(245,210,122,0) 70%);animation:fsy-glint 2.2s ease-in-out infinite}

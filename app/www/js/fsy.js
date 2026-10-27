@@ -526,40 +526,30 @@
   }
 
   /* ================================================================ 2. the Mount of Olives ================================================================ */
-  function olivesSVG(found) {
-    return '<svg class="fpan" viewBox="0 0 360 220" role="img" aria-label="The view west from the Mount of Olives: the Kidron valley, the city wall with the sealed Eastern Gate, and the domes above it">' +
-      '<defs><linearGradient id="osky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2A5A"/><stop offset="1" stop-color="#C9A24A"/></linearGradient></defs>' +
-      '<rect width="360" height="220" fill="url(#osky)"/>' +
-      '<ellipse cx="300" cy="46" rx="9" ry="9" fill="#FBF0C8"/>' +
-      '<path d="M0 120 L60 112 L120 108 L200 104 L260 108 L360 112 L360 220 L0 220Z" fill="#7A6A4A"/>' +
-      '<rect x="40" y="96" width="280" height="30" fill="#D9C7A0" stroke="#5A4318"/>' +
-      [50, 80, 110, 140, 200, 230, 260, 290].map((x) => '<rect x="' + x + '" y="92" width="8" height="6" fill="#D9C7A0" stroke="#5A4318" stroke-width=".6"/>').join("") +
-      '<path d="M100 96 A28 28 0 0 1 156 96Z" fill="#F0C64A" stroke="#7A5A2A"/><rect x="104" y="86" width="48" height="10" fill="#E3B54F" stroke="#7A5A2A"/>' +
-      '<path d="M206 96 A12 12 0 0 1 230 96Z" fill="#D9C7A0" stroke="#5A4318"/>' +
-      '<rect x="166" y="100" width="28" height="26" rx="2" fill="#B9A27A" stroke="#5A4318"/><path d="M171 126 V112 A9 9 0 0 1 189 112 V126Z" fill="#8A7A5A" stroke="#5A4318"/><line x1="180" y1="112" x2="180" y2="126" stroke="#5A4318"/>' +
-      (found ? '<rect x="162" y="96" width="36" height="32" rx="4" fill="none" stroke="#E0502A" stroke-width="2.5" stroke-dasharray="5 3"/>' : "") +
-      '<path d="M0 220 L0 150 Q40 140 80 150 Q130 160 180 150 Q240 140 300 150 Q340 156 360 150 L360 220Z" fill="#5A6A3A"/>' +
-      [20, 60, 110, 250, 300, 340].map((x) => '<ellipse cx="' + x + '" cy="160" rx="14" ry="10" fill="#7A8A4A"/><rect x="' + (x - 1.5) + '" y="160" width="3" height="12" fill="#5A4318"/>').join("") +
-      '<text x="6" y="214" font-size="8" fill="#F3E9CE" font-weight="700">THE MOUNT OF OLIVES · looking west across the Kidron valley</text>' +
-      "</svg>";
-  }
   function olives() {
     cur = "olives"; const p = P(); M("olives", "olives");
     const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
       '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
       '<div class="fq">The postcard brought you here. From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
-      '<div class="fviewwrap" id="fv">' + olivesSVG(false) + '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:26%;top:36%;width:18%;height:22%"></button><button class="fhit" data-h="gate" aria-label="The sealed gate" style="left:43%;top:42%;width:14%;height:20%"></button><button class="fhit" data-h="small" aria-label="The small dome" style="left:56%;top:36%;width:12%;height:22%"></button></div>' +
-      '<div class="fsmall">A drawn view, until Richard’s photograph from the Mount of Olives is added.</div>' + back("The stops"));
+      '<div class="fviewwrap fphotoview" id="fv"><img src="img/fsy/olives-view.jpg" alt="Sunset over Jerusalem from the Mount of Olives: the Kidron Valley, the eastern wall and the Dome of the Rock">' +
+      '<button class="fhit" data-h="sky" aria-label="The city skyline" style="left:0;top:0;width:100%;height:22%"></button>' +
+      '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:41%;top:26%;width:12%;height:22%"></button>' +
+      '<button class="fhit" data-h="gate" aria-label="The sealed gate in the wall" style="left:47%;top:49%;width:12%;height:15%"></button>' +
+      '<button class="fhit" data-h="wall" aria-label="The city wall" style="left:0;top:55%;width:47%;height:12%"></button>' +
+      '<button class="fhit" data-h="valley" aria-label="The Kidron Valley" style="left:0;top:72%;width:100%;height:28%"></button></div>' +
+      '<div class="fsmall">Tap the sealed gate in the wall.<small>Photo: Richard J. Allinson, from the Mount of Olives at sunset</small></div>' + back("The stops"));
     wire(s, stops); V("10-olives");
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
       const h = b.dataset.h;
-      if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall itself.", "", 3600); return; }
-      if (h === "small") { K.say("The small Dome of the Spirits, on the northern rise. Not a gate. Look lower, in the wall.", "", 3600); return; }
-      S("stone", "stone", 0.6); $("fv").innerHTML = olivesSVG(true);
+      if (h === "dome") { K.say("The Dome of the Rock, the golden dome. Not a gate. Look lower, in the wall below it.", "", 3600); return; }
+      if (h === "sky") { K.say("The new city, and the sun going down behind it. The gate is nearer: in the old wall.", "", 3600); return; }
+      if (h === "wall") { K.say("The eastern wall of the Temple Mount. Follow it along to the right, below the golden dome: one block stands out from it.", "", 4200); return; }
+      if (h === "valley") { K.say("The Kidron Valley, with its olive trees and graves, between you and the city. Look across it to the wall.", "", 3800); return; }
+      S("stone", "stone", 0.6); const mk = document.createElement("span"); mk.className = "fmark"; mk.style.cssText = "left:47%;top:49%;width:12%;height:15%"; $("fv").appendChild(mk);
       setTimeout(() => {
         if (!K.root()) return;
         p.olives = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success"); V("11-olives-gate");
-        K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("gate-inside.jpg", "The Eastern Gate, walled shut for five hundred years", "Photo: Richard J. Allinson, from inside the Temple Mount") +
+        K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("olives-view.jpg", "Sunset over the city from the Mount of Olives: the sealed gate is in the wall below the golden dome", "Photo: Richard J. Allinson, from the Mount of Olives") +
           "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
           "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
           '<p class="fgo">Next stop: the Temple Mount itself.</p><button class="cta" data-act="x">To the Temple Mount</button>', { x: stops });
