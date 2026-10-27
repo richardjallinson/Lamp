@@ -268,7 +268,7 @@
       g.gain.setValueAtTime(first ? 1 : 0, at); if (!first) g.gain.linearRampToValueAtTime(1, at + XF);
       g.gain.setValueAtTime(1, end - XF); g.gain.linearRampToValueAtTime(0, end);
       s.start(at); s.stop(end + 0.05); me.srcs.push(s); if (me.srcs.length > 3) me.srcs.shift();
-      clearTimeout(me.timer); me.timer = setTimeout(() => inst(end - XF, false), Math.max(0, (end - XF - c.currentTime - 1.5) * 1000));
+      clearTimeout(me.timer); if (!me.once) me.timer = setTimeout(() => inst(end - XF, false), Math.max(0, (end - XF - c.currentTime - 1.5) * 1000));
     };
     inst(c.currentTime + 0.05, true);
   }
@@ -281,7 +281,7 @@
     if (cur && cur.name === name && (cur.gain || !scoreOn())) return;
     stopLayer(cur, 1.8); SC[kind] = null;
     if (!name) return;
-    const me = { kind, name, srcs: [], timer: 0, gain: null }; SC[kind] = me;
+    const me = { kind, name, srcs: [], timer: 0, gain: null, once: /-(reveal|cliff)$/.test(name) }; SC[kind] = me;   // a reveal or a cliffhanger plays once
     if (!scoreOn() || !Lamp.audioUnlocked) return;
     loadTrack(name, (buf) => { if (SC[kind] === me && !me.gain && scoreOn()) startLayer(me, buf); });
   }
