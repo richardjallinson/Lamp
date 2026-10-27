@@ -83,12 +83,12 @@
   function hint() {
     st.hints++;
     const p = P();
-    if (cur === "ark") K.say(p.ti.wings ? "The staves stay where God put them: in the rings, never taken out." : "Tap each cherub so its wings stretch out over the mercy seat, and its face looks to the other.", "", 5200);
+    if (cur === "hall") { const left = EXHIBITS.filter((e) => !P().ti[e.id]); K.say(left.length ? "Try “" + left[0].title + "”. Tap its glint in the photograph." : "Look at the postcard stand by the door. One card stands out.", "", 4600); }
+    else if (cur === "ark") K.say(p.ti.wings ? "The staves stay where God put them: in the rings, never taken out." : "Tap each cherub so its wings stretch out over the mercy seat, and its face looks to the other.", "", 5200);
     else if (cur === "courts") K.say("Begin at the Eastern Gate: the Court of the Women first, then the men of Israel, then the priests, the altar, the sanctuary, and last of all the Holy of Holies.", "", 6000);
     else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
     else if (cur === "vessels") K.say("Tap every vessel to see what it was for. The one that gave light to the Holy Place is named again in Revelation 11:4.", "", 5600);
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
-    else if (cur === "entrance") K.say("Visitors take something home from here. Look at the stand of postcards by the door: one of them is not like the others.", "", 5200);
     else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
     else if (cur === "gate") K.say("“This gate shall be SHUT… because the LORD hath ENTERED in by it… It is for the PRINCE.”", "Ezekiel 44:2–3", 5600);
     else {
@@ -165,26 +165,58 @@
       wire(s, stops); $("fgo").onclick = () => { K.sfx("stone"); p.ti.entered = 1; save(); institute(); };
       return;
     }
-    const s = stage('<div class="fkick">Stop 1 · The Temple Institute</div><h1>The exhibition hall</h1>' +
-      photo("ti-hall.jpg", "Inside the Temple Institute", TI) +
-      '<div class="fjournal">' + EXHIBITS.map((x, i) => '<button class="fclue' + (p.ti[x.id] ? " done" : x.needs && !p.ti[x.needs] ? " locked" : "") + '" data-e="' + i + '"><i>' + (p.ti[x.id] ? "✓" : i + 1) + "</i><span><b>" + esc(x.title) + "</b><small>" + esc(x.ref) + "</small></span></button>").join("") + "</div>" +
-      (EXHIBITS.every((e) => p.ti[e.id]) ? '<button class="fbtn glow" id="fgo">' + (p.ti.postcard ? "Leave for the Mount of Olives" : "Walk back to the entrance") + "</button>" : "") + back("The stops"));
+    hall();
+  }
+  /* the entrance hall is the main room: tap something in the photograph to walk to it; every exhibit leads back here */
+  const HALL = [
+    { k: "vessels", label: "The display cases of Temple vessels", box: [0, 15, 13, 60], dot: [6, 40] },
+    { k: "lock", label: "The case of Temple instruments", box: [13, 18, 10, 52], dot: [18, 44] },
+    { k: "ark", label: "The pictures of the Ark on the far wall", box: [24.5, 31, 15, 12], dot: [31.5, 37] },
+    { k: "priest", label: "The priest’s white garments", box: [25, 44, 8, 25] },
+    { k: "desk", label: "The guide at the front desk", box: [34, 52, 39, 21] },
+    { k: "courts", label: "The painting of the Temple", box: [79, 14, 13, 22], dot: [85.5, 25] },
+    { k: "books", label: "The bookshelves", box: [74, 36, 16, 30] },
+    { k: "cards", label: "The postcard stand", box: [91, 27, 9, 62] },
+  ];
+  function hall() {
+    cur = "hall"; const p = P();
+    const all = EXHIBITS.every((e) => p.ti[e.id]), left = EXHIBITS.filter((e) => !p.ti[e.id]);
+    const s = stage('<div class="fkick">Stop 1 · The Temple Institute</div><h1>The entrance hall</h1>' +
+      '<div class="fq">' + (p.ti.postcard ? "You have the postcard. The Mount of Olives is waiting." : all ? "Every exhibit is solved. Before you leave, look around the hall once more." : "Tap anything in the room to walk over to it. You can leave a puzzle and come back to it at any time.") + "</div>" +
+      '<div class="fark fhall" id="fhall"><img src="img/fsy/ti-hall.jpg" alt="The entrance hall of the Temple Institute">' +
+      HALL.map((h) => '<button class="fhit" data-h="' + h.k + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"></button>' +
+        (h.dot ? (p.ti[h.k] ? '<span class="fdone" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%">✓</span>' : '<span class="fglint" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%"></span>') : "")).join("") +
+      (all && !p.ti.postcard ? '<span class="fglint big" style="left:96.5%;top:43%"></span>' : "") + "</div>" +
+      '<div class="fsmall">Photo: Richard J. Allinson, at the Temple Institute</div>' +
+      '<div class="fprog">' + EXHIBITS.map((x) => '<button data-e="' + x.id + '" class="' + (p.ti[x.id] ? "done" : x.needs && !p.ti[x.needs] ? "locked" : "") + '">' + (p.ti[x.id] ? "✓ " : "") + esc(x.title.replace(/^The /, "")) + "</button>").join("") + "</div>" +
+      (p.ti.postcard ? '<button class="fbtn glow" id="fgo">Leave for the Mount of Olives</button>' : "") + back("The stops"), "ti-hall.jpg");
     wire(s, stops);
-    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => {
-      const x = EXHIBITS[+b.dataset.e]; K.sfx("click");
-      if (x.needs && !P().ti[x.needs]) { K.say("The parchment lies inside the instrument case. Open the case first.", "", 3200); return; }
+    const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); stops(); };
+    const openEx = (id) => {
+      const x = EXHIBITS.find((e) => e.id === id);
+      if (x.needs && !p.ti[x.needs]) { K.say("The parchment lies inside the instrument case. Open the case first.", "", 3200); return; }
       x.run();
+    };
+    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => { K.sfx("click"); openEx(b.dataset.e); }));
+    s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
+      const h = b.dataset.h; K.sfx("click");
+      if (h === "vessels" || h === "lock" || h === "ark" || h === "courts") { if (h === "courts") K.say("The painting shows the Temple on its mountain. Beside it, a plan of the courts.", "", 2200); openEx(h); return; }
+      if (h === "priest") K.say("The white linen of an ordinary priest: “thou shalt embroider the coat of fine linen, and thou shalt make the mitre of fine linen.”", "Exodus 28:39", 5200);
+      else if (h === "books") K.say("Books on the Temple, its vessels and its service. Everything has been studied. Only the place is still argued over.", "", 4600);
+      else if (h === "desk") K.say(all ? "The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”" : "The guide smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
+      else if (h === "cards") { if (all) postcard(); else K.say("Postcards of the menorah, the Western Wall and the Temple model. Nothing stands out yet.", "", 3600); }
     }));
-    const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); if (p.ti.postcard) stops(); else entrance(); };
-    if (!p.ti.ark) K.say("Begin with the Ark. Read what God told Moses about it.", "", 3200);
+    if (p.ti.postcard) return;
+    if (all) K.say("Before you leave: the guide said everyone takes a souvenir home.", "", 3600);
+    else if (left.length === EXHIBITS.length) K.say("The glints mark the exhibits. Start wherever you like: the pictures of the Ark on the far wall are a good place.", "", 4600);
   }
   function exhibitDone(id, html, acts) {
     const p = P(); p.ti[id] = 1; save(); K.snd("word"); K.buzz("success");
-    K.card(html + '<button class="cta" data-act="x">Back to the hall</button>', Object.assign({ x: institute }, acts || {}));
+    K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">Back to the entrance hall</button>', Object.assign({ x: hall }, acts || {}));
   }
   function exhibit(x, html, bg) {
-    const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("The hall"), bg);
-    wire(s, institute); return s;
+    const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("Back to the entrance hall"), bg);
+    wire(s, hall); return s;
   }
 
   /* 1a. the Ark: fold the cherubim's wings over the mercy seat, and leave the staves in the rings */
@@ -275,9 +307,11 @@
       CASE.map((c) => '<button class="fhit' + (p.ti.seen[c.id] ? " seen" : "") + '" data-k="' + c.id + '" aria-label="' + esc(c.name) + '" style="left:' + c.box[0] * 100 + "%;top:" + c.box[1] * 100 + "%;width:" + (c.box[2] - c.box[0]) * 100 + "%;height:" + (c.box[3] - c.box[1]) * 100 + '%"></button>').join("") + "</div>" +
       '<div class="fsmall" id="fseen"></div>' +
       '<div class="fchips three" id="fnames">' + CASE.map((c) => '<button data-k="' + c.id + '"' + (p.ti.seen[c.id] ? ' class="seen"' : "") + "><b>" + esc(c.name) + "</b></button>").join("") + "</div>" +
+      (p.ti.lock ? '<div class="fok">The case stands open. A rolled parchment lies inside.</div><button class="fbtn glow" id="fparch">' + (p.ti.scroll ? "Read the parchment again" : "Read the parchment") + "</button>" :
       '<div class="fq">The case is locked with three turning dials, each carved with an instrument. Set them to the three instruments of <b>verse 3</b>.</div>' +
       '<div class="fslots" id="fslots"><span></span><span></span><span></span></div>' +
-      '<div class="fchips six" id="fchips">' + shuffle(INSTR.map((c, i) => i)).map((i) => '<button data-i="' + i + '"><b>' + INSTR[i][0] + "</b></button>").join("") + "</div>", "ti-instruments.jpg");
+      '<div class="fchips six" id="fchips">' + shuffle(INSTR.map((c, i) => i)).map((i) => '<button data-i="' + i + '"><b>' + INSTR[i][0] + "</b></button>").join("") + "</div>"), "ti-instruments.jpg");
+    const fp = $("fparch"); if (fp) fp.onclick = () => { K.sfx("click"); scroll(); };
     const seenLine = () => { $("fseen").innerHTML = seenN() >= CASE.length ? "You have looked at every instrument in the case." : "Looked at " + seenN() + " of " + CASE.length + ". <small>Photo: Richard J. Allinson, at the Temple Institute</small>"; };
     seenLine();
     s.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => {
@@ -295,7 +329,7 @@
       if (got.length === 3) setTimeout(() => K.root() && exhibitDone("lock", '<div class="kick">Exhibit 3 · Psalm 150:3</div><h2>The case opens</h2>' +
         "<p>Trumpet, psaltery and harp: the three dials turn, and the lock gives way. Inside, beneath a silver trumpet, lies a <b>rolled parchment</b>, written in square Hebrew letters.</p>" +
         "<p><b>What it shows.</b> Every instrument here is waiting for a building. The priests have their trumpets, the Levites their harps and lyres, the choir its songs. The psalms will be sung again in the courts you just walked. <b>Only the place is missing.</b></p>" +
-        '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>"), 600);
+        '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="parch">Read the parchment</button>', { parch: scroll }), 600);
       else K.say(got.length === 1 ? "One dial set. Two more." : "Two dials set. One more.", "", 2200);
     }));
     if (!seenN()) K.say("Silver trumpets, harps, a great lyre, a shofar. Tap them in the photograph.", "", 3600);
@@ -389,7 +423,7 @@
     const scrollDone = () => K.root() && exhibitDone("scroll", '<div class="kick">Exhibit 5 · Ezekiel 43:2</div><h2>The glory from the east</h2>' +
       '<div class="v">“And, behold, the glory of the God of Israel came from the way of the east: and his voice was like a noise of many waters: and the earth shined with his glory.”</div><div class="r">Ezekiel 43:2 · KJV</div>' +
       "<p><b>What it shows.</b> Ezekiel saw the glory of God enter the Temple <b>from the east</b>, through the east gate (Ezekiel 43:4). The Temple faced east, toward the Mount of Olives. If you want to know where the Temple stood, stand on that mountain and look back.</p>" +
-      '<p class="fgo">Next stop: the Mount of Olives.</p>');
+      '<p class="fgo">The parchment points east. Somewhere in this building is a clue to where you go next.</p>');
     startRound();
   }
   /* a small letter wheel of our own (the game's wheel belongs to the level screen) */
@@ -431,7 +465,7 @@
     draw();
   }
 
-  /* 1e. back at the entrance: the postcard stand, and the clue to the next stop */
+  /* 1e. the postcard stand by the door: the clue to the next stop (it stands out once every exhibit is solved) */
   const POSTCARD_FRONT = '<svg viewBox="0 0 300 190" class="fpost" role="img" aria-label="A postcard: Greetings from the Mount of Olives">' +
     '<defs><linearGradient id="psky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2A65A"/><stop offset=".6" stop-color="#F7D9A0"/><stop offset="1" stop-color="#E9DDBF"/></linearGradient></defs>' +
     '<rect width="300" height="190" fill="#F6EFDD"/><rect x="8" y="8" width="284" height="174" fill="url(#psky)"/>' +
@@ -450,29 +484,6 @@
     '<g font-family="Snell Roundhand,Segoe Script,Bradley Hand,cursive" font-size="13" fill="#2A3A7A">' +
     '<text x="16" y="40">Stand where His feet</text><text x="16" y="62">shall stand, and look</text><text x="16" y="84">back at the gate.</text>' +
     '<text x="16" y="120" font-size="11">Zechariah 14:4</text><text x="16" y="150" font-size="12">Then you will see</text><text x="16" y="168" font-size="12">where it stood.</text></g></svg>';
-  function entrance() {
-    cur = "entrance"; const p = P();
-    const s = stage('<div class="fkick">The Temple Institute · the way out</div><h1>Back at the entrance</h1>' +
-      '<div class="fq">You have seen all five exhibits. On your way out, look around the entrance once more.</div>' +
-      '<div class="fark fhall" id="fhall"><img src="img/fsy/ti-hall.jpg" alt="The entrance hall of the Temple Institute">' +
-      '<button class="fhit" data-h="cases" aria-label="The display cases" style="left:0;top:15%;width:23%;height:60%"></button>' +
-      '<button class="fhit" data-h="priest" aria-label="The priest’s white garments" style="left:24%;top:36%;width:9%;height:32%"></button>' +
-      '<button class="fhit" data-h="desk" aria-label="The front desk" style="left:34%;top:52%;width:40%;height:21%"></button>' +
-      '<button class="fhit" data-h="painting" aria-label="The painting of the Temple" style="left:79%;top:15%;width:13%;height:22%"></button>' +
-      '<button class="fhit" data-h="cards" aria-label="The postcard stand" style="left:91%;top:27%;width:9%;height:62%"></button>' +
-      '<span class="fglint" style="left:96.5%;top:43%"></span></div>' +
-      '<div class="fsmall">Tap anything in the photograph.<small>Photo: Richard J. Allinson, at the Temple Institute</small></div>' + back("The hall"), "ti-hall.jpg");
-    wire(s, institute);
-    s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
-      const h = b.dataset.h; K.sfx("click");
-      if (h === "cases") K.say("Golden menorahs and the vessels of the Temple, made again. You have seen them already.", "", 3400);
-      else if (h === "priest") K.say("The white linen of an ordinary priest: “thou shalt embroider the coat of fine linen, and thou shalt make the mitre of fine linen.”", "Exodus 28:39", 5200);
-      else if (h === "desk") K.say("The guide at the desk smiles. “Did you find what you came for? Everyone takes a souvenir home.”", "", 4600);
-      else if (h === "painting") K.say("A painting of the Temple on its mountain. Where on that mountain did it stand? That is the question.", "", 4600);
-      else postcard();
-    }));
-    if (!p.ti.postcardSeen) K.say("Before you leave: the guide said everyone takes a souvenir home.", "", 3600);
-  }
   function postcard() {
     const p = P(); p.ti.postcardSeen = 1; save();
     K.card('<div class="kick">The postcard stand</div><h2>One card stands out</h2>' +

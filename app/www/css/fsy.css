@@ -174,3 +174,11 @@
 #adv .asheet .fpostwrap:active{transform:scale(.97)}
 #adv .asheet .fpost{display:block;width:100%;border-radius:6px;box-shadow:0 8px 20px rgba(0,0,0,.35);transform:rotate(-2deg)}
 #adv .asheet .fpostwrap.back .fpost{transform:rotate(1.5deg)}
+#adv .fglint.big{width:30px;height:30px;margin:-15px 0 0 -15px}
+#adv .fdone{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#C9A24A;color:#141A33;font:900 13px/22px var(--ui);text-align:center;pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,.6)}
+#adv .fprog{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;width:100%;max-width:380px}
+#adv .fprog button{padding:7px 10px;border-radius:999px;border:1px solid rgba(201,162,74,.5);background:rgba(12,18,40,.82);color:#F3E9CE;font:700 12px/1 var(--ui);cursor:pointer}
+#adv .fprog button.done{background:#C9A24A;color:#141A33;border-color:#C9A24A}
+#adv .fprog button.locked{opacity:.45}
+@keyframes fsy-glint{0%,100%{opacity:.6;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+#adv .fhall .fglint{width:28px;height:28px;margin:-14px 0 0 -14px;background:radial-gradient(circle,#FFF6CF 0,rgba(245,210,122,.95) 30%,rgba(245,210,122,0) 70%)}
