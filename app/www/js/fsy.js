@@ -101,6 +101,14 @@
   const HAVE = new Set(["01-open", "02-outside", "02b-hall", "03-ark-verse", "04-staves", "05-courts-verse", "06-courts", "07-instruments-verse", "07b-instruments", "07c-vessels",
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger"]);
+  /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
+  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation"]);
+  const FALL = { reveal: "theme", gate: "hall", cliff: "theme" };
+  function M(music, amb) {
+    if (!Lamp.score) return;
+    const m = HAVE_M.has(music) ? music : FALL[music], a = amb && HAVE_M.has("amb-" + amb) ? "amb-" + amb : null;
+    Lamp.score.set(m ? "fsy-" + m : null, a ? "fsy-" + a : null);
+  }
   function V(name, then) { if (Lamp.narr && HAVE.has(name)) Lamp.narr.play("fsy-" + name, then); }
   function stage(html, bg) {
     Lamp.narr && Lamp.narr.stop();
@@ -121,7 +129,7 @@
     stops();
   }
   function intro() {
-    cur = "";
+    cur = ""; M("theme");
     const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
       '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. <b>Only one thing is missing: the place.</b> For thirteen centuries the world has assumed it knew where the Temple stood. Come with me through Jerusalem, look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("ti-outside.jpg", "The Old City of Jerusalem. The investigation begins at the Temple Institute.", TI) +
@@ -137,7 +145,7 @@
     { id: "gate", n: 4, title: "The Eastern Gate", sub: "“This gate shall be shut”", run: gate },
   ];
   function stops() {
-    cur = "";
+    cur = ""; M("theme");
     const p = P();
     let next = STOPS.findIndex((x) => !done(x.id)); if (next < 0) next = STOPS.length;
     const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
@@ -163,7 +171,7 @@
     { id: "scroll", title: "The parchment", ref: "Ezekiel 43:2", run: scroll, needs: "lock" },
   ];
   function institute() {
-    cur = ""; const p = P();
+    cur = ""; const p = P(); M("hall", "street");
     if (!p.ti.entered) {
       const s = stage('<div class="fkick">Stop 1 · The Old City</div><h1>The Temple Institute</h1>' +
         photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
@@ -186,7 +194,7 @@
     { k: "cards", label: "The postcard stand", box: [91, 27, 9, 62] },
   ];
   function hall() {
-    cur = "hall"; const p = P();
+    cur = "hall"; const p = P(); M("hall", "indoor");
     const all = EXHIBITS.every((e) => p.ti[e.id]), left = EXHIBITS.filter((e) => !p.ti[e.id]);
     const s = stage('<div class="fkick">Stop 1 · The Temple Institute</div><h1>The entrance hall</h1>' +
       '<div class="fq">' + (p.ti.postcard ? "You have the postcard. The Mount of Olives is waiting." : all ? "Every exhibit is solved. Before you leave, look around the hall once more." : "Tap anything in the room to walk over to it. You can leave a puzzle and come back to it at any time.") + "</div>" +
@@ -223,6 +231,7 @@
     K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">Back to the entrance hall</button>', Object.assign({ x: hall }, acts || {}));
   }
   function exhibit(x, html, bg) {
+    M("puzzle", "indoor");
     const s = stage('<div class="fkick">The Temple Institute · ' + esc(x.ref) + "</div><h1>" + esc(x.title) + "</h1>" + html + back("Back to the entrance hall"), bg);
     wire(s, hall);
     const open = { ark: "03-ark-verse", courts: "05-courts-verse", lock: P().ti.lock ? "" : "07-instruments-verse" }[x.id]; if (open) V(open);
@@ -531,7 +540,7 @@
       "</svg>";
   }
   function olives() {
-    cur = "olives"; const p = P();
+    cur = "olives"; const p = P(); M("olives", "outdoor");
     const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
       '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
       '<div class="fq">The postcard brought you here. From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
@@ -563,6 +572,7 @@
     board();
   }
   function opening() {
+    M("investigation", "outdoor");
     const s = stage('<div class="fkick">Stop 3 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
       photo("dome-rock.jpg", "The Dome of the Rock. Most people believe the Temple stood here.") +
@@ -577,7 +587,7 @@
   }
 
   function board(finished) {
-    cur = "";
+    cur = ""; M("investigation", "outdoor");
     const p = P(), found = CLUES.filter((c) => p.clues[c.id]).length;
     const s = stage('<div class="fkick">Where Was the Temple? · Clues ' + found + " of 5</div>" +
       '<div class="fmapwrap">' + mapSVG({ measure: finished }) + "</div>" +
@@ -600,6 +610,7 @@
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>', { x: () => board() });
   }
   function clueScreen(c, html) {
+    M("puzzle", "outdoor");
     const s = stage('<div class="fkick">Clue · ' + esc(c.ref) + "</div><h1>" + esc(c.title) + '</h1><div class="fverse">“' + esc(c.v) + "”</div>" + html +
       '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => { K.sfx("click"); board(); };
@@ -677,6 +688,7 @@
 
   /* ---------- the verdict ---------- */
   function place() {
+    M("investigation", "outdoor");
     const s = stage('<div class="fkick">The verdict</div><h1>Place the Holy of Holies</h1><div class="fq">All five clues are in your journal. Where did the Holy of Holies stand?</div>' +
       '<div class="fmapwrap" id="fm">' + mapSVG({}) + "</div>" + '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => board();
@@ -699,7 +711,7 @@
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
       '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
-    V("21-reveal");
+    V("21-reveal"); M("reveal", "outdoor");
     K.say("Measure the temple and the altar. Leave out the outer court. The Dome of the Rock stays where it is, in the court given to the Gentiles.", "Revelation 11:2", 7000);
     setTimeout(() => {
       if (!K.root()) return;
@@ -718,7 +730,7 @@
   const GATE = { text: ["Then said the LORD unto me; This gate shall be ", "SHUT", ", it shall not be opened, and no man shall enter in by it; because the LORD, the God of Israel, hath ", "ENTERED", " in by it, therefore it shall be shut. It is for the ", "PRINCE", "; the prince, he shall sit in it to eat bread before the LORD."],
     chips: ["SHUT", "OPENED", "ENTERED", "DEPARTED", "PRINCE", "PRIEST"] };
   function gate() {
-    cur = "gate"; const p = P(); let at = 1;
+    cur = "gate"; M("gate", "chamber"); const p = P(); let at = 1;
     const s = stage('<div class="fkick">Stop 4 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
       photo("gate-steps.jpg", "The steps up to the Eastern Gate, from inside", "Photo: Richard J. Allinson, inside the Temple Mount") +
       '<div class="fnarr">“You have walked the courts, stood on the mountain, and found the place. One gate is left: the one you saw from the Mount of Olives, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
@@ -746,7 +758,7 @@
     }));
   }
   function ending() {
-    V("24-cliffhanger");
+    V("24-cliffhanger"); M("cliff");
     K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
       "<p>The Temple can stand. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many. Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b></p>" +
@@ -758,6 +770,7 @@
   /* ---------- the episode list ---------- */
   function hub() {
     if (!K.root()) K.open(BOOK, {}, "fsy-hub");
+    M("theme");
     const p = P();
     stage('<img class="fcover" src="img/start/fsy-cover.jpg" alt="The Final Seven Years, by Richard Allinson"><div class="fsub">The investigation through Daniel and Revelation, from the book by Richard J. Allinson</div><div class="fchap">' +
       CHAPTERS.map((c) => '<button class="fch' + (c.play ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (c.play && p.gateDone ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (c.play ? "" : "<em>Coming soon</em>") + "</span></button>").join("") + "</div>");

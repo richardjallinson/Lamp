@@ -92,7 +92,7 @@
   }
   function shut(quiet) {
     if (!root) return;
-    Lamp.narr && Lamp.narr.stop();
+    Lamp.narr && Lamp.narr.stop(); Lamp.score && Lamp.score.stop();
     const r = root, cb = onClose; root = null; onClose = null; selected = null;
     clearTimeout(sayTimer); window.removeEventListener("resize", fitAll);
     r.removeAttribute("id"); r.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));   // a new layer may open at once

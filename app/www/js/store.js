@@ -196,6 +196,7 @@
   Lamp.audioOut = function () { const c = audio(); return c ? { ctx: c, out: master } : null; };
   /* the music goes quiet while the Lamplighter speaks */
   Lamp.duck = function (on) {
+    scoreDuck(on);
     if (!musicGain || !ctx) return;
     try { const t = ctx.currentTime; musicGain.gain.cancelScheduledValues(t); musicGain.gain.setValueAtTime(musicGain.gain.value, t); musicGain.gain.linearRampToValueAtTime(on ? 0.07 : 0.32, t + (on ? 0.4 : 1.2)); } catch (e) {}
   };
@@ -213,7 +214,7 @@
   };
   /* Quiet ambient music: off unless switched on in Settings. Loops seamlessly. */
   Lamp.musicUpdate = function () {
-    const want = !!Lamp.state.settings.music && !document.hidden && Lamp.audioUnlocked && !Lamp.introOn;
+    const want = !!Lamp.state.settings.music && !document.hidden && Lamp.audioUnlocked && !Lamp.introOn && !Lamp.scoreActive;
     if (want) {
       const c = audio(); if (!c || musicSrc || !buffers.music) return;
       const L = window.LAMP_MUSIC_LOOP || { start: 0.2, length: 32 };
@@ -226,13 +227,85 @@
       try { g.gain.setValueAtTime(g.gain.value, ctx.currentTime); g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8); s.stop(ctx.currentTime + 0.9); } catch (e) {}
     }
   };
+  /* ---------- the adventure score: music and background sound for each place (audio/music/*.js) ----------
+     Two layers, music and ambience. Changing place crossfades; each track loops on itself with a 4-second crossfade;
+     the music dips while the Lamplighter speaks. Tracks are decoded when first needed; only a few are kept in memory. */
+  const TR = {}, TRORDER = [], loadingTr = {}, SC = { music: null, amb: null }, LV = { music: 0.42, amb: 0.2 }, XF = 4;
+  let ducked = false;
+  const scoreOn = () => Lamp.state.settings.score !== false;
+  function loadTrack(name, cb) {
+    if (TR[name]) { cb(TR[name]); return; }
+    if (loadingTr[name]) { loadingTr[name].push(cb); return; }
+    loadingTr[name] = [cb];
+    const go = () => {
+      const d = window.LAMP_TRACKS && window.LAMP_TRACKS[name], c = audio();
+      if (!d || !c) { delete loadingTr[name]; return; }
+      try {
+        const bin = atob(d.split(",")[1]), u8 = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+        delete window.LAMP_TRACKS[name];
+        c.decodeAudioData(u8.buffer, (buf) => {
+          TR[name] = buf; TRORDER.push(name);
+          const secs = () => TRORDER.reduce((t, n) => t + (TR[n] ? TR[n].duration : 0), 0);
+          while (TRORDER.length > 1 && secs() > 300) { const old = TRORDER.find((n) => (!SC.music || SC.music.name !== n) && (!SC.amb || SC.amb.name !== n)); if (!old) break; TRORDER.splice(TRORDER.indexOf(old), 1); delete TR[old]; }
+          const cbs = loadingTr[name] || []; delete loadingTr[name]; cbs.forEach((f) => f(buf));
+        }, () => { delete loadingTr[name]; });
+      } catch (e) { delete loadingTr[name]; }
+    };
+    if (window.LAMP_TRACKS && window.LAMP_TRACKS[name]) { go(); return; }
+    const sc = document.createElement("script"); sc.src = "audio/music/" + name + ".js"; sc.onload = () => { sc.remove(); go(); }; sc.onerror = () => { sc.remove(); delete loadingTr[name]; };
+    document.head.appendChild(sc);
+  }
+  const target = (me) => LV[me.kind] * (me.kind === "music" && ducked ? 0.3 : 1);
+  function ramp(g, v, secs) { try { const t = ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(g.gain.value, 0.0001), t); g.gain.linearRampToValueAtTime(v, t + secs); } catch (e) {} }
+  function startLayer(me, buf) {
+    const c = audio(); if (!c) return;
+    me.gain = c.createGain(); me.gain.gain.value = 0.0001; me.gain.connect(master); ramp(me.gain, target(me), 2.5);
+    const inst = (at, first) => {
+      if (SC[me.kind] !== me) return;
+      const s = c.createBufferSource(), g = c.createGain(), end = at + buf.duration;
+      s.buffer = buf; s.connect(g).connect(me.gain);
+      g.gain.setValueAtTime(first ? 1 : 0, at); if (!first) g.gain.linearRampToValueAtTime(1, at + XF);
+      g.gain.setValueAtTime(1, end - XF); g.gain.linearRampToValueAtTime(0, end);
+      s.start(at); s.stop(end + 0.05); me.srcs.push(s); if (me.srcs.length > 3) me.srcs.shift();
+      clearTimeout(me.timer); me.timer = setTimeout(() => inst(end - XF, false), Math.max(0, (end - XF - c.currentTime - 1.5) * 1000));
+    };
+    inst(c.currentTime + 0.05, true);
+  }
+  function stopLayer(me, secs) {
+    if (!me) return; clearTimeout(me.timer);
+    if (me.gain && ctx) { ramp(me.gain, 0.0001, secs); const srcs = me.srcs.slice(), g = me.gain; setTimeout(() => { srcs.forEach((x) => { try { x.stop(); } catch (e) {} }); try { g.disconnect(); } catch (e) {} }, secs * 1000 + 100); }
+  }
+  function layer(kind, name) {
+    const cur = SC[kind];
+    if (cur && cur.name === name && (cur.gain || !scoreOn())) return;
+    stopLayer(cur, 1.8); SC[kind] = null;
+    if (!name) return;
+    const me = { kind, name, srcs: [], timer: 0, gain: null }; SC[kind] = me;
+    if (!scoreOn() || !Lamp.audioUnlocked) return;
+    loadTrack(name, (buf) => { if (SC[kind] === me && !me.gain && scoreOn()) startLayer(me, buf); });
+  }
+  function scoreDuck(on) { ducked = on; if (SC.music && SC.music.gain) ramp(SC.music.gain, target(SC.music), on ? 0.4 : 1.4); }
+  Lamp.score = {
+    /* set(music, ambience): track names without .js, or null for silence */
+    set(music, amb) { Lamp.scoreActive = true; Lamp.musicUpdate(); layer("music", music || null); layer("amb", amb || null); },
+    stop() { layer("music", null); layer("amb", null); Lamp.scoreActive = false; Lamp.musicUpdate(); },
+    refresh() {
+      ["music", "amb"].forEach((k) => {
+        const me = SC[k]; if (!me) return;
+        if (!scoreOn() || document.hidden) { if (me.gain) { stopLayer(me, 0.6); me.gain = null; me.srcs = []; } }
+        else if (!me.gain && Lamp.audioUnlocked) { SC[k] = null; layer(k, me.name); }
+      });
+    },
+    playing() { return { music: SC.music && SC.music.gain ? SC.music.name : null, amb: SC.amb && SC.amb.gain ? SC.amb.name : null }; },
+  };
   function unlock() {
-    Lamp.audioUnlocked = true; audio(); Lamp.musicUpdate();
+    Lamp.audioUnlocked = true; audio(); Lamp.musicUpdate(); Lamp.score.refresh();
     document.removeEventListener("pointerdown", unlock, true); document.removeEventListener("touchend", unlock, true);
   }
   document.addEventListener("pointerdown", unlock, true);
   document.addEventListener("touchend", unlock, true);
-  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state !== "running") ctx.resume(); Lamp.musicUpdate(); });
+  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state !== "running") ctx.resume(); Lamp.musicUpdate(); Lamp.score.refresh(); });
   Lamp.haptic = function (style) {
     if (!Lamp.state.settings.haptics) return;
     if (!Lamp.native("haptic", { style })) { try { navigator.vibrate && navigator.vibrate(style === "error" ? [20, 40, 20] : 12); } catch (e) {} }
