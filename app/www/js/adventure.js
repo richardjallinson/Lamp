@@ -606,6 +606,7 @@
       if (!root) return false;
       if (root.querySelector(".asheet")) { const b = root.querySelector(".asheet [data-act]"); b && b.click(); return true; }
       if (mode && SEALS[mode] && mode !== "fall") { const m = mode; mode = null; sealDone(m, null); return true; }
+      if (mode === "fsy" && Lamp.fsy && Lamp.fsy.devSkip) { Lamp.fsy.devSkip(); return true; }
       if (mode === "gate") {
         ["days", "onyx", "coat"].forEach((r) => (A().relics[r] = 1));
         ["light", "onyx", "keyed", "rest", "coat"].forEach((k) => (G()[k] = 1));

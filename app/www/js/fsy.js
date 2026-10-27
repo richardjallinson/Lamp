@@ -688,6 +688,17 @@
     chapters: CHAPTERS,
     open: hub,
     play: episode,
+    /* tester tools only: finish the next unfinished stop of the episode, no oil earned */
+    devSkip() {
+      const p = P();
+      if (!p.began) p.began = 1;
+      if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1 }); }
+      else if (!p.olives) p.olives = 1;
+      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; K.A().relics.reed = 1; }
+      else p.gateDone = 1;
+      save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
+      stops();
+    },
     card() {
       const p = P();
       return '<button class="fsycard" data-fsy="1"><span class="k">' + (Lamp.fsyOpen ? "Daniel · Revelation" : "Coming soon · Daniel · Revelation") + '</span><b>' + BOOK + '</b><span class="rule"></span>' +
