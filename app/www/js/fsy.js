@@ -90,6 +90,7 @@
     middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Here’s the Dome of the Rock. And if I turn around, there is the Al-Aqsa Mosque to the south. Very big platform. It’s huge up here.”"],
     visitors: ["tm-visitors", "Jews on the Temple Mount today", "“Just taking a quick video of all the Jews that are coming up today, and there is quite a few.”"],
     spirits: ["tm-spirits", "At the Dome of the Spirits: the last film", "“Inside the Dome of the Spirits is foundation stone. This is bedrock… I’m right in line with the Eastern Gate… According to Scripture, this is exactly where it will be located.”"],
+    robinson: ["robinson", "At Robinson’s Arch: the stones of the Second Temple", "“All these stones down below are the remnants of the Second Temple… Some of these stones are the size of a car. Just as Jesus said, Matthew 24, verses 1 and 2.”"],
     tombs: ["tombs", "In the Tombs of the Prophets", "“This is the tombs of Zechariah, Haggai and Malachi… All of the graves mostly face towards the Temple Mount.”"],
     gate: ["gate-inside", "At the Eastern Gate", "“Looking down the stairs. If I read Ezekiel chapter 40, it would mention these stairs.”"],
   };
@@ -122,6 +123,7 @@
     else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
     else if (cur === "vessels") K.say("Tap every vessel to see what it was for. The one that gave light to the Holy Place is named again in Revelation 11:4.", "", 5600);
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
+    else if (cur === "robinson") K.say("“There shall not be left here one STONE upon ANOTHER, that shall not be THROWN down.”", "Matthew 24:2", 5200);
     else if (cur === "sign") K.say("The rusty sign in the hedge: tap it.", "", 3000);
     else if (cur === "tombs") { const l = PROPHETS.filter((x) => !(P().prophets || {})[x.id]); K.say(l.length ? "Sweep the lamp slowly across the whole wall. " + l[0].hint : "", "", 5600); }
     else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
@@ -180,7 +182,7 @@
   const STOPS = [
     { id: "ti", n: 1, title: "The Temple Institute", sub: "The Ark, the courts, the instruments and a parchment", run: institute },
     { id: "olives", n: 2, title: "The Mount of Olives", sub: "The Tombs of the Prophets, and the sealed gate across the valley", run: olives },
-    { id: "mount", n: 3, title: "The Temple Mount", sub: "Five clues. Where did the Holy of Holies stand?", run: chapter },
+    { id: "mount", n: 3, title: "The Temple Mount", sub: "The stones of the old Temple, then five clues. Where did the Holy of Holies stand?", run: chapter },
     { id: "gate", n: 4, title: "The Eastern Gate", sub: "“This gate shall be shut”", run: gate },
   ];
   function stops() {
@@ -672,7 +674,37 @@
     if (!p.theory) return opening();
     board();
   }
+  /* at the foot of the Mount, before going up: the stones the Romans threw down (Matthew 24:2) */
+  const STONES = { text: ["Verily I say unto you, There shall not be left here one ", "STONE", " upon ", "ANOTHER", ", that shall not be ", "THROWN", " down."], chips: ["STONE", "TEMPLE", "ANOTHER", "ALTAR", "THROWN", "RAISED"] };
+  function robinson() {
+    cur = "robinson"; M("investigation", "platform"); const p = P(); let at = 1;
+    const s = stage('<div class="fkick">Stop 3 · Below the southwest corner</div><h1>The stones of the Temple</h1>' +
+      photo("robinson-stones.jpg", "Beneath Robinson’s Arch: great stones from the Temple Mount, lying where they fell on the street below", "Photo: Richard J. Allinson, at the southwest corner of the Temple Mount") + filmBtn("robinson") +
+      '<div class="fverse">“And Jesus went out, and departed from the temple: and his disciples came to him for to shew him the buildings of the temple. And Jesus said unto them, See ye not all these things?”<small>Matthew 24:1–2</small></div>' +
+      '<div class="fq">What did Jesus say would happen to the Temple? Fill in his words.</div>' +
+      '<div class="fscroll" id="fscroll"></div>' +
+      '<div class="fchips six" id="fchips">' + shuffle(STONES.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The stops"), "robinson-stones.jpg");
+    wire(s, stops); wireFilms(s, () => {});
+    const draw = () => { $("fscroll").innerHTML = STONES.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Matthew 24:2</small>"; };
+    draw();
+    s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
+      const w = b.dataset.w;
+      if (w !== STONES.text[at]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 400); wrong(w === "RAISED" ? "The opposite: look at the stones lying in the street." : w === "TEMPLE" || w === "ALTAR" ? "Smaller than that: the very pieces it was built from." : "That word fits another gap. Fill the gaps in order."); return; }
+      S("stone", "stone", 0.6); b.classList.add("used"); at += 2; draw();
+      if (at < STONES.text.length) return;
+      setTimeout(() => {
+        if (!K.root()) return;
+        p.robinson = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
+        K.card('<div class="kick">Clue found · Matthew 24:2</div><h2>Not one stone upon another</h2>' + photo("robinson-stones.jpg", "The stones still lie where they fell, nearly two thousand years later") +
+          "<p>In AD 70 the Roman legions destroyed the Temple and threw its stones down from the Mount onto this street, just as Jesus said forty years before. Some are the size of a car. You can still see where they cracked the paving when they landed.</p>" +
+          "<p><b>The Temple Jesus spoke of is gone.</b> The Bible says another will stand. But where? The answer is up there, on the Mount itself.</p>" +
+          '<button class="cta" data-act="x">Up the Mughrabi bridge</button>', { x: opening });
+      }, 700);
+    }));
+    if (!seen("robinson")) film("robinson", null, "Fill in the words of Jesus");
+  }
   function opening() {
+    if (!P().robinson) return robinson();
     M("investigation", "platform");
     const s = stage('<div class="fkick">Stop 3 · The Temple Mount</div><h1>Where Was the Temple?</h1>' +
       '<div class="fnarr">“The Bible says the Temple will stand where the first Temple stood. <b>But where was that?</b> For thirteen centuries the world has assumed it knew. Look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
@@ -939,7 +971,7 @@
       if (!p.began) p.began = 1;
       if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); }
       else if (!p.olives) { p.tombs = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; p.olives = 1; }
-      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; K.A().relics.reed = 1; }
+      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; p.robinson = 1; K.A().relics.reed = 1; }
       else p.gateDone = 1;
       save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
       stops();
