@@ -533,10 +533,10 @@
       '<div class="fq">The postcard brought you here. From here the Temple’s east gate looked straight at you. Find the sealed gate in the city wall and tap it.</div>' +
       '<div class="fviewwrap fphotoview" id="fv"><img src="img/fsy/olives-view.jpg" alt="Sunset over Jerusalem from the Mount of Olives: the Kidron Valley, the eastern wall and the Dome of the Rock">' +
       '<button class="fhit" data-h="sky" aria-label="The city skyline" style="left:0;top:0;width:100%;height:22%"></button>' +
-      '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:41%;top:26%;width:12%;height:22%"></button>' +
-      '<button class="fhit" data-h="gate" aria-label="The sealed gate in the wall" style="left:47%;top:49%;width:12%;height:15%"></button>' +
-      '<button class="fhit" data-h="wall" aria-label="The city wall" style="left:0;top:55%;width:47%;height:12%"></button>' +
-      '<button class="fhit" data-h="valley" aria-label="The Kidron Valley" style="left:0;top:72%;width:100%;height:28%"></button></div>' +
+      '<button class="fhit" data-h="dome" aria-label="The golden dome" style="left:37%;top:26%;width:13%;height:20%"></button>' +
+      '<button class="fhit" data-h="gate" aria-label="The sealed gate in the wall" style="left:45%;top:56%;width:12%;height:13%"></button>' +
+      '<button class="fhit" data-h="wall" aria-label="The city wall" style="left:0;top:56%;width:45%;height:13%"></button>' +
+      '<button class="fhit" data-h="valley" aria-label="The Kidron Valley" style="left:0;top:70%;width:100%;height:30%"></button></div>' +
       '<div class="fsmall">Tap the sealed gate in the wall.<small>Photo: Richard J. Allinson, from the Mount of Olives at sunset</small></div>' + back("The stops"));
     wire(s, stops); V("10-olives");
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
@@ -545,7 +545,7 @@
       if (h === "sky") { K.say("The new city, and the sun going down behind it. The gate is nearer: in the old wall.", "", 3600); return; }
       if (h === "wall") { K.say("The eastern wall of the Temple Mount. Follow it along to the right, below the golden dome: one block stands out from it.", "", 4200); return; }
       if (h === "valley") { K.say("The Kidron Valley, with its olive trees and graves, between you and the city. Look across it to the wall.", "", 3800); return; }
-      S("stone", "stone", 0.6); const mk = document.createElement("span"); mk.className = "fmark"; mk.style.cssText = "left:47%;top:49%;width:12%;height:15%"; $("fv").appendChild(mk);
+      S("stone", "stone", 0.6); const mk = document.createElement("span"); mk.className = "fmark"; mk.style.cssText = "left:45%;top:56%;width:12%;height:13%"; $("fv").appendChild(mk);
       setTimeout(() => {
         if (!K.root()) return;
         p.olives = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success"); V("11-olives-gate");
