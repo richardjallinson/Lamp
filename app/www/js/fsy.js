@@ -100,7 +100,7 @@
   /* Hank's narration (audio/narration/fsy-*.mp3): only the lines recorded so far play; the rest stay silent */
   const HAVE = new Set(["01-open", "02-outside", "02b-hall", "03-ark-verse", "04-staves", "05-courts-verse", "06-courts", "07-instruments-verse", "07b-instruments", "07c-vessels",
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
-    "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger"]);
+    "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod"]);
@@ -222,7 +222,12 @@
       if (h === "vessels" || h === "lock" || h === "ark" || h === "courts") { if (h === "courts") K.say("The painting shows the Temple on its mountain. Beside it, a plan of the courts.", "", 2200); openEx(h); return; }
       if (h === "priest") K.say("The white linen of an ordinary priest: “thou shalt embroider the coat of fine linen, and thou shalt make the mitre of fine linen.”", "Exodus 28:39", 5200);
       else if (h === "books") K.say("Books on the Temple, its vessels and its service. Everything has been studied. Only the place is still argued over.", "", 4600);
-      else if (h === "desk") K.say(all ? "The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”" : "The guide smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
+      else if (h === "desk") {
+        if (all) { K.say("The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”", "", 5200); V("guide-souvenir"); }
+        else if (!p.ti.ark && !p.ti.greeted) { p.ti.greeted = 1; save(); K.say("The guide smiles. “Shalom! Take your time. Everything here was made for the Temple.”", "", 4600); V("guide-welcome", () => { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }); }
+        else if (!p.ti.ark) { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }
+        else K.say("The guide smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
+      }
       else if (h === "cards") { if (all) postcard(); else K.say("Postcards of the menorah, the Western Wall and the Temple model. Nothing stands out yet.", "", 3600); }
     }));
     if (p.ti.postcard) return;
