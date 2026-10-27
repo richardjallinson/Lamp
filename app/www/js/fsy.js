@@ -90,6 +90,7 @@
     middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Here’s the Dome of the Rock. And if I turn around, there is the Al-Aqsa Mosque to the south. Very big platform. It’s huge up here.”"],
     visitors: ["tm-visitors", "Jews on the Temple Mount today", "“Just taking a quick video of all the Jews that are coming up today, and there is quite a few.”"],
     spirits: ["tm-spirits", "At the Dome of the Spirits: the last film", "“Inside the Dome of the Spirits is foundation stone. This is bedrock… I’m right in line with the Eastern Gate… According to Scripture, this is exactly where it will be located.”"],
+    tombs: ["tombs", "In the Tombs of the Prophets", "“This is the tombs of Zechariah, Haggai and Malachi… All of the graves mostly face towards the Temple Mount.”"],
     gate: ["gate-inside", "At the Eastern Gate", "“Looking down the stairs. If I read Ezekiel chapter 40, it would mention these stairs.”"],
   };
   function film(key, then, label, extra) {
@@ -121,6 +122,8 @@
     else if (cur === "lock") K.say("Verse 3 names exactly three: the trumpet, the psaltery and the harp. The others are in the next verses.", "", 5200);
     else if (cur === "vessels") K.say("Tap every vessel to see what it was for. The one that gave light to the Holy Place is named again in Revelation 11:4.", "", 5600);
     else if (cur === "scroll") K.say("The glory came from the way of the EAST, with a voice like many WATERS, and the earth shined with his GLORY.", "", 5600);
+    else if (cur === "sign") K.say("The rusty sign in the hedge: tap it.", "", 3000);
+    else if (cur === "tombs") { const l = PROPHETS.filter((x) => !(P().prophets || {})[x.id]); K.say(l.length ? "Sweep the lamp slowly across the whole wall. " + l[0].hint : "", "", 5600); }
     else if (cur === "olives") K.say("Look across the valley at the city wall. The sealed gate is the one straight ahead, below the domes.", "", 4600);
     else if (cur === "gate") K.say("“This gate shall be SHUT… because the LORD hath ENTERED in by it… It is for the PRINCE.”", "Ezekiel 44:2–3", 5600);
     else {
@@ -165,18 +168,18 @@
     stops();
   }
   function intro() {
-    cur = ""; M("theme");
+    cur = ""; M("theme", "airport");
     const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
       '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. <b>Only one thing is missing: the place.</b> For thirteen centuries the world has assumed it knew where the Temple stood. Come with me through Jerusalem, look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
-      photo("ti-outside.jpg", "The Old City of Jerusalem. The investigation begins at the Temple Institute.", TI) +
-      '<button class="fbtn glow" id="fgo">Begin in the Old City</button>');
+      photo("ben-gurion.jpg", "Welcome to Israel. Ben Gurion Airport: the investigation begins here.", "Photo: Richard J. Allinson, on landing in Israel") +
+      '<button class="fbtn glow" id="fgo">Go up to Jerusalem</button>');
     $("fgo").onclick = () => { K.sfx("click"); stops(); };
     V("01-open");
   }
   function done(k) { const p = P(); return k === "ti" ? !!(p.ti.ark && p.ti.courts && p.ti.lock && p.ti.vessels && p.ti.scroll && p.ti.postcard) : k === "olives" ? !!p.olives : k === "mount" ? !!p.done : !!p.gateDone; }
   const STOPS = [
     { id: "ti", n: 1, title: "The Temple Institute", sub: "The Ark, the courts, the instruments and a parchment", run: institute },
-    { id: "olives", n: 2, title: "The Mount of Olives", sub: "Look back across the valley at the sealed gate", run: olives },
+    { id: "olives", n: 2, title: "The Mount of Olives", sub: "The Tombs of the Prophets, and the sealed gate across the valley", run: olives },
     { id: "mount", n: 3, title: "The Temple Mount", sub: "Five clues. Where did the Holy of Holies stand?", run: chapter },
     { id: "gate", n: 4, title: "The Eastern Gate", sub: "“This gate shall be shut”", run: gate },
   ];
@@ -554,7 +557,83 @@
   }
 
   /* ================================================================ 2. the Mount of Olives ================================================================ */
+  /* ---- on the Mount of Olives: the Tombs of the Prophets (Haggai, Zechariah, Malachi, by tradition) ---- */
+  const PROPHETS = [
+    { id: "haggai", name: "Haggai", ref: "Haggai 2:9", v: "The glory of this latter house shall be greater than of the former, saith the LORD of hosts: and in this place will I give peace.",
+      hint: "This prophet spoke to old men who remembered Solomon’s house, and wept at how small the new one was.", at: [22, 30] },
+    { id: "zechariah", name: "Zechariah", ref: "Zechariah 6:12", v: "Behold the man whose name is The BRANCH; and he shall grow up out of his place, and he shall build the temple of the LORD.",
+      hint: "This prophet also wrote the verse on your postcard: his feet shall stand upon the mount of Olives.", at: [63, 44] },
+    { id: "malachi", name: "Malachi", ref: "Malachi 3:1", v: "Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple.",
+      hint: "This is the last prophet of the Old Testament: he speaks of a messenger sent ahead.", at: [36, 70] },
+  ];
+  function olivesSign() {
+    cur = "sign"; M("olives", "olives");
+    const s = stage('<div class="fkick">Stop 2 · The Mount of Olives</div><h1>A sign in the ivy</h1>' +
+      '<div class="fq">The postcard brought you to the mountain. Halfway up the path, before you can see the city, something catches your eye in the hedge.</div>' +
+      '<div class="fviewwrap fphotoview" id="fsg"><img src="img/fsy/olives-sign.jpg" alt="A rusty sign in the ivy: Tombs of the Prophets"><button class="fhit" data-h="sign" aria-label="The rusty sign" style="left:10%;top:52%;width:70%;height:30%"></button><span class="fglint" style="left:45%;top:66%"></span></div>' +
+      '<div class="fsmall">Photo: Richard J. Allinson, on the Mount of Olives</div>' + back("The stops"));
+    wire(s, stops);
+    s.querySelector("[data-h=sign]").onclick = () => {
+      S("door", "stone", 0.6);
+      K.card('<div class="kick">The Tombs of the Prophets</div><h2>Down into the rock</h2>' + photo("tombs-plan.jpg", "A hand-drawn plan at the entrance: about fifty tombs, in two rings, around a central passage", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
+        "<p>A little-known place on the Mount of Olives: a burial cave cut into the rock, with about fifty tombs. By an old tradition, three prophets lie here: <b>Haggai, Zechariah and Malachi</b>, the last prophets of the Old Testament, who preached to the people rebuilding the Temple.</p>" +
+        "<p>It is dark below. <b>Carry your lamp along the passage</b> and look for the prophets’ tombs.</p>" +
+        '<button class="cta" data-act="go">Go down the steps</button>', { go: tombs });
+    };
+    K.say("A rusty sign, half hidden in the hedge. Tap it.", "", 3200);
+  }
+  function tombs() {
+    cur = "tombs"; M("puzzle", "chamber"); preS("parchment", "harp", "knock", "journal");
+    const p = P(); p.prophets = p.prophets || {};
+    const left = () => PROPHETS.filter((x) => !p.prophets[x.id]);
+    const s = stage('<div class="fkick">The Tombs of the Prophets · underground</div><h1>Carry your lamp</h1>' +
+      '<div class="fq" id="ftq">Drag your finger across the rock. Prayer notes have been tucked into three of the niches.</div>' +
+      '<div class="fdarkwrap" id="fdk"><img src="img/fsy/tombs-passage.jpg" alt="A rock-cut passage with tomb niches">' +
+      PROPHETS.map((x) => '<button class="fnote' + (p.prophets[x.id] ? " found" : "") + '" data-n="' + x.id + '" aria-label="A folded prayer note" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%">' + (p.prophets[x.id] ? "✓" : "") + "</button>").join("") +
+      '<div class="fdark" id="fdark"></div></div>' +
+      '<div class="fsmall" id="ftc">Tombs found: ' + Object.keys(p.prophets).length + " of 3</div>" + back("Up to the path"), "tombs-passage.jpg");
+    wire(s, olivesSign);
+    const wrap = $("fdk"), dark = $("fdark");
+    const light = (e) => { const r = wrap.getBoundingClientRect(); dark.style.setProperty("--x", ((e.clientX - r.left) / r.width) * 100 + "%"); dark.style.setProperty("--y", ((e.clientY - r.top) / r.height) * 100 + "%"); };
+    wrap.addEventListener("pointermove", light); wrap.addEventListener("pointerdown", light);
+    s.querySelectorAll("[data-n]").forEach((b) => (b.onclick = () => {
+      const x = PROPHETS.find((y) => y.id === b.dataset.n);
+      if (p.prophets[x.id]) { K.say("The tomb of " + x.name + ". " + x.ref + ".", "", 2600); return; }
+      S("parchment", "click"); match(x);
+    }));
+    function match(x) {
+      const names = shuffle(left().map((y) => y.name).concat(PROPHETS.filter((y) => p.prophets[y.id]).map((y) => y.name)));
+      K.card('<div class="kick">A prayer note in the niche</div><h2>Whose tomb is this?</h2>' + photo("tombs-niche.jpg", "Prayer notes left in a tomb niche", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
+        '<div class="v">“' + esc(x.v) + "”</div><p>Someone has copied out a verse by the prophet who lies here, and tucked it into the rock. Which prophet wrote it?</p>" +
+        '<div class="fpick">' + names.map((n) => '<button data-act="' + n + '"' + (PROPHETS.some((y) => y.name === n && p.prophets[y.id]) ? " disabled" : "") + ">" + n + "</button>").join("") + "</div>" +
+        '<button class="cta alt" data-act="x">Put it back</button>',
+        Object.assign({ x: () => {} }, Object.fromEntries(PROPHETS.map((y) => [y.name, () => answer(x, y)]))));
+    }
+    function answer(x, y) {
+      if (x.id !== y.id) { wrong(x.hint); setTimeout(() => K.root() && match(x), 900); return; }
+      p.prophets[x.id] = 1; save(); S("harp", null, 0.7); K.buzz("success");
+      const b = s.querySelector('[data-n="' + x.id + '"]'); if (b) { b.classList.add("found"); b.textContent = "✓"; }
+      $("ftc").textContent = "Tombs found: " + Object.keys(p.prophets).length + " of 3";
+      K.say("The tomb of " + x.name + ". “" + x.ref + "”: a word about the Temple.", "", 3600);
+      if (left().length) return;
+      setTimeout(() => {
+        if (!K.root()) return;
+        p.tombs = 1; save(); S("journal");
+        K.card('<div class="kick">Clue found · three Temple prophets</div><h2>All three spoke of the Temple</h2>' +
+          "<p>Haggai: the glory of the latter house. Zechariah: the BRANCH shall build the temple. Malachi: the Lord shall suddenly come to his temple. The last three prophets of the Old Testament all point to one house, and one place.</p>" +
+          "<p>And Zechariah, buried on this mountain by tradition, is the one who wrote that the Messiah’s feet will stand here.</p>" +
+          '<button class="cta" data-act="x">Watch: the author in the tombs</button>', { x: () => film("tombs", afterTombs, "Climb back up to the light") });
+      }, 1400);
+    }
+    function afterTombs() {
+      K.card('<div class="kick">Out into the light</div><h2>“They face the Temple Mount”</h2>' +
+        "<p>The prophets’ tombs, and their followers’ around them, were cut to face the Temple Mount. <b>So should you.</b> From the top of the path the whole city lies before you, and somewhere in its eastern wall is a gate.</p>" +
+        '<button class="cta" data-act="x">Look across at the city</button>', { x: olives });
+    }
+    if (!Object.keys(p.prophets).length) K.say("It is dark down here. Drag your finger to carry the lamp.", "", 3600);
+  }
   function olives() {
+    if (!P().tombs) return olivesSign();
     cur = "olives"; const p = P(); M("olives", "olives");
     const s = stage('<div class="fkick">Stop 2 · East of the city</div><h1>The Mount of Olives</h1>' +
       '<div class="fverse">“And his feet shall stand in that day upon the mount of Olives, which is before Jerusalem on the east.”<small>Zechariah 14:4</small></div>' +
@@ -859,7 +938,7 @@
       const p = P();
       if (!p.began) p.began = 1;
       if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); }
-      else if (!p.olives) p.olives = 1;
+      else if (!p.olives) { p.tombs = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; p.olives = 1; }
       else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; K.A().relics.reed = 1; }
       else p.gateDone = 1;
       save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
