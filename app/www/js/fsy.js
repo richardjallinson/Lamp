@@ -85,13 +85,11 @@
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
   CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
   /* Richard's own films from the Temple Mount (video/fsy/*.mp4), in his own voice */
-  const FILMS = {
-    arrive: ["tm-arrive", "Up the Mughrabi bridge", "“This is the only gate for Jews and non-Muslims to enter the Temple Mount. It runs along the side of the Western Wall.”"],
-    floor: ["tm-spirits-1", "At the Dome of the Spirits", "“Inside the Dome of the Spirits is foundation stone. This is bedrock. It’s flat, it’s round, and it’s a threshing floor, just like David purchased.”"],
-    line: ["tm-spirits-2", "Looking east from the Dome of the Spirits", "“I’m right in line with the Eastern Gate, and behind that is the Mount of Olives.”"],
-    middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Very big platform. It’s huge up here.”"],
-    reveal: ["tm-spirits-3", "Room for the Third Temple", "“There’s plenty of room to put the Third Temple on this spot. According to Scripture, this is exactly where it will be located.”"],
+  const FILMS = {   // in the order Richard filmed them
+    arrive: ["tm-arrive", "Up the Mughrabi bridge, past Al-Aqsa", "“This is the only gate for Jews and non-Muslims to enter the Temple Mount… There is the Al-Aqsa Mosque right here. Lots of security up here today.”"],
+    middle: ["tm-dome-rock", "The Dome of the Rock, and the platform", "“Here’s the Dome of the Rock. And if I turn around, there is the Al-Aqsa Mosque to the south. Very big platform. It’s huge up here.”"],
     visitors: ["tm-visitors", "Jews on the Temple Mount today", "“Just taking a quick video of all the Jews that are coming up today, and there is quite a few.”"],
+    spirits: ["tm-spirits", "At the Dome of the Spirits: the last film", "“Inside the Dome of the Spirits is foundation stone. This is bedrock… I’m right in line with the Eastern Gate… According to Scripture, this is exactly where it will be located.”"],
     gate: ["gate-inside", "At the Eastern Gate", "“Looking down the stairs. If I read Ezekiel chapter 40, it would mention these stairs.”"],
   };
   function film(key, then, label, extra) {
@@ -134,7 +132,7 @@
   /* Hank's narration (audio/narration/fsy-*.mp3): only the lines recorded so far play; the rest stay silent */
   const HAVE = new Set(["01-open", "02-outside", "02b-hall", "03-ark-verse", "04-staves", "05-courts-verse", "06-courts", "07-instruments-verse", "07b-instruments", "07c-vessels",
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
-    "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark"]);
+    "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark", "waqf-1", "waqf-2"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod"]);
@@ -748,14 +746,50 @@
         '<div class="v">“And there was given me a reed like unto a rod.”</div><div class="r">Revelation 11:1 · KJV</div>' + was +
         '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
-        '<button class="cta" data-act="next">Hear it from the author</button>', { next: () => film("reveal", today, "The Temple Mount today") });
+        '<button class="cta" data-act="next">The Temple Mount today</button>', { next: today });
     }, 4200);
   }
 
   function today() {
-    film("visitors", stops, "One stop remains: the Eastern Gate",
-      '<p>Jewish visitors may come up only by the Mughrabi bridge, in groups, at set times. Many keep to the edges of the platform, so as not to walk where the Holy of Holies once stood.</p>' +
-      '<div class="fview"><b>From the author.</b> Moments after I finished filming at the Dome of the Spirits, an official of the Jordanian Waqf, which administers the Mount, came over and asked what I was doing. I told him I was filming for friends. To ease the moment, I asked if I could take a selfie with him. He declined. I thanked him and left the Temple Mount.<small>Richard J. Allinson, Jerusalem</small></div>');
+    film("visitors", () => film("spirits", waqf, "…and then"), "The author’s last film",
+      '<p>Jewish visitors may come up only by the Mughrabi bridge, in groups, at set times. Many keep to the edges of the platform, so as not to walk where the Holy of Holies once stood.</p>');
+  }
+  /* the Waqf: what happened the moment the last film ended (an official of the Jordanian Waqf, which administers the Mount) */
+  function waqf() {
+    const p = P(); p.waqf = 1; save();
+    Lamp.score && Lamp.score.set(null, "fsy-amb-platform");
+    const s = stage('<div class="fkick">The Temple Mount · a moment later</div><h1>“What are you doing up here?”</h1>' +
+      photo("tm-south.jpg", "Looking south from the Dome of the Spirits. Someone is walking over.", "Photo: Richard J. Allinson, on the Temple Mount") +
+      '<div class="fnarr" id="fwq"><i>Footsteps on the stone. A man in a dark jacket. As soon as I see him, I know who he is: an official of the Waqf, which keeps the Mount.</i></div>' +
+      '<div id="fwa"></div>', "tm-south.jpg");
+    const line = (html) => { const d = document.createElement("div"); d.className = "fwline"; d.innerHTML = html; $("fwa").appendChild(d); d.scrollIntoView({ behavior: "smooth", block: "end" }); return d; };
+    const choices = (opts, then) => {
+      const d = line('<div class="fchoices">' + opts.map((o, i) => '<button data-o="' + i + '">' + esc(o[0]) + "</button>").join("") + "</div>");
+      d.querySelectorAll("[data-o]").forEach((b) => (b.onclick = () => { K.sfx("click"); const o = opts[+b.dataset.o]; d.innerHTML = '<div class="fme">“' + esc(o[0]) + "”</div>"; then(o[1]); }));
+    };
+    setTimeout(() => {
+      if (!K.root()) return;
+      S("step", "stone", 0.6); setTimeout(() => S("step", "stone", 0.6), 500);
+      setTimeout(() => {
+        if (!K.root()) return;
+        line('<div class="fhim">“What are you doing up here? You know, this area is not for tourists right now.”<small>The official</small></div>');
+        V("waqf-1", () => {
+          choices([["I’m filming for friends.", 1], ["I’m looking for the Temple.", 0], ["Just taking pictures of the view.", 1]], (ok) => {
+            if (!ok) { line('<div class="fhim">“The Temple?” <i>His face hardens.</i></div>'); }
+            choices([["Could I get a selfie with you?", 1], ["Thank you anyway. I’ll go.", 2]], (k) => {
+              if (k === 1) { line('<div class="fhim">“No, no. No photo. Please, you must respect the rules. It’s for your own safety, my friend. We don’t want any trouble, do we? Just head back down. It’s much better.”<small>The official</small></div>'); V("waqf-2", () => choices([["Thanks anyway.", 2]], done)); }
+              else done();
+            });
+          });
+        });
+      }, 1300);
+    }, 600);
+    function done() {
+      line('<p class="fq">I thanked him, and quickly left the Temple Mount.</p>' +
+        '<div class="fview"><b>From the author.</b> That was the end of my filming on the Mount that day. The film at the Dome of the Spirits was the last thing I shot before he came over.<small>Richard J. Allinson, Jerusalem</small></div>' +
+        '<button class="fbtn glow" id="fwgo">One stop remains: the Eastern Gate</button>');
+      $("fwgo").onclick = () => { K.sfx("click"); stops(); };
+    }
   }
 
   /* ================================================================ 4. the Eastern Gate, from inside ================================================================ */
@@ -826,7 +860,7 @@
       if (!p.began) p.began = 1;
       if (!done("ti")) { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); }
       else if (!p.olives) p.olives = 1;
-      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; K.A().relics.reed = 1; }
+      else if (!p.done) { CLUES.forEach((c) => (p.clues[c.id] = 1)); p.theory = p.theory || "unsure"; p.done = 1; p.waqf = 1; K.A().relics.reed = 1; }
       else p.gateDone = 1;
       save(); const sh = document.querySelector("#adv .asheet"); if (sh) sh.remove();
       stops();
