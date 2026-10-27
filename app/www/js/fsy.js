@@ -627,7 +627,7 @@
     const left = () => PROPHETS.filter((x) => !p.prophets[x.id]);
     const s = stage('<div class="fkick">The Tombs of the Prophets · underground</div><h1>Carry your lamp</h1>' +
       '<div class="fq" id="ftq">Drag your finger across the rock. Prayer notes have been tucked into three of the niches.</div>' +
-      '<div class="fdarkwrap" id="fdk"><img src="img/fsy/tombs-passage.jpg" alt="A rock-cut passage with tomb niches">' +
+      '<div class="fdarkwrap" id="fdk"><img draggable="false" src="img/fsy/tombs-passage.jpg" alt="A rock-cut passage with tomb niches">' +
       PROPHETS.map((x) => '<button class="fnote' + (p.prophets[x.id] ? " found" : "") + '" data-n="' + x.id + '" aria-label="A folded prayer note" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%">' + (p.prophets[x.id] ? "✓" : "") + "</button>").join("") +
       '<div class="fdark" id="fdark"></div></div>' +
       '<div class="fsmall" id="ftc">Tombs found: ' + Object.keys(p.prophets).length + " of 3</div>" + back("Up to the path"), "tombs-passage.jpg");
@@ -821,7 +821,7 @@
   /* 3. draw the line west from the Eastern Gate */
   function clueLine(c) {
     const s = clueScreen(c, '<div class="fq">You are standing at the Dome of the Spirits, looking east. Slide the sighting rod along the wall until it stands on the Eastern Gate’s dome.</div>' +
-      '<div class="fsight" id="fsight"><img src="img/fsy/tm-line.jpg" alt="From the Dome of the Spirits looking east to the Eastern Gate"><span class="frod" id="frod"></span></div>' +
+      '<div class="fsight" id="fsight"><img draggable="false" src="img/fsy/tm-line.jpg" alt="From the Dome of the Spirits looking east to the Eastern Gate"><span class="frod" id="frod"></span></div>' +
       '<div class="fmapwrap small" id="fm" style="display:none">' + mapSVG({}) + "</div>");
     s.querySelector(".fphoto").remove();
     const sight = $("fsight"), rod = $("frod"); let rx = 0.15, done = false;
@@ -839,6 +839,7 @@
     sight.addEventListener("pointerdown", (e) => { drag = true; sight.setPointerCapture(e.pointerId); place(e.clientX); });
     sight.addEventListener("pointermove", (e) => { if (drag && !done) place(e.clientX); });
     sight.addEventListener("pointerup", () => { if (drag) { drag = false; up(); } });
+    sight.addEventListener("pointercancel", () => { if (drag) { drag = false; up(); } });
     function mapWire() {
     const go = () => {
       $("fm").innerHTML = mapSVG({ line: true }); S("stone", "stone", 0.55);
