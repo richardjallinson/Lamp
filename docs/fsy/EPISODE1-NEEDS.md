@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 108 of 138 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 116 of 143 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -181,7 +181,7 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ☐ | `wallagain-clear` | The same stretch of wall near Damascus Gate: sun on wet stone, the way ahead open |
 | ☐ | `wallagain-damascus` | Damascus Gate from above: the busiest gate of the Old City |
-| ☐ | `wallagain-road` | Outside the gate: the Nablus Road, and a small door in a wall on the right, “The Garden Tomb” |
+| ✓ | `wallagain-road` | Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb” |
 
 **Hank says:**
 
@@ -191,10 +191,15 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `gtomb-garden` | The garden: quiet, green, a few benches, birds. After the storm, everything drips and shines |
-| ☐ | `gtomb-skull` | From the garden’s viewing platform: Skull Hill, close, over the bus station wall |
+| ✓ | `gtomb-garden` | The garden: a courtyard below a rock face, and in the rock a small doorway. After the storm, everything drips and shines |
+| ✓ | `gtomb-skullsign` | A tiled sign on a post: “Skull Hill”, and an arrow |
+| ✓ | `gtomb-skull` | From the viewing platform: the cliff called Skull Hill, its two hollow eyes in the rock |
+| ✓ | `gtomb-john19a` | A stone plaque facing the hill: John 19:16–18 |
+| ✓ | `gtomb-john19b` | A stone plaque in the garden: John 19:40–42 |
 | ✓ | `gtomb-2` | The tomb, cut into the rock, with the groove for a rolling stone across its front |
 | ✓ | `gtomb-1` | At the doorway: the trough in front, where the stone rolled |
+| ✓ | `gtomb-inside` | Inside, to the right: a burial place cut in the rock, a raised ledge at one end for the head |
+| ✓ | `gtomb-cross` | On the wall above: a cross painted in dark red, with Greek letters |
 
 **Hank says:**
 

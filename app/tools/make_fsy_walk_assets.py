@@ -133,6 +133,14 @@ PHOTOS = {
     "caiaphas-sign": "photos/caiaphas/sacred-pit-sign.png",
     "caiaphas-pit": "photos/caiaphas/pit-floor.png",
     "caiaphas-up": "photos/caiaphas/pit-looking-up.png",
+    "wallagain-road": "photos/garden-tomb/tile-sign.png",
+    "gtomb-garden": "photos/garden-tomb/tomb-and-garden.png",
+    "gtomb-skullsign": ("photos/garden-tomb/skull-hill-sign.png", None, [(780, 1050, 925, 1500)]),   # passers-by blurred
+    "gtomb-skull": "photos/garden-tomb/skull-hill.png",
+    "gtomb-john19a": "photos/garden-tomb/plaque-john-19-16.png",
+    "gtomb-john19b": "photos/garden-tomb/plaque-john-19-40.png",
+    "gtomb-inside": "photos/garden-tomb/inside-burial-place.png",
+    "gtomb-cross": "photos/garden-tomb/inside-cross-alpha-omega.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
