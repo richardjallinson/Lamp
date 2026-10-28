@@ -14,6 +14,19 @@
   const has = (id) => !!A().items[id];
   const done = (sceneId, pz) => !!W().done[sceneId + ":" + pz];
 
+  /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
+  /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
+  const CLIPS = new Set(["yosef"]);
+  H.clip = (id) => {
+    if (!CLIPS.has(id)) return "";
+    setTimeout(() => {
+      const v = document.querySelector(".fclip video"); if (!v) return;
+      const p = v.play(); if (p && p.catch) p.catch(() => v.parentElement.classList.add("tap"));
+      v.parentElement.onclick = () => { v.parentElement.classList.remove("tap"); v.currentTime = 0; v.play(); };
+    }, 60);
+    return '<div class="fclip"><video src="video/fsy/' + id + '.mp4" poster="video/fsy/' + id + '.jpg" playsinline preload="auto"></video><i>▶</i></div>';
+  };
+
   /* ------------------------------------------------------------ money ------------------------------------------------------------ */
   H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · travel card, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
   H.pay = (n, what) => {
