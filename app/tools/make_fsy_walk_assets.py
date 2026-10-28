@@ -82,6 +82,11 @@ PHOTOS = {
     "wall-arch": "photos/oct27/western-wall-and-wilsons-arch.png",
     "wilson-door": "photos/oct27/wilsons-arch-entrance-close.png",
     "mughrabi-under": "photos/oct27/mughrabi-bridge-from-below.png",
+    "ramparts-minaret": "photos/oct27/tower-of-david-minaret.png",
+    "tombs-niche-2": "photos/oct27/tombs-prophets-niche-notes.png",
+    "tombs-niche-3": "photos/oct27/tombs-prophets-niche-dark.png",
+    "tombs-light": ("photos/oct27/tombs-prophets-stairs-to-light.png", (0, 219, 1125, 2050)),
+    "olives-cemetery": "photos/oct27/mount-of-olives-view-cemetery.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

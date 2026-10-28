@@ -655,14 +655,14 @@
     }));
     function match(x) {
       const names = shuffle(left().map((y) => y.name).concat(PROPHETS.filter((y) => p.prophets[y.id]).map((y) => y.name)));
-      K.card('<div class="kick">A prayer note in the niche</div><h2>Whose tomb is this?</h2>' + photo("tombs-niche.jpg", "Prayer notes left in a tomb niche", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
+      K.card('<div class="kick">A prayer note in the niche</div><h2>Whose tomb is this?</h2>' + photo("w/tombs-niche-2.jpg", "Prayer notes left in a tomb niche", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         '<div class="v">“' + esc(x.v) + "”</div><p>Among the prayers, one note in blue ink: a verse by the prophet who lies here. Which prophet wrote it?</p>" +
         '<div class="fpick">' + names.map((n) => '<button data-act="' + n + '"' + (PROPHETS.some((y) => y.name === n && p.prophets[y.id]) ? " disabled" : "") + ">" + n + "</button>").join("") + "</div>" +
         '<button class="cta alt" data-act="x">Put it back</button>',
         Object.assign({ x: () => {} }, Object.fromEntries(PROPHETS.map((y) => [y.name, () => answer(x, y)]))));
     }
     function dated(x) {
-      K.card('<div class="kick">The tomb of ' + esc(x.name) + '</div><h2>On the back of the note</h2>' +
+      K.card('<div class="kick">The tomb of ' + esc(x.name) + '</div><h2>On the back of the note</h2>' + photo("w/tombs-niche-3.jpg", "A burial niche cut into the rock", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         wnote("“" + esc(x.date) + "”<small>" + esc(x.dref) + "</small>") +
         "<p>The front carries his word about the Temple (" + esc(x.ref) + "). The back carries the day he began to speak.</p>" +
         '<button class="cta" data-act="x">Back to the passage</button>', { x: () => {} });
@@ -708,7 +708,7 @@
       }, 1300);
     };
     function afterTombs() {
-      K.card('<div class="kick">Out into the light</div><h2>“They face the Temple Mount”</h2>' +
+      K.card('<div class="kick">Out into the light</div><h2>“They face the Temple Mount”</h2>' + photo("w/tombs-light.jpg", "The stairs up out of the tombs, into the daylight", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         "<p>The prophets’ tombs, and their followers’ around them, were cut to face the Temple Mount. <b>So should you.</b> You climb out into the evening, the line of flax in your pocket.</p>" +
         '<button class="cta" data-act="x">On up to the top</button>', { x: () => walkDone("prophets") });
     }
@@ -738,6 +738,7 @@
         p.olives = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success"); V("11-olives-gate");
         K.card('<div class="kick">Stop 2 · The Mount of Olives</div><h2>The sealed gate</h2>' + photo("olives-view.jpg", "Sunset over the city from the Mount of Olives: the sealed gate is in the wall below the golden dome", "Photo: Richard J. Allinson, from the Mount of Olives") +
           "<p>Straight across the valley, in the city wall, is the <b>Eastern Gate</b>: the only gate into the Temple Mount from the east, and it is sealed with stone. Jesus will return to this mountain, and the gate faces him.</p>" +
+          photo("w/olives-cemetery.jpg", "In daylight from the Mount of Olives: the graves running down the slope, the eastern wall, the golden dome, and the city beyond", "Photo: Richard J. Allinson, on the Mount of Olives") +
           "<p><b>What it shows.</b> The Temple faced this gate, and the gate faces this mountain. From the sanctuary, through the gate, to the Mount of Olives: one straight line. Hold that line in your mind. It is about to matter.</p>" +
           '<p class="fgo">Down the hill, at the foot of the mountain, is a garden. The last page is there.</p><button class="cta" data-act="x">Down to Gethsemane</button>', { x: () => walkDone("olives") });
       }, 900);
