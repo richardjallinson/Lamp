@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 168 of 170 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 169 of 170 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -66,7 +66,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `benyehuda-street` | Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner |
-| ☐ | `benyehuda-corner` | The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back |
+| ✓ | `grey-away` | The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back |
 
 **Hank says:**
 

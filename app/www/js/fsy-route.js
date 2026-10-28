@@ -91,7 +91,7 @@
     views: [
       { id: "street", img: null, cap: "Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner", hank: "Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.",
         go: { fwd: "corner" }, who: ["violinist"] },
-      { id: "corner", img: null, cap: "The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back", go: { back: "street" },
+      { id: "corner", img: "grey-away", cap: "The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back", go: { back: "street" },
         hots: [{ box: [50, 20, 45, 60], label: "The doorway he came out of", act: "greyDoor" }] },
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
