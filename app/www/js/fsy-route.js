@@ -353,13 +353,19 @@
     views: [{ id: "in", img: "olives-top", cap: "" }] });
   S({ id: "gethsemane", act: 4, title: "The Garden of Gethsemane", kick: "The olive press", music: "m23", amb: "olives", page: 12,
     views: [
-      { id: "trees", img: "gethsemane-path", cap: "The garden: a gravel path between the olive trees, their old trunks twisted like rope", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
-        go: { fwd: "church", right: "oldtree", left: "wide" } },
-      { id: "wide", img: "gethsemane-wide", cap: "Across the garden: young trees among the old, and the beds of the garden kept by the Franciscans", go: { right: "trees" },
+      { id: "entrance", img: "gethsemane-sign", cap: "At the gate: “Hortus Gethsemani”, the Garden of Gethsemane, under the Jerusalem cross", go: { fwd: "trees" },
+        hots: [{ box: [5, 45, 70, 25], label: "The inscription", text: "Latin for the Garden of Gethsemane. The Franciscans have kept this garden since 1681. The small plaque below reads: Holy Place, here Jesus began his Passion." }] },
+      { id: "trees", img: "gethsemane-trees", cap: "Inside: gravel paths, flower beds, and the great old olive trunks", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
+        go: { fwd: "ancient", right: "oldtree", left: "wide", back: "gate" } },
+      { id: "ancient", img: "gethsemane-ancient", cap: "One of the oldest trees, split into two great trunks, the domes of the Church of All Nations behind", go: { back: "trees", fwd: "church", left: "path" } },
+      { id: "path", img: "gethsemane-path", cap: "A gravel path between the olive trees, their old trunks twisted like rope", go: { right: "ancient" } },
+      { id: "gate", img: "gethsemane-gate", cap: "Turn round: straight across the Kidron, the sealed Eastern Gate in the wall, the Temple Mount behind it", go: { fwd: "trees" },
+        hots: [{ box: [38, 32, 30, 15], label: "The Eastern Gate", text: "From this garden the gate is straight across the valley, with the Temple Mount just behind the wall. Jesus came here often (Luke 22:39; John 18:2), and from here he could look across at the Temple. Whether that is why he chose this place the Bible does not say; but he prayed facing the house he had called “my Father’s house”, and the gate he will one day come back to." }] },
+      { id: "wide", img: "gethsemane-wide", cap: "Across the garden: young trees among the old, and the beds the Franciscans keep", go: { right: "trees" },
         hots: [{ box: [75, 60, 12, 12], label: "The small sign", text: "“P.P. Franciscus, 26 May 2014”: an olive tree planted by Pope Francis on his visit. Pilgrims of every church come here." }] },
       { id: "oldtree", img: "gethsemane-oldtree", cap: "The oldest tree: a vast hollow trunk inside a mesh guard, still green on top", go: { left: "trees" }, puzzle: "lastpage",
         hots: [{ box: [20, 50, 60, 40], label: "The trunk", text: "Tested trees in this garden are about 900 years old, grown perhaps from roots far older still: olive trees spring up again from the stump. “There is hope of a tree, if it be cut down, that it will sprout again” (Job 14:7)." }] },
-      { id: "church", img: null, cap: "The Church of All Nations: the rock before the altar, where he prayed", go: { back: "trees" },
+      { id: "church", img: null, cap: "The Church of All Nations: the rock before the altar, where he prayed", go: { back: "ancient" },
         hots: [{ box: [20, 30, 60, 50], label: "The rock", text: "“O my Father, if it be possible, let this cup pass from me: nevertheless not as I will, but as thou wilt” (Matthew 26:39)." }] },
     ] });
 
