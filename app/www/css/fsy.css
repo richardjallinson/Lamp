@@ -348,3 +348,27 @@
 /* the standing instruction above every picture */
 #adv .ftask{margin:6px 14px 8px;padding:9px 14px;border:1px solid rgba(201,162,74,.55);border-radius:12px;background:rgba(201,162,74,.12);color:#F3DFA6;font:600 15px/1.35 var(--ui);text-align:center}
 #adv .ftask.done{border-color:rgba(120,200,140,.5);background:rgba(120,200,140,.12);color:#CDEFD6}
+
+/* the painted map */
+#adv .fmaptabs{display:flex;gap:8px;justify-content:center;margin:8px 0}
+#adv .fmaptabs button{padding:8px 16px;border-radius:999px;border:1px solid rgba(201,162,74,.5);background:transparent;color:#E8D9B0;font:700 14px var(--ui)}
+#adv .fmaptabs button.on{background:#C9A24A;color:#141A33}
+#adv .fmap{position:relative;flex:none;margin:0 12px;aspect-ratio:941/1672;border-radius:16px;overflow:hidden;border:2px solid rgba(201,162,74,.6)}
+#adv .fmap img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:fill!important;margin:0!important}
+#adv .fpin{position:absolute;transform:translate(-50%,-50%);background:none;border:none;padding:0;cursor:pointer}
+#adv .fpin i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#141A33;color:#F3DFA6;border:2px solid #C9A24A;font:800 12px var(--ui);font-style:normal;box-shadow:0 2px 6px rgba(0,0,0,.6)}
+#adv .fpin.done i{background:#2E6B45;border-color:#CDEFD6;color:#fff}
+#adv .fpin.locked i{opacity:.45;border-color:#777;color:#aaa}
+#adv .fpin.here i{width:36px;height:36px;background:#C9A24A;color:#141A33;border-color:#FFF3C4;animation:fpinpulse 1.6s ease-in-out infinite}
+#adv .fpin.you:not(.here) i{border-color:#FFF3C4;box-shadow:0 0 0 4px rgba(255,243,196,.35),0 2px 6px rgba(0,0,0,.6)}
+#adv .fpin span{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;padding:3px 8px;border-radius:8px;background:rgba(20,26,51,.92);color:#F3DFA6;font:700 12px var(--ui)}
+#adv .fpin.far em{display:block;padding:5px 9px;border-radius:8px;background:rgba(20,26,51,.88);color:#F3DFA6;border:1px solid #C9A24A;font:700 12px var(--ui);font-style:normal;white-space:nowrap}
+#adv .fpin.far.done em{border-color:#CDEFD6;color:#CDEFD6}
+#adv .fpin.far.here em{background:#C9A24A;color:#141A33}
+@keyframes fpinpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,220,120,.7)}50%{box-shadow:0 0 0 10px rgba(255,220,120,0)}}
+#adv .fmapkey{display:flex;gap:16px;justify-content:center;margin:8px 0 2px;color:#C9BFA2;font:600 12px var(--ui)}
+#adv .fmapkey span{display:flex;align-items:center;gap:6px}
+#adv .fmapkey .k{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:2px solid #C9A24A;background:#141A33;font:800 9px var(--ui);font-style:normal;color:#fff}
+#adv .fmapkey .k.here{background:#C9A24A}
+#adv .fmapkey .k.done{background:#2E6B45;border-color:#CDEFD6}
+#adv .fmapkey .k.locked{opacity:.45;border-color:#777}

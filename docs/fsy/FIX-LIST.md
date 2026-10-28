@@ -6,3 +6,4 @@ Last build sent: v3v (task line above every picture).
 | --- | --- | --- |
 | 1 | Clear "✓ Done here" card when a place is finished: chime, places left, button to the next place | Done in code, waiting for the build |
 | 2 | Remove "Photo: Richard J. Allinson" from every picture; say once at the start that all pictures are Richard's | To do |
+| 3 | Real painted map: Richard's two paintings (Jerusalem, and the Old City), every place pinned where it really is; next place glows, done places ticked, airport and Hebron as signposts; "All places" list kept behind a button | Done in code, waiting for the build |

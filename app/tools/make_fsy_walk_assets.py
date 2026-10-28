@@ -192,6 +192,8 @@ PHOTOS = {
     "gtomb-john19b": "photos/garden-tomb/plaque-john-19-40.png",
     "gtomb-inside": "photos/garden-tomb/inside-burial-place.png",
     "gtomb-cross": "photos/garden-tomb/inside-cross-alpha-omega.png",
+    "map-old": "photos/maps/map-old-city-painting.png",   # Richard's painted maps (Oct 28)
+    "map-city": "photos/maps/map-city-wide-painting.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
@@ -222,7 +224,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard", "map-old", "map-city"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):

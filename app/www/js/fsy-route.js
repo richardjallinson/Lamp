@@ -439,31 +439,63 @@
   let st = { misses: 0, hints: 0 };
   const wrong = (m) => F.wrong(m);
 
-  /* ------------------------------------------------------------ the map: the light-rail line ------------------------------------------------------------ */
-  function map() {
+  /* ------------------------------------------------------------ the map: Richard's two painted maps ------------------------------------------------------------ */
+  /* where each place sits on the paintings, in % of the picture (x, y). "city" = the wide map, "old" = the Old City. */
+  const PIN = {
+    airport: ["city", 30, 9, "← Ben Gurion Airport, 45 km west"], train: ["city", 13, 24], model: ["city", 19, 41], market: ["city", 42, 34],
+    rail: ["city", 49, 45], gabriel: ["city", 37, 49],
+    jaffa: ["old", 13, 31], ramparts: ["old", 19, 21], wallagain: ["old", 47, 15], gtomb: ["old", 54, 7], bazaar: ["old", 49, 26],
+    jewish: ["old", 31, 37], institute: ["old", 33, 45], wall: ["old", 44, 42], wilson: ["old", 49, 37], tunnels: ["old", 53, 29],
+    hebron: ["old", 50, 96, "↓ Hebron, 30 km south"], zion: ["old", 15, 52], cod: ["old", 61, 57], gihon: ["old", 70, 63],
+    hezekiah: ["old", 63, 72], siloam: ["old", 63, 81], steps: ["old", 62, 48], dung: ["old", 45, 48],
+    egate: ["old", 80, 32], kidron: ["old", 83, 54], prophets: ["old", 90, 45], olives: ["old", 92, 12], gethsemane: ["old", 94, 28],
+    mughrabi: ["old", 55, 43], mount: ["old", 64, 34], gate: ["old", 76, 38]
+  };
+  let sheet = null;
+  function map(which) {
     F.cur("walk"); F.M("theme");
     const w = W(), nx = nextScene(), pages = Object.keys(w.pages).length;
+    const at = byId[w.at] || nx || R[0];
+    sheet = typeof which === "string" ? which : (PIN[(nx || at).id] || ["old"])[0];
+    const pins = R.filter((s) => PIN[s.id] && PIN[s.id][0] === sheet).map((s) => {
+      const [, x, y, far] = PIN[s.id], d = isDone(s.id), open = canOpen(s), here = nx && nx.id === s.id, you = at.id === s.id;
+      return '<button class="fpin' + (d ? " done" : "") + (here ? " here" : "") + (you ? " you" : "") + (!open && !d ? " locked" : "") + (far ? " far" : "") +
+        '" data-s="' + s.id + '" style="left:' + x + "%;top:" + y + '%" aria-label="' + esc(s.title) + '">' +
+        (far ? "<em>" + esc(far) + "</em>" : "<i>" + (d ? "✓" : s.n) + "</i>") + (here ? "<span>Next: " + esc(s.title) + "</span>" : "") + "</button>";
+    }).join("");
     let h = '<div class="fkick">The Final Seven Years · Episode 1</div><h1>The Jerusalem Mystery</h1>' +
-      '<div class="fsub">' + (nx ? "Scene " + nx.n + " of " + R.length + " · " + ACTS[nx.act - 1].title : "Episode 1 solved") + "</div>" +
-      '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + " Journal · " + pages + "/12</button></div>" +
-      '<div class="fline">';
+      '<div class="fsub">' + (nx ? "Next: " + esc(nx.title) + " · scene " + nx.n + " of " + R.length : "Episode 1 solved") + "</div>" +
+      '<div class="fmaptabs"><button data-sheet="city"' + (sheet === "city" ? ' class="on"' : "") + '>Jerusalem</button><button data-sheet="old"' + (sheet === "old" ? ' class="on"' : "") + ">The Old City</button></div>" +
+      '<div class="fmap"><img src="' + IMG + "map-" + sheet + '.jpg" alt="Painted map of ' + (sheet === "old" ? "the Old City of Jerusalem" : "Jerusalem") + '" draggable="false">' + pins +
+      (sheet === "city" ? '<button class="fpin far" data-sheet="old" style="left:72%;top:62%"><em>The Old City ›</em></button>' : "") + "</div>" +
+      '<div class="fmapkey"><span><i class="k here"></i>Next</span><span><i class="k done">✓</i>Done</span><span><i class="k locked"></i>Not yet</span></div>' +
+      '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + " Journal · " + pages + "/12</button><button class=\"fwtool\" data-list=\"1\">All places</button></div>" +
+      (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>');
+    const el = F.stage(h, "temple-painting.jpg");
+    el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
+      const s = byId[b.dataset.s]; K.sfx("click");
+      if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; }
+      go(s);
+    }));
+    el.querySelectorAll("[data-sheet]").forEach((b) => (b.onclick = () => { K.sfx("click"); map(b.dataset.sheet); }));
+    el.querySelector("[data-j]").onclick = () => journal();
+    el.querySelector("[data-list]").onclick = () => { K.sfx("click"); list(); };
+    const en = $("fend"); if (en) en.onclick = F.ending;
+  }
+  /* the plain list of all 32 places, by act */
+  function list() {
+    const nx = nextScene();
+    let h = '<div class="kick">Episode 1</div><h2>All places</h2><div class="fline">';
     ACTS.forEach((a) => {
       h += '<div class="fact"><b>Act ' + a.n + " · " + esc(a.title) + "</b><small>" + esc(a.sub) + "</small></div>";
       R.filter((s) => s.act === a.n).forEach((s) => {
         const d = isDone(s.id), open = canOpen(s), here = nx && nx.id === s.id;
-        h += '<button class="fstop' + (d ? " done" : "") + (here ? " here" : "") + (!open && !d ? " locked" : "") + (s.optional ? " opt" : "") + '" data-s="' + s.id + '"><i>' + (d ? "✓" : s.n) + "</i><span><b>" + esc(s.title) + "</b><small>" + esc(s.kick) + (s.optional ? " · optional" : "") + "</small></span></button>";
+        h += '<button class="fstop' + (d ? " done" : "") + (here ? " here" : "") + (!open && !d ? " locked" : "") + (s.optional ? " opt" : "") + '" data-act="' + s.id + '"><i>' + (d ? "✓" : s.n) + "</i><span><b>" + esc(s.title) + "</b><small>" + esc(s.kick) + (s.optional ? " · optional" : "") + "</small></span></button>";
       });
     });
-    h += "</div>" + (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>');
-    const el = F.stage(h, "temple-painting.jpg");
-    el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
-      const s = byId[b.dataset.s]; K.sfx("click");
-      if (!canOpen(s) && !isDone(s.id)) { K.say("First finish “" + nx.title + "”.", "", 2800); return; }
-      go(s);
-    }));
-    el.querySelector("[data-j]").onclick = () => journal();
-    const en = $("fend"); if (en) en.onclick = F.ending;
-    if (nx) { const b = el.querySelector(".fstop.here"); b && b.scrollIntoView({ block: "center" }); }
+    const acts = { x: () => {} };
+    R.forEach((s) => (acts[s.id] = () => { if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; } go(s); }));
+    K.card(h + '</div><button class="cta alt" data-act="x">Back to the map</button>', acts);
   }
   function journalIcon() { return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 3h11a3 3 0 0 1 3 3v15H8a3 3 0 0 1-3-3V3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7h7M8 11h7" stroke="currentColor" stroke-width="1.6"/></svg>'; }
 
