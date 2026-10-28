@@ -58,3 +58,5 @@ im = Image.open(os.path.join(SRC, "lock-case.png")).convert("RGB"); W, H = im.si
 im.crop((int(W * 0.22), int(H * 0.12), int(W * 0.78), int(H * 0.88))).save(os.path.join(OUT, "lock-case.jpg"), quality=84)
 save_jpg("gihon-wall", "gihon-wall-lamp-mark.png")
 save_jpg("tunnel-meet", "tunnel-meeting-place.png")
+im = Image.open(os.path.join(SRC, "route-map.png")).convert("RGB")   # the painted map only, not the floor
+im.crop((0, 270, im.width, 1090)).save(os.path.join(OUT, "route-map.jpg"), quality=84)

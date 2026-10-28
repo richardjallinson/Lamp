@@ -58,7 +58,7 @@
   S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "street",
     views: [
       { id: "board", img: "train-board", cap: "The platform at the airport station: flags down the hall, and the departures board on the pillar", hank: "Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.",
-        go: { fwd: "platform" }, puzzle: "board", who: ["soldier"] },
+        go: { fwd: "platform" }, who: ["soldier"] },
       { id: "platform", img: "train-platform", cap: "The platform: the fast train to Jerusalem, its sign lit on the front", go: { back: "board", fwd: "navon" },
         hots: [{ box: [55, 20, 35, 40], label: "A man in a grey coat on the far platform", text: "On the far platform a man in a grey coat is reading something small, folded, blue at the edges. He looks up, straight at you, and then the train comes between you." }] },
       { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.", go: { back: "platform" },
@@ -590,7 +590,7 @@
   /* What you are looking for in each place: shown above the picture until the place is done, so you are never walking blind */
   const TASK = {
     airport: "Read the first page of the journal. Then follow the train signs and buy a ticket to Jerusalem.",
-    train: "Read the board, board the train, and come up out of the station into Jerusalem.", rail: "Take the light rail to Machne Yehuda market.",
+    train: "Board the train, and come up out of the station into Jerusalem. The soldier on the platform is going home.", rail: "Take the light rail to Machne Yehuda market.",
     market: "Find the spice seller and weigh. Then find out what the Watchman left here.", benyehuda: "Find number 26 King George Street. The violinist knows, if you know the number.", gabriel: "Show Gabriel the journal. Buy what you will need for the Old City, and choose a souvenir.",
     model: "Walk round the model. Answer the guide’s questions, and ask her about the Watchman.", jaffa: "Go in through the gate and find the way up onto the wall.",
     ramparts: "Walk the wall. Count the towers, and watch the sky.", jewish: "Walk through the Quarter to the Burnt House.",
@@ -749,7 +749,8 @@
       el.querySelectorAll("[data-off]").forEach((b) => (b.onclick = () => { on.delete(+b.dataset.off); F.S("dial", "click", 0.4); draw(); }));
     };
     el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { const i = +b.dataset.i; if (on.has(i)) on.delete(i); else on.add(i); F.S("step", "click", 0.5); K.buzz && K.buzz("tap"); draw(); }));
-    $("fweigh").onclick = () => { if (sum() !== o.target) { wrong(sum() < o.target ? o.light || "Too light. Add more." : o.heavy || "Too heavy. Take some off."); return; } F.S("lock", null, 0.6); K.buzz("success"); $("fscale").classList.add("level"); setTimeout(() => K.root() && o.done(), 700); };
+    let solved = false;
+    $("fweigh").onclick = () => { if (solved) return; if (sum() !== o.target) { wrong(sum() < o.target ? o.light || "Too light. Add more." : o.heavy || "Too heavy. Take some off."); return; } solved = true; F.S("lock", null, 0.6); K.buzz("success"); $("fscale").classList.add("level"); setTimeout(() => K.root() && o.done(), 700); };
     draw();
   }
   /* a brass combination lock (Richard's case and wheel): roll each wheel with your thumb.
@@ -777,7 +778,39 @@
     const v = o.answer.map(() => 0), L = lockUI({ faces: o.faces || [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], v });
     const el = screen(o.title, o.kick, (o.intro || "") + (o.q ? q(o.q) : "") + L.html + '<button class="fbtn" id="ftry">' + esc(o.btn || "Try the lock") + "</button>", null);
     L.wire(el);
-    $("ftry").onclick = () => { if (v.join() !== o.answer.join()) { wrong(o.no || "The lock does not turn."); return; } F.S("lock", null, 0.7); K.buzz("success"); setTimeout(() => K.root() && o.done(), 600); };
+    let solved = false;
+    $("ftry").onclick = () => { if (solved) return; if (v.join() !== o.answer.join()) { wrong(o.no || "The lock does not turn."); return; } solved = true; F.S("lock", null, 0.7); K.buzz("success"); setTimeout(() => K.root() && o.done(), 600); };
+  }
+  /* name the parts of a photograph: tap (or drag) a label, then tap where it goes. Optional last step: put the sunrise where it belongs. */
+  function labels(o) {
+    const placed = {}, all = o.spots.concat(o.sun ? [Object.assign({ id: "sun" }, o.sun)] : []);
+    let pick = null;
+    const el = screen(o.title, o.kick, (o.intro || "") +
+      '<div class="flab" id="flab"><img draggable="false" src="' + IMG + o.img + '.jpg" alt="">' +
+        all.map((x) => '<button class="flab-pin' + (x.id === "sun" ? " sun" : "") + '" data-p="' + x.id + '" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%" aria-label="A place on the model"><i>?</i></button>').join("") + "</div>" +
+      '<div class="flab-chips" id="flabc">' + F.shuffle(all.slice()).map((x) => '<button data-l="' + x.id + '">' + (x.id === "sun" ? "☀ " : "") + esc(x.label) + "</button>").join("") + "</div>" +
+      '<div class="fsmall" id="flabn">Tap a name, then tap the ? where it belongs.</div>', null);
+    const chips = () => el.querySelectorAll("[data-l]"), pins = () => el.querySelectorAll("[data-p]");
+    const sel = (id) => { pick = id; chips().forEach((c) => c.classList.toggle("on", c.dataset.l === id)); };
+    const left = () => all.filter((x) => !placed[x.id]).length;
+    const put = (pid) => {
+      if (!pick || placed[pid]) return;
+      const spot = all.find((x) => x.id === pid), lab = all.find((x) => x.id === pick);
+      if (pid !== pick) { wrong((o.wrongs && o.wrongs[pick]) || (pick === "sun" ? "Where did the house face?" : "Not there. Look again.")); return; }
+      placed[pid] = 1; F.S("parchment", "click"); K.buzz && K.buzz("success");
+      const pin = el.querySelector('[data-p="' + pid + '"]'); pin.classList.add("ok"); pin.innerHTML = "<i>✓</i><span>" + esc(lab.label) + "</span>";
+      el.querySelector('[data-l="' + pick + '"]').remove(); sel(null);
+      K.say(spot.why, "", 4200);
+      $("flabn").textContent = left() ? left() + " left." : "";
+      if (!left()) setTimeout(() => K.root() && o.done(), 1400);
+    };
+    chips().forEach((c) => {
+      c.onclick = () => { K.sfx("click"); sel(pick === c.dataset.l ? null : c.dataset.l); };
+      c.addEventListener("pointerdown", () => sel(c.dataset.l));
+    });
+    pins().forEach((p) => (p.onclick = () => put(p.dataset.p)));
+    /* dragging a chip onto a pin works too */
+    el.addEventListener("pointerup", (e) => { if (!pick) return; const t = document.elementFromPoint(e.clientX, e.clientY); const p = t && t.closest && t.closest("[data-p]"); if (p && el.contains(p)) put(p.dataset.p); });
   }
   /* a number: turn it up and down */
   function count(o) {
@@ -839,9 +872,28 @@
   /* ------------------------------------------------------------ the puzzles, scene by scene ------------------------------------------------------------ */
   const grey = (t) => '<div class="fhim">' + esc(t) + "<small>The man in the grey coat</small></div>";
   const PUZZLES = {
-    ticket: { label: "Buy a ticket", run: () => ask({ title: "The ticket machine", kick: "The airport station", intro: q("The page said: go up. The machine lists five stations."),
-      qs: [{ q: "Where to?", a: [["Tel Aviv – HaHagana", 0, "That’s down to the sea. The page says up."], ["Tel Aviv – Savidor", 0, "Still down to the coast. The page says up."], ["Modi’in", 0, "Halfway, and not the city. Go all the way up."], ["Haifa – Hof HaCarmel", 0, "North, along the sea. Not the mountains."], ["Jerusalem – Yitzhak Navon", 1]] }],
-      done: () => { if (H.pay && !H.pay(17, "the train ticket")) return; W().flags.ticket = 1; save(); K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>Seventeen shekels. The machine prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) }); } }) },
+    ticket: { label: "Buy a ticket", run: () => {
+      /* the route map on the station wall: five stations from the sea up into the hills. The page said: go up. */
+      const ST = [["Tel Aviv – Savidor", [12.8, 79.9], "By the sea. The page says up."], ["Tel Aviv – HaShalom", [36.1, 74.8], "Still on the coast plain. Not up."], ["Tel Aviv – HaHagana", [62.7, 59.8], "Back toward the sea. The page says up."], ["Ben Gurion Airport", [76.3, 42.1], "You are here."], ["Jerusalem – Yitzhak Navon", [87.4, 20.4], ""]];
+      let pick = null;
+      const el = screen("The ticket machine", "The airport station", q("On the wall beside the machines, a painted map of the line: from the sea, across the plain, and up into the mountains. The page said: go up. Tap a station, then buy.") +
+        '<div class="froute"><img draggable="false" src="' + PZ + 'route-map.jpg" alt="A painted map of the railway line, from the sea up into the mountains">' +
+        ST.map((st, i) => '<button class="froute-st' + (i === 3 ? " here" : "") + '" data-st="' + i + '" style="left:' + st[1][0] + "%;top:" + st[1][1] + '%" aria-label="' + esc(st[0]) + '"><span>' + (i === 3 ? "You are here" : "") + "</span></button>").join("") + "</div>" +
+        '<div class="froute-pick" id="frpick">No station chosen</div><button class="fbtn" id="frbuy" disabled>Buy a ticket</button>', null);
+      el.querySelectorAll("[data-st]").forEach((b) => (b.onclick = () => {
+        const i = +b.dataset.st; F.S("step", "click", 0.4);
+        el.querySelectorAll("[data-st]").forEach((x) => x.classList.toggle("on", x === b));
+        if (i === 3) { pick = null; $("frpick").textContent = "Ben Gurion Airport: you are here."; $("frbuy").disabled = true; return; }
+        pick = i; $("frpick").textContent = ST[i][0] + " · 17 ₪"; $("frbuy").disabled = false; $("frbuy").textContent = "Buy a ticket to " + ST[i][0].split(" – ")[1];
+      }));
+      $("frbuy").onclick = () => {
+        if (pick === null) return;
+        if (pick !== 4) { wrong(ST[pick][2]); return; }
+        if (H.pay && !H.pay(17, "the train ticket")) return;
+        W().flags.ticket = 1; save(); F.S("lock", null, 0.6); K.buzz("success");
+        K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>Seventeen shekels. The machine prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. Up, all the way to the top of the line. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) });
+      };
+    } },
     board: { label: "Read the board", run: () => fill({ title: "The departures board", kick: "The airport station", intro: q("The board shows your train: Jerusalem, Yitzhak Navon. Under it, someone has written on a scrap of paper and tucked it into the frame. A line of a psalm, with words missing, and a small drawn lamp."),
       text: ["Who shall ", "ASCEND", " into the hill of the LORD? or who shall stand in his ", "HOLY", " place?"], ref: "Psalm 24:3", chips: ["ASCEND", "HOLY", "DESCEND", "HIGH", "COME", "GREAT"],
       bad: { DESCEND: "The other way. Every pilgrim went up.", HIGH: "Close, but the psalm names the place by what it is: set apart." },
@@ -850,7 +902,7 @@
       '<div class="fq">“You want to buy? First you must weigh,” says the spice seller, and sets a worn stone on the left pan. “One shekel. Make the other side match, in gerahs.”</div>' + q("A shekel is twenty gerahs (Exodus 30:13). Tap the weights for the right pan."),
       left: "One shekel", target: 20, unit: "gerahs", bg: "spice-stall", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
       light: "The pans do not level. Twenty gerahs to the shekel.", heavy: "Too heavy: the stone rises. A shekel is twenty gerahs, no more.",
-      done: () => { K.card('<div class="kick">The spice seller</div><h2>“A just weight”</h2><p>The pans level. The seller nods, and tips a spoon of zaatar into a paper twist for you. “A just weight is his delight. You will need one of these.” He drops a small bronze weight into the twist: <b>one bekah, half a shekel</b>. Folded round it, blue at the edges, a page.</p><button class="cta" data-act="x">Unfold the page</button>',
+      done: () => { K.card('<div class="kick">The spice seller</div><h2>“A just weight”</h2><p>The pans level. The seller nods, and tips a spoon of zaatar into a paper twist for you. “A just weight is his delight. You will need one of these.” He drops a small bronze weight into the twist: <b>one bekah, half a shekel</b>. “And twenty shekels for weighing my morning orders. Honest hands. Rare.”</p><button class="cta" data-act="x">Thank him</button>',
         { x: () => { W().flags.bekah = 1; save(); H.earn && H.earn(20, "Yosef, for weighing his morning orders"); pzDone("scales", () => walk(view)); } }); } }) },
     souvenir: { label: "Choose a souvenir", run: () => { if (H.souvenirGate && H.souvenirGate() === false) return; find({ title: "Everyone takes a souvenir home", kick: "Gabriel’s shop", q: "Six things on the counter. The Watchman’s page said: take the one that remembers the house. Tap each one to look closely.", counter: "Looked at", last: "This is the one",
       spots: [
@@ -863,13 +915,17 @@
       ],
       done: () => { K.card('<div class="kick">Gabriel</div><h2>“That one. Yes.”</h2><p>Gabriel does not look surprised. “Someone left that for you this morning. He said you would know it. And a man in a grey coat asked for the same one an hour ago, and I told him it was sold.” He wraps the model in paper. “The house remembers where it stood. Go and see.”</p><button class="cta" data-act="x">Unfold the page</button>',
         { x: () => pzDone("souvenir", () => finish("gabriel")) }); } }); } },
-    modelq: { label: "Study the Temple", run: () => ask({ title: "The courts and the gates", kick: "The Second Temple model", intro: verse("And the glory of the LORD came into the house by the way of the gate whose prospect is toward the east.", "Ezekiel 43:4"),
-      qs: [
-        { q: "Which way does the sanctuary face?", a: [["North, toward the fortress", 0, "The fortress is at the corner, not in front of the house."], ["East, toward the Mount of Olives", 1, "East. Through the gate, across the valley, to the Mount of Olives."], ["West, toward the Upper City", 0, "The Holy of Holies is at the west end: the back of the house."]] },
-        { q: "A pilgrim comes in at the Eastern Gate. Which court is first?", a: [["The Court of the Priests", 0, "The priests’ court is far inside, by the altar."], ["The Court of the Women", 1, "The largest court, open to all Israel: 135 cubits square."], ["The Holy of Holies", 0, "Only the High Priest, once a year."]] },
-        { q: "What stands in the court before the sanctuary, where the smoke rises?", a: [["The altar of burnt offering", 1, "The great altar, in the open court, with its ramp."], ["The menorah", 0, "The menorah stood inside the Holy Place, out of the weather."], ["A fountain", 0, "The laver was for washing, not the smoke."]] },
+    modelq: { label: "Study the Temple", run: () => labels({ title: "The guide’s three questions", kick: "The Second Temple model", img: "model-temple",
+      intro: verse("And the glory of the LORD came into the house by the way of the gate whose prospect is toward the east.", "Ezekiel 43:4") +
+        '<div class="fq">The guide lifts her pointer. “You are standing on the east side, looking west, the way a pilgrim came in. Put the names where they belong.”</div>',
+      spots: [
+        { id: "gate", at: [50, 57], label: "The Eastern Gate", why: "The gate in the eastern wall, with its stair: the way in from the Mount of Olives." },
+        { id: "women", at: [52, 32], label: "The Court of the Women", why: "Just inside the gate: the largest court, open to all Israel, 135 cubits square." },
+        { id: "house", at: [49, 21], label: "The sanctuary", why: "The house itself, its doors open to the east. The Holy of Holies is at the far, western end, behind the veil." },
       ],
-      done: () => { K.card('<div class="kick">The model</div><h2>You know the house now</h2><p>Eastern Gate, Court of the Women, Court of Israel, the altar, the sanctuary, and at the back the Holy of Holies: a straight line from east to west. <b>Remember it.</b> On the model’s eastern wall, where the gate is, someone has stuck a page under the glass.</p><button class="cta" data-act="x">Take the page</button>',
+      sun: { at: [50, 92], label: "The sunrise", why: "The house faced east. The rising sun shone straight through the Eastern Gate onto its doors." },
+      wrongs: { gate: "That is a wall. The gate has a stair in front of it.", women: "Think of a pilgrim walking in: the first court is just inside the gate.", house: "The tallest building, white and gold: the house itself." },
+      done: () => { K.card('<div class="kick">The guide</div><h2>“Good. You looked.”</h2><p>Eastern Gate, Court of the Women, Court of Israel, the altar, the sanctuary, and at the back the Holy of Holies: a straight line from east to west, the doors facing the sunrise. <b>Remember the line.</b> On the Mount you will need it.</p><button class="cta" data-act="x">Thank her</button>',
         { x: () => { W().flags.modelq = 1; save(); pzDone("modelq", () => walk(view)); } }); } }) },
     wayup: { label: "Find the way up", run: () => ask({ title: "The way onto the wall", kick: "Jaffa Gate", intro: q("Three ways out of the square: a street going down into the city, the citadel’s drawbridge, and a small door marked “Ramparts Walk”, with a stair behind it."),
       qs: [{ q: "Which way?", a: [["Down the street into the souk", 0, "Down takes you into the city. You want up."], ["The small door and the stair", 1], ["The citadel drawbridge", 0, "That is the museum. Locked today."]] }],
@@ -1008,7 +1064,7 @@
     const v = view;
     if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
-    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "East. The Court of the Women. The altar.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "The page says up: the city on the mountains.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
+    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "The page says up. Follow the red line on the wall map to the top of the mountains.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
     if (pz) return K.say("Something to do at “" + pz.cap.split(":")[0] + "”. Use the arrows to walk there.", "", 4200);
     K.say("This scene is done. Tap “Walk on” or the Map.", "", 3200);

@@ -455,3 +455,26 @@
 #adv .asheet .fscripture b{color:#8a6a2a;font-size:12px;vertical-align:super}
 #adv .asheet .fchoices{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0 10px}
 #adv .asheet .fchoices button{padding:10px 16px;border-radius:999px;border:1.5px solid #D9CFB6;background:#FBF8F0;color:#141A33;font:800 15px var(--ui);cursor:pointer}
+
+/* name the parts of a photograph */
+#adv .flab{position:relative;width:100%;max-width:360px;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.5)}
+#adv .flab img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none}
+#adv .flab-pin{position:absolute;transform:translate(-50%,-50%);border:none;background:none;padding:0;cursor:pointer}
+#adv .flab-pin i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(20,26,51,.9);border:2px solid #C9A24A;color:#F3DFA6;font:800 16px Georgia,serif;font-style:normal;box-shadow:0 2px 8px rgba(0,0,0,.6);animation:fpinpulse 2s ease-in-out infinite}
+#adv .flab-pin.sun i{border-color:#FFD27A}
+#adv .flab-pin.ok i{background:#2E6B45;border-color:#CDEFD6;color:#fff;animation:none}
+#adv .flab-pin span{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;padding:3px 8px;border-radius:8px;background:rgba(20,26,51,.92);color:#F3DFA6;font:700 12px var(--ui)}
+#adv .flab-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:360px}
+#adv .flab-chips button{padding:10px 14px;border-radius:999px;border:1.5px solid rgba(201,162,74,.6);background:rgba(20,26,51,.85);color:#F3DFA6;font:700 14px var(--ui);cursor:pointer;touch-action:none}
+#adv .flab-chips button.on{background:#C9A24A;color:#141A33;transform:scale(1.05)}
+
+/* the route map at the airport station */
+#adv .froute{position:relative;width:100%;max-width:360px;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.5)}
+#adv .froute img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none}
+#adv .froute-st{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:none;background:transparent;cursor:pointer}
+#adv .froute-st::after{content:"";position:absolute;inset:8px;border-radius:50%;box-shadow:0 0 0 0 rgba(255,220,120,.7);animation:fpinpulse 2.2s ease-in-out infinite}
+#adv .froute-st.on::after{inset:4px;border:3px solid #FFD27A;animation:none}
+#adv .froute-st span{position:absolute;right:100%;top:50%;transform:translateY(-50%);margin-right:2px;white-space:nowrap;font:700 11px var(--ui);color:#F3DFA6;background:rgba(20,26,51,.85);padding:2px 7px;border-radius:7px}
+#adv .froute-st span:empty{display:none}
+#adv .froute-pick{min-height:22px;font:700 15px var(--ui);color:#F3DFA6;text-align:center}
+#adv #frbuy:disabled{opacity:.45}
