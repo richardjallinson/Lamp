@@ -292,21 +292,27 @@
       { id: "inner", img: "dung-inner", cap: "The Dung Gate from inside the city: through the arch, the Kidron slopes and the village beyond", go: { back: "exit", fwd: "gate" } },
       { id: "gate", img: "dung-gate", cap: "The Dung Gate, the small gate in the south wall nearest the Western Wall", hank: "Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.",
         go: { fwd: "road", back: "inner" } },
-      { id: "road", img: null, cap: "The road outside the gate, and a locked iron gate across the path down into the Kidron Valley", go: { back: "gate" }, puzzle: "moses" },
+      { id: "road", img: "dung-road", cap: "Outside the gate: the dirt path down toward the Kidron Valley, and the town of Silwan on the slope beyond", go: { back: "gate" }, puzzle: "moses",
+        hots: [{ box: [0, 25, 100, 22], label: "The town of Silwan", text: "Silwan: the town that climbs the slope across the valley from the City of David. Its name comes from Siloam, the pool below. Its cliffs are full of tombs cut in the days of the kings of Judah." }] },
     ] });
   S({ id: "egate", act: 4, title: "The Eastern Gate, outside", kick: "The steps and the cemetery", music: "m21", amb: "olives",
     views: [
       { id: "steps", img: null, cap: "The stairs Moses pointed to, climbing beside the eastern wall", hank: "Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.", go: { fwd: "path" } },
       { id: "path", img: null, cap: "The path through the Muslim cemetery below the eastern wall", go: { back: "steps", fwd: "gate" },
         hots: [{ box: [0, 40, 100, 50], label: "The graves", text: "Graves have been laid against this wall for centuries. Some say they were put here to keep the Messiah out: a priest may not walk through the dead. He will not be kept out." }] },
-      { id: "gate", img: "gate-outside-far", cap: "The Eastern Gate from outside: two sealed arches, walled with stone since 1541", go: { back: "path" }, puzzle: "police" },
+      { id: "gate", img: "egate-gate", cap: "The Eastern Gate from outside, above the olive terraces and the graves: two sealed arches, walled with stone since 1541", go: { back: "path" }, puzzle: "police" },
     ] });
   S({ id: "kidron", act: 4, title: "The Kidron Valley", kick: "Absalom and Zechariah", music: "m22", amb: "olives",
     views: [
-      { id: "absalom", img: null, cap: "Absalom’s Pillar: the tall monument with its strange conical roof, cut from the living rock", hank: "Down in the valley, the tombs. This one carries Absalom’s name, though it was cut long after him.",
-        go: { fwd: "zechariah" }, puzzle: "whose" },
-      { id: "zechariah", img: null, cap: "The Tomb of Zechariah: a solid block cut from the cliff, with a pyramid on top, and no door", go: { back: "absalom" },
-        hots: [{ box: [20, 10, 60, 70], label: "The tomb", text: "A monolith with no entrance: a monument, not a grave. By tradition it remembers Zechariah the priest, “whom ye slew between the temple and the altar” (Matthew 23:35; 2 Chronicles 24:21). Behind it, up the hill, the path climbs the Mount of Olives." }] },
+      { id: "wide", img: "kidron-wide", cap: "Down in the valley: tombs cut from the cliff, and the Mount of Olives cemetery climbing behind", hank: "Down in the valley, the tombs. The names on them are older than the stones.",
+        go: { fwd: "zechariah", right: "absalom" },
+        hots: [{ box: [14, 40, 22, 18], label: "The porch with two columns", text: "The tomb of the sons of Hezir: a priestly family, named in its Hebrew inscription. Hezir was the head of the seventeenth course of priests in David’s day (1 Chronicles 24:15). Priests of the Temple were buried here, facing it." },
+          { box: [62, 38, 22, 30], label: "The pyramid", text: "The monument called Zechariah’s Tomb. Walk over to it." }] },
+      { id: "absalom", img: "kidron-absalom", cap: "Absalom’s Pillar: square below, a round drum and a tall spire on top", go: { left: "wide" }, puzzle: "whose" },
+      { id: "zechariah", img: "kidron-zechariah", cap: "Zechariah’s Tomb: a solid block cut from the cliff, Greek columns, a pyramid on top, and no door", go: { back: "wide", right: "zsign" },
+        hots: [{ box: [20, 20, 60, 60], label: "The monument", text: "“Whom ye slew between the temple and the altar” (Matthew 23:35; 2 Chronicles 24:21). Tradition gave this monument Zechariah’s name; it faces the Temple Mount across the valley." }] },
+      { id: "zsign", img: "kidron-sign", cap: "The sign: “Zechariah’s Tomb”", go: { left: "zechariah" },
+        hots: [{ box: [8, 60, 84, 30], label: "Read the sign", text: "Hewn entirely from the rock and never used for burial, because it has no room inside: it is a nefesh, a monument to the name of the dead. First century BC, with Greek columns and capitals. The name of Zechariah was given to it late in its history; it was probably the monument of a Judean noble of the Second Temple period. Its face bears inscriptions carved by Jewish pilgrims." }] },
     ] });
   S({ id: "prophets", act: 4, title: "The Tombs of the Prophets", kick: "A side path", music: "puzzle", amb: "chamber", kept: "prophets", optional: true,
     views: [{ id: "in", img: null, cap: "" }] });
@@ -749,9 +755,9 @@
     whose: { label: "Whose tomb?", run: () => ask({ title: "Who lies here?", kick: "The Kidron Valley", intro: verse("Now Absalom in his lifetime had taken and reared up for himself a pillar, which is in the king’s dale… and it is called unto this day, Absalom’s place.", "2 Samuel 18:18"),
       qs: [
         { q: "The tall monument with the cone roof is called Absalom’s Pillar. Its style is Greek and Roman, a thousand years after Absalom. What does that tell you?", a: [["It is a fake", 0, "Not a fake: a real tomb, of someone, from the first century."], ["It remembers Absalom; it does not hold him", 1, "A memorial name on a later tomb. Jerusalem is full of those."], ["Absalom lived in Roman times", 0, "Absalom was David’s son, about 1000 BC."]] },
-        { q: "The solid block with the pyramid on top has no door. Which Zechariah does it remember?", a: [["Zechariah the prophet, who wrote the book", 0, "He lies, by tradition, in the Tombs of the Prophets, up the hill."], ["Zechariah the priest, stoned in the Temple court", 1, "“Whom ye slew between the temple and the altar” (Matthew 23:35)."], ["Zacharias, father of John the Baptist", 0, "A different Zacharias again."]] },
+        { q: "The block with the pyramid on top has no door and no room inside. What is it, then?", a: [["A sealed grave", 0, "Look at the sign beside it: it was never used for burial."], ["A nefesh: a monument to the name of the dead", 1, "A nefesh, cut from the living rock, to keep a name. Tradition gave it Zechariah’s."], ["A watchtower over the valley", 0, "No stairs, no room, no way up."]] },
       ],
-      done: () => { K.card('<div class="kick">The Kidron Valley</div><h2>Between the temple and the altar</h2><p>Zechariah the priest died in the court of the house of the LORD, and his monument faces the place. Up the hill behind it, a side path leads to a cave: the Tombs of the Prophets. The main path goes on up to the top of the Mount of Olives.</p><button class="cta" data-act="x">Up the hill</button>', { x: () => pzDone("whose", () => finish("kidron")) }); } }) },
+      done: () => { K.card('<div class="kick">The Kidron Valley</div><h2>Between the temple and the altar</h2><p>Zechariah the priest was stoned “in the court of the house of the LORD” (2 Chronicles 24:21), and the monument that carries his name faces the place. Up the hill behind it, a side path leads to a cave: the Tombs of the Prophets. The main path goes on up to the top of the Mount of Olives.</p><button class="cta" data-act="x">Up the hill</button>', { x: () => pzDone("whose", () => finish("kidron")) }); } }) },
     lastpage: { label: "Look in the hollow", run: () => { K.card('<div class="kick">Gethsemane</div><h2>In the hollow of the oldest tree</h2><p>You put your hand into the hollow trunk, where a thousand years of rain have worn the wood soft. Your fingers find paper. The last torn page.</p><button class="cta" data-act="x">Unfold it</button>', { x: () => pzDone("lastpage", () => finish("gethsemane")) }); } },
     greytop: { label: "The man by the arcade", run: () => talk({ title: "At the top of the bridge", kick: "The Temple Mount", who: "The man in the grey coat", run: (T) => {
       T.line('<div class="fq">He is leaning on a pillar of the arcade, as if he has been there a while. Grey coat, grey hair, a face you have seen on three platforms and in two crowds. He straightens up as you come through the gate.</div>');

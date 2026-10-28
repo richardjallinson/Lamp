@@ -84,8 +84,8 @@ Nehemiah rode out by night past the dung port and viewed the walls. You are goin
 [w-egate-steps]
 Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.
 
-[w-kidron-absalom]
-Down in the valley, the tombs. This one carries Absalom’s name, though it was cut long after him.
+[w-kidron-wide]
+Down in the valley, the tombs. The names on them are older than the stones.
 
 [w-gethsemane-trees]
 Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.

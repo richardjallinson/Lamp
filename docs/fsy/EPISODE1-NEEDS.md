@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 85 of 124 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 90 of 126 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -319,7 +319,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 | ✓ | `dung-exit` | Out of the Western Wall plaza: the exit, the taxis, and the road to the Dung Gate |
 | ✓ | `dung-inner` | The Dung Gate from inside the city: through the arch, the Kidron slopes and the village beyond |
 | ✓ | `dung-gate` | The Dung Gate, the small gate in the south wall nearest the Western Wall |
-| ☐ | `dung-road` | The road outside the gate, and a locked iron gate across the path down into the Kidron Valley |
+| ✓ | `dung-road` | Outside the gate: the dirt path down toward the Kidron Valley, and the town of Silwan on the slope beyond |
 
 **Hank says:**
 
@@ -331,7 +331,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 | --- | --- | --- |
 | ☐ | `egate-steps` | The stairs Moses pointed to, climbing beside the eastern wall |
 | ☐ | `egate-path` | The path through the Muslim cemetery below the eastern wall |
-| ✓ | `gate-outside-far` | The Eastern Gate from outside: two sealed arches, walled with stone since 1541 |
+| ✓ | `egate-gate` | The Eastern Gate from outside, above the olive terraces and the graves: two sealed arches, walled with stone since 1541 |
 
 **Hank says:**
 
@@ -341,12 +341,14 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `kidron-absalom` | Absalom’s Pillar: the tall monument with its strange conical roof, cut from the living rock |
-| ☐ | `kidron-zechariah` | The Tomb of Zechariah: a solid block cut from the cliff, with a pyramid on top, and no door |
+| ✓ | `kidron-wide` | Down in the valley: tombs cut from the cliff, and the Mount of Olives cemetery climbing behind |
+| ✓ | `kidron-absalom` | Absalom’s Pillar: square below, a round drum and a tall spire on top |
+| ✓ | `kidron-zechariah` | Zechariah’s Tomb: a solid block cut from the cliff, Greek columns, a pyramid on top, and no door |
+| ✓ | `kidron-sign` | The sign: “Zechariah’s Tomb” |
 
 **Hank says:**
 
-- `w-kidron-absalom`: “Down in the valley, the tombs. This one carries Absalom’s name, though it was cut long after him.”
+- `w-kidron-wide`: “Down in the valley, the tombs. The names on them are older than the stones.”
 
 ### 27. The Tombs of the Prophets (A side path)
 

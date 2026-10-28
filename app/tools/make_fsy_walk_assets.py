@@ -108,6 +108,13 @@ PHOTOS = {
     "hebron-abraham": "photos/hebron/tomb-monument-abraham.png",
     "hebron-jacob": "photos/hebron/tomb-monument-jacob.png",
     "hebron-arnon": "photos/hebron/entering-the-cave-sign-noam-arnon.png",
+    # the Kidron Valley and the Eastern Gate from outside
+    "egate-gate": "photos/kidron/eastern-gate-from-the-valley.png",
+    "dung-road": "photos/kidron/path-where-we-met-moses.png",
+    "kidron-wide": "photos/kidron/bnei-hezir-and-zechariah-wide.png",
+    "kidron-absalom": "photos/kidron/absaloms-pillar.png",
+    "kidron-zechariah": ("photos/kidron/zechariah-tomb-with-richard.png", (0, 469, 1125, 1480)),   # Richard cropped out below
+    "kidron-sign": "photos/kidron/zechariah-tomb-sign.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
