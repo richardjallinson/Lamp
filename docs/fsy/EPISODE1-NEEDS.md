@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 156 of 165 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 157 of 165 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -311,7 +311,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `siloam-pool` | The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor |
 | ✓ | `siloam-sign` | The sign: “The Pool of Shiloah (Siloam), Second Temple splendour” |
 | ✓ | `siloam-water` | Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again |
-| ☐ | `siloam-road` | The stepped Pilgrim Road, climbing from the pool toward the Temple Mount |
+| ✓ | `siloam-road` | The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, new steps beside it |
 
 **Hank says:**
 

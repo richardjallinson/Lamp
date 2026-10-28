@@ -317,7 +317,7 @@
         hots: [{ box: [5, 40, 90, 35], label: "Read the sign", text: "“…how he made the pool and the conduit and brought the water into the city” (2 Kings 20:20). In 2004 a very large pool from the Second Temple period was found here, about three quarters of an acre. Beside it, a stepped street: the road the pilgrims climbed from the pool to the Temple Mount. Under its paving, a drainage channel where the last rebels hid from the Romans in AD 70." }] },
       { id: "water", img: "siloam-water", cap: "Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again", go: { left: "pool" },
         hots: [{ box: [25, 30, 50, 25], label: "The column drums", text: "Stumps of columns from a Byzantine church built here, about AD 450, to remember the man born blind who washed and came back seeing (John 9:7)." }] },
-      { id: "road", img: null, cap: "The stepped Pilgrim Road, climbing from the pool toward the Temple Mount", go: { back: "pool" },
+      { id: "road", img: "siloam-road", cap: "The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, new steps beside it", go: { back: "pool" },
         hots: [{ box: [20, 0, 60, 60], label: "Up the road", text: "Pilgrims washed in the pool and climbed this street to the Temple. Far ahead, going up fast, a grey coat." }] },
     ] });
   S({ id: "steps", act: 3, title: "The Southern Steps", kick: "The Songs of Ascents", music: "m19", amb: "olives", doneBy: "robinson",

@@ -112,6 +112,7 @@ PHOTOS = {
     "gabriel-shelf": ("photos/oct28/gabriel-shelf-kiddush-cup.png", (0, 262, 1125, 1590)),   # Richard's head cropped off
     "train-navon": "photos/oct28/navon-escalators-painting.png",   # a painting, not a photo
     "ramparts-sky": "photos/oct27/ramparts-storm-sky-wide.png",
+    "siloam-road": ("photos/oct28/pilgrim-road-tunnel-CHECK-SOURCE.png", (100, 0, 2000, 924)),
     "jewish-burnt": ("photos/oct28/burnt-house-entrance-CHECK-SOURCE.png", (600, 0, 1880, 1125)),   # letterbox and the ice-cream fridge cropped off
     "zion-courtyard": ("photos/oct28/zion-courtyard-from-roof-CHECK-SOURCE.png", (250, 0, 1750, 1125)),
     "wilson-shaft": "photos/oct28/wilson-glass-shaft-painting.png",   # painting
