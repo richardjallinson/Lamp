@@ -57,6 +57,13 @@ PHOTOS = {
     "mughrabi-down": ("photos/oct27/western-wall-from-mughrabi-video-still.png", (0, 335, 1125, 1814)),
     "mughrabi-open": ("photos/oct27/mughrabi-open-ramp.png", (0, 219, 1125, 2050)),
     "mughrabi-near": ("photos/oct27/mughrabi-ramp-near-gate.png", (0, 219, 1125, 2050)),
+    "tunnel-1": "photos/oct27/tunnel-passage-1.png",
+    "tunnel-2": "photos/oct27/tunnel-passage-master-course.png",
+    "tunnel-great": "photos/oct27/tunnel-great-stone-notes.png",
+    "tunnel-warren": "photos/oct27/warrens-gate-sign.png",
+    "tunnel-prayer": "photos/oct27/tunnel-woman-praying-opposite-holy-of-holies.png",
+    "tunnel-plaque": "photos/oct27/tunnel-plaque-opposite-holy-of-holies.png",
+    "tunnel-stairs": "photos/oct27/tunnel-stairs.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

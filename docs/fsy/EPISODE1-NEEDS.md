@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 40 of 93 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 47 of 96 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -151,10 +151,13 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `tunnels-entry` | The tunnel entrance: a low passage along the Wall, northward, under the Muslim Quarter |
-| ☐ | `tunnels-master` | The Master Course: the largest stone in the Wall, thirteen metres long, perhaps six hundred tons |
-| ☐ | `tunnels-warren` | Warren’s Gate: a blocked gate in the Wall, and a sign on the opposite wall |
-| ☐ | `tunnels-sign` | The sign: “The closest point to the Holy of Holies”, with a plan showing it under the Dome of the Rock |
+| ✓ | `tunnel-1` | Into the tunnel: Herod’s Wall on the left, a narrow passage running north under the Muslim Quarter |
+| ✓ | `tunnel-2` | The Master Course: a row of giant stones along the Wall, each longer than a bus |
+| ✓ | `tunnel-great` | The Western Stone close up: one block, its face pocked with holes, prayer notes pushed into them |
+| ✓ | `tunnel-warren` | A glass sign on the rock: “Entrance gate to the Temple Mount”, Warren’s Gate |
+| ✓ | `tunnel-prayer` | Under a low arch, a woman prays with her face to the stones, facing east |
+| ✓ | `tunnel-plaque` | A lit glass plaque on the rock: “The site opposite the Holy of Holies” |
+| ✓ | `tunnel-stairs` | Further on, a metal stair climbs toward the far end of the tunnel and the light |
 
 **Hank says:**
 
