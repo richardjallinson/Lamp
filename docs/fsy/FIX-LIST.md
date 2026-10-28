@@ -1,6 +1,6 @@
 # Episode 1 fix list (batched; build the next v3 zip when 4–5 are ready)
 
-Last build sent: v3x (fixes 1–7 below).
+Last build sent: v3y (fixes 1–9 below).
 
 | # | Fix | State |
 | --- | --- | --- |
@@ -16,5 +16,5 @@ Last build sent: v3x (fixes 1–7 below).
 | --- | --- | --- |
 | 6 | Professional puzzle machines from Richard's drawings: the brass balance (spice seller, bazaar trader), the brass combination lock on the Institute case, the lamp in the dark on his painted walls (Gihon Spring, Hezekiah's Tunnel) | In v3x |
 | 7 | Act 1 as an adventure (Claude Doc "Episode 1, Act 1: The Adventure Design"): 11 people to talk to, money (start 100), Gabriel's shop, items that carry forward, the travel card and its four rides, doors that need the key (card, number 26, museum ticket, map + kippah), Dudu's side quest, the Daniel 9 reader in the journal, the man in grey's NOT NORTH card. New file js/fsy-act1.js. Portraits show as lettered medallions until Richard's drawings arrive | In v3x. Needs: 12 people, 14 objects, 5 scenes drawn (list in the doc) |
-| 8 | Act 1 puzzles: the ticket machine is now Richard's painted route map (five real stations, sea to summit, go up); the museum guide's questions are now naming the parts of his model photo and placing the sunrise; the departures-board puzzle is dropped (a quiet train ride); double-tap guard on Weigh and Try the lock | Done in code, waiting for the build |
-| 9 | Portraits for all 13 people, the man in grey painting, Ben Yehuda Street and Gabriel's counter paintings (171/171 views) | Done in code, waiting for the build |
+| 8 | Act 1 puzzles: the ticket machine is now Richard's painted route map (five real stations, sea to summit, go up); the museum guide's questions are now naming the parts of his model photo and placing the sunrise; the departures-board puzzle is dropped (a quiet train ride); double-tap guard on Weigh and Try the lock | In v3y |
+| 9 | Portraits for all 13 people, the man in grey painting, Ben Yehuda Street and Gabriel's counter paintings (171/171 views) | In v3y |
