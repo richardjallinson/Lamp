@@ -7,7 +7,7 @@
   const Lamp = window.Lamp; const FW = Lamp.fsyWalk; if (!FW) return;
   const H = FW.H, C = FW.core, W = FW.W, K = Lamp.adv.kit, F = Lamp.fsy.parts, esc = K.esc, $ = (id) => document.getElementById(id);
   const PP = "img/fsy/people/";
-  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
+  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef", "gabriel", "guide", "violinist", "halva", "baker", "dudu"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
   const save = () => Lamp.save();
   /* adventure state, inside the episode's save */
   const A = () => { const w = W(); if (!w.a) w.a = { money: 100, items: {}, rides: 0, facts: [], asked: {}, q: {}, f: {}, rode: {} }; return w.a; };
@@ -131,7 +131,7 @@
       { id: "grey", say: "Do you know a man in a grey coat?", when: (a) => a.q.shmuel, run: () => reply("violinist", "“He does not give. Not a shekel. A man who does not give to music, what else does he not give?”") },
       { id: "again", say: "Play it again?", when: (a) => a.q.found26, run: () => reply("violinist", "He plays Jerusalem of Gold, and for a minute the street stops to listen.") },
     ] },
-    gabriel: { name: "Gabriel", kick: "Number 26", desc: "Behind the counter, the light from the window behind him: a small man, glasses pushed up on his head, a big voice. He is already talking about the end of days.", lines: [
+    gabriel: { name: "Gabriel", kick: "Number 26", desc: "Behind the glass counter, under shelves of menorahs: a small old man with a long white beard, round glasses, a dark kippah, and a big voice. He is already talking about the end of days.", lines: [
       { id: "shmuel", say: "Shmuel says he’s still alive.", when: (a) => !a.q.shopOpen, run: () => { A().q.shopOpen = 1; save(); reply("gabriel", "“Shmuel has been dying for thirty years. Come in, come in.” He taps the counter. “Everybody who comes in here wants to know when. You want to know where. Good.”"); } },
       { id: "journal", say: "I have a journal.", when: (a) => a.q.shopOpen && !a.items.rod, run: () => { reply("gabriel", "He goes quiet. He goes into the back, and comes out with a wooden rod with marks cut along it and a small lamp burned into one end. “He left this. He said someone would come with the book. A cubit, the long one, the Temple cubit: fifty-two centimetres. You measure with it. You do not argue with it.”"); give("rod"); fact("cubit", "The Temple cubit is the long cubit: 52 centimetres. The Watchman’s rod is marked in them."); } },
       { id: "what", say: "What should I buy?", when: (a) => a.q.shopOpen, run: () => reply("gabriel", "“For the Old City? The map, or you will walk in circles like the man in grey. A kippah, or they will not let you near the Wall. A lamp, if you are going under the city. Oil you get at the spring; I do not sell oil.”", { btn: "Look at the counter", then: shop }) },
