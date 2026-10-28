@@ -65,11 +65,16 @@
   S({ id: "market", act: 1, title: "Machne Yehuda market", kick: "The shuk", music: "m10", amb: "street", page: 2,
     views: [
       { id: "street", img: "market-street", cap: "The main lane of the market, under its glass roof: sweets, spices, coffee, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
-        go: { fwd: "spice", left: "bread", right: "juice" }, hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
-      { id: "bread", img: null, cap: "The bread stall: challah and pita, still warm", go: { right: "street" }, hots: [{ box: [10, 30, 80, 50], label: "The baker", text: "“Shabbat shalom! Bread? No? The spices are that way, my friend. Ask for a just weight.” He laughs." }] },
+        go: { fwd: "deeper", left: "bread", right: "juice" }, hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
+      { id: "bread", img: "market-bread", cap: "Down another lane: round loaves stacked by the counter, trays of pastries opposite", go: { right: "street" },
+        hots: [{ box: [80, 30, 20, 20], label: "The loaves", text: "“Shabbat shalom! Bread? No? The spices are further in, my friend. Ask for a just weight.” The baker laughs." }] },
       { id: "juice", img: "market-stall", cap: "A sweet stall: ice cream, fruit and toppings in rows of little tubs", go: { left: "street" }, hots: [{ box: [50, 50, 45, 22], label: "The fruit", text: "Mango, figs, pomegranate seeds, grapes: the fruits of the land. “A land of wheat, and barley, and vines, and fig trees, and pomegranates; a land of oil olive, and honey” (Deuteronomy 8:8)." }] },
-      { id: "spice", img: null, cap: "The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance", go: { back: "street" }, puzzle: "scales",
-        hots: [{ box: [5, 5, 50, 30], label: "The sacks of spice", text: "Cumin, coriander, sumac, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
+      { id: "deeper", img: "market-deeper", cap: "Deeper in: baklava and halva on one side, oranges and pomegranates on the other", go: { back: "street", fwd: "spice", left: "coffee", right: "kaldron" },
+        hots: [{ box: [15, 30, 15, 10], label: "Rimon", text: "The sign says Rimon: Hebrew for pomegranate. “Upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet” (Exodus 28:33): the High Priest’s robe was hung with them." }] },
+      { id: "coffee", img: "market-coffee", cap: "Tins of coffee beans, each with its handwritten card, and a scoop in every one", go: { right: "deeper" } },
+      { id: "kaldron", img: "market-kaldron", cap: "Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys", go: { left: "deeper" } },
+      { id: "spice", img: "market-spice", cap: "The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter", go: { back: "deeper" }, puzzle: "scales",
+        hots: [{ box: [10, 45, 80, 20], label: "The bowls of spice", text: "Paprika, turmeric, cumin, zaatar, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [

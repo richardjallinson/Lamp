@@ -87,6 +87,11 @@ PHOTOS = {
     "tombs-niche-3": "photos/oct27/tombs-prophets-niche-dark.png",
     "tombs-light": ("photos/oct27/tombs-prophets-stairs-to-light.png", (0, 219, 1125, 2050)),
     "olives-cemetery": "photos/oct27/mount-of-olives-view-cemetery.png",
+    "market-deeper": "photos/oct27/market-lane-sweets.png",
+    "market-bread": "photos/oct27/market-lane-bread.png",
+    "market-coffee": "photos/oct27/market-coffee-beans.png",
+    "market-spice": "photos/oct27/market-spice-stall.png",
+    "market-kaldron": "photos/oct27/market-lane-bakery.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

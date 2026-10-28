@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 66 of 110 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 71 of 113 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -40,9 +40,12 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `market-street` | The main lane of the market, under its glass roof: sweets, spices, coffee, noise |
-| ☐ | `market-bread` | The bread stall: challah and pita, still warm |
+| ✓ | `market-bread` | Down another lane: round loaves stacked by the counter, trays of pastries opposite |
 | ✓ | `market-stall` | A sweet stall: ice cream, fruit and toppings in rows of little tubs |
-| ☐ | `market-spice` | The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance |
+| ✓ | `market-deeper` | Deeper in: baklava and halva on one side, oranges and pomegranates on the other |
+| ✓ | `market-coffee` | Tins of coffee beans, each with its handwritten card, and a scoop in every one |
+| ✓ | `market-kaldron` | Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys |
+| ✓ | `market-spice` | The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter |
 
 **Hank says:**
 
