@@ -49,9 +49,9 @@
       { id: "hall", img: "airport-1", cap: "The arrivals hall at Ben Gurion, the journal in your bag", go: { fwd: "signs" },
         hank: "Ben Gurion. Read the first page again before you go: it tells you the way.",
         hots: [{ box: [30, 70, 40, 25], label: "The Watchman’s journal", act: "readjournal" }] },
-      { id: "signs", img: null, cap: "Signs with a train on them, pointing down the escalator to the airport station", go: { back: "hall", fwd: "machine" },
+      { id: "signs", img: "airport-signs", cap: "Signs with a train on them, pointing down the escalator to the airport station", go: { back: "hall", fwd: "machine" },
         hank: "Trains, down the escalator. Down first, so you can go up." },
-      { id: "machine", img: null, cap: "The ticket machines at the airport station, a list of destinations on the screen", go: { back: "signs" }, puzzle: "ticket" },
+      { id: "machine", img: "airport-machine", cap: "The ticket machines at the airport station, a list of destinations on the screen", go: { back: "signs" }, puzzle: "ticket" },
     ] });
   S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "street",
     views: [
@@ -604,7 +604,7 @@
       '<div class="ftask' + (done ? " done" : "") + '">' + (done ? "✓ " : "") + esc(task) + "</div>" +
       '<div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
       (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") + "</div>" +
-      '<div class="fsmall">' + esc(v.cap) + (v.img ? "<small>Photo: Richard J. Allinson</small>" : "<small>Double-tap any picture for full screen</small>") + "</div>" +
+      '<div class="fsmall">' + esc(v.cap) + (v.img ? "" : "<small>Photo to come</small>") + "</div>" +
       (v.hank ? '<div class="fnarr">“' + esc(v.hank) + '”<small>The Lamplighter</small></div>' : "") +
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + ' Journal</button><button class="fwtool" data-b="1">' + bagIcon() + ' Backpack</button><button class="fwtool" data-m="1">Map</button>' +
       (done && nx ? '<button class="fwtool go" data-n="1">Walk on › ' + esc(nx.title) + "</button>" : "") +

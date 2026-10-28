@@ -385,3 +385,5 @@
 #adv .fdesk b{color:#F3DFA6}
 #adv .fdesk small{display:block;margin-top:6px;font:700 11px var(--ui);letter-spacing:.15em;text-transform:uppercase;color:#C9A24A}
 #adv .ffilm{width:calc(100% - 28px);border-radius:14px;border:1px solid rgba(201,162,74,.5)}
+#adv .fdeskimg{width:calc(100% - 28px);max-height:46vh;object-fit:cover;border-radius:14px;border:1px solid rgba(201,162,74,.5)}
+#adv .fcredit{margin:2px 18px;font:500 12px/1.4 var(--ui);color:#B8AD8E;text-align:center;font-style:italic}

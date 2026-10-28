@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 166 of 168 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 168 of 168 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -11,8 +11,8 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `airport-1` | The arrivals hall at Ben Gurion, the journal in your bag |
-| ☐ | `airport-signs` | Signs with a train on them, pointing down the escalator to the airport station |
-| ☐ | `airport-machine` | The ticket machines at the airport station, a list of destinations on the screen |
+| ✓ | `airport-signs` | Signs with a train on them, pointing down the escalator to the airport station |
+| ✓ | `airport-machine` | The ticket machines at the airport station, a list of destinations on the screen |
 
 **Hank says:**
 

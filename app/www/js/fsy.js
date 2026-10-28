@@ -77,7 +77,7 @@
   ];
 
   /* Richard's own photographs from Jerusalem (December 2023 and 2024) */
-  const photo = (f, cap, by) => '<figure class="fphoto' + (/vessel-garments/.test(f) ? " tall" : "") + '"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "<small>" + esc(by || "Photo: Richard J. Allinson, on the Temple Mount") + "</small></figcaption></figure>";
+  const photo = (f, cap, by) => '<figure class="fphoto' + (/vessel-garments/.test(f) ? " tall" : "") + '"><img src="img/fsy/' + f + '" alt="' + esc(cap) + '"><figcaption>' + esc(cap) + "</figcaption></figure>";
   const TI = "Photo: Richard J. Allinson, at the Temple Institute";
   CLUES[0].photo = ["bedrock.jpg", "The bedrock inside the Dome of the Spirits: flat, level, natural rock"];
   /* where each clue is found on the Mount, in Richard's photographs */
@@ -176,8 +176,9 @@
     cur = ""; M("theme", "chamber");
     const film = INTRO_FILM ? '<video class="ffilm" src="' + INTRO_FILM + '" playsinline controls autoplay></video>' :
       '<div class="fdesk">' + INTRO_WORDS.map((t) => "<p>" + t + "</p>").join("") + "<small>The Lamplighter · his film will play here</small></div>";
-    stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>The Lamplighter’s desk</h1>' + film +
-      '<button class="fbtn glow" id="fgo">Take the journal</button>', "temple-painting.jpg");
+    const credit = '<div class="fcredit">Every photograph and painting in this episode is by Richard J. Allinson, taken and made in Israel.</div>';
+    stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>The Lamplighter’s desk</h1>' + (INTRO_FILM ? "" : '<img class="fdeskimg" src="img/fsy/w/intro-desk.jpg" alt="The Lamplighter’s desk at night: an oil lamp, a journal tied with cord, a map of Jerusalem">') + film + credit +
+      '<button class="fbtn glow" id="fgo">Take the journal</button>', "w/intro-desk.jpg");
     $("fgo").onclick = () => {
       K.sfx("click"); const p = P(); p.watchCard = 1; save(); S("parchment");
       const W = Lamp.fsyWalk && Lamp.fsyWalk.W(); if (W) { W.pages[1] = 1; save(); }
@@ -231,7 +232,6 @@
       HALL.map((h) => '<button class="fhit" data-h="' + h.k + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"></button>' +
         (h.dot ? (p.ti[h.k] ? '<span class="fdone" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%">✓</span>' : '<span class="fglint" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%"></span>') : "")).join("") +
       (all && !p.ti.postcard ? '<span class="fglint big" style="left:96.5%;top:43%"></span>' : "") + "</div>" +
-      '<div class="fsmall">Photo: Richard J. Allinson, at the Temple Institute</div>' +
       '<div class="fprog">' + EXHIBITS.map((x) => '<button data-e="' + x.id + '" class="' + (p.ti[x.id] ? "done" : x.needs && !p.ti[x.needs] ? "locked" : "") + '">' + (p.ti[x.id] ? "✓ " : "") + esc(x.title.replace(/^The /, "")) + "</button>").join("") + "</div>" +
       (p.ti.postcard ? '<button class="fbtn glow" id="fgo">Leave: out by the Dung Gate</button>' : "") + back("The map"), "ti-hall.jpg");
     wire(s, stops);
@@ -376,7 +376,7 @@
       '<button class="fbtn" id="ftry">Try the lock</button>' +
       (p.ti.psalter ? "" : '<div class="fsmall">Which psalm is the last? Perhaps something in the entrance hall will tell you.</div>')), "ti-instruments.jpg");
     const fp = $("fparch"); if (fp) fp.onclick = () => { S("parchment", "click"); scroll(); };
-    const seenLine = () => { $("fseen").innerHTML = seenN() >= CASE.length ? "You have looked at every instrument in the case." : "Looked at " + seenN() + " of " + CASE.length + ". <small>Photo: Richard J. Allinson, at the Temple Institute</small>"; };
+    const seenLine = () => { $("fseen").innerHTML = seenN() >= CASE.length ? "You have looked at every instrument in the case." : "Looked at " + seenN() + " of " + CASE.length + "."; };
     seenLine();
     s.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => {
       const c = CASE.find((y) => y.id === b.dataset.k); K.sfx("click");
@@ -600,7 +600,6 @@
     const s = stage('<div class="fkick">Act 4 · The Mount of Olives · a side path</div><h1>A sign in the ivy</h1>' +
       '<div class="fq">Halfway up the path from the Kidron tombs, before you can see the top, something catches your eye in the hedge. You could walk on. Or you could look.</div>' +
       '<div class="fviewwrap fphotoview" id="fsg"><img src="img/fsy/olives-sign.jpg" alt="A rusty sign in the ivy: Tombs of the Prophets"><button class="fhit" data-h="sign" aria-label="The rusty sign" style="left:10%;top:52%;width:70%;height:30%"></button><span class="fglint" style="left:45%;top:66%"></span></div>' +
-      '<div class="fsmall">Photo: Richard J. Allinson, on the Mount of Olives</div>' +
       '<button class="fwtool" id="fwalkon">Walk on up the hill ›</button>' + back("The map"));
     wire(s, stops); $("fwalkon").onclick = () => { K.sfx("click"); Lamp.fsyWalk && Lamp.fsyWalk.go("olives"); };
     s.querySelector("[data-h=sign]").onclick = () => {
@@ -732,7 +731,7 @@
       '<button class="fhit" data-h="gate" aria-label="The sealed gate in the wall" style="left:45%;top:56%;width:12%;height:13%"></button>' +
       '<button class="fhit" data-h="wall" aria-label="The city wall" style="left:0;top:56%;width:45%;height:13%"></button>' +
       '<button class="fhit" data-h="valley" aria-label="The Kidron Valley" style="left:0;top:70%;width:100%;height:30%"></button></div>' +
-      '<div class="fsmall">Tap the sealed gate in the wall.<small>Photo: Richard J. Allinson, from the Mount of Olives at sunset</small></div>' + back("The map"));
+      '<div class="fsmall">Tap the sealed gate in the wall.</div>' + back("The map"));
     wire(s, stops); V("10-olives");
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
       const h = b.dataset.h;
