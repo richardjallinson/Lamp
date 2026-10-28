@@ -480,7 +480,7 @@
 #adv #frbuy:disabled{opacity:.45}
 
 /* a person's short clip on their card */
-#adv .asheet .fclip{position:relative;margin:6px 0 10px;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9;cursor:pointer}
-#adv .asheet .fclip video{display:block;width:100%;height:100%;object-fit:cover}
+#adv .asheet .fclip{position:relative;margin:6px 0 10px;border-radius:12px;overflow:hidden;background:#000;cursor:pointer;display:flex;justify-content:center}
+#adv .asheet .fclip video{display:block;max-width:100%;max-height:46vh;width:auto;height:auto}
 #adv .asheet .fclip i{display:none;position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;background:rgba(20,26,51,.8);color:#F3DFA6;font:24px/56px var(--ui);text-align:center;font-style:normal}
 #adv .asheet .fclip.tap i{display:block}
