@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 147 of 160 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 152 of 163 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -356,9 +356,12 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `egate-steps` | The stairs Moses pointed to, climbing beside the eastern wall |
-| ☐ | `egate-path` | The path through the Muslim cemetery below the eastern wall |
+| ✓ | `egate-steps` | The steps Moses pointed to: white stone stairs climbing between the graves, under the battlements of the eastern wall |
+| ✓ | `egate-path` | The paved path along the foot of the eastern wall, graves stepping up the slope on the left |
+| ✓ | `egate-olives` | Looking across the valley: the Jewish cemetery covering the Mount of Olives, the tour buses on the road below |
+| ✓ | `egate-gethsemane` | Straight across the Kidron: the Church of All Nations and the garden of Gethsemane, and the gold onion domes of the Russian church above |
 | ✓ | `egate-gate` | The Eastern Gate from outside, above the olive terraces and the graves: two sealed arches, walled with stone since 1541 |
+| ✓ | `egate-close` | Right under the gate: two blocked arches, stone filled with stone, the graves against its foot |
 
 **Hank says:**
 

@@ -346,10 +346,17 @@
     ] });
   S({ id: "egate", act: 4, title: "The Eastern Gate, outside", kick: "The steps and the cemetery", music: "m21", amb: "olives",
     views: [
-      { id: "steps", img: null, cap: "The stairs Moses pointed to, climbing beside the eastern wall", hank: "Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.", go: { fwd: "path" } },
-      { id: "path", img: null, cap: "The path through the Muslim cemetery below the eastern wall", go: { back: "steps", fwd: "gate" },
-        hots: [{ box: [0, 40, 100, 50], label: "The graves", text: "Graves have been laid against this wall for centuries. Some say they were put here to keep the Messiah out: a priest may not walk through the dead. He will not be kept out." }] },
-      { id: "gate", img: "egate-gate", cap: "The Eastern Gate from outside, above the olive terraces and the graves: two sealed arches, walled with stone since 1541", go: { back: "path" }, puzzle: "police" },
+      { id: "steps", img: "egate-steps", cap: "The steps Moses pointed to: white stone stairs climbing between the graves, under the battlements of the eastern wall", hank: "Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.", go: { fwd: "path" } },
+      { id: "path", img: "egate-path", cap: "The paved path along the foot of the eastern wall, graves stepping up the slope on the left", go: { back: "steps", fwd: "gate", right: "olives" },
+        hots: [{ box: [0, 35, 60, 30], label: "The graves", text: "Graves have been laid against this wall for centuries. Some say they were put here to keep the Messiah out: a priest may not walk through the dead. He will not be kept out." }] },
+      { id: "olives", img: "egate-olives", cap: "Looking across the valley: the Jewish cemetery covering the Mount of Olives, the tour buses on the road below", go: { left: "path", fwd: "gethsemane" },
+        hots: [{ box: [20, 25, 70, 25], label: "The cemetery", text: "The oldest Jewish cemetery in the world, used for three thousand years. People asked to be buried here to be first to rise when the Messiah comes to this mountain (Zechariah 14:4)." }] },
+      { id: "gethsemane", img: "egate-gethsemane", cap: "Straight across the Kidron: the Church of All Nations and the garden of Gethsemane, and the gold onion domes of the Russian church above", go: { back: "olives" },
+        hots: [{ box: [8, 55, 40, 15], label: "The church among the olives", text: "Gethsemane, straight below you across the valley. You will go down to it soon. From the gate to the garden is one straight line, and from the garden back to the gate." },
+          { box: [70, 38, 20, 14], label: "The gold domes", text: "The Church of Mary Magdalene, built by the Russian Tsar in 1888. Moses pointed you this way: up past the Russian church." }] },
+      { id: "gate", img: "egate-gate", cap: "The Eastern Gate from outside, above the olive terraces and the graves: two sealed arches, walled with stone since 1541", go: { back: "path", fwd: "close" } },
+      { id: "close", img: "egate-close", cap: "Right under the gate: two blocked arches, stone filled with stone, the graves against its foot", go: { back: "gate" }, puzzle: "police",
+        hots: [{ box: [15, 40, 70, 25], label: "The sealed arches", text: "Two arches, walled solid. Suleiman sealed the gate in 1541. Jewish tradition says the Messiah will enter by it; Muslim tradition says the same of the judgement. Ezekiel saw it shut (Ezekiel 44:2)." }] },
     ] });
   S({ id: "kidron", act: 4, title: "The Kidron Valley", kick: "Absalom and Zechariah", music: "m22", amb: "olives",
     views: [

@@ -111,6 +111,12 @@ PHOTOS = {
     "gabriel-inside": "photos/oct28/gabriel-window-full.png",   # through the window; Gabriel not in it
     "gabriel-shelf": ("photos/oct28/gabriel-shelf-kiddush-cup.png", (0, 262, 1125, 1590)),   # Richard's head cropped off
     "train-navon": "photos/oct28/navon-escalators-painting.png",   # a painting, not a photo
+    # the Eastern Gate from outside (Richard blurred out of two of them)
+    "egate-path": ("photos/egate/path-along-wall-richard.png", None, [(600, 830, 730, 1190)]),
+    "egate-steps": ("photos/egate/graves-stairs-richard.png", None, [(495, 905, 625, 1245)]),
+    "egate-close": "photos/egate/gate-close-from-below.png",
+    "egate-olives": "photos/egate/view-to-mount-of-olives-cemetery.png",
+    "egate-gethsemane": "photos/egate/view-to-gethsemane-and-russian-church.png",
     "train-board": "photos/oct28/train-platform-painting.png",   # painting
     "train-platform": "photos/oct28/train-locomotive-painting.png",   # painting
     "wilson-hall": "photos/oct28/wilson-hall-painting.png",   # painting
