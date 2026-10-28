@@ -18,6 +18,9 @@ The red line runs along Jaffa Road, from the station to the Old City. Every stop
 [w-market-street]
 Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.
 
+[w-benyehuda-street]
+Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.
+
 [w-gabriel-street]
 Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.
 

@@ -11,11 +11,13 @@
   const Lamp = window.Lamp;
   if (!Lamp || !Lamp.fsy || !Lamp.fsy.parts) return;
   const F = Lamp.fsy.parts, K = Lamp.adv.kit, esc = K.esc, $ = (id) => document.getElementById(id);
+  /* hooks for the adventure layer (js/fsy-act1.js): people, money, items, rides, gates. Each is optional. */
+  const H = {};
   const IMG = "img/fsy/w/";
 
   /* ------------------------------------------------------------ the journal: the Watchman's twelve pages ------------------------------------------------------------ */
   const PAGES = {
-    1: { at: "airport", text: "If you are reading this, he gave you the book. Then he trusts you, and so must I. Do not believe what you are told about the Mount. Believe what you can see and measure: the stones lie to the careless, not to the patient. Begin where every pilgrim began: go up. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed. Trust the man with the angel’s name. Be wary of the man in grey.", ref: "" },
+    1: { at: "airport", text: "If you are reading this, he gave you the book. Then he trusts you, and so must I. Do not believe what you are told about the Mount. Believe what you can see and measure: the stones lie to the careless, not to the patient. Begin where every pilgrim began: go up. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed. Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.", ref: "" },
     2: { at: "market", text: "A just weight is his delight. Weigh everything you are told. Then go and see the city as it was: the model, at the museum.", ref: "Proverbs 11:1" },
     3: { at: "gabriel", text: "Everyone takes a souvenir home. Take the one that remembers the house. Then walk about Zion, and tell the towers thereof.", ref: "Psalm 48:12" },
     4: { at: "model", text: "Mark it well: the house faced the rising sun. Whatever stands in its way is not the house. Go in at Jaffa Gate and climb the wall.", ref: "Ezekiel 43:4" },
@@ -51,12 +53,12 @@
         hots: [{ box: [30, 70, 40, 25], label: "The Watchman’s journal", act: "readjournal" }] },
       { id: "signs", img: "airport-signs", cap: "Signs with a train on them, pointing down the escalator to the airport station", go: { back: "hall", fwd: "machine" },
         hank: "Trains, down the escalator. Down first, so you can go up." },
-      { id: "machine", img: "airport-machine", cap: "The ticket machines at the airport station, a list of destinations on the screen", go: { back: "signs" }, puzzle: "ticket" },
+      { id: "machine", img: "airport-machine", cap: "The ticket machines at the airport station, and the ticket window beside them", go: { back: "signs" }, puzzle: "ticket", who: ["clerk"] },
     ] });
   S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "street",
     views: [
       { id: "board", img: "train-board", cap: "The platform at the airport station: flags down the hall, and the departures board on the pillar", hank: "Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.",
-        go: { fwd: "platform" }, puzzle: "board" },
+        go: { fwd: "platform" }, puzzle: "board", who: ["soldier"] },
       { id: "platform", img: "train-platform", cap: "The platform: the fast train to Jerusalem, its sign lit on the front", go: { back: "board", fwd: "navon" },
         hots: [{ box: [55, 20, 35, 40], label: "A man in a grey coat on the far platform", text: "On the far platform a man in a grey coat is reading something small, folded, blue at the edges. He looks up, straight at you, and then the train comes between you." }] },
       { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.", go: { back: "platform" },
@@ -65,7 +67,7 @@
   S({ id: "rail", act: 1, title: "The light rail", kick: "Jaffa Road", music: "m9", amb: "street",
     views: [
       { id: "stop", img: "rail-1", cap: "The light rail on Jaffa Road: the way you will move through the city", hank: "The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.",
-        go: { fwd: "inside" }, hots: [{ box: [0, 60, 100, 25], label: "The tracks", text: "The tracks run straight down Jaffa Road to Jaffa Gate. The first stop is the market." }] },
+        go: { fwd: "inside" }, who: ["cardseller", "grandma"], hots: [{ box: [0, 60, 100, 25], label: "The tracks", text: "The tracks run straight down Jaffa Road to Jaffa Gate. The first stop is the market." }] },
       { id: "inside", img: "rail-2", cap: "On the tram, Jaffa Road: the city going past", go: { back: "stop", fwd: "machne" } },
       { id: "machne", img: "rail-3", cap: "The Mahane Yehuda stop: two trams, and the crowd heading for the market", go: { back: "inside" },
         hots: [{ box: [55, 30, 40, 45], label: "The crowd at the stop", text: "Everyone is getting off here. The market is just across the road, behind the shops." }] },
@@ -73,24 +75,30 @@
   S({ id: "market", act: 1, title: "Machne Yehuda market", kick: "The shuk", music: "m10", amb: "street", page: 2,
     views: [
       { id: "street", img: "market-street", cap: "The main lane of the market, under its glass roof: sweets, spices, coffee, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
-        go: { fwd: "deeper", left: "bread", right: "juice" }, hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
-      { id: "bread", img: "market-bread", cap: "Down another lane: round loaves stacked by the counter, trays of pastries opposite", go: { right: "street" },
-        hots: [{ box: [80, 30, 20, 20], label: "The loaves", text: "“Shabbat shalom! Bread? No? The spices are further in, my friend. Ask for a just weight.” The baker laughs." }] },
+        go: { fwd: "deeper", left: "bread", right: "juice" }, who: ["dudu", "grandma2"], hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
+      { id: "bread", img: "market-bread", cap: "Down another lane: round loaves stacked under a blue awning, trays of pastries opposite", go: { right: "street" }, who: ["baker"] },
       { id: "juice", img: "market-stall", cap: "A sweet stall: ice cream, fruit and toppings in rows of little tubs", go: { left: "street" }, hots: [{ box: [50, 50, 45, 22], label: "The fruit", text: "Mango, figs, pomegranate seeds, grapes: the fruits of the land. “A land of wheat, and barley, and vines, and fig trees, and pomegranates; a land of oil olive, and honey” (Deuteronomy 8:8)." }] },
-      { id: "deeper", img: "market-deeper", cap: "Deeper in: baklava and halva on one side, oranges and pomegranates on the other", go: { back: "street", fwd: "spice", left: "coffee", right: "kaldron" },
+      { id: "deeper", img: "market-deeper", cap: "Deeper in: baklava and halva on one side, oranges and pomegranates on the other", go: { back: "street", fwd: "spice", left: "coffee", right: "kaldron" }, who: ["halva"],
         hots: [{ box: [15, 30, 15, 10], label: "Rimon", text: "The sign says Rimon: Hebrew for pomegranate. “Upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet” (Exodus 28:33): the High Priest’s robe was hung with them." }] },
-      { id: "coffee", img: "market-coffee", cap: "Tins of coffee beans, each with its handwritten card, and a scoop in every one", go: { right: "deeper" } },
+      { id: "coffee", img: "market-coffee", cap: "Tins of coffee beans, each with its handwritten card, and a scoop in every one", go: { right: "deeper" }, who: ["coffeeman"] },
       { id: "kaldron", img: "market-kaldron", cap: "Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys", go: { left: "deeper", fwd: "fish" } },
-      { id: "fish", img: "market-fish", cap: "A fish counter: smoked fish, herring and salads under the glass", go: { back: "kaldron" },
+      { id: "fish", img: "market-fish", cap: "A fish counter: smoked fish, herring and salads under the glass", go: { back: "kaldron" }, who: ["fishman"],
         hots: [{ box: [10, 30, 25, 50], label: "The fish", text: "“Cast the net on the right side of the ship, and ye shall find” (John 21:6). Galilee fishermen sold their catch in Jerusalem’s markets: one of the city’s gates was called the fish gate (Nehemiah 3:3)." }] },
-      { id: "spice", img: "market-spice", cap: "The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter", go: { back: "deeper" }, puzzle: "scales",
+      { id: "spice", img: "market-spice", cap: "The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter", go: { back: "deeper" }, puzzle: "scales", who: ["yosef"],
         hots: [{ box: [10, 45, 80, 20], label: "The bowls of spice", text: "Paprika, turmeric, cumin, zaatar, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
+    ] });
+  S({ id: "benyehuda", act: 1, title: "Ben Yehuda Street", kick: "Downtown", music: "m10", amb: "street",
+    views: [
+      { id: "street", img: null, cap: "Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner", hank: "Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.",
+        go: { fwd: "corner" }, who: ["violinist"] },
+      { id: "corner", img: null, cap: "The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back", go: { back: "street" },
+        hots: [{ box: [50, 20, 45, 60], label: "The doorway he came out of", act: "greyDoor" }] },
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
       { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
-      { id: "inside", img: "gabriel-inside", cap: "The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour", go: { back: "street", left: "shelf" }, puzzle: "souvenir",
-        hots: [{ box: [0, 60, 100, 30], label: "Gabriel, behind the counter", act: "gabrielTalk" },
+      { id: "inside", img: "gabriel-inside", cap: "The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour", go: { back: "street", left: "shelf" }, puzzle: "souvenir", who: ["gabriel"],
+        hots: [{ box: [0, 60, 100, 30], label: "The counter", act: "shop" },
           { box: [40, 24, 20, 8], label: "The golden Ark", text: "A little golden model of the Ark of the Covenant, the cherubim facing each other on its lid, up on the top shelf. Remember it: you will see the real-size one at the Temple Institute." }] },
       { id: "shelf", img: "gabriel-shelf", cap: "A shelf inside: a silver kiddush cup, a name in painted letters, Havdalah candles below", go: { right: "inside" },
         hots: [{ box: [12, 2, 28, 40], label: "The silver cup", text: "A kiddush cup, engraved with the walls of Jerusalem: the cup of blessing over wine on the Sabbath. “The cup of blessing which we bless” (1 Corinthians 10:16)." }] },
@@ -106,7 +114,7 @@
         hots: [{ box: [40, 52, 22, 20], label: "The eastern gate of the model", text: "One gate in the eastern wall, in line with the sanctuary. Through it, Ezekiel saw the glory of the LORD come in “by the way of the gate whose prospect is toward the east” (Ezekiel 43:4)." }] },
       { id: "south", img: "model-south", cap: "The south-west corner of the model: the Royal Stoa along the top of the wall, and the street below", go: { left: "wide" },
         hots: [{ box: [0, 28, 75, 25], label: "The Royal Stoa", text: "Herod’s great columned hall along the south side of the Temple Mount. Below its corner ran the street you will stand on at Robinson’s Arch, where its stones now lie." }] },
-      { id: "temple", img: "model-temple", cap: "Close up from the east: the gate in the eastern wall, the Court of the Women behind it, and the sanctuary, white and gold", go: { back: "wide" }, puzzle: "modelq",
+      { id: "temple", img: "model-temple", cap: "Close up from the east: the gate in the eastern wall, the Court of the Women behind it, and the sanctuary, white and gold", go: { back: "wide" }, puzzle: "modelq", who: ["guide"],
         hots: [{ box: [35, 12, 30, 25], label: "The sanctuary", text: "The house itself, white stone and gold, facing east. Behind its veil, the Holy of Holies: twenty cubits square, and empty, since the Ark was lost." }] },
     ] });
 
@@ -451,7 +459,7 @@
   /* where each place sits on the paintings, in % of the picture (x, y). "city" = the wide map, "old" = the Old City. */
   const PIN = {
     airport: ["city", 30, 9, "← Ben Gurion Airport, 45 km west"], train: ["city", 13, 24], model: ["city", 19, 41], market: ["city", 42, 34],
-    rail: ["city", 49, 45], gabriel: ["city", 37, 49],
+    rail: ["city", 49, 45], benyehuda: ["city", 42, 48], gabriel: ["city", 37, 50],
     jaffa: ["old", 13, 31], ramparts: ["old", 19, 21], wallagain: ["old", 47, 15], gtomb: ["old", 54, 7], bazaar: ["old", 49, 26],
     jewish: ["old", 31, 37], institute: ["old", 33, 45], wall: ["old", 44, 42], wilson: ["old", 49, 37], tunnels: ["old", 53, 29],
     hebron: ["old", 50, 96, "↓ Hebron, 30 km south"], zion: ["old", 15, 52], cod: ["old", 61, 57], gihon: ["old", 70, 63],
@@ -511,7 +519,7 @@
   function backpack() {
     const w = W(), p = F.P(), pages = Object.keys(w.pages).length; let relics = {};
     try { relics = (K.A && K.A().relics) || {}; } catch (e) { relics = {}; }
-    const items = [
+    const items = (H.items ? H.items() : []).concat([
       [pages > 0, "The Watchman’s journal", pages + " of 12 pages. Tap Journal to read them."],
       [w.flags.ticket, "A train ticket", "Ben Gurion Airport → Jerusalem – Yitzhak Navon."],
       [w.flags.bekah, "A bekah", "A small stone weight from the spice seller: half a shekel of the sanctuary."],
@@ -520,8 +528,8 @@
       [p.flax, "A line of flax", "From the Tombs of the Prophets, knotted at every cubit."],
       [w.flags.lit, "Your oil lamp", "Filled with oil at the Gihon Spring."],
       [relics.reed, "A measuring reed", "Six long cubits, for measuring on the Mount."],
-    ].filter((x) => x[0]);
-    K.card('<div class="kick">Your backpack</div><h2>' + items.length + " thing" + (items.length === 1 ? "" : "s") + "</h2>" +
+    ]).filter((x) => x[0]);
+    K.card('<div class="kick">Your backpack</div><h2>' + items.length + " thing" + (items.length === 1 ? "" : "s") + "</h2>" + (H.money ? H.money() : "") +
       '<div class="fbag">' + items.map((x) => "<div><b>" + esc(x[1]) + "</b><small>" + esc(x[2]) + "</small></div>").join("") + "</div>" +
       '<button class="cta alt" data-act="j">Open the journal</button><button class="cta" data-act="x">Close</button>', { j: journal, x: () => {} });
   }
@@ -547,13 +555,15 @@
       (p.olives ? "<p><b>Noted:</b> the line from the Mount of Olives, through the Eastern Gate, onto the Mount.</p>" : "") +
       (w.flags.bought ? "<p><b>Noted:</b> the Temple stood on the threshing floor David bought from Ornan (1 Chronicles 21:25; 2 Chronicles 3:1).</p>" : "") +
       (w.flags.arksign ? "<p><b>Noted:</b> a tradition that the Ark lies in a chamber under the Mount, near Warren’s Gate.</p>" : "") +
-      '<button class="cta" data-act="x">Close the journal</button>', { x: () => {} });
+      (H.journal ? H.journal() : "") +
+      '<button class="cta" data-act="x">Close the journal</button>', Object.assign({ x: () => {} }, H.journalActs ? H.journalActs() : {}));
   }
 
   /* ------------------------------------------------------------ walking a scene ------------------------------------------------------------ */
   let scene = null, view = null;
   const V = (id) => scene.views.find((x) => x.id === id) || scene.views[0];
   function go(s, vid) {
+    if (H.gate && H.gate(s, scene) === false) return;
     scene = s; W().at = s.id; save();
     if (s.kept) return kept(s);
     const v = s.views.find((x) => x.id === vid) || s.views[0];
@@ -579,8 +589,8 @@
   const TASK = {
     airport: "Read the first page of the journal. Then follow the train signs and buy a ticket to Jerusalem.",
     train: "Read the board, board the train, and come up out of the station into Jerusalem.", rail: "Take the light rail to Machne Yehuda market.",
-    market: "Walk the lane. Find the spice seller and his scales.", gabriel: "Go in. Choose a souvenir from Gabriel’s shelves.",
-    model: "Walk round the model. Study the Temple, its courts and its gates.", jaffa: "Go in through the gate and find the way up onto the wall.",
+    market: "Find the spice seller and weigh. Then find out what the Watchman left here.", benyehuda: "Find number 26 King George Street. The violinist knows, if you know the number.", gabriel: "Show Gabriel the journal. Buy what you will need for the Old City, and choose a souvenir.",
+    model: "Walk round the model. Answer the guide’s questions, and ask her about the Watchman.", jaffa: "Go in through the gate and find the way up onto the wall.",
     ramparts: "Walk the wall. Count the towers, and watch the sky.", jewish: "Walk through the Quarter to the Burnt House.",
     wall: "Go down to the Wall. Look at every side of the plaza.", wilson: "Go into the prayer hall. Find the shaft and look down it.",
     tunnels: "Follow the Wall underground. Measure the great stone, and read the sign.", wallagain: "Back on the wall. Follow it down to Damascus Gate.",
@@ -593,18 +603,20 @@
     gethsemane: "Walk among the trees. Find the oldest one and look in the hollow.", mughrabi: "Up the ramp. Find the man by the arcade."
   };
   function walk(v) {
+    if (H.before && H.before(scene, v, view) === false) return;
     view = v; F.cur("walk"); F.M(scene.music, scene.amb);
     const w = W(), done = isDone(scene.id), pz = v.puzzle && PUZZLES[v.puzzle], pzDone = pz && w.done[scene.id + ":" + v.puzzle];
     const nx = R[scene.n] || null, prev = R[scene.n - 2] || null;
     const pic = v.img ? '<img class="fwimg" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
-    const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") : (TASK[scene.id] || "Look at everything here.");
+    const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") : ((H.task && H.task(scene)) || TASK[scene.id] || "Look at everything here.");
     const el = F.stage('<div class="fkick">Act ' + scene.act + " · scene " + scene.n + " of " + R.length + "</div><h1>" + esc(scene.title) + "</h1>" +
       '<div class="ftask' + (done ? " done" : "") + '">' + (done ? "✓ " : "") + esc(task) + "</div>" +
       '<div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
       (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") + "</div>" +
       '<div class="fsmall">' + esc(v.cap) + (v.img ? "" : "<small>Photo to come</small>") + "</div>" +
+      (H.people ? H.people(scene, v) : "") +
       (v.hank ? '<div class="fnarr">“' + esc(v.hank) + '”<small>The Lamplighter</small></div>' : "") +
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + ' Journal</button><button class="fwtool" data-b="1">' + bagIcon() + ' Backpack</button><button class="fwtool" data-m="1">Map</button>' +
       (done && nx ? '<button class="fwtool go" data-n="1">Walk on › ' + esc(nx.title) + "</button>" : "") +
@@ -621,6 +633,7 @@
     const n = el.querySelector("[data-n]"); if (n) n.onclick = () => { K.sfx("click"); go(nx); };
     const pb = $("fwpz"); if (pb) pb.onclick = () => { K.sfx("click"); pz.run(); };
     fullscreen(el.querySelector(".fwimg"));
+    if (H.wire) H.wire(el, scene, v);
     if (v.note && !w.flags["note:" + scene.id + ":" + v.id]) { w.flags["note:" + scene.id + ":" + v.id] = 1; save(); v.note(); }
   }
   /* double-tap a picture to see it full screen; pinch to zoom */
@@ -826,7 +839,7 @@
   const PUZZLES = {
     ticket: { label: "Buy a ticket", run: () => ask({ title: "The ticket machine", kick: "The airport station", intro: q("The page said: go up. The machine lists five stations."),
       qs: [{ q: "Where to?", a: [["Tel Aviv – HaHagana", 0, "That’s down to the sea. The page says up."], ["Tel Aviv – Savidor", 0, "Still down to the coast. The page says up."], ["Modi’in", 0, "Halfway, and not the city. Go all the way up."], ["Haifa – Hof HaCarmel", 0, "North, along the sea. Not the mountains."], ["Jerusalem – Yitzhak Navon", 1]] }],
-      done: () => { W().flags.ticket = 1; save(); K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>The machine prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) }); } }) },
+      done: () => { if (H.pay && !H.pay(17, "the train ticket")) return; W().flags.ticket = 1; save(); K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>Seventeen shekels. The machine prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) }); } }) },
     board: { label: "Read the board", run: () => fill({ title: "The departures board", kick: "The airport station", intro: q("The board shows your train: Jerusalem, Yitzhak Navon. Under it, someone has written on a scrap of paper and tucked it into the frame. A line of a psalm, with words missing, and a small drawn lamp."),
       text: ["Who shall ", "ASCEND", " into the hill of the LORD? or who shall stand in his ", "HOLY", " place?"], ref: "Psalm 24:3", chips: ["ASCEND", "HOLY", "DESCEND", "HIGH", "COME", "GREAT"],
       bad: { DESCEND: "The other way. Every pilgrim went up.", HIGH: "Close, but the psalm names the place by what it is: set apart." },
@@ -836,8 +849,8 @@
       left: "One shekel", target: 20, unit: "gerahs", bg: "spice-stall", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
       light: "The pans do not level. Twenty gerahs to the shekel.", heavy: "Too heavy: the stone rises. A shekel is twenty gerahs, no more.",
       done: () => { K.card('<div class="kick">The spice seller</div><h2>“A just weight”</h2><p>The pans level. The seller nods, and tips a spoon of zaatar into a paper twist for you. “A just weight is his delight. You will need one of these.” He drops a small bronze weight into the twist: <b>one bekah, half a shekel</b>. Folded round it, blue at the edges, a page.</p><button class="cta" data-act="x">Unfold the page</button>',
-        { x: () => { W().flags.bekah = 1; save(); pzDone("scales", () => finish("market")); } }); } }) },
-    souvenir: { label: "Choose a souvenir", run: () => find({ title: "Everyone takes a souvenir home", kick: "Gabriel’s shop", q: "Six things on the counter. The Watchman’s page said: take the one that remembers the house. Tap each one to look closely.", counter: "Looked at", last: "This is the one",
+        { x: () => { W().flags.bekah = 1; save(); H.earn && H.earn(20, "Yosef, for weighing his morning orders"); pzDone("scales", () => walk(view)); } }); } }) },
+    souvenir: { label: "Choose a souvenir", run: () => { if (H.souvenirGate && H.souvenirGate() === false) return; find({ title: "Everyone takes a souvenir home", kick: "Gabriel’s shop", q: "Six things on the counter. The Watchman’s page said: take the one that remembers the house. Tap each one to look closely.", counter: "Looked at", last: "This is the one",
       spots: [
         { label: "The kippah", at: [4, 10], w: 28, h: 30, decoy: true, text: "A knitted kippah, blue and white. Nothing on it but the stitches." },
         { label: "The prayer shawl", at: [36, 10], w: 28, h: 30, decoy: true, text: "A tallit with blue stripes and knotted fringes: “that ye may look upon it, and remember all the commandments of the LORD” (Numbers 15:39). No mark." },
@@ -847,7 +860,7 @@
         { label: "The model of the Third Temple", at: [36, 55], w: 28, h: 30, text: "A little model of the Temple as it will be built: the courts, the altar, the sanctuary. Turn it over. On the base, in blue ink, a small drawn lamp, and a folded page tucked into the hollow." },
       ],
       done: () => { K.card('<div class="kick">Gabriel</div><h2>“That one. Yes.”</h2><p>Gabriel does not look surprised. “Someone left that for you this morning. He said you would know it. And a man in a grey coat asked for the same one an hour ago, and I told him it was sold.” He wraps the model in paper. “The house remembers where it stood. Go and see.”</p><button class="cta" data-act="x">Unfold the page</button>',
-        { x: () => pzDone("souvenir", () => finish("gabriel")) }); } }) },
+        { x: () => pzDone("souvenir", () => finish("gabriel")) }); } }); } },
     modelq: { label: "Study the Temple", run: () => ask({ title: "The courts and the gates", kick: "The Second Temple model", intro: verse("And the glory of the LORD came into the house by the way of the gate whose prospect is toward the east.", "Ezekiel 43:4"),
       qs: [
         { q: "Which way does the sanctuary face?", a: [["North, toward the fortress", 0, "The fortress is at the corner, not in front of the house."], ["East, toward the Mount of Olives", 1, "East. Through the gate, across the valley, to the Mount of Olives."], ["West, toward the Upper City", 0, "The Holy of Holies is at the west end: the back of the house."]] },
@@ -855,7 +868,7 @@
         { q: "What stands in the court before the sanctuary, where the smoke rises?", a: [["The altar of burnt offering", 1, "The great altar, in the open court, with its ramp."], ["The menorah", 0, "The menorah stood inside the Holy Place, out of the weather."], ["A fountain", 0, "The laver was for washing, not the smoke."]] },
       ],
       done: () => { K.card('<div class="kick">The model</div><h2>You know the house now</h2><p>Eastern Gate, Court of the Women, Court of Israel, the altar, the sanctuary, and at the back the Holy of Holies: a straight line from east to west. <b>Remember it.</b> On the model’s eastern wall, where the gate is, someone has stuck a page under the glass.</p><button class="cta" data-act="x">Take the page</button>',
-        { x: () => pzDone("modelq", () => finish("model")) }); } }) },
+        { x: () => { W().flags.modelq = 1; save(); pzDone("modelq", () => walk(view)); } }); } }) },
     wayup: { label: "Find the way up", run: () => ask({ title: "The way onto the wall", kick: "Jaffa Gate", intro: q("Three ways out of the square: a street going down into the city, the citadel’s drawbridge, and a small door marked “Ramparts Walk”, with a stair behind it."),
       qs: [{ q: "Which way?", a: [["Down the street into the souk", 0, "Down takes you into the city. You want up."], ["The small door and the stair", 1], ["The citadel drawbridge", 0, "That is the museum. Locked today."]] }],
       done: () => pzDone("wayup", () => finish("jaffa")) }) },
@@ -991,6 +1004,7 @@
   function hint() {
     st.hints++;
     const v = view;
+    if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
     if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "East. The Court of the Women. The altar.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "The page says up: the city on the mountains.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
@@ -1009,5 +1023,5 @@
   Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
-    stats: () => st };
+    stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
 })();

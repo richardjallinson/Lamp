@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 168 of 168 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 168 of 170 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -12,7 +12,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | --- | --- | --- |
 | ✓ | `airport-1` | The arrivals hall at Ben Gurion, the journal in your bag |
 | ✓ | `airport-signs` | Signs with a train on them, pointing down the escalator to the airport station |
-| ✓ | `airport-machine` | The ticket machines at the airport station, a list of destinations on the screen |
+| ✓ | `airport-machine` | The ticket machines at the airport station, and the ticket window beside them |
 
 **Hank says:**
 
@@ -49,7 +49,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `market-street` | The main lane of the market, under its glass roof: sweets, spices, coffee, noise |
-| ✓ | `market-bread` | Down another lane: round loaves stacked by the counter, trays of pastries opposite |
+| ✓ | `market-bread` | Down another lane: round loaves stacked under a blue awning, trays of pastries opposite |
 | ✓ | `market-stall` | A sweet stall: ice cream, fruit and toppings in rows of little tubs |
 | ✓ | `market-deeper` | Deeper in: baklava and halva on one side, oranges and pomegranates on the other |
 | ✓ | `market-coffee` | Tins of coffee beans, each with its handwritten card, and a scoop in every one |
@@ -61,7 +61,18 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-market-street`: “Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.”
 
-### 5. Gabriel’s shop (King George Street)
+### 5. Ben Yehuda Street (Downtown)
+
+| Have | File | The picture |
+| --- | --- | --- |
+| ☐ | `benyehuda-street` | Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner |
+| ☐ | `benyehuda-corner` | The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back |
+
+**Hank says:**
+
+- `w-benyehuda-street`: “Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.”
+
+### 6. Gabriel’s shop (King George Street)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -75,7 +86,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-gabriel-street`: “Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.”
 
-### 6. The Second Temple model (The Israel Museum)
+### 7. The Second Temple model (The Israel Museum)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -90,7 +101,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 ## Act 2: The walls
 
-### 7. Jaffa Gate (Into the Old City)
+### 8. Jaffa Gate (Into the Old City)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -103,7 +114,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-jaffa-outside`: “Jaffa Gate, where the road from the sea comes in. The wall you see was built by Suleiman in 1538, on older walls, on older walls still. Find the way up onto it.”
 
-### 8. The Ramparts Walk (On the city wall)
+### 9. The Ramparts Walk (On the city wall)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -123,7 +134,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-ramparts-stairs`: “Walk about Zion, and go round about her: tell the towers thereof. Up you go.”
 - `w-ramparts-golgotha`: “Look across the road. The rock face with the hollows of a skull: Golgotha. “And he bearing his cross went forth into a place called the place of a skull.””
 
-### 9. The Jewish Quarter (After the storm)
+### 10. The Jewish Quarter (After the storm)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -142,7 +153,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-jewish-cardo`: “The rain is easing. This was the main street of Roman Jerusalem, built after the Temple fell. The city has been rebuilt on its own ruins again and again.”
 - `w-jewish-wallsteps`: “Down the steps, and there it is.”
 
-### 10. The Western Wall (The Kotel)
+### 11. The Western Wall (The Kotel)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -158,7 +169,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-wall-plaza`: “The Western Wall. Not the Temple: the retaining wall Herod built to hold up the platform the Temple stood on. People have prayed at these stones for two thousand years. Go down to them.”
 - `w-wall-arch`: “To the left, under the arch, the Wall goes on indoors. A man in a grey coat just went in.”
 
-### 11. Under Wilson’s Arch (The prayer hall)
+### 12. Under Wilson’s Arch (The prayer hall)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -172,7 +183,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-wilson-hall`: “Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.”
 
-### 12. The Western Wall tunnels (Beneath the city)
+### 13. The Western Wall tunnels (Beneath the city)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -188,7 +199,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-tunnels-entry`: “Four hundred and eighty metres of Herod’s wall, buried under the streets. Keep your hand on the stones. The Watchman said: follow them down.”
 
-### 13. Back on the wall (The sky is clear)
+### 14. Back on the wall (The sky is clear)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -200,7 +211,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-wallagain-clear`: “The storm has passed. The way that was closed is open. Down to Damascus Gate.”
 
-### 14. The Garden Tomb (A garden, and a tomb)
+### 15. The Garden Tomb (A garden, and a tomb)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -218,7 +229,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-gtomb-garden`: “Many believe this is the garden, and that the tomb. Whether or not it is, what is true is true: he is not here.”
 
-### 15. The bazaar street (Damascus Gate to the Western Wall)
+### 16. The bazaar street (Damascus Gate to the Western Wall)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -233,7 +244,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 ## Act 3: The City of David
 
-### 16. Hebron (The Cave of the Patriarchs)
+### 17. Hebron (The Cave of the Patriarchs)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -249,7 +260,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-hebron-bus`: “Before Zion, Hebron. David was king here seven years before he ever took Jerusalem. And here Abraham bought the first piece of the land, with silver, weighed out in front of everyone.”
 
-### 17. Mount Zion (David’s Tomb and the Upper Room)
+### 18. Mount Zion (David’s Tomb and the Upper Room)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -271,7 +282,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-zion-caiaphas`: “The church of Saint Peter in Gallicantu: the cock-crow. Tradition places the house of Caiaphas the high priest here, where Jesus was brought on the night he was betrayed, and where Peter denied him three times.”
 - `w-zion-tomb`: “By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.”
 
-### 18. The City of David (Where Jerusalem began)
+### 19. The City of David (Where Jerusalem began)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -291,7 +302,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-cod-entrance`: “This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.”
 
-### 19. The Gihon Spring (The water of the city)
+### 20. The Gihon Spring (The water of the city)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -306,14 +317,14 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-gihon-spring`: “Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.”
 - `w-gihon-mouth`: “Hezekiah cut a tunnel from this spring through the hill to the pool inside his walls, before the Assyrians came. Five hundred and thirty-three metres, in the dark, in water. Light your lamp.”
 
-### 20. Hezekiah’s Tunnel (533 metres in the dark)
+### 21. Hezekiah’s Tunnel (533 metres in the dark)
 
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `hezekiah-tunnel` | In the tunnel: a narrow cut in the rock, black ahead, the lamp the only light |
 | ✓ | `hezekiah-water` | Look down: cold, clear water over the rock floor, ankle deep and running toward Siloam |
 
-### 21. The Pool of Siloam (Sent)
+### 22. The Pool of Siloam (Sent)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -326,7 +337,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-siloam-pool`: “Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.”
 
-### 22. The Southern Steps (The Songs of Ascents)
+### 23. The Southern Steps (The Songs of Ascents)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -346,11 +357,11 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 ## Act 4: The line from the east
 
-### 23. The Temple Institute (Everything is ready)
+### 24. The Temple Institute (Everything is ready)
 
 _Built earlier, with its own photos already in the game (the Temple Institute hall and exhibits)._
 
-### 24. The Dung Gate (Moses)
+### 25. The Dung Gate (Moses)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -363,7 +374,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-dung-gate`: “Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.”
 
-### 25. The Eastern Gate, outside (The steps and the cemetery)
+### 26. The Eastern Gate, outside (The steps and the cemetery)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -378,7 +389,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-egate-steps`: “Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.”
 
-### 26. The Kidron Valley (Absalom and Zechariah)
+### 27. The Kidron Valley (Absalom and Zechariah)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -391,15 +402,15 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-kidron-wide`: “Down in the valley, the tombs. The names on them are older than the stones.”
 
-### 27. The Tombs of the Prophets (A side path)
+### 28. The Tombs of the Prophets (A side path)
 
 _Built earlier, with its own photos already in the game._
 
-### 28. The Mount of Olives (Where His feet shall stand)
+### 29. The Mount of Olives (Where His feet shall stand)
 
 _Built earlier, with its own photos already in the game._
 
-### 29. The Garden of Gethsemane (The olive press)
+### 30. The Garden of Gethsemane (The olive press)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -421,7 +432,7 @@ _Built earlier, with its own photos already in the game._
 
 ## Act 5: The Temple Mount
 
-### 30. The Mughrabi Gate (The only way up)
+### 31. The Mughrabi Gate (The only way up)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -441,11 +452,11 @@ _Built earlier, with its own photos already in the game._
 
 - `w-mughrabi-entrance`: “The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.”
 
-### 31. The Temple Mount (Where was the Temple?)
+### 32. The Temple Mount (Where was the Temple?)
 
 _Built earlier, with its own photos already in the game (the Temple Mount clues)._
 
-### 32. The Eastern Gate, inside (This gate shall be shut)
+### 33. The Eastern Gate, inside (This gate shall be shut)
 
 _Built earlier, with its own photos already in the game._
 
