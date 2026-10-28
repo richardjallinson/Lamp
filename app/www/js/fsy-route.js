@@ -58,20 +58,22 @@
     views: [
       { id: "stop", img: "rail-1", cap: "The light rail on Jaffa Road: the way you will move through the city", hank: "The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.",
         go: { fwd: "inside" }, hots: [{ box: [0, 60, 100, 25], label: "The tracks", text: "The tracks run straight down Jaffa Road to Jaffa Gate. The first stop is the market." }] },
-      { id: "inside", img: "rail-2", cap: "On the tram, Jaffa Road: the city going past", go: { back: "stop" } },
+      { id: "inside", img: "rail-2", cap: "On the tram, Jaffa Road: the city going past", go: { back: "stop", fwd: "machne" } },
+      { id: "machne", img: "rail-3", cap: "The Mahane Yehuda stop: two trams, and the crowd heading for the market", go: { back: "inside" },
+        hots: [{ box: [55, 30, 40, 45], label: "The crowd at the stop", text: "Everyone is getting off here. The market is just across the road, behind the shops." }] },
     ] });
   S({ id: "market", act: 1, title: "Machne Yehuda market", kick: "The shuk", music: "m10", amb: "street", page: 2,
     views: [
-      { id: "street", img: null, cap: "The main lane of the market: fruit, bread, spices, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
+      { id: "street", img: "market-street", cap: "The main lane of the market, under its glass roof: sweets, spices, coffee, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
         go: { fwd: "spice", left: "bread", right: "juice" }, hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
       { id: "bread", img: null, cap: "The bread stall: challah and pita, still warm", go: { right: "street" }, hots: [{ box: [10, 30, 80, 50], label: "The baker", text: "“Shabbat shalom! Bread? No? The spices are that way, my friend. Ask for a just weight.” He laughs." }] },
       { id: "juice", img: null, cap: "The pomegranate juice stall", go: { left: "street" }, hots: [{ box: [10, 20, 80, 60], label: "The pomegranates", text: "Pomegranates, split open, the colour of garnets. “Upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet” (Exodus 28:33): the High Priest’s robe was hung with them." }] },
       { id: "spice", img: null, cap: "The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance", go: { back: "street" }, puzzle: "scales",
         hots: [{ box: [5, 5, 50, 30], label: "The sacks of spice", text: "Cumin, coriander, sumac, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
     ] });
-  S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "Ben Yehuda Street", music: "m10", amb: "indoor", page: 3,
+  S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
-      { id: "street", img: null, cap: "Ben Yehuda Street: the souvenir shop, its window full of menorahs", hank: "Ben Yehuda Street, where the city shops. A small souvenir shop. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.",
+      { id: "street", img: "gabriel-street", cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.",
         go: { fwd: "inside" } },
       { id: "inside", img: null, cap: "Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple", go: { back: "street" }, puzzle: "souvenir",
         hots: [{ box: [0, 60, 100, 30], label: "Gabriel, behind the counter", act: "gabrielTalk" }] },
@@ -91,23 +93,37 @@
   /* ---- Act 2 ---- */
   S({ id: "jaffa", act: 2, title: "Jaffa Gate", kick: "Into the Old City", music: "m12", amb: "street",
     views: [
+      { id: "approach", img: "jaffa-0", cap: "The bridge to Jaffa Gate, with the citadel and the Tower of David along the wall", go: { fwd: "outside" },
+        hots: [{ box: [55, 50, 35, 25], label: "The great menorah", text: "A giant menorah stands in the square for Hanukkah: the feast that remembers the Temple cleansed and the lamp relit (John 10:22)." }] },
       { id: "outside", img: "jaffa-1", cap: "Jaffa Gate and the Tower of David", hank: "Jaffa Gate, where the road from the sea comes in. The wall you see was built by Suleiman in 1538, on older walls, on older walls still. Find the way up onto it.",
-        go: { fwd: "inside" }, hots: [{ box: [55, 20, 40, 50], label: "The Tower of David", text: "The citadel, called the Tower of David, though Herod built it. The Ramparts Walk starts from its gate." }] },
-      { id: "inside", img: "jaffa-2", cap: "Inside the gate: the square, the street down into the city", go: { back: "outside" }, puzzle: "wayup" },
+        go: { fwd: "inside", back: "approach" }, hots: [{ box: [55, 20, 40, 50], label: "The Tower of David", text: "The citadel, called the Tower of David, though Herod built it. The Ramparts Walk starts from its gate." }] },
+      { id: "inside", img: "jaffa-2", cap: "Inside the gate: the square, the street down into the city", go: { back: "outside", right: "armenian" }, puzzle: "wayup" },
+      { id: "armenian", img: "jaffa-3", cap: "Inside the gate, looking toward the Armenian Quarter: shops, shawarma, and the street running south", go: { left: "inside" },
+        hots: [{ box: [0, 20, 45, 40], label: "The old buildings", text: "To the south lies the Armenian Quarter, the smallest of the four, where Armenian Christians have lived since the fourth century. Straight ahead, down David Street, the souk drops toward the Temple Mount." }] },
     ] });
   S({ id: "ramparts", act: 2, title: "The Ramparts Walk", kick: "On the city wall", music: "m12", amb: "olives",
     views: [
-      { id: "stairs", img: null, cap: "The stone stairs up onto the wall, by Jaffa Gate", hank: "Walk about Zion, and go round about her: tell the towers thereof. Up you go.", go: { fwd: "north1" } },
-      { id: "north1", img: null, cap: "On the wall, walking north: the Christian Quarter below, the domes ahead", go: { back: "stairs", fwd: "golgotha" }, puzzle: "landmarks" },
-      { id: "golgotha", img: null, cap: "From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road", go: { back: "north1", fwd: "storm" },
+      { id: "stairs", img: null, cap: "The stone stairs up onto the wall, by Jaffa Gate", hank: "Walk about Zion, and go round about her: tell the towers thereof. Up you go.", go: { fwd: "jaffa" } },
+      { id: "jaffa", img: "ramparts-jaffa", cap: "On the wall above Jaffa Gate: the gate below you, the square, and the citadel beyond", go: { back: "stairs", fwd: "north1", left: "tower" },
+        hots: [{ box: [30, 40, 22, 22], label: "Jaffa Gate", text: "The gate you came in by, far below. From up here you can see why Suleiman built it with a bend inside: an enemy could not charge straight through." }] },
+      { id: "tower", img: "ramparts-tower", cap: "Looking south along the wall: the Tower of David, and Mount Zion beyond", go: { right: "jaffa", fwd: "towerclose" },
+        hots: [{ box: [0, 15, 20, 40], label: "The Tower of David", text: "The minaret is Ottoman, but the base of the citadel is Herod’s tower, Phasael, where the Roman garrison of the Upper City kept watch. Behind it, the dark cone roof on Mount Zion is the Church of the Dormition." }] },
+      { id: "towerclose", img: "ramparts-tower-close", cap: "The Tower of David close up: Herod’s stones at the bottom, the Ottoman minaret on top", go: { back: "tower" } },
+      { id: "north1", img: null, cap: "On the wall, walking north: the Christian Quarter below, the domes ahead", go: { back: "jaffa", fwd: "arch" }, puzzle: "landmarks" },
+      { id: "arch", img: "ramparts-arch", cap: "Further along: iron arches over the walk, and two doves sitting on the first", go: { back: "north1", fwd: "golgotha" },
+        hots: [{ box: [30, 0, 40, 30], label: "The two doves", text: "Two turtledoves, side by side on the arch. “A pair of turtledoves, or two young pigeons”: the offering Mary and Joseph brought to the Temple for Jesus (Luke 2:24)." }] },
+      { id: "golgotha", img: "ramparts-golgotha", cap: "From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road", go: { back: "arch", fwd: "storm" },
         hank: "Look across the road. The rock face with the hollows of a skull: Golgotha. “And he bearing his cross went forth into a place called the place of a skull.”",
-        hots: [{ box: [20, 10, 60, 45], label: "Skull Hill", text: "“And he bearing his cross went forth into a place called the place of a skull, which is called in the Hebrew Golgotha” (John 19:17). Below it, a garden, and in the garden a tomb (John 19:41)." }] },
-      { id: "storm", img: null, cap: "The wall ahead, toward Damascus Gate: the sky has gone black", go: { back: "golgotha" }, puzzle: "storm" },
+        hots: [{ box: [15, 35, 70, 30], label: "Skull Hill", text: "“And he bearing his cross went forth into a place called the place of a skull, which is called in the Hebrew Golgotha” (John 19:17). Below it, a garden, and in the garden a tomb (John 19:41)." }] },
+      { id: "storm", img: "ramparts-storm", cap: "The wall ahead, toward Damascus Gate: the sky has gone black", go: { back: "golgotha" }, puzzle: "storm" },
     ] });
   S({ id: "jewish", act: 2, title: "The Jewish Quarter", kick: "After the storm", music: "m14", amb: "street", page: 5,
     views: [
-      { id: "cardo", img: "jq-cardo", cap: "The Cardo: the columns of the Roman main street, below today’s street", hank: "The rain is easing. This was the main street of Roman Jerusalem, built after the Temple fell. The city has been rebuilt on its own ruins again and again.",
-        go: { fwd: "hurva", left: "burnt" }, hots: [{ box: [30, 20, 25, 60], label: "The columns", text: "Columns of the Cardo Maximus, the street of Hadrian’s city, Aelia Capitolina, built in the second century on the levelled ruins." }] },
+      { id: "cardo", img: "jq-cardo-2", cap: "The Cardo: the columns of the Roman main street, below today’s street", hank: "The rain is easing. This was the main street of Roman Jerusalem, built after the Temple fell. The city has been rebuilt on its own ruins again and again.",
+        go: { fwd: "hurva", left: "burnt", right: "cardosign" }, hots: [{ box: [35, 35, 15, 55], label: "The columns", text: "Columns of the Cardo Maximus, the street of Hadrian’s city, Aelia Capitolina, built in the second century on the levelled ruins." }] },
+      { id: "cardosign", img: "jq-cardo-sign", cap: "The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English", go: { left: "cardo", fwd: "columns" },
+        hots: [{ box: [0, 40, 30, 30], label: "The English text", text: "“Remains of a magnificent main road from the Roman-Byzantine period, serving throughout time until today as a major thoroughfare for shopping.” The street Hadrian built over the ruins, still in use." }] },
+      { id: "columns", img: "jq-cardo", cap: "Along the columns", go: { back: "cardosign" } },
       { id: "hurva", img: null, cap: "The Hurva Synagogue, rebuilt in 2010 after lying in ruins", go: { back: "cardo", fwd: "wallsteps" },
         hots: [{ box: [20, 5, 60, 60], label: "The dome", text: "Hurva means “ruin”. It was destroyed in 1721, rebuilt in 1864, blown up in 1948, and rebuilt again in 2010. Jerusalem keeps rebuilding." }] },
       { id: "burnt", img: null, cap: "The Burnt House: a priestly family’s home, burned in the year 70, found under the ash", go: { right: "cardo" }, puzzle: "burnt" },
@@ -155,7 +171,9 @@
         go: { fwd: "tomb", left: "skull" } },
       { id: "skull", img: null, cap: "From the garden’s viewing platform: Skull Hill, close, over the bus station wall", go: { right: "garden" },
         hots: [{ box: [10, 10, 80, 60], label: "The skull face", text: "Two hollow eyes and the bridge of a nose, in the cliff. “The place of a skull” (Matthew 27:33)." }] },
-      { id: "tomb", img: "gtomb-1", cap: "The tomb, cut into the rock, with the groove for a rolling stone across its front", go: { back: "garden" }, puzzle: "stone" },
+      { id: "tomb", img: "gtomb-2", cap: "The tomb, cut into the rock, with the groove for a rolling stone across its front", go: { back: "garden", fwd: "door" }, puzzle: "stone",
+        hots: [{ box: [62, 38, 12, 10], label: "The window above", text: "A small window cut high in the rock beside the door. Some think it was made so the first light of morning could fall into the tomb." }] },
+      { id: "door", img: "gtomb-1", cap: "At the doorway: the trough in front, where the stone rolled", go: { back: "tomb" } },
     ] });
   S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Damascus Gate to the Western Wall", music: "m10", amb: "street",
     views: [
@@ -688,7 +706,7 @@
     map(); return true;
   }
 
-  Lamp.fsyWalk = { map, go: (id) => go(byId[id]), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
+  Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
     stats: () => st };

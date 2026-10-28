@@ -30,6 +30,21 @@ PHOTOS = {
     "mughrabi-3": "photos/temple-mount/mughrabi-bridge-4-ramp.png",
     "olives-top": "photos/mount-of-olives-sunset.jpg",
     "gate-outside-far": "photos/temple-mount/gate-domes-and-mount-of-olives.png",
+    # Richard's photos of Oct 27 (crop boxes keep people out of the picture: his wife, and Gabriel)
+    "market-street": "photos/oct27/mahane-yehuda-lane.png",
+    "rail-3": "photos/oct27/light-rail-two-trams.png",
+    "gabriel-street": ("photos/oct27/gabriel-shop-front.png", (612, 470, 1125, 1960)),
+    "ramparts-jaffa": "photos/oct27/ramparts-jaffa-gate-from-wall.png",
+    "ramparts-tower": "photos/oct27/ramparts-tower-of-david-and-walls.png",
+    "ramparts-tower-close": "photos/oct27/ramparts-tower-of-david-close.png",
+    "ramparts-arch": ("photos/oct27/ramparts-arch-with-doves.png", (0, 268, 1125, 1340)),
+    "ramparts-golgotha": "photos/oct27/golgotha-from-ramparts.png",
+    "ramparts-storm": ("photos/oct27/ramparts-storm-clouds.png", (470, 795, 1125, 1635)),
+    "jaffa-0": "photos/oct27/jaffa-gate-from-outside.png",
+    "jaffa-3": "photos/oct27/inside-jaffa-gate-armenian-quarter.png",
+    "jq-cardo-2": "photos/oct27/cardo-columns-2.png",
+    "jq-cardo-sign": "photos/oct27/western-cardo-sign.png",
+    "gtomb-2": "photos/oct27/garden-tomb-front.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
@@ -40,11 +55,11 @@ FRAMES = {   # stills taken from Richard's films (the films themselves are no lo
 }
 
 
-def crop_bars(im, dark=14):
+def crop_bars(im, dark=30):
     """Screenshots of photos carry black bars above and below; cut them off."""
     g = im.convert("L")
     w, h = g.size
-    rows = [ImageStat.Stat(g.crop((0, y, w, y + 1))).mean[0] for y in range(h)]
+    rows = [ImageStat.Stat(g.crop((0, y, w, y + 1))).median[0] for y in range(h)]   # median: ignores the white home-bar line
     top = next((y for y in range(h) if rows[y] > dark), 0)
     bot = next((y for y in range(h - 1, -1, -1) if rows[y] > dark), h - 1)
     return im.crop((0, top, w, bot + 1)) if bot - top > h * 0.3 else im
@@ -71,7 +86,11 @@ def finish(im, name):
 def main():
     os.makedirs(OUT, exist_ok=True)
     for name, rel in PHOTOS.items():
-        print(name, finish(Image.open(os.path.join(SRC, rel)), name))
+        box = None
+        if isinstance(rel, tuple): rel, box = rel
+        im = Image.open(os.path.join(SRC, rel))
+        if box: im = im.convert("RGB").crop(box)
+        print(name, finish(im, name))
     with tempfile.TemporaryDirectory() as tmp:
         for name, (film, t) in FRAMES.items():
             f = os.path.join(tmp, name + ".png")

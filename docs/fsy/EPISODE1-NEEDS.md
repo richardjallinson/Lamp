@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 15 of 74 viewpoints. Updated 2026-10-27.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 29 of 84 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -29,6 +29,7 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `rail-1` | The light rail on Jaffa Road: the way you will move through the city |
 | ✓ | `rail-2` | On the tram, Jaffa Road: the city going past |
+| ✓ | `rail-3` | The Mahane Yehuda stop: two trams, and the crowd heading for the market |
 
 **Hank says:**
 
@@ -38,7 +39,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `market-street` | The main lane of the market: fruit, bread, spices, noise |
+| ✓ | `market-street` | The main lane of the market, under its glass roof: sweets, spices, coffee, noise |
 | ☐ | `market-bread` | The bread stall: challah and pita, still warm |
 | ☐ | `market-juice` | The pomegranate juice stall |
 | ☐ | `market-spice` | The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance |
@@ -47,16 +48,16 @@ _Built earlier, with its own photos already in the game._
 
 - `w-market-street`: “Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.”
 
-### 5. Gabriel’s shop (Ben Yehuda Street)
+### 5. Gabriel’s shop (King George Street)
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `gabriel-street` | Ben Yehuda Street: the souvenir shop, its window full of menorahs |
+| ✓ | `gabriel-street` | Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass |
 | ☐ | `gabriel-inside` | Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple |
 
 **Hank says:**
 
-- `w-gabriel-street`: “Ben Yehuda Street, where the city shops. A small souvenir shop. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.”
+- `w-gabriel-street`: “Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.”
 
 ### 6. The Second Temple model (The Israel Museum)
 
@@ -77,8 +78,10 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `jaffa-0` | The bridge to Jaffa Gate, with the citadel and the Tower of David along the wall |
 | ✓ | `jaffa-1` | Jaffa Gate and the Tower of David |
 | ✓ | `jaffa-2` | Inside the gate: the square, the street down into the city |
+| ✓ | `jaffa-3` | Inside the gate, looking toward the Armenian Quarter: shops, shawarma, and the street running south |
 
 **Hank says:**
 
@@ -89,9 +92,13 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `ramparts-stairs` | The stone stairs up onto the wall, by Jaffa Gate |
+| ✓ | `ramparts-jaffa` | On the wall above Jaffa Gate: the gate below you, the square, and the citadel beyond |
+| ✓ | `ramparts-tower` | Looking south along the wall: the Tower of David, and Mount Zion beyond |
+| ✓ | `ramparts-tower-close` | The Tower of David close up: Herod’s stones at the bottom, the Ottoman minaret on top |
 | ☐ | `ramparts-north1` | On the wall, walking north: the Christian Quarter below, the domes ahead |
-| ☐ | `ramparts-golgotha` | From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road |
-| ☐ | `ramparts-storm` | The wall ahead, toward Damascus Gate: the sky has gone black |
+| ✓ | `ramparts-arch` | Further along: iron arches over the walk, and two doves sitting on the first |
+| ✓ | `ramparts-golgotha` | From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road |
+| ✓ | `ramparts-storm` | The wall ahead, toward Damascus Gate: the sky has gone black |
 
 **Hank says:**
 
@@ -102,7 +109,9 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ✓ | `jq-cardo` | The Cardo: the columns of the Roman main street, below today’s street |
+| ✓ | `jq-cardo-2` | The Cardo: the columns of the Roman main street, below today’s street |
+| ✓ | `jq-cardo-sign` | The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English |
+| ✓ | `jq-cardo` | Along the columns |
 | ☐ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010 after lying in ruins |
 | ☐ | `jewish-burnt` | The Burnt House: a priestly family’s home, burned in the year 70, found under the ash |
 | ☐ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter to the Western Wall plaza |
@@ -169,7 +178,8 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ☐ | `gtomb-garden` | The garden: quiet, green, a few benches, birds. After the storm, everything drips and shines |
 | ☐ | `gtomb-skull` | From the garden’s viewing platform: Skull Hill, close, over the bus station wall |
-| ✓ | `gtomb-1` | The tomb, cut into the rock, with the groove for a rolling stone across its front |
+| ✓ | `gtomb-2` | The tomb, cut into the rock, with the groove for a rolling stone across its front |
+| ✓ | `gtomb-1` | At the doorway: the trough in front, where the stone rolled |
 
 **Hank says:**
 
