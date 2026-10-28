@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 152 of 163 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 156 of 165 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -106,6 +106,7 @@ _Built earlier, with its own photos already in the game._
 | ☐ | `ramparts-north1` | On the wall, walking north: the Christian Quarter below, the domes ahead |
 | ✓ | `ramparts-arch` | Further along: iron arches over the walk, and two doves sitting on the first |
 | ✓ | `ramparts-golgotha` | From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road |
+| ✓ | `ramparts-sky` | The sky over the city turns: a great grey cloud rolling in over the rooftops, in October, out of the rainy season |
 | ✓ | `ramparts-storm` | The wall ahead, toward Damascus Gate: the sky has gone black |
 
 **Hank says:**
@@ -124,7 +125,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case |
 | ✓ | `jewish-spices` | A spice shop off the square: bowls heaped high, each with its handwritten card |
 | ✓ | `jewish-bagel` | Holy Bagel, under a stone arch: people queuing for lunch |
-| ☐ | `jewish-burnt` | The Burnt House: a priestly family’s home, burned in the year 70, found under the ash |
+| ✓ | `jewish-burnt` | The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70 |
 | ☐ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter to the Western Wall plaza |
 
 **Hank says:**
@@ -156,7 +157,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `wilson-door` | The doorway under the arch, at the north end of the Wall: men coming and going |
 | ✓ | `wilson-hall` | The prayer hall under Wilson’s Arch: the great vault overhead, the Wall on the right, men at study |
 | ✓ | `wilson-scrolls` | The Torah ark against the Wall, men at prayer before it |
-| ☐ | `wilson-shaft` | A glass-covered shaft in the floor: the Wall goes down and down into the dark |
+| ✓ | `wilson-shaft` | A glass-covered shaft in the floor: Herod’s stones going down and down below the hall |
 
 **Hank says:**
 
@@ -252,6 +253,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `zion-tomb` | David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover |
 | ✓ | `zion-sign` | The sign: “King David’s Tomb” |
 | ✓ | `zion-gatesign` | A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey |
+| ✓ | `zion-courtyard` | From the roof: the courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it |
 | ✓ | `zion-passage` | Through a stone arch, an old door open, a vaulted passage lit gold |
 | ✓ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims |
 

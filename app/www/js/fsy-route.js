@@ -126,10 +126,12 @@
       { id: "north1", img: null, cap: "On the wall, walking north: the Christian Quarter below, the domes ahead", go: { back: "jaffa", fwd: "arch" }, puzzle: "landmarks" },
       { id: "arch", img: "ramparts-arch", cap: "Further along: iron arches over the walk, and two doves sitting on the first", go: { back: "north1", fwd: "golgotha" },
         hots: [{ box: [30, 0, 40, 30], label: "The two doves", text: "Two turtledoves, side by side on the arch. “A pair of turtledoves, or two young pigeons”: the offering Mary and Joseph brought to the Temple for Jesus (Luke 2:24)." }] },
-      { id: "golgotha", img: "ramparts-golgotha", cap: "From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road", go: { back: "arch", fwd: "storm" },
+      { id: "golgotha", img: "ramparts-golgotha", cap: "From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road", go: { back: "arch", fwd: "sky" },
         hank: "Look across the road. The rock face with the hollows of a skull: Golgotha. “And he bearing his cross went forth into a place called the place of a skull.”",
         hots: [{ box: [15, 35, 70, 30], label: "Skull Hill", text: "“And he bearing his cross went forth into a place called the place of a skull, which is called in the Hebrew Golgotha” (John 19:17). Below it, a garden, and in the garden a tomb (John 19:41)." }] },
-      { id: "storm", img: "ramparts-storm", cap: "The wall ahead, toward Damascus Gate: the sky has gone black", go: { back: "golgotha" }, puzzle: "storm" },
+      { id: "sky", img: "ramparts-sky", cap: "The sky over the city turns: a great grey cloud rolling in over the rooftops, in October, out of the rainy season", go: { back: "golgotha", fwd: "storm" },
+        hots: [{ box: [10, 10, 80, 50], label: "The cloud", text: "October: the dry season, months before the rains should come. And yet the sky over Jerusalem goes the colour of slate in a quarter of an hour. “He causeth the vapours to ascend from the ends of the earth; he maketh lightnings for the rain” (Psalm 135:7)." }] },
+      { id: "storm", img: "ramparts-storm", cap: "The wall ahead, toward Damascus Gate: the sky has gone black", go: { back: "sky" }, puzzle: "storm" },
     ] });
   S({ id: "jewish", act: 2, title: "The Jewish Quarter", kick: "After the storm", music: "m14", amb: "street", page: 5,
     views: [
@@ -146,7 +148,8 @@
         hots: [{ box: [0, 45, 100, 40], label: "The spices", text: "Cinnamon, cardamom, saffron, cumin. The holy anointing oil and the Temple incense were made of spices weighed out by the shekel of the sanctuary: “Take thou also unto thee principal spices” (Exodus 30:23)." }] },
       { id: "bagel", img: "jewish-bagel", cap: "Holy Bagel, under a stone arch: people queuing for lunch", go: { left: "hurva" },
         hots: [{ box: [10, 20, 80, 15], label: "The sign", text: "Even the bagels are holy in this quarter. Under the sign, in small Hebrew letters: “B’siyata dishmaya”, with the help of Heaven." }] },
-      { id: "burnt", img: null, cap: "The Burnt House: a priestly family’s home, burned in the year 70, found under the ash", go: { right: "cardo" }, puzzle: "burnt" },
+      { id: "burnt", img: "jewish-burnt", cap: "The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70", go: { right: "cardo" }, puzzle: "burnt",
+        hots: [{ box: [35, 30, 35, 10], label: "The name", text: "Beit Katros: the house of Kathros, a priestly family named in the Talmud, and found written on a stone weight in the ash here. The house lies below today’s street, under two metres of burnt debris." }] },
       { id: "wallsteps", img: null, cap: "The wide steps down from the Jewish Quarter to the Western Wall plaza", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
     ] });
   S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m14", amb: "street",
@@ -169,7 +172,7 @@
       { id: "hall", img: "wilson-hall", cap: "The prayer hall under Wilson’s Arch: the great vault overhead, the Wall on the right, men at study", hank: "Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.",
         go: { fwd: "shaft", left: "scrolls", back: "door" } },
       { id: "scrolls", img: "wilson-scrolls", cap: "The Torah ark against the Wall, men at prayer before it", go: { right: "hall" }, hots: [{ box: [20, 10, 60, 70], label: "The scrolls", text: "“Thy word is a lamp unto my feet, and a light unto my path” (Psalm 119:105)." }] },
-      { id: "shaft", img: null, cap: "A glass-covered shaft in the floor: the Wall goes down and down into the dark", go: { back: "hall" }, puzzle: "courses" },
+      { id: "shaft", img: "wilson-shaft", cap: "A glass-covered shaft in the floor: Herod’s stones going down and down below the hall", go: { back: "hall" }, puzzle: "courses" },
     ] });
   S({ id: "tunnels", act: 2, title: "The Western Wall tunnels", kick: "Beneath the city", music: "m15", amb: "chamber", page: 7,
     views: [
@@ -260,8 +263,10 @@
         go: { fwd: "gatesign", back: "door", left: "sign" }, puzzle: "north" },
       { id: "sign", img: "zion-sign", cap: "The sign: “King David’s Tomb”", go: { right: "tomb" },
         hots: [{ box: [3, 35, 35, 20], label: "Read the sign", text: "“The place where King David was buried according to a Medieval tradition.” The Bible says David “was buried in the city of David” (1 Kings 2:10): the ridge below, which you will walk next. The real tomb has never been found." }] },
-      { id: "gatesign", img: "zion-gatesign", cap: "A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey", go: { back: "tomb", fwd: "passage" } },
-      { id: "passage", img: "zion-passage", cap: "Through a stone arch, an old door open, a vaulted passage lit gold", go: { back: "gatesign", fwd: "upper" } },
+      { id: "gatesign", img: "zion-gatesign", cap: "A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey", go: { back: "tomb", fwd: "courtyard" } },
+      { id: "courtyard", img: "zion-courtyard", cap: "From the roof: the courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it", go: { back: "gatesign", fwd: "passage" },
+        hots: [{ box: [40, 55, 25, 25], label: "The courtyard", text: "One building holds both: David’s Tomb on the ground floor, the Upper Room on the floor above. Crusader stonework over older walls, a minaret added when it was a mosque, and now a place for everyone." }] },
+      { id: "passage", img: "zion-passage", cap: "Through a stone arch, an old door open, a vaulted passage lit gold", go: { back: "courtyard", fwd: "upper" } },
       { id: "upper", img: "zion-upper", cap: "The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims", go: { back: "passage" },
         hots: [{ box: [10, 10, 80, 70], label: "The room", text: "“And he will shew you a large upper room furnished: there make ready” (Luke 22:12). The room you see is Crusader work, built over older walls." }] },
     ] });
@@ -724,7 +729,7 @@
       items: [["The Tower of David", "just behind you"], ["The grey domes of the Holy Sepulchre", "in the Christian Quarter"], ["The golden Dome of the Rock", "on the Temple Mount"], ["The Mount of Olives", "across the valley, beyond the city"]],
       done: () => pzDone("landmarks", () => walk(V("arch"))) }) },
     storm: { label: "The way ahead", run: () => { setTimeout(() => F.M("m13", "olives"), 50); talk({ title: "The storm", kick: "The Ramparts Walk", who: "The Lamplighter", run: (T) => {
-      T.line('<div class="fq">The wind comes first, hot, then cold. Then the sky over Damascus Gate turns the colour of slate and the rain hits the wall like thrown gravel. Ahead, where the walk goes down to the gate, two men stand across the path with their hands up. Behind them, lightning.</div>');
+      T.line('<div class="fq">It is October: the dry season, no rain due for weeks. The wind comes first, hot, then cold. Then the sky over Damascus Gate turns the colour of slate and the rain hits the wall like thrown gravel. Ahead, where the walk goes down to the gate, two men stand across the path with their hands up. Behind them, lightning.</div>');
       T.him("“Not this way. Not today.”", "A voice on the wall");
       T.choices([["Push on toward Damascus Gate", 0], ["Stop, and look at the cloud", 1]], (ok) => {
         if (!ok) { st.misses++; T.line('<div class="fq">You take three steps and the thunder is so close it has no echo. The men do not move. Neither, now, do you.</div>'); }
