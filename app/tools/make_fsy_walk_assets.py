@@ -9,7 +9,7 @@ Add a photo: put the original in images/originals/fsy/photos/..., add a line to 
 (game name -> original), and run:  python3 app/tools/make_fsy_walk_assets.py
 A still from one of his films: add a line to FRAMES (game name -> film, seconds)."""
 import os, subprocess, tempfile
-from PIL import Image, ImageEnhance, ImageStat
+from PIL import Image, ImageEnhance, ImageStat, ImageFilter
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SRC = os.path.join(ROOT, "images", "originals", "fsy")
@@ -92,6 +92,14 @@ PHOTOS = {
     "market-coffee": "photos/oct27/market-coffee-beans.png",
     "market-spice": "photos/oct27/market-spice-stall.png",
     "market-kaldron": "photos/oct27/market-lane-bakery.png",
+    "market-fish": ("photos/oct27/market-fish-counter.png", (0, 1420, 1125, 1880)),   # the counter only, shopkeeper left out
+    "siloam-pool": ("photos/oct27/siloam-pool-steps.png", None, [(395, 1085, 535, 1330)]),   # person in the pool blurred
+    "siloam-sign": "photos/oct27/siloam-pool-sign.png",
+    "siloam-water": "photos/oct27/siloam-pool-water-columns.png",
+    "synagogue-doors": "photos/oct27/great-synagogue-doors.png",
+    "synagogue": "photos/oct27/great-synagogue.png",
+    "jewish-hurva": "photos/oct27/hurva-golden-menorah.png",
+    "model-temple": ("photos/oct27/second-temple-model-NOT-RICHARDS-check.png", (222, 0, 2176, 1125)),
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
@@ -133,10 +141,12 @@ def finish(im, name):
 def main():
     os.makedirs(OUT, exist_ok=True)
     for name, rel in PHOTOS.items():
-        box = None
-        if isinstance(rel, tuple): rel, box = rel
-        im = Image.open(os.path.join(SRC, rel))
-        if box: im = im.convert("RGB").crop(box)
+        box, blurs = None, ()
+        if isinstance(rel, tuple): rel, box, *more = rel; blurs = more[0] if more else ()
+        im = Image.open(os.path.join(SRC, rel)).convert("RGB")
+        for b in blurs:   # hide a person: blur that patch heavily (boxes in original pixels)
+            im.paste(im.crop(b).filter(ImageFilter.GaussianBlur(28)), b[:2])
+        if box: im = im.crop(box)
         print(name, finish(im, name))
     with tempfile.TemporaryDirectory() as tmp:
         for name, (film, t) in FRAMES.items():

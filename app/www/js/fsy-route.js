@@ -72,16 +72,20 @@
       { id: "deeper", img: "market-deeper", cap: "Deeper in: baklava and halva on one side, oranges and pomegranates on the other", go: { back: "street", fwd: "spice", left: "coffee", right: "kaldron" },
         hots: [{ box: [15, 30, 15, 10], label: "Rimon", text: "The sign says Rimon: Hebrew for pomegranate. “Upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet” (Exodus 28:33): the High Priest’s robe was hung with them." }] },
       { id: "coffee", img: "market-coffee", cap: "Tins of coffee beans, each with its handwritten card, and a scoop in every one", go: { right: "deeper" } },
-      { id: "kaldron", img: "market-kaldron", cap: "Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys", go: { left: "deeper" } },
+      { id: "kaldron", img: "market-kaldron", cap: "Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys", go: { left: "deeper", fwd: "fish" } },
+      { id: "fish", img: "market-fish", cap: "A fish counter: smoked fish, herring and salads under the glass", go: { back: "kaldron" },
+        hots: [{ box: [10, 30, 25, 50], label: "The fish", text: "“Cast the net on the right side of the ship, and ye shall find” (John 21:6). Galilee fishermen sold their catch in Jerusalem’s markets: one of the city’s gates was called the fish gate (Nehemiah 3:3)." }] },
       { id: "spice", img: "market-spice", cap: "The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter", go: { back: "deeper" }, puzzle: "scales",
         hots: [{ box: [10, 45, 80, 20], label: "The bowls of spice", text: "Paprika, turmeric, cumin, zaatar, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
-      { id: "street", img: "gabriel-street", cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.",
-        go: { fwd: "inside" } },
+      { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
       { id: "inside", img: null, cap: "Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple", go: { back: "street" }, puzzle: "souvenir",
         hots: [{ box: [0, 60, 100, 30], label: "Gabriel, behind the counter", act: "gabrielTalk" }] },
+      { id: "synagogue", img: "synagogue", cap: "Up King George Street: the Jerusalem Great Synagogue", go: { back: "street", fwd: "doors" },
+        hots: [{ box: [25, 15, 50, 55], label: "The building", text: "Number 56, King George Street, finished in 1982. Its architect, Alexander Friedman, modelled its style on the Temple in Jerusalem: a tall front, and a great gate. The synagogue is built to look like the house it is waiting for." }] },
+      { id: "doors", img: "synagogue-doors", cap: "The great doors, panel after panel, and above them the tall windows", go: { back: "synagogue" } },
     ] });
   S({ id: "model", act: 1, title: "The Second Temple model", kick: "The Israel Museum", music: "m11", amb: "street", page: 4,
     views: [
@@ -91,7 +95,7 @@
         hots: [{ box: [30, 30, 40, 30], label: "The eastern gate of the model", text: "One gate in the eastern wall, in line with the sanctuary. Through it, Ezekiel saw the glory of the LORD come in “by the way of the gate whose prospect is toward the east” (Ezekiel 43:4)." }] },
       { id: "north", img: null, cap: "The northern end of the model: the Antonia fortress, and the open ground north of the courts", go: { left: "wide" },
         hots: [{ box: [20, 20, 60, 40], label: "The Antonia fortress", text: "Herod’s fortress at the north-west corner, where the Roman garrison watched the courts. From its steps Paul spoke to the crowd (Acts 21:40)." }] },
-      { id: "temple", img: null, cap: "The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary", go: { back: "wide" }, puzzle: "modelq",
+      { id: "temple", img: "model-temple", cap: "The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary", go: { back: "wide" }, puzzle: "modelq",
         hots: [{ box: [35, 10, 30, 35], label: "The sanctuary", text: "The house itself, white stone and gold, facing east. Behind its veil, the Holy of Holies: twenty cubits square, and empty, since the Ark was lost." }] },
     ] });
 
@@ -131,17 +135,16 @@
       { id: "cardosign", img: "jq-cardo-sign", cap: "The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English", go: { left: "cardo", fwd: "columns" },
         hots: [{ box: [0, 40, 30, 30], label: "The English text", text: "“Remains of a magnificent main road from the Roman-Byzantine period, serving throughout time until today as a major thoroughfare for shopping.” The street Hadrian built over the ruins, still in use." }] },
       { id: "columns", img: "jq-cardo", cap: "Along the columns", go: { back: "cardosign" } },
-      { id: "hurva", img: null, cap: "The Hurva Synagogue, rebuilt in 2010 after lying in ruins", go: { back: "cardo", fwd: "wallsteps" },
-        hots: [{ box: [20, 5, 60, 60], label: "The dome", text: "Hurva means “ruin”. It was destroyed in 1721, rebuilt in 1864, blown up in 1948, and rebuilt again in 2010. Jerusalem keeps rebuilding." }] },
+      { id: "hurva", img: "jewish-hurva", cap: "The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case", go: { back: "cardo", fwd: "wallsteps" },
+        hots: [{ box: [28, 62, 34, 25], label: "The golden menorah", text: "Pure gold, seven lamps, made to the Temple Institute’s research for the Third Temple, waiting here in a glass case for the day it stands in the sanctuary. “Thou shalt make a candlestick of pure gold” (Exodus 25:31)." },
+          { box: [15, 5, 70, 35], label: "The dome", text: "Hurva means “ruin”. It was destroyed in 1721, rebuilt in 1864, blown up in 1948, and rebuilt again in 2010. Jerusalem keeps rebuilding." }] },
       { id: "burnt", img: null, cap: "The Burnt House: a priestly family’s home, burned in the year 70, found under the ash", go: { right: "cardo" }, puzzle: "burnt" },
       { id: "wallsteps", img: null, cap: "The wide steps down from the Jewish Quarter to the Western Wall plaza", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
     ] });
   S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m14", amb: "street",
     views: [
       { id: "plaza", img: "wall-plaza", cap: "The Western Wall plaza, from above: the prayer courts, the great stones", hank: "The Western Wall. Not the Temple: the retaining wall Herod built to hold up the platform the Temple stood on. People have prayed at these stones for two thousand years. Go down to them.",
-        go: { fwd: "stones", right: "menorah" } },
-      { id: "menorah", img: "wall-menorah", cap: "The golden menorah above the plaza, made by the Temple Institute for the Third Temple", go: { left: "plaza" },
-        hots: [{ box: [10, 20, 80, 60], label: "The menorah", text: "Pure gold, seven lamps, made to the Temple Institute’s research and waiting here in a glass case for the day it stands in the sanctuary. “Thou shalt make a candlestick of pure gold” (Exodus 25:31)." }] },
+        go: { fwd: "stones" } },
       { id: "stones", img: "wall-mens", cap: "At the Wall: the men’s section, Herod’s great stones, men at prayer", go: { back: "plaza", left: "arch", right: "gold" },
         hots: [{ box: [0, 0, 100, 70], label: "The stones", text: "“If I forget thee, O Jerusalem, let my right hand forget her cunning” (Psalm 137:5). The lowest courses you can see are Herod’s: each stone with its smooth drafted margin. Seventeen more courses lie below the pavement: you will see them down the shaft under Wilson’s Arch." },
           { box: [0, 70, 100, 30], label: "A note in blue ink", text: "Among the thousands of prayers folded into the cracks, one is blue at the edges. You leave it where it is: prayers are not yours to read. But someone with blue ink was here." }] },
@@ -241,8 +244,12 @@
     views: [{ id: "tunnel", img: null, cap: "In the tunnel: cold water to the knee, chisel marks on the rock, the lamp the only light", puzzle: "darktunnel" }] });
   S({ id: "siloam", act: 3, title: "The Pool of Siloam", kick: "Sent", music: "m17", amb: "olives", page: 10,
     views: [
-      { id: "pool", img: null, cap: "The Pool of Siloam: the wide stone steps uncovered in 2004, going down to the water", hank: "Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.",
-        go: { fwd: "road" }, puzzle: "siloamq" },
+      { id: "pool", img: "siloam-pool", cap: "The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor", hank: "Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.",
+        go: { fwd: "road", left: "sign", right: "water" }, puzzle: "siloamq" },
+      { id: "sign", img: "siloam-sign", cap: "The sign: “The Pool of Shiloah (Siloam), Second Temple splendour”", go: { right: "pool" },
+        hots: [{ box: [5, 40, 90, 35], label: "Read the sign", text: "“…how he made the pool and the conduit and brought the water into the city” (2 Kings 20:20). In 2004 a very large pool from the Second Temple period was found here, about three quarters of an acre. Beside it, a stepped street: the road the pilgrims climbed from the pool to the Temple Mount. Under its paving, a drainage channel where the last rebels hid from the Romans in AD 70." }] },
+      { id: "water", img: "siloam-water", cap: "Round the corner, at the tunnel’s end: still water, old column drums, the outflow of Hezekiah’s Tunnel", go: { left: "pool" },
+        hots: [{ box: [25, 30, 50, 25], label: "The column drums", text: "Stumps of columns from a Byzantine church built here, about AD 450, to remember the man born blind who washed and came back seeing (John 9:7)." }] },
       { id: "road", img: null, cap: "The stepped Pilgrim Road, climbing from the pool toward the Temple Mount", go: { back: "pool" },
         hots: [{ box: [20, 0, 60, 60], label: "Up the road", text: "Pilgrims washed in the pool and climbed this street to the Temple. Far ahead, going up fast, a grey coat." }] },
     ] });

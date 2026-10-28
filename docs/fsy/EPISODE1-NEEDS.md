@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 71 of 113 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 78 of 117 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -45,6 +45,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `market-deeper` | Deeper in: baklava and halva on one side, oranges and pomegranates on the other |
 | ✓ | `market-coffee` | Tins of coffee beans, each with its handwritten card, and a scoop in every one |
 | ✓ | `market-kaldron` | Another lane: a bakery sign, dried fruit and nuts, shoppers with their trolleys |
+| ✓ | `market-fish` | A fish counter: smoked fish, herring and salads under the glass |
 | ✓ | `market-spice` | The spice seller’s stall: bowls heaped with paprika, turmeric and herbs, and a balance on the counter |
 
 **Hank says:**
@@ -57,6 +58,8 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `gabriel-street` | Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass |
 | ☐ | `gabriel-inside` | Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple |
+| ✓ | `synagogue` | Up King George Street: the Jerusalem Great Synagogue |
+| ✓ | `synagogue-doors` | The great doors, panel after panel, and above them the tall windows |
 
 **Hank says:**
 
@@ -69,7 +72,7 @@ _Built earlier, with its own photos already in the game._
 | ☐ | `model-wide` | The great model of Jerusalem in the year 66: the Temple on its mountain, the city around it |
 | ☐ | `model-east` | The eastern side of the model: the Kidron valley, the eastern wall, and the gate that faces the Mount of Olives |
 | ☐ | `model-north` | The northern end of the model: the Antonia fortress, and the open ground north of the courts |
-| ☐ | `model-temple` | The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary |
+| ✓ | `model-temple` | The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary |
 
 **Hank says:**
 
@@ -116,7 +119,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `jq-cardo-2` | The Cardo: the columns of the Roman main street, below today’s street |
 | ✓ | `jq-cardo-sign` | The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English |
 | ✓ | `jq-cardo` | Along the columns |
-| ☐ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010 after lying in ruins |
+| ✓ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case |
 | ☐ | `jewish-burnt` | The Burnt House: a priestly family’s home, burned in the year 70, found under the ash |
 | ☐ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter to the Western Wall plaza |
 
@@ -130,7 +133,6 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `wall-plaza` | The Western Wall plaza, from above: the prayer courts, the great stones |
-| ✓ | `wall-menorah` | The golden menorah above the plaza, made by the Temple Institute for the Third Temple |
 | ✓ | `wall-mens` | At the Wall: the men’s section, Herod’s great stones, men at prayer |
 | ✓ | `wall-arch` | To the left of the open Wall: the dark doorway into the covered prayer hall under Wilson’s Arch |
 | ✓ | `wall-gold` | Further along: a golden menorah at the foot of the Wall, and the screen where the women’s section begins |
@@ -263,7 +265,9 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `siloam-pool` | The Pool of Siloam: the wide stone steps uncovered in 2004, going down to the water |
+| ✓ | `siloam-pool` | The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor |
+| ✓ | `siloam-sign` | The sign: “The Pool of Shiloah (Siloam), Second Temple splendour” |
+| ✓ | `siloam-water` | Round the corner, at the tunnel’s end: still water, old column drums, the outflow of Hezekiah’s Tunnel |
 | ☐ | `siloam-road` | The stepped Pilgrim Road, climbing from the pool toward the Temple Mount |
 
 **Hank says:**
