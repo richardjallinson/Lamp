@@ -73,6 +73,15 @@ PHOTOS = {
     "cod-shaft": "photos/oct27/warrens-shaft-blue.png",
     "gihon-sign": "photos/oct27/gihon-spring-sign.png",
     "gihon-canaanite": "photos/oct27/canaanite-channel.png",
+    "dung-inner": "photos/oct27/dung-gate-from-inside.png",
+    "dung-exit": "photos/oct27/western-wall-exit-plaza.png",
+    "wall-ramp": "photos/oct27/western-wall-plaza-mughrabi-ramp.png",
+    "wall-gold": "photos/oct27/western-wall-golden-menorah.png",
+    "wall-mens": "photos/oct27/western-wall-mens-section.png",
+    "wall-womens": "photos/oct27/western-wall-womens-section.png",
+    "wall-arch": "photos/oct27/western-wall-and-wilsons-arch.png",
+    "wilson-door": "photos/oct27/wilsons-arch-entrance-close.png",
+    "mughrabi-under": "photos/oct27/mughrabi-bridge-from-below.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

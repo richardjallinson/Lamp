@@ -135,15 +135,20 @@
         go: { fwd: "stones", right: "menorah" } },
       { id: "menorah", img: "wall-menorah", cap: "The golden menorah above the plaza, made by the Temple Institute for the Third Temple", go: { left: "plaza" },
         hots: [{ box: [10, 20, 80, 60], label: "The menorah", text: "Pure gold, seven lamps, made to the Temple Institute’s research and waiting here in a glass case for the day it stands in the sanctuary. “Thou shalt make a candlestick of pure gold” (Exodus 25:31)." }] },
-      { id: "stones", img: null, cap: "At the Wall: the Herodian stones close up, notes in every crack", go: { back: "plaza", left: "arch" },
+      { id: "stones", img: "wall-mens", cap: "At the Wall: the men’s section, Herod’s great stones, men at prayer", go: { back: "plaza", left: "arch", right: "gold" },
         hots: [{ box: [0, 0, 100, 70], label: "The stones", text: "“If I forget thee, O Jerusalem, let my right hand forget her cunning” (Psalm 137:5). The lowest courses you can see are Herod’s: each stone with its smooth drafted margin. Seventeen more courses lie below the pavement: you will see them down the shaft under Wilson’s Arch." },
           { box: [0, 70, 100, 30], label: "A note in blue ink", text: "Among the thousands of prayers folded into the cracks, one is blue at the edges. You leave it where it is: prayers are not yours to read. But someone with blue ink was here." }] },
-      { id: "arch", img: null, cap: "To the left of the open Wall: the entrance to the covered prayer hall under Wilson’s Arch", go: { right: "stones" }, hank: "To the left, under the arch, the Wall goes on indoors. A man in a grey coat just went in." },
+      { id: "arch", img: "wall-arch", cap: "To the left of the open Wall: the dark doorway into the covered prayer hall under Wilson’s Arch", go: { right: "stones" }, hank: "To the left, under the arch, the Wall goes on indoors. A man in a grey coat just went in.",
+        hots: [{ box: [25, 38, 12, 9], label: "The doorway", text: "The arched doorway with the curved iron gate leads into the prayer hall under Wilson’s Arch. A man in a grey coat goes in ahead of you." }] },
+      { id: "gold", img: "wall-gold", cap: "Further along: a golden menorah at the foot of the Wall, and the screen where the women’s section begins", go: { left: "stones", right: "womens" } },
+      { id: "womens", img: "wall-womens", cap: "The women’s section, under the white umbrellas, and the wooden Mughrabi ramp beyond", go: { left: "gold", fwd: "ramp" } },
+      { id: "ramp", img: "wall-ramp", cap: "The south end of the plaza: the covered ramp climbing to the Mughrabi Gate. Not yet: that is the last way up", go: { back: "womens" } },
     ] });
   S({ id: "wilson", act: 2, title: "Under Wilson’s Arch", kick: "The prayer hall", music: "m14", amb: "indoor", page: 6,
     views: [
+      { id: "door", img: "wilson-door", cap: "The doorway under the arch, at the north end of the Wall: men coming and going", go: { fwd: "hall" } },
       { id: "hall", img: null, cap: "The prayer hall under Wilson’s Arch: the great arch overhead, Torah scrolls in their cases, men at prayer", hank: "Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.",
-        go: { fwd: "shaft", left: "scrolls" } },
+        go: { fwd: "shaft", left: "scrolls", back: "door" } },
       { id: "scrolls", img: null, cap: "The Torah ark and the scrolls", go: { right: "hall" }, hots: [{ box: [20, 10, 60, 70], label: "The scrolls", text: "“Thy word is a lamp unto my feet, and a light unto my path” (Psalm 119:105)." }] },
       { id: "shaft", img: null, cap: "A glass-covered shaft in the floor: the Wall goes down and down into the dark", go: { back: "hall" }, puzzle: "courses" },
     ] });
@@ -252,8 +257,10 @@
     views: [{ id: "in", img: null, cap: "" }] });
   S({ id: "dung", act: 4, title: "The Dung Gate", kick: "Moses", music: "m20", amb: "street",
     views: [
+      { id: "exit", img: "dung-exit", cap: "Out of the Western Wall plaza: the exit, the taxis, and the road to the Dung Gate", go: { fwd: "inner" } },
+      { id: "inner", img: "dung-inner", cap: "The Dung Gate from inside the city: through the arch, the Kidron slopes and the village beyond", go: { back: "exit", fwd: "gate" } },
       { id: "gate", img: "dung-gate", cap: "The Dung Gate, the small gate in the south wall nearest the Western Wall", hank: "Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.",
-        go: { fwd: "road" } },
+        go: { fwd: "road", back: "inner" } },
       { id: "road", img: null, cap: "The road outside the gate, and a locked iron gate across the path down into the Kidron Valley", go: { back: "gate" }, puzzle: "moses" },
     ] });
   S({ id: "egate", act: 4, title: "The Eastern Gate, outside", kick: "The steps and the cemetery", music: "m21", amb: "olives",
@@ -286,10 +293,11 @@
   /* ---- Act 5 ---- */
   S({ id: "mughrabi", act: 5, title: "The Mughrabi Gate", kick: "The only way up", music: "m24", amb: "street",
     views: [
-      { id: "below", img: "mughrabi-0", cap: "From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate", go: { fwd: "entrance" },
+      { id: "below", img: "mughrabi-0", cap: "From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate", go: { fwd: "under" },
         hots: [{ box: [0, 12, 35, 20], label: "The ramp", text: "The covered wooden ramp runs from the Western Wall plaza up to the Mughrabi Gate. It was built as a temporary bridge after the old earth ramp collapsed in 2004, and it is still there." }] },
+      { id: "under", img: "mughrabi-under", cap: "Under the covered bridge: it crosses over the women’s section on steel legs", go: { back: "below", fwd: "entrance" } },
       { id: "entrance", img: "mughrabi-1", cap: "The entrance to the wooden Mughrabi bridge, from the Western Wall plaza", hank: "The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.",
-        go: { fwd: "security", back: "below" } },
+        go: { fwd: "security", back: "under" } },
       { id: "security", img: "mughrabi-security", cap: "The checkpoint inside the bridge: police on the benches, visitors waiting their turn to go up", go: { back: "entrance", fwd: "inside" },
         hots: [{ box: [55, 30, 40, 50], label: "The police", text: "Israeli police guard the bridge and walk every group across the Mount. Jews and Christians may visit at set hours, in groups, and may not pray aloud." }] },
       { id: "inside", img: "mughrabi-2", cap: "Inside the covered bridge, climbing above the plaza", go: { back: "security", fwd: "benches" },

@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 56 of 102 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 65 of 109 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -127,8 +127,11 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `wall-plaza` | The Western Wall plaza, from above: the prayer courts, the great stones |
 | ✓ | `wall-menorah` | The golden menorah above the plaza, made by the Temple Institute for the Third Temple |
-| ☐ | `wall-stones` | At the Wall: the Herodian stones close up, notes in every crack |
-| ☐ | `wall-arch` | To the left of the open Wall: the entrance to the covered prayer hall under Wilson’s Arch |
+| ✓ | `wall-mens` | At the Wall: the men’s section, Herod’s great stones, men at prayer |
+| ✓ | `wall-arch` | To the left of the open Wall: the dark doorway into the covered prayer hall under Wilson’s Arch |
+| ✓ | `wall-gold` | Further along: a golden menorah at the foot of the Wall, and the screen where the women’s section begins |
+| ✓ | `wall-womens` | The women’s section, under the white umbrellas, and the wooden Mughrabi ramp beyond |
+| ✓ | `wall-ramp` | The south end of the plaza: the covered ramp climbing to the Mughrabi Gate. Not yet: that is the last way up |
 
 **Hank says:**
 
@@ -139,6 +142,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `wilson-door` | The doorway under the arch, at the north end of the Wall: men coming and going |
 | ☐ | `wilson-hall` | The prayer hall under Wilson’s Arch: the great arch overhead, Torah scrolls in their cases, men at prayer |
 | ☐ | `wilson-scrolls` | The Torah ark and the scrolls |
 | ☐ | `wilson-shaft` | A glass-covered shaft in the floor: the Wall goes down and down into the dark |
@@ -288,6 +292,8 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `dung-exit` | Out of the Western Wall plaza: the exit, the taxis, and the road to the Dung Gate |
+| ✓ | `dung-inner` | The Dung Gate from inside the city: through the arch, the Kidron slopes and the village beyond |
 | ✓ | `dung-gate` | The Dung Gate, the small gate in the south wall nearest the Western Wall |
 | ☐ | `dung-road` | The road outside the gate, and a locked iron gate across the path down into the Kidron Valley |
 
@@ -345,6 +351,7 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `mughrabi-0` | From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate |
+| ✓ | `mughrabi-under` | Under the covered bridge: it crosses over the women’s section on steel legs |
 | ✓ | `mughrabi-1` | The entrance to the wooden Mughrabi bridge, from the Western Wall plaza |
 | ✓ | `mughrabi-security` | The checkpoint inside the bridge: police on the benches, visitors waiting their turn to go up |
 | ✓ | `mughrabi-2` | Inside the covered bridge, climbing above the plaza |
