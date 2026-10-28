@@ -115,7 +115,7 @@
     ] });
   S({ id: "ramparts", act: 2, title: "The Ramparts Walk", kick: "On the city wall", music: "m12", amb: "olives",
     views: [
-      { id: "stairs", img: null, cap: "The stone stairs up onto the wall, by Jaffa Gate", hank: "Walk about Zion, and go round about her: tell the towers thereof. Up you go.", go: { fwd: "jaffa" } },
+      { id: "stairs", img: "ramparts-stairs", cap: "The stone stairs up onto the wall: iron railings, an arch below the walkway, the battlements above", hank: "Walk about Zion, and go round about her: tell the towers thereof. Up you go.", go: { fwd: "jaffa" } },
       { id: "jaffa", img: "ramparts-jaffa", cap: "On the wall above Jaffa Gate: the gate below you, the square, and the citadel beyond", go: { back: "stairs", fwd: "north1", left: "tower" },
         hots: [{ box: [30, 40, 22, 22], label: "Jaffa Gate", text: "The gate you came in by, far below. From up here you can see why Suleiman built it with a bend inside: an enemy could not charge straight through." }] },
       { id: "tower", img: "ramparts-tower", cap: "Looking south along the wall: the Tower of David, and Mount Zion beyond", go: { right: "jaffa", fwd: "towerclose" },
@@ -123,7 +123,7 @@
       { id: "towerclose", img: "ramparts-tower-close", cap: "The Tower of David close up: Herod’s stones at the bottom, the Ottoman minaret on top", go: { back: "tower", fwd: "minaret" } },
       { id: "minaret", img: "ramparts-minaret", cap: "The minaret on top of the citadel, crows on its rail", go: { back: "towerclose" },
         hots: [{ box: [25, 25, 30, 50], label: "The minaret", text: "Built by the Ottomans in the 1600s on top of the citadel. Travellers saw it from far off and called the whole fortress the Tower of David, though David never saw it: the tower beneath is Herod’s." }] },
-      { id: "north1", img: null, cap: "On the wall, walking north: the Christian Quarter below, the domes ahead", go: { back: "jaffa", fwd: "arch" }, puzzle: "landmarks" },
+      { id: "north1", img: "ramparts-north", cap: "On the wall, walking north: the walkway between the battlements, the domes and bell towers of the Christian Quarter below", go: { back: "jaffa", fwd: "arch" }, puzzle: "landmarks" },
       { id: "arch", img: "ramparts-arch", cap: "Further along: iron arches over the walk, and two doves sitting on the first", go: { back: "north1", fwd: "golgotha" },
         hots: [{ box: [30, 0, 40, 30], label: "The two doves", text: "Two turtledoves, side by side on the arch. “A pair of turtledoves, or two young pigeons”: the offering Mary and Joseph brought to the Temple for Jesus (Luke 2:24)." }] },
       { id: "golgotha", img: "ramparts-golgotha", cap: "From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road", go: { back: "arch", fwd: "sky" },
