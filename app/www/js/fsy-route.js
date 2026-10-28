@@ -150,7 +150,7 @@
         hots: [{ box: [10, 20, 80, 15], label: "The sign", text: "Even the bagels are holy in this quarter. Under the sign, in small Hebrew letters: “B’siyata dishmaya”, with the help of Heaven." }] },
       { id: "burnt", img: "jewish-burnt", cap: "The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70", go: { right: "cardo" }, puzzle: "burnt",
         hots: [{ box: [35, 30, 35, 10], label: "The name", text: "Beit Katros: the house of Kathros, a priestly family named in the Talmud, and found written on a stone weight in the ash here. The house lies below today’s street, under two metres of burnt debris." }] },
-      { id: "wallsteps", img: null, cap: "The wide steps down from the Jewish Quarter to the Western Wall plaza", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
+      { id: "wallsteps", img: "jewish-wallsteps", cap: "The wide steps down from the Jewish Quarter: the Western Wall plaza below, the Wall golden in the evening light", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
     ] });
   S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m14", amb: "street",
     views: [
@@ -192,7 +192,7 @@
     ] });
   S({ id: "wallagain", act: 2, title: "Back on the wall", kick: "The sky is clear", music: "m12", amb: "olives",
     views: [
-      { id: "clear", img: null, cap: "The same stretch of wall near Damascus Gate: sun on wet stone, the way ahead open", hank: "The storm has passed. The way that was closed is open. Down to Damascus Gate.",
+      { id: "clear", img: "wallagain-clear", cap: "The same stretch of wall near Damascus Gate: the clouds breaking, sun on the wet stone, the way ahead open", hank: "The storm has passed. The way that was closed is open. Down to Damascus Gate.",
         go: { fwd: "damascus" } },
       { id: "damascus", img: "wallagain-damascus", cap: "Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements", go: { back: "clear", fwd: "road" },
         hots: [{ box: [20, 20, 60, 60], label: "The gate", text: "Suleiman’s grandest gate, 1537, built over Hadrian’s Roman gate, whose arch is still below. The road north to Damascus began here." }] },
@@ -219,12 +219,12 @@
     ] });
   S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Damascus Gate to the Western Wall", music: "m10", amb: "street",
     views: [
-      { id: "steps", img: null, cap: "Inside Damascus Gate: the street drops in wide steps into the bazaar", hank: "From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.",
+      { id: "steps", img: "bazaar-steps", cap: "Through the great gate: the street drops in wide steps into the bazaar, stalls on both sides", hank: "From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.",
         go: { fwd: "stalls" } },
-      { id: "stalls", img: null, cap: "The bazaar: spices, sweets, scarves, lamps, the smell of coffee and cardamom", go: { back: "steps", fwd: "trader" },
+      { id: "stalls", img: "bazaar-stalls", cap: "The bazaar under its stone vaults: spices, sweets, scarves, lamps, the smell of coffee and cardamom", go: { back: "steps", fwd: "trader" },
         hots: [{ box: [0, 0, 50, 60], label: "The lamps", text: "Brass lamps, glass lamps, clay lamps like yours. “Thy word is a lamp unto my feet.”" }] },
-      { id: "trader", img: null, cap: "A trader’s stall: olive-wood carvings, and a dish of old coins and weights", go: { back: "stalls", fwd: "end" }, puzzle: "halfshekel" },
-      { id: "end", img: null, cap: "The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, the bus south to Hebron", go: { back: "trader" } },
+      { id: "trader", img: "bazaar-trader", cap: "A trader’s stall: olive-wood carvings, a brass balance, a dish of old coins and weights, and a rolled map", go: { back: "stalls", fwd: "end" }, puzzle: "halfshekel" },
+      { id: "end", img: "bazaar-end", cap: "The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, the bus south to Hebron", go: { back: "trader" } },
     ] });
 
   /* ---- Act 3 ---- */

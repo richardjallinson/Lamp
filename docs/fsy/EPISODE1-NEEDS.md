@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 157 of 165 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 165 of 165 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -98,12 +98,12 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `ramparts-stairs` | The stone stairs up onto the wall, by Jaffa Gate |
+| ✓ | `ramparts-stairs` | The stone stairs up onto the wall: iron railings, an arch below the walkway, the battlements above |
 | ✓ | `ramparts-jaffa` | On the wall above Jaffa Gate: the gate below you, the square, and the citadel beyond |
 | ✓ | `ramparts-tower` | Looking south along the wall: the Tower of David, and Mount Zion beyond |
 | ✓ | `ramparts-tower-close` | The Tower of David close up: Herod’s stones at the bottom, the Ottoman minaret on top |
 | ✓ | `ramparts-minaret` | The minaret on top of the citadel, crows on its rail |
-| ☐ | `ramparts-north1` | On the wall, walking north: the Christian Quarter below, the domes ahead |
+| ✓ | `ramparts-north` | On the wall, walking north: the walkway between the battlements, the domes and bell towers of the Christian Quarter below |
 | ✓ | `ramparts-arch` | Further along: iron arches over the walk, and two doves sitting on the first |
 | ✓ | `ramparts-golgotha` | From the wall near Damascus Gate: Skull Hill, the place called Golgotha, across the road |
 | ✓ | `ramparts-sky` | The sky over the city turns: a great grey cloud rolling in over the rooftops, in October, out of the rainy season |
@@ -126,7 +126,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `jewish-spices` | A spice shop off the square: bowls heaped high, each with its handwritten card |
 | ✓ | `jewish-bagel` | Holy Bagel, under a stone arch: people queuing for lunch |
 | ✓ | `jewish-burnt` | The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70 |
-| ☐ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter to the Western Wall plaza |
+| ✓ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter: the Western Wall plaza below, the Wall golden in the evening light |
 
 **Hank says:**
 
@@ -183,7 +183,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `wallagain-clear` | The same stretch of wall near Damascus Gate: sun on wet stone, the way ahead open |
+| ✓ | `wallagain-clear` | The same stretch of wall near Damascus Gate: the clouds breaking, sun on the wet stone, the way ahead open |
 | ✓ | `wallagain-damascus` | Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements |
 | ✓ | `wallagain-road` | Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb” |
 
@@ -213,10 +213,10 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `bazaar-steps` | Inside Damascus Gate: the street drops in wide steps into the bazaar |
-| ☐ | `bazaar-stalls` | The bazaar: spices, sweets, scarves, lamps, the smell of coffee and cardamom |
-| ☐ | `bazaar-trader` | A trader’s stall: olive-wood carvings, and a dish of old coins and weights |
-| ☐ | `bazaar-end` | The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, the bus south to Hebron |
+| ✓ | `bazaar-steps` | Through the great gate: the street drops in wide steps into the bazaar, stalls on both sides |
+| ✓ | `bazaar-stalls` | The bazaar under its stone vaults: spices, sweets, scarves, lamps, the smell of coffee and cardamom |
+| ✓ | `bazaar-trader` | A trader’s stall: olive-wood carvings, a brass balance, a dish of old coins and weights, and a rolled map |
+| ✓ | `bazaar-end` | The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, the bus south to Hebron |
 
 **Hank says:**
 
