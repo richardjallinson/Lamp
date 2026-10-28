@@ -64,6 +64,15 @@ PHOTOS = {
     "tunnel-prayer": "photos/oct27/tunnel-woman-praying-opposite-holy-of-holies.png",
     "tunnel-plaque": "photos/oct27/tunnel-plaque-opposite-holy-of-holies.png",
     "tunnel-stairs": "photos/oct27/tunnel-stairs.png",
+    "cod-ruins": "photos/oct27/city-of-david-ruins-and-tower.png",
+    "cod-tower": "photos/oct27/hasmonean-tower.png",
+    "cod-tower-sign": "photos/oct27/hasmonean-tower-sign.png",
+    "cod-ark-sign": "photos/oct27/parker-expedition-ark-sign.png",
+    "cod-descent": "photos/oct27/stairs-down-to-water-system.png",
+    "cod-shaft-sign": "photos/oct27/warrens-shaft-sign.png",
+    "cod-shaft": "photos/oct27/warrens-shaft-blue.png",
+    "gihon-sign": "photos/oct27/gihon-spring-sign.png",
+    "gihon-canaanite": "photos/oct27/canaanite-channel.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 47 of 96 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 56 of 102 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -219,19 +219,25 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `cod-entrance` | The City of David visitor centre, on the ridge south of the Temple Mount |
-| ☐ | `cod-sign` | A sign on the wall: the tradition that the Ark of the Covenant lies hidden in a chamber under the Temple Mount |
-| ☐ | `cod-view` | From the lookout: the Kidron Valley, the village of Silwan, and the ridge running down to the spring |
-| ☐ | `cod-down` | The steps down the hillside to the Gihon Spring |
+| ✓ | `cod-ark-sign` | A sign in the water system: “Raiders of the Lost Ark”, the Parker expedition, 1909–1911 |
+| ✓ | `cod-ruins` | Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top |
+| ✓ | `cod-tower` | The Hasmonean tower at the top of the slope |
+| ✓ | `cod-tower-sign` | The sign at the tower: Nehemiah’s call to rebuild the wall |
+| ✓ | `cod-descent` | Stairs down into the rock: the way to the ancient water system |
+| ✓ | `cod-shaft-sign` | The sign: “The water system, Warren’s Shaft” |
+| ✓ | `cod-shaft` | Warren’s Shaft: a natural chasm in the rock, lit blue, dropping toward the spring |
 
 **Hank says:**
 
-- `w-cod-entrance`: “This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign on the wall.”
+- `w-cod-entrance`: “This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.”
 
 ### 18. The Gihon Spring (The water of the city)
 
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `gihon-spring` | The Gihon Spring, deep in its cave: the only water of ancient Jerusalem |
+| ✓ | `gihon-sign` | The sign: “The Gihon Spring, Jerusalem’s beating heart” |
+| ✓ | `gihon-canaanite` | The Canaanite channel: a dry, narrow cut in the rock, the older way the water ran, 1,000 years before Hezekiah |
 | ☐ | `gihon-mouth` | The mouth of Hezekiah’s Tunnel: dark water going into the rock |
 
 **Hank says:**
