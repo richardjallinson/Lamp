@@ -7,7 +7,7 @@
   const Lamp = window.Lamp; const FW = Lamp.fsyWalk; if (!FW) return;
   const H = FW.H, C = FW.core, W = FW.W, K = Lamp.adv.kit, F = Lamp.fsy.parts, esc = K.esc, $ = (id) => document.getElementById(id);
   const PP = "img/fsy/people/";
-  const PORTRAITS = new Set([]);   /* add an id here when Richard's drawing of that person is in img/fsy/people/ */
+  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
   const save = () => Lamp.save();
   /* adventure state, inside the episode's save */
   const A = () => { const w = W(); if (!w.a) w.a = { money: 100, items: {}, rides: 0, facts: [], asked: {}, q: {}, f: {}, rode: {} }; return w.a; };
@@ -47,7 +47,7 @@
   H.journalActs = () => ({ dan: daniel9 });
 
   /* ------------------------------------------------------------ people ------------------------------------------------------------ */
-  const portrait = (id, p) => PORTRAITS.has(id) ? '<img class="fface" src="' + PP + id + '.png" alt="">' : '<i class="fface fface-ph">' + esc(p.name.replace(/^The /, "")[0]) + "</i>";
+  const portrait = (id, p) => PORTRAITS.has(id) ? '<img class="fface" src="' + PP + id + '.jpg" alt="">' : '<i class="fface fface-ph">' + esc(p.name.replace(/^The /, "")[0]) + "</i>";
   /* a reply card: what they say, then ask more or leave */
   function reply(pid, text, o) {
     const p = PEOPLE[pid]; o = o || {};
