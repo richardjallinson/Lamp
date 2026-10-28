@@ -115,6 +115,9 @@ PHOTOS = {
     "kidron-absalom": "photos/kidron/absaloms-pillar.png",
     "kidron-zechariah": ("photos/kidron/zechariah-tomb-with-richard.png", (0, 469, 1125, 1480)),   # Richard cropped out below
     "kidron-sign": "photos/kidron/zechariah-tomb-sign.png",
+    "gethsemane-path": "photos/gethsemane/garden-path.png",
+    "gethsemane-wide": "photos/gethsemane/garden-wide.png",
+    "gethsemane-oldtree": "photos/gethsemane/ancient-olive-caged.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

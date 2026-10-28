@@ -320,9 +320,12 @@
     views: [{ id: "in", img: "olives-top", cap: "" }] });
   S({ id: "gethsemane", act: 4, title: "The Garden of Gethsemane", kick: "The olive press", music: "m23", amb: "olives", page: 12,
     views: [
-      { id: "trees", img: null, cap: "The garden: eight ancient olive trees behind a low fence, their trunks like twisted rope", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
-        go: { fwd: "church", right: "oldtree" } },
-      { id: "oldtree", img: null, cap: "The oldest tree, hollow and vast, propped on stones", go: { left: "trees" }, puzzle: "lastpage" },
+      { id: "trees", img: "gethsemane-path", cap: "The garden: a gravel path between the olive trees, their old trunks twisted like rope", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
+        go: { fwd: "church", right: "oldtree", left: "wide" } },
+      { id: "wide", img: "gethsemane-wide", cap: "Across the garden: young trees among the old, and the beds of the garden kept by the Franciscans", go: { right: "trees" },
+        hots: [{ box: [75, 60, 12, 12], label: "The small sign", text: "“P.P. Franciscus, 26 May 2014”: an olive tree planted by Pope Francis on his visit. Pilgrims of every church come here." }] },
+      { id: "oldtree", img: "gethsemane-oldtree", cap: "The oldest tree: a vast hollow trunk inside a mesh guard, still green on top", go: { left: "trees" }, puzzle: "lastpage",
+        hots: [{ box: [20, 50, 60, 40], label: "The trunk", text: "Tested trees in this garden are about 900 years old, grown perhaps from roots far older still: olive trees spring up again from the stump. “There is hope of a tree, if it be cut down, that it will sprout again” (Job 14:7)." }] },
       { id: "church", img: null, cap: "The Church of All Nations: the rock before the altar, where he prayed", go: { back: "trees" },
         hots: [{ box: [20, 30, 60, 50], label: "The rock", text: "“O my Father, if it be possible, let this cup pass from me: nevertheless not as I will, but as thou wilt” (Matthew 26:39)." }] },
     ] });
@@ -758,7 +761,7 @@
         { q: "The block with the pyramid on top has no door and no room inside. What is it, then?", a: [["A sealed grave", 0, "Look at the sign beside it: it was never used for burial."], ["A nefesh: a monument to the name of the dead", 1, "A nefesh, cut from the living rock, to keep a name. Tradition gave it Zechariah’s."], ["A watchtower over the valley", 0, "No stairs, no room, no way up."]] },
       ],
       done: () => { K.card('<div class="kick">The Kidron Valley</div><h2>Between the temple and the altar</h2><p>Zechariah the priest was stoned “in the court of the house of the LORD” (2 Chronicles 24:21), and the monument that carries his name faces the place. Up the hill behind it, a side path leads to a cave: the Tombs of the Prophets. The main path goes on up to the top of the Mount of Olives.</p><button class="cta" data-act="x">Up the hill</button>', { x: () => pzDone("whose", () => finish("kidron")) }); } }) },
-    lastpage: { label: "Look in the hollow", run: () => { K.card('<div class="kick">Gethsemane</div><h2>In the hollow of the oldest tree</h2><p>You put your hand into the hollow trunk, where a thousand years of rain have worn the wood soft. Your fingers find paper. The last torn page.</p><button class="cta" data-act="x">Unfold it</button>', { x: () => pzDone("lastpage", () => finish("gethsemane")) }); } },
+    lastpage: { label: "Look in the hollow", run: () => { K.card('<div class="kick">Gethsemane</div><h2>At the foot of the oldest tree</h2><p>Through the mesh, wedged in a crack at the foot of the great trunk, where no gardener would see it: a fold of paper, blue at the edges. The last torn page.</p><button class="cta" data-act="x">Unfold it</button>', { x: () => pzDone("lastpage", () => finish("gethsemane")) }); } },
     greytop: { label: "The man by the arcade", run: () => talk({ title: "At the top of the bridge", kick: "The Temple Mount", who: "The man in the grey coat", run: (T) => {
       T.line('<div class="fq">He is leaning on a pillar of the arcade, as if he has been there a while. Grey coat, grey hair, a face you have seen on three platforms and in two crowds. He straightens up as you come through the gate.</div>');
       T.him("“You took your time. Twelve pages, was it? I had three, and a guess. Well. We are both here now.”");

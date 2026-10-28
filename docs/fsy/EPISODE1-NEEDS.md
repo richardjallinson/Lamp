@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 90 of 126 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 93 of 127 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -362,8 +362,9 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `gethsemane-trees` | The garden: eight ancient olive trees behind a low fence, their trunks like twisted rope |
-| ☐ | `gethsemane-oldtree` | The oldest tree, hollow and vast, propped on stones |
+| ✓ | `gethsemane-path` | The garden: a gravel path between the olive trees, their old trunks twisted like rope |
+| ✓ | `gethsemane-wide` | Across the garden: young trees among the old, and the beds of the garden kept by the Franciscans |
+| ✓ | `gethsemane-oldtree` | The oldest tree: a vast hollow trunk inside a mesh guard, still green on top |
 | ☐ | `gethsemane-church` | The Church of All Nations: the rock before the altar, where he prayed |
 
 **Hank says:**
