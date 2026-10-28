@@ -48,9 +48,9 @@
     views: [{ id: "hall", img: "airport-1", cap: "The arrivals hall at Ben Gurion. The investigation begins here." }] });
   S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "street",
     views: [
-      { id: "board", img: null, cap: "The departures board at the airport station", hank: "Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.",
+      { id: "board", img: "train-board", cap: "The platform at the airport station: flags down the hall, and the departures board on the pillar", hank: "Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.",
         go: { fwd: "platform" }, puzzle: "board" },
-      { id: "platform", img: null, cap: "The platform: the fast train to Jerusalem", go: { back: "board", fwd: "navon" },
+      { id: "platform", img: "train-platform", cap: "The platform: the fast train to Jerusalem, its sign lit on the front", go: { back: "board", fwd: "navon" },
         hots: [{ box: [55, 20, 35, 40], label: "A man in a grey coat on the far platform", text: "On the far platform a man in a grey coat is reading something small, folded, blue at the edges. He looks up, straight at you, and then the train comes between you." }] },
       { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres underground, and now up. You have come to Jerusalem.", go: { back: "platform" } },
     ] });
@@ -164,10 +164,11 @@
     ] });
   S({ id: "wilson", act: 2, title: "Under Wilson’s Arch", kick: "The prayer hall", music: "m14", amb: "indoor", page: 6,
     views: [
-      { id: "door", img: "wilson-door", cap: "The doorway under the arch, at the north end of the Wall: men coming and going", go: { fwd: "hall" } },
-      { id: "hall", img: null, cap: "The prayer hall under Wilson’s Arch: the great arch overhead, Torah scrolls in their cases, men at prayer", hank: "Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.",
+      { id: "door", img: "wilson-plaza", cap: "From the plaza: the tall stone wall, and the dark arched doorway into the prayer hall", go: { fwd: "doorclose" } },
+      { id: "doorclose", img: "wilson-door", cap: "The doorway under the arch, at the north end of the Wall: men coming and going", go: { back: "door", fwd: "hall" } },
+      { id: "hall", img: "wilson-hall", cap: "The prayer hall under Wilson’s Arch: the great vault overhead, the Wall on the right, men at study", hank: "Wilson’s Arch. In the Temple’s day it carried a bridge from the Upper City straight across to the Mount. Speak softly here.",
         go: { fwd: "shaft", left: "scrolls", back: "door" } },
-      { id: "scrolls", img: null, cap: "The Torah ark and the scrolls", go: { right: "hall" }, hots: [{ box: [20, 10, 60, 70], label: "The scrolls", text: "“Thy word is a lamp unto my feet, and a light unto my path” (Psalm 119:105)." }] },
+      { id: "scrolls", img: "wilson-scrolls", cap: "The Torah ark against the Wall, men at prayer before it", go: { right: "hall" }, hots: [{ box: [20, 10, 60, 70], label: "The scrolls", text: "“Thy word is a lamp unto my feet, and a light unto my path” (Psalm 119:105)." }] },
       { id: "shaft", img: null, cap: "A glass-covered shaft in the floor: the Wall goes down and down into the dark", go: { back: "hall" }, puzzle: "courses" },
     ] });
   S({ id: "tunnels", act: 2, title: "The Western Wall tunnels", kick: "Beneath the city", music: "m15", amb: "chamber", page: 7,
@@ -190,7 +191,7 @@
     views: [
       { id: "clear", img: null, cap: "The same stretch of wall near Damascus Gate: sun on wet stone, the way ahead open", hank: "The storm has passed. The way that was closed is open. Down to Damascus Gate.",
         go: { fwd: "damascus" } },
-      { id: "damascus", img: null, cap: "Damascus Gate from above: the busiest gate of the Old City", go: { back: "clear", fwd: "road" },
+      { id: "damascus", img: "wallagain-damascus", cap: "Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements", go: { back: "clear", fwd: "road" },
         hots: [{ box: [20, 20, 60, 60], label: "The gate", text: "Suleiman’s grandest gate, 1537, built over Hadrian’s Roman gate, whose arch is still below. The road north to Damascus began here." }] },
       { id: "road", img: "wallagain-road", cap: "Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb”", go: { back: "damascus" } },
     ] });

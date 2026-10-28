@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 141 of 159 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 147 of 160 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -14,8 +14,8 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `train-board` | The departures board at the airport station |
-| ☐ | `train-platform` | The platform: the fast train to Jerusalem |
+| ✓ | `train-board` | The platform at the airport station: flags down the hall, and the departures board on the pillar |
+| ✓ | `train-platform` | The platform: the fast train to Jerusalem, its sign lit on the front |
 | ✓ | `train-navon` | Yitzhak Navon station, Jerusalem: the deep escalators up to the light |
 
 **Hank says:**
@@ -152,9 +152,10 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `wilson-plaza` | From the plaza: the tall stone wall, and the dark arched doorway into the prayer hall |
 | ✓ | `wilson-door` | The doorway under the arch, at the north end of the Wall: men coming and going |
-| ☐ | `wilson-hall` | The prayer hall under Wilson’s Arch: the great arch overhead, Torah scrolls in their cases, men at prayer |
-| ☐ | `wilson-scrolls` | The Torah ark and the scrolls |
+| ✓ | `wilson-hall` | The prayer hall under Wilson’s Arch: the great vault overhead, the Wall on the right, men at study |
+| ✓ | `wilson-scrolls` | The Torah ark against the Wall, men at prayer before it |
 | ☐ | `wilson-shaft` | A glass-covered shaft in the floor: the Wall goes down and down into the dark |
 
 **Hank says:**
@@ -182,7 +183,7 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `wallagain-clear` | The same stretch of wall near Damascus Gate: sun on wet stone, the way ahead open |
-| ☐ | `wallagain-damascus` | Damascus Gate from above: the busiest gate of the Old City |
+| ✓ | `wallagain-damascus` | Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements |
 | ✓ | `wallagain-road` | Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb” |
 
 **Hank says:**

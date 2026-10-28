@@ -111,6 +111,12 @@ PHOTOS = {
     "gabriel-inside": "photos/oct28/gabriel-window-full.png",   # through the window; Gabriel not in it
     "gabriel-shelf": ("photos/oct28/gabriel-shelf-kiddush-cup.png", (0, 262, 1125, 1590)),   # Richard's head cropped off
     "train-navon": "photos/oct28/navon-escalators-painting.png",   # a painting, not a photo
+    "train-board": "photos/oct28/train-platform-painting.png",   # painting
+    "train-platform": "photos/oct28/train-locomotive-painting.png",   # painting
+    "wilson-hall": "photos/oct28/wilson-hall-painting.png",   # painting
+    "wilson-scrolls": "photos/oct28/wilson-scrolls-painting.png",   # painting
+    "wilson-plaza": ("photos/oct28/wilson-arch-doorway-from-plaza.png", (0, 0, 924, 1560)),   # the arch and the wall; the people below left out
+    "wallagain-damascus": "photos/oct28/damascus-gate-painting.png",   # painting
     "cod-passage": ("photos/oct28/warren-tunnel-descent.png", None, [(440, 1200, 690, 1850), (705, 1215, 890, 1630)]),   # visitors blurred
     "cod-watersign": "photos/oct28/warrens-shaft-water-system-sign.png",
     "cod-entrysign": "photos/oct28/entrance-water-system-sign.png",
@@ -197,7 +203,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth", "train-navon"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):
