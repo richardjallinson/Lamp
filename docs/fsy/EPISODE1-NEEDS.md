@@ -125,7 +125,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case |
 | ✓ | `jewish-spices` | A spice shop off the square: bowls heaped high, each with its handwritten card |
 | ✓ | `jewish-bagel` | Holy Bagel, under a stone arch: people queuing for lunch |
-| ✓ | `jewish-burnt` | The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70 |
+| ✓ | `jewish-burnt` | Down a stepped lane, a white doorway under a hanging sign: the Burnt House, Beit Katros, the house of a priestly family burned in the year 70 |
 | ✓ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter: the Western Wall plaza below, the Wall golden in the evening light |
 
 **Hank says:**
@@ -253,7 +253,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `zion-tomb` | David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover |
 | ✓ | `zion-sign` | The sign: “King David’s Tomb” |
 | ✓ | `zion-gatesign` | A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey |
-| ✓ | `zion-courtyard` | From the roof: the courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it |
+| ✓ | `zion-courtyard` | From the roof at sunset: the arched courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it |
 | ✓ | `zion-passage` | Through a stone arch, an old door open, a vaulted passage lit gold |
 | ✓ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims |
 
@@ -311,7 +311,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `siloam-pool` | The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor |
 | ✓ | `siloam-sign` | The sign: “The Pool of Shiloah (Siloam), Second Temple splendour” |
 | ✓ | `siloam-water` | Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again |
-| ✓ | `siloam-road` | The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, new steps beside it |
+| ✓ | `siloam-road` | The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, lamps along the steel supports |
 
 **Hank says:**
 

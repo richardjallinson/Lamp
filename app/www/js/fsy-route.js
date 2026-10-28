@@ -148,8 +148,8 @@
         hots: [{ box: [0, 45, 100, 40], label: "The spices", text: "Cinnamon, cardamom, saffron, cumin. The holy anointing oil and the Temple incense were made of spices weighed out by the shekel of the sanctuary: “Take thou also unto thee principal spices” (Exodus 30:23)." }] },
       { id: "bagel", img: "jewish-bagel", cap: "Holy Bagel, under a stone arch: people queuing for lunch", go: { left: "hurva" },
         hots: [{ box: [10, 20, 80, 15], label: "The sign", text: "Even the bagels are holy in this quarter. Under the sign, in small Hebrew letters: “B’siyata dishmaya”, with the help of Heaven." }] },
-      { id: "burnt", img: "jewish-burnt", cap: "The Burnt House Museum, Beit Katros: a white doorway under an old arch, the house of a priestly family burned in the year 70", go: { right: "cardo" }, puzzle: "burnt",
-        hots: [{ box: [35, 30, 35, 10], label: "The name", text: "Beit Katros: the house of Kathros, a priestly family named in the Talmud, and found written on a stone weight in the ash here. The house lies below today’s street, under two metres of burnt debris." }] },
+      { id: "burnt", img: "jewish-burnt", cap: "Down a stepped lane, a white doorway under a hanging sign: the Burnt House, Beit Katros, the house of a priestly family burned in the year 70", go: { right: "cardo" }, puzzle: "burnt",
+        hots: [{ box: [60, 13, 20, 13], label: "The sign", text: "Beit Katros: the house of Kathros, a priestly family named in the Talmud, and found written on a stone weight in the ash here. The house lies below today’s street, under two metres of burnt debris." }] },
       { id: "wallsteps", img: "jewish-wallsteps", cap: "The wide steps down from the Jewish Quarter: the Western Wall plaza below, the Wall golden in the evening light", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
     ] });
   S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m14", amb: "street",
@@ -264,7 +264,7 @@
       { id: "sign", img: "zion-sign", cap: "The sign: “King David’s Tomb”", go: { right: "tomb" },
         hots: [{ box: [3, 35, 35, 20], label: "Read the sign", text: "“The place where King David was buried according to a Medieval tradition.” The Bible says David “was buried in the city of David” (1 Kings 2:10): the ridge below, which you will walk next. The real tomb has never been found." }] },
       { id: "gatesign", img: "zion-gatesign", cap: "A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey", go: { back: "tomb", fwd: "courtyard" } },
-      { id: "courtyard", img: "zion-courtyard", cap: "From the roof: the courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it", go: { back: "gatesign", fwd: "passage" },
+      { id: "courtyard", img: "zion-courtyard", cap: "From the roof at sunset: the arched courtyard of the old building on Mount Zion, David’s Tomb below and the Upper Room above it", go: { back: "gatesign", fwd: "passage" },
         hots: [{ box: [40, 55, 25, 25], label: "The courtyard", text: "One building holds both: David’s Tomb on the ground floor, the Upper Room on the floor above. Crusader stonework over older walls, a minaret added when it was a mosque, and now a place for everyone." }] },
       { id: "passage", img: "zion-passage", cap: "Through a stone arch, an old door open, a vaulted passage lit gold", go: { back: "courtyard", fwd: "upper" } },
       { id: "upper", img: "zion-upper", cap: "The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims", go: { back: "passage" },
@@ -317,7 +317,7 @@
         hots: [{ box: [5, 40, 90, 35], label: "Read the sign", text: "“…how he made the pool and the conduit and brought the water into the city” (2 Kings 20:20). In 2004 a very large pool from the Second Temple period was found here, about three quarters of an acre. Beside it, a stepped street: the road the pilgrims climbed from the pool to the Temple Mount. Under its paving, a drainage channel where the last rebels hid from the Romans in AD 70." }] },
       { id: "water", img: "siloam-water", cap: "Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again", go: { left: "pool" },
         hots: [{ box: [25, 30, 50, 25], label: "The column drums", text: "Stumps of columns from a Byzantine church built here, about AD 450, to remember the man born blind who washed and came back seeing (John 9:7)." }] },
-      { id: "road", img: "siloam-road", cap: "The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, new steps beside it", go: { back: "pool" },
+      { id: "road", img: "siloam-road", cap: "The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, lamps along the steel supports", go: { back: "pool" },
         hots: [{ box: [20, 0, 60, 60], label: "Up the road", text: "Pilgrims washed in the pool and climbed this street to the Temple. Far ahead, going up fast, a grey coat." }] },
     ] });
   S({ id: "steps", act: 3, title: "The Southern Steps", kick: "The Songs of Ascents", music: "m19", amb: "olives", doneBy: "robinson",

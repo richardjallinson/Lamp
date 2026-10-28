@@ -112,9 +112,9 @@ PHOTOS = {
     "gabriel-shelf": ("photos/oct28/gabriel-shelf-kiddush-cup.png", (0, 262, 1125, 1590)),   # Richard's head cropped off
     "train-navon": "photos/oct28/navon-escalators-painting.png",   # a painting, not a photo
     "ramparts-sky": "photos/oct27/ramparts-storm-sky-wide.png",
-    "siloam-road": ("photos/oct28/pilgrim-road-tunnel-CHECK-SOURCE.png", (100, 0, 2000, 924)),
-    "jewish-burnt": ("photos/oct28/burnt-house-entrance-CHECK-SOURCE.png", (600, 0, 1880, 1125)),   # letterbox and the ice-cream fridge cropped off
-    "zion-courtyard": ("photos/oct28/zion-courtyard-from-roof-CHECK-SOURCE.png", (250, 0, 1750, 1125)),
+    "siloam-road": "photos/oct28/pilgrim-road-painting.png",   # painting
+    "jewish-burnt": "photos/oct28/burnt-house-painting.png",   # painting
+    "zion-courtyard": "photos/oct28/zion-courtyard-painting.png",   # painting
     "wilson-shaft": "photos/oct28/wilson-glass-shaft-painting.png",   # painting
     "ramparts-stairs": "photos/oct28/ramparts-stairs-painting.png",   # painting
     "ramparts-north": "photos/oct28/ramparts-north-painting.png",   # painting
@@ -139,7 +139,7 @@ PHOTOS = {
     "cod-passage": ("photos/oct28/warren-tunnel-descent.png", None, [(440, 1200, 690, 1850), (705, 1215, 890, 1630)]),   # visitors blurred
     "cod-watersign": "photos/oct28/warrens-shaft-water-system-sign.png",
     "cod-entrysign": "photos/oct28/entrance-water-system-sign.png",
-    "gihon-mouth": "photos/oct28/gihon-spring-lit-NOT-RICHARDS-check.jpg",
+    "gihon-mouth": "photos/oct28/gihon-spring-painting.png",   # painting
     "zion-upper": ("photos/oct28/upper-room.png", (0, 470, 1125, 1730)),   # the vaults only, the crowd cropped off
     "zion-gatesign": "photos/oct28/zion-gate-sign.png",
     "church-altar": ("photos/oct28/all-nations-altar.png", None, [(830, 1450, 1125, 1966)]),   # people at the side blurred
@@ -222,7 +222,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):
