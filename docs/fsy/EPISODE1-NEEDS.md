@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 78 of 117 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 85 of 124 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -205,7 +205,7 @@ _Built earlier, with its own photos already in the game._
 | ☐ | `bazaar-steps` | Inside Damascus Gate: the street drops in wide steps into the bazaar |
 | ☐ | `bazaar-stalls` | The bazaar: spices, sweets, scarves, lamps, the smell of coffee and cardamom |
 | ☐ | `bazaar-trader` | A trader’s stall: olive-wood carvings, and a dish of old coins and weights |
-| ☐ | `bazaar-end` | The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, up to Zion |
+| ☐ | `bazaar-end` | The end of the street: the checkpoint, and the Western Wall plaza beyond. From here, the bus south to Hebron |
 
 **Hank says:**
 
@@ -213,7 +213,23 @@ _Built earlier, with its own photos already in the game._
 
 ## Act 3: The City of David
 
-### 16. Mount Zion (David’s Tomb and the Upper Room)
+### 16. Hebron (The Cave of the Patriarchs)
+
+| Have | File | The picture |
+| --- | --- | --- |
+| ✓ | `hebron-building` | Hebron: Herod’s great wall around the Cave of Machpelah, with its two minarets |
+| ✓ | `hebron-sign` | A welcome sign: “To the first Hebrew city, Hebron, site of the Tomb of the Forefathers and Mothers” |
+| ✓ | `hebron-pit` | Beside the great wall: a deep opening in the bedrock, fenced off |
+| ✓ | `hebron-hall` | Inside, in the Jewish section: a long vaulted hall, lamps hanging, bookcases between the pillars |
+| ✓ | `hebron-abraham` | Behind the bars: the tomb monument of the Patriarch Abraham |
+| ✓ | `hebron-jacob` | Through the green bars: the tomb monument of the Patriarch Jacob, prayer notes on the floor |
+| ✓ | `hebron-arnon` | A sign on the wall: “Entering the Cave of the Machpela” |
+
+**Hank says:**
+
+- `w-hebron-bus`: “Before Zion, Hebron. David was king here seven years before he ever took Jerusalem. And here Abraham bought the first piece of the land, with silver, weighed out in front of everyone.”
+
+### 17. Mount Zion (David’s Tomb and the Upper Room)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -224,7 +240,7 @@ _Built earlier, with its own photos already in the game._
 
 - `w-zion-tomb`: “By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.”
 
-### 17. The City of David (Where Jerusalem began)
+### 18. The City of David (Where Jerusalem began)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -241,7 +257,7 @@ _Built earlier, with its own photos already in the game._
 
 - `w-cod-entrance`: “This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.”
 
-### 18. The Gihon Spring (The water of the city)
+### 19. The Gihon Spring (The water of the city)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -255,13 +271,13 @@ _Built earlier, with its own photos already in the game._
 - `w-gihon-spring`: “Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.”
 - `w-gihon-mouth`: “Hezekiah cut a tunnel from this spring through the hill to the pool inside his walls, before the Assyrians came. Five hundred and thirty-three metres, in the dark, in water. Light your lamp.”
 
-### 19. Hezekiah’s Tunnel (533 metres in the dark)
+### 20. Hezekiah’s Tunnel (533 metres in the dark)
 
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `hezekiah-tunnel` | In the tunnel: cold water to the knee, chisel marks on the rock, the lamp the only light |
 
-### 20. The Pool of Siloam (Sent)
+### 21. The Pool of Siloam (Sent)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -274,7 +290,7 @@ _Built earlier, with its own photos already in the game._
 
 - `w-siloam-pool`: “Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.”
 
-### 21. The Southern Steps (The Songs of Ascents)
+### 22. The Southern Steps (The Songs of Ascents)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -292,11 +308,11 @@ _Built earlier, with its own photos already in the game._
 
 ## Act 4: The line from the east
 
-### 22. The Temple Institute (Everything is ready)
+### 23. The Temple Institute (Everything is ready)
 
 _Built earlier, with its own photos already in the game (the Temple Institute hall and exhibits)._
 
-### 23. The Dung Gate (Moses)
+### 24. The Dung Gate (Moses)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -309,7 +325,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-dung-gate`: “Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.”
 
-### 24. The Eastern Gate, outside (The steps and the cemetery)
+### 25. The Eastern Gate, outside (The steps and the cemetery)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -321,7 +337,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-egate-steps`: “Up the steps, as the man said. The wall on your left is the eastern wall of the Temple Mount. Somewhere ahead, in it, is the gate.”
 
-### 25. The Kidron Valley (Absalom and Zechariah)
+### 26. The Kidron Valley (Absalom and Zechariah)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -332,15 +348,15 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 - `w-kidron-absalom`: “Down in the valley, the tombs. This one carries Absalom’s name, though it was cut long after him.”
 
-### 26. The Tombs of the Prophets (A side path)
+### 27. The Tombs of the Prophets (A side path)
 
 _Built earlier, with its own photos already in the game._
 
-### 27. The Mount of Olives (Where His feet shall stand)
+### 28. The Mount of Olives (Where His feet shall stand)
 
 _Built earlier, with its own photos already in the game._
 
-### 28. The Garden of Gethsemane (The olive press)
+### 29. The Garden of Gethsemane (The olive press)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -354,7 +370,7 @@ _Built earlier, with its own photos already in the game._
 
 ## Act 5: The Temple Mount
 
-### 29. The Mughrabi Gate (The only way up)
+### 30. The Mughrabi Gate (The only way up)
 
 | Have | File | The picture |
 | --- | --- | --- |
@@ -374,11 +390,11 @@ _Built earlier, with its own photos already in the game._
 
 - `w-mughrabi-entrance`: “The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.”
 
-### 30. The Temple Mount (Where was the Temple?)
+### 31. The Temple Mount (Where was the Temple?)
 
 _Built earlier, with its own photos already in the game (the Temple Mount clues)._
 
-### 31. The Eastern Gate, inside (This gate shall be shut)
+### 32. The Eastern Gate, inside (This gate shall be shut)
 
 _Built earlier, with its own photos already in the game._
 

@@ -100,6 +100,14 @@ PHOTOS = {
     "synagogue": "photos/oct27/great-synagogue.png",
     "jewish-hurva": "photos/oct27/hurva-golden-menorah.png",
     "model-temple": ("photos/oct27/second-temple-model-NOT-RICHARDS-check.png", (222, 0, 2176, 1125)),
+    # Hebron, the Cave of the Patriarchs
+    "hebron-building": "photos/hebron/herodian-building.png",
+    "hebron-sign": "photos/hebron/welcome-sign.png",
+    "hebron-pit": "photos/hebron/opening-in-the-rock-adam-and-eve.png",
+    "hebron-hall": "photos/hebron/jewish-section-hall.png",
+    "hebron-abraham": "photos/hebron/tomb-monument-abraham.png",
+    "hebron-jacob": "photos/hebron/tomb-monument-jacob.png",
+    "hebron-arnon": "photos/hebron/entering-the-cave-sign-noam-arnon.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
