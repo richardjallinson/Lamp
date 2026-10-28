@@ -99,7 +99,22 @@ PHOTOS = {
     "synagogue-doors": "photos/oct27/great-synagogue-doors.png",
     "synagogue": "photos/oct27/great-synagogue.png",
     "jewish-hurva": "photos/oct27/hurva-golden-menorah.png",
-    "model-temple": ("photos/oct27/second-temple-model-NOT-RICHARDS-check.png", (222, 0, 2176, 1125)),
+    "model-temple": "photos/oct28/model-east-gate-sanctuary.png",   # Richard's own (replaces the photo that was not his)
+    "model-wide": ("photos/oct28/model-city.png", (0, 0, 1125, 1985)),   # his shadow cropped off
+    "model-east": "photos/oct28/model-east-wall.png",
+    "model-south": "photos/oct28/model-royal-stoa-corner.png",
+    "robinson-fallen": "photos/oct28/fallen-stones-against-wall.png",
+    "robinson-sign": "photos/oct28/fallen-stones-sign-9-av.png",
+    "robinson-pier": "photos/oct28/robinson-pier-sign.png",
+    "steps-steps": ("photos/oct28/southern-steps.png", (0, 0, 1125, 1840)),   # the hat at the bottom cropped off
+    "zion-passage": "photos/oct28/gate-passage-night.png",
+    "zion-upper": ("photos/oct28/upper-room.png", (0, 470, 1125, 1730)),   # the vaults only, the crowd cropped off
+    "zion-gatesign": "photos/oct28/zion-gate-sign.png",
+    "church-altar": ("photos/oct28/all-nations-altar.png", None, [(830, 1450, 1125, 1966)]),   # people at the side blurred
+    "church-interior": "photos/oct28/all-nations-interior.png",
+    "church-facade": "photos/oct28/all-nations-facade.png",
+    "church-door": ("photos/oct28/all-nations-entrance.png", None, [(175, 1610, 285, 1870)]),   # a visitor blurred
+    "jewish-sign": "photos/oct28/jewish-quarter-street-sign.png",
     # Hebron, the Cave of the Patriarchs
     "hebron-building": "photos/hebron/herodian-building.png",
     "hebron-sign": "photos/hebron/welcome-sign.png",

@@ -89,14 +89,14 @@
     ] });
   S({ id: "model", act: 1, title: "The Second Temple model", kick: "The Israel Museum", music: "m11", amb: "street", page: 4,
     views: [
-      { id: "wide", img: null, cap: "The great model of Jerusalem in the year 66: the Temple on its mountain, the city around it", hank: "Jerusalem as it was in the last days of the Second Temple, to the scale of one in fifty. Walk round it. Learn the courts and the gates: you will pace them out on the Mount itself.",
-        go: { fwd: "temple", left: "east", right: "north" } },
-      { id: "east", img: null, cap: "The eastern side of the model: the Kidron valley, the eastern wall, and the gate that faces the Mount of Olives", go: { right: "wide" },
-        hots: [{ box: [30, 30, 40, 30], label: "The eastern gate of the model", text: "One gate in the eastern wall, in line with the sanctuary. Through it, Ezekiel saw the glory of the LORD come in “by the way of the gate whose prospect is toward the east” (Ezekiel 43:4)." }] },
-      { id: "north", img: null, cap: "The northern end of the model: the Antonia fortress, and the open ground north of the courts", go: { left: "wide" },
-        hots: [{ box: [20, 20, 60, 40], label: "The Antonia fortress", text: "Herod’s fortress at the north-west corner, where the Roman garrison watched the courts. From its steps Paul spoke to the crowd (Acts 21:40)." }] },
-      { id: "temple", img: "model-temple", cap: "The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary", go: { back: "wide" }, puzzle: "modelq",
-        hots: [{ box: [35, 10, 30, 35], label: "The sanctuary", text: "The house itself, white stone and gold, facing east. Behind its veil, the Holy of Holies: twenty cubits square, and empty, since the Ark was lost." }] },
+      { id: "wide", img: "model-wide", cap: "The great model of Jerusalem in the year 66: the city packed inside its walls, Herod’s towers on the skyline", hank: "Jerusalem as it was in the last days of the Second Temple, to the scale of one in fifty. Walk round it. Learn the courts and the gates: you will pace them out on the Mount itself.",
+        go: { fwd: "temple", left: "east", right: "south" } },
+      { id: "east", img: "model-east", cap: "The eastern side of the model: the long eastern wall, its gate with the stair, and the sanctuary rising behind", go: { right: "wide", fwd: "temple" },
+        hots: [{ box: [40, 52, 22, 20], label: "The eastern gate of the model", text: "One gate in the eastern wall, in line with the sanctuary. Through it, Ezekiel saw the glory of the LORD come in “by the way of the gate whose prospect is toward the east” (Ezekiel 43:4)." }] },
+      { id: "south", img: "model-south", cap: "The south-west corner of the model: the Royal Stoa along the top of the wall, and the street below", go: { left: "wide" },
+        hots: [{ box: [0, 28, 75, 25], label: "The Royal Stoa", text: "Herod’s great columned hall along the south side of the Temple Mount. Below its corner ran the street you will stand on at Robinson’s Arch, where its stones now lie." }] },
+      { id: "temple", img: "model-temple", cap: "Close up from the east: the gate in the eastern wall, the Court of the Women behind it, and the sanctuary, white and gold", go: { back: "wide" }, puzzle: "modelq",
+        hots: [{ box: [35, 12, 30, 25], label: "The sanctuary", text: "The house itself, white stone and gold, facing east. Behind its veil, the Holy of Holies: twenty cubits square, and empty, since the Ark was lost." }] },
     ] });
 
   /* ---- Act 2 ---- */
@@ -130,8 +130,9 @@
     ] });
   S({ id: "jewish", act: 2, title: "The Jewish Quarter", kick: "After the storm", music: "m14", amb: "street", page: 5,
     views: [
+      { id: "streetsign", img: "jewish-sign", cap: "Jewish Quarter Street: a sign pointing the way to the Western Wall, the Hurva, the Burnt House and the Cardo", go: { fwd: "cardo" } },
       { id: "cardo", img: "jq-cardo-2", cap: "The Cardo: the columns of the Roman main street, below today’s street", hank: "The rain is easing. This was the main street of Roman Jerusalem, built after the Temple fell. The city has been rebuilt on its own ruins again and again.",
-        go: { fwd: "hurva", left: "burnt", right: "cardosign" }, hots: [{ box: [35, 35, 15, 55], label: "The columns", text: "Columns of the Cardo Maximus, the street of Hadrian’s city, Aelia Capitolina, built in the second century on the levelled ruins." }] },
+        go: { fwd: "hurva", left: "burnt", right: "cardosign", back: "streetsign" }, hots: [{ box: [35, 35, 15, 55], label: "The columns", text: "Columns of the Cardo Maximus, the street of Hadrian’s city, Aelia Capitolina, built in the second century on the levelled ruins." }] },
       { id: "cardosign", img: "jq-cardo-sign", cap: "The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English", go: { left: "cardo", fwd: "columns" },
         hots: [{ box: [0, 40, 30, 30], label: "The English text", text: "“Remains of a magnificent main road from the Roman-Byzantine period, serving throughout time until today as a major thoroughfare for shopping.” The street Hadrian built over the ruins, still in use." }] },
       { id: "columns", img: "jq-cardo", cap: "Along the columns", go: { back: "cardosign" } },
@@ -252,10 +253,12 @@
       { id: "up", img: "caiaphas-up", cap: "Looking up: the round hole in the rock, and the light far above", go: { back: "pit" },
         hots: [{ box: [20, 12, 40, 20], label: "The opening", text: "The only way in or out was a rope through that hole. “And Peter went out, and wept bitterly” (Luke 22:62): somewhere above, the cock crowed." }] },
       { id: "tomb", img: "zion-tomb", cap: "David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover", hank: "By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.",
-        go: { fwd: "upper", back: "door", left: "sign" }, puzzle: "north" },
+        go: { fwd: "gatesign", back: "door", left: "sign" }, puzzle: "north" },
       { id: "sign", img: "zion-sign", cap: "The sign: “King David’s Tomb”", go: { right: "tomb" },
         hots: [{ box: [3, 35, 35, 20], label: "Read the sign", text: "“The place where King David was buried according to a Medieval tradition.” The Bible says David “was buried in the city of David” (1 Kings 2:10): the ridge below, which you will walk next. The real tomb has never been found." }] },
-      { id: "upper", img: null, cap: "The Upper Room, the Cenacle: Gothic vaults, empty, quiet", go: { back: "tomb" },
+      { id: "gatesign", img: "zion-gatesign", cap: "A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey", go: { back: "tomb", fwd: "passage" } },
+      { id: "passage", img: "zion-passage", cap: "Through a stone arch, an old door open, a vaulted passage lit gold", go: { back: "gatesign", fwd: "upper" } },
+      { id: "upper", img: "zion-upper", cap: "The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims", go: { back: "passage" },
         hots: [{ box: [10, 10, 80, 70], label: "The room", text: "“And he will shew you a large upper room furnished: there make ready” (Luke 22:12). The room you see is Crusader work, built over older walls." }] },
     ] });
   S({ id: "cod", act: 3, title: "The City of David", kick: "Where Jerusalem began", music: "m17", amb: "street",
@@ -305,15 +308,19 @@
     ] });
   S({ id: "steps", act: 3, title: "The Southern Steps", kick: "The Songs of Ascents", music: "m19", amb: "olives", doneBy: "robinson",
     views: [
-      { id: "steps", img: null, cap: "The Southern Steps: the broad stair up to the Huldah Gates, wide and narrow steps by turns", hank: "The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.",
+      { id: "steps", img: "steps-steps", cap: "The Southern Steps: the broad stair along the south wall, the Mount of Olives beyond", hank: "The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.",
         go: { fwd: "robinson" }, puzzle: "ascents" },
       { id: "robinson", img: "robinson-wide", cap: "Round the corner: the south-west corner of the Temple Mount, the fallen stones on the Herodian street, and the wooden Mughrabi ramp high above", go: { back: "steps", fwd: "wall", left: "above" }, hank: "Round the south-west corner, the stones the Romans threw down still lie where they fell.",
         hots: [{ box: [38, 26, 25, 12], label: "The wooden ramp above", text: "High above, the covered wooden Mughrabi bridge: the only way up onto the Mount for a Jew or a Christian today. You will climb it at the end." }] },
       { id: "above", img: "robinson-above", cap: "Looking down from the walkway: the stones piled where they landed against the Wall", go: { right: "robinson" } },
       { id: "wall", img: "robinson-wall", cap: "Along the Western Wall to the corner: the stump of Robinson’s Arch, and the heap of stones beneath it", go: { back: "robinson", fwd: "springer" } },
-      { id: "springer", img: "robinson-springer", cap: "Robinson’s Arch: the first stones of a great arch, still jutting from the Wall", go: { back: "wall", fwd: "stones" },
+      { id: "springer", img: "robinson-springer", cap: "Robinson’s Arch: the first stones of a great arch, still jutting from the Wall", go: { back: "wall", fwd: "stones", right: "pier" },
         hots: [{ box: [10, 22, 70, 12], label: "The arch stones", text: "The arch carried a monumental stairway from the street up to the Royal Stoa on the Temple Mount. Edward Robinson noticed the curved stones in 1838. The rest of the arch lies in the street below." }] },
-      { id: "stones", img: "robinson-2", cap: "The stones from the top of the Wall, lying on the broken Herodian street", go: { back: "springer" }, puzzle: "robinson" },
+      { id: "pier", img: "robinson-pier", cap: "A sign by the pier: “A pier of large stones which originally supported the western springer of Robinson’s Arch”", go: { left: "springer" },
+        hots: [{ box: [5, 25, 90, 20], label: "Read the sign", text: "The pier held up the far end of the arch, and inside it were four small shops opening onto the paved street. Pilgrims on their way up to the Temple bought here, under the stair." }] },
+      { id: "stones", img: "robinson-fallen", cap: "On the street: the stones from the top of the Wall, lying where they fell", go: { back: "springer", right: "stonesign" }, puzzle: "robinson" },
+      { id: "stonesign", img: "robinson-sign", cap: "A sign among the stones", go: { left: "stones" },
+        hots: [{ box: [10, 35, 80, 25], label: "Read the sign", text: "“Collapsed on the paved street are stones of the western wall of the Temple Mount enclosure. They were hurled down by the soldiers of the Roman Legion after the destruction of the Temple on the ninth day of the month of Av, 70 CE.”" }] },
     ] });
 
   /* ---- Act 4 ---- */
@@ -365,8 +372,14 @@
         hots: [{ box: [75, 60, 12, 12], label: "The small sign", text: "“P.P. Franciscus, 26 May 2014”: an olive tree planted by Pope Francis on his visit. Pilgrims of every church come here." }] },
       { id: "oldtree", img: "gethsemane-oldtree", cap: "The oldest tree: a vast hollow trunk inside a mesh guard, still green on top", go: { left: "trees" }, puzzle: "lastpage",
         hots: [{ box: [20, 50, 60, 40], label: "The trunk", text: "Tested trees in this garden are about 900 years old, grown perhaps from roots far older still: olive trees spring up again from the stump. “There is hope of a tree, if it be cut down, that it will sprout again” (Job 14:7)." }] },
-      { id: "church", img: null, cap: "The Church of All Nations: the rock before the altar, where he prayed", go: { back: "ancient" },
-        hots: [{ box: [20, 30, 60, 50], label: "The rock", text: "“O my Father, if it be possible, let this cup pass from me: nevertheless not as I will, but as thou wilt” (Matthew 26:39)." }] },
+      { id: "church", img: "church-facade", cap: "Beside the garden: the Church of All Nations, its golden mosaic high above the columns", go: { back: "ancient", fwd: "churchdoor" },
+        hots: [{ box: [0, 32, 100, 20], label: "The mosaic", text: "Christ praying for the world, the nations bringing their sorrows to him. The Latin beneath is Hebrews 5:7: “who… offered up prayers and supplications with strong crying and tears.” Built 1919–1924 with gifts from twelve nations." }] },
+      { id: "churchdoor", img: "church-door", cap: "The doors, open: above them, “Sustinete hic et vigilate mecum”", go: { back: "church", fwd: "nave" },
+        hots: [{ box: [33, 44, 34, 6], label: "The inscription", text: "“Tarry ye here, and watch with me” (Matthew 26:38): what Jesus asked of Peter, James and John in this garden." }] },
+      { id: "nave", img: "church-interior", cap: "Inside: dim purple light, columns, gold domes, and the mosaic of the agony over the altar", go: { back: "churchdoor", fwd: "rock" } },
+      { id: "rock", img: "church-altar", cap: "Before the altar: the bare rock of Gethsemane, ringed by a crown of thorns in iron", go: { back: "nave" },
+        hots: [{ box: [5, 52, 70, 12], label: "The rock", text: "By tradition, the rock where he prayed: “And being in an agony he prayed more earnestly: and his sweat was as it were great drops of blood falling down to the ground” (Luke 22:44). The Latin above the altar is the same verse." },
+          { box: [20, 5, 60, 40], label: "The mosaic", text: "“O my Father, if it be possible, let this cup pass from me: nevertheless not as I will, but as thou wilt” (Matthew 26:39). An angel comes down to strengthen him (Luke 22:43)." }] },
     ] });
 
   /* ---- Act 5 ---- */

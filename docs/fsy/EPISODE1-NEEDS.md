@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 120 of 147 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 134 of 155 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -69,10 +69,10 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `model-wide` | The great model of Jerusalem in the year 66: the Temple on its mountain, the city around it |
-| ☐ | `model-east` | The eastern side of the model: the Kidron valley, the eastern wall, and the gate that faces the Mount of Olives |
-| ☐ | `model-north` | The northern end of the model: the Antonia fortress, and the open ground north of the courts |
-| ✓ | `model-temple` | The Temple itself, close up: the Court of the Women, the Court of Israel, the altar, the sanctuary |
+| ✓ | `model-wide` | The great model of Jerusalem in the year 66: the city packed inside its walls, Herod’s towers on the skyline |
+| ✓ | `model-east` | The eastern side of the model: the long eastern wall, its gate with the stair, and the sanctuary rising behind |
+| ✓ | `model-south` | The south-west corner of the model: the Royal Stoa along the top of the wall, and the street below |
+| ✓ | `model-temple` | Close up from the east: the gate in the eastern wall, the Court of the Women behind it, and the sanctuary, white and gold |
 
 **Hank says:**
 
@@ -116,6 +116,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `jewish-sign` | Jewish Quarter Street: a sign pointing the way to the Western Wall, the Hurva, the Burnt House and the Cardo |
 | ✓ | `jq-cardo-2` | The Cardo: the columns of the Roman main street, below today’s street |
 | ✓ | `jq-cardo-sign` | The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English |
 | ✓ | `jq-cardo` | Along the columns |
@@ -248,7 +249,9 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `caiaphas-up` | Looking up: the round hole in the rock, and the light far above |
 | ✓ | `zion-tomb` | David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover |
 | ✓ | `zion-sign` | The sign: “King David’s Tomb” |
-| ☐ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults, empty, quiet |
+| ✓ | `zion-gatesign` | A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey |
+| ✓ | `zion-passage` | Through a stone arch, an old door open, a vaulted passage lit gold |
+| ✓ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults and pillars, and the room full of pilgrims |
 
 **Hank says:**
 
@@ -311,12 +314,14 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `steps-steps` | The Southern Steps: the broad stair up to the Huldah Gates, wide and narrow steps by turns |
+| ✓ | `steps-steps` | The Southern Steps: the broad stair along the south wall, the Mount of Olives beyond |
 | ✓ | `robinson-wide` | Round the corner: the south-west corner of the Temple Mount, the fallen stones on the Herodian street, and the wooden Mughrabi ramp high above |
 | ✓ | `robinson-above` | Looking down from the walkway: the stones piled where they landed against the Wall |
 | ✓ | `robinson-wall` | Along the Western Wall to the corner: the stump of Robinson’s Arch, and the heap of stones beneath it |
 | ✓ | `robinson-springer` | Robinson’s Arch: the first stones of a great arch, still jutting from the Wall |
-| ✓ | `robinson-2` | The stones from the top of the Wall, lying on the broken Herodian street |
+| ✓ | `robinson-pier` | A sign by the pier: “A pier of large stones which originally supported the western springer of Robinson’s Arch” |
+| ✓ | `robinson-fallen` | On the street: the stones from the top of the Wall, lying where they fell |
+| ✓ | `robinson-sign` | A sign among the stones |
 
 **Hank says:**
 
@@ -386,7 +391,10 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `gethsemane-gate` | Turn round: straight across the Kidron, the sealed Eastern Gate in the wall, the Temple Mount behind it |
 | ✓ | `gethsemane-wide` | Across the garden: young trees among the old, and the beds the Franciscans keep |
 | ✓ | `gethsemane-oldtree` | The oldest tree: a vast hollow trunk inside a mesh guard, still green on top |
-| ☐ | `gethsemane-church` | The Church of All Nations: the rock before the altar, where he prayed |
+| ✓ | `church-facade` | Beside the garden: the Church of All Nations, its golden mosaic high above the columns |
+| ✓ | `church-door` | The doors, open: above them, “Sustinete hic et vigilate mecum” |
+| ✓ | `church-interior` | Inside: dim purple light, columns, gold domes, and the mosaic of the agony over the altar |
+| ✓ | `church-altar` | Before the altar: the bare rock of Gethsemane, ringed by a crown of thorns in iron |
 
 **Hank says:**
 
