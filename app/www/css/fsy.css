@@ -344,3 +344,7 @@
 #adv .fph.grid b{font-size:13px;color:rgba(245,210,122,.7)}
 #adv .fph.grid span{display:none}
 #adv .fwfind .fwspot::after{content:attr(aria-label);position:absolute;left:4px;right:4px;bottom:4px;font:600 10px/1.2 var(--ui);color:#F3E9CE;text-align:center;text-shadow:0 1px 4px #000}
+
+/* the standing instruction above every picture */
+#adv .ftask{margin:6px 14px 8px;padding:9px 14px;border:1px solid rgba(201,162,74,.55);border-radius:12px;background:rgba(201,162,74,.12);color:#F3DFA6;font:600 15px/1.35 var(--ui);text-align:center}
+#adv .ftask.done{border-color:rgba(120,200,140,.5);background:rgba(120,200,140,.12);color:#CDEFD6}

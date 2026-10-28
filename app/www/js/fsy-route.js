@@ -515,6 +515,22 @@
     const hue = (scene.n * 37) % 360;
     return '<div class="fph" style="--h:' + hue + '"><div class="fphk">Photo to come</div><b>' + esc(scene.title) + "</b><span>" + esc(v.cap) + "</span><small>Scene " + scene.n + " · view “" + esc(v.id) + "” · " + esc(scene.id + "-" + v.id) + "</small></div>";
   }
+  /* What you are looking for in each place: shown above the picture until the place is done, so you are never walking blind */
+  const TASK = {
+    train: "Find the departures board and read it.", rail: "Ride the line. Look at every stop until you reach the market.",
+    market: "Walk the lane. Find the spice seller and his scales.", gabriel: "Go in. Choose a souvenir from Gabriel’s shelves.",
+    model: "Walk round the model. Study the Temple, its courts and its gates.", jaffa: "Go in through the gate and find the way up onto the wall.",
+    ramparts: "Walk the wall. Count the towers, and watch the sky.", jewish: "Walk through the Quarter to the Burnt House.",
+    wall: "Go down to the Wall. Look at every side of the plaza.", wilson: "Go into the prayer hall. Find the shaft and look down it.",
+    tunnels: "Follow the Wall underground. Measure the great stone, and read the sign.", wallagain: "Back on the wall. Follow it down to Damascus Gate.",
+    gtomb: "Find the skull, then the tomb. Roll the stone.", bazaar: "Down the bazaar street. Find the trader and pay him.",
+    hebron: "Go inside. Find Abraham, and what he paid.", zion: "Caiaphas’s pit, then David’s Tomb. Find the psalm on the wall.",
+    cod: "Find the sign about the Ark, and work out where Zion was.", gihon: "Go down to the spring. Look along the rock.",
+    hezekiah: "Light your lamp and go in.", siloam: "Come out of the tunnel at the pool and look at it.",
+    steps: "Climb the steps, then round the corner to the fallen stones.", dung: "Go out by the gate and down the road. Find the man.",
+    egate: "Up the steps between the graves. Go up to the gate.", kidron: "Down in the valley. Whose tomb is it?",
+    gethsemane: "Walk among the trees. Find the oldest one and look in the hollow.", mughrabi: "Up the ramp. Find the man by the arcade."
+  };
   function walk(v) {
     view = v; F.cur("walk"); F.M(scene.music, scene.amb);
     const w = W(), done = isDone(scene.id), pz = v.puzzle && PUZZLES[v.puzzle], pzDone = pz && w.done[scene.id + ":" + v.puzzle];
@@ -522,15 +538,17 @@
     const pic = v.img ? '<img class="fwimg" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
+    const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") : (TASK[scene.id] || "Look at everything here.");
     const el = F.stage('<div class="fkick">Act ' + scene.act + " · scene " + scene.n + " of " + R.length + "</div><h1>" + esc(scene.title) + "</h1>" +
+      '<div class="ftask' + (done ? " done" : "") + '">' + (done ? "✓ " : "") + esc(task) + "</div>" +
       '<div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
       (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") + "</div>" +
       '<div class="fsmall">' + esc(v.cap) + (v.img ? "<small>Photo: Richard J. Allinson</small>" : "<small>Double-tap any picture for full screen</small>") + "</div>" +
-      (v.hank && !w.flags["said:" + scene.id + ":" + v.id] ? '<div class="fnarr">“' + esc(v.hank) + '”<small>The Lamplighter</small></div>' : "") +
+      (v.hank ? '<div class="fnarr">“' + esc(v.hank) + '”<small>The Lamplighter</small></div>' : "") +
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + ' Journal</button><button class="fwtool" data-m="1">Map</button>' +
       (done && nx ? '<button class="fwtool go" data-n="1">Walk on › ' + esc(nx.title) + "</button>" : "") +
       (!done && scene.optional && nx ? '<button class="fwtool" data-n="1">Walk on without it ›</button>' : "") + "</div>", v.img ? "w/" + v.img + ".jpg" : "temple-painting.jpg");
-    if (v.hank) { w.flags["said:" + scene.id + ":" + v.id] = 1; save(); F.V("w-" + scene.id + "-" + v.id); }
+    if (v.hank && !w.flags["said:" + scene.id + ":" + v.id]) { w.flags["said:" + scene.id + ":" + v.id] = 1; save(); F.V("w-" + scene.id + "-" + v.id); }
     /* a scene with nothing to solve is finished once every viewpoint has been seen */
     w.flags["seen:" + scene.id + ":" + v.id] = 1; save();
     if (!done && !scene.views.some((x) => x.puzzle) && scene.views.every((x) => w.flags["seen:" + scene.id + ":" + x.id])) { setTimeout(() => K.root() && finish(scene.id), 600); return; }
