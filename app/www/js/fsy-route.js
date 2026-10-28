@@ -135,9 +135,13 @@
       { id: "cardosign", img: "jq-cardo-sign", cap: "The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English", go: { left: "cardo", fwd: "columns" },
         hots: [{ box: [0, 40, 30, 30], label: "The English text", text: "“Remains of a magnificent main road from the Roman-Byzantine period, serving throughout time until today as a major thoroughfare for shopping.” The street Hadrian built over the ruins, still in use." }] },
       { id: "columns", img: "jq-cardo", cap: "Along the columns", go: { back: "cardosign" } },
-      { id: "hurva", img: "jewish-hurva", cap: "The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case", go: { back: "cardo", fwd: "wallsteps" },
+      { id: "hurva", img: "jewish-hurva", cap: "The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case", go: { back: "cardo", fwd: "wallsteps", left: "spices", right: "bagel" },
         hots: [{ box: [28, 62, 34, 25], label: "The golden menorah", text: "Pure gold, seven lamps, made to the Temple Institute’s research for the Third Temple, waiting here in a glass case for the day it stands in the sanctuary. “Thou shalt make a candlestick of pure gold” (Exodus 25:31)." },
           { box: [15, 5, 70, 35], label: "The dome", text: "Hurva means “ruin”. It was destroyed in 1721, rebuilt in 1864, blown up in 1948, and rebuilt again in 2010. Jerusalem keeps rebuilding." }] },
+      { id: "spices", img: "jewish-spices", cap: "A spice shop off the square: bowls heaped high, each with its handwritten card", go: { right: "hurva" },
+        hots: [{ box: [0, 45, 100, 40], label: "The spices", text: "Cinnamon, cardamom, saffron, cumin. The holy anointing oil and the Temple incense were made of spices weighed out by the shekel of the sanctuary: “Take thou also unto thee principal spices” (Exodus 30:23)." }] },
+      { id: "bagel", img: "jewish-bagel", cap: "Holy Bagel, under a stone arch: people queuing for lunch", go: { left: "hurva" },
+        hots: [{ box: [10, 20, 80, 15], label: "The sign", text: "Even the bagels are holy in this quarter. Under the sign, in small Hebrew letters: “B’siyata dishmaya”, with the help of Heaven." }] },
       { id: "burnt", img: null, cap: "The Burnt House: a priestly family’s home, burned in the year 70, found under the ash", go: { right: "cardo" }, puzzle: "burnt" },
       { id: "wallsteps", img: null, cap: "The wide steps down from the Jewish Quarter to the Western Wall plaza", go: { back: "hurva" }, hank: "Down the steps, and there it is." },
     ] });
@@ -226,14 +230,17 @@
     ] });
   S({ id: "zion", act: 3, title: "Mount Zion", kick: "David’s Tomb and the Upper Room", music: "m17", amb: "indoor", page: 9,
     views: [
-      { id: "tomb", img: null, cap: "David’s Tomb: the great cenotaph under its embroidered cover, in the stone room below the Upper Room", hank: "By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.",
-        go: { fwd: "upper" }, puzzle: "north" },
+      { id: "door", img: "zion-door", cap: "On Mount Zion: an arch carved in Hebrew, “Kever David”, and the bronze plaque: King David’s Tomb", go: { fwd: "tomb" } },
+      { id: "tomb", img: "zion-tomb", cap: "David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover", hank: "By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.",
+        go: { fwd: "upper", back: "door", left: "sign" }, puzzle: "north" },
+      { id: "sign", img: "zion-sign", cap: "The sign: “King David’s Tomb”", go: { right: "tomb" },
+        hots: [{ box: [3, 35, 35, 20], label: "Read the sign", text: "“The place where King David was buried according to a Medieval tradition.” The Bible says David “was buried in the city of David” (1 Kings 2:10): the ridge below, which you will walk next. The real tomb has never been found." }] },
       { id: "upper", img: null, cap: "The Upper Room, the Cenacle: Gothic vaults, empty, quiet", go: { back: "tomb" },
         hots: [{ box: [10, 10, 80, 70], label: "The room", text: "“And he will shew you a large upper room furnished: there make ready” (Luke 22:12). The room you see is Crusader work, built over older walls." }] },
     ] });
   S({ id: "cod", act: 3, title: "The City of David", kick: "Where Jerusalem began", music: "m17", amb: "street",
     views: [
-      { id: "entrance", img: null, cap: "The City of David visitor centre, on the ridge south of the Temple Mount", hank: "This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.",
+      { id: "entrance", img: "cod-entrance", cap: "In the City of David: a sign pointing on, “To the Water Systems: Warren’s Shaft & Hezekiah’s Tunnel”", hank: "This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.",
         go: { fwd: "view", right: "sign" } },
       { id: "sign", img: "cod-ark-sign", cap: "A sign in the water system: “Raiders of the Lost Ark”, the Parker expedition, 1909–1911", go: { left: "entrance" }, puzzle: "arksign" },
       { id: "view", img: "cod-ruins", cap: "Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top", go: { back: "entrance", fwd: "descent", left: "tower" }, puzzle: "zionq",

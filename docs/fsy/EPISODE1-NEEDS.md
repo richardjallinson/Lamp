@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 97 of 129 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 103 of 133 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -120,6 +120,8 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `jq-cardo-sign` | The sign by the railing: “Western Cardo”, in Hebrew, Arabic and English |
 | ✓ | `jq-cardo` | Along the columns |
 | ✓ | `jewish-hurva` | The Hurva Synagogue, rebuilt in 2010, and the golden menorah in its glass case |
+| ✓ | `jewish-spices` | A spice shop off the square: bowls heaped high, each with its handwritten card |
+| ✓ | `jewish-bagel` | Holy Bagel, under a stone arch: people queuing for lunch |
 | ☐ | `jewish-burnt` | The Burnt House: a priestly family’s home, burned in the year 70, found under the ash |
 | ☐ | `jewish-wallsteps` | The wide steps down from the Jewish Quarter to the Western Wall plaza |
 
@@ -233,7 +235,9 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `zion-tomb` | David’s Tomb: the great cenotaph under its embroidered cover, in the stone room below the Upper Room |
+| ✓ | `zion-door` | On Mount Zion: an arch carved in Hebrew, “Kever David”, and the bronze plaque: King David’s Tomb |
+| ✓ | `zion-tomb` | David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover |
+| ✓ | `zion-sign` | The sign: “King David’s Tomb” |
 | ☐ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults, empty, quiet |
 
 **Hank says:**
@@ -244,7 +248,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `cod-entrance` | The City of David visitor centre, on the ridge south of the Temple Mount |
+| ✓ | `cod-entrance` | In the City of David: a sign pointing on, “To the Water Systems: Warren’s Shaft & Hezekiah’s Tunnel” |
 | ✓ | `cod-ark-sign` | A sign in the water system: “Raiders of the Lost Ark”, the Parker expedition, 1909–1911 |
 | ✓ | `cod-ruins` | Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top |
 | ✓ | `cod-tower` | The Hasmonean tower at the top of the slope |

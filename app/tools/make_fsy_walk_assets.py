@@ -122,6 +122,12 @@ PHOTOS = {
     "gihon-pool-sign": "photos/hezekiah/canaanite-pool-sign.png",
     "hezekiah-tunnel": "photos/hezekiah/tunnel-dark.png",
     "hezekiah-water": "photos/hezekiah/foot-in-the-water.png",
+    "zion-door": "photos/oct27b/david-tomb-arch.png",
+    "zion-tomb": "photos/oct27b/david-tomb-cenotaph.png",
+    "zion-sign": "photos/oct27b/david-tomb-sign.png",
+    "cod-entrance": "photos/oct27b/water-systems-sign.png",
+    "jewish-spices": ("photos/oct27b/jewish-quarter-spices.png", (0, 1150, 1125, 2000)),   # the bowls only, people left out
+    "jewish-bagel": ("photos/oct27b/holy-bagel.png", None, [(785, 1170, 965, 1575)]),   # Richard's wife blurred
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
