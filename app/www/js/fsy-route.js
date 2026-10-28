@@ -584,7 +584,18 @@
   function finish(sceneId, then) {
     const s = byId[sceneId], w = W(); const first = !w.done[sceneId]; w.done[sceneId] = 1; save();
     const after = () => { if (then) then(); else if (scene && scene.id === sceneId && !s.kept) walk(view); else map(); };
-    if (s.page && first) page(s.page, after); else after();
+    const nx = R[s.n] || null;
+    /* every place ends with a clear "done" card, so there is never any doubt that the task is finished */
+    const doneCard = () => {
+      if (!first) return after();
+      F.S("harp", null, 0.7); K.buzz("success");
+      const left = R.filter((x) => !w.done[x.id] && !x.optional).length;
+      K.card('<div class="kick">Act ' + s.act + " · " + esc(s.title) + '</div><h2>✓ Done here</h2>' +
+        "<p>" + esc(s.title) + " is finished. " + (left ? left + " place" + (left === 1 ? "" : "s") + " left in Episode 1." : "That was the last place.") + "</p>" +
+        (nx ? '<button class="cta" data-act="n">Walk on › ' + esc(nx.title) + "</button>" : "") +
+        '<button class="cta alt" data-act="x">Look around here first</button>', { n: () => go(nx), x: after });
+    };
+    if (s.page && first) page(s.page, doneCard); else doneCard();
   }
   function pzDone(key, then) { const w = W(); w.done[scene.id + ":" + key] = 1; save(); then(); }
 
