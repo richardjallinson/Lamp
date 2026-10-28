@@ -52,7 +52,7 @@
         go: { fwd: "platform" }, puzzle: "board" },
       { id: "platform", img: null, cap: "The platform: the fast train to Jerusalem", go: { back: "board", fwd: "navon" },
         hots: [{ box: [55, 20, 35, 40], label: "A man in a grey coat on the far platform", text: "On the far platform a man in a grey coat is reading something small, folded, blue at the edges. He looks up, straight at you, and then the train comes between you." }] },
-      { id: "navon", img: null, cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres underground, and now up. You have come to Jerusalem.", go: { back: "platform" } },
+      { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres underground, and now up. You have come to Jerusalem.", go: { back: "platform" } },
     ] });
   S({ id: "rail", act: 1, title: "The light rail", kick: "Jaffa Road", music: "m9", amb: "street",
     views: [
@@ -81,8 +81,11 @@
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
       { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
-      { id: "inside", img: null, cap: "Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple", go: { back: "street" }, puzzle: "souvenir",
-        hots: [{ box: [0, 60, 100, 30], label: "Gabriel, behind the counter", act: "gabrielTalk" }] },
+      { id: "inside", img: "gabriel-inside", cap: "The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour", go: { back: "street", left: "shelf" }, puzzle: "souvenir",
+        hots: [{ box: [0, 60, 100, 30], label: "Gabriel, behind the counter", act: "gabrielTalk" },
+          { box: [40, 24, 20, 8], label: "The golden Ark", text: "A little golden model of the Ark of the Covenant, the cherubim facing each other on its lid, up on the top shelf. Remember it: you will see the real-size one at the Temple Institute." }] },
+      { id: "shelf", img: "gabriel-shelf", cap: "A shelf inside: a silver kiddush cup, a name in painted letters, Havdalah candles below", go: { right: "inside" },
+        hots: [{ box: [12, 2, 28, 40], label: "The silver cup", text: "A kiddush cup, engraved with the walls of Jerusalem: the cup of blessing over wine on the Sabbath. “The cup of blessing which we bless” (1 Corinthians 10:16)." }] },
       { id: "synagogue", img: "synagogue", cap: "Up King George Street: the Jerusalem Great Synagogue", go: { back: "street", fwd: "doors" },
         hots: [{ box: [25, 15, 50, 55], label: "The building", text: "Number 56, King George Street, finished in 1982. Its architect, Alexander Friedman, modelled its style on the Temple in Jerusalem: a tall front, and a great gate. The synagogue is built to look like the house it is waiting for." }] },
       { id: "doors", img: "synagogue-doors", cap: "The great doors, panel after panel, and above them the tall windows", go: { back: "synagogue" } },

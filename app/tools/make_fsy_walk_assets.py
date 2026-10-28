@@ -108,6 +108,9 @@ PHOTOS = {
     "robinson-pier": "photos/oct28/robinson-pier-sign.png",
     "steps-steps": ("photos/oct28/southern-steps.png", (0, 0, 1125, 1840)),   # the hat at the bottom cropped off
     "zion-passage": "photos/oct28/gate-passage-night.png",
+    "gabriel-inside": "photos/oct28/gabriel-window-full.png",   # through the window; Gabriel not in it
+    "gabriel-shelf": ("photos/oct28/gabriel-shelf-kiddush-cup.png", (0, 262, 1125, 1590)),   # Richard's head cropped off
+    "train-navon": "photos/oct28/navon-escalators-painting.png",   # a painting, not a photo
     "cod-passage": ("photos/oct28/warren-tunnel-descent.png", None, [(440, 1200, 690, 1850), (705, 1215, 890, 1630)]),   # visitors blurred
     "cod-watersign": "photos/oct28/warrens-shaft-water-system-sign.png",
     "cod-entrysign": "photos/oct28/entrance-water-system-sign.png",
@@ -194,7 +197,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):

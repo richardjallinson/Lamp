@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 138 of 158 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 141 of 159 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -16,7 +16,7 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ☐ | `train-board` | The departures board at the airport station |
 | ☐ | `train-platform` | The platform: the fast train to Jerusalem |
-| ☐ | `train-navon` | Yitzhak Navon station, Jerusalem: the deep escalators up to the light |
+| ✓ | `train-navon` | Yitzhak Navon station, Jerusalem: the deep escalators up to the light |
 
 **Hank says:**
 
@@ -57,7 +57,8 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `gabriel-street` | Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass |
-| ☐ | `gabriel-inside` | Inside the shop: shelves of kippot, prayer shawls, menorahs, shofars and little models of the Temple |
+| ✓ | `gabriel-inside` | The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour |
+| ✓ | `gabriel-shelf` | A shelf inside: a silver kiddush cup, a name in painted letters, Havdalah candles below |
 | ✓ | `synagogue` | Up King George Street: the Jerusalem Great Synagogue |
 | ✓ | `synagogue-doors` | The great doors, panel after panel, and above them the tall windows |
 
