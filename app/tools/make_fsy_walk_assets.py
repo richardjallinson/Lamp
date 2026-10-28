@@ -128,6 +128,11 @@ PHOTOS = {
     "cod-entrance": "photos/oct27b/water-systems-sign.png",
     "jewish-spices": ("photos/oct27b/jewish-quarter-spices.png", (0, 1150, 1125, 2000)),   # the bowls only, people left out
     "jewish-bagel": ("photos/oct27b/holy-bagel.png", None, [(785, 1170, 965, 1575)]),   # Richard's wife blurred
+    "caiaphas-above": "photos/caiaphas/pit-from-above-crosses.png",
+    "caiaphas-mosaic": "photos/caiaphas/mosaic-lowest-pit.png",
+    "caiaphas-sign": "photos/caiaphas/sacred-pit-sign.png",
+    "caiaphas-pit": "photos/caiaphas/pit-floor.png",
+    "caiaphas-up": "photos/caiaphas/pit-looking-up.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

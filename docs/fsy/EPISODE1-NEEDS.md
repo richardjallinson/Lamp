@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 103 of 133 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 108 of 138 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -236,12 +236,18 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `zion-door` | On Mount Zion: an arch carved in Hebrew, “Kever David”, and the bronze plaque: King David’s Tomb |
+| ✓ | `caiaphas-above` | Down the east slope of Zion, at the House of Caiaphas: a pit cut in the rock, seen from above through glass |
+| ✓ | `caiaphas-mosaic` | A mosaic on the rail above the pit: “On m’a mis en fosse profonde” |
+| ✓ | `caiaphas-sign` | The sign: “Sacred pit (dungeon)” |
+| ✓ | `caiaphas-pit` | Down in the pit: bare rock walls, and a single stand with a book of the Psalms open on it |
+| ✓ | `caiaphas-up` | Looking up: the round hole in the rock, and the light far above |
 | ✓ | `zion-tomb` | David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover |
 | ✓ | `zion-sign` | The sign: “King David’s Tomb” |
 | ☐ | `zion-upper` | The Upper Room, the Cenacle: Gothic vaults, empty, quiet |
 
 **Hank says:**
 
+- `w-zion-caiaphas`: “The church of Saint Peter in Gallicantu: the cock-crow. Tradition places the house of Caiaphas the high priest here, where Jesus was brought on the night he was betrayed, and where Peter denied him three times.”
 - `w-zion-tomb`: “By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.”
 
 ### 18. The City of David (Where Jerusalem began)

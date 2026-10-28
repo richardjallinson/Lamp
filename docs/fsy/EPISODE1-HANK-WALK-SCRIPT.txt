@@ -57,6 +57,9 @@ From Damascus Gate one street runs straight down the old valley, along the weste
 [w-hebron-bus]
 Before Zion, Hebron. David was king here seven years before he ever took Jerusalem. And here Abraham bought the first piece of the land, with silver, weighed out in front of everyone.
 
+[w-zion-caiaphas]
+The church of Saint Peter in Gallicantu: the cock-crow. Tradition places the house of Caiaphas the high priest here, where Jesus was brought on the night he was betrayed, and where Peter denied him three times.
+
 [w-zion-tomb]
 By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.
 
