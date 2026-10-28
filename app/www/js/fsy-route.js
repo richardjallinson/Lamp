@@ -249,8 +249,10 @@
     ] });
   S({ id: "gihon", act: 3, title: "The Gihon Spring", kick: "The water of the city", music: "m17", amb: "chamber",
     views: [
-      { id: "spring", img: null, cap: "The Gihon Spring, deep in its cave: the only water of ancient Jerusalem", hank: "Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.",
-        go: { fwd: "mouth", left: "gsign", right: "canaanite" }, puzzle: "lampstone" },
+      { id: "spring", img: "gihon-pool", cap: "Deep in the rock by the Gihon Spring: the Canaanite pool, lit blue, a dark doorway leading on", hank: "Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.",
+        go: { fwd: "mouth", left: "gsign", right: "canaanite", back: "psign" }, puzzle: "lampstone" },
+      { id: "psign", img: "gihon-pool-sign", cap: "The sign: “The Canaanite Pool”", go: { fwd: "spring" },
+        hots: [{ box: [8, 25, 84, 60], label: "Read the sign", text: "Carved into the rock 3,800 years ago and fed by the Gihon Spring: Jerusalem’s water in time of siege. Some think Solomon was crowned king at this very spot (1 Kings 1:32–40). Late in the First Temple period it was filled with earth and houses were built on it; hundreds of clay seal impressions and thousands of fish bones were found in the fill." }] },
       { id: "gsign", img: "gihon-sign", cap: "The sign: “The Gihon Spring, Jerusalem’s beating heart”", go: { right: "spring" },
         hots: [{ box: [10, 20, 80, 30], label: "1 Kings 1:38–39", text: "“So Zadok the priest… caused Solomon to ride upon king David’s mule, and brought him to Gihon. And Zadok the priest took an horn of oil out of the tabernacle, and anointed Solomon” (1 Kings 1:38–39). The sign adds that the spring once pulsed, rising and falling, and that Hezekiah later sent its water through a tunnel to the Pool of Siloam (2 Chronicles 32:30)." }] },
       { id: "canaanite", img: "gihon-canaanite", cap: "The Canaanite channel: a dry, narrow cut in the rock, the older way the water ran, 1,000 years before Hezekiah", go: { left: "spring" },
@@ -258,14 +260,18 @@
       { id: "mouth", img: null, cap: "The mouth of Hezekiah’s Tunnel: dark water going into the rock", go: { back: "spring" }, hank: "Hezekiah cut a tunnel from this spring through the hill to the pool inside his walls, before the Assyrians came. Five hundred and thirty-three metres, in the dark, in water. Light your lamp." },
     ] });
   S({ id: "hezekiah", act: 3, title: "Hezekiah’s Tunnel", kick: "533 metres in the dark", music: "m18", amb: "chamber",
-    views: [{ id: "tunnel", img: null, cap: "In the tunnel: cold water to the knee, chisel marks on the rock, the lamp the only light", puzzle: "darktunnel" }] });
+    views: [
+      { id: "tunnel", img: "hezekiah-tunnel", cap: "In the tunnel: a narrow cut in the rock, black ahead, the lamp the only light", puzzle: "darktunnel", go: { fwd: "water" } },
+      { id: "water", img: "hezekiah-water", cap: "Look down: cold, clear water over the rock floor, ankle deep and running toward Siloam", go: { back: "tunnel" },
+        hots: [{ box: [20, 20, 60, 50], label: "The water", text: "The same water Hezekiah sent through the hill 2,700 years ago still runs here, from the Gihon Spring to the Pool of Siloam. You come out soaked to the knee, like every visitor before you." }] },
+    ] });
   S({ id: "siloam", act: 3, title: "The Pool of Siloam", kick: "Sent", music: "m17", amb: "olives", page: 10,
     views: [
       { id: "pool", img: "siloam-pool", cap: "The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor", hank: "Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.",
         go: { fwd: "road", left: "sign", right: "water" }, puzzle: "siloamq" },
       { id: "sign", img: "siloam-sign", cap: "The sign: “The Pool of Shiloah (Siloam), Second Temple splendour”", go: { right: "pool" },
         hots: [{ box: [5, 40, 90, 35], label: "Read the sign", text: "“…how he made the pool and the conduit and brought the water into the city” (2 Kings 20:20). In 2004 a very large pool from the Second Temple period was found here, about three quarters of an acre. Beside it, a stepped street: the road the pilgrims climbed from the pool to the Temple Mount. Under its paving, a drainage channel where the last rebels hid from the Romans in AD 70." }] },
-      { id: "water", img: "siloam-water", cap: "Round the corner, at the tunnel’s end: still water, old column drums, the outflow of Hezekiah’s Tunnel", go: { left: "pool" },
+      { id: "water", img: "siloam-water", cap: "Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again", go: { left: "pool" },
         hots: [{ box: [25, 30, 50, 25], label: "The column drums", text: "Stumps of columns from a Byzantine church built here, about AD 450, to remember the man born blind who washed and came back seeing (John 9:7)." }] },
       { id: "road", img: null, cap: "The stepped Pilgrim Road, climbing from the pool toward the Temple Mount", go: { back: "pool" },
         hots: [{ box: [20, 0, 60, 60], label: "Up the road", text: "Pilgrims washed in the pool and climbed this street to the Temple. Far ahead, going up fast, a grey coat." }] },
@@ -713,7 +719,7 @@
       q: "Five stones at the water’s edge. One carries the Watchman’s lamp. Tap the stones.", counter: "Found", last: "Light the lamp",
       spots: [{ label: "A wet stone", at: [8, 70], w: 16, h: 14, decoy: true, text: "Wet, green, nothing on it." }, { label: "A flat stone", at: [30, 74], w: 16, h: 14, decoy: true, text: "Flat and dry. Nothing." }, { label: "A cracked stone", at: [52, 70], w: 16, h: 14, decoy: true, text: "Cracked through. Nothing." }, { label: "A stone with a mark", at: [74, 76], w: 16, h: 14, text: "Scratched into the stone, small, a lamp. Beside it a splash of something dark that smells of olives: oil. Enough to fill your lamp for the tunnel." }, { label: "A rounded stone", at: [40, 50], w: 14, h: 12, decoy: true, text: "Round and smooth. Nothing." }],
       done: () => { W().flags.lit = 1; save(); K.card('<div class="kick">The Gihon Spring</div><h2>Oil for the dark</h2><p>You fill the lamp. Solomon was anointed with oil at this water, and built the house. You will need the light: the tunnel ahead is 533 metres of darkness.</p><button class="cta" data-act="x">To the tunnel mouth</button>', { x: () => pzDone("lampstone", () => finish("gihon", () => walk(V("mouth")))) }); } }) },
-    darktunnel: { label: "Go in", run: () => find({ title: "Hezekiah’s Tunnel", kick: "In the dark", dark: true, scene: "Cold water, rough rock, the sound of your own breathing", intro: verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30"),
+    darktunnel: { label: "Go in", run: () => find({ title: "Hezekiah’s Tunnel", kick: "In the dark", dark: true, img: "hezekiah-tunnel", scene: "Cold water, rough rock, the sound of your own breathing", intro: verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30"),
       q: "Drag your finger to carry the lamp through the tunnel. Find the three things the Watchman marked.", counter: "Found", last: "Out into the light",
       spots: [
         { label: "The chisel marks", at: [22, 30], text: "Pick marks in the rock, slanting one way, then, further on, slanting the other. Two teams of diggers, starting from each end, cutting toward each other in the dark." },

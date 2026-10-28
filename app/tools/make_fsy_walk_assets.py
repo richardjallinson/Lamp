@@ -95,7 +95,7 @@ PHOTOS = {
     "market-fish": ("photos/oct27/market-fish-counter.png", (0, 1420, 1125, 1880)),   # the counter only, shopkeeper left out
     "siloam-pool": ("photos/oct27/siloam-pool-steps.png", None, [(395, 1085, 535, 1330)]),   # person in the pool blurred
     "siloam-sign": "photos/oct27/siloam-pool-sign.png",
-    "siloam-water": "photos/oct27/siloam-pool-water-columns.png",
+    "siloam-water": "photos/hezekiah/tunnel-exit-pool-columns.png",
     "synagogue-doors": "photos/oct27/great-synagogue-doors.png",
     "synagogue": "photos/oct27/great-synagogue.png",
     "jewish-hurva": "photos/oct27/hurva-golden-menorah.png",
@@ -118,6 +118,10 @@ PHOTOS = {
     "gethsemane-path": "photos/gethsemane/garden-path.png",
     "gethsemane-wide": "photos/gethsemane/garden-wide.png",
     "gethsemane-oldtree": "photos/gethsemane/ancient-olive-caged.png",
+    "gihon-pool": "photos/hezekiah/canaanite-pool.png",
+    "gihon-pool-sign": "photos/hezekiah/canaanite-pool-sign.png",
+    "hezekiah-tunnel": "photos/hezekiah/tunnel-dark.png",
+    "hezekiah-water": "photos/hezekiah/foot-in-the-water.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

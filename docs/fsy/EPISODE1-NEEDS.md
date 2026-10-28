@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 93 of 127 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 97 of 129 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -261,7 +261,8 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `gihon-spring` | The Gihon Spring, deep in its cave: the only water of ancient Jerusalem |
+| ✓ | `gihon-pool` | Deep in the rock by the Gihon Spring: the Canaanite pool, lit blue, a dark doorway leading on |
+| ✓ | `gihon-pool-sign` | The sign: “The Canaanite Pool” |
 | ✓ | `gihon-sign` | The sign: “The Gihon Spring, Jerusalem’s beating heart” |
 | ✓ | `gihon-canaanite` | The Canaanite channel: a dry, narrow cut in the rock, the older way the water ran, 1,000 years before Hezekiah |
 | ☐ | `gihon-mouth` | The mouth of Hezekiah’s Tunnel: dark water going into the rock |
@@ -275,7 +276,8 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `hezekiah-tunnel` | In the tunnel: cold water to the knee, chisel marks on the rock, the lamp the only light |
+| ✓ | `hezekiah-tunnel` | In the tunnel: a narrow cut in the rock, black ahead, the lamp the only light |
+| ✓ | `hezekiah-water` | Look down: cold, clear water over the rock floor, ankle deep and running toward Siloam |
 
 ### 21. The Pool of Siloam (Sent)
 
@@ -283,7 +285,7 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `siloam-pool` | The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor |
 | ✓ | `siloam-sign` | The sign: “The Pool of Shiloah (Siloam), Second Temple splendour” |
-| ✓ | `siloam-water` | Round the corner, at the tunnel’s end: still water, old column drums, the outflow of Hezekiah’s Tunnel |
+| ✓ | `siloam-water` | Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again |
 | ☐ | `siloam-road` | The stepped Pilgrim Road, climbing from the pool toward the Temple Mount |
 
 **Hank says:**
