@@ -14,3 +14,4 @@ Last build sent: v3w (fixes 1–5 below).
 
 | # | Fix | State |
 | --- | --- | --- |
+| 6 | Professional puzzle machines from Richard's drawings: the brass balance (spice seller, bazaar trader), the brass combination lock on the Institute case, the lamp in the dark on his painted walls (Gihon Spring, Hezekiah's Tunnel) | Done in code, waiting for the build |

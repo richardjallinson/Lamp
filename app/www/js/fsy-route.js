@@ -712,17 +712,57 @@
     }));
   }
   /* pick weights (or coins) that add up to a target */
+  /* a real brass balance (Richard's drawings): drag the stone weights onto the right pan; the beam tips by weight */
+  const PZ = "img/fsy/pz/";
   function weigh(o) {
-    let picked = [];
+    const on = new Set(); const ws = o.weights;
     const el = screen(o.title, o.kick, (o.intro || "") + (o.q ? q(o.q) : "") +
-      '<div class="fbalance" id="fbal"><div class="fpan l"><b>' + esc(o.left) + '</b><small>' + o.target + " " + esc(o.unit) + '</small></div><div class="fbeam"></div><div class="fpan r" id="fpanr"><b>0 ' + esc(o.unit) + "</b></div></div>" +
-      '<div class="fchips three" id="fw">' + o.weights.map((w, i) => '<button data-i="' + i + '"><b>' + esc(w[0]) + "</b><small>" + w[1] + " " + esc(o.unit) + "</small></button>").join("") + "</div>" +
-      '<button class="fbtn" id="fweigh">' + esc(o.btn || "Weigh") + "</button>", o.bg);
-    const sum = () => picked.reduce((a, i) => a + o.weights[i][1], 0);
-    const draw = () => { $("fpanr").innerHTML = "<b>" + sum() + " " + esc(o.unit) + "</b>"; const d = sum() - o.target; $("fbal").style.setProperty("--tilt", Math.max(-8, Math.min(8, d / 2)) + "deg"); el.querySelectorAll("[data-i]").forEach((b) => b.classList.toggle("sel", picked.includes(+b.dataset.i))); };
-    el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { const i = +b.dataset.i; picked = picked.includes(i) ? picked.filter((x) => x !== i) : picked.concat(i); F.S("dial", "click", 0.5); draw(); }));
-    $("fweigh").onclick = () => { if (sum() !== o.target) { wrong(sum() < o.target ? o.light || "Too light. Add more." : o.heavy || "Too heavy. Take some off."); return; } F.S("lock", null, 0.6); K.buzz("success"); setTimeout(() => K.root() && o.done(), 500); };
+      '<div class="fscale" id="fscale" style="--tilt:0deg">' + (o.bg ? '<img class="fscalebg" src="' + PZ + o.bg + '.jpg" alt="">' : "") +
+        '<img class="fsc-stand" src="' + PZ + 'bal-stand.png" alt="">' +
+        '<div class="fsc-beam"><img src="' + PZ + 'bal-beam.png" alt="">' +
+          '<div class="fsc-hang l"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-l"><span class="fsc-stone"><img src="img/fsy/pz/weight-2.png" alt=""><b>' + esc(o.left) + '</b></span></div></div>' +
+          '<div class="fsc-hang r"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-r"></div></div></div>' +
+        '<div class="fsc-read" id="fread">' + o.target + " " + esc(o.unit) + ' · <span id="fsum">0</span> ' + esc(o.unit) + "</div></div>" +
+      '<div class="fsc-tray" id="ftray">' + ws.map((w, i) => '<button class="fsc-w" data-i="' + i + '" aria-label="' + esc(w[0]) + ", " + w[1] + " " + esc(o.unit) + '"><img src="' + PZ + (w[2] || "weight-" + Math.min(5, i + 1)) + '.png" alt=""><small>' + w[1] + "</small></button>").join("") + "</div>" +
+      '<button class="fbtn" id="fweigh">' + esc(o.btn || "Weigh") + "</button>", null);
+    const sum = () => [...on].reduce((a, i) => a + ws[i][1], 0);
+    const draw = () => {
+      const d = sum() - o.target; $("fsum").textContent = sum();
+      $("fscale").style.setProperty("--tilt", (Math.max(-9, Math.min(9, d * 0.9))) + "deg");
+      $("fload-r").innerHTML = [...on].map((i) => '<button class="fsc-on" data-off="' + i + '"><img src="' + PZ + (ws[i][2] || "weight-" + Math.min(5, i + 1)) + '.png" alt=""></button>').join("");
+      el.querySelectorAll("[data-i]").forEach((b) => b.classList.toggle("used", on.has(+b.dataset.i)));
+      el.querySelectorAll("[data-off]").forEach((b) => (b.onclick = () => { on.delete(+b.dataset.off); F.S("dial", "click", 0.4); draw(); }));
+    };
+    el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { const i = +b.dataset.i; if (on.has(i)) on.delete(i); else on.add(i); F.S("step", "click", 0.5); K.buzz && K.buzz("tap"); draw(); }));
+    $("fweigh").onclick = () => { if (sum() !== o.target) { wrong(sum() < o.target ? o.light || "Too light. Add more." : o.heavy || "Too heavy. Take some off."); return; } F.S("lock", null, 0.6); K.buzz("success"); $("fscale").classList.add("level"); setTimeout(() => K.root() && o.done(), 700); };
     draw();
+  }
+  /* a brass combination lock (Richard's case and wheel): roll each wheel with your thumb.
+     faces: what shows on the wheels (numbers 0..max, or words); v: the current positions; onTurn(i) after a turn */
+  function lockUI(o) {
+    const faces = o.faces, n = faces.length, v = o.v;
+    const html = '<div class="flock"><img class="flock-case" src="' + PZ + 'lock-case.jpg" alt="A wooden case with a brass lock of three wheels">' +
+      '<div class="flock-wheels">' + v.map((_, i) => '<div class="flock-win" data-w="' + i + '" role="slider" aria-label="Wheel ' + (i + 1) + '"><div class="flock-roll" id="froll' + i + '"></div><img class="flock-wheel" src="' + PZ + 'lock-wheel.png" alt=""></div>').join("") + "</div></div>" + (o.words ? '<div class="flock-read">' + v.map((_, i) => '<span id="fword' + i + '"></span>').join("") + "</div>" : "");
+    const face = (x) => o.words ? String(faces[x]).slice(0, 1) : String(faces[x]);
+    const wire = (el) => {
+      const draw = (i) => { const r = $("froll" + i); if (r) r.innerHTML = [-1, 0, 1].map((d) => "<b" + (d ? ' class="dim"' : "") + ">" + esc(face((v[i] + d + n) % n)) + "</b>").join(""); const w = $("fword" + i); if (w) w.textContent = faces[v[i]]; };
+      el.querySelectorAll("[data-w]").forEach((w) => {
+        const i = +w.dataset.w; let y0 = null, acc = 0, moved = 0;
+        const step = (d) => { v[i] = (v[i] + d + n) % n; F.S("dial", "click", 0.45); draw(i); o.onTurn && o.onTurn(i); };
+        w.addEventListener("pointerdown", (e) => { y0 = e.clientY; acc = 0; moved = 0; w.setPointerCapture(e.pointerId); e.preventDefault(); });
+        w.addEventListener("pointermove", (e) => { if (y0 === null) return; acc += e.clientY - y0; moved += Math.abs(e.clientY - y0); y0 = e.clientY; while (acc > 16) { step(-1); acc -= 16; } while (acc < -16) { step(1); acc += 16; } });
+        w.addEventListener("pointerup", (e) => { if (y0 !== null && moved < 5) step(e.offsetY < w.clientHeight / 2 ? 1 : -1); y0 = null; });
+        w.addEventListener("pointercancel", () => (y0 = null));
+        draw(i);
+      });
+    };
+    return { html, wire };
+  }
+  function dials(o) {
+    const v = o.answer.map(() => 0), L = lockUI({ faces: o.faces || [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], v });
+    const el = screen(o.title, o.kick, (o.intro || "") + (o.q ? q(o.q) : "") + L.html + '<button class="fbtn" id="ftry">' + esc(o.btn || "Try the lock") + "</button>", null);
+    L.wire(el);
+    $("ftry").onclick = () => { if (v.join() !== o.answer.join()) { wrong(o.no || "The lock does not turn."); return; } F.S("lock", null, 0.7); K.buzz("success"); setTimeout(() => K.root() && o.done(), 600); };
   }
   /* a number: turn it up and down */
   function count(o) {
@@ -737,7 +777,7 @@
   /* find things in a picture (or in the dark, by lamplight) */
   function find(o) {
     const got = new Set();
-    const pic = o.img ? '<img draggable="false" src="' + IMG + o.img + '.jpg" alt="">' : '<div class="fph ' + (o.dark ? "dark" : "grid") + '" style="--h:' + ((scene.n * 37) % 360) + '"><b>' + esc(o.title) + "</b><span>" + esc(o.scene || "") + "</span></div>";
+    const pic = o.img ? '<img draggable="false" src="' + (o.img.startsWith("pz:") ? PZ + o.img.slice(3) : IMG + o.img) + '.jpg" alt="">' : '<div class="fph ' + (o.dark ? "dark" : "grid") + '" style="--h:' + ((scene.n * 37) % 360) + '"><b>' + esc(o.title) + "</b><span>" + esc(o.scene || "") + "</span></div>";
     const el = screen(o.title, o.kick, (o.intro || "") + q(o.q) +
       '<div class="' + (o.dark ? "fdarkwrap" : "fark fwfind") + '" id="ffind">' + pic +
       o.spots.map((s, i) => '<button class="' + (o.dark ? "fnote" : "fhit fwspot") + '" data-i="' + i + '" aria-label="' + esc(s.label) + '" style="left:' + s.at[0] + "%;top:" + s.at[1] + "%" + (o.dark ? "" : ";width:" + (s.w || 16) + "%;height:" + (s.h || 12) + "%") + '"></button>').join("") +
@@ -793,7 +833,7 @@
       done: () => pzDone("board", () => finish("train", () => walk(V("platform")))) }) },
     scales: { label: "The spice seller’s scales", run: () => weigh({ title: "A just weight", kick: "The spice seller", intro: verse("Just balances, just weights, a just ephah, and a just hin, shall ye have: I am the LORD your God.", "Leviticus 19:36") +
       '<div class="fq">“You want to buy? First you must weigh,” says the spice seller, and sets a worn stone on the left pan. “One shekel. Make the other side match, in gerahs.”</div>' + q("A shekel is twenty gerahs (Exodus 30:13). Tap the weights for the right pan."),
-      left: "The shekel stone", target: 20, unit: "gerahs", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
+      left: "One shekel", target: 20, unit: "gerahs", bg: "spice-stall", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
       light: "The pans do not level. Twenty gerahs to the shekel.", heavy: "Too heavy: the stone rises. A shekel is twenty gerahs, no more.",
       done: () => { K.card('<div class="kick">The spice seller</div><h2>“A just weight”</h2><p>The pans level. The seller nods, and tips a spoon of zaatar into a paper twist for you. “A just weight is his delight. You will need one of these.” He drops a small bronze weight into the twist: <b>one bekah, half a shekel</b>. Folded round it, blue at the edges, a page.</p><button class="cta" data-act="x">Unfold the page</button>',
         { x: () => { W().flags.bekah = 1; save(); pzDone("scales", () => finish("market")); } }); } }) },
@@ -857,7 +897,7 @@
     halfshekel: { label: "Pay the trader", run: () => weigh({ title: "Half a shekel", kick: "The bazaar", intro: verse("This they shall give… half a shekel after the shekel of the sanctuary: (a shekel is twenty gerahs:) an half shekel shall be the offering of the LORD.", "Exodus 30:13") +
       '<div class="fq">The trader holds up an old map of the City of David. “For you? Half a shekel. The Temple tax. Pay me the old way, in weights, and it is yours.”</div>' + q("Make exactly half a shekel on the pan. The bekah from the spice seller is in your pocket."),
       left: "Half a shekel", target: 10, unit: "gerahs", btn: "Pay",
-      weights: [["The bekah from the market", 10], ["A gerah", 1], ["Two gerahs", 2], ["Five gerahs", 5], ["A full shekel", 20]],
+      weights: [["The bekah from the market", 10, "weight-3"], ["A gerah", 1, "weight-5"], ["Two gerahs", 2, "weight-5"], ["Five gerahs", 5, "weight-4"], ["A full shekel", 20, "weight-1"]],
       light: "“Not enough, my friend. Half a shekel: ten gerahs.”", heavy: "“Too much! I am an honest man. Ten gerahs, no more.”",
       done: () => { K.card('<div class="kick">The trader</div><h2>“Sold”</h2><p>“The bekah. Half a shekel, the price of a man before God: the same for rich and poor” (Exodus 30:15). He hands you a map of David’s cities. “First Hebron, where David was king seven years. Then Zion, and the ridge where Jerusalem began.”</p><button class="cta" data-act="x">To Hebron</button>', { x: () => pzDone("halfshekel", () => finish("bazaar")) }); } }) },
     bought: { label: "Bought, not taken", run: () => ask({ title: "Bought, not taken", kick: "The Cave of Machpelah", intro: verse("And Abraham weighed to Ephron the silver, which he had named in the audience of the sons of Heth, four hundred shekels of silver, current money with the merchant.", "Genesis 23:16") +
@@ -877,16 +917,16 @@
       text: ["Nevertheless David took the strong hold of ", "ZION", ": the same is the city of ", "DAVID", "."], ref: "2 Samuel 5:7", chips: ["ZION", "DAVID", "MORIAH", "SAUL", "HEBRON", "JEBUS"],
       bad: { MORIAH: "Moriah is the Temple hill, just north. David took the city first.", JEBUS: "The Jebusites held it; Zion is what David took." },
       done: () => { K.card('<div class="kick">The City of David</div><h2>Where it began</h2><p>This ridge is Zion, David’s city. The Temple Mount is the higher hill just north of it, which David bought from Ornan the Jebusite. The city grew up the hill toward the house of God. Follow the steps down to the spring.</p><button class="cta" data-act="x">Down to the spring</button>', { x: () => pzDone("zionq", () => finish("cod", () => walk(V("descent")))) }); } }) },
-    lampstone: { label: "Look along the rock", run: () => find({ title: "The anointing of Solomon", kick: "The Gihon Spring", intro: verse("And Zadok the priest took an horn of oil out of the tabernacle, and anointed Solomon. And they blew the trumpet; and all the people said, God save king Solomon.", "1 Kings 1:39"),
-      q: "Five stones at the water’s edge. One carries the Watchman’s lamp. Tap the stones.", counter: "Found", last: "Light the lamp",
-      spots: [{ label: "A wet stone", at: [8, 70], w: 16, h: 14, decoy: true, text: "Wet, green, nothing on it." }, { label: "A flat stone", at: [30, 74], w: 16, h: 14, decoy: true, text: "Flat and dry. Nothing." }, { label: "A cracked stone", at: [52, 70], w: 16, h: 14, decoy: true, text: "Cracked through. Nothing." }, { label: "A stone with a mark", at: [74, 76], w: 16, h: 14, text: "Scratched into the stone, small, a lamp. Beside it a splash of something dark that smells of olives: oil. Enough to fill your lamp for the tunnel." }, { label: "A rounded stone", at: [40, 50], w: 14, h: 12, decoy: true, text: "Round and smooth. Nothing." }],
+    lampstone: { label: "Look along the rock", run: () => find({ title: "The anointing of Solomon", kick: "The Gihon Spring", dark: true, img: "pz:gihon-wall", scene: "The rock wall by the spring", intro: verse("And Zadok the priest took an horn of oil out of the tabernacle, and anointed Solomon. And they blew the trumpet; and all the people said, God save king Solomon.", "1 Kings 1:39"),
+      q: "It is dark by the water. Drag your finger to carry the light along the wall. One stone carries the Watchman’s lamp.", counter: "Found", last: "Light the lamp",
+      spots: [{ label: "A wet stone", at: [8, 70], w: 16, h: 14, decoy: true, text: "Wet, green, nothing on it." }, { label: "A flat stone", at: [30, 74], w: 16, h: 14, decoy: true, text: "Flat and dry. Nothing." }, { label: "A cracked stone", at: [52, 70], w: 16, h: 14, decoy: true, text: "Cracked through. Nothing." }, { label: "A stone with a mark", at: [80, 56], w: 16, h: 14, text: "Scratched into the stone, small, a lamp. Beside it a splash of something dark that smells of olives: oil. Enough to fill your lamp for the tunnel." }, { label: "A rounded stone", at: [40, 50], w: 14, h: 12, decoy: true, text: "Round and smooth. Nothing." }],
       done: () => { W().flags.lit = 1; save(); K.card('<div class="kick">The Gihon Spring</div><h2>Oil for the dark</h2><p>You fill the lamp. Solomon was anointed with oil at this water, and built the house. You will need the light: the tunnel ahead is 533 metres of darkness.</p><button class="cta" data-act="x">To the tunnel mouth</button>', { x: () => pzDone("lampstone", () => finish("gihon", () => walk(V("mouth")))) }); } }) },
-    darktunnel: { label: "Go in", run: () => find({ title: "Hezekiah’s Tunnel", kick: "In the dark", dark: true, img: "hezekiah-tunnel", scene: "Cold water, rough rock, the sound of your own breathing", intro: verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30"),
+    darktunnel: { label: "Go in", run: () => find({ title: "Hezekiah’s Tunnel", kick: "In the dark", dark: true, img: "pz:tunnel-meet", scene: "Cold water, rough rock, the sound of your own breathing", intro: verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30"),
       q: "Drag your finger to carry the lamp through the tunnel. Find the three things the Watchman marked.", counter: "Found", last: "Out into the light",
       spots: [
-        { label: "The chisel marks", at: [22, 30], text: "Pick marks in the rock, slanting one way, then, further on, slanting the other. Two teams of diggers, starting from each end, cutting toward each other in the dark." },
-        { label: "The meeting point", at: [60, 55], text: "Here the two tunnels met: the ceiling jumps, the walls do not quite line up. The Siloam Inscription was cut into the wall here in 701 BC: “…the quarrymen struck, each toward his fellow, pick against pick, and the water flowed from the spring to the pool.” The stone itself is in Istanbul." },
-        { label: "A lamp on the wall", at: [40, 80], text: "Scratched into the rock at shoulder height, a small lamp, and under it a word: WEST. The tunnel bends, but it is heading west, under the city, as the Chronicler said." },
+        { label: "The chisel marks", at: [20, 40], text: "Pick marks in the rock, slanting one way, then, further on, slanting the other. Two teams of diggers, starting from each end, cutting toward each other in the dark." },
+        { label: "The meeting point", at: [72, 37], text: "Here the two tunnels met: the ceiling jumps, the walls do not quite line up. The Siloam Inscription was cut into the wall here in 701 BC: “…the quarrymen struck, each toward his fellow, pick against pick, and the water flowed from the spring to the pool.” The stone itself is in Istanbul." },
+        { label: "A lamp on the wall", at: [12, 72], text: "Scratched into the rock at shoulder height, a small lamp, and under it a word: WEST. The tunnel bends, but it is heading west, under the city, as the Chronicler said." },
       ],
       done: () => { K.card('<div class="kick">Hezekiah’s Tunnel</div><h2>Through the hill</h2><p>Half a kilometre of rock, cut from both ends by men with picks and lamps, meeting in the middle. The water still runs. Ahead, a grey light grows: the pool.</p><button class="cta" data-act="x">Out to the pool</button>', { x: () => pzDone("darktunnel", () => finish("hezekiah", () => go(byId.siloam))) }); } }) },
     siloamq: { label: "The pool", run: () => fill({ title: "Sent", kick: "The Pool of Siloam", intro: q("On the top step, scratched in the stone in the same hand as the journal, the verse, with three words left out."),
@@ -968,6 +1008,6 @@
 
   Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
-    backpack, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
+    backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
     stats: () => st };
 })();

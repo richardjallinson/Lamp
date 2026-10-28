@@ -372,7 +372,7 @@
       (p.ti.lock ? '<div class="fok">The case stands open. A rolled parchment lies inside.</div><button class="fbtn glow" id="fparch">' + (p.ti.scroll ? "Read the parchment again" : "Read the parchment") + "</button>" :
       '<div class="fq">The case is locked with three brass dials, each engraved with instruments. A small plate beneath them reads:</div>' +
       '<div class="fplate">“The song of the Levites: the last psalm, the third verse.”</div>' +
-      '<div class="fdials" id="fdials">' + [0, 1, 2].map((d) => '<div class="fdial"><button data-d="' + d + '" data-s="-1" aria-label="Turn dial ' + (d + 1) + ' up">▲</button><b id="fdv' + d + '"></b><button data-d="' + d + '" data-s="1" aria-label="Turn dial ' + (d + 1) + ' down">▼</button></div>').join("") + "</div>" +
+      '<div id="flockhere"></div>' +
       '<button class="fbtn" id="ftry">Try the lock</button>' +
       (p.ti.psalter ? "" : '<div class="fsmall">Which psalm is the last? Perhaps something in the entrance hall will tell you.</div>')), "ti-instruments.jpg");
     const fp = $("fparch"); if (fp) fp.onclick = () => { S("parchment", "click"); scroll(); };
@@ -385,9 +385,8 @@
         "<p><b>Its purpose in the Temple.</b> " + esc(c.what) + "</p>" + '<button class="cta" data-act="x">Back to the case</button>', { x: () => {} });
     }));
     const dials = p.ti.dials || [1, 3, 5]; let tries = 0;
-    const drawD = () => [0, 1, 2].forEach((d) => { const e = $("fdv" + d); if (e) e.textContent = INSTR[dials[d]][0]; });
-    drawD();
-    s.querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => { const d = +b.dataset.d; dials[d] = (dials[d] + +b.dataset.s + INSTR.length) % INSTR.length; p.ti.dials = dials.slice(); save(); S("dial", "click", 0.5); drawD(); }));
+    const lh = $("flockhere");
+    if (lh && Lamp.fsyWalk) { const L = Lamp.fsyWalk.lockUI({ faces: INSTR.map((x) => x[0]), words: true, v: dials, onTurn: () => { p.ti.dials = dials.slice(); save(); } }); lh.innerHTML = L.html; L.wire(lh); }
     const tr = $("ftry"); if (tr) tr.onclick = () => {
       const want = ["Trumpet", "Psaltery", "Harp"], got2 = dials.map((i) => INSTR[i][0]);
       if (got2.join() !== want.join()) {
