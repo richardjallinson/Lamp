@@ -89,7 +89,7 @@
     ] });
   S({ id: "benyehuda", act: 1, title: "Ben Yehuda Street", kick: "Downtown", music: "m10", amb: "street",
     views: [
-      { id: "street", img: null, cap: "Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner", hank: "Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.",
+      { id: "street", img: "benyehuda-street", cap: "Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner", hank: "Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.",
         go: { fwd: "corner" }, who: ["violinist"] },
       { id: "corner", img: "grey-away", cap: "The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back", go: { back: "street" },
         hots: [{ box: [50, 20, 45, 60], label: "The doorway he came out of", act: "greyDoor" }] },
@@ -97,9 +97,11 @@
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
       { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
-      { id: "inside", img: "gabriel-inside", cap: "The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour", go: { back: "street", left: "shelf" }, puzzle: "souvenir", who: ["gabriel"],
-        hots: [{ box: [0, 60, 100, 30], label: "The counter", act: "shop" },
-          { box: [40, 24, 20, 8], label: "The golden Ark", text: "A little golden model of the Ark of the Covenant, the cherubim facing each other on its lid, up on the top shelf. Remember it: you will see the real-size one at the Temple Institute." }] },
+      { id: "inside", img: "gabriel-counter", cap: "Inside: the glass counter, shelves of menorahs and silver cups behind it, and the window onto the street", go: { back: "street", left: "shelf", right: "window" }, puzzle: "souvenir", who: ["gabriel"],
+        hots: [{ box: [0, 50, 100, 40], label: "The counter", act: "shop" },
+          { box: [45, 2, 40, 14], label: "The menorahs on the top shelf", text: "Brass menorahs, seven branches and nine, in every size. “Thou shalt make a candlestick of pure gold… six branches shall come out of the sides of it” (Exodus 25:31–32)." }] },
+      { id: "window", img: "gabriel-inside", cap: "The window from inside: GABRIEL in gold on the glass, books and silver on the sill, a golden Ark on the top shelf", go: { left: "inside" },
+        hots: [{ box: [40, 24, 20, 8], label: "The golden Ark", text: "A little golden model of the Ark of the Covenant, the cherubim facing each other on its lid, up on the top shelf. Remember it: you will see the real-size one at the Temple Institute." }] },
       { id: "shelf", img: "gabriel-shelf", cap: "A shelf inside: a silver kiddush cup, a name in painted letters, Havdalah candles below", go: { right: "inside" },
         hots: [{ box: [12, 2, 28, 40], label: "The silver cup", text: "A kiddush cup, engraved with the walls of Jerusalem: the cup of blessing over wine on the Sabbath. “The cup of blessing which we bless” (1 Corinthians 10:16)." }] },
       { id: "synagogue", img: "synagogue", cap: "Up King George Street: the Jerusalem Great Synagogue", go: { back: "street", fwd: "doors" },

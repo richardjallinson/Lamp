@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 169 of 170 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 171 of 171 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -65,7 +65,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `benyehuda-street` | Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner |
+| ✓ | `benyehuda-street` | Ben Yehuda Street: cafe tables, strings of lights, and an old man playing the violin by the corner |
 | ✓ | `grey-away` | The corner of King George Street: a man in a grey coat comes out of a doorway twenty metres ahead and walks away without looking back |
 
 **Hank says:**
@@ -77,7 +77,8 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `gabriel-street` | Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass |
-| ✓ | `gabriel-inside` | The window: GABRIEL in gold, shelves of books and silver, a golden Ark on the top shelf, menorahs of every colour |
+| ✓ | `gabriel-counter` | Inside: the glass counter, shelves of menorahs and silver cups behind it, and the window onto the street |
+| ✓ | `gabriel-inside` | The window from inside: GABRIEL in gold on the glass, books and silver on the sill, a golden Ark on the top shelf |
 | ✓ | `gabriel-shelf` | A shelf inside: a silver kiddush cup, a name in painted letters, Havdalah candles below |
 | ✓ | `synagogue` | Up King George Street: the Jerusalem Great Synagogue |
 | ✓ | `synagogue-doors` | The great doors, panel after panel, and above them the tall windows |

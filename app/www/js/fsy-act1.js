@@ -7,7 +7,7 @@
   const Lamp = window.Lamp; const FW = Lamp.fsyWalk; if (!FW) return;
   const H = FW.H, C = FW.core, W = FW.W, K = Lamp.adv.kit, F = Lamp.fsy.parts, esc = K.esc, $ = (id) => document.getElementById(id);
   const PP = "img/fsy/people/";
-  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef", "gabriel", "guide", "violinist", "halva", "baker", "dudu"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
+  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef", "gabriel", "guide", "violinist", "halva", "baker", "dudu", "coffeeman", "fishman"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
   const save = () => Lamp.save();
   /* adventure state, inside the episode's save */
   const A = () => { const w = W(); if (!w.a) w.a = { money: 100, items: {}, rides: 0, facts: [], asked: {}, q: {}, f: {}, rode: {} }; return w.a; };

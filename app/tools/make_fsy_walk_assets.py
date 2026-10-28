@@ -198,6 +198,8 @@ PHOTOS = {
     "airport-signs": "photos/oct28/airport-train-signs-painting.png",
     "airport-machine": "photos/oct28/ticket-machine-painting.png",
     "grey-away": "photos/oct28/man-in-grey-walking-away-painting.png",   # the man in grey, from behind (painting)
+    "benyehuda-street": "photos/oct28/ben-yehuda-street-painting.png",
+    "gabriel-counter": "photos/oct28/gabriel-counter-painting.png",
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),
@@ -228,7 +230,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard", "map-old", "map-city", "intro-desk", "airport-signs", "airport-machine", "grey-away"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard", "map-old", "map-city", "intro-desk", "airport-signs", "airport-machine", "grey-away", "benyehuda-street", "gabriel-counter"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):
