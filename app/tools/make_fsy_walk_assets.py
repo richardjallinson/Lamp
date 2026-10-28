@@ -45,6 +45,13 @@ PHOTOS = {
     "jq-cardo-2": "photos/oct27/cardo-columns-2.png",
     "jq-cardo-sign": "photos/oct27/western-cardo-sign.png",
     "gtomb-2": "photos/oct27/garden-tomb-front.png",
+    "market-stall": "photos/oct27/market-ice-cream-stall.png",
+    "robinson-wide": "photos/oct27/robinsons-arch-area-wide.png",
+    "robinson-above": "photos/oct27/fallen-stones-from-above.png",
+    "robinson-wall": ("photos/oct27/robinsons-arch-wall-video-still.png", (0, 463, 1125, 1778)),
+    "robinson-springer": "photos/oct27/robinsons-arch-springer.png",
+    "mughrabi-0": "photos/oct27/fallen-stones-and-mughrabi-ramp.png",
+    "dung-gate": ("photos/oct27/dung-gate.png", (0, 469, 1125, 1960)),
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

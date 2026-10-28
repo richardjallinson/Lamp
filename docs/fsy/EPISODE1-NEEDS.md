@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 29 of 84 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 35 of 88 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -41,7 +41,7 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `market-street` | The main lane of the market, under its glass roof: sweets, spices, coffee, noise |
 | ☐ | `market-bread` | The bread stall: challah and pita, still warm |
-| ☐ | `market-juice` | The pomegranate juice stall |
+| ✓ | `market-stall` | A sweet stall: ice cream, fruit and toppings in rows of little tubs |
 | ☐ | `market-spice` | The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance |
 
 **Hank says:**
@@ -258,7 +258,10 @@ _Built earlier, with its own photos already in the game._
 | Have | File | The picture |
 | --- | --- | --- |
 | ☐ | `steps-steps` | The Southern Steps: the broad stair up to the Huldah Gates, wide and narrow steps by turns |
-| ✓ | `robinson-1` | Round the corner: Robinson’s Arch, and the street below it, under the fallen stones |
+| ✓ | `robinson-wide` | Round the corner: the south-west corner of the Temple Mount, the fallen stones on the Herodian street, and the wooden Mughrabi ramp high above |
+| ✓ | `robinson-above` | Looking down from the walkway: the stones piled where they landed against the Wall |
+| ✓ | `robinson-wall` | Along the Western Wall to the corner: the stump of Robinson’s Arch, and the heap of stones beneath it |
+| ✓ | `robinson-springer` | Robinson’s Arch: the first stones of a great arch, still jutting from the Wall |
 | ✓ | `robinson-2` | The stones from the top of the Wall, lying on the broken Herodian street |
 
 **Hank says:**
@@ -276,7 +279,7 @@ _Built earlier, with its own photos already in the game (the Temple Institute ha
 
 | Have | File | The picture |
 | --- | --- | --- |
-| ☐ | `dung-gate` | The Dung Gate, the small gate in the south wall nearest the Western Wall |
+| ✓ | `dung-gate` | The Dung Gate, the small gate in the south wall nearest the Western Wall |
 | ☐ | `dung-road` | The road outside the gate, and a locked iron gate across the path down into the Kidron Valley |
 
 **Hank says:**
@@ -332,6 +335,7 @@ _Built earlier, with its own photos already in the game._
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `mughrabi-0` | From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate |
 | ✓ | `mughrabi-1` | The entrance to the wooden Mughrabi bridge, from the Western Wall plaza |
 | ✓ | `mughrabi-2` | Inside the covered bridge, climbing above the plaza |
 | ✓ | `mughrabi-3` | The last stretch of the ramp, to the gate in the wall |

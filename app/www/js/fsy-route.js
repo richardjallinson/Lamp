@@ -67,7 +67,7 @@
       { id: "street", img: "market-street", cap: "The main lane of the market, under its glass roof: sweets, spices, coffee, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
         go: { fwd: "spice", left: "bread", right: "juice" }, hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },
       { id: "bread", img: null, cap: "The bread stall: challah and pita, still warm", go: { right: "street" }, hots: [{ box: [10, 30, 80, 50], label: "The baker", text: "“Shabbat shalom! Bread? No? The spices are that way, my friend. Ask for a just weight.” He laughs." }] },
-      { id: "juice", img: null, cap: "The pomegranate juice stall", go: { left: "street" }, hots: [{ box: [10, 20, 80, 60], label: "The pomegranates", text: "Pomegranates, split open, the colour of garnets. “Upon the hem of it thou shalt make pomegranates of blue, and of purple, and of scarlet” (Exodus 28:33): the High Priest’s robe was hung with them." }] },
+      { id: "juice", img: "market-stall", cap: "A sweet stall: ice cream, fruit and toppings in rows of little tubs", go: { left: "street" }, hots: [{ box: [50, 50, 45, 22], label: "The fruit", text: "Mango, figs, pomegranate seeds, grapes: the fruits of the land. “A land of wheat, and barley, and vines, and fig trees, and pomegranates; a land of oil olive, and honey” (Deuteronomy 8:8)." }] },
       { id: "spice", img: null, cap: "The spice seller’s stall: sacks of cumin, sumac and zaatar, and an old brass balance", go: { back: "street" }, puzzle: "scales",
         hots: [{ box: [5, 5, 50, 30], label: "The sacks of spice", text: "Cumin, coriander, sumac, hyssop. “Purge me with hyssop, and I shall be clean” (Psalm 51:7)." }] },
     ] });
@@ -220,8 +220,13 @@
     views: [
       { id: "steps", img: null, cap: "The Southern Steps: the broad stair up to the Huldah Gates, wide and narrow steps by turns", hank: "The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.",
         go: { fwd: "robinson" }, puzzle: "ascents" },
-      { id: "robinson", img: "robinson-1", cap: "Round the corner: Robinson’s Arch, and the street below it, under the fallen stones", go: { back: "steps", fwd: "stones" }, hank: "Round the south-west corner, the stones the Romans threw down still lie where they fell." },
-      { id: "stones", img: "robinson-2", cap: "The stones from the top of the Wall, lying on the broken Herodian street", go: { back: "robinson" }, puzzle: "robinson" },
+      { id: "robinson", img: "robinson-wide", cap: "Round the corner: the south-west corner of the Temple Mount, the fallen stones on the Herodian street, and the wooden Mughrabi ramp high above", go: { back: "steps", fwd: "wall", left: "above" }, hank: "Round the south-west corner, the stones the Romans threw down still lie where they fell.",
+        hots: [{ box: [38, 26, 25, 12], label: "The wooden ramp above", text: "High above, the covered wooden Mughrabi bridge: the only way up onto the Mount for a Jew or a Christian today. You will climb it at the end." }] },
+      { id: "above", img: "robinson-above", cap: "Looking down from the walkway: the stones piled where they landed against the Wall", go: { right: "robinson" } },
+      { id: "wall", img: "robinson-wall", cap: "Along the Western Wall to the corner: the stump of Robinson’s Arch, and the heap of stones beneath it", go: { back: "robinson", fwd: "springer" } },
+      { id: "springer", img: "robinson-springer", cap: "Robinson’s Arch: the first stones of a great arch, still jutting from the Wall", go: { back: "wall", fwd: "stones" },
+        hots: [{ box: [10, 22, 70, 12], label: "The arch stones", text: "The arch carried a monumental stairway from the street up to the Royal Stoa on the Temple Mount. Edward Robinson noticed the curved stones in 1838. The rest of the arch lies in the street below." }] },
+      { id: "stones", img: "robinson-2", cap: "The stones from the top of the Wall, lying on the broken Herodian street", go: { back: "springer" }, puzzle: "robinson" },
     ] });
 
   /* ---- Act 4 ---- */
@@ -229,7 +234,7 @@
     views: [{ id: "in", img: null, cap: "" }] });
   S({ id: "dung", act: 4, title: "The Dung Gate", kick: "Moses", music: "m20", amb: "street",
     views: [
-      { id: "gate", img: null, cap: "The Dung Gate, the small gate in the south wall nearest the Western Wall", hank: "Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.",
+      { id: "gate", img: "dung-gate", cap: "The Dung Gate, the small gate in the south wall nearest the Western Wall", hank: "Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.",
         go: { fwd: "road" } },
       { id: "road", img: null, cap: "The road outside the gate, and a locked iron gate across the path down into the Kidron Valley", go: { back: "gate" }, puzzle: "moses" },
     ] });
@@ -263,8 +268,10 @@
   /* ---- Act 5 ---- */
   S({ id: "mughrabi", act: 5, title: "The Mughrabi Gate", kick: "The only way up", music: "m24", amb: "street",
     views: [
+      { id: "below", img: "mughrabi-0", cap: "From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate", go: { fwd: "entrance" },
+        hots: [{ box: [0, 12, 35, 20], label: "The ramp", text: "The covered wooden ramp runs from the Western Wall plaza up to the Mughrabi Gate. It was built as a temporary bridge after the old earth ramp collapsed in 2004, and it is still there." }] },
       { id: "entrance", img: "mughrabi-1", cap: "The entrance to the wooden Mughrabi bridge, from the Western Wall plaza", hank: "The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.",
-        go: { fwd: "inside" } },
+        go: { fwd: "inside", back: "below" } },
       { id: "inside", img: "mughrabi-2", cap: "Inside the covered bridge, climbing above the plaza", go: { back: "entrance", fwd: "ramp" },
         hots: [{ box: [0, 0, 100, 50], label: "The plaza below", text: "Through the slats, the Western Wall plaza falls away below you. You are climbing the height of the Wall." }] },
       { id: "ramp", img: "mughrabi-3", cap: "The last stretch of the ramp, to the gate in the wall", go: { back: "inside", fwd: "top" } },
