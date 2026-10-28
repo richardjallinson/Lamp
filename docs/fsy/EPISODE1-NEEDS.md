@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 165 of 165 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 166 of 168 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -8,7 +8,16 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 ### 1. Ben Gurion Airport (Welcome to Israel)
 
-_Built earlier, with its own photos already in the game._
+| Have | File | The picture |
+| --- | --- | --- |
+| ✓ | `airport-1` | The arrivals hall at Ben Gurion, the journal in your bag |
+| ☐ | `airport-signs` | Signs with a train on them, pointing down the escalator to the airport station |
+| ☐ | `airport-machine` | The ticket machines at the airport station, a list of destinations on the screen |
+
+**Hank says:**
+
+- `w-airport-hall`: “Ben Gurion. Read the first page again before you go: it tells you the way.”
+- `w-airport-signs`: “Trains, down the escalator. Down first, so you can go up.”
 
 ### 2. The train to Jerusalem (Navon station)
 
@@ -21,7 +30,7 @@ _Built earlier, with its own photos already in the game._
 **Hank says:**
 
 - `w-train-board`: “Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.”
-- `w-train-navon`: “Eighty metres underground, and now up. You have come to Jerusalem.”
+- `w-train-navon`: “Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.”
 
 ### 3. The light rail (Jaffa Road)
 

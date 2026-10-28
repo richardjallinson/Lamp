@@ -1,10 +1,16 @@
 HANK, EPISODE 1 WALKING VERSION. Paste each line as one generation, in this order, and send the files un-renamed.
 
+[w-airport-hall]
+Ben Gurion. Read the first page again before you go: it tells you the way.
+
+[w-airport-signs]
+Trains, down the escalator. Down first, so you can go up.
+
 [w-train-board]
 Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.
 
 [w-train-navon]
-Eighty metres underground, and now up. You have come to Jerusalem.
+Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.
 
 [w-rail-stop]
 The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.

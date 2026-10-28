@@ -372,3 +372,16 @@
 #adv .fmapkey .k.here{background:#C9A24A}
 #adv .fmapkey .k.done{background:#2E6B45;border-color:#CDEFD6}
 #adv .fmapkey .k.locked{opacity:.45;border-color:#777}
+
+/* the backpack */
+#adv .fbag{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+#adv .fbag div{padding:10px 12px;border-radius:12px;background:#F3EBD6;border:1px solid #D9CFB6}
+#adv .fbag b{display:block;font:800 15px var(--ui);color:#141A33}
+#adv .fbag small{display:block;margin-top:2px;font:500 13px/1.35 var(--ui);color:#5A5040}
+
+/* the Lamplighter's desk (his words until his film is in) */
+#adv .fdesk{margin:4px 14px;padding:16px 18px;border-radius:14px;background:rgba(20,26,51,.82);border:1px solid rgba(201,162,74,.5);color:#EDE3C8;font:400 17px/1.5 Georgia,serif}
+#adv .fdesk p{margin:0 0 12px}
+#adv .fdesk b{color:#F3DFA6}
+#adv .fdesk small{display:block;margin-top:6px;font:700 11px var(--ui);letter-spacing:.15em;text-transform:uppercase;color:#C9A24A}
+#adv .ffilm{width:calc(100% - 28px);border-radius:14px;border:1px solid rgba(201,162,74,.5)}

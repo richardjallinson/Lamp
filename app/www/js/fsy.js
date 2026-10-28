@@ -154,30 +154,38 @@
     st = { misses: 0, hints: 0, t0: Date.now() };
     K.open(BOOK + " · Episode 1", { hint: hint }, "fsy");
     const p = P();
-    if (!p.began) { p.began = 1; save(); return intro(); }
+    if (!p.began || !p.watchCard) { p.began = 1; save(); return intro(); }
     stops();
   }
   /* the route map (js/fsy-route.js) replaces the old list of four stops */
   function stops() { if (Lamp.fsyWalk) Lamp.fsyWalk.map(); }
+  /* The opening: the Lamplighter at his desk hands you the Watchman's journal (like Atrus in Riven).
+     Richard will film it. Until then the words show on screen. When the film is ready, put it in
+     video/fsy/ and set INTRO_FILM to its name, e.g. "video/fsy/lamplighter-desk.mp4". */
+  const INTRO_FILM = null;
+  const INTRO_WORDS = [
+    "You came. Good. Sit down. I haven’t much time, and neither, I think, have you.",
+    "This journal belonged to a man I knew only as the Watchman. He spent years in Jerusalem, walking its walls, going down into its tunnels, measuring its stones. He was looking for one thing. The one thing everyone says they already know: <b>where the Temple stood.</b>",
+    "The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. Only one thing is missing: the place. For thirteen centuries the world has assumed it knew. The Watchman was not so sure.",
+    "Before he disappeared, he tore out the pages and left them in the city, one at each place that mattered, each signed with a small drawn lamp. One page he left with me: the first. <b>The other eleven are out there.</b>",
+    "I can’t go. There is a man in a grey coat who has been at the edges of my days for some weeks now. I don’t know who sent him. But I know he wants the pages.",
+    "So it falls to you. Find the pages. Read them in the places he left them. Look at the evidence with your own eyes. And when you have all twelve, stand on the Mount and decide for yourself where the house of God once stood, and where it will stand again.",
+    "“I have set watchmen upon thy walls, O Jerusalem, which shall never hold their peace day nor night.” He kept his watch. Now keep yours. <b>Go up to Jerusalem.</b>",
+  ];
   function intro() {
-    cur = ""; M("theme", "airport");
-    const s = stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>' + EP + "</h1>" +
-      '<div class="fnarr">“The Bible says a Temple will stand again in Jerusalem, in the last seven years. The vessels are ready. The priests are trained. The plans are drawn. <b>Only one thing is missing: the place.</b> For thirteen centuries the world has assumed it knew where the Temple stood. Come with me through Jerusalem, look at the evidence, and decide for yourself.”<small>The Lamplighter</small></div>' +
-      photo("ben-gurion.jpg", "Welcome to Israel. Ben Gurion Airport: the investigation begins here.", "Photo: Richard J. Allinson, on landing in Israel") +
-      '<button class="fbtn glow" id="fgo">Go up to Jerusalem</button>');
+    cur = ""; M("theme", "chamber");
+    const film = INTRO_FILM ? '<video class="ffilm" src="' + INTRO_FILM + '" playsinline controls autoplay></video>' :
+      '<div class="fdesk">' + INTRO_WORDS.map((t) => "<p>" + t + "</p>").join("") + "<small>The Lamplighter · his film will play here</small></div>";
+    stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>The Lamplighter’s desk</h1>' + film +
+      '<button class="fbtn glow" id="fgo">Take the journal</button>', "temple-painting.jpg");
     $("fgo").onclick = () => {
-      K.sfx("click"); const p = P();
-      if (p.watchCard) { stops(); return; }
-      p.watchCard = 1; save(); S("parchment");
-      K.card('<div class="kick">At the luggage carousel</div><h2>Someone knew you were coming</h2>' +
-        "<p>Your bag comes round the carousel. Tucked under the strap is a small leather journal that was not there when you packed. Most of its pages are blank. The last ones have been torn out. On the first page, in blue ink, in a hand that is not yours, a verse and a question, and a small drawn lamp.</p>" +
-        wnote("“I have set watchmen upon thy walls, O Jerusalem, which shall never hold their peace day nor night.”<small>Isaiah 62:6</small>") +
-        wnote("“Where did the Temple stand? Don’t trust the first answer.”") +
-        "<p>A watchman, on the walls of Jerusalem. Twelve pages are missing. You put the journal in your bag, and take the train up to the city.</p>" +
-        '<button class="cta" data-act="x">To the train</button>', { x: () => { if (Lamp.fsyWalk) { Lamp.fsyWalk.W().pages[1] = 1; save(); Lamp.fsyWalk.keptDone("airport"); } } });
-      V("01b-luggage");
+      K.sfx("click"); const p = P(); p.watchCard = 1; save(); S("parchment");
+      const W = Lamp.fsyWalk && Lamp.fsyWalk.W(); if (W) { W.pages[1] = 1; save(); }
+      K.card('<div class="kick">The Watchman’s journal · page 1 of 12</div><h2>Blue ink, and a small drawn lamp</h2>' +
+        wnote("“If you are reading this, he gave you the book. Then he trusts you, and so must I.<br><br>Do not believe what you are told about the Mount. Believe what you can see and measure. The city has been rebuilt on its own ruins so many times that the stones lie to the careless. They do not lie to the patient.<br><br>Begin where every pilgrim began: go <i>up</i>. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed.<br><br>Trust the man with the angel’s name. Be wary of the man in grey.”") +
+        "<p>The rest of the pages have been torn out. You put the journal in your backpack.</p>" +
+        '<button class="cta" data-act="x">Into the arrivals hall</button>', { x: () => { if (Lamp.fsyWalk) Lamp.fsyWalk.go("airport", "hall"); } });
     };
-    V("01-open");
   }
   /* which of the kept puzzles are finished (for the route map) */
   function keptDone(k) { const p = P(); return k === "intro" ? !!p.watchCard : k === "institute" ? !!p.ti.postcard : k === "prophets" ? !!p.tombs : k === "olives" ? !!p.olives : k === "robinson" ? !!p.robinson : k === "mount" ? !!(p.done && p.waqf) : k === "gate" ? !!p.gateDone : false; }
