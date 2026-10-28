@@ -108,6 +108,10 @@ PHOTOS = {
     "robinson-pier": "photos/oct28/robinson-pier-sign.png",
     "steps-steps": ("photos/oct28/southern-steps.png", (0, 0, 1125, 1840)),   # the hat at the bottom cropped off
     "zion-passage": "photos/oct28/gate-passage-night.png",
+    "cod-passage": ("photos/oct28/warren-tunnel-descent.png", None, [(440, 1200, 690, 1850), (705, 1215, 890, 1630)]),   # visitors blurred
+    "cod-watersign": "photos/oct28/warrens-shaft-water-system-sign.png",
+    "cod-entrysign": "photos/oct28/entrance-water-system-sign.png",
+    "gihon-mouth": "photos/oct28/gihon-spring-lit-NOT-RICHARDS-check.jpg",
     "zion-upper": ("photos/oct28/upper-room.png", (0, 470, 1125, 1730)),   # the vaults only, the crowd cropped off
     "zion-gatesign": "photos/oct28/zion-gate-sign.png",
     "church-altar": ("photos/oct28/all-nations-altar.png", None, [(830, 1450, 1125, 1966)]),   # people at the side blurred
@@ -190,8 +194,11 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
+NOBARS = {"gihon-mouth"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+
+
 def finish(im, name):
-    im = crop_bars(im.convert("RGB"))
+    im = im.convert("RGB") if name in NOBARS else crop_bars(im.convert("RGB"))
     im.thumbnail((1200, 1200), Image.LANCZOS)
     im = touch(im)
     im.save(os.path.join(OUT, name + ".jpg"), quality=82, optimize=True, progressive=True)

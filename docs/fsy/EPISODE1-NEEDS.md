@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 134 of 155 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 138 of 158 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -267,7 +267,10 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `cod-ruins` | Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top |
 | ✓ | `cod-tower` | The Hasmonean tower at the top of the slope |
 | ✓ | `cod-tower-sign` | The sign at the tower: Nehemiah’s call to rebuild the wall |
+| ✓ | `cod-entrysign` | A sign on the rock: “Entrance to the water system: Warren’s Shaft, the Gihon Spring, Hezekiah’s Tunnel” |
 | ✓ | `cod-descent` | Stairs down into the rock: the way to the ancient water system |
+| ✓ | `cod-passage` | A rock-cut tunnel sloping down, a rail on the left, an old clay jar in a lit niche |
+| ✓ | `cod-watersign` | A long sign on the wall: “Warren’s Shaft Water System” |
 | ✓ | `cod-shaft-sign` | The sign: “The water system, Warren’s Shaft” |
 | ✓ | `cod-shaft` | Warren’s Shaft: a natural chasm in the rock, lit blue, dropping toward the spring |
 
@@ -283,7 +286,7 @@ _Built earlier, with its own photos already in the game._
 | ✓ | `gihon-pool-sign` | The sign: “The Canaanite Pool” |
 | ✓ | `gihon-sign` | The sign: “The Gihon Spring, Jerusalem’s beating heart” |
 | ✓ | `gihon-canaanite` | The Canaanite channel: a dry, narrow cut in the rock, the older way the water ran, 1,000 years before Hezekiah |
-| ☐ | `gihon-mouth` | The mouth of Hezekiah’s Tunnel: dark water going into the rock |
+| ✓ | `gihon-mouth` | The spring at the mouth of Hezekiah’s Tunnel: water running out of the rock, lit gold |
 
 **Hank says:**
 
