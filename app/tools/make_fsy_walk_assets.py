@@ -52,6 +52,11 @@ PHOTOS = {
     "robinson-springer": "photos/oct27/robinsons-arch-springer.png",
     "mughrabi-0": "photos/oct27/fallen-stones-and-mughrabi-ramp.png",
     "dung-gate": ("photos/oct27/dung-gate.png", (0, 469, 1125, 1960)),
+    "mughrabi-security": "photos/oct27/mughrabi-security.png",
+    "mughrabi-benches": "photos/oct27/mughrabi-covered-benches.png",
+    "mughrabi-down": ("photos/oct27/western-wall-from-mughrabi-video-still.png", (0, 335, 1125, 1814)),
+    "mughrabi-open": ("photos/oct27/mughrabi-open-ramp.png", (0, 219, 1125, 2050)),
+    "mughrabi-near": ("photos/oct27/mughrabi-ramp-near-gate.png", (0, 219, 1125, 2050)),
 }
 FRAMES = {   # stills taken from Richard's films (the films themselves are no longer in the game)
     "mughrabi-4": ("video/tm-arrive.mp4", 67.7),

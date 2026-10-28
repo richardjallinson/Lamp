@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 35 of 88 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 40 of 93 viewpoints. Updated 2026-10-28.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -337,8 +337,13 @@ _Built earlier, with its own photos already in the game._
 | --- | --- | --- |
 | ✓ | `mughrabi-0` | From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate |
 | ✓ | `mughrabi-1` | The entrance to the wooden Mughrabi bridge, from the Western Wall plaza |
+| ✓ | `mughrabi-security` | The checkpoint inside the bridge: police on the benches, visitors waiting their turn to go up |
 | ✓ | `mughrabi-2` | Inside the covered bridge, climbing above the plaza |
-| ✓ | `mughrabi-3` | The last stretch of the ramp, to the gate in the wall |
+| ✓ | `mughrabi-benches` | Long benches under the wooden roof, sunlight striping the floor |
+| ✓ | `mughrabi-3` | The ramp climbs on toward the gate |
+| ✓ | `mughrabi-open` | Out from under the roof: the open ramp, the minaret above the Mughrabi Gate ahead |
+| ✓ | `mughrabi-down` | Looking down from the bridge: the Western Wall plaza, the men’s section, and the arch to Wilson’s prayer hall |
+| ✓ | `mughrabi-near` | The last few metres: the gate in the wall, under its minaret |
 | ✓ | `mughrabi-4` | Through the gate: the Temple Mount. Al-Aqsa on the right. And by the arcade, waiting, a man in a grey coat |
 
 **Hank says:**
