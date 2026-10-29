@@ -197,7 +197,7 @@
         '<div class="row"><span class="l"><b>Vibration</b><small>Gentle taps on your iPhone.</small></span>' + sw("haptics", st.haptics) + "</div></div>";
       if (Lamp.tester && Lamp.testerHTML) h += Lamp.testerHTML();
       h += '<div class="group"><button class="row" data-reset="1"><span class="l"><b style="color:#F0A59A">Reset progress</b><small>Starts Episode 1 again from the beginning on this iPhone.</small></span></button></div>';
-      h += '<p class="small-print">The Final Seven Years ' + VERSION + " · King James Version text<br>No account, no ads, no tracking. Your progress stays on this iPhone and in your own iCloud.</p>";
+      h += '<p class="small-print">Lamp - The Final Seven Years ' + VERSION + " · King James Version text<br>No account, no ads, no tracking. Your progress stays on this iPhone and in your own iCloud.</p>";
       h += '<p class="small-print">“I have set watchmen upon thy walls, O Jerusalem.” Isaiah 62:6</p>';
       return h;
     }
@@ -329,7 +329,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     if (Lamp.gameOnly) {
-      document.title = "The Final Seven Years";
+      document.title = "Lamp - The Final Seven Years";
       document.querySelectorAll('.tab[data-tab="today"],.tab[data-tab="gathered"]').forEach((t) => t.remove());
       const j = document.querySelector('.tab[data-tab="journey"]'); if (j) j.lastChild.textContent = "Episodes";
       const nav = document.querySelector(".tabs"); if (nav) nav.classList.add("two");
