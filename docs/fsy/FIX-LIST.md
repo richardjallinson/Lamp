@@ -34,3 +34,10 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 4 | The ticket machine becomes a real puzzle: (1) screen in Hebrew only, English button taped "out of order"; (2) match the Hebrew name of the top station on the wall route map (small Hebrew signs added at each dot) to the machine button, clerk hints with the yod; (3) pay exactly 17 shekels in coins from the envelope (10, 5, 2, 1, ½), "Exact fare only" | In v4a |
 | 5 | The fish counter picture is a blurry blown-up crop: replace it with a painting (prompt given), nobody behind the counter | In v4a |
 | 6 | The walking screen fits one phone screen, Riven-style: the picture fills the screen; title and a one-line task over its top (tap the task to read all); the Lamplighter as film subtitles over the bottom of the picture, two lines at a time, "1/2 ›", fades when done, a lamp button to bring it back; people as round faces on the picture, tapping one slides a dialogue panel up over the bottom half (only that panel may scroll); arrows just above a fixed bottom bar of Journal, Backpack, Map; the caption under the picture goes (tap the title to see it); the screen never scrolls | In v4a |
+
+## Next batch (for v4b)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Passport control before the arrivals hall: a border officer asks purpose, where you are going (answer from page 1: up, to Jerusalem), and what is in the bag; she sees the lamp on the journal and says a man in a grey coat asked this morning about a book with a lamp on it. You get the blue entry slip (Israel no longer stamps passports), needed at the exit gates | To do: two drawings (booths scene; the officer on black) |
+| 2 | Wide (landscape) pictures sit small with empty space: fill the height and drag left and right to look around (hotspots stay on their marks) | To do |
