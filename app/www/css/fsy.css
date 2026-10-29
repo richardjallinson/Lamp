@@ -365,9 +365,9 @@
 #adv .fmap{position:relative;flex:none;margin:0 12px;aspect-ratio:941/1672;border-radius:16px;overflow:hidden;border:2px solid rgba(201,162,74,.6)}
 #adv .fmap img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:fill!important;margin:0!important}
 #adv .fpin{position:absolute;transform:translate(-50%,-50%);background:none;border:none;padding:0;cursor:pointer}
-#adv .fpin i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#141A33;color:#F3DFA6;border:2px solid #C9A24A;font:800 12px var(--ui);font-style:normal;box-shadow:0 2px 6px rgba(0,0,0,.6)}
+#adv .fpin i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#141A33;color:#FFF3C4;border:2px solid #C9A24A;font:800 14px var(--ui);text-shadow:0 1px 2px #000;font-style:normal;box-shadow:0 2px 6px rgba(0,0,0,.6)}
 #adv .fpin.done i{background:#2E6B45;border-color:#CDEFD6;color:#fff}
-#adv .fpin.locked i{opacity:.45;border-color:#777;color:#aaa}
+#adv .fpin.locked i{background:rgba(14,18,36,.9);border:2px dashed #B9B3A2;color:#E8E2D0}
 #adv .fpin.here i{width:36px;height:36px;background:#C9A24A;color:#141A33;border-color:#FFF3C4;animation:fpinpulse 1.6s ease-in-out infinite}
 #adv .fpin.you:not(.here) i{border-color:#FFF3C4;box-shadow:0 0 0 4px rgba(255,243,196,.35),0 2px 6px rgba(0,0,0,.6)}
 #adv .fpin span{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;padding:3px 8px;border-radius:8px;background:rgba(20,26,51,.92);color:#F3DFA6;font:700 12px var(--ui)}

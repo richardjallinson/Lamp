@@ -492,6 +492,7 @@
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + " Journal · " + pages + "/12</button><button class=\"fwtool\" data-b=\"1\">" + bagIcon() + " Backpack</button><button class=\"fwtool\" data-list=\"1\">All places</button></div>" +
       (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>');
     const el = F.stage(h, "temple-painting.jpg");
+    { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = ""; t.onclick = null; } }   /* the map has its own heading: no place name on top of it */
     el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
       const s = byId[b.dataset.s]; K.sfx("click");
       if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; }
