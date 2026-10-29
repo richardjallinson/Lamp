@@ -23,3 +23,10 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 12 | The app is now "The Final Seven Years" alone (release.js GAME_ONLY): title screen "The Final Seven Years · Episode 1 · The Jerusalem Mystery", home with Episode 1 lit (Begin / Continue, pages found, progress) and Episodes 2–8 locked "Coming soon"; tabs Episodes and Settings; settings trimmed to music, narration, vibration; tester tools trimmed (plus "Play Act 1 as if done"). The word game, books and Genesis adventure are switched off, not deleted | In v3z |
 
 **Packaging (always):** the zip holds the whole project: Lamp-vXX/ with Lamp.xcodeproj, Lamp/, README.md and www/ (tools, sounds and design removed). Richard opens Lamp.xcodeproj and runs; he does not swap folders.
+
+## Next batch (from Richard playing v3z on his phone)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The journal's script font is hard to read: change it to a clear, readable face, and put every note and journal page on what looks like an old parchment Torah scroll (rolled ends, aged parchment, ink) | To do |
+| 2 | Found while checking #1: the page 1 card in the opening still ends "Trust the man with the angel's name." It must say "…at the number of the verse where Messiah is cut off" (the Gabriel 26 clue), as the journal itself does | To do |
