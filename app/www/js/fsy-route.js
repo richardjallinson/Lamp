@@ -873,26 +873,58 @@
   const grey = (t) => '<div class="fhim">' + esc(t) + "<small>The man in the grey coat</small></div>";
   const PUZZLES = {
     ticket: { label: "Buy a ticket", run: () => {
-      /* the route map on the station wall: five stations from the sea up into the hills. The page said: go up. */
-      const ST = [["Tel Aviv – Savidor", [12.8, 79.9], "By the sea. The page says up."], ["Tel Aviv – HaShalom", [36.1, 74.8], "Still on the coast plain. Not up."], ["Tel Aviv – HaHagana", [62.7, 59.8], "Back toward the sea. The page says up."], ["Ben Gurion Airport", [76.3, 42.1], "You are here."], ["Jerusalem – Yitzhak Navon", [87.4, 20.4], ""]];
-      let pick = null;
-      const el = screen("The ticket machine", "The airport station", q("On the wall beside the machines, a painted map of the line: from the sea, across the plain, and up into the mountains. The page said: go up. Tap a station, then buy.") +
-        '<div class="froute"><img draggable="false" src="' + PZ + 'route-map.jpg" alt="A painted map of the railway line, from the sea up into the mountains">' +
-        ST.map((st, i) => '<button class="froute-st' + (i === 3 ? " here" : "") + '" data-st="' + i + '" style="left:' + st[1][0] + "%;top:" + st[1][1] + '%" aria-label="' + esc(st[0]) + '"><span>' + (i === 3 ? "You are here" : "") + "</span></button>").join("") + "</div>" +
-        '<div class="froute-pick" id="frpick">No station chosen</div><button class="fbtn" id="frbuy" disabled>Buy a ticket</button>', null);
-      el.querySelectorAll("[data-st]").forEach((b) => (b.onclick = () => {
-        const i = +b.dataset.st; F.S("step", "click", 0.4);
-        el.querySelectorAll("[data-st]").forEach((x) => x.classList.toggle("on", x === b));
-        if (i === 3) { pick = null; $("frpick").textContent = "Ben Gurion Airport: you are here."; $("frbuy").disabled = true; return; }
-        pick = i; $("frpick").textContent = ST[i][0] + " · 17 ₪"; $("frbuy").disabled = false; $("frbuy").textContent = "Buy a ticket to " + ST[i][0].split(" – ")[1];
-      }));
-      $("frbuy").onclick = () => {
-        if (pick === null) return;
-        if (pick !== 4) { wrong(ST[pick][2]); return; }
-        if (H.pay && !H.pay(17, "the train ticket")) return;
-        W().flags.ticket = 1; save(); F.S("lock", null, 0.6); K.buzz("success");
-        K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>Seventeen shekels. The machine prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. Up, all the way to the top of the line. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) });
-      };
+      /* three steps: the machine speaks only Hebrew; the wall map shows which station is "up"; pay exactly 17 in coins */
+      const ST = [
+        { he: "תל אביב - סבידור מרכז", en: "Tel Aviv – Savidor", at: [12.8, 79.9], no: "That one is by the sea, the first stop on the map. The page says up." },
+        { he: "תל אביב - השלום", en: "Tel Aviv – HaShalom", at: [36.1, 74.8], no: "Still on the coast. The page says up." },
+        { he: "תל אביב - ההגנה", en: "Tel Aviv – HaHagana", at: [62.7, 59.8], no: "Back toward the sea. The page says up." },
+        { he: "נמל התעופה בן גוריון", en: "Ben Gurion Airport", at: [76.3, 42.1], no: "That is where you are standing." },
+        { he: "ירושלים - יצחק נבון", en: "Jerusalem – Yitzhak Navon", at: [87.4, 20.4] },
+      ];
+      const order = [3, 0, 4, 2, 1];   /* the machine lists them in its own order, not the map's */
+      const COINS = [10, 5, 5, 2, 1, 0.5, 0.5];
+      const fmt = (v) => (v % 1 ? (v === 0.5 ? "½" : Math.floor(v) + "½") : String(v));
+      let step = 1, inslot = [];
+      const el = screen("The ticket machine", "The airport station", '<div id="fticket"></div>', null);
+      const box = $("fticket");
+      const mapHTML = () => '<div class="froute small"><img draggable="false" src="' + PZ + 'route-map.jpg" alt="The painted map of the line on the station wall">' +
+        ST.map((st, i) => '<span class="froute-sign' + (i === 3 ? " here" : "") + (i === 0 ? " right" : "") + '" style="left:' + st.at[0] + "%;top:" + st.at[1] + '%"><i></i><b dir="rtl">' + st.he + "</b>" + (i === 3 ? "<em>You are here</em>" : "") + "</span>").join("") + "</div>";
+      function draw() {
+        if (step === 1) {
+          box.innerHTML = q("The page said: go up. The machine only speaks Hebrew today.") +
+            '<div class="fmachine"><div class="fm-top"><span>בחר יעד</span><button class="fm-lang" id="fmlang">English<i>out of order</i></button></div>' +
+            order.map((i) => '<button class="fm-dest" data-st="' + i + '" dir="rtl">' + ST[i].he + "</button>").join("") + "</div>" +
+            '<button class="fbtn alt" id="fmmap">Look at the map on the wall</button>';
+          $("fmlang").onclick = () => { F.S("knock", null, 0.4); K.say("Someone has taped over the button. In biro: “out of order”.", "", 2800); };
+          $("fmmap").onclick = () => { K.sfx("click"); K.card('<div class="kick">On the station wall</div><h2>The line, from the sea to the mountains</h2>' + mapHTML() + "<p>Every station has its name painted beside it, in Hebrew. The line ends at the top of the mountains.</p>" + '<button class="cta" data-act="x">Back to the machine</button>', { x: () => {} }); };
+          box.querySelectorAll("[data-st]").forEach((b) => (b.onclick = () => {
+            const i = +b.dataset.st;
+            if (i !== 4) { wrong(ST[i].no); return; }
+            F.S("dial", "click", 0.5); step = 2; draw();
+          }));
+        } else {
+          const sum = inslot.reduce((a, i) => a + COINS[i], 0);
+          box.innerHTML = q("Jerusalem, at the top of the line. The screen shows the fare, and under it two words you can read: coins only.") +
+            '<div class="fpay"><img draggable="false" src="' + PZ + 'coin-slot.jpg" alt="The coin slot and tray"><div class="fpay-screen"><b>17.00 ₪</b><small dir="rtl">מטבעות בלבד · coins only</small><span id="fpaid">' + fmt(sum) + " ₪ in</span></div>" +
+            '<div class="fpay-slot" id="fslot" aria-label="The coin slot"></div></div>' +
+            '<div class="fcoins">' + COINS.map((v, i) => '<button class="fcoin c' + String(v).replace(".", "") + (inslot.includes(i) ? " used" : "") + '" data-c="' + i + '" aria-label="' + fmt(v) + ' shekel coin">' + fmt(v) + "<small>₪</small></button>").join("") + "</div>" +
+            '<div class="fsmall">The change from the Lamplighter’s envelope. Tap a coin to drop it in the slot.</div>';
+          box.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
+            const i = +b.dataset.c; if (inslot.includes(i)) return;
+            inslot.push(i); F.S("parchment", "click", 0.6); K.buzz && K.buzz("tap");
+            const t = inslot.reduce((a, j) => a + COINS[j], 0);
+            if (t > 17) { setTimeout(() => { inslot = []; F.S("knock", null, 0.5); wrong("Clatter: every coin drops back into the tray. The screen flashes: exact fare only."); draw(); }, 350); draw(); return; }
+            if (t === 17) {
+              draw(); if (H.pay && !H.pay(17, "the train ticket")) return;
+              W().flags.ticket = 1; save(); F.S("lock", null, 0.6); K.buzz("success");
+              setTimeout(() => K.root() && K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>The machine whirs and prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. Up, all the way to the top of the line. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) }), 600);
+              return;
+            }
+            draw();
+          }));
+        }
+      }
+      draw();
     } },
     board: { label: "Read the board", run: () => fill({ title: "The departures board", kick: "The airport station", intro: q("The board shows your train: Jerusalem, Yitzhak Navon. Under it, someone has written on a scrap of paper and tucked it into the frame. A line of a psalm, with words missing, and a small drawn lamp."),
       text: ["Who shall ", "ASCEND", " into the hill of the LORD? or who shall stand in his ", "HOLY", " place?"], ref: "Psalm 24:3", chips: ["ASCEND", "HOLY", "DESCEND", "HIGH", "COME", "GREAT"],
@@ -1064,7 +1096,7 @@
     const v = view;
     if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
-    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "The page says up. Follow the red line on the wall map to the top of the mountains.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
+    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "Look at the map on the wall: the top of the line is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
     if (pz) return K.say("Something to do at “" + pz.cap.split(":")[0] + "”. Use the arrows to walk there.", "", 4200);
     K.say("This scene is done. Tap “Walk on” or the Map.", "", 3200);

@@ -492,3 +492,30 @@
 #adv .asheet .fclip video{display:block;max-width:100%;max-height:46vh;width:auto;height:auto}
 #adv .asheet .fclip i{display:none;position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;background:rgba(20,26,51,.8);color:#F3DFA6;font:24px/56px var(--ui);text-align:center;font-style:normal}
 #adv .asheet .fclip.tap i{display:block}
+
+/* the ticket machine: Hebrew screen, the map's Hebrew signs, the coins */
+#adv .fmachine{width:100%;max-width:340px;padding:12px;border-radius:14px;background:linear-gradient(180deg,#0E2A55,#0A1E3E);border:3px solid #9AA3AE;box-shadow:inset 0 0 18px rgba(80,160,255,.25),0 6px 14px rgba(0,0,0,.5);flex:none}
+#adv .fm-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;color:#BFE0FF;font:700 15px var(--ui)}
+#adv .fm-lang{position:relative;padding:6px 10px;border-radius:8px;border:1px solid #6C86A8;background:#1A3A66;color:#8FA6C4;font:700 12px var(--ui)}
+#adv .fm-lang i{position:absolute;left:-6px;right:-6px;top:6px;padding:2px 0;background:#F2EAD2;color:#3A3020;font:italic 600 11px "Bradley Hand",Georgia,serif;transform:rotate(-8deg);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+#adv .fm-dest{display:block;width:100%;margin:6px 0;padding:11px 12px;border-radius:10px;border:1px solid #4F7BB5;background:linear-gradient(180deg,#1E4A86,#163A6C);color:#EAF4FF;font:700 17px/1.2 "Arial Hebrew","Noto Sans Hebrew",Arial,sans-serif;text-align:right;cursor:pointer}
+#adv .fm-dest:active{background:#2C64AE}
+#adv .froute.small{max-width:100%;margin:8px 0}
+#adv .froute-sign{position:absolute;transform:translate(-50%,-50%)}
+#adv .froute-sign i{display:block;width:16px;height:16px;border-radius:50%}
+#adv .froute-sign b{position:absolute;right:14px;top:50%;transform:translateY(-50%);white-space:nowrap;padding:2px 6px;border-radius:5px;background:rgba(250,244,226,.92);color:#2A1E10;font:700 10.5px/1.2 "Arial Hebrew","Noto Sans Hebrew",Arial,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+#adv .froute-sign.right b{right:auto;left:14px}
+#adv .froute-sign em{position:absolute;right:14px;top:110%;white-space:nowrap;font:700 10px var(--ui);font-style:normal;color:#141A33;background:#C9A24A;padding:1px 6px;border-radius:5px}
+#adv .fpay{position:relative;width:62%;max-width:220px;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.5)}
+#adv .fpay img{display:block;width:100%;height:auto}
+#adv .fpay-screen{position:absolute;left:14%;right:14%;top:3%;padding:6px;border-radius:8px;background:rgba(10,30,62,.92);color:#BFE0FF;text-align:center}
+#adv .fpay-screen b{display:block;font:800 18px var(--ui);color:#fff}
+#adv .fpay-screen small{display:block;font:600 11px var(--ui)}
+#adv .fpay-screen span{display:block;margin-top:2px;font:700 12px var(--ui);color:#FFD27A}
+#adv .fcoins{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:340px}
+#adv .fcoin{position:relative;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;font:800 17px/1 Georgia,serif;color:#3A2E18;
+  background:radial-gradient(circle at 35% 30%,#F4F1EA,#B9B6AE 60%,#8C8A84);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35),inset 0 -3px 6px rgba(0,0,0,.25),0 3px 6px rgba(0,0,0,.5)}
+#adv .fcoin small{display:block;font:700 10px var(--ui)}
+#adv .fcoin.c10{background:radial-gradient(circle at 35% 30%,#FFF1B8,#E3B94A 45%,#B58A2A 62%,#D9D6CE 63%,#A9A7A0)}
+#adv .fcoin.c05{width:44px;height:44px;font-size:15px;background:radial-gradient(circle at 35% 30%,#FFF1B8,#E3B94A 55%,#A9802A)}
+#adv .fcoin.used{opacity:.2;transform:scale(.85)}

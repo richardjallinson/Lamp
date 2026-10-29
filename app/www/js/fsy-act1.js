@@ -88,6 +88,7 @@
   const PEOPLE = {
     clerk: { name: "The ticket clerk", kick: "The airport station", desc: "A woman behind the glass, reading glasses on a chain, a paper cup of coffee. Bored, but kind.", lines: [
       { id: "which", say: "Which train goes to Jerusalem?", run: () => reply("clerk", "“All the way up? Yitzhak Navon. Twenty-five minutes, mostly tunnel. Seventeen shekels. Or the machine, if you prefer machines.”", { then: null }) },
+      { id: "heb", say: "The machine only shows Hebrew.", when: () => !W().flags.ticket, run: () => reply("clerk", "“The English button? Broken since Pesach.” She leans to the grille. “Jerusalem is Yerushalayim. Look for the word that starts with the little letter like a raised hand, the yod: י. It is the last stop, at the top of the map.”") },
       { id: "grey", say: "Did a man in a grey coat come through here?", run: () => reply("clerk", "“Grey coat, no luggage. Bought a ticket to Jerusalem and asked me if anyone had been asking for him. I said no.” She looks at you over the glasses. “Now I have said yes.”") },
       { id: "up", say: "What does ‘go up’ mean?", run: () => reply("clerk", "“You go up to Jerusalem. Always. Even from the north, you go up. It is on the mountains.” A shrug. “And it is Jerusalem.”") },
     ] },

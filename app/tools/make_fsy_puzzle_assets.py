@@ -60,3 +60,4 @@ save_jpg("gihon-wall", "gihon-wall-lamp-mark.png")
 save_jpg("tunnel-meet", "tunnel-meeting-place.png")
 im = Image.open(os.path.join(SRC, "route-map.png")).convert("RGB")   # the painted map only, not the floor
 im.crop((0, 270, im.width, 1090)).save(os.path.join(OUT, "route-map.jpg"), quality=84)
+im = Image.open(os.path.join(SRC, "coin-slot.png")).convert("RGB"); im.crop((0, 0, 941, 1420)).resize((470, 710)).save(os.path.join(OUT, "coin-slot.jpg"), quality=84)
