@@ -40,7 +40,8 @@
     applySettings();
     document.querySelectorAll(".tab").forEach((t) => t.setAttribute("aria-current", t.dataset.tab === tab ? "page" : "false"));
     const v = $("view");
-    if (tab === "journey") v.innerHTML = book ? bookView(book) : journey();
+    if (Lamp.gameOnly && tab !== "settings") v.innerHTML = home();
+    else if (tab === "journey") v.innerHTML = book ? bookView(book) : journey();
     else if (tab === "today") v.innerHTML = today();
     else if (tab === "gathered") v.innerHTML = gathered();
     else v.innerHTML = settings();
@@ -72,6 +73,24 @@
     const last = D.stories.find((s) => s.id === Lamp.state.last);
     if (last && !isDone(last)) return last;
     return D.stories.find((s) => !isDone(s)) || D.stories[0];
+  }
+
+  /* ---------- The Final Seven Years: the home screen when the app is the game alone ---------- */
+  const EPISODES = 8;
+  function home() {
+    const w = Lamp.fsyWalk && Lamp.fsyWalk.W(), pages = w ? Object.keys(w.pages).length : 0;
+    const nx = Lamp.fsyWalk && Lamp.fsyWalk.next(), began = pages > 0 || (w && Object.keys(w.done).length > 0);
+    const total = Lamp.fsyWalk ? Lamp.fsyWalk.route.length : 33, doneN = w ? Lamp.fsyWalk.route.filter((r) => Lamp.fsyWalk.isDone(r.id)).length : 0;
+    let h = '<div class="ghead"><div class="gtitle">The Final Seven Years</div><div class="gby">From the book by Richard J. Allinson</div></div>';
+    h += '<button class="ep1" data-ep="1"><span class="ep1-img"></span><span class="ep1-body"><span class="kick">Episode 1</span><b>The Jerusalem Mystery</b>' +
+      "<small>" + (began ? (nx ? "Next: " + esc(nx.title) + " · " + pages + " of 12 pages found" : "Solved. All twelve pages found.") : "A watchman has vanished. Twelve pages of his journal are hidden across Jerusalem. Find where the Temple stood, before the man in grey does.") + "</small>" +
+      (began ? '<span class="bar-prog"><i style="width:' + Math.round((100 * doneN) / total) + '%"></i></span>' : "") +
+      '<span class="go">' + (began ? "Continue" : "Begin") + "</span></span></button>";
+    h += '<div class="eps">';
+    for (let n = 2; n <= EPISODES; n++) h += '<div class="epx"><span class="lock" aria-label="Locked">' + ICON.lock + '</span><span><b>Episode ' + n + "</b><small>Coming soon</small></span></div>";
+    h += "</div>";
+    h += '<p class="small-print">Every photograph and painting is by Richard J. Allinson, taken and made in Israel.</p>';
+    return h;
   }
 
   /* ---------- Journey ---------- */
@@ -172,6 +191,16 @@
     const st = Lamp.state.settings;
     const sw = (k, on) => '<button class="switch" role="switch" aria-checked="' + !!on + '" data-set="' + k + '"><span class="sr" hidden>' + k + "</span></button>";
     let h = '<div class="head"><div class="brand">Settings</div></div>';
+    if (Lamp.gameOnly) {
+      h += '<div class="group"><div class="row"><span class="l"><b>Music and sound</b><small>Music and the sounds of each place.</small></span>' + sw("score", st.score !== false) + "</div>" +
+        '<div class="row"><span class="l"><b>Narration</b><small>The Lamplighter speaks as you walk.</small></span>' + sw("narr", st.narr !== false) + "</div>" +
+        '<div class="row"><span class="l"><b>Vibration</b><small>Gentle taps on your iPhone.</small></span>' + sw("haptics", st.haptics) + "</div></div>";
+      if (Lamp.tester && Lamp.testerHTML) h += Lamp.testerHTML();
+      h += '<div class="group"><button class="row" data-reset="1"><span class="l"><b style="color:#F0A59A">Reset progress</b><small>Starts Episode 1 again from the beginning on this iPhone.</small></span></button></div>';
+      h += '<p class="small-print">The Final Seven Years ' + VERSION + " · King James Version text<br>No account, no ads, no tracking. Your progress stays on this iPhone and in your own iCloud.</p>";
+      h += '<p class="small-print">“I have set watchmen upon thy walls, O Jerusalem.” Isaiah 62:6</p>';
+      return h;
+    }
     h += '<div class="group"><div class="row"><span class="l"><b>Verse text size</b><small>Changes the size of verses in levels.</small></span><span class="sizes">' +
       [["s", "A", 14], ["m", "A", 17], ["l", "A", 21]].map(([k, l, px]) => '<button data-size="' + k + '" aria-pressed="' + (st.text === k) + '" style="font-size:' + px + 'px" aria-label="' + { s: "Small", m: "Medium", l: "Large" }[k] + '">' + l + "</button>").join("") + "</span></div>" +
       '<div class="row"><span class="l"><b>Sound effects</b><small>Harp notes as you spell, bells for words found.</small></span>' + sw("sound", st.sound) + "</div>" +
@@ -195,6 +224,7 @@
   /* ---------- unlock ---------- */
   /* the first time the app is opened: how Lamp works, and what is coming */
   Lamp.afterIntro = function () {
+    if (Lamp.gameOnly) return;
     if (Lamp.state.welcomed) return;
     Lamp.state.welcomed = true; Lamp.save();
     const sh = Lamp.sheet('<div class="welcome"><div class="kick">Welcome to Lamp</div><h2>Thy word is a lamp unto my feet</h2>' +
@@ -293,10 +323,17 @@
     v.querySelectorAll("[data-restore]").forEach((b) => (b.onclick = () => { if (!Lamp.native("restore")) mainToast("Restore works in the App Store version"); else mainToast("Checking the App Store…"); }));
     v.querySelectorAll("[data-reset]").forEach((b) => (b.onclick = confirmReset));
     v.querySelectorAll("[data-fsy]").forEach((b) => (b.onclick = () => Lamp.fsy.open()));
+    v.querySelectorAll("[data-ep]").forEach((b) => (b.onclick = () => { Lamp.sfx && Lamp.sfx("click"); Lamp.fsy.play(); }));
     v.querySelectorAll("[data-adv]").forEach((b) => (b.onclick = () => Lamp.adv.click(b.dataset.adv)));
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    if (Lamp.gameOnly) {
+      document.title = "The Final Seven Years";
+      document.querySelectorAll('.tab[data-tab="today"],.tab[data-tab="gathered"]').forEach((t) => t.remove());
+      const j = document.querySelector('.tab[data-tab="journey"]'); if (j) j.lastChild.textContent = "Episodes";
+      const nav = document.querySelector(".tabs"); if (nav) nav.classList.add("two");
+    }
     document.querySelectorAll(".tab").forEach((t) => (t.onclick = () => { tab = t.dataset.tab; book = null; Lamp.render(); $("view").scrollTop = 0; }));
     Lamp.render();
     Lamp.native("ready");

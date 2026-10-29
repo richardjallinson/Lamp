@@ -282,3 +282,24 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 .sheet .v.xwords mark{padding:2px 7px;margin:0 2px;border-radius:6px}
 .sheet .v.xwords mark.gold{background:#F5C451;color:#3a2a06}
 .sheet .note.goldnote{background:rgba(245,196,81,.16)}
+
+/* The Final Seven Years: home screen */
+.ghead{padding:14px 4px 6px;text-align:center}
+.gtitle{font:400 clamp(30px,9vw,40px)/1.1 "Baskerville","Hoefler Text","Times New Roman",Georgia,serif;letter-spacing:.06em;color:#F3DFA6;text-transform:uppercase}
+.gby{margin-top:6px;font:600 12px var(--ui);letter-spacing:.18em;text-transform:uppercase;color:rgba(201,162,74,.75)}
+.ep1{display:block;width:100%;margin:14px 0 18px;padding:0;border:1.5px solid rgba(201,162,74,.65);border-radius:18px;overflow:hidden;background:#141A33;text-align:left;cursor:pointer;box-shadow:0 0 0 0 rgba(201,162,74,.4);animation:ep1glow 3s ease-in-out infinite}
+@keyframes ep1glow{0%,100%{box-shadow:0 0 0 0 rgba(201,162,74,.35)}50%{box-shadow:0 0 0 8px rgba(201,162,74,0)}}
+.ep1-img{display:block;height:210px;background:url(../img/fsy/w/map-old.jpg) center 30%/cover}
+.ep1-body{display:block;padding:14px 16px 16px}
+.ep1 .kick{display:block;font:800 11px var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#C9A24A}
+.ep1 b{display:block;margin:4px 0 6px;font:400 26px/1.15 "Baskerville","Hoefler Text",Georgia,serif;color:#FBF8F0}
+.ep1 small{display:block;font:500 14px/1.45 var(--ui);color:#C9BFA2}
+.ep1 .bar-prog{margin-top:10px}
+.ep1 .go{display:block;margin-top:12px;padding:12px;border-radius:12px;background:#C9A24A;color:#141A33;text-align:center;font:800 16px var(--ui)}
+.eps{display:flex;flex-direction:column;gap:8px}
+.epx{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1px solid rgba(201,162,74,.22);background:rgba(20,26,51,.55);opacity:.7}
+.epx b{display:block;font:700 15px var(--ui);color:#E8DDBF}
+.epx small{display:block;font:500 12.5px var(--ui);color:#9A927A}
+.epx .lock{width:22px;height:22px;color:#9A927A;flex:none}
+
+.tabs.two{grid-template-columns:1fr 1fr}

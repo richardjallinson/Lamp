@@ -67,14 +67,15 @@
     const row = (act, title, small) => '<button class="row" data-dev="' + act + '"><span class="l"><b>' + title + "</b><small>" + small + "</small></span></button>";
     return '<div class="group tester"><div class="row"><span class="l"><b>Tester tools</b><small>For testing only. Turned off before the App Store.</small></span></div>' +
       '<div class="row"><span class="l"><b>Skip button</b><small>Finish any level, card or puzzle with one tap.</small></span><button class="switch" role="switch" aria-checked="' + (st.devskip !== false) + '" data-set="devskip"></button></div>' +
-      row("unlock", "Unlock all stories", Lamp.state.unlocked ? "All 66 books are open." : "Open every book without buying (test only).") +
+      (Lamp.gameOnly ? row("act1", "Play Act 1 as if done", "Jumps to Jaffa Gate with everything Act 1 gives you.") + row("intro", "Show the full start screen again", "Plays the long version next time the app opens.") + "</div>" : "") +
+      (Lamp.gameOnly ? "" :       row("unlock", "Unlock all stories", Lamp.state.unlocked ? "All 66 books are open." : "Open every book without buying (test only).") +
       row("oil", "Fill the lamp", "Add 10 drops of oil.") +
       '<div class="row"><span class="l"><b>Open every story</b><small>Ignore the adventure order (puzzles still work).</small></span><button class="switch" role="switch" aria-checked="' + !!Lamp.state.devOpen + '" data-dev="open"></button></div>' +
       row("first3", "Finish Creation, Eden and the Fall", "Marks the first three stories done, so the seals and the gate are ready.") +
       row("gate", "Go to the Garden Gate", "Opens the chamber straight away.") +
       row("advreset", "Reset the adventure only", "Clears relics, seals and the gate. Stories stay done.") +
       row("intro", "Show the full start screen again", "Plays the long version next time the app opens.") +
-      "</div>";
+      "</div>");
   };
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-dev]"); if (!b) return;
@@ -88,6 +89,7 @@
     }
     if (a === "gate") { Lamp.adv && Lamp.adv.openGate(); }
     if (a === "advreset") { Lamp.adv && Lamp.adv.devReset(); toast("Adventure reset"); }
+    if (a === "act1") { Lamp.fsyWalk && Lamp.fsyWalk.devAct1 && Lamp.fsyWalk.devAct1(); toast("Act 1 done (test). Open Episode 1."); }
     if (a === "intro") { s.intro = false; s.introAgain = true; Lamp.save(); toast("The full start screen plays next time the app opens"); }
     Lamp.render && Lamp.render();
   });

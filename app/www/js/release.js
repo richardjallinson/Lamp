@@ -12,11 +12,15 @@
   const FRESH_EACH_BUILD = true;
   /* The Final Seven Years: false = shown as a preview only, every chapter locked ("Coming soon").
      Set to true when Richard opens chapter 1. */
-  const FSY_OPEN = true;   // TESTER BUILD: set back to false before the App Store archive
+  const FSY_OPEN = true;   // Episode 1 is the game now (Oct 28): it stays open in the App Store build too
+  /* GAME_ONLY = true: the app is "The Final Seven Years" alone. The word game, the books and the Genesis adventure
+     are switched off (their code stays, so they can come back). Richard, Oct 28. */
+  const GAME_ONLY = true;
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.build = BUILD;
   Lamp.freshEachBuild = FRESH_EACH_BUILD;
   Lamp.fsyOpen = FSY_OPEN;
+  Lamp.gameOnly = GAME_ONLY;
   Lamp.preview = FIRST_RELEASE;
   Lamp.openBooks = OPEN_BOOKS;
   if (!FIRST_RELEASE || !window.LAMP_DATA) return;

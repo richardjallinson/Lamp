@@ -137,7 +137,7 @@
 
   /* ---------- build the screen ---------- */
   Lamp.showIntro = function () {
-    const back = hasProgress() || Lamp.state.intro;
+    const back = hasProgress() || Lamp.state.intro, G = !!Lamp.gameOnly;
     const el = document.createElement("div");
     el.id = "intro"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Lamp");
     el.innerHTML =
@@ -148,12 +148,13 @@
       '<div id="in-flame"><img src="img/start/flame.webp" alt=""></div></div>' +
       '<div class="in-layer" id="in-open"></div>' +
       '<div class="in-layer" id="in-shade"></div>' +
-      '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>Lamp · Bible Word Puzzle Adventure</small></div>' +
+      '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>' + (G ? "The Final Seven Years" : "Lamp · Bible Word Puzzle Adventure") + "</small></div>" +
       '<div class="in-verse" aria-live="polite">' + WORDS.map((w) => "<span>" + w + "</span>").join(" ") + '<span class="in-ref">Psalm 119:105</span></div>' +
-      '<div class="in-title" aria-label="Lamp, Bible Word Puzzle Adventure"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle<br>Adventure</div></div>' +
-      '<div class="in-titleblock"><div class="in-tag">Thy word is a lamp unto my feet.<br>' + (back ? "Your journey continues." : "Your journey begins.") + "</div></div>" +
-      '<button class="in-begin" id="in-begin">' + (back ? "Continue the journey" : "Begin the journey") + "</button>" +
-      '<div class="in-promo">Coming soon: <b>The Final Seven Years</b><br>A journey through Daniel and Revelation</div>' +
+      (G ? '<div class="in-title g" aria-label="The Final Seven Years"><div class="in-lamp-word" aria-hidden="true">THE FINAL<br>SEVEN YEARS</div><div class="in-rule"></div><div class="in-sub">Episode 1<br>The Jerusalem Mystery</div></div>'
+         : '<div class="in-title" aria-label="Lamp, Bible Word Puzzle Adventure"><div class="in-lamp-word" aria-hidden="true">LAMP</div><div class="in-rule"></div><div class="in-sub">Bible Word Puzzle<br>Adventure</div></div>') +
+      '<div class="in-titleblock"><div class="in-tag">' + (G ? "I have set watchmen upon thy walls, O Jerusalem.<br>" + (back ? "Your watch continues." : "Your watch begins.") : "Thy word is a lamp unto my feet.<br>" + (back ? "Your journey continues." : "Your journey begins.")) + "</div></div>" +
+      '<button class="in-begin" id="in-begin">' + (G ? "Enter" : back ? "Continue the journey" : "Begin the journey") + "</button>" +
+      (G ? "" : '<div class="in-promo">Coming soon: <b>The Final Seven Years</b><br>A journey through Daniel and Revelation</div>') +
       '<div class="in-credit">Created by Richard J. Allinson</div>' +
       '<button class="in-skip" id="in-skip" aria-label="Skip">Skip</button>' +
       '<button class="in-sr" id="in-light">Light the lamp</button>';
