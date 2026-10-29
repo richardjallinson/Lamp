@@ -86,3 +86,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 3 | Lost in the market after shopping: the task line now always shows Dudu's list (what is still to buy, and that coffee is from the coffee man, not Yosef), even after the market is done, and then where to take it. "The man with the sacks" renamed "the coffee man" so he is not confused with Yosef's sack; the main task now says "Go back to Yosef the spice seller and ask about the old sack in his corner" | Done in code, waiting for the build |
 | 4 | The shopping vanished from the backpack without a word: Dudu's grandmother's scene now says "You hand her the bread, the coffee and the fish: they leave your backpack." | Done in code, waiting for the build |
 | 5 | A checklist for every Act 1 place: the task line shows a count (2/3) and opens "Your list here": ticks for what is done, empty boxes with a hint for what is still to find, and the extras (Dudu's shopping, the frankincense) in their own section | Done in code, waiting for the build |
+
+## Next batch (for v4g)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | A finale for the market, Richard's spice bowls and sack: the Watchman's sack is tied, its tag reads Exodus 30:34. Pick the four Temple incense spices (stacte, onycha, galbanum, frankincense) from Yosef's nine bowls, labelled in English and Hebrew; wrong picks get a line ("That is for soup"). Then "of each a like weight": spoon each onto the brass scales until it balances the bekah (10 gerahs). Yosef cuts the cord; inside, page 2 torn into five strips: swap them until the words read and the Watchman's ink stroke runs unbroken. The frankincense is now needed (bought at the bowl if not before) | Done in code, waiting for the build |

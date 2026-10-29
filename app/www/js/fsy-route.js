@@ -1062,6 +1062,101 @@
       text: ["Who shall ", "ASCEND", " into the hill of the LORD? or who shall stand in his ", "HOLY", " place?"], ref: "Psalm 24:3", chips: ["ASCEND", "HOLY", "DESCEND", "HIGH", "COME", "GREAT"],
       bad: { DESCEND: "The other way. Every pilgrim went up.", HIGH: "Close, but the psalm names the place by what it is: set apart." },
       done: () => pzDone("board", () => finish("train", () => walk(V("platform")))) }) },
+    /* The Watchman's sack (Richard, Oct 29): the Temple incense of Exodus 30:34. Pick the four spices from Yosef's nine bowls,
+       weigh each against the bekah ("of each a like weight"), then the cord is cut and page 2 lies inside, torn into strips. */
+    incense: { label: "The Watchman’s sack", run: () => {
+      const SP = [["cinnamon", "Cinnamon", "קינמון", 0, "Cinnamon went into the anointing oil, not the incense. Read the tag again."],
+        ["stacte", "Stacte", "נטף", 5], ["cumin", "Cumin", "כמון", 0, "“That is for soup,” says Yosef."],
+        ["galbanum", "Galbanum", "חלבנה", 2], ["saffron", "Saffron", "כרכום", 0, "Saffron is in the Song of Solomon, not in the incense."],
+        ["onycha", "Onycha", "שחלת", 2.5], ["zaatar", "Za’atar", "זעתר", 0, "Za’atar is for bread. Read the tag again."],
+        ["frankincense", "Frankincense", "לבונה", 2.5], ["paprika", "Paprika", "פפריקה", 0, "Yosef laughs. “Paprika? The Watchman would laugh too.”"]];
+      const VERSE = "Take unto thee sweet spices, stacte, and onycha, and galbanum; these sweet spices with pure frankincense: of each shall there be a like weight.";
+      const chosen = [];
+      const has = (id) => H.has && H.has(id);
+      /* 1. choose the four */
+      const pick = () => {
+        const el = screen("The Watchman’s sack", "The spice seller",
+          '<div class="fsack"><img src="' + PZ + 'sack-tied.jpg" alt="An old hessian sack, tied tight, with a paper tag on the cord"><span class="fsack-tag">Exodus<br>30:34</span></div>' +
+          verse(VERSE, "Exodus 30:34") +
+          '<div class="fq">“Every Friday he bought the same four,” says Yosef. “Give me the four, and I cut the cord.”</div>' +
+          '<div class="fspices" id="fspices">' + SP.map((x, i) => '<button class="fspice" data-s="' + i + '"><img src="' + PZ + "spice-" + x[0] + '.jpg" alt=""><b>' + esc(x[1]) + "</b><small>" + x[2] + "</small></button>").join("") + "</div>" +
+          '<div class="fsmall" id="fpicked">Chosen: none yet</div>', null);
+        void el;
+        const draw = () => {
+          document.querySelectorAll("#fspices [data-s]").forEach((b) => b.classList.toggle("got", chosen.includes(+b.dataset.s)));
+          $("fpicked").textContent = "Chosen: " + (chosen.length ? chosen.map((i) => SP[i][1]).join(", ") : "none yet") + " (" + chosen.length + " of 4)";
+        };
+        const take = (i) => { chosen.push(i); F.S("step", "click", 0.5); K.buzz && K.buzz("tap"); draw(); if (chosen.length === 4) setTimeout(() => K.root() && weighAll(), 700); };
+        document.querySelectorAll("#fspices [data-s]").forEach((b) => (b.onclick = () => {
+          const i = +b.dataset.s, x = SP[i];
+          if (chosen.includes(i)) return;
+          if (!x[3]) { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 500); wrong(x[4]); return; }
+          if (x[0] === "frankincense" && !has("frankincense")) {
+            K.card('<div class="kick">The spice seller</div><h2>Pure frankincense</h2><p>“Levonah I do not give away,” says Yosef. “Ten shekels the twist.”</p><button class="cta" data-act="b">Buy a twist (10 shekels)</button><button class="cta alt" data-act="x">Not now</button>',
+              { b: () => { if (H.pay && H.pay(10, "the frankincense")) { H.give && H.give("frankincense"); take(i); } }, x: () => {} });
+            return;
+          }
+          take(i);
+        }));
+        draw();
+      };
+      /* 2. of each a like weight: spoon each spice onto the pan until it balances the bekah (ten gerahs) */
+      let k = 0;
+      const weighAll = () => {
+        const i = chosen[k], x = SP[i], T = 10; let n = 0, ok = false;
+        const el = screen("A like weight", "The spice seller",
+          '<div class="fq">“Of each a like weight.” Your bekah on the left pan. Spoon the ' + esc(x[1].toLowerCase()) + " onto the right until the beam is level.</div>" +
+          '<div class="fscale" id="fscale" style="--tilt:0deg"><img class="fscalebg" src="' + PZ + 'spice-stall.jpg" alt="">' +
+            '<img class="fsc-stand" src="' + PZ + 'bal-stand.png" alt="">' +
+            '<div class="fsc-beam"><img src="' + PZ + 'bal-beam.png" alt="">' +
+              '<div class="fsc-hang l"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load"><span class="fsc-stone"><img src="' + PZ + 'weight-2.png" alt=""><b>Bekah</b></span></div></div>' +
+              '<div class="fsc-hang r"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-r"></div></div></div>' +
+            '<div class="fsc-read" id="fread">10 gerahs · <span id="fsum">0</span> gerahs</div></div>' +
+          '<div class="fspoon"><button class="fbtn alt" id="fless">− A spoon off</button><img src="' + PZ + "spice-" + x[0] + '.jpg" alt="' + esc(x[1]) + '"><button class="fbtn" id="fmore">+ A spoon</button></div>' +
+          '<div class="fsmall">' + chosen.map((j, m) => (m < k ? "✓ " : m === k ? "▸ " : "") + SP[j][1]).join(" · ") + "</div>", null);
+        void el;
+        const draw = () => {
+          const w = n * x[3], d = w - T; $("fsum").textContent = String(Math.round(w * 10) / 10);
+          $("fscale").style.setProperty("--tilt", Math.max(-9, Math.min(9, d * 1.2)) + "deg");
+          $("fload-r").innerHTML = n ? '<span class="fsc-heap" style="--n:' + Math.min(n, 6) + ';background-image:url(' + PZ + "spice-" + x[0] + '.jpg)"></span>' : "";
+          if (!ok && Math.abs(d) < 0.01) {
+            ok = true; $("fscale").classList.add("level"); F.S("lock", null, 0.6); K.buzz("success");
+            K.say("✓ " + x[1] + ": a like weight.", "", 2200);
+            setTimeout(() => { if (!K.root()) return; k++; if (k < 4) weighAll(); else cut(); }, 1300);
+          } else if (d > 0.01) K.say("Too heavy: the bekah rises. Take a spoon off.", "", 2400);
+        };
+        $("fmore").onclick = () => { if (ok) return; n++; F.S("step", "click", 0.45); draw(); };
+        $("fless").onclick = () => { if (ok || !n) return; n--; F.S("step", "click", 0.45); draw(); };
+        draw();
+      };
+      /* 3. Yosef cuts the cord */
+      const cut = () => {
+        K.card('<div class="kick">The spice seller</div><h2>“Like him. Every Friday.”</h2>' +
+          "<p>Yosef looks at the four little heaps for a long moment. Then he takes his knife to the cord. The sack sighs open: stale spice, a folded cloth, and inside the cloth a page of the journal, <b>torn into strips</b>.</p>" +
+          '<p class="fsmall">Someone got to it before you, and left in a hurry.</p><button class="cta" data-act="x">Lay the strips on the counter</button>', { x: torn });
+      };
+      /* 4. the torn page: tap two strips to swap them, until the lines read and the ink stroke runs straight */
+      const torn = () => {
+        const LINES = ["A just weight is his delight.", "Weigh everything you are told.", "Then go and see the city", "as it was: the model,", "at the museum.  — W."];
+        const N = LINES.length; let ord = [3, 0, 4, 2, 1], sel = -1;
+        const seg = (j) => { const x0 = 12 + 76 * (j / N), x1 = 12 + 76 * ((j + 1) / N); return '<svg viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M' + x0 + " 0 L" + x1 + ' 20" /></svg>'; };
+        const el = screen("Page 2, torn", "The spice seller",
+          '<div class="fq">Tap two strips to swap them. Put the page back together: the words must read, and the Watchman’s ink stroke must run unbroken.</div><div class="ftorn" id="ftorn"></div>', null);
+        void el;
+        const draw = () => {
+          $("ftorn").innerHTML = ord.map((j, p) => '<button class="fstrip' + (p === sel ? " sel" : "") + '" data-p="' + p + '" style="--r:' + ((j * 37) % 5 - 2) * 0.4 + 'deg">' + seg(j) + "<span>" + esc(LINES[j]) + "</span></button>").join("");
+          document.querySelectorAll("#ftorn [data-p]").forEach((b) => (b.onclick = () => {
+            const p = +b.dataset.p;
+            if (sel < 0) { sel = p; F.S("parchment", "click", 0.4); draw(); return; }
+            if (sel !== p) { const t = ord[sel]; ord[sel] = ord[p]; ord[p] = t; F.S("parchment", "click", 0.5); }
+            sel = -1; draw();
+            if (ord.every((j, q) => j === q)) { document.getElementById("ftorn").classList.add("whole"); F.S("harp", null, 0.6); K.buzz("success"); setTimeout(() => K.root() && pzDone("incense", () => finish("market")), 1200); }
+          }));
+        };
+        draw();
+      };
+      pick();
+    } },
     scales: { label: "The spice seller’s scales", run: () => weigh({ title: "A just weight", kick: "The spice seller", intro: verse("Just balances, just weights, a just ephah, and a just hin, shall ye have: I am the LORD your God.", "Leviticus 19:36") +
       '<div class="fq">“You want to buy? First you must weigh,” says the spice seller, and sets a worn stone on the left pan. “One shekel. Make the other side match, in gerahs.”</div>' + q("A shekel is twenty gerahs (Exodus 30:13). Tap the weights for the right pan."),
       left: "One shekel", target: 20, unit: "gerahs", bg: "spice-stall", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
@@ -1228,7 +1323,7 @@
     const v = view;
     if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
-    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", passport: "Page 1 tells you where you are going: up, to Jerusalem.", ticket: "Look at the poster on the wall: the profile under the map shows which station is highest. That is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
+    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", incense: "Exodus 30:34 names them: stacte, onycha, galbanum, and pure frankincense. Then spoon each until the beam is level with the bekah.", passport: "Page 1 tells you where you are going: up, to Jerusalem.", ticket: "Look at the poster on the wall: the profile under the map shows which station is highest. That is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
     if (pz) return K.say("Something to do at “" + pz.cap.split(":")[0] + "”. Use the arrows to walk there.", "", 4200);
     K.say("This scene is done. Tap “Walk on” or the Map.", "", 3200);

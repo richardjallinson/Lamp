@@ -54,6 +54,7 @@
   };
   const give = (id, quiet) => { A().items[id] = 1; save(); if (!quiet) { F.S("parchment", "click"); K.say("✓ " + ITEMS[id][0] + " goes into your backpack.", "", 3000); } };
   H.give = give;
+  H.has = (id) => !!A().items[id];
   H.items = () => Object.keys(ITEMS).filter(has).map((id) => [1, ITEMS[id][0], ITEMS[id][1]]);
 
   /* ------------------------------------------------------------ what you know (the journal) ------------------------------------------------------------ */
@@ -117,7 +118,7 @@
       { id: "buy", say: "I’d like to buy some spice.", when: () => !done("market", "scales"), run: () => reply("yosef", "“First you weigh. Everyone who buys from Yosef weighs.” He sets a worn stone on the left pan. “One shekel. Make it match.”", { btn: "Weigh", then: () => C.PUZZLES.scales.run() }) },
       { id: "lev", say: "Do you sell frankincense?", when: (a) => done("market", "scales") && !a.items.frankincense, run: () => reply("yosef", "“Levonah. Ten shekels the twist. Nobody buys it except priests and the curious.” He looks at you. “Which are you?”", { btn: "Buy a twist (10 shekels)", then: () => { if (H.pay(10, "the frankincense")) give("frankincense"); } }) },
       { id: "grey", say: "Has a man in a grey coat been here?", run: () => reply("yosef", "“He weighed nothing and asked a lot. I told him nothing.” He jerks his head down the lane. “Ask the halva man. He talks to anyone.”") },
-      { id: "sack", say: "What’s in that sack?", when: (a) => a.q.sack && done("market", "scales") && !W().done.market, run: () => reply("yosef", "He looks at the sack in the corner for a long moment. “Not mine. A man left it last winter and never came back. Every Friday for a year, and then nothing.” He pushes it toward you with his foot. “Take it. It is bad for business.”", { btn: "Open the sack", then: () => C.finish("market") }) },
+      { id: "sack", say: "What’s in that sack?", when: (a) => a.q.sack && done("market", "scales") && !W().done.market, run: () => reply("yosef", "He looks at the sack in the corner for a long moment. “Not mine. A man left it last winter and never came back. Every Friday for a year, and then nothing.” He pushes it toward you with his foot. “Take it. It is bad for business.”", { btn: "Look at the sack", then: () => C.PUZZLES.incense.run() }) },
     ] },
     baker: { name: "The bread seller", kick: "The blue awning", desc: "A woman in her forties, hair tied up in a scarf, flour on her hands. Loaves on a board behind her.", lines: [
       { id: "loaf", say: "A loaf, please.", when: (a) => !a.items.loaf, run: () => reply("baker", "“Eight shekels.”", { btn: "Buy a loaf (8 shekels)", then: () => { if (H.pay(8, "a loaf")) give("loaf"); } }) },
@@ -233,10 +234,10 @@
       airport: [r("Through passport control", w.flags.passport, "The officer at the booth"), r("Read page 1 of the journal", w.pages[1], "Tap Journal"), r("Buy a train ticket to Jerusalem", w.flags.ticket, "The machine by the platforms")],
       train: [r("Ride the train up to Jerusalem", w.done.train, "Down to the platform, then on"), r("Talk to the soldier", q.eitan, "On the airport platform", 1)],
       rail: [r("Buy a travel card", it.card || q.dudu, "The kiosk at the stop"), r("Ride the tram to the market", a.rode.rail, "Step on board"), r("Offer to carry the woman's bags", q.metGrandma, "At the tram stop", 1)],
-      market: [r("Weigh at Yosef's spice stall", done("market", "scales"), "Yosef, the spice seller"), r("Find who knew the Watchman", q.sack, "The halva seller, deeper in"), r("Open the Watchman's old sack", w.done.market, "Ask Yosef about the sack in his corner"),
+      market: [r("Weigh at Yosef's spice stall", done("market", "scales"), "Yosef, the spice seller"), r("Find who knew the Watchman", q.sack, "The halva seller, deeper in"), r("Buy frankincense from Yosef", it.frankincense, "10 shekels: the sack will need it"), r("Open the Watchman's old sack", w.done.market, "Ask Yosef about the sack in his corner: the Temple incense, a like weight, and the torn page"),
         r("Help Dudu (the boy with the football)", q.dudu, "In the market lane", 1),
         ...(q.dudu ? [r("Bread", it.loaf || q.dudu === 3, "The blue awning", 1), r("Coffee", it.coffee || q.dudu === 3, "The coffee man", 1), r("Fish", it.fish || q.dudu === 3, "The fish counter at the end", 1), r("Take it all to his grandmother", q.dudu === 3, "The tram stop, on the market street", 1)] : []),
-        r("Frankincense from Yosef", it.frankincense, "Ask Yosef, after weighing: 10 shekels", 1)],
+        ],
       benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda, "Past the corner")],
       gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel, "Ask about souvenirs")],
       model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model, "The guide at the model"), r("Show her the frankincense", q.levShown, "If you bought it", 1)],

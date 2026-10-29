@@ -579,3 +579,28 @@
 #adv .asheet .fchk li.ok{background:#E4F1E6;border-color:#BFDCC5;color:#3C5A44}
 #adv .asheet .fchk li.ok i{background:#2E6B45;border-color:#2E6B45}
 #adv .asheet .fchk li small{display:block;font:600 13px var(--ui);color:#7A6E58;margin-top:2px}
+
+/* the Watchman's sack: the Temple incense, a like weight, and the torn page */
+#adv .fsack{position:relative;width:46%;max-width:170px;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.6)}
+#adv .fsack img{display:block;width:100%;height:auto}
+#adv .fsack-tag{position:absolute;left:78%;top:52%;transform:translate(-50%,-50%) rotate(-3deg);font:700 9px/1.15 "Baskerville",Georgia,serif;color:#3A2A14;text-align:center}
+#adv .fspices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:380px}
+#adv .fspice{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px 8px;border-radius:12px;border:2px solid rgba(201,162,74,.35);background:rgba(12,18,40,.82);color:#F3E9CE;cursor:pointer}
+#adv .fspice img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+#adv .fspice b{font:800 13px var(--ui)} #adv .fspice small{font:600 13px var(--ui);color:#C9A24A}
+#adv .fspice.got{border-color:#F5D27A;box-shadow:0 0 0 3px rgba(245,210,122,.35);background:rgba(46,107,69,.55)}
+#adv .fspice.got b::before{content:"✓ "}
+#adv .fspice.bad{animation:fshake .4s}
+@keyframes fshake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#adv .fspoon{display:flex;align-items:center;gap:10px;width:100%;max-width:380px}
+#adv .fspoon .fbtn{flex:1}
+#adv .fspoon img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #C9A24A}
+#adv .fsc-heap{display:block;width:calc(26px + var(--n) * 6px);height:calc(14px + var(--n) * 3px);margin:0 auto;border-radius:50% 50% 40% 40%;background:center/240% no-repeat;box-shadow:0 2px 4px rgba(0,0,0,.6)}
+#adv .ftorn{display:flex;flex-direction:column;width:100%;max-width:360px;padding:14px 12px;border-radius:6px;background:#3A2C18;gap:4px}
+#adv .fstrip{position:relative;display:block;width:100%;height:48px;padding:0 14px;border:none;cursor:pointer;background:#F1E4C3;color:#2A1E0E;font:italic 600 17px/48px "Baskerville","Hoefler Text",Georgia,serif;text-align:left;transform:rotate(var(--r));
+  clip-path:polygon(0 8%,6% 0,13% 10%,21% 2%,30% 9%,38% 0,47% 7%,55% 1%,64% 10%,72% 2%,81% 8%,90% 0,100% 9%,100% 92%,93% 100%,84% 91%,76% 99%,67% 90%,58% 100%,49% 93%,40% 100%,31% 91%,22% 99%,13% 90%,5% 100%,0 92%);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+#adv .fstrip svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#adv .fstrip svg path{stroke:#7A1E12;stroke-width:1.6;fill:none;opacity:.75;vector-effect:non-scaling-stroke}
+#adv .fstrip span{position:relative}
+#adv .fstrip.sel{background:#FFF3C4;outline:3px solid #C9A24A}
+#adv .ftorn.whole{gap:0} #adv .ftorn.whole .fstrip{transform:none;clip-path:none;box-shadow:none;transition:all .6s}
