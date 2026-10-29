@@ -30,3 +30,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | --- | --- | --- |
 | 1 | The journal's script font is hard to read: change it to a clear, readable face, and put every note and journal page on what looks like an old parchment Torah scroll (rolled ends, aged parchment, ink) | To do |
 | 2 | Found while checking #1: the page 1 card in the opening still ends "Trust the man with the angel's name." It must say "…at the number of the verse where Messiah is cut off" (the Gabriel 26 clue), as the journal itself does | To do |
+| 3 | The start screen: the big title back to LAMP (as it was), with "The Final Seven Years" as the subtitle under it | To do |
