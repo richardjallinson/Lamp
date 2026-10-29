@@ -41,6 +41,8 @@
     card: ["A travel card", "Green plastic, four rides when new. The light rail and the buses take it."],
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
+    roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
+    hotelnote: ["A note pushed under your door", "Hotel notepaper, neat handwriting: “Welcome to Jerusalem. Rest well. The north is cold at this time of year.” No name."],
     coffee: ["A bag of coffee", "250 grams, from the coffee man. For Dudu's grandmother."],
     fish: ["A wrapped fish", "From the counter at the end of the lane. For Dudu's grandmother."],
     note: ["A folded prayer note", "Dudu's grandmother's prayer. To be put in the Wall opposite the Holy of Holies. “And when you are there, look up.”"],
@@ -142,6 +144,12 @@
       { id: "back", say: "I’ve brought Dudu. And the shopping.", run: () => { A().q.dudu = 3; delete A().items.loaf; delete A().items.coffee; delete A().items.fish; save();
         reply("grandma2", "<i>You hand her the bread, the coffee and the fish: they leave your backpack.</i> “You brought him back and you brought the fish.” She takes the bags, then takes your hand. “I will tell you something for that.” From her purse, a folded paper. “My prayer. I go to the tunnel every week, to the place opposite the Holy of Holies, and I put it in the Wall. This week you put it in for me.” She closes your fingers over it. “And when you are there, look up.”", { clip: "grandma2", leave: () => { H.earn(45, "Dudu’s grandmother"); give("note"); fact("note", "Put the grandmother’s prayer in the Wall opposite the Holy of Holies, in the tunnels. Then look up."); } }); } },
     ] },
+    deskclerk: { name: "The desk clerk", kick: "The Jerusalem Hotel", desc: "A young man in a dark blazer with a name badge, tired eyes, a kind smile. He has seen every kind of pilgrim.", lines: [
+      { id: "checkin", say: "I'd like to check in.", when: (a) => !a.q.checkedIn, run: () => { A().q.checkedIn = 1; save(); give("roomkey"); reply("deskclerk", "“Welcome. Your name?” He types, and looks up. “Yes. Three nights, already paid. An older gentleman came by this afternoon and paid in cash. No name. He said you would be tired.” He slides a key card across the desk. “Room 412. The lift is on the left.”"); } },
+      { id: "way", say: "How do I get to the Old City in the morning?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelWay = 1; save(); reply("deskclerk", "“The tram to City Hall, then walk down Jaffa Road: ten minutes to Jaffa Gate. Go early, before the tour buses.” He taps the window. “And do the walls in the morning. There is a storm coming in the afternoon, a big one.”"); fact("storm", "The desk clerk: go up on the walls in the morning; a big storm is coming in the afternoon."); } },
+      { id: "see", say: "What should I see first?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelSee = 1; save(); reply("deskclerk", "“Go in at Jaffa Gate and up on the walls: the Ramparts Walk. The ticket office is beside the Tower of David. From up there you can count the towers and see the whole city.” He smiles. “And if you go down to the Wall, cover your head.”"); } },
+      { id: "grey", say: "Has anyone asked for me?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelGrey = 1; save(); reply("deskclerk", "He hesitates. “A man telephoned this evening. Very polite. He asked whether a guest had checked in carrying an old book. I told him we do not discuss our guests.” He lowers his voice. “He knew which flight you came on.”"); fact("greyhotel", "The man in grey telephoned the hotel asking for you. He knew your flight."); } },
+    ] },
     halva: { name: "The halva seller", kick: "Deeper in", desc: "A thin old man behind slabs of halva, a long knife in his hand, eyes everywhere.", lines: [
       { id: "piece", say: "Try a piece?", run: () => reply("halva", "“Pistachio. Two shekels.” The knife pauses. “Or free, if you tell me what you are looking for.”", { btn: "“A man’s journal.”", then: () => { A().q.greyKG = 1; save(); reply("halva", "He cuts you a piece. “Then you are the second person today. The first wore grey and did not buy halva. He went toward the city. King George Street, I think.” He wipes the knife. “Not a nice man.”"); fact("greykg", "The man in grey went toward King George Street."); } }) },
       { id: "book", say: "Who was the man with the book?", run: () => { A().q.sack = 1; A().q.daniel = 1; save(); reply("halva", "“He came every Friday for a year. Sat there with his book and read Daniel, chapter nine, every time, moving his lips. Weighed things at Yosef’s. Then he stopped coming.” He points the knife up the lane. “Yosef has his sack.”", { clip: "halva" }); fact("daniel", "The Watchman read Daniel, chapter 9, every Friday. Yosef has his sack. The Journal can show you Daniel 9."); } },
@@ -199,7 +207,9 @@
       { r: () => { a.rides--; a.rode[key] = 1; save(); if (key === "model") F.S("step", "click", 0.6); else F.S("trambell", "click", 0.7); then(); }, x: () => {} });
     return false;
   }
+  H.canSleep = () => { if (A().q.checkedIn) return true; K.say("Check in at the front desk first.", "", 2600); return false; };
   H.before = (scene, v, prev) => {
+    if (scene.id === "hotel" && v.id === "room" && !A().q.checkedIn) { K.say("You have no key yet: check in at the front desk.", "", 2800); return false; }
     if (scene.id === "gabriel" && v.id === "inside" && !(prev && ["inside", "shelf", "window"].includes(prev.id))) F.S("shopbell", null, 0.7);
     if (scene.id === "airport" && v.id !== "control" && !W().flags.passport) { K.say("The officer at the booth beckons: passport first.", "", 3000); return false; }
     if (scene.id === "rail" && v.id === "inside") return ride("rail", () => C.walk(v));
@@ -240,6 +250,8 @@
         ],
       benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda, "Past the corner")],
       gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel, "Ask about souvenirs")],
+      hotel: [r("Check in at the front desk", q.checkedIn, "The desk clerk"), r("Ask how to get to the Old City", q.hotelWay, "The desk clerk"), r("Get some sleep", w.done.hotel, "Your room, upstairs"),
+        r("Ask what to see first", q.hotelSee, "The desk clerk", 1), r("Ask whether anyone asked for you", q.hotelGrey, "The desk clerk", 1)],
       model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model, "The guide at the model"), r("Show her the frankincense", q.levShown, "If you bought it", 1)],
     };
     return L[scene.id] || null;
@@ -307,7 +319,7 @@
     ["card", "frankincense", "note", "rod", "map", "kippah", "model", "museum", "greycard"].forEach((id) => (a.items[id] = 1));
     a.rides = 1; a.money = 20; Object.assign(a.rode, { rail: 1, benyehuda: 1, model: 1 });
     w.flags.ticket = 1; w.flags.bekah = 1; w.flags.modelq = 1; w.flags.passport = 1; a.items.slip = 1; w.done["airport:passport"] = 1;
-    ["airport", "train", "rail", "market", "benyehuda", "gabriel", "model"].forEach((id) => (w.done[id] = 1));
+    ["airport", "train", "rail", "market", "benyehuda", "gabriel", "model", "hotel"].forEach((id) => (w.done[id] = 1)); Object.assign(a.q, { checkedIn: 1, hotelWay: 1 }); a.items.roomkey = 1; a.items.hotelnote = 1;
     ["airport:ticket", "train:board", "market:scales", "gabriel:souvenir", "model:modelq"].forEach((k) => (w.done[k] = 1));
     [1, 2, 3, 4].forEach((n) => (w.pages[n] = 1)); save();
   };

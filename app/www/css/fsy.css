@@ -604,3 +604,8 @@
 #adv .fstrip span{position:relative}
 #adv .fstrip.sel{background:#FFF3C4;outline:3px solid #C9A24A}
 #adv .ftorn.whole{gap:0} #adv .ftorn.whole .fstrip{transform:none;clip-path:none;box-shadow:none;transition:all .6s}
+
+/* the night at the hotel: the screen darkens, then morning comes */
+#adv .fnight{position:absolute;inset:0;z-index:20;background:#05070F;opacity:0;transition:opacity 1.6s;pointer-events:none}
+#adv .fnight.on{opacity:1}
+#adv .fnight.day{background:#F6E7C4;opacity:0;transition:opacity 2.4s,background 1s}

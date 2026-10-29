@@ -122,6 +122,17 @@
         hots: [{ box: [35, 12, 30, 25], label: "The sanctuary", text: "The house itself, white stone and gold, facing east. Behind its veil, the Holy of Holies: twenty cubits square, and empty, since the Ark was lost." }] },
     ] });
 
+  /* the night between Act 1 and Act 2 (Richard, Oct 29): check in, talk to the clerk, sleep; a note under the door in the morning */
+  S({ id: "hotel", act: 1, title: "The Jerusalem Hotel", kick: "A night's rest", music: "m10", amb: "indoor",
+    views: [
+      { id: "outside", img: "hotel-sign", cap: "The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew", go: { fwd: "desk" },
+        hank: "The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City." },
+      { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk"] },
+      { id: "room", img: "hotel-room", cap: "Your room: two beds made up tight, a lamp, a chair by the curtains", go: { back: "desk" }, puzzle: "sleep",
+        hank: "Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.",
+        hots: [{ box: [48, 38, 22, 14], label: "The nightstand", act: "readjournal" }, { box: [0, 2, 28, 50], label: "The curtains", text: "You pull the curtain aside. The city lights run down the hills toward the dark of the Old City walls. Somewhere out there is the wall you will climb tomorrow." }] },
+    ] });
+
   /* ---- Act 2 ---- */
   S({ id: "jaffa", act: 2, title: "Jaffa Gate", kick: "Into the Old City", music: "m12", amb: "street",
     views: [
@@ -365,7 +376,9 @@
       { id: "exit", img: "dung-exit", cap: "Out of the Western Wall plaza: the exit, the taxis, and the road to the Dung Gate", go: { fwd: "inner" } },
       { id: "inner", img: "dung-inner", cap: "The Dung Gate from inside the city: through the arch, the Kidron slopes and the village beyond", go: { back: "exit", fwd: "gate" } },
       { id: "gate", img: "dung-gate", cap: "The Dung Gate, the small gate in the south wall nearest the Western Wall", hank: "Nehemiah rode out by night past the dung port and viewed the walls. You are going out by it in daylight, to the valley of the tombs.",
-        go: { fwd: "road", back: "inner" } },
+        go: { fwd: "road", back: "inner", left: "sign" } },
+      { id: "sign", img: "dung-sign", cap: "The sign beside the gate, in Hebrew, Arabic and English", go: { back: "gate" },
+        hots: [{ box: [5, 40, 90, 32], label: "Dung Gate", text: "“The gate was originally a small wicket gate built by Suleiman the Magnificent. It is named after the gate mentioned in the Book of Nehemiah.” Nehemiah 3:14: “But the dung gate repaired Malchiah the son of Rechab… he built it, and set up the doors thereof, the locks thereof, and the bars thereof.” The walls were rebuilt gate by gate, with a name beside every gate." }] },
       { id: "road", img: "dung-road", cap: "Outside the gate: the dirt path down toward the Kidron Valley, and the town of Silwan on the slope beyond", go: { back: "gate" }, puzzle: "moses",
         hots: [{ box: [0, 25, 100, 22], label: "The town of Silwan", text: "Silwan: the town that climbs the slope across the valley from the City of David. Its name comes from Siloam, the pool below. Its cliffs are full of tombs cut in the days of the kings of Judah." }] },
     ] });
@@ -463,7 +476,7 @@
   /* where each place sits on the paintings, in % of the picture (x, y). "city" = the wide map, "old" = the Old City. */
   const PIN = {
     airport: ["city", 30, 9, "← Ben Gurion Airport, 45 km west"], train: ["city", 13, 24], model: ["city", 19, 41], market: ["city", 42, 34],
-    rail: ["city", 49, 45], benyehuda: ["city", 42, 48], gabriel: ["city", 37, 50],
+    rail: ["city", 49, 45], hotel: ["city", 55, 54], benyehuda: ["city", 42, 48], gabriel: ["city", 37, 50],
     jaffa: ["old", 13, 31], ramparts: ["old", 19, 21], wallagain: ["old", 47, 15], gtomb: ["old", 54, 7], bazaar: ["old", 49, 26],
     jewish: ["old", 31, 37], institute: ["old", 33, 45], wall: ["old", 44, 42], wilson: ["old", 49, 37], tunnels: ["old", 53, 29],
     hebron: ["old", 50, 96, "↓ Hebron, 30 km south"], zion: ["old", 15, 52], cod: ["old", 61, 57], gihon: ["old", 70, 63],
@@ -595,6 +608,7 @@
     airport: "Passport control first. Then read the first page of the journal. Then follow the train signs and buy a ticket to Jerusalem.",
     train: "Board the train, and come up out of the station into Jerusalem. The soldier on the platform is going home.", rail: "Take the light rail to Machne Yehuda market.",
     market: "Find the spice seller and weigh. Then find out what the Watchman left here.", benyehuda: "Find number 26 King George Street. The violinist knows, if you know the number.", gabriel: "Show Gabriel the journal. Buy what you will need for the Old City, and choose a souvenir.",
+    hotel: "Check in at the front desk, ask the clerk about tomorrow, then get some sleep.",
     model: "Walk round the model. Answer the guide’s questions, and ask her about the Watchman.", jaffa: "Go in through the gate and find the way up onto the wall.",
     ramparts: "Walk the wall. Count the towers, and watch the sky.", jewish: "Walk through the Quarter to the Burnt House.",
     wall: "Go down to the Wall. Look at every side of the plaza.", wilson: "Go into the prayer hall. Find the shaft and look down it.",
@@ -1064,6 +1078,16 @@
       done: () => pzDone("board", () => finish("train", () => walk(V("platform")))) }) },
     /* The Watchman's sack (Richard, Oct 29): the Temple incense of Exodus 30:34. Pick the four spices from Yosef's nine bowls,
        weigh each against the bekah ("of each a like weight"), then the cord is cut and page 2 lies inside, torn into strips. */
+    sleep: { label: "Go to sleep", run: () => {
+      if (H.canSleep && !H.canSleep()) return;
+      F.M(null, null);
+      K.card('<div class="kick">The Jerusalem Hotel</div><h2>Night</h2><p>You put the journal on the nightstand and turn off the lamp. Traffic on the hill, a bus sighing at a stop, a dog somewhere. Then the city goes quiet, and so do you.</p><button class="cta" data-act="x">Sleep</button>',
+        { x: () => { const sh = document.createElement("div"); sh.className = "fnight"; K.root().appendChild(sh); setTimeout(() => sh.classList.add("on"), 30);
+          setTimeout(() => { if (!K.root()) return; sh.classList.add("day");
+            K.card('<div class="kick">The Jerusalem Hotel</div><h2>Morning</h2><p>Bells somewhere far off, and sunlight on the curtains. On the carpet by the door, an envelope that was not there last night: hotel notepaper, folded once, no name.</p>' +
+              '<div class="fhim">“Welcome to Jerusalem. Rest well. The north is cold at this time of year.”</div><p class="fsmall">Neat handwriting. No signature. The same polite hand as the card that said NOT NORTH.</p><button class="cta" data-act="x">Keep it, and go</button>',
+              { x: () => { sh.remove(); if (H.give) H.give("hotelnote"); pzDone("sleep", () => finish("hotel")); } }); }, 2600); } });
+    } },
     incense: { label: "The Watchman’s sack", run: () => {
       const SP = [["cinnamon", "Cinnamon", "קינמון", 0, "Cinnamon went into the anointing oil, not the incense. Read the tag again."],
         ["stacte", "Stacte", "נטף", 5], ["cumin", "Cumin", "כמון", 0, "“That is for soup,” says Yosef."],
@@ -1106,7 +1130,7 @@
         const i = chosen[k], x = SP[i], T = 10; let n = 0, ok = false;
         const el = screen("A like weight", "The spice seller",
           '<div class="fq">“Of each a like weight.” Your bekah on the left pan. Spoon the ' + esc(x[1].toLowerCase()) + " onto the right until the beam is level.</div>" +
-          '<div class="fscale" id="fscale" style="--tilt:0deg"><img class="fscalebg" src="' + PZ + 'spice-stall.jpg" alt="">' +
+          '<div class="fscale" id="fscale" style="--tilt:0deg"><img class="fscalebg" src="' + PZ + 'spice-table.jpg" alt="">' +
             '<img class="fsc-stand" src="' + PZ + 'bal-stand.png" alt="">' +
             '<div class="fsc-beam"><img src="' + PZ + 'bal-beam.png" alt="">' +
               '<div class="fsc-hang l"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load"><span class="fsc-stone"><img src="' + PZ + 'weight-2.png" alt=""><b>Bekah</b></span></div></div>' +
@@ -1159,7 +1183,7 @@
     } },
     scales: { label: "The spice seller’s scales", run: () => weigh({ title: "A just weight", kick: "The spice seller", intro: verse("Just balances, just weights, a just ephah, and a just hin, shall ye have: I am the LORD your God.", "Leviticus 19:36") +
       '<div class="fq">“You want to buy? First you must weigh,” says the spice seller, and sets a worn stone on the left pan. “One shekel. Make the other side match, in gerahs.”</div>' + q("A shekel is twenty gerahs (Exodus 30:13). Tap the weights for the right pan."),
-      left: "One shekel", target: 20, unit: "gerahs", bg: "spice-stall", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
+      left: "One shekel", target: 20, unit: "gerahs", bg: "spice-table", weights: [["A large weight", 12], ["A medium weight", 8], ["A small weight", 5], ["A smaller weight", 3], ["The smallest", 2]],
       light: "The pans do not level. Twenty gerahs to the shekel.", heavy: "Too heavy: the stone rises. A shekel is twenty gerahs, no more.",
       done: () => { K.card('<div class="kick">The spice seller</div><h2>“A just weight”</h2>' + (H.clip ? H.clip("yosef") : "") + '<p>The pans level. The seller nods, and tips a spoon of zaatar into a paper twist for you. “A just weight is his delight. You will need one of these.” He drops a small bronze weight into the twist: <b>one bekah, half a shekel</b>. “And twenty shekels for weighing my morning orders.”</p><button class="cta" data-act="x">Thank him</button>',
         { x: () => { W().flags.bekah = 1; save(); H.earn && H.earn(20, "Yosef, for weighing his morning orders"); pzDone("scales", () => walk(view)); } }); } }) },
