@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -92,10 +92,10 @@
       { id: "grey", say: "Did a man in a grey coat come through here?", run: () => reply("clerk", "“Grey coat, no luggage. Bought a ticket to Jerusalem and asked me if anyone had been asking for him. I said no.” She looks at you over the glasses. “Now I have said yes.”", { clip: "clerk" }) },
       { id: "up", say: "What does ‘go up’ mean?", run: () => reply("clerk", "“You go up to Jerusalem. Always. Even from the north, you go up. It is on the mountains.” A shrug. “And it is Jerusalem.”") },
     ] },
-    soldier: { name: "The soldier", kick: "The airport platform", desc: "A young man, nineteen or twenty, green uniform, a rifle slung, a paperback in his hand. Friendly, homesick.", lines: [
+    soldier: { name: "The soldier", kick: "The airport platform", desc: "A young man in a dusty green uniform, a short dark beard, a strap over one shoulder, a worn paperback in his hand. Friendly, homesick.", lines: [
       { id: "home", say: "Going home?", run: () => { A().q.eitan = 1; save(); reply("soldier", "“Jerusalem. My mother is at the shuk every Friday, the bread stall with the blue awning. Tell her Eitan sent you. She will give you the good loaf.”"); fact("eitan", "Eitan’s mother sells bread under the blue awning at the market. Say Eitan sent you."); } },
       { id: "book", say: "What’s the book?", run: () => reply("soldier", "“Psalms. For the train.” He finds the page. “‘I was glad when they said unto me, Let us go into the house of the LORD.’ You know it? They sang it going up the steps.”") },
-      { id: "mount", say: "Do you know the Temple Mount?", run: () => reply("soldier", "“I guarded it, two months. Everyone argues about it. Nobody looks.” He closes the book. “You look.”") },
+      { id: "mount", say: "Do you know the Temple Mount?", run: () => reply("soldier", "“I stood guard up there, two months. Everyone argues about it. Nobody looks.” He closes the book. “You look.”", { clip: "soldier" }) },
     ] },
     cardseller: { name: "The card seller", kick: "The kiosk on Jaffa Road", desc: "A man with a thick moustache leaning out of a kiosk hung with phone chargers and lottery tickets. Talks fast.", lines: [
       { id: "card", say: "I need to take the light rail.", when: (a) => !a.items.card, run: () => reply("cardseller", "“Card. Ten shekels, four rides on it. No card, no ride, no arguing with the inspector.”", { btn: "Buy the card (10 shekels)", then: () => { if (H.pay(10, "the travel card")) { A().rides = 4; give("card"); } } }) },
