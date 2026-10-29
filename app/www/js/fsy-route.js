@@ -615,7 +615,7 @@
     const pic = v.img ? '<img class="fwimg" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
-    const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") : ((H.task && H.task(scene)) || TASK[scene.id] || "Look at everything here.");
+    const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") + ((H.side && H.side(scene)) || "") : ((H.task && H.task(scene)) || TASK[scene.id] || "Look at everything here.");
     /* Riven-style: one fixed screen. The picture fills the space between the task line and the bar; nothing scrolls. */
     const el = F.stage('<div class="fwalk">' +
       '<div class="fwbg" style="background-image:url(' + (v.img ? IMG + v.img + ".jpg" : "img/fsy/temple-painting.jpg") + ')"></div>' +

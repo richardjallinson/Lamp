@@ -41,7 +41,7 @@
     card: ["A travel card", "Green plastic, four rides when new. The light rail and the buses take it."],
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
-    coffee: ["A bag of coffee", "250 grams, from the man with the sacks. For Dudu's grandmother."],
+    coffee: ["A bag of coffee", "250 grams, from the coffee man. For Dudu's grandmother."],
     fish: ["A wrapped fish", "From the counter at the end of the lane. For Dudu's grandmother."],
     note: ["A folded prayer note", "Dudu's grandmother's prayer. To be put in the Wall opposite the Holy of Holies. “And when you are there, look up.”"],
     rod: ["The Watchman's cubit rod", "A wooden rod with notches, a lamp burned into one end. The long cubit, 52 centimetres. Gabriel kept it for whoever came with the book."],
@@ -124,7 +124,7 @@
       { id: "eitan", say: "Eitan sent me.", when: (a) => a.q.eitan && !a.items.loaf, run: () => { reply("baker", "“My Eitan? On the train?” Her whole face changes. “Then you take the good loaf, and you take it for nothing.”", { clip: "baker" }); give("loaf"); } },
       { id: "spice", say: "Which way to the spices?", run: () => reply("baker", "“Down the lane, left at the fish, follow your nose.”") },
     ] },
-    coffeeman: { name: "The man with the sacks", kick: "The coffee stall", desc: "Sacks of beans, a scoop in every tin, the smell of roasting. He does not look up from the grinder.", lines: [
+    coffeeman: { name: "The coffee man", kick: "The coffee stall", desc: "Sacks of beans, a scoop in every tin, the smell of roasting. He does not look up from the grinder.", lines: [
       { id: "coffee", say: "250 grams of coffee.", when: (a) => !a.items.coffee, run: () => reply("coffeeman", "“Twelve.” He is already scooping.", { clip: "coffeeman", btn: "Buy the coffee (12 shekels)", then: () => { if (H.pay(12, "the coffee")) give("coffee"); } }) },
     ] },
     fishman: { name: "The man at the fish counter", kick: "The end of the lane", desc: "Smoked fish, herring, salads under the glass, and a man in a white coat with a cleaver.", lines: [
@@ -220,12 +220,20 @@
   };
 
   /* ------------------------------------------------------------ what to do, and hints ------------------------------------------------------------ */
+  /* Dudu's shopping, shown with the market's task (and after it) so it is never forgotten */
+  function duduList(a) {
+    if (a.q.dudu !== 2) return "";
+    const L = [["bread", "loaf"], ["coffee", "coffee"], ["fish", "fish"]], left = L.filter((x) => !a.items[x[1]]).map((x) => x[0]);
+    return left.length ? " · Dudu’s list: still " + left.join(", ") + (left.includes("coffee") ? " (the coffee man, not Yosef)" : "") + "." : " · Dudu’s list is done: take it to his grandmother at the tram stop, on the market street.";
+  }
+  H.side = (scene) => (scene.id === "market" ? duduList(A()) : "");
   H.task = (scene) => {
     const a = A();
     if (scene.id === "airport" && !W().flags.passport) return "Passport control first. Answer the officer’s questions: page 1 says where you are going.";
     if (scene.id === "airport" && !W().flags.ticket) return "Read the first page. Ask at the window if you like. Buy a ticket to Jerusalem.";
     if (scene.id === "rail" && !a.items.card) return "The tram takes a travel card. The kiosk sells them. Ask the way while you are there.";
-    if (scene.id === "market") { if (!done("market", "scales")) return "Find Yosef the spice seller and weigh."; if (!a.q.sack) return "Someone in the market knew the Watchman. Ask around."; if (!W().done.market) return "Ask Yosef about the sack."; if (a.q.dudu === 2) return "Bread, coffee, fish: then Dudu’s grandmother at the tram stop at the end of the lane."; }
+    const dudu = () => duduList(a);
+    if (scene.id === "market") { if (!done("market", "scales")) return "Find Yosef the spice seller and weigh." + dudu(); if (!a.q.sack) return "Someone in the market knew the Watchman. Ask around." + dudu(); if (!W().done.market) return "Go back to Yosef the spice seller and ask about the old sack in his corner." + dudu(); if (a.q.dudu === 2) return dudu().slice(3); }
     if (scene.id === "benyehuda") return a.q.found26 ? "Number 26 is past the corner. Go on to Gabriel’s." : "Find the number of Gabriel’s shop. The page gave you a verse; the halva seller gave you the chapter. The Journal can show it to you.";
     if (scene.id === "gabriel") { if (!a.q.shopOpen) return "Talk to Gabriel."; if (!a.items.rod) return "Show Gabriel the journal."; if (!a.items.map || !a.items.kippah) return "Buy the map and a kippah for the Old City. Then choose a souvenir."; if (!W().done.gabriel) return "Choose a souvenir: buy the model and look at it closely."; }
     if (scene.id === "model") { if (!done("model", "modelq")) return "Ask the guide to show you the Temple, and answer her three questions."; if (!W().done.model) return "Ask the guide about the Watchman."; }
