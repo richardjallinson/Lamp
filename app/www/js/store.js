@@ -14,7 +14,7 @@
     daily: {},      // "YYYY-MM-DD" -> {hints, secs}
     fav: {},        // storyId -> true
     bonus: {},      // levelId -> [bonus words found]
-    settings: { text: "m", sound: true, music: false, haptics: true, cb: false, narr: true },
+    settings: { text: "m", sound: true, music: true, haptics: true, cb: false, narr: true },
     unlocked: false,
     tutorial: false,
     intro: false,   // the full start screen has been seen once
@@ -80,7 +80,7 @@
   /* a new build starts from the very first scene (js/release.js) */
   const staleBuild = (s) => Lamp.freshEachBuild && Lamp.build && s.build !== Lamp.build;
   if (staleBuild(Lamp.state)) {
-    Lamp.state = Object.assign(clone(DEFAULT), { settings: Lamp.state.settings, build: Lamp.build });
+    Lamp.state = Object.assign(clone(DEFAULT), { settings: Object.assign({}, Lamp.state.settings, Lamp.gameOnly ? { music: true, narr: true, sound: true } : {}), build: Lamp.build });   /* the adventure: every tester build starts with music, narration and sounds on */
     try { localStorage.setItem(KEY, JSON.stringify(Lamp.state)); } catch (e) {}
     Lamp.freshStart = true;
   }
