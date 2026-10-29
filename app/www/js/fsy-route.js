@@ -754,7 +754,7 @@
   /* ------------------------------------------------------------ small puzzle makers ------------------------------------------------------------ */
   function screen(title, kick, html, bg) {
     F.M("puzzle", scene.amb);
-    const el = F.stage('<div class="fkick">' + esc(kick || scene.title) + "</div><h1>" + esc(title) + "</h1>" + html + F.back("Back to " + scene.title), bg ? "w/" + bg + ".jpg" : "temple-painting.jpg");
+    const k = kick || scene.title, el = F.stage((k === scene.title ? "" : '<div class="fkick">' + esc(k) + "</div>") + "<h1>" + esc(title) + "</h1>" + html + F.back("Back to " + scene.title), bg ? "w/" + bg + ".jpg" : "temple-painting.jpg");
     F.wire(el, () => walk(view));
     return el;
   }
@@ -949,11 +949,11 @@
   const PUZZLES = {
     passport: { label: "Step up to the booth", run: () => {
       /* her clip stops after each question, at the pauses in her speech, and plays on when you answer */
-      const SEG = [[0, 7.0], [7.0, 13.6], [13.6, 999]];
+      const SEG = [[0, 4.4], [4.4, 8.0], [8.0, 14.0], [14.0, 999]];   /* her lines: passport please / where are you going / open the backpack / the book */
       const ASK = [
-        { q: "Your answer", a: [["Tourism", 1], ["To visit the holy places", 1], ["Business", 1]] },
+        { q: "She holds out her hand", a: [["Hand over your passport", 1]] },
         { q: "Your answer", a: [["Up, to Jerusalem", 1], ["Down to Tel Aviv, by the sea", 0, "She waits, unimpressed. The first page in your bag says otherwise: go up."], ["I don’t know yet", 0, "“You don’t know where you are going?” She waits. Page 1 knows."]] },
-        { q: "She points at your bag", a: [["Open the backpack", 1]] },
+        { q: "She points at your backpack", a: [["Open the backpack", 1]] },
       ];
       const el = screen("Passport control", "Ben Gurion Airport", '<div class="fclipbig"><video id="foff" src="video/fsy/officer.mp4" poster="video/fsy/officer.jpg" playsinline preload="auto"></video><button class="fplay" id="fplay" aria-label="Play">▶</button></div><div id="fans" class="fans"></div>', null);
       void el;
@@ -964,13 +964,13 @@
       v.addEventListener("ended", () => { if (stopAt) { stopAt = 0; answer(); } });
       const play = () => { $("fans").innerHTML = '<div class="fsmall">…</div>'; const [a, b] = SEG[k]; stopAt = b >= 999 && v.duration ? v.duration - 0.2 : b; if (Math.abs(v.currentTime - a) > 0.3) v.currentTime = a; tryPlay(); };
       function answer() {
-        const A = ASK[k]; if (!A) return bag();
+        const A = ASK[k]; if (!A) return bag();   /* after the fourth line */
         $("fans").innerHTML = '<div class="fq">' + esc(A.q) + '</div><div class="fchoices">' + A.a.map((x, i) => '<button data-a="' + i + '">' + esc(x[0]) + "</button>").join("") + "</div>";
         $("fans").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
           const x = A.a[+b.dataset.a];
           if (!x[1]) { wrong(x[2]); return; }
           K.sfx("click"); k++;
-          if (k < SEG.length) play(); else bag();
+          if (k < SEG.length) play(); else bag();   /* the last segment, her question about the book, ends in bag() */
         }));
       }
       function bag() {

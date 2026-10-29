@@ -559,6 +559,9 @@
 #adv .fclipbig{position:relative;width:auto;max-width:280px;flex:none;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.6);background:#000}
 #adv .fclipbig video{display:block;width:100%;height:auto;max-height:38vh;object-fit:cover}
 #adv .fplay{display:none;position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;border:2px solid #F5D27A;background:rgba(8,12,28,.75);color:#F5D27A;font:24px var(--ui);place-items:center;cursor:pointer}
-#adv .fans{width:100%;max-width:360px;min-height:120px}
+#adv .fans{width:100%;max-width:360px;min-height:120px;flex:none}
 #adv .froute-alt{position:absolute;transform:translate(-50%,-150%);white-space:nowrap;padding:1px 6px;border-radius:5px;background:rgba(20,26,51,.85);color:#F3DFA6;font:700 10px var(--ui)}
 #adv .froute-sign.right em{right:auto;left:14px}
+
+/* screens never squash their parts: they scroll instead of overlapping */
+#adv .fsy > *{flex-shrink:0}
