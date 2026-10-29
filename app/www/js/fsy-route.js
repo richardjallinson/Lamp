@@ -615,11 +615,13 @@
     const pic = v.img ? '<img class="fwimg" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
+    const list = H.list ? H.list(scene) : null, need = list ? list.filter((r) => !r.opt) : [];
     const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") + ((H.side && H.side(scene)) || "") : ((H.task && H.task(scene)) || TASK[scene.id] || "Look at everything here.");
     /* Riven-style: one fixed screen. The picture fills the space between the task line and the bar; nothing scrolls. */
     const el = F.stage('<div class="fwalk">' +
       '<div class="fwbg" style="background-image:url(' + (v.img ? IMG + v.img + ".jpg" : "img/fsy/temple-painting.jpg") + ')"></div>' +
-      '<button class="fwtask' + (done ? " done" : "") + '" id="fwtask"><span>' + (done ? "✓ " : "") + esc(task) + "</span></button>" +
+      '<button class="fwtask' + (done ? " done" : "") + (list ? " haslist" : "") + '" id="fwtask"><span>' + (done ? "✓ " : "") + esc(task) + "</span>" +
+        (list ? '<b class="fwcount">' + need.filter((r) => r.ok).length + "/" + need.length + " ▾</b>" : "") + "</button>" +
       '<div class="fwarea" id="fwarea"><div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
         (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") +
         (H.people ? H.people(scene, v) : "") +
@@ -633,7 +635,17 @@
     el.classList.add("walking");
     const ttl = document.getElementById("adv-ttl"); if (ttl) { ttl.textContent = scene.title; ttl.onclick = () => K.say(v.cap || scene.title, "", 4000); }
     fitView(el);
-    $("fwtask").onclick = () => { K.sfx("click"); $("fwtask").classList.toggle("open"); };
+    /* the task line opens the checklist for this place: what is done, what is still to find, and the extras */
+    $("fwtask").onclick = () => {
+      K.sfx("click");
+      if (!list) { $("fwtask").classList.toggle("open"); return; }
+      const row = (r) => '<li class="' + (r.ok ? "ok" : "") + '"><i>' + (r.ok ? "✓" : "") + "</i><span>" + esc(r.t) + (r.where && !r.ok ? "<small>" + esc(r.where) + "</small>" : "") + "</span></li>";
+      const extra = list.filter((r) => r.opt);
+      K.card('<div class="kick">' + esc(scene.title) + '</div><h2>Your list here</h2><p class="fchknow">' + (done ? "✓ " : "") + esc(task) + "</p>" +
+        '<div class="fchkh">To move on</div><ul class="fchk">' + need.map(row).join("") + "</ul>" +
+        (extra.length ? '<div class="fchkh">Extras, if you like</div><ul class="fchk">' + extra.map(row).join("") + "</ul>" : "") +
+        '<button class="cta" data-act="x">Close</button>', { x: () => {} });
+    };
     const firstTime = v.hank && !w.flags["said:" + scene.id + ":" + v.id];
     if (v.hank) { $("fwlamp").onclick = () => { K.sfx("click"); subtitles(v.hank); }; if (firstTime) setTimeout(() => subtitles(v.hank), 450); }
     if (v.hank && !w.flags["said:" + scene.id + ":" + v.id]) { w.flags["said:" + scene.id + ":" + v.id] = 1; save(); F.V("w-" + scene.id + "-" + v.id); }

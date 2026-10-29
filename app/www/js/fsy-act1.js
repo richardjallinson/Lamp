@@ -160,7 +160,7 @@
     ] },
     guide: { name: "The guide at the model", kick: "The Israel Museum", desc: "An older woman with grey hair in a bun, a museum lanyard, a wooden pointer. Precise, dry, delighted by a good question.", lines: [
       { id: "show", say: "Can you show me the Temple?", when: () => !done("model", "modelq"), run: () => reply("guide", "“I can show you where they put it. Whether that is where it was is a longer conversation.” She lifts the pointer. “Walk round. I will ask you three things.”", { btn: "Answer her questions", then: () => C.PUZZLES.modelq.run() }) },
-      { id: "lev", say: "(Show her the frankincense) What was this for?", when: (a) => a.items.frankincense, run: () => { reply("guide", "“Levonah.” She does not touch it. “Burned on the golden altar inside the sanctuary, morning and evening. The altar stood here, before the veil.” The pointer taps the model. “Remember that: the incense was inside. The sacrifices were outside, in the middle of the court.”"); fact("incense", "The altar of incense was inside the sanctuary. The altar of sacrifice was outside, in the middle of the court."); } },
+      { id: "lev", say: "(Show her the frankincense) What was this for?", when: (a) => a.items.frankincense, run: () => { A().q.levShown = 1; save(); reply("guide", "“Levonah.” She does not touch it. “Burned on the golden altar inside the sanctuary, morning and evening. The altar stood here, before the veil.” The pointer taps the model. “Remember that: the incense was inside. The sacrifices were outside, in the middle of the court.”"); fact("incense", "The altar of incense was inside the sanctuary. The altar of sacrifice was outside, in the middle of the court."); } },
       { id: "man", say: "Did a man with a journal come here?", when: () => done("model", "modelq") && !W().done.model, run: () => reply("guide", "“Every Friday. He stood where you are standing and looked east.” She lowers the pointer to the rail. “He left something under there once. I have not touched it.”", { clip: "guide", btn: "Look under the rail", then: () => C.finish("model") }) },
     ] },
   };
@@ -226,6 +226,23 @@
     const L = [["bread", "loaf"], ["coffee", "coffee"], ["fish", "fish"]], left = L.filter((x) => !a.items[x[1]]).map((x) => x[0]);
     return left.length ? " · Dudu’s list: still " + left.join(", ") + (left.includes("coffee") ? " (the coffee man, not Yosef)" : "") + "." : " · Dudu’s list is done: take it to his grandmother at the tram stop, on the market street.";
   }
+  /* the checklist for each Act 1 place: { t: what, ok: done yet, opt: an extra, where: a hint while not done } */
+  H.list = (scene) => {
+    const a = A(), w = W(), q = a.q, it = a.items, r = (t, ok, where, opt) => ({ t, ok: !!ok, where, opt: !!opt });
+    const L = {
+      airport: [r("Through passport control", w.flags.passport, "The officer at the booth"), r("Read page 1 of the journal", w.pages[1], "Tap Journal"), r("Buy a train ticket to Jerusalem", w.flags.ticket, "The machine by the platforms")],
+      train: [r("Ride the train up to Jerusalem", w.done.train, "Down to the platform, then on"), r("Talk to the soldier", q.eitan, "On the airport platform", 1)],
+      rail: [r("Buy a travel card", it.card || q.dudu, "The kiosk at the stop"), r("Ride the tram to the market", a.rode.rail, "Step on board"), r("Offer to carry the woman's bags", q.metGrandma, "At the tram stop", 1)],
+      market: [r("Weigh at Yosef's spice stall", done("market", "scales"), "Yosef, the spice seller"), r("Find who knew the Watchman", q.sack, "The halva seller, deeper in"), r("Open the Watchman's old sack", w.done.market, "Ask Yosef about the sack in his corner"),
+        r("Help Dudu (the boy with the football)", q.dudu, "In the market lane", 1),
+        ...(q.dudu ? [r("Bread", it.loaf || q.dudu === 3, "The blue awning", 1), r("Coffee", it.coffee || q.dudu === 3, "The coffee man", 1), r("Fish", it.fish || q.dudu === 3, "The fish counter at the end", 1), r("Take it all to his grandmother", q.dudu === 3, "The tram stop, on the market street", 1)] : []),
+        r("Frankincense from Yosef", it.frankincense, "Ask Yosef, after weighing: 10 shekels", 1)],
+      benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda, "Past the corner")],
+      gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel, "Ask about souvenirs")],
+      model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model, "The guide at the model"), r("Show her the frankincense", q.levShown, "If you bought it", 1)],
+    };
+    return L[scene.id] || null;
+  };
   H.side = (scene) => (scene.id === "market" ? duduList(A()) : "");
   H.task = (scene) => {
     const a = A();
