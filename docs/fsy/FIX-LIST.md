@@ -51,3 +51,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | The station-wall map is now Richard's poster: the line from the coast past the airport into the rounded Judean hills, with a height profile underneath. Real stations on the dots (Tel Aviv Savidor, Ben Gurion Airport, Pa'atei Modi'in, Modi'in Central, Jerusalem Yitzhak Navon) and their heights (≈ 10, 40, 150, 250, 800 m); "go up" is read from the profile | Done in code, waiting for the build |
+| 2 | Act 1 clips: Dudu, the bread seller, the halva seller, Shmuel, Gabriel, the museum guide, the grandmother, each at their key moment. Every Act 1 person now has a clip | Done in code, waiting for the build |
