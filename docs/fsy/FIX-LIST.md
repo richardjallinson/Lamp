@@ -54,7 +54,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 2 | Act 1 clips: Dudu, the bread seller, the halva seller, Shmuel, Gabriel, the museum guide, the grandmother, each at their key moment. Every Act 1 person now has a clip | Done in code, waiting for the build |
 | 3 | Passport control: the clip now stops after each of her four lines (passport please / where are you going / open the backpack / where did you get this book) with the right answers each time; answers no longer squashed under the back button; the heading no longer shown twice | Done in code, waiting for the build |
 
-## Next batch (for v4d)
+## v4d (built)
 
 | # | Fix | Status |
 |---|---|---|
