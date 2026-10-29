@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -111,7 +111,7 @@
     ] },
     grandma: { name: "The woman at the stop", kick: "Jaffa Road", desc: "A grandmother in a sun hat and cardigan with two heavy shopping bags. Talks to everyone.", lines: [
       { id: "line", say: "Is this the right line for the market?", run: () => reply("grandma", "“Only one line, dear. Red. Everything is on it: the shuk, the Old City, all of it.”") },
-      { id: "carry", say: "Can I carry those?", run: () => { A().q.metGrandma = 1; save(); reply("grandma", "“You can. My grandson was supposed to meet me. Dudu. If you see a boy with a football and no sense, that is him.”"); fact("dudu", "The woman at the stop is waiting for her grandson Dudu: a boy with a football."); } },
+      { id: "carry", say: "Can I carry those?", run: () => { A().q.metGrandma = 1; save(); reply("grandma", "“You can. My grandson was supposed to meet me. Dudu. If you see a boy with a football and no sense, that is him.”", { clip: "grandma" }); fact("dudu", "The woman at the stop is waiting for her grandson Dudu: a boy with a football."); } },
     ] },
     yosef: { name: "Yosef, the spice seller", kick: "Machne Yehuda", desc: "A big man in an apron, white hair, forearms dusted red with paprika. Does not suffer fools. Likes an honest customer.", lines: [
       { id: "buy", say: "I’d like to buy some spice.", when: () => !done("market", "scales"), run: () => reply("yosef", "“First you weigh. Everyone who buys from Yosef weighs.” He sets a worn stone on the left pan. “One shekel. Make it match.”", { btn: "Weigh", then: () => C.PUZZLES.scales.run() }) },
