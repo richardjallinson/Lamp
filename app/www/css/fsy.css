@@ -519,3 +519,33 @@
 #adv .fcoin.c10{background:radial-gradient(circle at 35% 30%,#FFF1B8,#E3B94A 45%,#B58A2A 62%,#D9D6CE 63%,#A9A7A0)}
 #adv .fcoin.c05{width:44px;height:44px;font-size:15px;background:radial-gradient(circle at 35% 30%,#FFF1B8,#E3B94A 55%,#A9802A)}
 #adv .fcoin.used{opacity:.2;transform:scale(.85)}
+
+/* ---------- the walking screen: one fixed screen, Riven-style (Oct 28) ---------- */
+#adv .fsy.walking{overflow:hidden;padding:0;display:block}
+#adv .fwalk{position:absolute;inset:0}
+#adv .fwbg{position:absolute;inset:-30px;background:center/cover no-repeat;filter:blur(20px) brightness(.32) saturate(.9)}
+#adv .fwtask{position:absolute;z-index:3;left:12px;right:12px;top:calc(56px + env(safe-area-inset-top,0px));padding:8px 14px;border-radius:12px;border:1px solid rgba(201,162,74,.55);
+  background:rgba(20,16,8,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#F3DFA6;font:600 14px/1.35 var(--ui);text-align:center;cursor:pointer}
+#adv .fwtask span{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+#adv .fwtask.open span{-webkit-line-clamp:unset}
+#adv .fwtask.done{border-color:rgba(120,200,140,.55);color:#CDEFD6}
+#adv .fwarea{position:absolute;left:0;right:0;top:calc(102px + env(safe-area-inset-top,0px));bottom:calc(68px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;padding:4px 8px 8px;box-sizing:border-box}
+#adv .fwarea .fwview{width:100%;height:100%;max-width:none;aspect-ratio:auto;margin:0}
+#adv .fwarea .fwview .fwimg{object-fit:fill}
+#adv .fwbar{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));
+  background:rgba(10,12,24,.94);border-top:1px solid rgba(201,162,74,.3)}
+#adv .fwbar .fwtool{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;border:none;border-radius:10px;background:none;color:#E8DDBF;font:700 11.5px var(--ui);cursor:pointer}
+#adv .fwbar .fwtool svg{width:22px;height:22px}
+#adv .fwbar .fwtool.go{color:#141A33;background:#C9A24A;margin:0 4px;animation:ep1glow 2.4s ease-in-out infinite}
+#adv .fwsub{position:absolute;z-index:3;left:10px;right:10px;bottom:118px;padding:10px 14px 8px;border-radius:12px;background:rgba(6,8,18,.82);color:#FBF8F0;
+  font:600 15.5px/1.42 var(--display);text-align:center;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;pointer-events:none}
+#adv .fwsub.on{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
+#adv .fwsub small{display:block;margin-top:3px;font:700 10.5px var(--ui);letter-spacing:.14em;color:#C9A24A}
+#adv .fwlamp{position:absolute;z-index:3;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(245,210,122,.8);background:rgba(8,12,28,.6);color:#F5D27A;display:grid;place-items:center;cursor:pointer}
+#adv .fwarea .fwho{position:absolute;z-index:3;left:8px;bottom:12px;display:flex;flex-direction:column;gap:8px;margin:0;align-items:flex-start}
+#adv .fwarea .fwhob{flex-direction:column;gap:2px;padding:0;border:none;background:none;box-shadow:none;animation:none;font:700 10.5px/1.15 var(--ui);color:#F3DFA6;text-shadow:0 1px 4px #000;max-width:76px;text-align:center}
+#adv .fwarea .fwhob .fface{width:56px;height:56px;border-width:2.5px;box-shadow:0 0 0 0 rgba(245,210,122,.6),0 3px 8px rgba(0,0,0,.6);animation:whoglow 2.4s ease-in-out infinite}
+#adv .fwarea .fwhob span{display:block;max-width:76px}
+#adv .fwarea .farrow.left{left:auto;right:10px;top:auto;bottom:74px;margin:0}
+#adv .fwarea .farrow.right{right:10px}
+#adv .asheet .card:has(.ftalk){max-height:62%}

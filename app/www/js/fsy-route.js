@@ -613,16 +613,26 @@
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
     const task = done ? (nx ? "Done here. Walk on to " + nx.title + "." : "Done here.") : ((H.task && H.task(scene)) || TASK[scene.id] || "Look at everything here.");
-    const el = F.stage('<div class="fkick">Act ' + scene.act + " · scene " + scene.n + " of " + R.length + "</div><h1>" + esc(scene.title) + "</h1>" +
-      '<div class="ftask' + (done ? " done" : "") + '">' + (done ? "✓ " : "") + esc(task) + "</div>" +
-      '<div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
-      (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") + "</div>" +
-      '<div class="fsmall">' + esc(v.cap) + (v.img ? "" : "<small>Photo to come</small>") + "</div>" +
-      (H.people ? H.people(scene, v) : "") +
-      (v.hank ? '<div class="fnarr">“' + esc(v.hank) + '”<small>The Lamplighter</small></div>' : "") +
-      '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + ' Journal</button><button class="fwtool" data-b="1">' + bagIcon() + ' Backpack</button><button class="fwtool" data-m="1">Map</button>' +
-      (done && nx ? '<button class="fwtool go" data-n="1">Walk on › ' + esc(nx.title) + "</button>" : "") +
-      (!done && scene.optional && nx ? '<button class="fwtool" data-n="1">Walk on without it ›</button>' : "") + "</div>", v.img ? "w/" + v.img + ".jpg" : "temple-painting.jpg");
+    /* Riven-style: one fixed screen. The picture fills the space between the task line and the bar; nothing scrolls. */
+    const el = F.stage('<div class="fwalk">' +
+      '<div class="fwbg" style="background-image:url(' + (v.img ? IMG + v.img + ".jpg" : "img/fsy/temple-painting.jpg") + ')"></div>' +
+      '<button class="fwtask' + (done ? " done" : "") + '" id="fwtask"><span>' + (done ? "✓ " : "") + esc(task) + "</span></button>" +
+      '<div class="fwarea" id="fwarea"><div class="fwview" id="fwv">' + pic + hots + arrow("fwd", g.fwd) + arrow("left", g.left) + arrow("right", g.right) + arrow("back", g.back) +
+        (pz && !pzDone ? '<button class="fwpz" id="fwpz">' + esc(pz.label) + "</button>" : "") +
+        (H.people ? H.people(scene, v) : "") +
+        (v.hank ? '<button class="fwlamp" id="fwlamp" aria-label="What the Lamplighter said">' + lampIcon() + "</button>" : "") +
+        '<div class="fwsub" id="fwsub" aria-live="polite"></div>' +
+      "</div></div>" +
+      '<nav class="fwbar"><button class="fwtool" data-j="1">' + journalIcon() + '<span>Journal</span></button><button class="fwtool" data-b="1">' + bagIcon() + '<span>Backpack</span></button><button class="fwtool" data-m="1">' + mapIcon() + "<span>Map</span></button>" +
+        (done && nx ? '<button class="fwtool go" data-n="1">' + walkIcon() + "<span>Walk on</span></button>" : "") +
+        (!done && scene.optional && nx ? '<button class="fwtool" data-n="1">' + walkIcon() + "<span>Skip it</span></button>" : "") + "</nav>" +
+      "</div>", null);
+    el.classList.add("walking");
+    const ttl = document.getElementById("adv-ttl"); if (ttl) { ttl.textContent = scene.title; ttl.onclick = () => K.say(v.cap || scene.title, "", 4000); }
+    fitView(el);
+    $("fwtask").onclick = () => { K.sfx("click"); $("fwtask").classList.toggle("open"); };
+    const firstTime = v.hank && !w.flags["said:" + scene.id + ":" + v.id];
+    if (v.hank) { $("fwlamp").onclick = () => { K.sfx("click"); subtitles(v.hank); }; if (firstTime) setTimeout(() => subtitles(v.hank), 450); }
     if (v.hank && !w.flags["said:" + scene.id + ":" + v.id]) { w.flags["said:" + scene.id + ":" + v.id] = 1; save(); F.V("w-" + scene.id + "-" + v.id); }
     /* a scene with nothing to solve is finished once every viewpoint has been seen */
     w.flags["seen:" + scene.id + ":" + v.id] = 1; save();
@@ -638,6 +648,40 @@
     if (H.wire) H.wire(el, scene, v);
     if (v.note && !w.flags["note:" + scene.id + ":" + v.id]) { w.flags["note:" + scene.id + ":" + v.id] = 1; save(); v.note(); }
   }
+  /* size the picture box to the picture, as large as the space allows, so hotspots stay on their marks */
+  function fitView(el) {
+    const area = el.querySelector("#fwarea"), box = el.querySelector("#fwv"), img = box && box.querySelector(".fwimg");
+    const fit = () => {
+      if (!K.root() || !area.isConnected) return;
+      const aw = area.clientWidth, ah = area.clientHeight, r = img && img.naturalWidth ? img.naturalWidth / img.naturalHeight : 3 / 4;
+      let w = aw, h = aw / r; if (h > ah) { h = ah; w = ah * r; }
+      box.style.width = Math.round(w) + "px"; box.style.height = Math.round(h) + "px";
+    };
+    if (img && !img.complete) img.addEventListener("load", fit); fit();
+    window.addEventListener("resize", fit, { once: true });
+  }
+  /* the Lamplighter's words as film subtitles: two short lines at a time; tap for the next; they fade when done */
+  let subT = null;
+  function subtitles(text) {
+    const box = $("fwsub"); if (!box) return;
+    const parts = []; let cur = "";
+    text.split(/(?<=[.!?:;])\s+/).forEach((sent) => { if ((cur + " " + sent).trim().length > 110 && cur) { parts.push(cur.trim()); cur = sent; } else cur = (cur + " " + sent).trim(); });
+    if (cur) parts.push(cur);
+    let i = 0;
+    const show = () => {
+      clearTimeout(subT);
+      if (i >= parts.length || !box.isConnected) { box.classList.remove("on"); return; }
+      box.innerHTML = "<span>" + esc(parts[i]) + "</span>" + (parts.length > 1 ? "<small>" + (i + 1) + "/" + parts.length + (i < parts.length - 1 ? " ›" : "") + "</small>" : "");
+      box.classList.add("on");
+      subT = setTimeout(() => { i++; show(); }, Math.max(3800, parts[i].length * 62));
+    };
+    box.onclick = (e) => { e.stopPropagation(); i++; show(); };
+    show();
+  }
+  const lampIcon = () => '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 14c0-2 3-3 7-3h6c2 0 3 1 4 2l-3 1c-2 2-5 3-8 3-3 0-6-1-6-3z" fill="currentColor"/><path d="M19 13c1-3 0-6-1-8 2 2 3 5 1 8z" fill="#FFD27A"/></svg>';
+  const mapIcon = () => '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  const walkIcon = () => '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   /* double-tap a picture to see it full screen; pinch to zoom */
   function fullscreen(img) {
     if (!img) return;

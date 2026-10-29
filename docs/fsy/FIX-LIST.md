@@ -24,13 +24,13 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 
 **Packaging (always):** the zip holds the whole project: Lamp-vXX/ with Lamp.xcodeproj, Lamp/, README.md and www/ (tools, sounds and design removed). Richard opens Lamp.xcodeproj and runs; he does not swap folders.
 
-## Next batch (from Richard playing v3z on his phone)
+## Next batch (from Richard playing v3z on his phone): built as v4a
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | The journal's script font is hard to read: change it to a clear, readable face, and put every note and journal page on what looks like an old parchment Torah scroll (rolled ends, aged parchment, ink) | To do |
-| 2 | Found while checking #1: the page 1 card in the opening still ends "Trust the man with the angel's name." It must say "…at the number of the verse where Messiah is cut off" (the Gabriel 26 clue), as the journal itself does | To do |
-| 3 | The start screen: the big title back to LAMP (as it was), with "The Final Seven Years" as the subtitle under it | To do |
-| 4 | The ticket machine becomes a real puzzle: (1) screen in Hebrew only, English button taped "out of order"; (2) match the Hebrew name of the top station on the wall route map (small Hebrew signs added at each dot) to the machine button, clerk hints with the yod; (3) pay exactly 17 shekels in coins from the envelope (10, 5, 2, 1, ½), "Exact fare only" | To do. Drawing received: images/originals/fsy/puzzles/coin-slot.png |
-| 5 | The fish counter picture is a blurry blown-up crop: replace it with a painting (prompt given), nobody behind the counter | To do. Painting received: images/originals/fsy/photos/oct28/fish-counter-painting.png |
-| 6 | The walking screen fits one phone screen, Riven-style: the picture fills the screen; title and a one-line task over its top (tap the task to read all); the Lamplighter as film subtitles over the bottom of the picture, two lines at a time, "1/2 ›", fades when done, a lamp button to bring it back; people as round faces on the picture, tapping one slides a dialogue panel up over the bottom half (only that panel may scroll); arrows just above a fixed bottom bar of Journal, Backpack, Map; the caption under the picture goes (tap the title to see it); the screen never scrolls | To do |
+| 1 | The journal's script font is hard to read: change it to a clear, readable face, and put every note and journal page on what looks like an old parchment Torah scroll (rolled ends, aged parchment, ink) | In v4a |
+| 2 | Found while checking #1: the page 1 card in the opening still ends "Trust the man with the angel's name." It must say "…at the number of the verse where Messiah is cut off" (the Gabriel 26 clue), as the journal itself does | In v4a |
+| 3 | The start screen: the big title back to LAMP (as it was), with "The Final Seven Years" as the subtitle under it | In v4a |
+| 4 | The ticket machine becomes a real puzzle: (1) screen in Hebrew only, English button taped "out of order"; (2) match the Hebrew name of the top station on the wall route map (small Hebrew signs added at each dot) to the machine button, clerk hints with the yod; (3) pay exactly 17 shekels in coins from the envelope (10, 5, 2, 1, ½), "Exact fare only" | In v4a |
+| 5 | The fish counter picture is a blurry blown-up crop: replace it with a painting (prompt given), nobody behind the counter | In v4a |
+| 6 | The walking screen fits one phone screen, Riven-style: the picture fills the screen; title and a one-line task over its top (tap the task to read all); the Lamplighter as film subtitles over the bottom of the picture, two lines at a time, "1/2 ›", fades when done, a lamp button to bring it back; people as round faces on the picture, tapping one slides a dialogue panel up over the bottom half (only that panel may scroll); arrows just above a fixed bottom bar of Journal, Backpack, Map; the caption under the picture goes (tap the title to see it); the screen never scrolls | In v4a |
