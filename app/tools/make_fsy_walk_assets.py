@@ -92,7 +92,7 @@ PHOTOS = {
     "market-coffee": "photos/oct27/market-coffee-beans.png",
     "market-spice": "photos/oct27/market-spice-stall.png",
     "market-kaldron": "photos/oct27/market-lane-bakery.png",
-    "market-fish": ("photos/oct27/market-fish-counter.png", (0, 1420, 1125, 1880)),   # the counter only, shopkeeper left out
+    "market-fish": "photos/oct28/fish-counter-painting.png",   # painting (replaces the blurry crop of the photo, Oct 28)
     "siloam-pool": ("photos/oct27/siloam-pool-steps.png", None, [(395, 1085, 535, 1330)]),   # person in the pool blurred
     "siloam-sign": "photos/oct27/siloam-pool-sign.png",
     "siloam-water": "photos/hezekiah/tunnel-exit-pool-columns.png",
@@ -230,7 +230,7 @@ def touch(im):
     return Image.merge("RGB", (r, g, b))
 
 
-NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard", "map-old", "map-city", "intro-desk", "airport-signs", "airport-machine", "grey-away", "benyehuda-street", "gabriel-counter"}   # real photos that are dark at the edges: don't treat that as screenshot bars
+NOBARS = {"gihon-mouth", "train-navon", "train-board", "train-platform", "wilson-hall", "wilson-scrolls", "wallagain-damascus", "wilson-shaft", "ramparts-stairs", "ramparts-north", "jewish-wallsteps", "wallagain-clear", "bazaar-steps", "bazaar-stalls", "bazaar-trader", "bazaar-end", "siloam-road", "jewish-burnt", "zion-courtyard", "map-old", "map-city", "intro-desk", "airport-signs", "airport-machine", "grey-away", "benyehuda-street", "gabriel-counter", "market-fish"}   # real photos that are dark at the edges: don't treat that as screenshot bars
 
 
 def finish(im, name):
@@ -242,8 +242,11 @@ def finish(im, name):
 
 
 def main():
+    import sys
+    only = set(sys.argv[1:])   # e.g.  python3 make_fsy_walk_assets.py market-fish   (just that one)
     os.makedirs(OUT, exist_ok=True)
     for name, rel in PHOTOS.items():
+        if only and name not in only: continue
         box, blurs = None, ()
         if isinstance(rel, tuple): rel, box, *more = rel; blurs = more[0] if more else ()
         im = Image.open(os.path.join(SRC, rel)).convert("RGB")
@@ -253,6 +256,7 @@ def main():
         print(name, finish(im, name))
     with tempfile.TemporaryDirectory() as tmp:
         for name, (film, t) in FRAMES.items():
+            if only and name not in only: continue
             f = os.path.join(tmp, name + ".png")
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", os.path.join(SRC, film), "-frames:v", "1", f], check=True)
             print(name, finish(Image.open(f), name))
