@@ -44,3 +44,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 3 | Clips that pause for your answer: a clip is split at the gaps in the speech; it plays one question, stops on her face, shows your choices, plays on when you answer. The officer: officer-2.mp4 (portrait, 18 s, four lines at about 2, 5, 12, 15 s) is the questions; officer-1.mp4 (landscape, she stamps the passport) ends the scene before the gates open | To do: Richard to confirm her four lines, in order |
 | 4 | The ticket clerk's clip ("Grey coat, no luggage…") on her answer about the man in grey | Done in code, waiting for the build |
 | 5 | The soldier: new bearded still, and his clip ("Nobody looks. You look.") on "Do you know the Temple Mount?" | Done in code, waiting for the build |
+| 6 | The card seller's clip on "I need to take the light rail" | Done in code, waiting for the build |

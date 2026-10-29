@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -98,7 +98,7 @@
       { id: "mount", say: "Do you know the Temple Mount?", run: () => reply("soldier", "“I stood guard up there, two months. Everyone argues about it. Nobody looks.” He closes the book. “You look.”", { clip: "soldier" }) },
     ] },
     cardseller: { name: "The card seller", kick: "The kiosk on Jaffa Road", desc: "A man with a thick moustache leaning out of a kiosk hung with phone chargers and lottery tickets. Talks fast.", lines: [
-      { id: "card", say: "I need to take the light rail.", when: (a) => !a.items.card, run: () => reply("cardseller", "“Card. Ten shekels, four rides on it. No card, no ride, no arguing with the inspector.”", { btn: "Buy the card (10 shekels)", then: () => { if (H.pay(10, "the travel card")) { A().rides = 4; give("card"); } } }) },
+      { id: "card", say: "I need to take the light rail.", when: (a) => !a.items.card, run: () => reply("cardseller", "“Card! Ten shekels, four rides. No card, no ride, no arguing with the inspector.”", { clip: "cardseller", btn: "Buy the card (10 shekels)", then: () => { if (H.pay(10, "the travel card")) { A().rides = 4; give("card"); } } }) },
       { id: "topup", say: "I’m out of rides.", when: (a) => a.items.card && a.rides === 0, run: () => reply("cardseller", "“Everybody is out of rides. Five shekels, one ride.”", { btn: "Top up (5 shekels)", then: () => { if (H.pay(5, "a ride")) { A().rides = 1; save(); K.say("One ride on the card.", "", 2500); } } }) },
       { id: "market", say: "How do I get to the market?", run: () => { fact("stops", "The market is three stops down the red line."); reply("cardseller", "“Three stops. Mahane Yehuda. You will smell it before you see it.”"); } },
       { id: "kg", say: "Which way is King George Street?", run: () => reply("cardseller", "“Down Jaffa Road, two stops, then left. Big street. Ben Yehuda runs into it.”") },
