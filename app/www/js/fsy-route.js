@@ -990,12 +990,13 @@
     } },
     ticket: { label: "Buy a ticket", run: () => {
       /* three steps: the machine speaks only Hebrew; the wall map shows which station is "up"; pay exactly 17 in coins */
+      /* the station-wall poster (Richard's painting, Oct 29): the line seen from above, and its height profile below */
       const ST = [
-        { he: "תל אביב - סבידור מרכז", en: "Tel Aviv – Savidor", at: [12.8, 79.9], no: "That one is by the sea, the first stop on the map. The page says up." },
-        { he: "תל אביב - השלום", en: "Tel Aviv – HaShalom", at: [36.1, 74.8], no: "Still on the coast. The page says up." },
-        { he: "תל אביב - ההגנה", en: "Tel Aviv – HaHagana", at: [62.7, 59.8], no: "Back toward the sea. The page says up." },
-        { he: "נמל התעופה בן גוריון", en: "Ben Gurion Airport", at: [76.3, 42.1], no: "That is where you are standing." },
-        { he: "ירושלים - יצחק נבון", en: "Jerusalem – Yitzhak Navon", at: [87.4, 20.4] },
+        { he: "תל אביב - סבידור מרכז", en: "Tel Aviv – Savidor", at: [20.0, 21.2], pf: [13.9, 93.8], h: "≈ 10 m", side: "right", no: "By the sea, at the very bottom of the profile. The page says up." },
+        { he: "פאתי מודיעין", en: "Pa’atei Modi’in", at: [47.8, 34.7], pf: [47.6, 92.7], h: "≈ 150 m", side: "right", no: "Only the foot of the hills. Look at the profile under the map: the line keeps climbing." },
+        { he: "מודיעין מרכז", en: "Modi’in Central", at: [64.8, 43.3], pf: [68.7, 86.5], h: "≈ 250 m", side: "left", no: "Halfway up, not the top. The profile shows one station higher than this." },
+        { he: "נמל התעופה בן גוריון", en: "Ben Gurion Airport", at: [31.4, 26.1], pf: [28.9, 93.8], h: "≈ 40 m", side: "right", no: "That is where you are standing." },
+        { he: "ירושלים - יצחק נבון", en: "Jerusalem – Yitzhak Navon", at: [86.8, 52.0], pf: [87.7, 81.2], h: "≈ 800 m", side: "left" },
       ];
       const order = [3, 0, 4, 2, 1];   /* the machine lists them in its own order, not the map's */
       const COINS = [10, 5, 5, 2, 1, 0.5, 0.5];
@@ -1003,8 +1004,9 @@
       let step = 1, inslot = [];
       const el = screen("The ticket machine", "The airport station", '<div id="fticket"></div>', null);
       const box = $("fticket");
-      const mapHTML = () => '<div class="froute small"><img draggable="false" src="' + PZ + 'route-map.jpg" alt="The painted map of the line on the station wall">' +
-        ST.map((st, i) => '<span class="froute-sign' + (i === 3 ? " here" : "") + (i === 0 ? " right" : "") + '" style="left:' + st.at[0] + "%;top:" + st.at[1] + '%"><i></i><b dir="rtl">' + st.he + "</b>" + (i === 3 ? "<em>You are here</em>" : "") + "</span>").join("") + "</div>";
+      const mapHTML = () => '<div class="froute small"><img draggable="false" src="' + PZ + 'route-map.jpg" alt="The railway poster on the station wall: the line from the coast up into the hills, and its height profile">' +
+        ST.map((st, i) => '<span class="froute-sign' + (i === 3 ? " here" : "") + (st.side === "right" ? " right" : "") + '" style="left:' + st.at[0] + "%;top:" + st.at[1] + '%"><i></i><b dir="rtl">' + st.he + "</b>" + (i === 3 ? "<em>You are here</em>" : "") + "</span>").join("") +
+        ST.map((st) => '<span class="froute-alt" style="left:' + st.pf[0] + "%;top:" + st.pf[1] + '%">' + st.h + "</span>").join("") + "</div>";
       function draw() {
         if (step === 1) {
           box.innerHTML = q("The page said: go up. The machine only speaks Hebrew today.") +
@@ -1012,7 +1014,7 @@
             order.map((i) => '<button class="fm-dest" data-st="' + i + '" dir="rtl">' + ST[i].he + "</button>").join("") + "</div>" +
             '<button class="fbtn alt" id="fmmap">Look at the map on the wall</button>';
           $("fmlang").onclick = () => { F.S("knock", null, 0.4); K.say("Someone has taped over the button. In biro: “out of order”.", "", 2800); };
-          $("fmmap").onclick = () => { K.sfx("click"); K.card('<div class="kick">On the station wall</div><h2>The line, from the sea to the mountains</h2>' + mapHTML() + "<p>Every station has its name painted beside it, in Hebrew. The line ends at the top of the mountains.</p>" + '<button class="cta" data-act="x">Back to the machine</button>', { x: () => {} }); };
+          $("fmmap").onclick = () => { K.sfx("click"); K.card('<div class="kick">On the station wall</div><h2>The line, from the sea up into the hills</h2>' + mapHTML() + "<p>Every station has its name beside it, in Hebrew. Under the map, the same line from the side: how high each station stands.</p>" + '<button class="cta" data-act="x">Back to the machine</button>', { x: () => {} }); };
           box.querySelectorAll("[data-st]").forEach((b) => (b.onclick = () => {
             const i = +b.dataset.st;
             if (i !== 4) { wrong(ST[i].no); return; }
@@ -1212,7 +1214,7 @@
     const v = view;
     if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
-    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", passport: "Page 1 tells you where you are going: up, to Jerusalem.", ticket: "Look at the map on the wall: the top of the line is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
+    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", passport: "Page 1 tells you where you are going: up, to Jerusalem.", ticket: "Look at the poster on the wall: the profile under the map shows which station is highest. That is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
     if (pz) return K.say("Something to do at “" + pz.cap.split(":")[0] + "”. Use the arrows to walk there.", "", 4200);
     K.say("This scene is done. Tap “Walk on” or the Map.", "", 3200);

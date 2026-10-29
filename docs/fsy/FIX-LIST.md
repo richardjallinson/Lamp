@@ -45,3 +45,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 4 | The ticket clerk's clip ("Grey coat, no luggage…") on her answer about the man in grey | In v4b |
 | 5 | The soldier: new bearded still, and his clip ("Nobody looks. You look.") on "Do you know the Temple Mount?" | In v4b |
 | 6 | The card seller's clip on "I need to take the light rail" | In v4b |
+
+## Next batch (for v4c)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The station-wall map is now Richard's poster: the line from the coast past the airport into the rounded Judean hills, with a height profile underneath. Real stations on the dots (Tel Aviv Savidor, Ben Gurion Airport, Pa'atei Modi'in, Modi'in Central, Jerusalem Yitzhak Navon) and their heights (≈ 10, 40, 150, 250, 800 m); "go up" is read from the profile | Done in code, waiting for the build |
