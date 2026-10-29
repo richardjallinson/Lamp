@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef"]);
+  const CLIPS = new Set(["yosef", "clerk"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -65,7 +65,7 @@
   function reply(pid, text, o) {
     const p = PEOPLE[pid]; o = o || {};
     K.card('<div class="ftalk">' + portrait(pid, p) + '<div><div class="kick">' + esc(p.name) + "</div>" + (o.h ? "<h2>" + esc(o.h) + "</h2>" : "") + "</div></div>" +
-      '<div class="fhim">' + text + "</div>" + (o.extra || "") +
+      (o.clip && H.clip ? H.clip(o.clip) : "") + '<div class="fhim">' + text + "</div>" + (o.extra || "") +
       (o.btn ? '<button class="cta" data-act="b">' + esc(o.btn) + "</button>" : "") +
       '<button class="cta' + (o.btn ? " alt" : "") + '" data-act="again">Ask something else</button><button class="cta alt" data-act="x">Leave</button>',
       { b: () => o.then && o.then(), again: () => talk(pid), x: () => o.leave && o.leave() });
@@ -89,7 +89,7 @@
     clerk: { name: "The ticket clerk", kick: "The airport station", desc: "A woman behind the glass, reading glasses on a chain, a paper cup of coffee. Bored, but kind.", lines: [
       { id: "which", say: "Which train goes to Jerusalem?", run: () => reply("clerk", "“All the way up? Yitzhak Navon. Twenty-five minutes, mostly tunnel. Seventeen shekels. Or the machine, if you prefer machines.”", { then: null }) },
       { id: "heb", say: "The machine only shows Hebrew.", when: () => !W().flags.ticket, run: () => reply("clerk", "“The English button? Broken since Pesach.” She leans to the grille. “Jerusalem is Yerushalayim. Look for the word that starts with the little letter like a raised hand, the yod: י. It is the last stop, at the top of the map.”") },
-      { id: "grey", say: "Did a man in a grey coat come through here?", run: () => reply("clerk", "“Grey coat, no luggage. Bought a ticket to Jerusalem and asked me if anyone had been asking for him. I said no.” She looks at you over the glasses. “Now I have said yes.”") },
+      { id: "grey", say: "Did a man in a grey coat come through here?", run: () => reply("clerk", "“Grey coat, no luggage. Bought a ticket to Jerusalem and asked me if anyone had been asking for him. I said no.” She looks at you over the glasses. “Now I have said yes.”", { clip: "clerk" }) },
       { id: "up", say: "What does ‘go up’ mean?", run: () => reply("clerk", "“You go up to Jerusalem. Always. Even from the north, you go up. It is on the mountains.” A shrug. “And it is Jerusalem.”") },
     ] },
     soldier: { name: "The soldier", kick: "The airport platform", desc: "A young man, nineteen or twenty, green uniform, a rifle slung, a paperback in his hand. Friendly, homesick.", lines: [
