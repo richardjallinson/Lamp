@@ -1,6 +1,6 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 171 of 171 viewpoints. Updated 2026-10-28.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 172 of 172 viewpoints. Updated 2026-10-29.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
@@ -10,13 +10,15 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 | Have | File | The picture |
 | --- | --- | --- |
+| ✓ | `passport-control` | Passport control: a row of glass booths, and the queue moving slowly |
 | ✓ | `airport-1` | The arrivals hall at Ben Gurion, the journal in your bag |
 | ✓ | `airport-signs` | Signs with a train on them, pointing down the escalator to the airport station |
 | ✓ | `airport-machine` | The ticket machines at the airport station, and the ticket window beside them |
 
 **Hank says:**
 
-- `w-airport-hall`: “Ben Gurion. Read the first page again before you go: it tells you the way.”
+- `w-airport-control`: “Ben Gurion. Before anything else, the booth. Tell them the truth: you are going up.”
+- `w-airport-hall`: “Read the first page again before you go: it tells you the way.”
 - `w-airport-signs`: “Trains, down the escalator. Down first, so you can go up.”
 
 ### 2. The train to Jerusalem (Navon station)
@@ -30,7 +32,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 **Hank says:**
 
 - `w-train-board`: “Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.”
-- `w-train-navon`: “Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.”
+- `w-train-navon`: “Eighty metres under the city. The escalators climb a long way, and at the top is Jerusalem.”
 
 ### 3. The light rail (Jaffa Road)
 
@@ -85,7 +87,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 **Hank says:**
 
-- `w-gabriel-street`: “Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.”
+- `w-gabriel-street`: “Number twenty-six. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.”
 
 ### 7. The Second Temple model (The Israel Museum)
 

@@ -1,7 +1,10 @@
 HANK, EPISODE 1 WALKING VERSION. Paste each line as one generation, in this order, and send the files un-renamed.
 
+[w-airport-control]
+Ben Gurion. Before anything else, the booth. Tell them the truth: you are going up.
+
 [w-airport-hall]
-Ben Gurion. Read the first page again before you go: it tells you the way.
+Read the first page again before you go: it tells you the way.
 
 [w-airport-signs]
 Trains, down the escalator. Down first, so you can go up.
@@ -10,7 +13,7 @@ Trains, down the escalator. Down first, so you can go up.
 Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.
 
 [w-train-navon]
-Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.
+Eighty metres under the city. The escalators climb a long way, and at the top is Jerusalem.
 
 [w-rail-stop]
 The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.
@@ -22,7 +25,7 @@ Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been 
 Downtown, where the city shops. Somewhere near here is the man with the angel’s name. The page gave you the street and the number, if you can read it.
 
 [w-gabriel-street]
-Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.
+Number twenty-six. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks.
 
 [w-model-wide]
 Jerusalem as it was in the last days of the Second Temple, to the scale of one in fifty. Walk round it. Learn the courts and the gates: you will pace them out on the Mount itself.

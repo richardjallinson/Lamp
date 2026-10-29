@@ -51,7 +51,7 @@
       { id: "control", img: "passport-control", cap: "Passport control: a row of glass booths, and the queue moving slowly", go: { fwd: "hall" }, puzzle: "passport", who: ["officer"],
         hank: "Ben Gurion. Before anything else, the booth. Tell them the truth: you are going up." },
       { id: "hall", img: "airport-1", cap: "The arrivals hall at Ben Gurion, the journal in your bag", go: { back: "control", fwd: "signs" },
-        hank: "Ben Gurion. Read the first page again before you go: it tells you the way.",
+        hank: "Read the first page again before you go: it tells you the way.",
         hots: [{ box: [30, 70, 40, 25], label: "The Watchman’s journal", act: "readjournal" }] },
       { id: "signs", img: "airport-signs", cap: "Signs with a train on them, pointing down the escalator to the airport station", go: { back: "hall", fwd: "machine" },
         hank: "Trains, down the escalator. Down first, so you can go up." },
@@ -63,7 +63,7 @@
         go: { fwd: "platform" }, who: ["soldier"] },
       { id: "platform", img: "train-platform", cap: "The platform: the fast train to Jerusalem, its sign lit on the front", go: { back: "board", fwd: "navon" },
         hots: [{ box: [55, 20, 35, 40], label: "A man in a grey coat on the far platform", text: "On the far platform a man in a grey coat is reading something small, folded, blue at the edges. He looks up, straight at you, and then the train comes between you." }] },
-      { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres under the city. Every pilgrim came up to Jerusalem; so will you.", go: { back: "platform" },
+      { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres under the city. The escalators climb a long way, and at the top is Jerusalem.", go: { back: "platform" },
         hots: [{ box: [30, 15, 40, 30], label: "The light at the top", act: "navonLight" }] },
     ] });
   S({ id: "rail", act: 1, title: "The light rail", kick: "Jaffa Road", music: "m9", amb: "street",
@@ -98,7 +98,7 @@
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
-      { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Downtown, where the city shops. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
+      { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Number twenty-six. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
       { id: "inside", img: "gabriel-counter", cap: "Inside: the glass counter, shelves of menorahs and silver cups behind it, and the window onto the street", go: { back: "street", left: "shelf", right: "window" }, puzzle: "souvenir", who: ["gabriel"],
         hots: [{ box: [0, 50, 100, 40], label: "The counter", act: "shop" },
           { box: [45, 2, 40, 14], label: "The menorahs on the top shelf", text: "Brass menorahs, seven branches and nine, in every size. “Thou shalt make a candlestick of pure gold… six branches shall come out of the sides of it” (Exodus 25:31–32)." }] },
