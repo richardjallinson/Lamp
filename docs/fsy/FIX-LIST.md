@@ -21,3 +21,5 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 10 | Short clips of the people: a clip slot on the cards (video/fsy/<id>.mp4 + poster), plays on its own or on a tap. First test: Yosef's "Honest hands", on the scale card (to be replaced by a version with his eyes in frame) | In v3z |
 | 11 | The Watchman's lamp mark scratched beside Yitzhak Navon on the route map (Gerry) | To do: one small drawing |
 | 12 | The app is now "The Final Seven Years" alone (release.js GAME_ONLY): title screen "The Final Seven Years · Episode 1 · The Jerusalem Mystery", home with Episode 1 lit (Begin / Continue, pages found, progress) and Episodes 2–8 locked "Coming soon"; tabs Episodes and Settings; settings trimmed to music, narration, vibration; tester tools trimmed (plus "Play Act 1 as if done"). The word game, books and Genesis adventure are switched off, not deleted | In v3z |
+
+**Packaging (always):** the zip holds the whole project: Lamp-vXX/ with Lamp.xcodeproj, Lamp/, README.md and www/ (tools, sounds and design removed). Richard opens Lamp.xcodeproj and runs; he does not swap folders.
