@@ -73,13 +73,15 @@
     root = document.createElement("div");
     root.id = "adv"; root.setAttribute("role", "dialog"); root.setAttribute("aria-label", title);
     root.innerHTML = '<div class="adv-scene" id="adv-scene"></div>' +
-      '<div class="adv-top"><button class="abtn" id="adv-x" aria-label="Leave">✕</button><span class="ttl" id="adv-ttl">' + esc(title) + "</span>" +
+      '<div class="adv-top"><button class="abtn quit" id="adv-x" aria-label="Quit the game">Quit</button><span class="ttl" id="adv-ttl">' + esc(title) + "</span>" +
       '<button class="abtn" id="adv-hint" aria-label="Hint, costs one drop of oil">' + Lamp.ICON.hint + "<span>1</span></button></div>" +
       '<div class="say" id="adv-say" aria-live="polite"></div>' +
       (opts && opts.satchel ? '<div class="satchel" id="adv-satchel"></div>' : "");
     document.body.appendChild(root);
     requestAnimationFrame(() => root && root.classList.add("on"));
-    $("adv-x").onclick = () => shut();
+    /* Quit asks first: players took the old ✕ for a back button */
+    $("adv-x").onclick = () => { snd("tap"); card('<div class="kick">' + esc(title) + '</div><h2>Leave the game?</h2><p>Your progress is saved. You can carry on from here next time.</p>' +
+      '<button class="cta" data-act="stay">Keep playing</button><button class="cta alt" data-act="leave">Leave the game</button>', { stay: () => {}, leave: () => shut() }); };
     $("adv-hint").style.visibility = opts && opts.hint ? "visible" : "hidden";
     $("adv-hint").onclick = () => {
       if (!opts.hint) return;

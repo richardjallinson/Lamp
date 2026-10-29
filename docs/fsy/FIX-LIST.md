@@ -82,3 +82,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | Status |
 |---|---|---|
 | 1 | Map numbers hard to read: the places not reached yet were faded to 45%. Now solid dark circles with clear white numbers (a dashed rim for not yet reached), a little bigger. Also the place name no longer sits on top of the map's own heading | Done in code, waiting for the build |
+| 2 | The ✕ at the top left looked like a back button. It now says **Quit**, and asks first: "Leave the game? Your progress is saved." with Keep playing / Leave the game | Done in code, waiting for the build |

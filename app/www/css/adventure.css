@@ -206,3 +206,6 @@
 #narr .ncta{width:100%;min-height:54px;border:none;border-radius:999px;background:linear-gradient(180deg,#E3BC5C,#C9A24A);color:#141A33;font:800 17px/1 var(--ui);cursor:pointer;box-shadow:0 10px 30px rgba(201,162,74,.3)}
 #narr .nvoice{background:none;border:none;color:rgba(243,233,206,.7);font:700 13px/1 var(--ui);padding:10px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){#narr *{animation:none!important;opacity:1!important}}
+
+/* the Quit button, top left */
+#adv .abtn.quit{font:700 13px var(--ui);letter-spacing:.04em;padding:0 14px}
