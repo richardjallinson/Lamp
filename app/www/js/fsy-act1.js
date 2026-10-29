@@ -7,7 +7,7 @@
   const Lamp = window.Lamp; const FW = Lamp.fsyWalk; if (!FW) return;
   const H = FW.H, C = FW.core, W = FW.W, K = Lamp.adv.kit, F = Lamp.fsy.parts, esc = K.esc, $ = (id) => document.getElementById(id);
   const PP = "img/fsy/people/";
-  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef", "gabriel", "guide", "violinist", "halva", "baker", "dudu", "coffeeman", "fishman"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
+  const PORTRAITS = new Set(["clerk", "soldier", "cardseller", "grandma", "grandma2", "yosef", "gabriel", "guide", "violinist", "halva", "baker", "dudu", "coffeeman", "fishman", "officer"]);   /* the people Richard has drawn (img/fsy/people/<id>.jpg); the rest show as lettered medallions */
   const save = () => Lamp.save();
   /* adventure state, inside the episode's save */
   const A = () => { const w = W(); if (!w.a) w.a = { money: 100, items: {}, rides: 0, facts: [], asked: {}, q: {}, f: {}, rode: {} }; return w.a; };
@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -37,6 +37,7 @@
 
   /* ------------------------------------------------------------ things ------------------------------------------------------------ */
   const ITEMS = {
+    slip: ["A blue entry slip", "Stamped at passport control. Israel no longer stamps the passport itself."],
     card: ["A travel card", "Green plastic, four rides when new. The light rail and the buses take it."],
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
@@ -52,6 +53,7 @@
     greycard: ["A card the man in grey left", "No name, a phone number, and on the back in pencil: NOT NORTH."],
   };
   const give = (id, quiet) => { A().items[id] = 1; save(); if (!quiet) { F.S("parchment", "click"); K.say("✓ " + ITEMS[id][0] + " goes into your backpack.", "", 3000); } };
+  H.give = give;
   H.items = () => Object.keys(ITEMS).filter(has).map((id) => [1, ITEMS[id][0], ITEMS[id][1]]);
 
   /* ------------------------------------------------------------ what you know (the journal) ------------------------------------------------------------ */
@@ -86,6 +88,10 @@
   H.wire = (el) => el.querySelectorAll("[data-who]").forEach((b) => (b.onclick = () => { K.sfx("click"); talk(b.dataset.who); }));
 
   const PEOPLE = {
+    officer: { name: "The officer at the booth", kick: "Passport control", desc: "Dark hair tied back, a dark uniform shirt, a passport open in her hand. Polite, sharp, unsmiling.", lines: [
+      { id: "step", say: "(Step up to the booth)", when: () => !W().flags.passport, run: () => C.PUZZLES.passport.run() },
+      { id: "done", say: "Thank you.", when: () => W().flags.passport, run: () => reply("officer", "“Next.” She is already looking past you at the queue.") },
+    ] },
     clerk: { name: "The ticket clerk", kick: "The airport station", desc: "A woman behind the glass, reading glasses on a chain, a paper cup of coffee. Bored, but kind.", lines: [
       { id: "which", say: "Which train goes to Jerusalem?", run: () => reply("clerk", "“All the way up? Yitzhak Navon. Twenty-five minutes, mostly tunnel. Seventeen shekels. Or the machine, if you prefer machines.”", { then: null }) },
       { id: "heb", say: "The machine only shows Hebrew.", when: () => !W().flags.ticket, run: () => reply("clerk", "“The English button? Broken since Pesach.” She leans to the grille. “Jerusalem is Yerushalayim. Look for the word that starts with the little letter like a raised hand, the yod: י. It is the last stop, at the top of the map.”") },
@@ -193,6 +199,7 @@
     return false;
   }
   H.before = (scene, v) => {
+    if (scene.id === "airport" && v.id !== "control" && !W().flags.passport) { K.say("The officer at the booth beckons: passport first.", "", 3000); return false; }
     if (scene.id === "rail" && v.id === "inside") return ride("rail", () => C.walk(v));
     return true;
   };
@@ -214,6 +221,7 @@
   /* ------------------------------------------------------------ what to do, and hints ------------------------------------------------------------ */
   H.task = (scene) => {
     const a = A();
+    if (scene.id === "airport" && !W().flags.passport) return "Passport control first. Answer the officer’s questions: page 1 says where you are going.";
     if (scene.id === "airport" && !W().flags.ticket) return "Read the first page. Ask at the window if you like. Buy a ticket to Jerusalem.";
     if (scene.id === "rail" && !a.items.card) return "The tram takes a travel card. The kiosk sells them. Ask the way while you are there.";
     if (scene.id === "market") { if (!done("market", "scales")) return "Find Yosef the spice seller and weigh."; if (!a.q.sack) return "Someone in the market knew the Watchman. Ask around."; if (!W().done.market) return "Ask Yosef about the sack."; if (a.q.dudu === 2) return "Bread, coffee, fish: then Dudu’s grandmother at the tram stop at the end of the lane."; }
@@ -271,7 +279,7 @@
     Object.assign(a.q, { eitan: 1, metGrandma: 1, sack: 1, daniel: 1, greyKG: 1, shmuel: 1, found26: 1, shopOpen: 1, dudu: 3 });
     ["card", "frankincense", "note", "rod", "map", "kippah", "model", "museum", "greycard"].forEach((id) => (a.items[id] = 1));
     a.rides = 1; a.money = 20; Object.assign(a.rode, { rail: 1, benyehuda: 1, model: 1 });
-    w.flags.ticket = 1; w.flags.bekah = 1; w.flags.modelq = 1;
+    w.flags.ticket = 1; w.flags.bekah = 1; w.flags.modelq = 1; w.flags.passport = 1; a.items.slip = 1; w.done["airport:passport"] = 1;
     ["airport", "train", "rail", "market", "benyehuda", "gabriel", "model"].forEach((id) => (w.done[id] = 1));
     ["airport:ticket", "train:board", "market:scales", "gabriel:souvenir", "model:modelq"].forEach((k) => (w.done[k] = 1));
     [1, 2, 3, 4].forEach((n) => (w.pages[n] = 1)); save();

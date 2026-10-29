@@ -48,7 +48,9 @@
   /* ---- Act 1 ---- */
   S({ id: "airport", act: 1, title: "Ben Gurion Airport", kick: "Welcome to Israel", music: "m9", amb: "street",
     views: [
-      { id: "hall", img: "airport-1", cap: "The arrivals hall at Ben Gurion, the journal in your bag", go: { fwd: "signs" },
+      { id: "control", img: "passport-control", cap: "Passport control: a row of glass booths, and the queue moving slowly", go: { fwd: "hall" }, puzzle: "passport", who: ["officer"],
+        hank: "Ben Gurion. Before anything else, the booth. Tell them the truth: you are going up." },
+      { id: "hall", img: "airport-1", cap: "The arrivals hall at Ben Gurion, the journal in your bag", go: { back: "control", fwd: "signs" },
         hank: "Ben Gurion. Read the first page again before you go: it tells you the way.",
         hots: [{ box: [30, 70, 40, 25], label: "The Watchman’s journal", act: "readjournal" }] },
       { id: "signs", img: "airport-signs", cap: "Signs with a train on them, pointing down the escalator to the airport station", go: { back: "hall", fwd: "machine" },
@@ -589,7 +591,7 @@
   }
   /* What you are looking for in each place: shown above the picture until the place is done, so you are never walking blind */
   const TASK = {
-    airport: "Read the first page of the journal. Then follow the train signs and buy a ticket to Jerusalem.",
+    airport: "Passport control first. Then read the first page of the journal. Then follow the train signs and buy a ticket to Jerusalem.",
     train: "Board the train, and come up out of the station into Jerusalem. The soldier on the platform is going home.", rail: "Take the light rail to Machne Yehuda market.",
     market: "Find the spice seller and weigh. Then find out what the Watchman left here.", benyehuda: "Find number 26 King George Street. The violinist knows, if you know the number.", gabriel: "Show Gabriel the journal. Buy what you will need for the Old City, and choose a souvenir.",
     model: "Walk round the model. Answer the guide’s questions, and ask her about the Watchman.", jaffa: "Go in through the gate and find the way up onto the wall.",
@@ -651,13 +653,42 @@
   /* size the picture box to the picture, as large as the space allows, so hotspots stay on their marks */
   function fitView(el) {
     const area = el.querySelector("#fwarea"), box = el.querySelector("#fwv"), img = box && box.querySelector(".fwimg");
+    let pan = null;
     const fit = () => {
       if (!K.root() || !area.isConnected) return;
-      const aw = area.clientWidth, ah = area.clientHeight, r = img && img.naturalWidth ? img.naturalWidth / img.naturalHeight : 3 / 4;
-      let w = aw, h = aw / r; if (h > ah) { h = ah; w = ah * r; }
-      box.style.width = Math.round(w) + "px"; box.style.height = Math.round(h) + "px";
+      const cs = getComputedStyle(area), aw = area.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), ah = area.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      const r = img && img.naturalWidth ? img.naturalWidth / img.naturalHeight : 3 / 4;
+      if (r > (aw / ah) * 1.2) {
+        /* a wide picture: fill the height and drag left and right to look around (the hotspots move with it) */
+        area.classList.add("pan");
+        const ah2 = area.clientHeight, aw2 = area.clientWidth, w = Math.round(ah2 * r);
+        box.style.width = w + "px"; box.style.height = ah2 + "px";
+        el.querySelectorAll("#fwv > .farrow, #fwv > .fwlamp, #fwv > .fwho, #fwv > .fwsub, #fwv > .fwpz").forEach((x) => area.appendChild(x));
+        const max = Math.max(0, w - aw2);
+        if (!pan) { pan = { x: -max / 2, max }; startPan(); hintPan(); } else pan.max = max;
+        pan.x = Math.max(-pan.max, Math.min(0, pan.x)); box.style.transform = "translateX(" + pan.x + "px)";
+      } else {
+        let w = aw, h = aw / r; if (h > ah) { h = ah; w = ah * r; }
+        box.style.width = Math.round(w) + "px"; box.style.height = Math.round(h) + "px";
+      }
     };
-    if (img && !img.complete) img.addEventListener("load", fit); fit();
+    function startPan() {
+      let x0 = null, start = 0, moved = 0;
+      box.addEventListener("pointerdown", (e) => { x0 = e.clientX; start = pan.x; moved = 0; });
+      box.addEventListener("pointermove", (e) => {
+        if (x0 === null) return; const dx = e.clientX - x0; moved = Math.max(moved, Math.abs(dx));
+        if (moved > 6) { pan.x = Math.max(-pan.max, Math.min(0, start + dx)); box.style.transform = "translateX(" + pan.x + "px)"; }
+      });
+      const end = () => { x0 = null; };
+      box.addEventListener("pointerup", end); box.addEventListener("pointercancel", end);
+      box.addEventListener("click", (e) => { if (moved > 6) { e.stopPropagation(); e.preventDefault(); moved = 0; } }, true);
+    }
+    function hintPan() {
+      const t = document.createElement("div"); t.className = "fpanhint"; t.textContent = "‹  drag to look around  ›"; area.appendChild(t);
+      setTimeout(() => t.classList.add("off"), 2600); setTimeout(() => t.remove(), 3400);
+    }
+    /* decide only once the picture's real shape is known, or a tall picture can be mistaken for a wide one */
+    if (img && !(img.complete && img.naturalWidth)) img.addEventListener("load", fit, { once: true }); else fit();
     window.addEventListener("resize", fit, { once: true });
   }
   /* the Lamplighter's words as film subtitles: two short lines at a time; tap for the next; they fade when done */
@@ -916,6 +947,47 @@
   /* ------------------------------------------------------------ the puzzles, scene by scene ------------------------------------------------------------ */
   const grey = (t) => '<div class="fhim">' + esc(t) + "<small>The man in the grey coat</small></div>";
   const PUZZLES = {
+    passport: { label: "Step up to the booth", run: () => {
+      /* her clip stops after each question, at the pauses in her speech, and plays on when you answer */
+      const SEG = [[0, 7.0], [7.0, 13.6], [13.6, 999]];
+      const ASK = [
+        { q: "Your answer", a: [["Tourism", 1], ["To visit the holy places", 1], ["Business", 1]] },
+        { q: "Your answer", a: [["Up, to Jerusalem", 1], ["Down to Tel Aviv, by the sea", 0, "She waits, unimpressed. The first page in your bag says otherwise: go up."], ["I don’t know yet", 0, "“You don’t know where you are going?” She waits. Page 1 knows."]] },
+        { q: "She points at your bag", a: [["Open the backpack", 1]] },
+      ];
+      const el = screen("Passport control", "Ben Gurion Airport", '<div class="fclipbig"><video id="foff" src="video/fsy/officer.mp4" poster="video/fsy/officer.jpg" playsinline preload="auto"></video><button class="fplay" id="fplay" aria-label="Play">▶</button></div><div id="fans" class="fans"></div>', null);
+      void el;
+      const v = $("foff"); let k = 0, stopAt = 0;
+      const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => ($("fplay").style.display = "grid")); };
+      $("fplay").onclick = () => { $("fplay").style.display = "none"; tryPlay(); };
+      v.addEventListener("timeupdate", () => { if (stopAt && v.currentTime >= stopAt) { stopAt = 0; v.pause(); answer(); } });
+      v.addEventListener("ended", () => { if (stopAt) { stopAt = 0; answer(); } });
+      const play = () => { $("fans").innerHTML = '<div class="fsmall">…</div>'; const [a, b] = SEG[k]; stopAt = b >= 999 && v.duration ? v.duration - 0.2 : b; if (Math.abs(v.currentTime - a) > 0.3) v.currentTime = a; tryPlay(); };
+      function answer() {
+        const A = ASK[k]; if (!A) return bag();
+        $("fans").innerHTML = '<div class="fq">' + esc(A.q) + '</div><div class="fchoices">' + A.a.map((x, i) => '<button data-a="' + i + '">' + esc(x[0]) + "</button>").join("") + "</div>";
+        $("fans").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
+          const x = A.a[+b.dataset.a];
+          if (!x[1]) { wrong(x[2]); return; }
+          K.sfx("click"); k++;
+          if (k < SEG.length) play(); else bag();
+        }));
+      }
+      function bag() {
+        $("fans").innerHTML = "";
+        K.card('<div class="kick">Passport control</div><h2>“Where did you get this book?”</h2><p>She lifts the journal out of your backpack, turns it over, and stops. On the cover, small, in blue ink: a drawn lamp.</p>' +
+          '<div class="fsay"><button data-act="a">“A man gave it to me this morning.”</button><button data-act="a">“It’s mine.”</button><button data-act="a">“I found it.”</button></div>',
+          { a: () => K.card('<div class="kick">Passport control</div><h2>The lamp on the cover</h2><div class="fhim">She is quiet for a moment. “A man in a grey coat came through this morning. He asked whether anyone had come in carrying a book with a lamp on it.” She slides the journal back into your bag. “I told him nothing.”</div>' +
+            '<button class="cta" data-act="x">“Thank you.”</button>', { x: stamp }) });
+      }
+      function stamp() {
+        K.card('<div class="kick">Passport control</div><h2>✓ Through</h2>' + (H.clip ? H.clip("officer-stamp") : "") +
+          "<p>She stamps a small blue entry slip and slides it under the glass with your passport. Israel no longer stamps the passport itself: the slip is your way out of the hall. It goes into your backpack.</p>" +
+          '<button class="cta" data-act="x">Into the arrivals hall</button>',
+          { x: () => { W().flags.passport = 1; save(); if (H.give) H.give("slip", true); pzDone("passport", () => walk(V("hall"))); } });
+      }
+      play();
+    } },
     ticket: { label: "Buy a ticket", run: () => {
       /* three steps: the machine speaks only Hebrew; the wall map shows which station is "up"; pay exactly 17 in coins */
       const ST = [
@@ -1140,7 +1212,7 @@
     const v = view;
     if (H.hint) { const h = H.hint(scene, v, st.hints); if (h) return K.say(h, "", 4600); }
     if (!scene || scene.kept) return K.say("Every clue is in the Scripture or the history it quotes.", "", 3600);
-    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", ticket: "Look at the map on the wall: the top of the line is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
+    if (v && v.puzzle && !W().done[scene.id + ":" + v.puzzle]) return K.say(({ scales: "Twenty gerahs: 12 and 8, or 12, 5 and 3.", souvenir: "The page said: the one that remembers the house.", modelq: "You stand on the east. The gate has the stair; the court is just inside; the house is the tall white building; the sun rises behind you.", landmarks: "The citadel is behind you; the Mount of Olives is beyond the whole city.", burnt: "Prophecy first, then the siege, the Temple, the house, the stones.", courses: "Read the small plaque by the shaft.", firstanswer: "No single clue is enough.", halfshekel: "The bekah alone is half a shekel.", north: "North, and King.", zionq: "Zion, and David.", lampstone: "The marked stone is on the right, low.", darktunnel: "Carry the lamp slowly along the whole wall, low and high.", siloamq: "Siloam, Sent, Seeing.", ascents: "Glad, house, feet, gates.", whose: "A memorial, not a grave; the priest, not the prophet.", bought: "400 shekels of silver; 100 pieces of money; 600 shekels of gold.", board: "Ascend, and holy.", passport: "Page 1 tells you where you are going: up, to Jerusalem.", ticket: "Look at the map on the wall: the top of the line is Jerusalem. Find the same Hebrew name on the machine. Then exactly 17 in coins, for example 10, 5 and 2.", wayup: "The small door." })[v.puzzle] || "Look at everything in the picture first.", "", 4600);
     const pz = scene.views.find((x) => x.puzzle && !W().done[scene.id + ":" + x.puzzle]);
     if (pz) return K.say("Something to do at “" + pz.cap.split(":")[0] + "”. Use the arrows to walk there.", "", 4200);
     K.say("This scene is done. Tap “Walk on” or the Map.", "", 3200);

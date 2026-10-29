@@ -35,13 +35,13 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 5 | The fish counter picture is a blurry blown-up crop: replace it with a painting (prompt given), nobody behind the counter | In v4a |
 | 6 | The walking screen fits one phone screen, Riven-style: the picture fills the screen; title and a one-line task over its top (tap the task to read all); the Lamplighter as film subtitles over the bottom of the picture, two lines at a time, "1/2 ›", fades when done, a lamp button to bring it back; people as round faces on the picture, tapping one slides a dialogue panel up over the bottom half (only that panel may scroll); arrows just above a fixed bottom bar of Journal, Backpack, Map; the caption under the picture goes (tap the title to see it); the screen never scrolls | In v4a |
 
-## Next batch (for v4b)
+## Next batch: built as v4b. Officer's stops are set at her pauses (about 7.0 s and 13.6 s); Richard to confirm her lines
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Passport control before the arrivals hall: a border officer asks purpose, where you are going (answer from page 1: up, to Jerusalem), and what is in the bag; she sees the lamp on the journal and says a man in a grey coat asked this morning about a book with a lamp on it. You get the blue entry slip (Israel no longer stamps passports), needed at the exit gates | To do. Drawings received: people/officer.png, photos/oct28/passport-control-painting.png. She also searches the backpack (Richard's own experience) and finds the journal. Two clips planned |
-| 2 | Wide (landscape) pictures sit small with empty space: fill the height and drag left and right to look around (hotspots stay on their marks) | To do |
-| 3 | Clips that pause for your answer: a clip is split at the gaps in the speech; it plays one question, stops on her face, shows your choices, plays on when you answer. The officer: officer-2.mp4 (portrait, 18 s, four lines at about 2, 5, 12, 15 s) is the questions; officer-1.mp4 (landscape, she stamps the passport) ends the scene before the gates open | To do: Richard to confirm her four lines, in order |
-| 4 | The ticket clerk's clip ("Grey coat, no luggage…") on her answer about the man in grey | Done in code, waiting for the build |
-| 5 | The soldier: new bearded still, and his clip ("Nobody looks. You look.") on "Do you know the Temple Mount?" | Done in code, waiting for the build |
-| 6 | The card seller's clip on "I need to take the light rail" | Done in code, waiting for the build |
+| 1 | Passport control before the arrivals hall: a border officer asks purpose, where you are going (answer from page 1: up, to Jerusalem), and what is in the bag; she sees the lamp on the journal and says a man in a grey coat asked this morning about a book with a lamp on it. You get the blue entry slip (Israel no longer stamps passports), needed at the exit gates | In v4b |
+| 2 | Wide (landscape) pictures sit small with empty space: fill the height and drag left and right to look around (hotspots stay on their marks) | In v4b |
+| 3 | Clips that pause for your answer: a clip is split at the gaps in the speech; it plays one question, stops on her face, shows your choices, plays on when you answer. The officer: officer-2.mp4 (portrait, 18 s, four lines at about 2, 5, 12, 15 s) is the questions; officer-1.mp4 (landscape, she stamps the passport) ends the scene before the gates open | In v4b |
+| 4 | The ticket clerk's clip ("Grey coat, no luggage…") on her answer about the man in grey | In v4b |
+| 5 | The soldier: new bearded still, and his clip ("Nobody looks. You look.") on "Do you know the Temple Mount?" | In v4b |
+| 6 | The card seller's clip on "I need to take the light rail" | In v4b |
