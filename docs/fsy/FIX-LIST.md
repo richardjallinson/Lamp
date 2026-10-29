@@ -77,7 +77,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 |---|---|
 | Shlomi's food truck | A white food truck with "תחנת רענון" (Refreshment Station) on the side and soldiers queuing; a kind volunteer hands you a coffee: "friends to one another" (רעים זה לזה). From Richard's day at Re'im. A painting, not the T-shirt photo (it shows real soldiers' faces). No credit line. Place to decide: Act 5 by the Mughrabi Gate, or Act 2 near the Western Wall |
 
-## Next batch (for v4f)
+## v4f (built)
 
 | # | Fix | Status |
 |---|---|---|
