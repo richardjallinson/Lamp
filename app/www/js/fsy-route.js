@@ -46,7 +46,7 @@
   const S = (o) => { R.push(o); return o; };
 
   /* ---- Act 1 ---- */
-  S({ id: "airport", act: 1, title: "Ben Gurion Airport", kick: "Welcome to Israel", music: "m9", amb: "street",
+  S({ id: "airport", act: 1, title: "Ben Gurion Airport", kick: "Welcome to Israel", music: "m9", amb: "airport",
     views: [
       { id: "control", img: "passport-control", cap: "Passport control: a row of glass booths, and the queue moving slowly", go: { fwd: "hall" }, puzzle: "passport", who: ["officer"],
         hank: "Ben Gurion. Before anything else, the booth. Tell them the truth: you are going up." },
@@ -57,7 +57,7 @@
         hank: "Trains, down the escalator. Down first, so you can go up." },
       { id: "machine", img: "airport-machine", cap: "The ticket machines at the airport station, and the ticket window beside them", go: { back: "signs" }, puzzle: "ticket", who: ["clerk"] },
     ] });
-  S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "street",
+  S({ id: "train", act: 1, title: "The train to Jerusalem", kick: "Navon station", music: "m9", amb: "train",
     views: [
       { id: "board", img: "train-board", cap: "The platform at the airport station: flags down the hall, and the departures board on the pillar", hank: "Every pilgrim came up to Jerusalem. The word is always up, never down: the city sits on the mountains. Find your train.",
         go: { fwd: "platform" }, who: ["soldier"] },
@@ -66,7 +66,7 @@
       { id: "navon", img: "train-navon", cap: "Yitzhak Navon station, Jerusalem: the deep escalators up to the light", hank: "Eighty metres under the city. The escalators climb a long way, and at the top is Jerusalem.", go: { back: "platform" },
         hots: [{ box: [30, 15, 40, 30], label: "The light at the top", act: "navonLight" }] },
     ] });
-  S({ id: "rail", act: 1, title: "The light rail", kick: "Jaffa Road", music: "m9", amb: "street",
+  S({ id: "rail", act: 1, title: "The light rail", kick: "Jaffa Road", music: "m9", amb: "tram",
     views: [
       { id: "stop", img: "rail-1", cap: "The light rail on Jaffa Road: the way you will move through the city", hank: "The red line runs along Jaffa Road, from the station to the Old City. Every stop you earn, lights up on the map. Tap the map whenever you want to move.",
         go: { fwd: "inside" }, who: ["cardseller", "grandma"], hots: [{ box: [0, 60, 100, 25], label: "The tracks", text: "The tracks run straight down Jaffa Road to Jaffa Gate. The first stop is the market." }] },
@@ -74,7 +74,7 @@
       { id: "machne", img: "rail-3", cap: "The Mahane Yehuda stop: two trams, and the crowd heading for the market", go: { back: "inside" },
         hots: [{ box: [55, 30, 40, 45], label: "The crowd at the stop", text: "Everyone is getting off here. The market is just across the road, behind the shops." }] },
     ] });
-  S({ id: "market", act: 1, title: "Machne Yehuda market", kick: "The shuk", music: "m10", amb: "street", page: 2,
+  S({ id: "market", act: 1, title: "Machne Yehuda market", kick: "The shuk", music: "m10", amb: "market", page: 2,
     views: [
       { id: "street", img: "market-street", cap: "The main lane of the market, under its glass roof: sweets, spices, coffee, noise", hank: "Machne Yehuda. Everything in Jerusalem is weighed and argued over, and has been for three thousand years. Find the spice seller.",
         go: { fwd: "deeper", left: "bread", right: "juice" }, who: ["dudu", "grandma2"], hots: [{ box: [60, 10, 38, 50], label: "A grey coat in the crowd", text: "For a moment, between the stalls, a grey coat. Then only shoppers." }] },

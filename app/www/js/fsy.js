@@ -122,12 +122,12 @@
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark", "waqf-1", "waqf-2"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
-  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11"]);
+  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "amb-airport", "amb-train", "amb-market", "amb-tram"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod"]);
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
   const preS = (...n) => Lamp.score && Lamp.score.preload(n.filter((x) => HAVE_S.has(x)).map((x) => "fsy-sfx-" + x));
-  const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street",
+  const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street", "amb-train": "amb-street", "amb-market": "amb-street", "amb-tram": "amb-street",
     /* the new tracks for the walking route (M9–M25 in the doc): until Richard makes them, the nearest finished track plays */
     m9: "theme", m10: "hall", m11: "theme", m12: "olives", m13: "investigation", m14: "hall", m15: "puzzle", m16: "olives", m17: "theme", m18: "puzzle",
     m19: "olives", m20: "hall", m21: "investigation", m22: "olives", m23: "olives", m24: "investigation", m25: "reveal" };
