@@ -981,6 +981,7 @@
             '<button class="cta" data-act="x">“Thank you.”</button>', { x: stamp }) });
       }
       function stamp() {
+        F.S("stamp", null, 0.9);
         K.card('<div class="kick">Passport control</div><h2>✓ Through</h2>' + (H.clip ? H.clip("officer-stamp") : "") +
           "<p>She stamps a small blue entry slip and slides it under the glass with your passport. Israel no longer stamps the passport itself: the slip is your way out of the hall. It goes into your backpack.</p>" +
           '<button class="cta" data-act="x">Into the arrivals hall</button>',
@@ -1029,12 +1030,12 @@
             '<div class="fsmall">The change from the Lamplighter’s envelope. Tap a coin to drop it in the slot.</div>';
           box.querySelectorAll("[data-c]").forEach((b) => (b.onclick = () => {
             const i = +b.dataset.c; if (inslot.includes(i)) return;
-            inslot.push(i); F.S("parchment", "click", 0.6); K.buzz && K.buzz("tap");
+            inslot.push(i); F.S("coin", "click", 0.8); K.buzz && K.buzz("tap");
             const t = inslot.reduce((a, j) => a + COINS[j], 0);
             if (t > 17) { setTimeout(() => { inslot = []; F.S("knock", null, 0.5); wrong("Clatter: every coin drops back into the tray. The screen flashes: exact fare only."); draw(); }, 350); draw(); return; }
             if (t === 17) {
-              draw(); if (H.pay && !H.pay(17, "the train ticket")) return;
-              W().flags.ticket = 1; save(); F.S("lock", null, 0.6); K.buzz("success");
+              draw(); if (H.pay && !H.pay(17, "the train ticket", true)) return;
+              W().flags.ticket = 1; save(); setTimeout(() => F.S("ticket", null, 0.8), 250); K.buzz("success");
               setTimeout(() => K.root() && K.card('<div class="kick">The airport station</div><h2>✓ Ticket bought</h2><p>The machine whirs and prints a small card: <b>Ben Gurion Airport → Jerusalem – Yitzhak Navon</b>. Up, all the way to the top of the line. It goes into your backpack.</p><button class="cta" data-act="x">To the trains</button>', { x: () => pzDone("ticket", () => finish("airport", () => go(byId.train))) }), 600);
               return;
             }

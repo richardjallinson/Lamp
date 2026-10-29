@@ -62,3 +62,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 2 | Clips for the coffee man ("Twelve.") and the fish man ("Fifteen. Wrapped."). Every Act 1 person now has a clip | Done in code, waiting for the build |
 | 3 | Music for Act 1: M9 "Road to the Old City" (airport, train, tram), M10 "Market Morning" (market, Ben Yehuda, Gabriel), M11 "Miniature Temple Wonder" (the model), levelled to match the other tracks | Done in code, waiting for the build |
 | 4 | Background sounds for Act 1: the airport hall, the train, the market, and the tram stops on Jaffa Road, each looping under its place and levelled with the others | Done in code, waiting for the build |
+| 5 | Sound effects for Act 1: the passport stamp, each coin into the ticket machine, the ticket printing, paying at a stall, the tram bell on each tram ride, and the shop bell going into Gabriel's | Done in code, waiting for the build |

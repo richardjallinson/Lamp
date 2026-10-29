@@ -29,9 +29,9 @@
 
   /* ------------------------------------------------------------ money ------------------------------------------------------------ */
   H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · travel card, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
-  H.pay = (n, what) => {
+  H.pay = (n, what, quiet) => {
     const a = A(); if (a.money < n) { K.say("Not enough. " + (what ? what[0].toUpperCase() + what.slice(1) : "That") + " costs " + n + " shekels and you have " + a.money + ".", "", 3600); return false; }
-    a.money -= n; save(); F.S("step", "click", 0.5); return true;
+    a.money -= n; save(); if (!quiet) F.S("pay", "click", 0.8); return true;
   };
   H.earn = (n, from) => { const a = A(); a.money += n; save(); F.S("harp", null, 0.5); K.say("+" + n + " shekels" + (from ? ", from " + from : "") + ". You have " + a.money + ".", "", 3600); };
 
@@ -195,10 +195,11 @@
     if (!a.items.card) { K.card('<div class="kick">The light rail</div><h2>No card, no ride</h2><p>The tram takes a travel card, not cash. The kiosk at the stop on Jaffa Road sells one: ten shekels, four rides.</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); return false; }
     if (a.rides <= 0) { K.card('<div class="kick">The travel card</div><h2>No rides left</h2><p>The card is empty. The kiosk on Jaffa Road tops it up: five shekels a ride. It is a walk back.</p>' + (a.money >= 5 ? '<button class="cta" data-act="t">Walk back and top up (5 shekels)</button>' : "<p>And you have " + a.money + " shekels. Sell something first.</p>") + '<button class="cta alt" data-act="x">Not now</button>', { t: () => { if (H.pay(5, "a ride")) { A().rides = 1; save(); ride(key, then); } }, x: () => {} }); return false; }
     K.card('<div class="kick">The travel card</div><h2>' + esc(RIDE[key]) + "</h2><p>One ride off the card. " + (a.rides - 1) + " left after this.</p>" + '<button class="cta" data-act="r">Ride</button><button class="cta alt" data-act="x">Not yet</button>',
-      { r: () => { a.rides--; a.rode[key] = 1; save(); F.S("step", "click", 0.6); then(); }, x: () => {} });
+      { r: () => { a.rides--; a.rode[key] = 1; save(); if (key === "model") F.S("step", "click", 0.6); else F.S("trambell", "click", 0.7); then(); }, x: () => {} });
     return false;
   }
-  H.before = (scene, v) => {
+  H.before = (scene, v, prev) => {
+    if (scene.id === "gabriel" && v.id === "inside" && !(prev && ["inside", "shelf", "window"].includes(prev.id))) F.S("shopbell", null, 0.7);
     if (scene.id === "airport" && v.id !== "control" && !W().flags.passport) { K.say("The officer at the booth beckons: passport first.", "", 3000); return false; }
     if (scene.id === "rail" && v.id === "inside") return ride("rail", () => C.walk(v));
     return true;
