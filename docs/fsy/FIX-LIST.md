@@ -39,5 +39,5 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Passport control before the arrivals hall: a border officer asks purpose, where you are going (answer from page 1: up, to Jerusalem), and what is in the bag; she sees the lamp on the journal and says a man in a grey coat asked this morning about a book with a lamp on it. You get the blue entry slip (Israel no longer stamps passports), needed at the exit gates | To do: two drawings (booths scene; the officer on black) |
+| 1 | Passport control before the arrivals hall: a border officer asks purpose, where you are going (answer from page 1: up, to Jerusalem), and what is in the bag; she sees the lamp on the journal and says a man in a grey coat asked this morning about a book with a lamp on it. You get the blue entry slip (Israel no longer stamps passports), needed at the exit gates | To do. Drawings received: people/officer.png, photos/oct28/passport-control-painting.png. She also searches the backpack (Richard's own experience) and finds the journal. Two clips planned |
 | 2 | Wide (landscape) pictures sit small with empty space: fill the height and drag left and right to look around (hotspots stay on their marks) | To do |
