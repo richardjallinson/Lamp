@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -125,10 +125,10 @@
       { id: "spice", say: "Which way to the spices?", run: () => reply("baker", "“Down the lane, left at the fish, follow your nose.”") },
     ] },
     coffeeman: { name: "The man with the sacks", kick: "The coffee stall", desc: "Sacks of beans, a scoop in every tin, the smell of roasting. He does not look up from the grinder.", lines: [
-      { id: "coffee", say: "250 grams of coffee.", when: (a) => !a.items.coffee, run: () => reply("coffeeman", "“Twelve.” He is already scooping.", { btn: "Buy the coffee (12 shekels)", then: () => { if (H.pay(12, "the coffee")) give("coffee"); } }) },
+      { id: "coffee", say: "250 grams of coffee.", when: (a) => !a.items.coffee, run: () => reply("coffeeman", "“Twelve.” He is already scooping.", { clip: "coffeeman", btn: "Buy the coffee (12 shekels)", then: () => { if (H.pay(12, "the coffee")) give("coffee"); } }) },
     ] },
     fishman: { name: "The man at the fish counter", kick: "The end of the lane", desc: "Smoked fish, herring, salads under the glass, and a man in a white coat with a cleaver.", lines: [
-      { id: "fish", say: "One fish, please.", when: (a) => !a.items.fish, run: () => reply("fishman", "“Fifteen. Wrapped.”", { btn: "Buy the fish (15 shekels)", then: () => { if (H.pay(15, "the fish")) give("fish"); } }) },
+      { id: "fish", say: "One fish, please.", when: (a) => !a.items.fish, run: () => reply("fishman", "“Fifteen. Wrapped.”", { clip: "fishman", btn: "Buy the fish (15 shekels)", then: () => { if (H.pay(15, "the fish")) give("fish"); } }) },
       { id: "sell", say: "Would you buy this fish back?", when: (a) => a.items.fish && a.q.dudu !== 3, run: () => reply("fishman", "“Buy back a fish? Fifteen I sold it for, fifteen I give. I am not a thief.”", { btn: "Sell it back (15 shekels)", then: () => { delete A().items.fish; H.earn(15, "the fish counter"); } }) },
     ] },
     dudu: { name: "Dudu", kick: "The market lane", desc: "A boy of about ten with a football under his arm and a crumpled paper. Worried, trying not to show it.", lines: [

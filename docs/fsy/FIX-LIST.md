@@ -59,4 +59,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | Status |
 |---|---|---|
 | 1 | Clip for the woman at the stop (Dudu's grandmother on Jaffa Road), when you offer to carry her bags | Done in code, waiting for the build |
-| 2 | Still to come: the coffee man and the fish man clips | Waiting for Richard |
+| 2 | Clips for the coffee man ("Twelve.") and the fish man ("Fifteen. Wrapped."). Every Act 1 person now has a clip | Done in code, waiting for the build |
