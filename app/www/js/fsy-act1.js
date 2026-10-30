@@ -43,6 +43,7 @@
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
     bagel: ["A Holy Bagel", "Sesame, still warm, from the cafe under the arch in the Jewish Quarter. Lunch."],
     bankcard: ["The Lamplighter’s bank card", "Blue, in the envelope with the money. On the back, a scrap in the Watchman’s hand: “Psalm 48:2”."],
+    pizza: ["A slice from Pizza HaOr", "Wrapped in paper, still hot. Olives and za’atar."],
     roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
     hotelnote: ["A note pushed under your door", "Hotel notepaper, neat handwriting: “Welcome to Jerusalem. Rest well. The north is cold at this time of year.” No name."],
     coffee: ["A bag of coffee", "250 grams, from the coffee man. For Dudu's grandmother."],
@@ -269,6 +270,18 @@
   }
   H.machine = machine;
   /* the cash machine by the hotel (Richard, Oct 30): Hebrew first; find the language button; the PIN is a verse reference */
+  /* Pizza HaOr (Richard, Oct 30: his evenings at the pizza place in Jerusalem): a slice, a stool, and the Lamplighter's thoughts on the day */
+  H.pizza = () => {
+    const a = A();
+    if (a.items.pizza) {
+      K.card('<div class="kick">Pizza HaOr</div><h2>On the stool by the window</h2><p>You eat the slice watching the lane. The oven ticks. For a few minutes nobody is following anybody.</p><p>Your head clears: <b>a drop of oil</b> for your lamp.</p><button class="cta" data-act="x">Finish it</button>',
+        { x: () => { delete a.items.pizza; save(); Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); F.S("harp", null, 0.5); const h = document.getElementById("adv-hint"); if (h) { const sp = h.querySelector("span"); if (sp) sp.textContent = Lamp.state.oil; } K.say("+1 drop of oil. Hints cost one.", "", 3000); } });
+      return;
+    }
+    K.card('<div class="kick">Pizza HaOr</div><h2>“Slice or a whole one?”</h2><p>Behind the counter a man in a flour-dusted apron slides a pizza out of the oven on a long paddle. Olives, za’atar, a lot of cheese.</p>' +
+      '<div class="fchoices"><button data-act="s">A slice (10 shekels)</button><button data-act="w">A whole pizza (38 shekels)</button><button data-act="x">Just the smell, thanks</button></div>',
+      { s: () => { if (H.pay(10, "a slice")) give("pizza"); }, w: () => { if (H.pay(38, "a whole pizza")) { give("pizza"); K.say("Half of it goes to the paratroopers at the next table. They send over a beer.", "", 3600); } }, x: () => {} });
+  };
   H.atm = () => {
     const a = A(); const day = Math.max(1, Object.keys(W().done).filter((k) => !k.includes(":")).length);
     if (!a.items.bankcard) { a.items.bankcard = 1; save(); K.card('<div class="kick">The envelope</div><h2>Something else in it</h2><p>Feeling for coins at the bottom of the Lamplighter’s envelope, you find a blue bank card, and behind it a scrap of paper in the Watchman’s small hand: <b>“Psalm 48:2”</b>. Nothing else.</p><button class="cta" data-act="x">Try the machine</button>', { x: () => H.atm() }); return; }
