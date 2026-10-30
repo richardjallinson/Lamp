@@ -129,3 +129,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 |---|---|---|
 | 1 | The journal as a Torah scroll: wooden rollers top and bottom, one sewn parchment sheet you scroll through, each page a column with its Hebrew letter-number (א, ב, ג…) in the margin in red, a large red first letter, and the margin notes at the end. Hoefler Text / Baskerville, Apple's built-in old-style faces, for the scribe's hand | Done in code, waiting for the build |
 | 2 | Music and background sound now dip whenever a person's clip plays (and under the officer at passport control), not only under the Lamplighter; the dip is deeper (music to 18%, street sound to 40%) and comes back when the clip ends or the card closes | Done in code, waiting for the build |
+
+## Next batch (for v4k)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | The Watchman's writing in a gentle italic (journal scroll and the single pages you find): a touch larger, more open spacing, so it reads like a hand without being hard to read; the red first letter and the verse references stay upright | Done in code, waiting for the build |

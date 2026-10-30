@@ -678,3 +678,7 @@
 #adv .asheet .ftorah-h{font-weight:700 !important;font-style:normal !important;letter-spacing:.04em;color:#5A3A16 !important}
 /* the single page you find: the same ink */
 #adv .fwnote,#adv .asheet .fwnote{font-family:"Hoefler Text","Iowan Old Style","Palatino","Book Antiqua",Georgia,serif;font-size:19px;color:#24170A}
+/* the Watchman's hand (Richard, Oct 30): a gentle italic, a touch larger and more open so it stays easy to read */
+#adv .fwnote,#adv .asheet .fwnote,#adv .asheet .ftorah-col p{font-style:italic;font-size:20px;line-height:1.62;letter-spacing:.012em;word-spacing:.04em}
+#adv .asheet .ftorah-col > p:first-of-type::first-letter{font-style:normal}
+#adv .fwnote small,#adv .asheet .ftorah-col small{font-style:normal}
