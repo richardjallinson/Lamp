@@ -249,6 +249,27 @@
     }
   }
   H.machine = machine;
+  /* the end of Part 1 (Richard, Oct 29): the bus pulls up at Jaffa Gate, the Lamplighter speaks, and the chapter closes.
+     In the App Store release (Lamp.part1Only) the walls are "coming soon"; testers can walk on into Act 2. */
+  function endPart1(then) {
+    const w = W(), a = A();
+    if (w.flags.part1End && !Lamp.part1Only) return then();
+    w.flags.part1End = 1; save();
+    F.M("cliff", "street");
+    const pages = Object.keys(w.pages).length, met = new Set(Object.keys(a.asked || {}).map((k) => k.split(":")[0])).size;
+    const el = F.stage('<div class="fend">' +
+      '<img class="fend-img" src="img/fsy/w/jaffa-1.jpg" alt="Jaffa Gate and the Tower of David">' +
+      '<div class="fkick">The Final Seven Years · Episode 1</div><h1>End of Part 1</h1><div class="fend-sub">Arrival</div>' +
+      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Jaffa Gate. Four pages in your bag, and a man in grey who knows which flight you came on. The Watchman walked these walls for years. Now it is your turn. Go up.”</div>' +
+      '<div class="fend-stats"><div><b>' + pages + '</b> of 12 pages</div><div><b>' + a.money + '</b> shekels</div><div><b>' + Math.max(met, 1) + '</b> people met</div></div>' +
+      '<p class="fend-next">The walls are next: the Ramparts, the storm, the Western Wall and the tunnels beneath it.</p>' +
+      (Lamp.part1Only ? '<div class="fend-soon">Part 2 · The Walls · Coming soon</div><button class="cta" data-end="out">Back to the episodes</button>'
+        : '<button class="cta" data-end="go">Go up: on to Part 2 (tester)</button><button class="cta alt" data-end="out">Back to the episodes</button>') +
+      "</div>", "w/jaffa-1.jpg");
+    { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = "Jaffa Gate"; t.onclick = null; } }
+    F.V("w-end-part1");
+    el.querySelectorAll("[data-end]").forEach((b) => (b.onclick = () => { K.sfx("click"); if (b.dataset.end === "go") then(); else K.shut(); }));
+  }
 
   H.slept = () => { A().q.slept = 1; save(); };
   H.canSleep = () => { if (A().q.checkedIn) return true; K.say("Check in at the front desk first.", "", 2600); return false; };
@@ -270,7 +291,7 @@
     if (s.id === "hotel") return ride("hotel", () => FW.go(s.id));
     if (s.id === "jaffa") {
       if (!has("map") || !has("kippah")) { K.card('<div class="kick">The Old City</div><h2>Not yet</h2><p>Gabriel was clear: not without the map, and not without a kippah. ' + (has("map") ? "You have the map." : "You have no map.") + " " + (has("kippah") ? "You have the kippah." : "You have no kippah.") + " His shop is at 26 King George Street.</p><button class=\"cta\" data-act=\"x\">Back</button>", { x: () => {} }); return false; }
-      return ride("jaffa", () => FW.go(s.id));
+      return ride("jaffa", () => endPart1(() => FW.go(s.id)));
     }
     return true;
   };

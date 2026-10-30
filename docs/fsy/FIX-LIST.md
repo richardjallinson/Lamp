@@ -87,7 +87,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 4 | The shopping vanished from the backpack without a word: Dudu's grandmother's scene now says "You hand her the bread, the coffee and the fish: they leave your backpack." | Done in code, waiting for the build |
 | 5 | A checklist for every Act 1 place: the task line shows a count (2/3) and opens "Your list here": ticks for what is done, empty boxes with a hint for what is still to find, and the extras (Dudu's shopping, the frankincense) in their own section | Done in code, waiting for the build |
 
-## Next batch (for v4g)
+## v4g (built)
 
 | # | Fix | Status |
 |---|---|---|
@@ -100,3 +100,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 7 | Clips for the night clerk (checking in) and the morning clerk (the envelope) | Done in code, waiting for the build |
 | 8 | Buses and the Rav-Kav (Richard's bus pictures, card and tap clip): the travel card is now a Rav-Kav. The number 18 bus from the museum to the hotel, and the bus from the hotel to Jaffa Gate in the morning: board, tap the card (the clip, a green tick). The card's four rides run out on the way to the hotel, so in the morning the reader beeps red, "Insufficient balance", the driver takes no cash, and you top up at the Rav-Kav machine at the stop (language, card on the reader, load ₪5/₪10/₪20). An empty card on the tram also sends you to the machine now. Act 1 now ends with 22 shekels (10 loaded on the card) instead of 32 | Done in code, waiting for the build |
 | 9 | Every ride is on the Rav-Kav: the trams and the buses all need a tap (the clip, a green tick); no card, no ride; no credit, no ride (red, "Insufficient balance") and the Rav-Kav machine at the stop. Richard's bus front with its LED sign lit for each route: 66 Israel Museum, 18 City Centre, 38 Jaffa Gate. The machine is Richard's picture, its screen showing each step, the round reader pulsing to tap | Done in code, waiting for the build |
+| 10 | The end of Part 1 at Jaffa Gate: the bus arrives, the Lamplighter speaks, "End of Part 1 · Arrival", your pages, shekels and people met, and what comes next. PART1_ONLY switch in release.js: off for testers (a "Go up: on to Part 2" button), on for the App Store (Part 2 "Coming soon") | Done in code, waiting for the build |

@@ -8,7 +8,7 @@
   /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
      The progress saved by an older build, here and in iCloud, is set aside.
      !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
-  const BUILD = "v4f";
+  const BUILD = "v4g";
   const FRESH_EACH_BUILD = true;
   /* The Final Seven Years: false = shown as a preview only, every chapter locked ("Coming soon").
      Set to true when Richard opens chapter 1. */
@@ -16,11 +16,15 @@
   /* GAME_ONLY = true: the app is "The Final Seven Years" alone. The word game, the books and the Genesis adventure
      are switched off (their code stays, so they can come back). Richard, Oct 28. */
   const GAME_ONLY = true;
+  /* PART1_ONLY = true: the App Store release of Part 1. Act 1 ends at Jaffa Gate with "End of Part 1", and Acts 2 to 5
+     show as "Coming soon". Testers (false) can carry on from the ending into Act 2. */
+  const PART1_ONLY = false;
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.build = BUILD;
   Lamp.freshEachBuild = FRESH_EACH_BUILD;
   Lamp.fsyOpen = FSY_OPEN;
   Lamp.gameOnly = GAME_ONLY;
+  Lamp.part1Only = PART1_ONLY;
   Lamp.preview = FIRST_RELEASE;
   Lamp.openBooks = OPEN_BOOKS;
   if (!FIRST_RELEASE || !window.LAMP_DATA) return;
