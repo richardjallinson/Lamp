@@ -195,7 +195,9 @@
   /* the start screen plays its own music through the same audio context */
   Lamp.audioOut = function () { const c = audio(); return c ? { ctx: c, out: master } : null; };
   /* the music goes quiet while the Lamplighter speaks */
+  let duckers = 0;
   Lamp.duck = function (on) {
+    duckers = Math.max(0, duckers + (on ? 1 : -1)); on = duckers > 0;
     scoreDuck(on);
     if (!musicGain || !ctx) return;
     try { const t = ctx.currentTime; musicGain.gain.cancelScheduledValues(t); musicGain.gain.setValueAtTime(musicGain.gain.value, t); musicGain.gain.linearRampToValueAtTime(on ? 0.07 : 0.32, t + (on ? 0.4 : 1.2)); } catch (e) {}
@@ -256,7 +258,7 @@
     const sc = document.createElement("script"); sc.src = "audio/music/" + name + ".js"; sc.onload = () => { sc.remove(); go(); }; sc.onerror = () => { sc.remove(); delete loadingTr[name]; };
     document.head.appendChild(sc);
   }
-  const target = (me) => hushed ? 0.0001 : LV[me.kind] * (me.kind === "music" && ducked ? 0.3 : 1);
+  const target = (me) => hushed ? 0.0001 : LV[me.kind] * (ducked ? (me.kind === "music" ? 0.18 : 0.4) : 1);
   function ramp(g, v, secs) { try { const t = ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(g.gain.value, 0.0001), t); g.gain.linearRampToValueAtTime(v, t + secs); } catch (e) {} }
   function startLayer(me, buf) {
     const c = audio(); if (!c) return;
@@ -285,7 +287,7 @@
     if (!scoreOn() || !Lamp.audioUnlocked) return;
     loadTrack(name, (buf) => { if (SC[kind] === me && !me.gain && scoreOn()) startLayer(me, buf); });
   }
-  function scoreDuck(on) { ducked = on; if (SC.music && SC.music.gain) ramp(SC.music.gain, target(SC.music), on ? 0.4 : 1.4); }
+  function scoreDuck(on) { ducked = on; ["music", "amb"].forEach((k) => { if (SC[k] && SC[k].gain) ramp(SC[k].gain, target(SC[k]), on ? 0.3 : 1.4); }); }
   Lamp.score = {
     /* set(music, ambience): track names without .js, or null for silence */
     set(music, amb) { Lamp.scoreActive = true; Lamp.musicUpdate(); layer("music", music || null); layer("amb", amb || null); },

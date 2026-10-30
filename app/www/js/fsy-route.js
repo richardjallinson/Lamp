@@ -1010,7 +1010,7 @@
       ];
       const el = screen("Passport control", "Ben Gurion Airport", '<div class="fclipbig"><video id="foff" src="video/fsy/officer.mp4" poster="video/fsy/officer.jpg" playsinline preload="auto"></video><button class="fplay" id="fplay" aria-label="Play">▶</button></div><div id="fans" class="fans"></div>', null);
       void el;
-      const v = $("foff"); let k = 0, stopAt = 0;
+      const v = $("foff"); let k = 0, stopAt = 0; if (H.duckFor) H.duckFor(v);
       const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => ($("fplay").style.display = "grid")); };
       $("fplay").onclick = () => { $("fplay").style.display = "none"; tryPlay(); };
       v.addEventListener("timeupdate", () => { if (stopAt && v.currentTime >= stopAt) { stopAt = 0; v.pause(); answer(); } });

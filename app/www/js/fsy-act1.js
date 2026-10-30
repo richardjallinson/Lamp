@@ -17,10 +17,17 @@
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
   const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav", "bagelgirl", "haller"]);
+  /* a person's clip: the music and the street dip while they speak, and come back when the clip ends or the card closes */
+  const duckFor = (v) => {
+    let on = false; const set = (x) => { if (x === on) return; on = x; Lamp.duck && Lamp.duck(x); };
+    v.addEventListener("play", () => set(true)); v.addEventListener("pause", () => set(false)); v.addEventListener("ended", () => set(false));
+    const watch = setInterval(() => { if (!v.isConnected) { clearInterval(watch); set(false); } }, 400);
+  };
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
       const v = document.querySelector(".fclip video"); if (!v) return;
+      duckFor(v);
       const p = v.play(); if (p && p.catch) p.catch(() => v.parentElement.classList.add("tap"));
       v.parentElement.onclick = () => { v.parentElement.classList.remove("tap"); v.currentTime = 0; v.play(); };
     }, 60);
@@ -28,6 +35,7 @@
   };
 
   /* ------------------------------------------------------------ money ------------------------------------------------------------ */
+  H.duckFor = duckFor;
   H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · Rav-Kav, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
   H.pay = (n, what, quiet) => {
     const a = A(); if (a.money < n) { K.say("Not enough. " + (what ? what[0].toUpperCase() + what.slice(1) : "That") + " costs " + n + " shekels and you have " + a.money + ".", "", 3600); return false; }
