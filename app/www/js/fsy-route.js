@@ -512,13 +512,22 @@
     }).join("");
     let h = '<div class="fkick">The Final Seven Years · Episode 1</div><h1>The Jerusalem Mystery</h1>' +
       '<div class="fsub">' + (nx ? "Next: " + esc(nx.title) + " · scene " + nx.n + " of " + R.length : "Episode 1 solved") + "</div>" +
-      '<div class="fmaptabs"><button data-sheet="city"' + (sheet === "city" ? ' class="on"' : "") + '>Jerusalem</button><button data-sheet="old"' + (sheet === "old" ? ' class="on"' : "") + ">The Old City</button></div>" +
-      '<div class="fmap"><img src="' + IMG + "map-" + sheet + '.jpg" alt="Painted map of ' + (sheet === "old" ? "the Old City of Jerusalem" : "Jerusalem") + '" draggable="false">' + pins +
-      (sheet === "city" ? '<button class="fpin far" data-sheet="old" style="left:72%;top:62%"><em>The Old City ›</em></button>' : "") + "</div>" +
+      '<div class="fmaparea" id="fmaparea"><div class="fmap" id="fmapbox"><img src="' + IMG + "map-" + sheet + '.jpg" alt="Painted map of ' + (sheet === "old" ? "the Old City of Jerusalem" : "Jerusalem") + '" draggable="false">' + pins +
+      (sheet === "city" ? '<button class="fpin far" data-sheet="old" style="left:72%;top:62%"><em>The Old City ›</em></button>' : "") + "</div></div>" +
+      '<div class="fmapbottom"><div class="fmaptabs"><button data-sheet="city"' + (sheet === "city" ? ' class="on"' : "") + '>Jerusalem</button><button data-sheet="old"' + (sheet === "old" ? ' class="on"' : "") + ">The Old City</button></div>" +
       '<div class="fmapkey"><span><i class="k here"></i>Next</span><span><i class="k done">✓</i>Done</span><span><i class="k locked"></i>Not yet</span></div>' +
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + " Journal · " + pages + "/12</button><button class=\"fwtool\" data-b=\"1\">" + bagIcon() + " Backpack</button><button class=\"fwtool\" data-list=\"1\">All places</button></div>" +
-      (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>');
+      (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>') + "</div>";
     const el = F.stage(h, "temple-painting.jpg");
+    el.classList.add("fmapscreen");
+    /* one fixed screen (Richard, Oct 30): the map takes whatever room is left between the heading and the buttons, keeping its shape */
+    const fitMap = () => {
+      const area = $("fmaparea"), box = $("fmapbox"); if (!area || !box) return;
+      const aw = area.clientWidth - 8, ah = area.clientHeight, r = 675 / 1200;
+      let hh = ah, ww = hh * r; if (ww > aw) { ww = aw; hh = ww / r; }
+      box.style.width = Math.round(ww) + "px"; box.style.height = Math.round(hh) + "px";
+    };
+    fitMap(); requestAnimationFrame(fitMap); window.addEventListener("resize", fitMap, { once: true });
     { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = ""; t.onclick = null; } }   /* the map has its own heading: no place name on top of it */
     el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
       const s = byId[b.dataset.s]; K.sfx("click");

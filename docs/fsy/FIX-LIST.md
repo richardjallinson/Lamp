@@ -135,3 +135,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | Status |
 |---|---|---|
 | 1 | The Watchman's writing in a gentle italic (journal scroll and the single pages you find): a touch larger, more open spacing, so it reads like a hand without being hard to read; the red first letter and the verse references stay upright | Done in code, waiting for the build |
+
+## Next batch (for v4k)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | The map on one fixed screen, nothing scrolls: the heading at the top, the map filling the middle at its proper shape (it shrinks on small phones), and the Jerusalem / Old City tabs, the key and Journal · Backpack · All places in one row at the bottom. Checked on a large and a small iPhone screen | Done in code, waiting for the build |

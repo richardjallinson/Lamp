@@ -682,3 +682,17 @@
 #adv .fwnote,#adv .asheet .fwnote,#adv .asheet .ftorah-col p{font-style:italic;font-size:20px;line-height:1.62;letter-spacing:.012em;word-spacing:.04em}
 #adv .asheet .ftorah-col > p:first-of-type::first-letter{font-style:normal}
 #adv .fwnote small,#adv .asheet .ftorah-col small{font-style:normal}
+
+/* the map on one fixed screen: heading, the map filling the middle, tabs and buttons at the bottom; nothing scrolls */
+#adv .fsy.fmapscreen{overflow:hidden;gap:6px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+#adv .fsy.fmapscreen h1{font-size:clamp(22px,6vw,28px)}
+#adv .fsy.fmapscreen .fsub{font-size:13px;margin-top:-4px}
+#adv .fsy.fmapscreen > .fmaparea{flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:center;justify-content:center}
+#adv .fsy.fmapscreen .fmap{margin:0;aspect-ratio:auto;flex:none}
+#adv .fmapbottom{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+#adv .fmapbottom .fmaptabs{margin:0}
+#adv .fmapbottom .fmapkey{margin:0}
+#adv .fmapbottom .fwtools{gap:6px}
+#adv .fmapbottom .fwtool{padding:8px 12px;font-size:14px}
+#adv .fmapbottom .fwtools{flex-wrap:nowrap;max-width:100%}
+#adv .fmapbottom .fwtool{padding:8px 10px;font-size:13px;white-space:nowrap}
