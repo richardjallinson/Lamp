@@ -144,3 +144,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 2 | The guide's questions at the Temple model: tapping a name did nothing (it selected and unselected in the same tap). Now tap a name then a ?, or a ? then a name, or drag; the line underneath says what to do next; a wrong pairing names the label; the picture is sized to fit the screen; the sanctuary label sits above its pin so the two labels don't overlap | Done in code, waiting for the build |
 | 3 | The start screen: LAMP · The Seven Candles, with "Based on The Final Seven Years by Richard J. Allinson" beneath | In v4k |
 | 4 | A title screen before each act, like a film chapter: Episode 1 · The Jerusalem Mystery, the act number and name, its verse. Act 1 Go Up (the Eastern Gate), Act 2 Watchmen on the Walls (Richard's Damascus Gate at dusk, Isaiah 62:6), Act 3 Down to the Water (John 9:7), Act 4 The Feast of Dedication (John 10:22–23), Act 5 Measure the Temple (Revelation 11:1). Acts 3–5 use existing photos until Richard paints their dusk pictures | In v4k |
+
+## Next batch (for v4l)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | Act 3 title screen: "Where the City Began", Richard's City of David painting at dusk (the stepped wall, the lamp-bearer at the top), 2 Samuel 5:7 | Done in code, waiting for the build |
