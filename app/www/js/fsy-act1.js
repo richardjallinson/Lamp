@@ -41,6 +41,7 @@
     card: ["A Rav-Kav card", "Jerusalem's travel card, white and blue. The light rail and the buses take it: tap it on the reader. Four rides when new; top it up at the machines at the stops."],
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
+    bagel: ["A Holy Bagel", "Sesame, still warm, from the cafe under the arch in the Jewish Quarter. Lunch."],
     roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
     hotelnote: ["A note pushed under your door", "Hotel notepaper, neat handwriting: “Welcome to Jerusalem. Rest well. The north is cold at this time of year.” No name."],
     coffee: ["A bag of coffee", "250 grams, from the coffee man. For Dudu's grandmother."],
@@ -265,6 +266,18 @@
     }
   }
   H.machine = machine;
+  /* Holy Bagel (Richard, Oct 30): lunch in the Jewish Quarter. Buy one, eat it on the red chair: a drop of oil for your lamp */
+  H.bagel = () => {
+    const a = A();
+    if (a.items.bagel) {
+      K.card('<div class="kick">Holy Bagel</div><h2>Lunch</h2><p>You sit on a red chair under the arch and eat. Sesame, still warm, a little salt. The Quarter goes by. Your head clears: <b>a drop of oil</b> for your lamp.</p><button class="cta" data-act="x">Finish it</button>',
+        { x: () => { delete a.items.bagel; save(); Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); F.S("harp", null, 0.5); const h = document.getElementById("adv-hint"); if (h) { const sp = h.querySelector("span"); if (sp) sp.textContent = Lamp.state.oil; } K.say("+1 drop of oil. Hints cost one.", "", 3000); } });
+      return;
+    }
+    K.card('<div class="kick">Holy Bagel</div><h2>“Next!”</h2><p>Behind the counter, a girl in an apron with a tray of bagels: sesame, poppy, everything. Salads under the glass, coffee hissing. “Bagel? Twelve. With a schmear, fourteen.”</p>' +
+      '<div class="fchoices"><button data-act="b">Sesame bagel (12 shekels)</button><button data-act="s">With cream cheese (14 shekels)</button><button data-act="x">Just looking</button></div>',
+      { b: () => { if (H.pay(12, "a bagel")) give("bagel"); }, s: () => { if (H.pay(14, "a bagel with cream cheese")) give("bagel"); }, x: () => {} });
+  };
   /* the end of Part 1 (Richard, Oct 29): the bus pulls up at Jaffa Gate, the Lamplighter speaks, and the chapter closes.
      In the App Store release (Lamp.part1Only) the walls are "coming soon"; testers can walk on into Act 2. */
   function endPart1(then) {
