@@ -27,6 +27,8 @@
     { n: 7, ref: "2 Thessalonians 2:4", text: "Who opposeth and exalteth himself above all that is called God… so that he as God sitteth in the temple of God, shewing himself that he is God." },
   ];
   const CUPS = [10.8, 23.4, 36.0, 48.8, 61.5, 74.2, 86.9];
+  /* Richard's films of each lamp catching fire (video/fsy/lamp-N.mp4): shown when lit; until one exists, the painted menorah with its flame */
+  const LAMP_FILMS = new Set([1]);
   const lamps = () => { const w = W(); if (!w.lamps) w.lamps = {}; return w.lamps; };
   function menorahHTML(lit, fresh) {
     return '<div class="fmenorah"><img src="' + PZ + 'menorah.jpg" alt="The seven-branched menorah">' +
@@ -36,10 +38,12 @@
     const L = lamps(); if (L[n]) { then && then(); return; }
     L[n] = 1; save(); const lp = LAMPS[n - 1], count = Object.keys(L).length;
     F.S("harp", null, 0.8); setTimeout(() => F.S("shofar", null, 0.35), 500); K.buzz && K.buzz("success");
-    K.card('<div class="kick">The Seven Lamps · ' + count + " of 7 lit</div>" + menorahHTML(L, n) + "<h2>A lamp is lit</h2>" +
+    const film = LAMP_FILMS.has(n) ? '<div class="flampfilm"><video src="video/fsy/lamp-' + n + '.mp4" poster="video/fsy/lamp-' + n + '.jpg" playsinline muted autoplay></video></div>' : menorahHTML(L, n);
+    K.card('<div class="kick">The Seven Lamps · ' + count + " of 7 lit</div>" + film + "<h2>A lamp is lit</h2>" +
       F.wnote("“" + esc(lp.text) + "”<small>" + esc(lp.ref) + "</small>") +
       "<p>One of the seven witnesses to where the house stood. It burns in your journal now. On the Mount you will need every one.</p>" +
       '<button class="cta" data-act="x">Go on</button>', { x: () => then && then() });
+    setTimeout(() => { const v = document.querySelector(".flampfilm video"); if (v) { v.currentTime = 0; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } }, 80);
   }
   /* the sign in the Jewish section at Hebron, word for word (Richard's photo, Oct 30) */
   const ARNON = [
