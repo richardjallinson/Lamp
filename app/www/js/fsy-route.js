@@ -127,7 +127,7 @@
     views: [
       { id: "outside", img: "hotel-sign", cap: "The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew", go: { fwd: "desk" },
         hank: "The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City." },
-      { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk", "dayclerk"] },
+      { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk", "dayclerk", "haller"] },
       { id: "room", img: "hotel-room", cap: "Your room: two beds made up tight, a lamp, a chair by the curtains", go: { back: "desk" }, puzzle: "sleep",
         hank: "Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.",
         hots: [{ box: [48, 38, 22, 14], label: "The nightstand", act: "readjournal" }, { box: [0, 2, 28, 50], label: "The curtains", text: "You pull the curtain aside. The city lights run down the hills toward the dark of the Old City walls. Somewhere out there is the wall you will climb tomorrow." }] },
