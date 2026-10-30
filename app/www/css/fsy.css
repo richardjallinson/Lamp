@@ -609,3 +609,11 @@
 #adv .fnight{position:absolute;inset:0;z-index:20;background:#05070F;opacity:0;transition:opacity 1.6s;pointer-events:none}
 #adv .fnight.on{opacity:1}
 #adv .fnight.day{background:#F6E7C4;opacity:0;transition:opacity 2.4s,background 1s}
+
+/* the buses and the Rav-Kav machine */
+#adv .asheet .fbusimg{display:block;width:100%;max-height:30vh;object-fit:cover;border-radius:12px;margin:6px 0 8px}
+#adv .asheet .fred{margin:6px 0;padding:8px 10px;border-radius:8px;background:#3A0D0D;color:#FF6B6B;font:800 15px var(--ui);text-align:center;letter-spacing:.02em}
+#adv .asheet .fravkav{margin:6px 0 10px}
+#adv .asheet .fravkav .fm-screen{background:#0E2A4A;color:#E6F2FF;border-radius:10px;padding:14px;text-align:center;font:600 16px/1.5 var(--ui)}
+#adv .asheet .fravkav .fm-screen b{font-size:20px} #adv .asheet .fravkav .fm-screen small{color:#9EC3E8;font-size:13px}
+#adv .asheet .fravkav-card{display:block;width:70%;margin:8px auto 0;border-radius:8px}

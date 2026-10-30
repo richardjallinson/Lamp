@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -28,7 +28,7 @@
   };
 
   /* ------------------------------------------------------------ money ------------------------------------------------------------ */
-  H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · travel card, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
+  H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · Rav-Kav, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
   H.pay = (n, what, quiet) => {
     const a = A(); if (a.money < n) { K.say("Not enough. " + (what ? what[0].toUpperCase() + what.slice(1) : "That") + " costs " + n + " shekels and you have " + a.money + ".", "", 3600); return false; }
     a.money -= n; save(); if (!quiet) F.S("pay", "click", 0.8); return true;
@@ -38,7 +38,7 @@
   /* ------------------------------------------------------------ things ------------------------------------------------------------ */
   const ITEMS = {
     slip: ["A blue entry slip", "Stamped at passport control. Israel no longer stamps the passport itself."],
-    card: ["A travel card", "Green plastic, four rides when new. The light rail and the buses take it."],
+    card: ["A Rav-Kav card", "Jerusalem's travel card, white and blue. The light rail and the buses take it: tap it on the reader. Four rides when new; top it up at the machines at the stops."],
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
     roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
@@ -146,14 +146,14 @@
     ] },
     deskclerk: { name: "The night clerk", kick: "The Jerusalem Hotel", when: (a) => !a.q.slept, desc: "A young woman in a dark blazer, short dark curls, a brass name badge, a kind and tired smile. She has seen every kind of pilgrim.", lines: [
       { id: "checkin", say: "I'd like to check in.", when: (a) => !a.q.checkedIn, run: () => { A().q.checkedIn = 1; save(); give("roomkey"); reply("deskclerk", "“Welcome. Your name?” She types, and looks up. “Yes. Three nights, already paid. An older gentleman came by this afternoon and paid in cash. No name. He said you would be tired.” She slides a key card across the desk. “Room 412. The lift is on the left.”", { clip: "deskclerk" }); } },
-      { id: "way", say: "How do I get to the Old City in the morning?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelWay = 1; save(); reply("deskclerk", "“The tram to City Hall, then walk down Jaffa Road: ten minutes to Jaffa Gate. Go early, before the tour buses.” She nods at the window. “And do the walls in the morning. There is a storm coming in the afternoon, a big one.”"); fact("storm", "The desk clerk: go up on the walls in the morning; a big storm is coming in the afternoon."); } },
+      { id: "way", say: "How do I get to the Old City in the morning?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelWay = 1; save(); reply("deskclerk", "“The bus from the stop outside, down to Jaffa Gate. Go early, before the tour buses. And put money on your Rav-Kav: the drivers take no cash.” She nods at the window. “And do the walls in the morning. There is a storm coming in the afternoon, a big one.”"); fact("storm", "The desk clerk: go up on the walls in the morning; a big storm is coming in the afternoon."); } },
       { id: "see", say: "What should I see first?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelSee = 1; save(); reply("deskclerk", "“Go in at Jaffa Gate and up on the walls: the Ramparts Walk. The ticket office is beside the Tower of David. From up there you can count the towers and see the whole city.” She smiles. “And if you go down to the Wall, cover your head.”"); } },
       { id: "grey", say: "Has anyone asked for me?", when: (a) => a.q.checkedIn, run: () => { A().q.hotelGrey = 1; save(); reply("deskclerk", "She hesitates. “A man telephoned this evening. Very polite. He asked whether a guest had checked in carrying an old book. I told him we do not discuss our guests.” She lowers her voice. “He knew which flight you came on.”"); fact("greyhotel", "The man in grey telephoned the hotel asking for you. He knew your flight."); } },
     ] },
     dayclerk: { name: "The morning clerk", kick: "The Jerusalem Hotel", when: (a) => a.q.slept, desc: "A young man in a dark blazer, curly hair, two days of stubble, a coffee on the desk beside him. Cheerful at seven in the morning.", lines: [
       { id: "msg", say: "Good morning. Any messages for 412?", when: (a) => !a.items.hotelnote, run: () => { give("hotelnote"); reply("dayclerk", "“Good morning! Yes, this was left at the desk for you in the night. It was here when I came on at six.” He hands you an envelope: hotel notepaper, folded once, no name.<br><br><b>“Welcome to Jerusalem. Rest well. The north is cold at this time of year.”</b><br><br>Neat handwriting, no signature: the same polite hand as the card that said NOT NORTH.", { clip: "dayclerk", leave: () => C.finish("hotel") }); } },
       { id: "who", say: "Who left it?", when: (a) => a.items.hotelnote, run: () => { A().q.whoNote = 1; save(); reply("dayclerk", "He checks the night book. “It says: a gentleman in a grey coat, very polite. He did not want a receipt.” He looks up. “Is everything all right?”"); } },
-      { id: "way", say: "Which way to Jaffa Gate?", run: () => { A().q.hotelWay = 1; save(); reply("dayclerk", "“Tram to City Hall, then straight down Jaffa Road. Ten minutes on foot. Go now, before the buses.” He glances at the sky outside. “And the walls this morning, not this afternoon. They say a storm.”"); } },
+      { id: "way", say: "Which way to Jaffa Gate?", run: () => { A().q.hotelWay = 1; save(); reply("dayclerk", "“The bus from the stop outside goes down to Jaffa Gate. Check your Rav-Kav first: there is a machine at the stop, and the drivers take no cash.” He glances at the sky outside. “And the walls this morning, not this afternoon. They say a storm.”"); } },
     ] },
     halva: { name: "The halva seller", kick: "Deeper in", desc: "A thin old man behind slabs of halva, a long knife in his hand, eyes everywhere.", lines: [
       { id: "piece", say: "Try a piece?", run: () => reply("halva", "“Pistachio. Two shekels.” The knife pauses. “Or free, if you tell me what you are looking for.”", { btn: "“A man’s journal.”", then: () => { A().q.greyKG = 1; save(); reply("halva", "He cuts you a piece. “Then you are the second person today. The first wore grey and did not buy halva. He went toward the city. King George Street, I think.” He wipes the knife. “Not a nice man.”"); fact("greykg", "The man in grey went toward King George Street."); } }) },
@@ -202,12 +202,55 @@
   H.souvenirGate = () => { if (has("model")) return true; K.say("Gabriel: “Choose, yes. But the model you buy first. Thirty shekels. Look at the counter.”", "", 3400); return false; };
 
   /* ------------------------------------------------------------ rides and doors ------------------------------------------------------------ */
-  const RIDE = { rail: "Navon station to Machne Yehuda", benyehuda: "The tram to King George Street", model: "The number 66 bus to the Israel Museum", jaffa: "The tram to City Hall, and a walk to Jaffa Gate" };
+  const RIDE = { rail: "Navon station to Machne Yehuda", benyehuda: "The tram to King George Street", model: "The number 66 bus to the Israel Museum", hotel: "The number 18 bus to the Jerusalem Hotel", jaffa: "The bus down to Jaffa Gate" };
+  /* Richard's buses (Oct 29): board at the front, tap the Rav-Kav on the reader by the driver. No cash on Israeli buses:
+     an empty card means the machine at the stop. */
+  function bus(key, then) {
+    const a = A();
+    if (a.rode[key]) return true;
+    K.card('<div class="kick">The bus stop</div><h2>' + esc(RIDE[key]) + '</h2><img class="fbusimg" src="img/fsy/w/bus-outside.jpg" alt="A white and green Jerusalem bus at the stop">' +
+      "<p>The doors hiss open. Front door only: a card reader by the driver, a little green light on top.</p>" +
+      '<button class="cta" data-act="t">Tap your Rav-Kav</button><button class="cta alt" data-act="x">Not yet</button>',
+      { t: () => {
+          if (a.rides > 0) {
+            a.rides--; a.rode[key] = 1; save(); F.S("trambell", "click", 0.5);
+            K.card('<div class="kick">The bus</div><h2>✓ Beep. A green tick.</h2>' + (H.clip ? H.clip("ravkav") : "") + "<p>" + (a.rides ? a.rides + " ride" + (a.rides === 1 ? "" : "s") + " left on the card." : "That was the last ride on the card.") + "</p>" +
+              '<button class="cta" data-act="r">Find a seat</button>', { r: then });
+          } else {
+            F.S("knock", null, 0.6); K.buzz && K.buzz("error");
+            K.card('<div class="kick">The bus</div><h2>Beep beep. Red.</h2><img class="fbusimg" src="img/fsy/w/bus-inside.jpg" alt="Inside the bus: the card reader by the driver">' +
+              '<div class="fred">אין יתרה מספקת · Insufficient balance</div>' +
+              "<p>The driver shakes his head without looking round. “Empty. And no cash on the bus, not for years now. The machine, at the stop.” The engine idles. He will wait, a little.</p>" +
+              '<button class="cta" data-act="m">Hop off to the machine</button><button class="cta alt" data-act="x">Get off</button>',
+              { m: () => machine(() => bus(key, then)), x: () => {} });
+          }
+        }, x: () => {} });
+    return false;
+  }
+  /* the Rav-Kav machine at the stop: language, card on the reader, choose an amount, pay */
+  function machine(after) {
+    const a = A();
+    const scr = (body, btns, acts) => K.card('<div class="kick">The Rav-Kav machine</div><div class="fravkav"><div class="fm-screen">' + body + "</div></div>" + btns, acts);
+    scr("<b>רב-קו</b><br>Rav-Kav<br><small>בחר שפה · Choose a language · اختر لغة · Выберите язык</small>",
+      '<div class="fchoices"><button data-act="he">עברית</button><button data-act="en">English</button><button data-act="ar">العربية</button><button data-act="ru">Русский</button></div>',
+      { he: () => { K.say("The screen fills with Hebrew. You press Back.", "", 2400); machine(after); }, ar: () => { K.say("Arabic. You press Back.", "", 2400); machine(after); }, ru: () => { K.say("Russian. You press Back.", "", 2400); machine(after); },
+        en: () => scr('Place your card on the reader<br><img class="fravkav-card" src="img/fsy/pz/ravkav.jpg" alt="Your Rav-Kav card">', '<button class="cta" data-act="c">Hold the card on the reader</button>',
+          { c: () => { F.S("dial", "click", 0.5);
+            scr("Card balance: <b>₪0.00</b><br>Load stored value:<br><small>One ride ₪5 · You have " + a.money + " shekels</small>",
+              '<div class="fchoices"><button data-act="v5">₪5 · one ride</button><button data-act="v10">₪10 · two rides</button><button data-act="v20">₪20 · four rides</button><button data-act="x">Cancel</button></div>',
+              { v5: () => load(5), v10: () => load(10), v20: () => load(20), x: () => {} }); } }) });
+    function load(n) {
+      if (!H.pay(n, "the Rav-Kav")) { machine(after); return; }
+      a.rides += n / 5; save(); F.S("coin", "click", 0.8); setTimeout(() => F.S("ticket", null, 0.7), 300);
+      scr("Loaded <b>₪" + n + "</b><br>" + a.rides + " ride" + (a.rides === 1 ? "" : "s") + " on the card<br><small>Remove your card · הסר את הכרטיס</small>", '<button class="cta" data-act="x">Back to the bus</button>', { x: after });
+    }
+  }
+  H.machine = machine;
   function ride(key, then) {
     const a = A();
     if (a.rode[key]) return true;
     if (!a.items.card) { K.card('<div class="kick">The light rail</div><h2>No card, no ride</h2><p>The tram takes a travel card, not cash. The kiosk at the stop on Jaffa Road sells one: ten shekels, four rides.</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); return false; }
-    if (a.rides <= 0) { K.card('<div class="kick">The travel card</div><h2>No rides left</h2><p>The card is empty. The kiosk on Jaffa Road tops it up: five shekels a ride. It is a walk back.</p>' + (a.money >= 5 ? '<button class="cta" data-act="t">Walk back and top up (5 shekels)</button>' : "<p>And you have " + a.money + " shekels. Sell something first.</p>") + '<button class="cta alt" data-act="x">Not now</button>', { t: () => { if (H.pay(5, "a ride")) { A().rides = 1; save(); ride(key, then); } }, x: () => {} }); return false; }
+    if (a.rides <= 0) { K.card('<div class="kick">The travel card</div><h2>No rides left</h2><p>The card is empty. There is a Rav-Kav machine at the stop: five shekels a ride.</p>' + (a.money >= 5 ? '<button class="cta" data-act="t">Top up at the machine</button>' : "<p>And you have " + a.money + " shekels. Sell something first.</p>") + '<button class="cta alt" data-act="x">Not now</button>', { t: () => machine(() => ride(key, then)), x: () => {} }); return false; }
     K.card('<div class="kick">The travel card</div><h2>' + esc(RIDE[key]) + "</h2><p>One ride off the card. " + (a.rides - 1) + " left after this.</p>" + '<button class="cta" data-act="r">Ride</button><button class="cta alt" data-act="x">Not yet</button>',
       { r: () => { a.rides--; a.rode[key] = 1; save(); if (key === "model") F.S("step", "click", 0.6); else F.S("trambell", "click", 0.7); then(); }, x: () => {} });
     return false;
@@ -229,9 +272,10 @@
       if (!ride("model", () => FW.go(s.id))) return false;
       if (!has("museum")) { K.card('<div class="kick">The Israel Museum</div><h2>The ticket desk</h2><p>“One adult? Twenty-five shekels. The model is outside, down the path, you cannot miss it.”</p><button class="cta" data-act="b">Buy a ticket (25 shekels)</button><button class="cta alt" data-act="x">Not now</button>', { b: () => { if (H.pay(25, "the museum ticket")) { give("museum", true); FW.go(s.id); } }, x: () => {} }); return false; }
     }
+    if (s.id === "hotel") return bus("hotel", () => FW.go(s.id));
     if (s.id === "jaffa") {
       if (!has("map") || !has("kippah")) { K.card('<div class="kick">The Old City</div><h2>Not yet</h2><p>Gabriel was clear: not without the map, and not without a kippah. ' + (has("map") ? "You have the map." : "You have no map.") + " " + (has("kippah") ? "You have the kippah." : "You have no kippah.") + " His shop is at 26 King George Street.</p><button class=\"cta\" data-act=\"x\">Back</button>", { x: () => {} }); return false; }
-      return ride("jaffa", () => FW.go(s.id));
+      return bus("jaffa", () => FW.go(s.id));
     }
     return true;
   };
@@ -324,7 +368,7 @@
     const a = A(), w = W();
     Object.assign(a.q, { eitan: 1, metGrandma: 1, sack: 1, daniel: 1, greyKG: 1, shmuel: 1, found26: 1, shopOpen: 1, dudu: 3 });
     ["card", "frankincense", "note", "rod", "map", "kippah", "model", "museum", "greycard"].forEach((id) => (a.items[id] = 1));
-    a.rides = 1; a.money = 20; Object.assign(a.rode, { rail: 1, benyehuda: 1, model: 1 });
+    a.rides = 1; a.money = 20; Object.assign(a.rode, { rail: 1, benyehuda: 1, model: 1, hotel: 1 }); a.rides = 0;
     w.flags.ticket = 1; w.flags.bekah = 1; w.flags.modelq = 1; w.flags.passport = 1; a.items.slip = 1; w.done["airport:passport"] = 1;
     ["airport", "train", "rail", "market", "benyehuda", "gabriel", "model", "hotel"].forEach((id) => (w.done[id] = 1)); Object.assign(a.q, { checkedIn: 1, hotelWay: 1, slept: 1 }); a.items.roomkey = 1; a.items.hotelnote = 1;
     ["airport:ticket", "train:board", "market:scales", "gabriel:souvenir", "model:modelq"].forEach((k) => (w.done[k] = 1));
