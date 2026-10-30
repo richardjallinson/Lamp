@@ -123,7 +123,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 8 | Richard's cash machine picture in place; Pizza HaOr (פיצה האור, "Pizza of the Light", name written on Richard's blank sign) across the lane from the hotel: a slice (10) or a whole pizza (38, half to the paratroopers), eaten on the stool for a drop of oil | Done in code, waiting for the build |
 | 9 | Victor Haller: Richard's portrait and his clip ("I am not your enemy…") on his first line in the lobby; the bagel girl's portrait switched on | Done in code, waiting for the build |
 
-## Next batch (for v4j)
+## v4j (built)
 
 | # | Fix | Status |
 |---|---|---|
