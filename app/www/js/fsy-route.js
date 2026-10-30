@@ -137,8 +137,10 @@
   /* the night between Act 1 and Act 2 (Richard, Oct 29): check in, talk to the clerk, sleep; a note under the door in the morning */
   S({ id: "hotel", act: 1, title: "The Jerusalem Hotel", kick: "A night's rest", music: "m10", amb: "indoor",
     views: [
-      { id: "outside", img: "hotel-sign", cap: "The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew", go: { fwd: "desk" },
+      { id: "outside", img: "hotel-sign", cap: "The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew", go: { fwd: "desk", right: "atm" },
         hank: "The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City." },
+      { id: "atm", img: null, cap: "Beside the hotel door, set into the stone: a cash machine, its screen glowing in Hebrew", go: { left: "outside" },
+        hots: [{ box: [15, 20, 70, 55], label: "The cash machine", act: "atm" }] },
       { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk", "dayclerk", "haller"] },
       { id: "room", img: "hotel-room", cap: "Your room: two beds made up tight, a lamp, a chair by the curtains", go: { back: "desk" }, puzzle: "sleep",
         hank: "Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.",
@@ -1350,6 +1352,7 @@
   };
   const ACTS_FN = {
     readjournal: () => journal(),
+    atm: () => H.atm && H.atm(),
     bagel: () => (H.bagel ? H.bagel() : K.card('<div class="kick">Holy Bagel</div><h2>The counter</h2><p>Bagels, salads, coffee. The queue moves.</p><button class="cta" data-act="x">Back</button>', { x: () => {} })),
     navonLight: () => { K.card('<div class="kick">Yitzhak Navon station</div><h2>Up into the light</h2><p>Halfway up the escalator the journal feels warm in your bag. You take it out. One line of the first page seems darker than the rest:</p>' + F.wnote("“When you come up out of the earth into the light, go to the market, where everything is weighed.”") + '<p>At the top, Jaffa Road, and the light rail. The market is three stops away.</p><button class="cta" data-act="x">Out into the city</button>', { x: () => {} }); },
     gabrielTalk: () => { K.card('<div class="kick">Gabriel</div><h2>“Shalom. Come in, come in.”</h2><p>Gabriel is behind the counter, a small man with a big voice, and within a minute you are talking about the end of days. “Everybody who comes in here wants to know when,” he says. “Nobody asks where. You ask where. Good.” He taps the counter. “Everyone takes a souvenir home. Choose.”</p><button class="cta" data-act="x">Look at the counter</button>', { x: () => {} }); },

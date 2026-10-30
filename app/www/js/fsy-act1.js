@@ -42,6 +42,7 @@
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
     bagel: ["A Holy Bagel", "Sesame, still warm, from the cafe under the arch in the Jewish Quarter. Lunch."],
+    bankcard: ["The Lamplighter’s bank card", "Blue, in the envelope with the money. On the back, a scrap in the Watchman’s hand: “Psalm 48:2”."],
     roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
     hotelnote: ["A note pushed under your door", "Hotel notepaper, neat handwriting: “Welcome to Jerusalem. Rest well. The north is cold at this time of year.” No name."],
     coffee: ["A bag of coffee", "250 grams, from the coffee man. For Dudu's grandmother."],
@@ -267,6 +268,36 @@
     }
   }
   H.machine = machine;
+  /* the cash machine by the hotel (Richard, Oct 30): Hebrew first; find the language button; the PIN is a verse reference */
+  H.atm = () => {
+    const a = A(); const day = Math.max(1, Object.keys(W().done).filter((k) => !k.includes(":")).length);
+    if (!a.items.bankcard) { a.items.bankcard = 1; save(); K.card('<div class="kick">The envelope</div><h2>Something else in it</h2><p>Feeling for coins at the bottom of the Lamplighter’s envelope, you find a blue bank card, and behind it a scrap of paper in the Watchman’s small hand: <b>“Psalm 48:2”</b>. Nothing else.</p><button class="cta" data-act="x">Try the machine</button>', { x: () => H.atm() }); return; }
+    const scr = (lines, btns, acts) => K.card('<div class="kick">בנק · The cash machine</div><div class="fatm"><div class="fatm-scr">' + lines + "</div></div>" + btns, acts);
+    const heb = () => scr("<b>ברוכים הבאים</b><small>בנק ירושלים</small><div class=\"fatm-row\"><span>משיכת מזומן</span><span>יתרה</span><span>הפקדה</span><span>שפה</span></div>",
+      '<div class="fchoices two"><button data-act="w">משיכת מזומן</button><button data-act="b">יתרה</button><button data-act="d">הפקדה</button><button data-act="l">שפה</button></div><button class="cta alt" data-act="x">Walk away</button>',
+      { w: () => { K.say("Hebrew menus, Hebrew prompts. You could guess, but a wrong guess might swallow the card.", "", 3200); heb(); }, b: () => { K.say("A screen of Hebrew and a number. You press back.", "", 2600); heb(); }, d: () => { K.say("It wants you to put money in. Not today.", "", 2600); heb(); },
+        l: () => scr("<b>שפה · Language</b>", '<div class="fchoices two"><button data-act="he">עברית</button><button data-act="ar">العربية</button><button data-act="ru">Русский</button><button data-act="en">English</button></div>', { he: heb, ar: heb, ru: heb, en: card }), x: () => {} });
+    const card = () => scr("Insert card<small>הכנס כרטיס</small>", '<button class="cta" data-act="c">Insert the Lamplighter’s card</button><button class="cta alt" data-act="x">Walk away</button>', { c: pin, x: () => {} });
+    let tries = 0;
+    const pin = (msg) => {
+      let v = "";
+      const draw = () => { const el = document.getElementById("fatm-pin"); if (el) el.textContent = "●".repeat(v.length) + "○".repeat(4 - v.length); };
+      scr("Enter PIN<small>הקש קוד סודי</small>" + (msg ? '<em class="fatm-err">' + esc(msg) + "</em>" : "") + '<div class="fatm-pin" id="fatm-pin">○○○○</div>',
+        '<div class="fpad" id="fpad">' + [1,2,3,4,5,6,7,8,9,"⌫",0,"OK"].map((k) => '<button data-k="' + k + '">' + k + "</button>").join("") + '</div><button class="cta alt" data-act="x">Take the card back</button>', { x: () => {} });
+      document.querySelectorAll("#fpad [data-k]").forEach((b) => (b.onclick = (e) => { e.stopPropagation(); const k = b.dataset.k; K.sfx("click");
+        if (k === "⌫") v = v.slice(0, -1); else if (k === "OK") { if (v.length < 4) return; document.querySelectorAll(".asheet").forEach((x) => x.remove()); if (v === "4802") menu(); else { tries++; if (tries >= 3) { tries = 0; K.card('<div class="kick">The cash machine</div><h2>Card retained</h2><p>The machine thinks for a long moment and keeps the card. A slip prints: <i>Please contact your branch.</i></p><p>The hotel clerk, when you ask, makes a phone call and gets it back for you. “Try the Psalms,” she says, not looking up.</p><button class="cta" data-act="x">Try again later</button>', { x: () => {} }); } else pin("Incorrect PIN. " + (3 - tries) + " attempt" + (tries === 2 ? "" : "s") + " left"); } return; }
+        else if (v.length < 4) v += k; draw(); }));
+    };
+    const menu = () => {
+      const taken = a.f.atm === day;
+      scr("Withdraw<small>משיכת מזומן · Daily limit ₪200 · Fee ₪6</small>" + (taken ? "<em class=\"fatm-err\">Daily limit reached. Try again tomorrow.</em>" : ""),
+        (taken ? "" : '<div class="fchoices two"><button data-act="a50">₪50</button><button data-act="a100">₪100</button><button data-act="a150">₪150</button><button data-act="a200">₪200</button></div>') + '<button class="cta alt" data-act="x">Take the card</button>',
+        { a50: () => take(50), a100: () => take(100), a150: () => take(150), a200: () => take(200), x: () => {} });
+    };
+    const take = (n) => { a.f.atm = day; a.money += n - 6; save(); if (!a.q.atmOnce) { a.q.atmOnce = 1; save(); fact("atm", "The cash machine by the hotel: the Lamplighter’s card, PIN 4802 (Psalm 48:2). ₪200 a day, ₪6 fee."); } F.S("ticket", null, 0.7); setTimeout(() => F.S("coin", null, 0.6), 400);
+      scr("Please take your cash<small>אנא קח את המזומן</small><b>₪" + n + "</b><small>Fee ₪6 · You now have ₪" + a.money + "</small>", '<button class="cta" data-act="x">Take the cash and the card</button>', { x: () => K.say("+" + (n - 6) + " shekels, after the fee. You have " + a.money + ".", "", 3200) }); };
+    heb();
+  };
   /* Holy Bagel (Richard, Oct 30): lunch in the Jewish Quarter. Buy one, eat it on the red chair: a drop of oil for your lamp */
   H.bagel = () => {
     const a = A();
@@ -347,7 +378,7 @@
         ],
       benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda, "Past the corner")],
       gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel, "Ask about souvenirs")],
-      hotel: [r("Check in at the front desk", q.checkedIn, "The desk clerk"), r("Ask how to get to the Old City", q.hotelWay, "The desk clerk"), r("Get some sleep", q.slept, "Your room, upstairs"), r("In the morning, ask at the desk for messages", it.hotelnote, "The morning clerk"), r("Hear the man in grey out", q.hallerWhy, "By the window in the lobby", 1),
+      hotel: [r("Check in at the front desk", q.checkedIn, "The desk clerk"), r("Ask how to get to the Old City", q.hotelWay, "The desk clerk"), r("Get some sleep", q.slept, "Your room, upstairs"), r("In the morning, ask at the desk for messages", it.hotelnote, "The morning clerk"), r("Hear the man in grey out", q.hallerWhy, "By the window in the lobby", 1), r("Find the cash machine and get it to speak English", a.f.atm, "Beside the hotel door; the PIN is in the envelope", 1),
         r("Ask what to see first", q.hotelSee, "The desk clerk", 1), r("Ask whether anyone asked for you", q.hotelGrey, "The desk clerk", 1)],
       model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model, "The guide at the model"), r("Show her the frankincense", q.levShown, "If you bought it", 1)],
     };
