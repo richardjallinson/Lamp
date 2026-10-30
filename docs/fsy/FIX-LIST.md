@@ -109,7 +109,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 1 | The man in grey becomes a person: Victor Haller, waiting in the hotel lobby the morning after with two coffees. Polite, reasonable, half right: he knew the Watchman, says the Temple stood on the rock as thirteen centuries have said, the people he serves are close to an agreement that needs everyone looking at the same rock, offers to buy the journal, and when refused asks you to look south from the walls and judge honestly. "How did you know my flight?" "Someone told me. Someone who wanted me to know." The hotel finishes when he leaves. Face and clip to come from Richard | Done in code, waiting for the build |
 | 2 | Shlomi's three new lines: arriving at the hotel, the room, the end of Part 1 | In v4h |
 
-## Next batch (for v4i)
+## v4i (built)
 
 | # | Fix | Status |
 |---|---|---|
@@ -117,7 +117,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 2 | Holy Bagel: tap the counter to buy a bagel (12, or 14 with cream cheese); tap again to eat it on the red chair, and your lamp gains a drop of oil (hints cost one) | Done in code, waiting for the build |
 | 3 | Holy Bagel photo unblurred (Richard's wife said it is fine; she is side-on in the queue) | Done in code, waiting for the build |
 | 4 | The Holy Bagel girl: Richard's portrait and her "Next!" clip on the counter card (take 1, cap slightly clipped at the top; a retake with the wide picture would be cleaner) | Done in code, waiting for the build |
-| 5 | Hebron, the Noam Arnon sign: "Read the sign" now shows the complete text, all nine paragraphs, word for word, in a scrolling reading panel. The same panel is available for any other long sign (hotspot: long, title, sub) | Done in code, waiting for the build |
+| 5 | Hebron, the Noam Arnon sign: "Read the sign" now tells the whole story in a scrolling reading panel, retold in brief with a short quote (the sign is Arnon's copyrighted text; the full wording stays readable in Richard's photo behind the card; restore it word for word only with permission). The same panel is available for any other long sign (hotspot: long, title, sub) | Done in code, waiting for the build |
 | 6 | The 160 to Hebron (Act 3) is now a Rav-Kav ride from the Central Bus Station, with its lit sign: no credit, no ride, top up at the machine | Done in code, waiting for the build |
 | 7 | A cash machine beside the hotel door (Richard, Oct 30): Hebrew only until you find שפה (language) and choose English; the Lamplighter's blue bank card turns up in the envelope with a scrap in the Watchman's hand, "Psalm 48:2", so the PIN is 4802; three wrong tries and the machine keeps the card (the clerk gets it back: "Try the Psalms"); ₪50–₪200 once a day, ₪6 fee. Picture of the machine to come from Richard | Done in code, waiting for the build |
 | 8 | Richard's cash machine picture in place; Pizza HaOr (פיצה האור, "Pizza of the Light", name written on Richard's blank sign) across the lane from the hotel: a slice (10) or a whole pizza (38, half to the paratroopers), eaten on the stool for a drop of oil | Done in code, waiting for the build |
