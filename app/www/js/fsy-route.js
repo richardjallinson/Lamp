@@ -127,7 +127,7 @@
     views: [
       { id: "outside", img: "hotel-sign", cap: "The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew", go: { fwd: "desk" },
         hank: "The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City." },
-      { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk"] },
+      { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk", "dayclerk"] },
       { id: "room", img: "hotel-room", cap: "Your room: two beds made up tight, a lamp, a chair by the curtains", go: { back: "desk" }, puzzle: "sleep",
         hank: "Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.",
         hots: [{ box: [48, 38, 22, 14], label: "The nightstand", act: "readjournal" }, { box: [0, 2, 28, 50], label: "The curtains", text: "You pull the curtain aside. The city lights run down the hills toward the dark of the Old City walls. Somewhere out there is the wall you will climb tomorrow." }] },
@@ -1084,9 +1084,9 @@
       K.card('<div class="kick">The Jerusalem Hotel</div><h2>Night</h2><p>You put the journal on the nightstand and turn off the lamp. Traffic on the hill, a bus sighing at a stop, a dog somewhere. Then the city goes quiet, and so do you.</p><button class="cta" data-act="x">Sleep</button>',
         { x: () => { const sh = document.createElement("div"); sh.className = "fnight"; K.root().appendChild(sh); setTimeout(() => sh.classList.add("on"), 30);
           setTimeout(() => { if (!K.root()) return; sh.classList.add("day");
-            K.card('<div class="kick">The Jerusalem Hotel</div><h2>Morning</h2><p>Bells somewhere far off, and sunlight on the curtains. On the carpet by the door, an envelope that was not there last night: hotel notepaper, folded once, no name.</p>' +
-              '<div class="fhim">“Welcome to Jerusalem. Rest well. The north is cold at this time of year.”</div><p class="fsmall">Neat handwriting. No signature. The same polite hand as the card that said NOT NORTH.</p><button class="cta" data-act="x">Keep it, and go</button>',
-              { x: () => { sh.remove(); if (H.give) H.give("hotelnote"); pzDone("sleep", () => finish("hotel")); } }); }, 2600); } });
+            K.card('<div class="kick">The Jerusalem Hotel</div><h2>Morning</h2><p>Bells somewhere far off, sunlight on the curtains, the smell of coffee from downstairs. You pack the journal and the rod, and go down. The night clerk has gone home; a young man in a blazer is on the desk now.</p>' +
+              '<button class="cta" data-act="x">Go down to the desk</button>',
+              { x: () => { sh.remove(); if (H.slept) H.slept(); pzDone("sleep", () => walk(V("desk"))); } }); }, 2600); } });
     } },
     incense: { label: "The Watchman’s sack", run: () => {
       const SP = [["cinnamon", "Cinnamon", "קינמון", 0, "Cinnamon went into the anointing oil, not the incense. Read the tag again."],
