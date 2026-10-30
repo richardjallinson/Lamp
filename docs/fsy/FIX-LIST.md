@@ -108,3 +108,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 |---|---|---|
 | 1 | The man in grey becomes a person: Victor Haller, waiting in the hotel lobby the morning after with two coffees. Polite, reasonable, half right: he knew the Watchman, says the Temple stood on the rock as thirteen centuries have said, the people he serves are close to an agreement that needs everyone looking at the same rock, offers to buy the journal, and when refused asks you to look south from the walls and judge honestly. "How did you know my flight?" "Someone told me. Someone who wanted me to know." The hotel finishes when he leaves. Face and clip to come from Richard | Done in code, waiting for the build |
 | 2 | Shlomi's three new lines: arriving at the hotel, the room, the end of Part 1 | In v4h |
+
+## Next batch (for v4i)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | Stuck at "Choose a souvenir" in Gabriel's: the "buy the model first" message was a toast that vanished in three seconds. It is now a proper card with a "Buy the model (30 shekels)" button that goes straight on to choosing | Done in code, waiting for the build |

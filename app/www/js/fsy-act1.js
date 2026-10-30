@@ -208,7 +208,14 @@
   }
   C.ACTS_FN.shop = () => (A().q.shopOpen ? shop() : talk("gabriel"));
   C.ACTS_FN.greyDoor = () => K.card('<div class="kick">King George Street</div><h2>The doorway</h2><p>A dark window, a step, a brass number plate that someone has painted over, badly, so it cannot be read. He came out of here. Whether this is the door you want, you cannot tell from the street.</p><button class="cta" data-act="x">Back</button>', { x: () => {} });
-  H.souvenirGate = () => { if (has("model")) return true; K.say("Gabriel: “Choose, yes. But the model you buy first. Thirty shekels. Look at the counter.”", "", 3400); return false; };
+  H.souvenirGate = () => {
+    if (has("model")) return true;
+    const a = A();
+    K.card('<div class="kick">Gabriel</div><h2>“Choose, yes. But the model you buy first.”</h2><p>He taps the glass over a small model of the Temple: the courts, the altar, the sanctuary. “Thirty shekels. Everything else on the counter is free to look at. That one, you buy, and then you look.”</p>' +
+      (a.money >= 30 ? '<button class="cta" data-act="b">Buy the model (30 shekels)</button>' : "<p>You have " + a.money + " shekels. Sell the fish back, or finish Dudu’s errand, and come back.</p>") + '<button class="cta alt" data-act="x">Not yet</button>',
+      { b: () => { if (H.pay(30, "the model")) { give("model"); setTimeout(() => K.root() && C.PUZZLES.souvenir.run(), 700); } }, x: () => {} });
+    return false;
+  };
 
   /* ------------------------------------------------------------ rides and doors ------------------------------------------------------------ */
   /* every ride in the city goes on the Rav-Kav (Richard, Oct 29): no card, no ride; no credit, no ride.
