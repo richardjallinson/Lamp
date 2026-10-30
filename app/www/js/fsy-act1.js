@@ -202,59 +202,54 @@
   H.souvenirGate = () => { if (has("model")) return true; K.say("Gabriel: “Choose, yes. But the model you buy first. Thirty shekels. Look at the counter.”", "", 3400); return false; };
 
   /* ------------------------------------------------------------ rides and doors ------------------------------------------------------------ */
-  const RIDE = { rail: "Navon station to Machne Yehuda", benyehuda: "The tram to King George Street", model: "The number 66 bus to the Israel Museum", hotel: "The number 18 bus to the Jerusalem Hotel", jaffa: "The bus down to Jaffa Gate" };
-  /* Richard's buses (Oct 29): board at the front, tap the Rav-Kav on the reader by the driver. No cash on Israeli buses:
-     an empty card means the machine at the stop. */
-  function bus(key, then) {
-    const a = A();
+  /* every ride in the city goes on the Rav-Kav (Richard, Oct 29): no card, no ride; no credit, no ride.
+     Board, tap the card on the reader; an empty card means the Rav-Kav machine at the stop (no cash on Israeli buses). */
+  const RIDE = { rail: ["tram", "The light rail: Navon station to Machne Yehuda"], benyehuda: ["tram", "The light rail to King George Street"],
+    model: ["bus", "The number 66 bus to the Israel Museum", "66"], hotel: ["bus", "The number 18 bus to the city centre and the Jerusalem Hotel", "18"], jaffa: ["bus", "The number 38 bus down to Jaffa Gate", "38"] };
+  function ride(key, then) {
+    const a = A(), R = RIDE[key], isBus = R[0] === "bus";
     if (a.rode[key]) return true;
-    K.card('<div class="kick">The bus stop</div><h2>' + esc(RIDE[key]) + '</h2><img class="fbusimg" src="img/fsy/w/bus-outside.jpg" alt="A white and green Jerusalem bus at the stop">' +
-      "<p>The doors hiss open. Front door only: a card reader by the driver, a little green light on top.</p>" +
+    if (!a.items.card) { K.card('<div class="kick">' + (isBus ? "The bus stop" : "The light rail") + '</div><h2>No card, no ride</h2><p>' + (isBus ? "Jerusalem buses take a Rav-Kav card, not cash." : "The tram takes a Rav-Kav card, not cash.") + " The kiosk at the stop on Jaffa Road sells one: ten shekels, four rides.</p><button class=\"cta\" data-act=\"x\">Back</button>", { x: () => {} }); return false; }
+    K.card('<div class="kick">' + (isBus ? "The bus stop" : "The tram stop") + "</div><h2>" + esc(R[1]) + "</h2>" + (isBus ? '<img class="fbusimg" src="img/fsy/w/busfront-' + R[2] + '.jpg" alt="The number ' + R[2] + ' bus pulling in">' : "") +
+      "<p>" + (isBus ? "The doors hiss open. Front door only: a card reader by the driver, a little green light on top." : "The tram glides in with a ring of its bell. A card reader by every door.") + "</p>" +
       '<button class="cta" data-act="t">Tap your Rav-Kav</button><button class="cta alt" data-act="x">Not yet</button>',
       { t: () => {
           if (a.rides > 0) {
-            a.rides--; a.rode[key] = 1; save(); F.S("trambell", "click", 0.5);
-            K.card('<div class="kick">The bus</div><h2>✓ Beep. A green tick.</h2>' + (H.clip ? H.clip("ravkav") : "") + "<p>" + (a.rides ? a.rides + " ride" + (a.rides === 1 ? "" : "s") + " left on the card." : "That was the last ride on the card.") + "</p>" +
+            a.rides--; a.rode[key] = 1; save(); F.S("trambell", "click", isBus ? 0.4 : 0.7);
+            K.card('<div class="kick">' + (isBus ? "The bus" : "The tram") + '</div><h2>✓ Beep. A green tick.</h2>' + (H.clip ? H.clip("ravkav") : "") + "<p>" + (a.rides ? a.rides + " ride" + (a.rides === 1 ? "" : "s") + " left on the card." : "That was the last ride on the card.") + "</p>" +
               '<button class="cta" data-act="r">Find a seat</button>', { r: then });
           } else {
             F.S("knock", null, 0.6); K.buzz && K.buzz("error");
-            K.card('<div class="kick">The bus</div><h2>Beep beep. Red.</h2><img class="fbusimg" src="img/fsy/w/bus-inside.jpg" alt="Inside the bus: the card reader by the driver">' +
+            K.card('<div class="kick">' + (isBus ? "The bus" : "The tram") + '</div><h2>Beep beep. Red.</h2>' + (isBus ? '<img class="fbusimg" src="img/fsy/w/bus-inside.jpg" alt="Inside the bus: the card reader by the driver">' : "") +
               '<div class="fred">אין יתרה מספקת · Insufficient balance</div>' +
-              "<p>The driver shakes his head without looking round. “Empty. And no cash on the bus, not for years now. The machine, at the stop.” The engine idles. He will wait, a little.</p>" +
+              (isBus ? "<p>The driver shakes his head without looking round. “Empty. And no cash on the bus, not for years now. The machine, at the stop.” The engine idles. He will wait, a little.</p>" : "<p>The reader by the door glows red. An inspector two seats down is watching. The Rav-Kav machine is on the platform.</p>") +
               '<button class="cta" data-act="m">Hop off to the machine</button><button class="cta alt" data-act="x">Get off</button>',
-              { m: () => machine(() => bus(key, then)), x: () => {} });
+              { m: () => machine(() => ride(key, then)), x: () => {} });
           }
         }, x: () => {} });
     return false;
   }
-  /* the Rav-Kav machine at the stop: language, card on the reader, choose an amount, pay */
+  /* the Rav-Kav machine at the stop (Richard's picture): its screen shows each step; hold the card on the round reader */
   function machine(after) {
     const a = A();
-    const scr = (body, btns, acts) => K.card('<div class="kick">The Rav-Kav machine</div><div class="fravkav"><div class="fm-screen">' + body + "</div></div>" + btns, acts);
-    scr("<b>רב-קו</b><br>Rav-Kav<br><small>בחר שפה · Choose a language · اختر لغة · Выберите язык</small>",
-      '<div class="fchoices"><button data-act="he">עברית</button><button data-act="en">English</button><button data-act="ar">العربية</button><button data-act="ru">Русский</button></div>',
+    const scr = (body, btns, acts, reader) => K.card('<div class="kick">The Rav-Kav machine</div><div class="fmach"><img src="img/fsy/pz/ravkav-machine.jpg" alt="The Rav-Kav machine at the stop"><div class="fmach-scr">' + body + "</div>" +
+      (reader ? '<button class="fmach-reader" data-act="c" aria-label="Hold the card on the reader"></button>' : "") + "</div>" + btns, acts);
+    scr("<b>רב-קו</b>Rav-Kav<small>בחר שפה<br>Choose a language</small>",
+      '<div class="fchoices two"><button data-act="he">עברית</button><button data-act="en">English</button><button data-act="ar">العربية</button><button data-act="ru">Русский</button></div>',
       { he: () => { K.say("The screen fills with Hebrew. You press Back.", "", 2400); machine(after); }, ar: () => { K.say("Arabic. You press Back.", "", 2400); machine(after); }, ru: () => { K.say("Russian. You press Back.", "", 2400); machine(after); },
-        en: () => scr('Place your card on the reader<br><img class="fravkav-card" src="img/fsy/pz/ravkav.jpg" alt="Your Rav-Kav card">', '<button class="cta" data-act="c">Hold the card on the reader</button>',
+        en: () => scr('Place your card on the reader<img src="img/fsy/pz/ravkav.jpg" alt="">', '<button class="cta" data-act="c">Hold your Rav-Kav on the reader</button>',
           { c: () => { F.S("dial", "click", 0.5);
-            scr("Card balance: <b>₪0.00</b><br>Load stored value:<br><small>One ride ₪5 · You have " + a.money + " shekels</small>",
-              '<div class="fchoices"><button data-act="v5">₪5 · one ride</button><button data-act="v10">₪10 · two rides</button><button data-act="v20">₪20 · four rides</button><button data-act="x">Cancel</button></div>',
-              { v5: () => load(5), v10: () => load(10), v20: () => load(20), x: () => {} }); } }) });
+            scr("Balance<b>₪0.00</b><small>Load stored value<br>One ride ₪5</small>",
+              '<p>You have ' + a.money + ' shekels.</p><div class="fchoices"><button data-act="v5">₪5 · one ride</button><button data-act="v10">₪10 · two rides</button><button data-act="v20">₪20 · four rides</button><button data-act="x">Cancel</button></div>',
+              { v5: () => load(5), v10: () => load(10), v20: () => load(20), x: () => {} }); } }, true) });
     function load(n) {
       if (!H.pay(n, "the Rav-Kav")) { machine(after); return; }
       a.rides += n / 5; save(); F.S("coin", "click", 0.8); setTimeout(() => F.S("ticket", null, 0.7), 300);
-      scr("Loaded <b>₪" + n + "</b><br>" + a.rides + " ride" + (a.rides === 1 ? "" : "s") + " on the card<br><small>Remove your card · הסר את הכרטיס</small>", '<button class="cta" data-act="x">Back to the bus</button>', { x: after });
+      scr("Loaded<b>₪" + n + "</b>" + a.rides + " ride" + (a.rides === 1 ? "" : "s") + "<small>Remove your card<br>הסר את הכרטיס</small>", '<button class="cta" data-act="x">Back to the stop</button>', { x: after });
     }
   }
   H.machine = machine;
-  function ride(key, then) {
-    const a = A();
-    if (a.rode[key]) return true;
-    if (!a.items.card) { K.card('<div class="kick">The light rail</div><h2>No card, no ride</h2><p>The tram takes a travel card, not cash. The kiosk at the stop on Jaffa Road sells one: ten shekels, four rides.</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); return false; }
-    if (a.rides <= 0) { K.card('<div class="kick">The travel card</div><h2>No rides left</h2><p>The card is empty. There is a Rav-Kav machine at the stop: five shekels a ride.</p>' + (a.money >= 5 ? '<button class="cta" data-act="t">Top up at the machine</button>' : "<p>And you have " + a.money + " shekels. Sell something first.</p>") + '<button class="cta alt" data-act="x">Not now</button>', { t: () => machine(() => ride(key, then)), x: () => {} }); return false; }
-    K.card('<div class="kick">The travel card</div><h2>' + esc(RIDE[key]) + "</h2><p>One ride off the card. " + (a.rides - 1) + " left after this.</p>" + '<button class="cta" data-act="r">Ride</button><button class="cta alt" data-act="x">Not yet</button>',
-      { r: () => { a.rides--; a.rode[key] = 1; save(); if (key === "model") F.S("step", "click", 0.6); else F.S("trambell", "click", 0.7); then(); }, x: () => {} });
-    return false;
-  }
+
   H.slept = () => { A().q.slept = 1; save(); };
   H.canSleep = () => { if (A().q.checkedIn) return true; K.say("Check in at the front desk first.", "", 2600); return false; };
   H.before = (scene, v, prev) => {
@@ -272,10 +267,10 @@
       if (!ride("model", () => FW.go(s.id))) return false;
       if (!has("museum")) { K.card('<div class="kick">The Israel Museum</div><h2>The ticket desk</h2><p>“One adult? Twenty-five shekels. The model is outside, down the path, you cannot miss it.”</p><button class="cta" data-act="b">Buy a ticket (25 shekels)</button><button class="cta alt" data-act="x">Not now</button>', { b: () => { if (H.pay(25, "the museum ticket")) { give("museum", true); FW.go(s.id); } }, x: () => {} }); return false; }
     }
-    if (s.id === "hotel") return bus("hotel", () => FW.go(s.id));
+    if (s.id === "hotel") return ride("hotel", () => FW.go(s.id));
     if (s.id === "jaffa") {
       if (!has("map") || !has("kippah")) { K.card('<div class="kick">The Old City</div><h2>Not yet</h2><p>Gabriel was clear: not without the map, and not without a kippah. ' + (has("map") ? "You have the map." : "You have no map.") + " " + (has("kippah") ? "You have the kippah." : "You have no kippah.") + " His shop is at 26 King George Street.</p><button class=\"cta\" data-act=\"x\">Back</button>", { x: () => {} }); return false; }
-      return bus("jaffa", () => FW.go(s.id));
+      return ride("jaffa", () => FW.go(s.id));
     }
     return true;
   };
