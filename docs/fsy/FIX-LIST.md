@@ -97,3 +97,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 4 | The Dung Gate sign (Richard's photo) as a view beside the gate: tap it for Nehemiah 3:14 | Done in code, waiting for the build |
 | 5 | Richard's front desk painting and the desk clerk's face in the hotel | Done in code, waiting for the build |
 | 6 | Two hotel clerks: the night clerk (Richard's young woman) checks you in; after you sleep, the morning clerk (the young man) hands you the note left at the desk overnight ("a gentleman in a grey coat, very polite"), and the hotel is done. Also fixed: text in italics inside a reply was nearly invisible (the grandmother's hand-over line) | Done in code, waiting for the build |
+| 7 | Clips for the night clerk (checking in) and the morning clerk (the envelope) | Done in code, waiting for the build |
