@@ -1,10 +1,10 @@
 # Episode 1, The Jerusalem Mystery: what the walking version needs
 
-Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 175 of 176 viewpoints. Updated 2026-10-29.
+Made by `node app/tools/fsy_needs.js` from the game's own route (`app/www/js/fsy-route.js`). Photos in hand: 178 of 178 viewpoints. Updated 2026-10-30.
 
 Photos: upright (portrait) is best; one photo per viewpoint, taken from where you stood, plus close-ups of anything a puzzle uses. Send them un-renamed, one place at a time; the name in the **File** column is what the game will call it.
 
-## Act 1: Arrival
+## Act 1: Go Up
 
 ### 1. Ben Gurion Airport (Welcome to Israel)
 
@@ -107,15 +107,17 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 | Have | File | The picture |
 | --- | --- | --- |
 | ✓ | `hotel-sign` | The Jerusalem Hotel: its name lit on the pale stone, in English and Hebrew |
-| ☐ | `hotel-desk` | The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it |
+| ✓ | `hotel-atm` | Beside the hotel door, set into the stone: a cash machine, its screen glowing green |
+| ✓ | `pizza-shop` | Across the lane from the hotel: Pizza HaOr, “Pizza of the Light”, lit up for the evening, a wood oven glowing inside |
+| ✓ | `hotel-desk` | The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it |
 | ✓ | `hotel-room` | Your room: two beds made up tight, a lamp, a chair by the curtains |
 
 **Hank says:**
 
-- `w-hotel-outside`: “The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City.”
-- `w-hotel-room`: “Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.”
+- `w-hotel-outside` ✓: “The Jerusalem Hotel. A bed, a door that locks, and a night to think. Tomorrow, the Old City.”
+- `w-hotel-room` ✓: “Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.”
 
-## Act 2: The walls
+## Act 2: Watchmen on the Walls
 
 ### 9. Jaffa Gate (Into the Old City)
 
@@ -258,7 +260,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 
 - `w-bazaar-steps`: “From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.”
 
-## Act 3: The City of David
+## Act 3: Where the City Began
 
 ### 18. Hebron (The Cave of the Patriarchs)
 
@@ -371,7 +373,7 @@ Photos: upright (portrait) is best; one photo per viewpoint, taken from where yo
 - `w-steps-steps`: “The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.”
 - `w-steps-robinson`: “Round the south-west corner, the stones the Romans threw down still lie where they fell.”
 
-## Act 4: The line from the east
+## Act 4: The Feast of Dedication
 
 ### 25. The Temple Institute (Everything is ready)
 
@@ -447,7 +449,7 @@ _Built earlier, with its own photos already in the game._
 
 - `w-gethsemane-trees`: “Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.”
 
-## Act 5: The Temple Mount
+## Act 5: Measure the Temple
 
 ### 32. The Mughrabi Gate (The only way up)
 
