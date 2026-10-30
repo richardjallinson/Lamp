@@ -122,7 +122,7 @@
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark", "waqf-1", "waqf-2",
     /* the walking route, in Shlomi's voice (the Lamplighter from v4d on) */
-    "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide"]);
+    "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide", "w-hotel-outside", "w-hotel-room", "w-end-part1"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "amb-airport", "amb-train", "amb-market", "amb-tram"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);

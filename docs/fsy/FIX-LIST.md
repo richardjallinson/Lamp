@@ -102,8 +102,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 9 | Every ride is on the Rav-Kav: the trams and the buses all need a tap (the clip, a green tick); no card, no ride; no credit, no ride (red, "Insufficient balance") and the Rav-Kav machine at the stop. Richard's bus front with its LED sign lit for each route: 66 Israel Museum, 18 City Centre, 38 Jaffa Gate. The machine is Richard's picture, its screen showing each step, the round reader pulsing to tap | Done in code, waiting for the build |
 | 10 | The end of Part 1 at Jaffa Gate: the bus arrives, the Lamplighter speaks, "End of Part 1 · Arrival", your pages, shekels and people met, and what comes next. PART1_ONLY switch in release.js: off for testers (a "Go up: on to Part 2" button), on for the App Store (Part 2 "Coming soon") | Done in code, waiting for the build |
 
-## Next batch (for v4h)
+## v4h (built)
 
 | # | Fix | Status |
 |---|---|---|
 | 1 | The man in grey becomes a person: Victor Haller, waiting in the hotel lobby the morning after with two coffees. Polite, reasonable, half right: he knew the Watchman, says the Temple stood on the rock as thirteen centuries have said, the people he serves are close to an agreement that needs everyone looking at the same rock, offers to buy the journal, and when refused asks you to look south from the walls and judge honestly. "How did you know my flight?" "Someone told me. Someone who wanted me to know." The hotel finishes when he leaves. Face and clip to come from Richard | Done in code, waiting for the build |
+| 2 | Shlomi's three new lines: arriving at the hotel, the room, the end of Part 1 | In v4h |
