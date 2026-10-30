@@ -696,3 +696,12 @@
 #adv .fmapbottom .fwtool{padding:8px 12px;font-size:14px}
 #adv .fmapbottom .fwtools{flex-wrap:nowrap;max-width:100%}
 #adv .fmapbottom .fwtool{padding:8px 10px;font-size:13px;white-space:nowrap}
+
+/* the label puzzle on one screen: the picture sized to fit, the names below, nothing scrolls */
+#adv .fsy.flabscreen{gap:8px}
+#adv .fsy.flabscreen .fverse{font-size:13px;padding:6px 10px}
+#adv .fsy.flabscreen .fq{font-size:14px;margin:0}
+#adv .fsy.flabscreen .flab{width:min(100%,calc(44vh * 747 / 1200))}
+#adv .flab-pin.on i{background:#C9A24A;color:#141A33;transform:scale(1.15)}
+#adv .flab-chips button{min-height:44px}
+#adv .flab-pin.up span{top:auto;bottom:100%;margin:0 0 4px}

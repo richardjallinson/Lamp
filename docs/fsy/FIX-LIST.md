@@ -141,3 +141,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | Status |
 |---|---|---|
 | 1 | The map on one fixed screen, nothing scrolls: the heading at the top, the map filling the middle at its proper shape (it shrinks on small phones), and the Jerusalem / Old City tabs, the key and Journal · Backpack · All places in one row at the bottom. Checked on a large and a small iPhone screen | Done in code, waiting for the build |
+| 2 | The guide's questions at the Temple model: tapping a name did nothing (it selected and unselected in the same tap). Now tap a name then a ?, or a ? then a name, or drag; the line underneath says what to do next; a wrong pairing names the label; the picture is sized to fit the screen; the sanctuary label sits above its pin so the two labels don't overlap | Done in code, waiting for the build |

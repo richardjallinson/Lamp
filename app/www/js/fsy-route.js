@@ -924,30 +924,42 @@
     let pick = null;
     const el = screen(o.title, o.kick, (o.intro || "") +
       '<div class="flab" id="flab"><img draggable="false" src="' + IMG + o.img + '.jpg" alt="">' +
-        all.map((x) => '<button class="flab-pin' + (x.id === "sun" ? " sun" : "") + '" data-p="' + x.id + '" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%" aria-label="A place on the model"><i>?</i></button>').join("") + "</div>" +
+        all.map((x) => '<button class="flab-pin' + (x.id === "sun" ? " sun" : "") + (x.up ? " up" : "") + '" data-p="'  + x.id + '" style="left:' + x.at[0] + "%;top:" + x.at[1] + '%" aria-label="A place on the model"><i>?</i></button>').join("") + "</div>" +
       '<div class="flab-chips" id="flabc">' + F.shuffle(all.slice()).map((x) => '<button data-l="' + x.id + '">' + (x.id === "sun" ? "☀ " : "") + esc(x.label) + "</button>").join("") + "</div>" +
       '<div class="fsmall" id="flabn">Tap a name, then tap the ? where it belongs.</div>', null);
     const chips = () => el.querySelectorAll("[data-l]"), pins = () => el.querySelectorAll("[data-p]");
+    el.classList.add("flabscreen");
+    /* either order works (Richard, Oct 30: tapping chips did nothing): tap a name then a ?, or a ? then a name; dragging a name onto a ? works too */
+    let pinPick = null;
     const sel = (id) => { pick = id; chips().forEach((c) => c.classList.toggle("on", c.dataset.l === id)); };
+    const selPin = (id) => { pinPick = id; pins().forEach((p) => p.classList.toggle("on", p.dataset.p === id)); };
     const left = () => all.filter((x) => !placed[x.id]).length;
-    const put = (pid) => {
-      if (!pick || placed[pid]) return;
-      const spot = all.find((x) => x.id === pid), lab = all.find((x) => x.id === pick);
-      if (pid !== pick) { wrong((o.wrongs && o.wrongs[pick]) || (pick === "sun" ? "Where did the house face?" : "Not there. Look again.")); return; }
+    const hint = () => { $("flabn").textContent = !left() ? "" : pick ? "Now tap the ? where “" + all.find((x) => x.id === pick).label + "” belongs." : pinPick ? "Now tap the name that belongs there." : "Tap a name, then the ? where it belongs. " + left() + " left."; };
+    const put = (pid, lid) => {
+      if (!lid || placed[pid]) return;
+      const spot = all.find((x) => x.id === pid), lab = all.find((x) => x.id === lid);
+      sel(null); selPin(null);
+      if (pid !== lid) { wrong((o.wrongs && o.wrongs[lid]) || (lid === "sun" ? "Where did the house face?" : "“" + lab.label + "” doesn’t go there. Look again.")); hint(); return; }
       placed[pid] = 1; F.S("parchment", "click"); K.buzz && K.buzz("success");
       const pin = el.querySelector('[data-p="' + pid + '"]'); pin.classList.add("ok"); pin.innerHTML = "<i>✓</i><span>" + esc(lab.label) + "</span>";
-      el.querySelector('[data-l="' + pick + '"]').remove(); sel(null);
-      K.say(spot.why, "", 4200);
-      $("flabn").textContent = left() ? left() + " left." : "";
+      const chip = el.querySelector('[data-l="' + lid + '"]'); if (chip) chip.remove();
+      K.say(spot.why, "", 4200); hint();
       if (!left()) setTimeout(() => K.root() && o.done(), 1400);
     };
+    let dragId = null, dragMoved = false, x0 = 0, y0 = 0;
     chips().forEach((c) => {
-      c.onclick = () => { K.sfx("click"); sel(pick === c.dataset.l ? null : c.dataset.l); };
-      c.addEventListener("pointerdown", () => sel(c.dataset.l));
+      c.onclick = () => { if (dragMoved) return; K.sfx("click"); const id = c.dataset.l; if (pinPick) { put(pinPick, id); return; } sel(pick === id ? null : id); hint(); };
+      c.addEventListener("pointerdown", (e) => { dragId = c.dataset.l; dragMoved = false; x0 = e.clientX; y0 = e.clientY; });
     });
-    pins().forEach((p) => (p.onclick = () => put(p.dataset.p)));
-    /* dragging a chip onto a pin works too */
-    el.addEventListener("pointerup", (e) => { if (!pick) return; const t = document.elementFromPoint(e.clientX, e.clientY); const p = t && t.closest && t.closest("[data-p]"); if (p && el.contains(p)) put(p.dataset.p); });
+    pins().forEach((p) => (p.onclick = () => { const id = p.dataset.p; if (placed[id]) return; K.sfx("click"); if (pick) { put(id, pick); return; } selPin(pinPick === id ? null : id); hint(); }));
+    el.addEventListener("pointermove", (e) => { if (dragId && Math.hypot(e.clientX - x0, e.clientY - y0) > 12) dragMoved = true; });
+    el.addEventListener("pointerup", (e) => {
+      const id = dragId; dragId = null; if (!id || !dragMoved) return;
+      const t = document.elementFromPoint(e.clientX, e.clientY); const p = t && t.closest && t.closest("[data-p]");
+      if (p && el.contains(p)) put(p.dataset.p, id);
+      setTimeout(() => (dragMoved = false), 50);
+    });
+    hint();
   }
   /* a number: turn it up and down */
   function count(o) {
@@ -1239,7 +1251,7 @@
       spots: [
         { id: "gate", at: [50, 57], label: "The Eastern Gate", why: "The gate in the eastern wall, with its stair: the way in from the Mount of Olives." },
         { id: "women", at: [52, 32], label: "The Court of the Women", why: "Just inside the gate: the largest court, open to all Israel, 135 cubits square." },
-        { id: "house", at: [49, 21], label: "The sanctuary", why: "The house itself, its doors open to the east. The Holy of Holies is at the far, western end, behind the veil." },
+        { id: "house", at: [49, 21], up: 1, label: "The sanctuary", why: "The house itself, its doors open to the east. The Holy of Holies is at the far, western end, behind the veil." },
       ],
       sun: { at: [50, 92], label: "The sunrise", why: "The house faced east. The rising sun shone straight through the Eastern Gate onto its doors." },
       wrongs: { gate: "That is a wall. The gate has a stair in front of it.", women: "Think of a pilgrim walking in: the first court is just inside the gate.", house: "The tallest building, white and gold: the house itself." },
