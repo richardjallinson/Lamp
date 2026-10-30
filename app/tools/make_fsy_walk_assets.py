@@ -179,7 +179,7 @@ PHOTOS = {
     "zion-sign": "photos/oct27b/david-tomb-sign.png",
     "cod-entrance": "photos/oct27b/water-systems-sign.png",
     "jewish-spices": ("photos/oct27b/jewish-quarter-spices.png", (0, 1150, 1125, 2000)),   # the bowls only, people left out
-    "jewish-bagel": ("photos/oct27b/holy-bagel.png", None, [(785, 1170, 965, 1575)]),   # Richard's wife blurred
+    "jewish-bagel": "photos/oct27b/holy-bagel.png",   # Richard's wife, from behind: she said it's fine unblurred (Oct 30)
     "caiaphas-above": "photos/caiaphas/pit-from-above-crosses.png",
     "caiaphas-mosaic": "photos/caiaphas/mosaic-lowest-pit.png",
     "caiaphas-sign": "photos/caiaphas/sacred-pit-sign.png",
