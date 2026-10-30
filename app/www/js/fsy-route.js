@@ -16,6 +16,31 @@
   const IMG = "img/fsy/w/";
 
   /* ------------------------------------------------------------ the journal: the Watchman's twelve pages ------------------------------------------------------------ */
+  /* the Seven Lamps (Richard, Oct 30): the seven key scriptures of his chapter on the Temple's place; each lights one branch of the menorah */
+  const LAMPS = [
+    { n: 1, ref: "Genesis 22:2", text: "Take now thy son, thine only son Isaac, whom thou lovest, and get thee into the land of Moriah; and offer him there for a burnt offering upon one of the mountains which I will tell thee of." },
+    { n: 2, ref: "Revelation 11:1–2", text: "Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles." },
+    { n: 3, ref: "Daniel 9:27", text: "And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease." },
+    { n: 4, ref: "2 Chronicles 3:1", text: "Then Solomon began to build the house of the LORD at Jerusalem in mount Moriah… in the place that David had prepared in the threshingfloor of Ornan the Jebusite." },
+    { n: 5, ref: "Matthew 24:15", text: "When ye therefore shall see the abomination of desolation, spoken of by Daniel the prophet, stand in the holy place, (whoso readeth, let him understand)." },
+    { n: 6, ref: "2 Chronicles 7:7", text: "Moreover Solomon hallowed the middle of the court that was before the house of the LORD: for there he offered burnt offerings." },
+    { n: 7, ref: "2 Thessalonians 2:4", text: "Who opposeth and exalteth himself above all that is called God… so that he as God sitteth in the temple of God, shewing himself that he is God." },
+  ];
+  const CUPS = [10.8, 23.4, 36.0, 48.8, 61.5, 74.2, 86.9];
+  const lamps = () => { const w = W(); if (!w.lamps) w.lamps = {}; return w.lamps; };
+  function menorahHTML(lit, fresh) {
+    return '<div class="fmenorah"><img src="' + PZ + 'menorah.jpg" alt="The seven-branched menorah">' +
+      CUPS.map((x, i) => '<i class="fflame' + (lit[i + 1] ? " on" : "") + (fresh === i + 1 ? " new" : "") + '" style="left:' + x + '%"></i>').join("") + "</div>";
+  }
+  function lightLamp(n, then) {
+    const L = lamps(); if (L[n]) { then && then(); return; }
+    L[n] = 1; save(); const lp = LAMPS[n - 1], count = Object.keys(L).length;
+    F.S("harp", null, 0.8); setTimeout(() => F.S("shofar", null, 0.35), 500); K.buzz && K.buzz("success");
+    K.card('<div class="kick">The Seven Lamps · ' + count + " of 7 lit</div>" + menorahHTML(L, n) + "<h2>A lamp is lit</h2>" +
+      F.wnote("“" + esc(lp.text) + "”<small>" + esc(lp.ref) + "</small>") +
+      "<p>One of the seven witnesses to where the house stood. It burns in your journal now. On the Mount you will need every one.</p>" +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => then && then() });
+  }
   /* the sign in the Jewish section at Hebron, word for word (Richard's photo, Oct 30) */
   const ARNON = [
     "The sign on the wall tells the story of the caves beneath this building, in the words of Noam Arnon, one of the men who went down. Here it is in brief; the sign itself is in the picture behind this card.",
@@ -148,7 +173,7 @@
       { id: "desk", img: "hotel-desk", cap: "The front desk: polished wood, a bell, a rack of maps, and the night clerk behind it", go: { back: "outside", fwd: "room" }, who: ["deskclerk", "dayclerk", "haller"] },
       { id: "room", img: "hotel-room", cap: "Your room: two beds made up tight, a lamp, a chair by the curtains", go: { back: "desk" }, puzzle: "sleep",
         hank: "Read the pages again before you sleep. Four pages, four places. The Watchman never wastes a word.",
-        hots: [{ box: [48, 38, 22, 14], label: "The nightstand", act: "readjournal" }, { box: [0, 2, 28, 50], label: "The curtains", text: "You pull the curtain aside. The city lights run down the hills toward the dark of the Old City walls. Somewhere out there is the wall you will climb tomorrow." }] },
+        hots: [{ box: [48, 38, 22, 14], label: "The nightstand", act: "drawer" }, { box: [0, 2, 28, 50], label: "The curtains", text: "You pull the curtain aside. The city lights run down the hills toward the dark of the Old City walls. Somewhere out there is the wall you will climb tomorrow." }] },
     ] });
 
   /* ---- Act 2 ---- */
@@ -605,7 +630,10 @@
       w.flags.arksign ? "A tradition that the Ark lies in a chamber under the Mount, near Warren’s Gate." : "",
     ].filter(Boolean);
     const col = (n) => '<div class="ftorah-col"><span class="ftorah-n" aria-label="Page ' + n + '">' + HEBN[n] + "</span><p>" + esc(PAGES[n].text) + "</p>" + (PAGES[n].ref ? "<small>" + esc(PAGES[n].ref) + "</small>" : "") + "</div>";
+    const L = lamps(), nl = Object.keys(L).length;
     K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages</h2>" +
+      '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
+        (nl ? '<div class="fjlampv">' + LAMPS.filter((x) => L[x.n]).map((x) => "<span><b>" + x.n + "</b> " + esc(x.ref) + "</span>").join("") + "</div>" : "") + "</div>" +
       '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         (notes.length ? '<div class="ftorah-seam" aria-hidden="true"></div><div class="ftorah-col ftorah-notes"><span class="ftorah-n">✎</span><p class="ftorah-h">Noted in the margin</p>' + notes.map((t) => "<p>" + esc(t) + "</p>").join("") + "</div>" : "") +
@@ -1275,7 +1303,9 @@
       sun: { at: [50, 92], label: "The sunrise", why: "The house faced east. The rising sun shone straight through the Eastern Gate onto its doors." },
       wrongs: { gate: "That is a wall. The gate has a stair in front of it.", women: "Think of a pilgrim walking in: the first court is just inside the gate.", house: "The tallest building, white and gold: the house itself." },
       done: () => { K.card('<div class="kick">The guide</div><h2>“Good. You looked.”</h2><p>Eastern Gate, Court of the Women, Court of Israel, the altar, the sanctuary, and at the back the Holy of Holies: a straight line from east to west, the doors facing the sunrise. <b>Remember the line.</b> On the Mount you will need it.</p><button class="cta" data-act="x">Thank her</button>',
-        { x: () => { W().flags.modelq = 1; save(); pzDone("modelq", () => walk(view)); } }); } }) },
+        { x: () => { W().flags.modelq = 1; save();
+          K.card('<div class="kick">The guide</div><h2>“Before Solomon. Before David.”</h2><p>She rests the tip of her pointer on the highest point of the model, behind the sanctuary. “Everyone asks who built it. Ask instead where it began. A thousand years before Solomon, a man walked three days with his son to a mountain God would show him.” She taps the rock. “This ridge. It had a name before it had a temple.”</p>' +
+            '<button class="cta" data-act="x">“Moriah.”</button>', { x: () => lightLamp(1, () => pzDone("modelq", () => walk(view))) }); } }); } }) },
     wayup: { label: "Find the way up", run: () => ask({ title: "The way onto the wall", kick: "Jaffa Gate", intro: q("Three ways out of the square: a street going down into the city, the citadel’s drawbridge, and a small door marked “Ramparts Walk”, with a stair behind it."),
       qs: [{ q: "Which way?", a: [["Down the street into the souk", 0, "Down takes you into the city. You want up."], ["The small door and the stair", 1], ["The citadel drawbridge", 0, "That is the museum. Locked today."]] }],
       done: () => pzDone("wayup", () => finish("jaffa")) }) },
@@ -1402,6 +1432,14 @@
   };
   const ACTS_FN = {
     readjournal: () => journal(),
+    drawer: () => {
+      const L = lamps();
+      if (L[2]) { journal(); return; }
+      K.card('<div class="kick">Room 412</div><h2>The nightstand drawer</h2><img class="fdrawer" src="' + PZ + 'hotel-drawer.jpg" alt="An open drawer with an old Bible, a pressed olive leaf, and a small lamp drawn in blue ink">' +
+        "<p>Every hotel has a Bible in the drawer. This one is old, and someone has left it open. A pressed olive leaf lies in the fold, and in the margin, in blue ink, a small drawn lamp: the same lamp as on the journal.</p>" +
+        '<div class="fdrawerv">Revelation, chapter 11</div><button class="cta" data-act="r">Read where the leaf is</button><button class="cta alt" data-act="x">Close the drawer</button>',
+        { r: () => lightLamp(2, () => K.say("Who paid for this room? “An older gentleman. No name.”", "", 3600)), x: () => {} });
+    },
     atm: () => H.atm && H.atm(),
     pizza: () => H.pizza && H.pizza(),
     bagel: () => (H.bagel ? H.bagel() : K.card('<div class="kick">Holy Bagel</div><h2>The counter</h2><p>Bagels, salads, coffee. The queue moves.</p><button class="cta" data-act="x">Back</button>', { x: () => {} })),
@@ -1433,5 +1471,5 @@
   Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
-    actCard, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
+    actCard, lightLamp, lamps, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
 })();

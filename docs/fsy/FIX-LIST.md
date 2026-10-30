@@ -150,3 +150,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | # | Fix | Status |
 |---|---|---|
 | 1 | Act 3 title screen: "Where the City Began", Richard's City of David painting at dusk (the stepped wall, the lamp-bearer at the top), 2 Samuel 5:7 | Done in code, waiting for the build |
+| 2 | The Seven Lamps begin: Richard's menorah at the top of the journal, its seven flames lit one by one ("2 of 7 lit", with the verse references). Lamp 1, Genesis 22:2: after her three questions, the guide at the model points to the summit, "It had a name before it had a temple." Lamp 2, Revelation 11:1–2: the nightstand drawer in Room 412 (Richard's painting), the old Bible open with a pressed olive leaf and the Watchman's drawn lamp | Done in code, waiting for the build |

@@ -721,3 +721,20 @@
 #adv .factcard-ref{margin-top:8px;font:800 11px var(--ui);letter-spacing:.16em;text-transform:uppercase;color:#C9A24A}
 #adv .factcard-tap{margin-top:22px;font:600 12px var(--ui);letter-spacing:.1em;color:rgba(243,233,206,.75);animation:facttap 2.4s ease-in-out infinite}
 @keyframes facttap{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* the Seven Lamps: the menorah, its flames lit as the scriptures are found */
+#adv .fmenorah{position:relative;width:min(78%,260px);margin:4px auto 6px;aspect-ratio:1}
+#adv .fmenorah img{display:block;width:100%;height:100%;border-radius:12px}
+#adv .fflame{position:absolute;top:4.5%;width:5.2%;height:7.5%;margin-left:-2.6%;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;opacity:0;
+  background:radial-gradient(ellipse at 50% 75%,#FFF8D8 0%,#FFD86A 35%,#FF9A2A 70%,rgba(255,120,20,0) 100%);box-shadow:0 0 14px 6px rgba(255,190,80,.55);transform-origin:50% 100%}
+#adv .fflame.on{opacity:1;animation:fflick 1.8s ease-in-out infinite alternate}
+#adv .fflame.new{animation:flight 1.4s ease-out both,fflick 1.8s ease-in-out 1.4s infinite alternate}
+@keyframes fflick{0%{transform:scaleY(1) rotate(-2deg)}50%{transform:scaleY(1.12) rotate(1deg)}100%{transform:scaleY(.94) rotate(2deg)}}
+@keyframes flight{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+#adv .asheet .fjlamps{margin:0 0 10px;text-align:center}
+#adv .asheet .fjlampv{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
+#adv .asheet .fjlampv span{padding:3px 9px;border-radius:999px;background:#F3EAD6;border:1px solid #E2D6BC;font:700 12px var(--ui);color:#5A3A16}
+#adv .asheet .fjlampv b{color:#7A1E12}
+#adv .asheet .fdrawer{display:block;width:100%;border-radius:12px;margin:4px 0 8px}
+#adv .asheet .fdrawerv{margin:0 0 10px;text-align:center;font:italic 600 15px "Hoefler Text",Georgia,serif;color:#7A1E12}
+#adv .asheet .fjlamps .fsmall{color:#7A6E58;font-weight:700}
