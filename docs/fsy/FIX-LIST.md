@@ -122,3 +122,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 7 | A cash machine beside the hotel door (Richard, Oct 30): Hebrew only until you find שפה (language) and choose English; the Lamplighter's blue bank card turns up in the envelope with a scrap in the Watchman's hand, "Psalm 48:2", so the PIN is 4802; three wrong tries and the machine keeps the card (the clerk gets it back: "Try the Psalms"); ₪50–₪200 once a day, ₪6 fee. Picture of the machine to come from Richard | Done in code, waiting for the build |
 | 8 | Richard's cash machine picture in place; Pizza HaOr (פיצה האור, "Pizza of the Light", name written on Richard's blank sign) across the lane from the hotel: a slice (10) or a whole pizza (38, half to the paratroopers), eaten on the stool for a drop of oil | Done in code, waiting for the build |
 | 9 | Victor Haller: Richard's portrait and his clip ("I am not your enemy…") on his first line in the lobby; the bagel girl's portrait switched on | Done in code, waiting for the build |
+
+## Next batch (for v4j)
+
+| # | Fix | Status |
+|---|---|---|
+| 1 | The journal as a Torah scroll: wooden rollers top and bottom, one sewn parchment sheet you scroll through, each page a column with its Hebrew letter-number (א, ב, ג…) in the margin in red, a large red first letter, and the margin notes at the end. Hoefler Text / Baskerville, Apple's built-in old-style faces, for the scribe's hand | Done in code, waiting for the build |

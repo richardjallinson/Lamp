@@ -577,19 +577,30 @@
       "<p>The same hand as the card in your luggage. The page goes into the journal.</p>" +
       '<button class="cta" data-act="x">Go on</button>', { x: () => then && then() });
   }
+  /* the journal as one Torah-style scroll (Richard, Oct 30): wooden rollers top and bottom, parchment sheets sewn together,
+     each page a column with its Hebrew letter-number in the margin, ink like a scribe's */
+  const HEBN = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "יא", "יב"];
   function journal() {
     const w = W(), p = F.P();
     const got = Object.keys(w.pages).map(Number).sort((a, b) => a - b);
+    const notes = [
+      w.flags.courses ? w.flags.courses + " courses of stone below the floor under Wilson’s Arch." : "",
+      p.ti && p.ti.courts ? "187 cubits from the Eastern Gate to the sanctuary." : "",
+      p.olives ? "The line from the Mount of Olives, through the Eastern Gate, onto the Mount." : "",
+      w.flags.bought ? "The Temple stood on the threshing floor David bought from Ornan (1 Chronicles 21:25; 2 Chronicles 3:1)." : "",
+      w.flags.arksign ? "A tradition that the Ark lies in a chamber under the Mount, near Warren’s Gate." : "",
+    ].filter(Boolean);
+    const col = (n) => '<div class="ftorah-col"><span class="ftorah-n" aria-label="Page ' + n + '">' + HEBN[n] + "</span><p>" + esc(PAGES[n].text) + "</p>" + (PAGES[n].ref ? "<small>" + esc(PAGES[n].ref) + "</small>" : "") + "</div>";
     K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages</h2>" +
-      (got.length ? got.map((n) => F.wnote("<b>" + n + ".</b> “" + esc(PAGES[n].text) + "”" + (PAGES[n].ref ? "<small>" + esc(PAGES[n].ref) + "</small>" : ""))).join("") : "<p>Nothing yet but the question on the first page.</p>") +
-      (w.flags.courses ? "<p><b>Noted:</b> " + w.flags.courses + " courses of stone below the floor under Wilson’s Arch.</p>" : "") +
-      (p.ti && p.ti.courts ? "<p><b>Noted:</b> 187 cubits from the Eastern Gate to the sanctuary.</p>" : "") +
-      (p.olives ? "<p><b>Noted:</b> the line from the Mount of Olives, through the Eastern Gate, onto the Mount.</p>" : "") +
-      (w.flags.bought ? "<p><b>Noted:</b> the Temple stood on the threshing floor David bought from Ornan (1 Chronicles 21:25; 2 Chronicles 3:1).</p>" : "") +
-      (w.flags.arksign ? "<p><b>Noted:</b> a tradition that the Ark lies in a chamber under the Mount, near Warren’s Gate.</p>" : "") +
+      '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
+        (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
+        (notes.length ? '<div class="ftorah-seam" aria-hidden="true"></div><div class="ftorah-col ftorah-notes"><span class="ftorah-n">✎</span><p class="ftorah-h">Noted in the margin</p>' + notes.map((t) => "<p>" + esc(t) + "</p>").join("") + "</div>" : "") +
+      '</div><div class="ftorah-roll"><i></i></div></div>' +
       (H.journal ? H.journal() : "") +
-      '<button class="cta" data-act="x">Close the journal</button>', Object.assign({ x: () => {} }, H.journalActs ? H.journalActs() : {}));
+      '<button class="cta" data-act="x">Roll up the journal</button>', Object.assign({ x: () => {} }, H.journalActs ? H.journalActs() : {}));
+    const sh = document.querySelector(".ftorah-sheet"); if (sh) sh.scrollTop = 0;
   }
+
 
   /* ------------------------------------------------------------ walking a scene ------------------------------------------------------------ */
   let scene = null, view = null;

@@ -654,3 +654,27 @@
 #adv .asheet .fatm-pin{font:900 26px/1 var(--ui);letter-spacing:.3em;color:#fff;margin-top:4px}
 #adv .asheet .fpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:0 auto 10px}
 #adv .asheet .fpad button{min-height:46px;border-radius:10px;border:1px solid #B9B0A0;background:#EDE6D6;color:#141A33;font:800 18px var(--ui);cursor:pointer}
+
+/* the journal as a Torah scroll: two wooden rollers (atzei chaim), sewn parchment, a scribe's ink */
+#adv .asheet .ftorah{position:relative;margin:4px auto 12px;max-width:380px}
+#adv .asheet .ftorah-roll{position:relative;height:22px;margin:0 -6px;border-radius:11px;background:linear-gradient(180deg,#5A3714 0%,#B57C3E 30%,#E2B074 45%,#8A5626 70%,#4A2C10 100%);box-shadow:0 3px 8px rgba(0,0,0,.45);z-index:2}
+#adv .asheet .ftorah-roll i{position:absolute;left:50%;top:-9px;width:18px;height:40px;margin-left:-9px;border-radius:9px;background:linear-gradient(90deg,#4A2C10,#C99556 50%,#4A2C10);box-shadow:0 2px 4px rgba(0,0,0,.5)}
+#adv .asheet .ftorah-roll::before,#adv .asheet .ftorah-roll::after{content:"";position:absolute;top:3px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F2D398,#9A6A2E 70%);box-shadow:0 1px 3px rgba(0,0,0,.6)}
+#adv .asheet .ftorah-roll::before{left:-8px} #adv .asheet .ftorah-roll::after{right:-8px}
+#adv .asheet .ftorah-sheet{max-height:50vh;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:-6px 0;padding:18px 18px 18px 40px;
+  background:radial-gradient(ellipse at 15% 10%,rgba(255,250,232,.85),rgba(255,250,232,0) 50%),radial-gradient(ellipse at 90% 85%,rgba(150,108,58,.25),rgba(150,108,58,0) 60%),
+    repeating-linear-gradient(0deg,rgba(110,80,40,.045) 0 1px,rgba(0,0,0,0) 1px 26px),linear-gradient(180deg,#EEDDB6,#E3CB97 50%,#D9BE85);
+  box-shadow:inset 6px 0 14px rgba(110,74,34,.35),inset -6px 0 14px rgba(110,74,34,.35);border-left:1px solid rgba(110,74,34,.4);border-right:1px solid rgba(110,74,34,.4)}
+#adv .asheet .ftorah-col{position:relative;padding:4px 0 6px}
+#adv .asheet .ftorah-col p{margin:0 0 6px;color:#24170A;font:400 19px/1.55 "Hoefler Text","Baskerville","Iowan Old Style","Palatino","Book Antiqua",Georgia,serif;letter-spacing:.01em;font-variant-ligatures:common-ligatures discretionary-ligatures;text-shadow:0 0 .6px rgba(36,23,10,.55)}
+#adv .asheet .ftorah-col small{display:block;font:italic 400 14px "Hoefler Text","Baskerville","Palatino",Georgia,serif;color:#6B4A22}
+/* a scribe's first letter: large, in the red of the page numbers */
+#adv .asheet .ftorah-col > p:first-of-type::first-letter{font-size:1.9em;line-height:.8;float:left;margin:4px 6px 0 0;color:#7A1E12;font-family:"Hoefler Text","Baskerville",Georgia,serif}
+#adv .asheet .ftorah-notes > p::first-letter{font-size:inherit;float:none;margin:0;color:inherit}
+#adv .asheet .ftorah-n{position:absolute;left:-30px;top:2px;width:22px;text-align:center;font:700 20px/1 "Taamey Frank CLM","SBL Hebrew","Times New Roman",serif;color:#7A1E12}
+#adv .asheet .ftorah-seam{height:12px;margin:10px -18px 10px -40px;background:linear-gradient(180deg,rgba(110,74,34,0),rgba(110,74,34,.22) 45%,rgba(110,74,34,.22) 55%,rgba(110,74,34,0)),
+  repeating-linear-gradient(90deg,rgba(90,55,20,.55) 0 6px,rgba(0,0,0,0) 6px 14px) center/100% 2px no-repeat}
+#adv .asheet .ftorah-notes p{font-size:16px;font-style:italic}
+#adv .asheet .ftorah-h{font-weight:700 !important;font-style:normal !important;letter-spacing:.04em;color:#5A3A16 !important}
+/* the single page you find: the same ink */
+#adv .fwnote,#adv .asheet .fwnote{font-family:"Hoefler Text","Iowan Old Style","Palatino","Book Antiqua",Georgia,serif;font-size:19px;color:#24170A}
