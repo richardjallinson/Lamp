@@ -28,7 +28,7 @@
   ];
   const CUPS = [10.8, 23.4, 36.0, 48.8, 61.5, 74.2, 86.9];
   /* Richard's films of each lamp catching fire (video/fsy/lamp-N.mp4): shown when lit; until one exists, the painted menorah with its flame */
-  const LAMP_FILMS = new Set([1]);
+  const LAMP_FILMS = new Set([1, 2, 3, 4, 5, 6, 7]);
   const lamps = () => { const w = W(); if (!w.lamps) w.lamps = {}; return w.lamps; };
   function menorahHTML(lit, fresh) {
     return '<div class="fmenorah"><img src="' + PZ + 'menorah.jpg" alt="The seven-branched menorah">' +
