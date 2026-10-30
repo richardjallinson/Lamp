@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav", "bagelgirl"]);
   H.clip = (id) => {
     if (!CLIPS.has(id)) return "";
     setTimeout(() => {
@@ -274,7 +274,7 @@
         { x: () => { delete a.items.bagel; save(); Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); F.S("harp", null, 0.5); const h = document.getElementById("adv-hint"); if (h) { const sp = h.querySelector("span"); if (sp) sp.textContent = Lamp.state.oil; } K.say("+1 drop of oil. Hints cost one.", "", 3000); } });
       return;
     }
-    K.card('<div class="kick">Holy Bagel</div><h2>“Next!”</h2><p>Behind the counter, a girl in an apron with a tray of bagels: sesame, poppy, everything. Salads under the glass, coffee hissing. “Bagel? Twelve. With a schmear, fourteen.”</p>' +
+    K.card('<div class="kick">Holy Bagel</div><h2>“Next!”</h2>' + (H.clip ? H.clip("bagelgirl") : "") + '<p>Behind the counter, a girl in a cap and a red apron with a tray of sesame bagels, still warm. “Bagel? Twelve. With a schmear, fourteen. Sesame is the best, take the sesame.”</p>' +
       '<div class="fchoices"><button data-act="b">Sesame bagel (12 shekels)</button><button data-act="s">With cream cheese (14 shekels)</button><button data-act="x">Just looking</button></div>',
       { b: () => { if (H.pay(12, "a bagel")) give("bagel"); }, s: () => { if (H.pay(14, "a bagel with cream cheese")) give("bagel"); }, x: () => {} });
   };

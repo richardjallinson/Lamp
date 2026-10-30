@@ -116,3 +116,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 1 | Stuck at "Choose a souvenir" in Gabriel's: the "buy the model first" message was a toast that vanished in three seconds. It is now a proper card with a "Buy the model (30 shekels)" button that goes straight on to choosing | Done in code, waiting for the build |
 | 2 | Holy Bagel: tap the counter to buy a bagel (12, or 14 with cream cheese); tap again to eat it on the red chair, and your lamp gains a drop of oil (hints cost one) | Done in code, waiting for the build |
 | 3 | Holy Bagel photo unblurred (Richard's wife said it is fine; she is side-on in the queue) | Done in code, waiting for the build |
+| 4 | The Holy Bagel girl: Richard's portrait and her "Next!" clip on the counter card (take 1, cap slightly clipped at the top; a retake with the wide picture would be cleaner) | Done in code, waiting for the build |
