@@ -118,3 +118,4 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 3 | Holy Bagel photo unblurred (Richard's wife said it is fine; she is side-on in the queue) | Done in code, waiting for the build |
 | 4 | The Holy Bagel girl: Richard's portrait and her "Next!" clip on the counter card (take 1, cap slightly clipped at the top; a retake with the wide picture would be cleaner) | Done in code, waiting for the build |
 | 5 | Hebron, the Noam Arnon sign: "Read the sign" now shows the complete text, all nine paragraphs, word for word, in a scrolling reading panel. The same panel is available for any other long sign (hotspot: long, title, sub) | Done in code, waiting for the build |
+| 6 | The 160 to Hebron (Act 3) is now a Rav-Kav ride from the Central Bus Station, with its lit sign: no credit, no ride, top up at the machine | Done in code, waiting for the build |

@@ -222,7 +222,8 @@
   /* every ride in the city goes on the Rav-Kav (Richard, Oct 29): no card, no ride; no credit, no ride.
      Board, tap the card on the reader; an empty card means the Rav-Kav machine at the stop (no cash on Israeli buses). */
   const RIDE = { rail: ["tram", "The light rail: Navon station to Machne Yehuda"], benyehuda: ["tram", "The light rail to King George Street"],
-    model: ["bus", "The number 66 bus to the Israel Museum", "66"], hotel: ["bus", "The number 18 bus to the city centre and the Jerusalem Hotel", "18"], jaffa: ["bus", "The number 38 bus down to Jaffa Gate", "38"] };
+    model: ["bus", "The number 66 bus to the Israel Museum", "66"], hotel: ["bus", "The number 18 bus to the city centre and the Jerusalem Hotel", "18"], jaffa: ["bus", "The number 38 bus down to Jaffa Gate", "38"],
+    hebron: ["bus", "The 160 from the Central Bus Station: the armoured bus to Hebron, 40 minutes south", "160"] };
   function ride(key, then) {
     const a = A(), R = RIDE[key], isBus = R[0] === "bus";
     if (a.rode[key]) return true;
@@ -318,6 +319,7 @@
       if (!has("museum")) { K.card('<div class="kick">The Israel Museum</div><h2>The ticket desk</h2><p>“One adult? Twenty-five shekels. The model is outside, down the path, you cannot miss it.”</p><button class="cta" data-act="b">Buy a ticket (25 shekels)</button><button class="cta alt" data-act="x">Not now</button>', { b: () => { if (H.pay(25, "the museum ticket")) { give("museum", true); FW.go(s.id); } }, x: () => {} }); return false; }
     }
     if (s.id === "hotel") return ride("hotel", () => FW.go(s.id));
+    if (s.id === "hebron") return ride("hebron", () => FW.go(s.id));
     if (s.id === "jaffa") {
       if (!has("map") || !has("kippah")) { K.card('<div class="kick">The Old City</div><h2>Not yet</h2><p>Gabriel was clear: not without the map, and not without a kippah. ' + (has("map") ? "You have the map." : "You have no map.") + " " + (has("kippah") ? "You have the kippah." : "You have no kippah.") + " His shop is at 26 King George Street.</p><button class=\"cta\" data-act=\"x\">Back</button>", { x: () => {} }); return false; }
       return ride("jaffa", () => endPart1(() => FW.go(s.id)));
