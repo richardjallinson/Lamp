@@ -705,3 +705,19 @@
 #adv .flab-pin.on i{background:#C9A24A;color:#141A33;transform:scale(1.15)}
 #adv .flab-chips button{min-height:44px}
 #adv .flab-pin.up span{top:auto;bottom:100%;margin:0 0 4px}
+
+/* the act title screens */
+#adv .fsy.factscreen{padding:0;overflow:hidden}
+#adv .factcard{position:absolute;inset:0;cursor:pointer}
+#adv .factcard-img{position:absolute;inset:0;background:center 30%/cover no-repeat;animation:factzoom 9s ease-out both}
+@keyframes factzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+#adv .factcard-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,26,0) 38%,rgba(6,10,26,.78) 62%,rgba(6,10,26,.96) 82%)}
+#adv .factcard-text{position:absolute;left:0;right:0;bottom:calc(36px + env(safe-area-inset-bottom,0px));padding:0 22px;text-align:center;animation:factin 1.6s ease .4s both}
+@keyframes factin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#adv .factcard-ep{font:800 11px var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#C9A24A}
+#adv .factcard-n{margin-top:10px;font:800 13px var(--ui);letter-spacing:.24em;text-transform:uppercase;color:#F3DFA6}
+#adv .factcard h1{margin:6px 0 10px;font:400 clamp(34px,10vw,46px)/1.08 "Baskerville","Hoefler Text",Georgia,serif;color:#F5D27A;text-shadow:0 2px 18px #000}
+#adv .factcard-v{margin:0 auto;max-width:330px;font:italic 400 17px/1.5 "Hoefler Text","Baskerville",Georgia,serif;color:#F3E9CE}
+#adv .factcard-ref{margin-top:8px;font:800 11px var(--ui);letter-spacing:.16em;text-transform:uppercase;color:#C9A24A}
+#adv .factcard-tap{margin-top:22px;font:600 12px var(--ui);letter-spacing:.1em;color:rgba(243,233,206,.75);animation:facttap 2.4s ease-in-out infinite}
+@keyframes facttap{0%,100%{opacity:.35}50%{opacity:1}}

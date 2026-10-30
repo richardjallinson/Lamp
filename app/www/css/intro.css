@@ -102,3 +102,5 @@
 /* The Final Seven Years title (the app as the game alone) */
 #intro .in-title.g .in-lamp-word{font-size:clamp(40px,12.5vw,64px);line-height:1.08;letter-spacing:.1em;margin-right:-.1em;text-align:center}
 #intro .in-title.g .in-sub{font-size:clamp(13px,3.9vw,18px);line-height:1.5;letter-spacing:.24em}
+#intro .in-based{margin-top:14px;font:600 12px/1.45 var(--ui);letter-spacing:.06em;color:rgba(243,223,166,.72);text-align:center}
+#intro .in-based i{font-style:italic;color:#F3DFA6}

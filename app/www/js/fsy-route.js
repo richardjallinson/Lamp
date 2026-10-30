@@ -45,11 +45,16 @@
      A view: { id, img (file in img/fsy/w/, or null = placeholder), cap, hank (a line the Lamplighter says here), go:{fwd,left,right,back},
                hots:[{box:[l,t,w,h] in %, label, text | ref | act}], puzzle (key into PUZZLES), note (a card shown once) }. */
   const ACTS = [
-    { n: 1, title: "Arrival", sub: "The airport, the train, the market, the museum" },
-    { n: 2, title: "The walls", sub: "Jaffa Gate, the Ramparts, the Wall and the tunnels, the Garden Tomb" },
-    { n: 3, title: "The City of David", sub: "Zion, the spring, the tunnel, the pool, the steps" },
-    { n: 4, title: "The line from the east", sub: "The Institute, the gates, the tombs, the Mount of Olives" },
-    { n: 5, title: "The Temple Mount", sub: "The Mughrabi Gate, the clues, the verdict, the sealed gate" },
+    { n: 1, title: "Go Up", sub: "The airport, the train, the market, the museum, the hotel",
+      img: "start/title.jpg", verse: "Every pilgrim came up to Jerusalem.", ref: "The Watchman’s journal · page 1" },
+    { n: 2, title: "Watchmen on the Walls", sub: "Jaffa Gate, the Ramparts, the Wall and the tunnels, the Garden Tomb",
+      img: "fsy/w/act2-title.jpg", verse: "I have set watchmen upon thy walls, O Jerusalem.", ref: "Isaiah 62:6" },
+    { n: 3, title: "Down to the Water", sub: "Hebron, Zion, the spring, the tunnel, the pool, the steps",
+      img: "fsy/w/siloam-pool.jpg", verse: "Go, wash in the pool of Siloam… He went his way therefore, and washed, and came seeing.", ref: "John 9:7" },
+    { n: 4, title: "The Feast of Dedication", sub: "The Institute, the gates, the tombs, the Mount of Olives",
+      img: "fsy/w/egate-steps.jpg", verse: "And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon’s porch.", ref: "John 10:22–23" },
+    { n: 5, title: "Measure the Temple", sub: "The Mughrabi Gate, the clues, the verdict, the sealed gate",
+      img: "fsy/w/mughrabi-0.jpg", verse: "Rise, and measure the temple of God, and the altar, and them that worship therein.", ref: "Revelation 11:1" },
   ];
   const R = [];
   const S = (o) => { R.push(o); return o; };
@@ -614,8 +619,22 @@
   /* ------------------------------------------------------------ walking a scene ------------------------------------------------------------ */
   let scene = null, view = null;
   const V = (id) => scene.views.find((x) => x.id === id) || scene.views[0];
+  /* each act opens with its own title screen, like a chapter of a film (Richard, Oct 30) */
+  function actCard(n, then) {
+    const a = ACTS.find((x) => x.n === n); if (!a) return then();
+    const w = W(); w.flags["actcard" + n] = 1; save();
+    F.M("theme", null);
+    const el = F.stage('<div class="factcard" role="button" tabindex="0"><div class="factcard-img" style="background-image:url(img/' + a.img + ')"></div><div class="factcard-shade"></div>' +
+      '<div class="factcard-text"><div class="factcard-ep">Episode 1 · The Jerusalem Mystery</div><div class="factcard-n">Act ' + a.n + '</div><h1>' + esc(a.title) + '</h1>' +
+      '<p class="factcard-v">“' + esc(a.verse) + '”</p><div class="factcard-ref">' + esc(a.ref) + '</div><div class="factcard-tap">Tap to begin</div></div></div>', null);
+    el.classList.add("factscreen");
+    { const t = document.getElementById("adv-ttl"); if (t) t.textContent = ""; }
+    let gone = false; const go2 = () => { if (gone) return; gone = true; K.sfx("click"); then(); };
+    el.querySelector(".factcard").onclick = go2;
+  }
   function go(s, vid) {
     if (H.gate && H.gate(s, scene) === false) return;
+    if (s.act > 1 && !W().flags["actcard" + s.act] && R.find((x) => x.act === s.act) === s) return actCard(s.act, () => go(s, vid));
     scene = s; W().at = s.id; save();
     if (s.kept) return kept(s);
     const v = s.views.find((x) => x.id === vid) || s.views[0];
@@ -1414,5 +1433,5 @@
   Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
-    stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
+    actCard, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
 })();

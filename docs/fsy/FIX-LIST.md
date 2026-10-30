@@ -136,9 +136,11 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 |---|---|---|
 | 1 | The Watchman's writing in a gentle italic (journal scroll and the single pages you find): a touch larger, more open spacing, so it reads like a hand without being hard to read; the red first letter and the verse references stay upright | Done in code, waiting for the build |
 
-## Next batch (for v4k)
+## v4k (built)
 
 | # | Fix | Status |
 |---|---|---|
 | 1 | The map on one fixed screen, nothing scrolls: the heading at the top, the map filling the middle at its proper shape (it shrinks on small phones), and the Jerusalem / Old City tabs, the key and Journal · Backpack · All places in one row at the bottom. Checked on a large and a small iPhone screen | Done in code, waiting for the build |
 | 2 | The guide's questions at the Temple model: tapping a name did nothing (it selected and unselected in the same tap). Now tap a name then a ?, or a ? then a name, or drag; the line underneath says what to do next; a wrong pairing names the label; the picture is sized to fit the screen; the sanctuary label sits above its pin so the two labels don't overlap | Done in code, waiting for the build |
+| 3 | The start screen: LAMP · The Seven Candles, with "Based on The Final Seven Years by Richard J. Allinson" beneath | In v4k |
+| 4 | A title screen before each act, like a film chapter: Episode 1 · The Jerusalem Mystery, the act number and name, its verse. Act 1 Go Up (the Eastern Gate), Act 2 Watchmen on the Walls (Richard's Damascus Gate at dusk, Isaiah 62:6), Act 3 Down to the Water (John 9:7), Act 4 The Feast of Dedication (John 10:22–23), Act 5 Measure the Temple (Revelation 11:1). Acts 3–5 use existing photos until Richard paints their dusk pictures | In v4k |

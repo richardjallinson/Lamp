@@ -156,7 +156,7 @@
     st = { misses: 0, hints: 0, t0: Date.now() };
     K.open(BOOK + " · Episode 1", { hint: hint }, "fsy");
     const p = P();
-    if (!p.began || !p.watchCard) { p.began = 1; save(); return intro(); }
+    if (!p.began || !p.watchCard) { const first = !p.began; p.began = 1; save(); return first && Lamp.fsyWalk && Lamp.fsyWalk.actCard ? Lamp.fsyWalk.actCard(1, intro) : intro(); }
     stops();
   }
   /* the route map (js/fsy-route.js) replaces the old list of four stops */
