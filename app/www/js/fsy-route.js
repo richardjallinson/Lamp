@@ -516,7 +516,7 @@
   const save = () => Lamp.save();
   const isDone = (id) => !!W().done[id] || ((byId[id].kept || byId[id].doneBy) && F.keptDone(byId[id].kept || byId[id].doneBy));
   function nextScene() { for (const s of R) if (!isDone(s.id) && !s.optional) return s; return null; }
-  function canOpen(s) { const nx = nextScene(); if (!nx) return true; if (isDone(s.id)) return true; if (s.n < nx.n) return true; if (s.n === nx.n) return true; if (s.optional && s.n === nx.n + 1) return false; return false; }
+  function canOpen(s) { if (Lamp.part1Only && s.act > 1) return false; const nx = nextScene(); if (!nx) return true; if (isDone(s.id)) return true; if (s.n < nx.n) return true; if (s.n === nx.n) return true; if (s.optional && s.n === nx.n + 1) return false; return false; }
   let st = { misses: 0, hints: 0 };
   const wrong = (m) => F.wrong(m);
 
@@ -565,6 +565,7 @@
     { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = ""; t.onclick = null; } }   /* the map has its own heading: no place name on top of it */
     el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
       const s = byId[b.dataset.s]; K.sfx("click");
+      if (Lamp.part1Only && s.act > 1) { K.say(s.title + ": Part " + s.act + " is coming soon.", "", 2800); return; }
       if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; }
       go(s);
     }));
@@ -665,6 +666,7 @@
     el.querySelector(".factcard").onclick = go2;
   }
   function go(s, vid) {
+    if (Lamp.part1Only && s.act > 1 && !(s.id === "jaffa" && H.gate)) { K.say(s.title + ": Part " + s.act + " is coming soon.", "", 2800); return; }
     if (H.gate && H.gate(s, scene) === false) return;
     if (s.act > 1 && !W().flags["actcard" + s.act] && R.find((x) => x.act === s.act) === s) return actCard(s.act, () => go(s, vid));
     scene = s; W().at = s.id; save();

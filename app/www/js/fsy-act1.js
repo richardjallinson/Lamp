@@ -345,7 +345,7 @@
       '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Jaffa Gate. Four pages in your bag, and a man in grey who knows which flight you came on. The Watchman walked these walls for years. Now it is your turn. Go up.”</div>' +
       '<div class="fend-stats"><div><b>' + pages + '</b> of 12 pages</div><div><b>' + a.money + '</b> shekels</div><div><b>' + Math.max(met, 1) + '</b> people met</div></div>' +
       '<p class="fend-next">The walls are next: the Ramparts, the storm, the Western Wall and the tunnels beneath it.</p>' +
-      (Lamp.part1Only ? '<div class="fend-soon">Part 2 · The Walls · Coming soon</div><button class="cta" data-end="out">Back to the episodes</button>'
+      (Lamp.part1Only ? '<div class="fend-soon">Act 2 · Watchmen on the Walls · Coming soon</div><button class="cta" data-end="out">Back to the episodes</button>'
         : '<button class="cta" data-end="go">Go up: on to Part 2 (tester)</button><button class="cta alt" data-end="out">Back to the episodes</button>') +
       "</div>", "w/jaffa-1.jpg");
     { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = "Jaffa Gate"; t.onclick = null; } }

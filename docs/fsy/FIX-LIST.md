@@ -153,3 +153,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 2 | The Seven Lamps begin: Richard's menorah at the top of the journal, its seven flames lit one by one ("2 of 7 lit", with the verse references). Lamp 1, Genesis 22:2: after her three questions, the guide at the model points to the summit, "It had a name before it had a temple." Lamp 2, Revelation 11:1–2: the nightstand drawer in Room 412 (Richard's painting), the old Bible open with a pressed olive leaf and the Watchman's drawn lamp | Done in code, waiting for the build |
 | 3 | Richard's film of the first lamp catching fire plays on the "A lamp is lit" card (lamps without a film yet show the painted menorah) | Done in code, waiting for the build |
 | 4 | Films for lamps 2 to 7, made from Richard's first lamp film (Gemini refused the others): the earlier lamps burn, the new one catches. All seven lamps now have their film | Done in code, waiting for the build |
+
+## TestFlight 1 (tf1, Xcode build 4)
+
+Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, the End of Part 1 offers only "Back to the episodes"); tester tools off (no Skip); FRESH_EACH_BUILD off (testers keep their progress between updates); CURRENT_PROJECT_VERSION 4. For further tester builds for Richard, switch TESTER and FRESH_EACH_BUILD back on, and PART1_ONLY off.
