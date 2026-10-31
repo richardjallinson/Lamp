@@ -162,4 +162,4 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Two wrong answers at the booth (Tel Aviv / don't know, or "It's mine" / "I found it" about the book) → "Please step aside. Someone will speak with you."
 - The side room: Moti, the senior officer. Three questions — where are you going (up, to Jerusalem), who gave you this book (an old man, this morning), how much money (₪100; "Look in the backpack first" button). Wrong → moti-wrong clip, "Think. Then answer.", try again. No game over.
 - Pass → moti-pass clip; he stamps the slip himself; hint about the man in the grey coat ("His was better rehearsed"). flags.moti set.
-- Clips: moti-book, moti-wrong, moti-pass. Portrait img/fsy/people/moti.jpg. Opening clip (moti-sit: "My name is Moti. Sit…") still to come — the portrait stands in.
+- Clips: moti-book, moti-wrong, moti-pass. Portrait img/fsy/people/moti.jpg. Opening clip moti-sit plays on his first question.

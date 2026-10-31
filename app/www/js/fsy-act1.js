@@ -16,7 +16,7 @@
 
   /* ------------------------------------------------------------ short clips (Richard's 8-second videos of the people) ------------------------------------------------------------ */
   /* one clip per person, at that person's key moment. The file is video/fsy/<id>.mp4 with a poster video/fsy/<id>.jpg. */
-  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav", "bagelgirl", "haller", "moti-book", "moti-wrong", "moti-pass"]);
+  const CLIPS = new Set(["yosef", "clerk", "soldier", "cardseller", "officer-stamp", "dudu", "baker", "halva", "violinist", "gabriel", "guide", "grandma2", "grandma", "coffeeman", "fishman", "deskclerk", "dayclerk", "ravkav", "bagelgirl", "haller", "moti-sit", "moti-book", "moti-wrong", "moti-pass"]);
   /* a person's clip: the music and the street dip while they speak, and come back when the clip ends or the card closes */
   const duckFor = (v) => {
     let on = false; const set = (x) => { if (x === on) return; on = x; Lamp.duck && Lamp.duck(x); };

@@ -1114,7 +1114,7 @@
       /* the side room: Moti, the senior officer. Three questions; the truth, consistently, gets you through */
       function aside() {
         const QS = [
-          { clip: null, title: "“Where are you going?”", lead: "A small bare room. Your backpack is emptied onto a plastic tray: your passport, the journal, the Lamplighter’s envelope. Across the table, an older officer with reading glasses pushed up on his forehead. “My name is Moti. Sit.” He looks at you for a long moment. “So. Where are you going?”",
+          { clip: "moti-sit", title: "“Where are you going?”", lead: "A small bare room. Your backpack is emptied onto a plastic tray: your passport, the journal, the Lamplighter’s envelope. Across the table, an older officer with reading glasses pushed up on his forehead. “My name is Moti. Sit.” He looks at you for a long moment. “So. Where are you going?”",
             a: [["“Up, to Jerusalem.”", 1], ["“To the beach in Tel Aviv.”", 0], ["“Wherever the book says.”", 0]] },
           { clip: "moti-book", title: "“Who gave you this book?”", lead: "He turns the journal over in his hands and lowers his glasses onto his nose.",
             a: [["“An old man, this morning. He said to read it in Jerusalem.”", 1], ["“I bought it in a shop.”", 0], ["“It’s my diary.”", 0]] },
