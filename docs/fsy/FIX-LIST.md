@@ -190,3 +190,6 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Now required: the airport ticket clerk ("Which train", q.clerkWhich), Eitan, the grandmother at the stop, Dudu's whole errand (bread, coffee, fish, his grandmother), showing the guide the frankincense, the night clerk's "see first" and "anyone asked for me", hearing Haller out.
 - Checklist rows no longer depend on the scene's own done flag (train: seen navon; market: incense puzzle; benyehuda: found26; gabriel: souvenir puzzle; model: q.guideMan).
 - The task line falls back to "Still to do: …" (H.left).
+
+## v4o (built, Oct 31)
+- v4n plus: cash machine on King George Street, museum ticket hint, everyone required before a place finishes (train/tram/hotel-room gates).
