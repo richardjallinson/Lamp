@@ -172,3 +172,8 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 
 ## v4m (built, Oct 31)
 - Tester build: TESTER on, FRESH on, PART1_ONLY off. Contains Moti's interview (everyone), passport stamped on return to the booth, the flight (city question, takeoff film, paper map).
+
+## The departures board and the song (Oct 31)
+- After the city question: Richard's departures board (img/fsy/w/departures.jpg; "TEL AVIV via ATHENS · 32 · BOARDING"), titled "<port> · Departures". Six things to tick in order: Passport, Boarding pass, Luggage checked in, Gate 32, Seat 23A, Doors closed.
+- The last tick starts "City On the Hill" (Richard, ElevenLabs Music; audio/music/fsy-song.mp3 → app/www/audio/music/fsy-song.js, loudnorm -16, 112k). It plays once, at 0.8 (louder than the score), under the takeoff film (film audio at 0.35) and the map, and crossfades to the airport music at passport control. No ducking on the film any more.
+- Song preloads when the city question opens.

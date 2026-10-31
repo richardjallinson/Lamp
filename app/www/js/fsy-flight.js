@@ -88,7 +88,25 @@
   /* ---------- the screens ---------- */
   function overlay(html) { const el = document.createElement("div"); el.className = "fflight"; el.innerHTML = html; document.body.appendChild(el); return el; }
   function close(el, then) { el.classList.add("out"); setTimeout(() => { el.remove(); if (then) then(); }, 450); }
+  function preloadSong() { if (window.LAMP_TRACKS && window.LAMP_TRACKS["fsy-song"]) return; if (document.getElementById("fflsongjs")) return; const sc = document.createElement("script"); sc.id = "fflsongjs"; sc.src = "audio/music/fsy-song.js"; document.head.appendChild(sc); }
+  /* the departures board: six things to tick off, then the song starts and we board */
+  const CHECK = [["Passport", "In your hand. You check it twice"], ["Boarding pass", "Seat 23A, by the window"], ["Luggage checked in", "One backpack. The journal stays with you"], ["Gate 32", "At the end of the pier, where the windows face the sunset"], ["Seat 23A", "You look out at the wing"], ["Doors closed", "The engines wind up"]];
+  function board(city, then) {
+    const K = Lamp.adv.kit;
+    const el = overlay('<div class="ffl-board" style="background-image:url(img/fsy/w/departures.jpg)"><div class="ffl-boardtop"><div class="ffl-kick">' + city.port + ' · Departures</div><h1>19:20 · Tel Aviv via Athens</h1><p>Gate 32 · Boarding</p></div>' +
+      '<div class="ffl-check">' + CHECK.map((c, i) => '<button data-i="' + i + '"' + (i ? " disabled" : "") + '><i></i><b>' + c[0] + "</b><small>" + c[1] + "</small></button>").join("") + "</div></div>");
+    let n = 0;
+    el.querySelectorAll(".ffl-check button").forEach((b) => b.onclick = () => {
+      if (+b.dataset.i !== n) return;
+      b.classList.add("on"); b.disabled = true; n++;
+      if (n < CHECK.length) { K.sfx("click"); el.querySelector('.ffl-check [data-i="' + n + '"]').disabled = false; return; }
+      /* the last tick: the song begins, and we board */
+      if (Lamp.fsy && Lamp.fsy.parts && Lamp.fsy.parts.M) Lamp.fsy.parts.M("song", null);
+      setTimeout(() => close(el, then), 1400);
+    });
+  }
   function pick(then) {
+    preloadSong();
     const K = Lamp.adv.kit, g = guess(), W = Lamp.fsyWalk && Lamp.fsyWalk.W();
     const others = CITIES.filter((c) => c !== g);
     const acts = { y: () => chose(g) };
@@ -101,8 +119,8 @@
   function takeoff(then) {
     if (!TAKEOFF) return then();
     const el = overlay('<video class="ffl-film" src="video/fsy/takeoff.mp4" poster="video/fsy/takeoff.jpg" playsinline autoplay></video><button class="fbtn ffl-skipfilm" id="fflskipf">Skip</button>');
-    const v = el.querySelector("video"); if (Lamp.duck) Lamp.duck(true);
-    let gone = false; const end = () => { if (gone) return; gone = true; if (Lamp.duck) Lamp.duck(false); close(el, then); };
+    const v = el.querySelector("video"); v.volume = 0.35;
+    let gone = false; const end = () => { if (gone) return; gone = true; close(el, then); };
     v.onended = end; v.onerror = end; el.querySelector("#fflskipf").onclick = end;
   }
   function fly(from, then) {
@@ -141,7 +159,7 @@
     }), 700);
   }
   function flight(then) {
-    pick((c) => takeoff(() => fly(c, then)));
+    pick((c) => board(c, () => takeoff(() => fly(c, then))));
   }
-  window.Lamp = window.Lamp || {}; Lamp.fsyFlight = flight; Lamp.fsyFlight.cities = CITIES; Lamp.fsyFlight.fly = fly; Lamp.fsyFlight.guess = guess;
+  window.Lamp = window.Lamp || {}; Lamp.fsyFlight = flight; Lamp.fsyFlight.board = board; Lamp.fsyFlight.cities = CITIES; Lamp.fsyFlight.fly = fly; Lamp.fsyFlight.guess = guess;
 })();

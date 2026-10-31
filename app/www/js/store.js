@@ -258,7 +258,7 @@
     const sc = document.createElement("script"); sc.src = "audio/music/" + name + ".js"; sc.onload = () => { sc.remove(); go(); }; sc.onerror = () => { sc.remove(); delete loadingTr[name]; };
     document.head.appendChild(sc);
   }
-  const target = (me) => hushed ? 0.0001 : LV[me.kind] * (ducked ? (me.kind === "music" ? 0.18 : 0.4) : 1);
+  const target = (me) => hushed ? 0.0001 : (me.name && /-song$/.test(me.name) ? 0.8 : LV[me.kind]) * (ducked ? (me.kind === "music" ? 0.18 : 0.4) : 1);   /* the song plays louder than the score, and it plays once */
   function ramp(g, v, secs) { try { const t = ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(g.gain.value, 0.0001), t); g.gain.linearRampToValueAtTime(v, t + secs); } catch (e) {} }
   function startLayer(me, buf) {
     const c = audio(); if (!c) return;
@@ -283,7 +283,7 @@
     if (cur && cur.name === name && (cur.gain || !scoreOn())) return;
     stopLayer(cur, 1.8); SC[kind] = null;
     if (!name) return;
-    const me = { kind, name, srcs: [], timer: 0, gain: null, once: /-(reveal|cliff)$/.test(name) }; SC[kind] = me;   // a reveal or a cliffhanger plays once
+    const me = { kind, name, srcs: [], timer: 0, gain: null, once: /-(reveal|cliff|song)$/.test(name) }; SC[kind] = me;   // a reveal or a cliffhanger plays once
     if (!scoreOn() || !Lamp.audioUnlocked) return;
     loadTrack(name, (buf) => { if (SC[kind] === me && !me.gain && scoreOn()) startLayer(me, buf); });
   }
