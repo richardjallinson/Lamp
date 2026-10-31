@@ -597,7 +597,7 @@
     const w = W(), p = F.P(), pages = Object.keys(w.pages).length; let relics = {};
     try { relics = (K.A && K.A().relics) || {}; } catch (e) { relics = {}; }
     const items = (H.items ? H.items() : []).concat([
-      [pages > 0, "The Watchman’s journal", pages + " of 12 pages. Tap Journal to read them."],
+      [pages > 0, w.flags.journalSold ? "The Watchman’s journal (sold)" : "The Watchman’s journal", w.flags.journalSold ? "In Victor Haller’s coat since the hotel. You remember " + pages + " pages." : pages + " of 12 pages. Tap Journal to read them."],
       [w.flags.ticket, "A train ticket", "Ben Gurion Airport → Jerusalem – Yitzhak Navon."],
       [w.flags.bekah, "A bekah", "A small stone weight from the spice seller: half a shekel of the sanctuary."],
       [w.done["gabriel:souvenir"], "A model of the Third Temple", "From Gabriel’s shop. A small lamp drawn in blue ink on its base."],
@@ -637,7 +637,7 @@
     ].filter(Boolean);
     const col = (n) => '<div class="ftorah-col"><span class="ftorah-n" aria-label="Page ' + n + '">' + HEBN[n] + "</span><p>" + esc(PAGES[n].text) + "</p>" + (PAGES[n].ref ? "<small>" + esc(PAGES[n].ref) + "</small>" : "") + "</div>";
     const L = lamps(), nl = Object.keys(L).length;
-    K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages</h2>" +
+    K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages</h2>" + (w.flags.journalSold ? '<p class="fwarn">You sold the journal to Victor Haller at the Jerusalem Hotel. These are the pages as you remember them.</p>' : "") +
       '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
         (nl ? '<div class="fjlampv">' + LAMPS.filter((x) => L[x.n]).map((x) => "<span><b>" + x.n + "</b> " + esc(x.ref) + "</span>").join("") + "</div>" : "") + "</div>" +
       '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +

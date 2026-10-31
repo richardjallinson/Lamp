@@ -86,6 +86,39 @@
       '<button class="cta' + (o.btn ? " alt" : "") + '" data-act="again">Ask something else</button><button class="cta alt" data-act="x">Leave</button>',
       { b: () => o.then && o.then(), again: () => talk(pid), x: () => o.leave && o.leave() });
   }
+  /* Victor Haller at the hotel: one continuous conversation, not a menu. Two ways out: keep the journal (he keeps circling in Act 2)
+     or sell it for 500 shekels (Act 2, sold path: the hotel clerk hands you a parcel — the journal back, one page torn out, Haller's note "Keep it. I have what I needed." — and Gabriel gives the page back with a lecture; after that the paths are one, with a.q.sold for the odd line). */
+  function hallerTalk() {
+    const a = A(), p = PEOPLE.haller;
+    const card = (h, text, choices, o) => {
+      o = o || {};
+      K.card('<div class="ftalk">' + portrait("haller", p) + '<div><div class="kick">Victor Haller</div>' + (h ? "<h2>" + esc(h) + "</h2>" : "") + "</div></div>" +
+        (o.clip && H.clip ? H.clip(o.clip) : "") + '<div class="fhim">' + text + "</div>" +
+        '<div class="fsay">' + choices.map((c, i) => '<button data-act="c' + i + '">' + esc(c[0]) + "</button>").join("") + "</div>",
+        Object.fromEntries(choices.map((c, i) => ["c" + i, c[1]])));
+    };
+    const step1 = () => { a.q.metHaller = 1; save(); fact("haller", "The man in grey has a name: Victor Haller. He says he knew the Watchman.");
+      card("“You left me a note.”", "“I did. Victor Haller.” He offers his hand, and the second cup. “Sit, please. You have had a long day and I have had a long night. I am not your enemy, whatever the spice sellers told you. I knew the man who wrote that book. Better than the old fellow who gave it to you, I suspect.”",
+        [["“What do you want?”", step2], ["“How did you know my flight?”", flight]], { clip: "haller" }); };
+    const flight = () => card(null, "He looks genuinely surprised by the question. “Someone told me. Someone who wanted me to know.” He lets that sit. “Not everyone who sends you somewhere tells you everything about why.” He turns his cup. “You were going to ask what I want.”",
+      [["“What do you want?”", step2]]);
+    const step2 = () => { a.q.hallerWant = 1; save();
+      card(null, "“The same thing you want: to know where the house of God stood. The difference is that I already know.” He turns his cup. “It stood where every rabbi, every pilgrim and every map for thirteen hundred years has said it stood: on the rock, under the gold dome. Our friend the Watchman spent years proving the world wrong, and died proving it. Or vanished. It comes to the same thing.”",
+        [["“Then why follow me?”", step3], ["“You don’t know he’s dead.”", () => card(null, "“No,” he agrees, too quickly. “I don’t.” A small pause. “Ask me why I follow you.”", [["“Why follow me?”", step3]])]]); };
+    const step3 = () => { a.q.hallerWhy = 1; save(); fact("covenant", "Haller: the people he serves are close to an agreement that would allow a Temple on the rock. A journal pointing elsewhere is 'a stone in the shoe'. He wants to buy it.");
+      card(null, "“Because a wrong answer, written down convincingly, is dangerous. The people I work for are closer than anyone alive to seeing a Temple built. Closer than the Institute, closer than the rabbis. It needs an agreement, and agreements need everyone to be looking at the same rock.” He smiles. “A journal that points somewhere else is a stone in the shoe. I would like to buy it.” He takes a pen from his coat and writes on the paper napkin, and turns it to face you: <b>₪200</b>.",
+        [["“It isn’t for sale.”", refuse1], ["“That’s not very much.”", () => card(null, "He does not blink. He crosses out the figure and writes another: <b>₪500</b>. “That is a great deal, for a book with most of its pages missing. Cash. Now. And you fly home tomorrow with a story to tell.”", [["“It isn’t for sale.”", refuse2], ["Sell him the journal (₪500)", sell]])]]); };
+    const refuse1 = () => card(null, "“No. He said you would say that.” He crosses out the figure and writes another: <b>₪500</b>. “Last offer. Cash. Now.”",
+      [["“It isn’t for sale.”", refuse2], ["Sell him the journal (₪500)", sell]]);
+    const refuse2 = () => { a.q.hallerDone = 1; save(); fact("hallerwalls", "Haller: 'Look south at the dome from the walls, and ask whether one man with a rod is more likely right than thirteen centuries.'");
+      card("“Then keep it.”", "He finishes his coffee and stands, and lays a few coins on the table for both cups. “Then do me one favour. When you are up on the walls today, look south, at the dome. Ask yourself honestly whether a man alone with a measuring rod is more likely to be right than thirteen centuries.” At the door he turns. “Mind the weather this afternoon.”",
+        [["He goes.", () => { if (!W().done.hotel) C.finish("hotel"); }]]); };
+    const sell = () => { a.q.hallerDone = 1; a.q.sold = 1; W().flags.journalSold = 1; a.money += 500; save(); F.S("pay", null, 0.8);
+      fact("sold", "You sold the Watchman's journal to Victor Haller at the Jerusalem Hotel for 500 shekels.");
+      card("“A pleasure.”", "He counts the notes onto the table without hurry, and takes the journal from your hands as if it were already his. He does not open it. He looks at the small drawn lamp on the cover for a moment, then slides it inside his coat. “You will want it back,” he says, standing. “They always do.” At the door he turns. “Mind the weather this afternoon.”<br><br>— The journal is gone from your backpack. The pages you have read, you remember.",
+        [["He goes.", () => { if (!W().done.hotel) C.finish("hotel"); }]]); };
+    step1();
+  }
   function talk(pid) {
     const p = PEOPLE[pid], a = A();
     const lines = p.lines.filter((l) => !l.when || l.when(a));
@@ -168,12 +201,8 @@
     ] },
     /* the man in grey, met at last (Richard, Oct 29): Victor Haller, in the lobby the morning after. Polite, reasonable, half right. */
     haller: { name: "The man in the grey coat", kick: "The Jerusalem Hotel", when: (a) => a.q.slept && a.items.hotelnote, desc: "At a low table by the window, a man in a pale grey overcoat, silver at the temples, two cups of coffee in front of him, one of them for you. He stands when he sees you, like a host.", lines: [
-      { id: "who", say: "You left me a note.", when: (a) => !a.q.metHaller, run: () => { A().q.metHaller = 1; save(); reply("haller", "“I did. Victor Haller.” He offers his hand, and the second cup. “Sit, please. You have had a long day and I have had a long night. I am not your enemy, whatever the spice sellers told you. I knew the man who wrote that book. Better than the old fellow who gave it to you, I suspect.”", { clip: "haller" }); fact("haller", "The man in grey has a name: Victor Haller. He says he knew the Watchman."); } },
-      { id: "want", say: "What do you want?", when: (a) => a.q.metHaller, run: () => { A().q.hallerWant = 1; save(); reply("haller", "“The same thing you want: to know where the house of God stood. The difference is that I already know.” He turns his cup. “It stood where every rabbi, every pilgrim and every map for thirteen hundred years has said it stood: on the rock, under the gold dome. Our friend the Watchman spent years proving the world wrong, and died proving it. Or vanished. It comes to the same thing.”"); } },
-      { id: "why", say: "Then why follow me?", when: (a) => a.q.hallerWant, run: () => { A().q.hallerWhy = 1; save(); reply("haller", "“Because a wrong answer, written down convincingly, is dangerous. The people I work for are closer than anyone alive to seeing a Temple built. Closer than the Institute, closer than the rabbis. It needs an agreement, and agreements need everyone to be looking at the same rock.” He smiles. “A journal that points somewhere else is a stone in the shoe. I would like to buy it. Name a figure.”"); fact("covenant", "Haller: the people he serves are close to an agreement that would allow a Temple on the rock. A journal pointing elsewhere is 'a stone in the shoe'. He wants to buy it."); } },
-      { id: "no", say: "It isn’t for sale.", when: (a) => a.q.hallerWhy && !a.q.hallerDone, run: () => { A().q.hallerDone = 1; save(); reply("haller", "“No. He said you would say that.” He finishes his coffee and stands, and lays a few coins on the table for both cups. “Then do me one favour. When you are up on the walls today, look south, at the dome. Ask yourself honestly whether a man alone with a measuring rod is more likely to be right than thirteen centuries.” At the door he turns. “Mind the weather this afternoon.”", { leave: () => { if (!W().done.hotel) C.finish("hotel"); } }); fact("hallerwalls", "Haller: 'Look south at the dome from the walls, and ask whether one man with a rod is more likely right than thirteen centuries.'"); } },
-      { id: "flight", say: "How did you know my flight?", when: (a) => a.q.metHaller, run: () => reply("haller", "He looks genuinely surprised by the question. “Someone told me. Someone who wanted me to know.” He lets that sit. “Not everyone who sends you somewhere tells you everything about why.”") },
-      { id: "gone", say: "(He has gone.)", when: (a) => a.q.hallerDone, run: () => reply("haller", "The table by the window is empty. Two cups, a few coins, and the morning light on the stone.", { leave: () => { if (!W().done.hotel) C.finish("hotel"); } }) },
+      { id: "sit", say: "(Sit down with him)", when: (a) => !a.q.hallerDone, run: () => hallerTalk() },
+      { id: "gone", say: "(He has gone.)", when: (a) => a.q.hallerDone, run: () => reply("haller", A().q.sold ? "The table by the window is empty. Two cups, and the morning light on the stone. Your backpack is lighter than it was, and your pocket heavier." : "The table by the window is empty. Two cups, a few coins, and the morning light on the stone.", { leave: () => { if (!W().done.hotel) C.finish("hotel"); } }) },
     ] },
     halva: { name: "The halva seller", kick: "Deeper in", desc: "A thin old man behind slabs of halva, a long knife in his hand, eyes everywhere.", lines: [
       { id: "piece", say: "Try a piece?", run: () => reply("halva", "“Pistachio. Two shekels.” The knife pauses. “Or free, if you tell me what you are looking for.”", { btn: "“A man’s journal.”", then: () => { A().q.greyKG = 1; save(); reply("halva", "He cuts you a piece. “Then you are the second person today. The first wore grey and did not buy halva. He went toward the city. King George Street, I think.” He wipes the knife. “Not a nice man.”"); fact("greykg", "The man in grey went toward King George Street."); } }) },
@@ -342,9 +371,9 @@
     const el = F.stage('<div class="fend">' +
       '<img class="fend-img" src="img/fsy/w/jaffa-1.jpg" alt="Jaffa Gate and the Tower of David">' +
       '<div class="fkick">The Final Seven Years · Episode 1</div><h1>End of Part 1</h1><div class="fend-sub">Arrival</div>' +
-      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Jaffa Gate. Four pages in your bag, and a man in grey who knows which flight you came on. The Watchman walked these walls for years. Now it is your turn. Go up.”</div>' +
+      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>' + (a.q.sold ? "“Jaffa Gate. Five hundred shekels in your pocket, and the Watchman’s book in another man’s coat. He told you that you would want it back. You will. Go up.”" : "“Jaffa Gate. Four pages in your bag, and a man in grey who knows which flight you came on. The Watchman walked these walls for years. Now it is your turn. Go up.”") + '</div>' +
       '<div class="fend-stats"><div><b>' + pages + '</b> of 12 pages</div><div><b>' + a.money + '</b> shekels</div><div><b>' + Math.max(met, 1) + '</b> people met</div></div>' +
-      '<p class="fend-next">The walls are next: the Ramparts, the storm, the Western Wall and the tunnels beneath it.</p>' +
+      '<p class="fend-next">' + (a.q.sold ? "Next: get the journal back. Then the walls: the Ramparts, the storm, the Western Wall and the tunnels beneath it." : "The walls are next: the Ramparts, the storm, the Western Wall and the tunnels beneath it.") + '</p>' +
       (Lamp.part1Only ? '<div class="fend-soon">Act 2 · Watchmen on the Walls · Coming soon</div><button class="cta" data-end="out">Back to the episodes</button>'
         : '<button class="cta" data-end="go">Go up: on to Part 2 (tester)</button><button class="cta alt" data-end="out">Back to the episodes</button>') +
       "</div>", "w/jaffa-1.jpg");
