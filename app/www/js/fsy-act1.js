@@ -107,7 +107,7 @@
       { id: "done", say: "Thank you.", when: () => W().flags.passport, run: () => reply("officer", "“Next.” She is already looking past you at the queue.") },
     ] },
     clerk: { name: "The ticket clerk", kick: "The airport station", desc: "A woman behind the glass, reading glasses on a chain, a paper cup of coffee. Bored, but kind.", lines: [
-      { id: "which", say: "Which train goes to Jerusalem?", run: () => reply("clerk", "“All the way up? Yitzhak Navon. Twenty-five minutes, mostly tunnel. Seventeen shekels. Or the machine, if you prefer machines.”", { then: null }) },
+      { id: "which", say: "Which train goes to Jerusalem?", run: () => { A().q.clerkWhich = 1; save(); reply("clerk", "“All the way up? Yitzhak Navon. Twenty-five minutes, mostly tunnel. Seventeen shekels. Or the machine, if you prefer machines.”", { then: null }); } },
       { id: "heb", say: "The machine only shows Hebrew.", when: () => !W().flags.ticket, run: () => reply("clerk", "“The English button? Broken since Pesach.” She leans to the grille. “Jerusalem is Yerushalayim. Look for the word that starts with the little letter like a raised hand, the yod: י. It is the last stop, at the top of the map.”") },
       { id: "grey", say: "Did a man in a grey coat come through here?", run: () => reply("clerk", "“Grey coat, no luggage. Bought a ticket to Jerusalem and asked me if anyone had been asking for him. I said no.” She looks at you over the glasses. “Now I have said yes.”", { clip: "clerk" }) },
       { id: "up", say: "What does ‘go up’ mean?", run: () => reply("clerk", "“You go up to Jerusalem. Always. Even from the north, you go up. It is on the mountains.” A shrug. “And it is Jerusalem.”") },
@@ -195,7 +195,7 @@
     guide: { name: "The guide at the model", kick: "The Israel Museum", desc: "An older woman with grey hair in a bun, a museum lanyard, a wooden pointer. Precise, dry, delighted by a good question.", lines: [
       { id: "show", say: "Can you show me the Temple?", when: () => !done("model", "modelq"), run: () => reply("guide", "“I can show you where they put it. Whether that is where it was is a longer conversation.” She lifts the pointer. “Walk round. I will ask you three things.”", { btn: "Answer her questions", then: () => C.PUZZLES.modelq.run() }) },
       { id: "lev", say: "(Show her the frankincense) What was this for?", when: (a) => a.items.frankincense, run: () => { A().q.levShown = 1; save(); reply("guide", "“Levonah.” She does not touch it. “Burned on the golden altar inside the sanctuary, morning and evening. The altar stood here, before the veil.” The pointer taps the model. “Remember that: the incense was inside. The sacrifices were outside, in the middle of the court.”"); fact("incense", "The altar of incense was inside the sanctuary. The altar of sacrifice was outside, in the middle of the court."); } },
-      { id: "man", say: "Did a man with a journal come here?", when: () => done("model", "modelq") && !W().done.model, run: () => reply("guide", "“Every Friday. He stood where you are standing and looked east.” She lowers the pointer to the rail. “He left something under there once. I have not touched it.”", { clip: "guide", btn: "Look under the rail", then: () => C.finish("model") }) },
+      { id: "man", say: "Did a man with a journal come here?", when: () => done("model", "modelq") && !W().done.model, run: () => { A().q.guideMan = 1; save(); reply("guide", "“Every Friday. He stood where you are standing and looked east.” She lowers the pointer to the rail. “He left something under there once. I have not touched it.”", { clip: "guide", btn: "Look under the rail", then: () => C.finish("model") }); } },
     ] },
   };
   /* the violinist's number: wired after the reply card is on screen */
@@ -359,7 +359,10 @@
     if (scene.id === "hotel" && v.id === "room" && !A().q.checkedIn) { K.say("You have no key yet: check in at the front desk.", "", 2800); return false; }
     if (scene.id === "gabriel" && v.id === "inside" && !(prev && ["inside", "shelf", "window"].includes(prev.id))) F.S("shopbell", null, 0.7);
     if (scene.id === "airport" && v.id !== "control" && !W().flags.passport) { K.say("The officer at the booth beckons: passport first.", "", 3000); return false; }
+    if (scene.id === "train" && v.id === "navon" && !A().q.eitan) { K.say("The soldier on the platform is looking your way. Say hello before the train comes.", "", 3200); return false; }
+    if (scene.id === "rail" && v.id === "inside" && !A().q.metGrandma) { K.say("The woman at the stop is struggling with her bags. Offer to carry them first.", "", 3200); return false; }
     if (scene.id === "rail" && v.id === "inside") return ride("rail", () => C.walk(v));
+    if (scene.id === "hotel" && v.id === "room" && !(A().q.hotelWay && A().q.hotelSee && A().q.hotelGrey)) { K.say("Before you go up: ask the clerk about tomorrow, what to see first, and whether anyone asked for you.", "", 3600); return false; }
     return true;
   };
   H.gate = (s, from) => {
@@ -390,18 +393,18 @@
   H.list = (scene) => {
     const a = A(), w = W(), q = a.q, it = a.items, r = (t, ok, where, opt) => ({ t, ok: !!ok, where, opt: !!opt });
     const L = {
-      airport: [r("Through passport control", w.flags.passport, "The officer at the booth"), r("Read page 1 of the journal", w.pages[1], "Tap Journal"), r("Buy a train ticket to Jerusalem", w.flags.ticket, "The machine by the platforms")],
-      train: [r("Ride the train up to Jerusalem", w.done.train, "Down to the platform, then on"), r("Talk to the soldier", q.eitan, "On the airport platform", 1)],
-      rail: [r("Buy a travel card", it.card || q.dudu, "The kiosk at the stop"), r("Ride the tram to the market", a.rode.rail, "Step on board"), r("Offer to carry the woman's bags", q.metGrandma, "At the tram stop", 1)],
-      market: [r("Weigh at Yosef's spice stall", done("market", "scales"), "Yosef, the spice seller"), r("Find who knew the Watchman", q.sack, "The halva seller, deeper in"), r("Buy frankincense from Yosef", it.frankincense, "10 shekels: the sack will need it"), r("Open the Watchman's old sack", w.done.market, "Ask Yosef about the sack in his corner: the Temple incense, a like weight, and the torn page"),
-        r("Help Dudu (the boy with the football)", q.dudu, "In the market lane", 1),
-        ...(q.dudu ? [r("Bread", it.loaf || q.dudu === 3, "The blue awning", 1), r("Coffee", it.coffee || q.dudu === 3, "The coffee man", 1), r("Fish", it.fish || q.dudu === 3, "The fish counter at the end", 1), r("Take it all to his grandmother", q.dudu === 3, "The tram stop, on the market street", 1)] : []),
+      airport: [r("Through passport control", w.flags.passport, "The officer at the booth"), r("Read page 1 of the journal", w.pages[1], "Tap Journal"), r("Ask the ticket clerk which train goes up", q.clerkWhich, "The window by the machine"), r("Buy a train ticket to Jerusalem", w.flags.ticket, "The machine by the platforms")],
+      train: [r("Ride the train up to Jerusalem", w.done.train || w.flags["seen:train:navon"], "Down to the platform, then on"), r("Talk to the soldier", q.eitan, "On the airport platform")],
+      rail: [r("Buy a travel card", it.card || q.dudu, "The kiosk at the stop"), r("Ride the tram to the market", a.rode.rail, "Step on board"), r("Offer to carry the woman's bags", q.metGrandma, "At the tram stop")],
+      market: [r("Weigh at Yosef's spice stall", done("market", "scales"), "Yosef, the spice seller"), r("Find who knew the Watchman", q.sack, "The halva seller, deeper in"), r("Buy frankincense from Yosef", it.frankincense, "10 shekels: the sack will need it"), r("Open the Watchman's old sack", w.done.market || done("market", "incense"), "Ask Yosef about the sack in his corner: the Temple incense, a like weight, and the torn page"),
+        r("Help Dudu (the boy with the football)", q.dudu, "In the market lane"),
+        ...(q.dudu ? [r("Bread", it.loaf || q.dudu === 3, "The blue awning"), r("Coffee", it.coffee || q.dudu === 3, "The coffee man"), r("Fish", it.fish || q.dudu === 3, "The fish counter at the end"), r("Take it all to his grandmother", q.dudu === 3, "The tram stop, on the market street")] : []),
         ],
-      benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda, "Past the corner")],
-      gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel, "Ask about souvenirs")],
-      hotel: [r("Check in at the front desk", q.checkedIn, "The desk clerk"), r("Ask how to get to the Old City", q.hotelWay, "The desk clerk"), r("Get some sleep", q.slept, "Your room, upstairs"), r("In the morning, ask at the desk for messages", it.hotelnote, "The morning clerk"), r("Hear the man in grey out", q.hallerWhy, "By the window in the lobby", 1), r("Find the cash machine and get it to speak English", a.f.atm, "Beside the hotel door; the PIN is in the envelope", 1),
-        r("Ask what to see first", q.hotelSee, "The desk clerk", 1), r("Ask whether anyone asked for you", q.hotelGrey, "The desk clerk", 1)],
-      model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model, "The guide at the model"), r("Show her the frankincense", q.levShown, "If you bought it", 1)],
+      benyehuda: [r("Find the number of Gabriel's shop", q.found26, "Shmuel the violinist knows"), r("Go on to the shop", w.done.benyehuda || q.found26, "Past the corner")],
+      gabriel: [r("Talk to Gabriel", q.shopOpen, "Behind the counter"), r("Show him the journal", it.rod, "Ask about the journal"), r("Buy the map of the Old City", it.map, "His shop"), r("Buy a kippah", it.kippah, "His shop"), r("Choose a souvenir and look at it closely", w.done.gabriel || done("gabriel", "souvenir"), "Ask about souvenirs")],
+      hotel: [r("Check in at the front desk", q.checkedIn, "The desk clerk"), r("Ask how to get to the Old City", q.hotelWay, "The desk clerk"), r("Get some sleep", q.slept, "Your room, upstairs"), r("In the morning, ask at the desk for messages", it.hotelnote, "The morning clerk"), r("Hear the man in grey out", q.hallerWhy, "By the window in the lobby"), r("Find the cash machine and get it to speak English", a.f.atm, "Beside the hotel door; the PIN is in the envelope", 1),
+        r("Ask what to see first", q.hotelSee, "The desk clerk"), r("Ask whether anyone asked for you", q.hotelGrey, "The desk clerk")],
+      model: [r("Buy a museum ticket", it.museum, "At the museum"), r("Answer the guide's three questions", done("model", "modelq"), "The guide at the model"), r("Ask her about the Watchman", w.done.model || q.guideMan, "The guide at the model"), r("Show her the frankincense", q.levShown, "The guide at the model")],
     };
     return L[scene.id] || null;
   };
@@ -417,8 +420,10 @@
     if (scene.id === "benyehuda") return a.q.found26 ? "Number 26 is past the corner. Go on to Gabriel’s." : "Find the number of Gabriel’s shop. The page gave you a verse; the halva seller gave you the chapter. The Journal can show it to you.";
     if (scene.id === "gabriel") { if (!a.q.shopOpen) return "Talk to Gabriel."; if (!a.items.rod) return "Show Gabriel the journal."; if (!a.items.map || !a.items.kippah) return "Buy the map and a kippah for the Old City. Then choose a souvenir."; if (!W().done.gabriel) return "Choose a souvenir: buy the model and look at it closely."; }
     if (scene.id === "model") { if (!done("model", "modelq")) return "Ask the guide to show you the Temple, and answer her three questions."; if (!W().done.model) return "Ask the guide about the Watchman."; }
-    return null;
+    return H.left(scene);
   };
+  /* what the checklist still wants before this place can finish (everyone with a speaking part is required: Richard, Oct 31) */
+  H.left = (scene) => { const L = H.list(scene) || [], left = L.filter((x) => !x.ok && !x.opt); return left.length ? "Still to do: " + left.map((x) => x.t).join(" · ") + "." : null; };
   H.hint = (scene, v, n) => {
     const a = A();
     if (scene.id === "benyehuda" && !a.q.found26) return n === 1 ? "Which angel brought Daniel the seventy weeks? The halva seller knows which chapter the Watchman read." : n === 2 ? "Daniel 9. Open it from the Journal and find the verse where Messiah is cut off." : "Daniel 9:26. Tell the violinist: 26.";

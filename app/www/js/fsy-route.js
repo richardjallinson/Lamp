@@ -751,6 +751,7 @@
     const firstTime = v.hank && !w.flags["said:" + scene.id + ":" + v.id];
     if (v.hank) { $("fwlamp").onclick = () => { K.sfx("click"); subtitles(v.hank); }; if (firstTime) setTimeout(() => subtitles(v.hank), 450); }
     if (v.hank && !w.flags["said:" + scene.id + ":" + v.id]) { w.flags["said:" + scene.id + ":" + v.id] = 1; save(); F.V("w-" + scene.id + "-" + v.id); }
+    if (!done && w.flags["ready:" + scene.id]) finish(scene.id);
     /* a scene with nothing to solve is finished once every viewpoint has been seen */
     w.flags["seen:" + scene.id + ":" + v.id] = 1; save();
     if (!done && !scene.views.some((x) => x.puzzle) && scene.views.every((x) => w.flags["seen:" + scene.id + ":" + x.id])) { setTimeout(() => K.root() && finish(scene.id), 600); return; }
@@ -849,13 +850,17 @@
     o.addEventListener("pointerup", up); o.addEventListener("pointercancel", up);
     o.querySelector(".fwx").onclick = () => o.remove();
   }
+  /* a place cannot finish while anyone on its checklist is still to be seen (Richard, Oct 31): the journal page still comes
+     at once, then a "Not quite done" card lists who is left, and the place finishes by itself the moment the list is complete */
+  let waitTimer = 0;
+  const stillLeft = (s) => (H.list ? H.list(s) || [] : []).filter((x) => !x.ok && !x.opt);
   function finish(sceneId, then) {
-    const s = byId[sceneId], w = W(); const first = !w.done[sceneId]; w.done[sceneId] = 1; save();
+    const s = byId[sceneId], w = W(); const first = !w.done[sceneId];
     const after = () => { if (then) then(); else if (scene && scene.id === sceneId && !s.kept) walk(view); else map(); };
     const nx = R[s.n] || null;
-    /* every place ends with a clear "done" card, so there is never any doubt that the task is finished */
     const doneCard = () => {
       if (!first) return after();
+      w.done[sceneId] = 1; save(); clearInterval(waitTimer);
       F.S("harp", null, 0.7); K.buzz("success");
       const left = R.filter((x) => !w.done[x.id] && !x.optional).length;
       K.card('<div class="kick">Act ' + s.act + " · " + esc(s.title) + '</div><h2>✓ Done here</h2>' +
@@ -863,7 +868,21 @@
         (nx ? '<button class="cta" data-act="n">Walk on › ' + esc(nx.title) + "</button>" : "") +
         '<button class="cta alt" data-act="x">Look around here first</button>', { n: () => go(nx), x: after });
     };
-    if (s.page && first) page(s.page, doneCard); else doneCard();
+    const gate = () => {
+      const left = first ? stillLeft(s) : [];
+      if (!left.length) return doneCard();
+      if (!w.flags["ready:" + sceneId]) {
+        w.flags["ready:" + sceneId] = 1; save();
+        K.card('<div class="kick">Act ' + s.act + " · " + esc(s.title) + '</div><h2>Not quite done</h2><p>Before you move on, there are still people to see here:</p><div class="fbag">' +
+          left.map((x) => "<div><b>" + esc(x.t) + "</b><small>" + esc(x.where || "") + "</small></div>").join("") + "</div>" + '<button class="cta" data-act="x">Go and see them</button>', { x: () => { if (scene && scene.id === sceneId) walk(view); } });
+      }
+      clearInterval(waitTimer);
+      waitTimer = setInterval(() => {
+        if (!scene || scene.id !== sceneId || W().done[sceneId]) { clearInterval(waitTimer); return; }
+        if (!stillLeft(s).length && !document.querySelector("#adv .asheet")) { clearInterval(waitTimer); doneCard(); }
+      }, 900);
+    };
+    if (s.page && first) page(s.page, gate); else gate();
   }
   function pzDone(key, then) { const w = W(); w.done[scene.id + ":" + key] = 1; save(); then(); }
 

@@ -183,3 +183,10 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - v4m plus the departures board, the boarding checklist, "City On the Hill" under the flight, and the flight paced to the song.
 - Note (Richard): if the music works, songs may follow at Golgotha and the Garden Tomb, Gethsemane, and a couple of other places.
 - Oct 31 (Richard reached the museum with 14 shekels): a cash machine on King George Street, two doors from Gabriel's (hotspot on the street view; same ATM as the hotel's, so the bank card is found there if it hasn't been yet). The ticket desk card says where it is when you're short.
+
+## Everyone is required (Richard, Oct 31)
+- Every person with a speaking part must be met before a place can finish. The journal page still comes at once; then a "Not quite done" card lists who is left (with where), and the place finishes by itself the moment the list is complete (fsy-route finish() gate + 0.9s watcher).
+- Gates placed before you could leave someone behind: the train won't go to Navon until you've talked to Eitan; the tram won't board until you've offered to carry the grandmother's bags; the hotel room won't open until you've asked the night clerk all three questions.
+- Now required: the airport ticket clerk ("Which train", q.clerkWhich), Eitan, the grandmother at the stop, Dudu's whole errand (bread, coffee, fish, his grandmother), showing the guide the frankincense, the night clerk's "see first" and "anyone asked for me", hearing Haller out.
+- Checklist rows no longer depend on the scene's own done flag (train: seen navon; market: incense puzzle; benyehuda: found26; gabriel: souvenir puzzle; model: q.guideMan).
+- The task line falls back to "Still to do: …" (H.left).
