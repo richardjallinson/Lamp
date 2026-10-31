@@ -145,7 +145,7 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 | 3 | The start screen: LAMP · The Seven Candles, with "Based on The Final Seven Years by Richard J. Allinson" beneath | In v4k |
 | 4 | A title screen before each act, like a film chapter: Episode 1 · The Jerusalem Mystery, the act number and name, its verse. Act 1 Go Up (the Eastern Gate), Act 2 Watchmen on the Walls (Richard's Damascus Gate at dusk, Isaiah 62:6), Act 3 Down to the Water (John 9:7), Act 4 The Feast of Dedication (John 10:22–23), Act 5 Measure the Temple (Revelation 11:1). Acts 3–5 use existing photos until Richard paints their dusk pictures | In v4k |
 
-## Next batch (for v4l)
+## v4l (built)
 
 | # | Fix | Status |
 |---|---|---|
