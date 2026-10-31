@@ -9,7 +9,7 @@
      Garden Gate, mark the first three stories done, reset the adventure, replay the full start screen. */
 (function () {
   "use strict";
-  const TESTER = false;   // TestFlight: off (Richard, Oct 30)
+  const TESTER = true;    // tester build v4m
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.tester = TESTER;
   if (!TESTER) return;

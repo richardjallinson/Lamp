@@ -8,8 +8,8 @@
   /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
      The progress saved by an older build, here and in iCloud, is set aside.
      !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
-  const BUILD = "tf1";
-  const FRESH_EACH_BUILD = false;   // off for TestFlight: testers keep their progress between updates
+  const BUILD = "v4m";
+  const FRESH_EACH_BUILD = true;   // off for TestFlight: testers keep their progress between updates
   /* The Final Seven Years: false = shown as a preview only, every chapter locked ("Coming soon").
      Set to true when Richard opens chapter 1. */
   const FSY_OPEN = true;   // Episode 1 is the game now (Oct 28): it stays open in the App Store build too
@@ -18,7 +18,7 @@
   const GAME_ONLY = true;
   /* PART1_ONLY = true: the App Store release of Part 1. Act 1 ends at Jaffa Gate with "End of Part 1", and Acts 2 to 5
      show as "Coming soon". Testers (false) can carry on from the ending into Act 2. */
-  const PART1_ONLY = true;   // TestFlight and App Store: Act 1 only, Acts 2–5 "coming soon"
+  const PART1_ONLY = false;   // TestFlight and App Store: Act 1 only, Acts 2–5 "coming soon"
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.build = BUILD;
   Lamp.freshEachBuild = FRESH_EACH_BUILD;

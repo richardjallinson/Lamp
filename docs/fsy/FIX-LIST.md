@@ -169,3 +169,6 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - After page 1 of the journal, "Board the flight" opens a map: Toronto Pearson → Athens (about 10 hours) → Ben Gurion (about 2 hours). A plane flies each leg along the great-circle route; Skip button; "Land at Ben Gurion" goes to passport control.
 - js/fsy-flight.js (map baked in). Land outlines from Natural Earth (public domain). To change the departure city, edit YYZ in tools/flightmap/gen.py and the LEGS names.
 - Oct 31: "Where are you flying from?" — the phone's time zone makes the first guess (16 cities); the choice is saved in W.from. Europe flies straight to Tel Aviv; everywhere else via Athens. Map redrawn as old paper with a red line (Indiana Jones), framed to each route. Takeoff film video/fsy/takeoff.mp4 (Richard, Oct 31) plays between the city question and the map; Skip button; music ducks.
+
+## v4m (built, Oct 31)
+- Tester build: TESTER on, FRESH on, PART1_ONLY off. Contains Moti's interview (everyone), passport stamped on return to the booth, the flight (city question, takeoff film, paper map).
