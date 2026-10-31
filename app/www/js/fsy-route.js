@@ -1109,7 +1109,8 @@
           { m: () => { miss("She opens it. The handwriting is an old man’s, and the pages are torn out. “Yours?”"); if (misses < 2) bag(); },
             f: () => { miss("“Found it. With a lamp drawn on the cover.” She does not believe you."); if (misses < 2) bag(); },
             a: () => K.card('<div class="kick">Passport control</div><h2>The lamp on the cover</h2><div class="fhim">She is quiet for a moment. “A man in a grey coat came through this morning. He asked whether anyone had come in carrying a book with a lamp on it.” She slides the journal back into your bag. “I told him nothing.”</div>' +
-            '<button class="cta" data-act="x">“Thank you.”</button>', { x: stamp }) });
+            '<button class="cta" data-act="x">“Thank you.”</button>', { x: () => K.card('<div class="kick">Passport control</div><h2>“Please step aside.”</h2><p>She does not stamp anything. She picks up a phone, says a few words in Hebrew, and points to a grey door beside the booth. “My colleague will want a word with you. Then come back to me.”</p>' +
+              '<button class="cta" data-act="x">Go through the grey door</button>', { x: aside }) }) });
       }
       /* the side room: Moti, the senior officer. Three questions; the truth, consistently, gets you through */
       function aside() {
@@ -1134,18 +1135,17 @@
               }]))));
         };
         const pass = () => {
-          F.S("stamp", null, 0.9);
           K.card('<div class="kick">Moti</div><h2>“The truth is boring. Good.”</h2>' + (H.clip ? H.clip("moti-pass") : "") +
-            "<p>He stamps the blue entry slip himself and pushes your things back across the table. At the door he says, quieter: “The man in the grey coat who came through this morning. He also had a story. His was better rehearsed.”</p>" +
-            '<button class="cta" data-act="x">Into the arrivals hall</button>',
-            { x: () => { W().flags.passport = 1; W().flags.moti = 1; save(); if (H.give) H.give("slip", true); pzDone("passport", () => walk(V("hall"))); } });
+            "<p>He pushes your things back across the table and signs a small form. At the door he says, quieter: “The man in the grey coat who came through this morning. He also had a story. His was better rehearsed.” Then: “Go back to the booth. She will stamp you through.”</p>" +
+            '<button class="cta" data-act="x">Back to the booth</button>',
+            { x: () => { W().flags.moti = 1; save(); stamp(); } });
         };
         ask();
       }
       function stamp() {
         F.S("stamp", null, 0.9);
         K.card('<div class="kick">Passport control</div><h2>✓ Through</h2>' + (H.clip ? H.clip("officer-stamp") : "") +
-          "<p>She stamps a small blue entry slip and slides it under the glass with your passport. Israel no longer stamps the passport itself: the slip is your way out of the hall. It goes into your backpack.</p>" +
+          "<p>Moti’s form is on her desk. She looks at it, looks at you, and nods. Then she stamps a small blue entry slip and slides it under the glass with your passport. Israel no longer stamps the passport itself: the slip is your way out of the hall. It goes into your backpack.</p>" +
           '<button class="cta" data-act="x">Into the arrivals hall</button>',
           { x: () => { W().flags.passport = 1; save(); if (H.give) H.give("slip", true); pzDone("passport", () => walk(V("hall"))); } });
       }
