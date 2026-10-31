@@ -8,7 +8,7 @@
   /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
      The progress saved by an older build, here and in iCloud, is set aside.
      !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
-  const BUILD = "v4m";
+  const BUILD = "v4n";
   const FRESH_EACH_BUILD = true;   // off for TestFlight: testers keep their progress between updates
   /* The Final Seven Years: false = shown as a preview only, every chapter locked ("Coming soon").
      Set to true when Richard opens chapter 1. */

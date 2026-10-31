@@ -178,3 +178,7 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - The last tick starts "City On the Hill" (Richard, ElevenLabs Music; audio/music/fsy-song.mp3 → app/www/audio/music/fsy-song.js, loudnorm -16, 112k). It plays once, at 0.8 (louder than the score), under the takeoff film (film audio at 0.35) and the map, and crossfades to the airport music at passport control. No ducking on the film any more.
 - Song preloads when the city question opens.
 - Oct 31: the map flight is paced to the song — when the song is playing, the legs are slowed so the plane lands as the song ends (about 1:50 after the last tick). Captions change along the way (night over the ocean / a coastline / the descent). Skip stays. With music off, the flight runs at its short length as before.
+
+## v4n (built, Oct 31)
+- v4m plus the departures board, the boarding checklist, "City On the Hill" under the flight, and the flight paced to the song.
+- Note (Richard): if the music works, songs may follow at Golgotha and the Garden Tomb, Gethsemane, and a couple of other places.
