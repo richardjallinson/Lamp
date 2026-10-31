@@ -141,7 +141,8 @@
     ] });
   S({ id: "gabriel", act: 1, title: "Gabriel’s shop", kick: "King George Street", music: "m10", amb: "indoor", page: 3,
     views: [
-      { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass", hank: "Number twenty-six. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
+      { id: "street", img: "gabriel-street", go: { fwd: "inside", right: "synagogue" }, cap: "Number 26, King George Street, by Ben Yehuda: GABRIEL in gold on the window, and menorahs behind the glass. Two doors down, a bank with a cash machine in the wall",
+        hots: [{ box: [0, 40, 22, 40], label: "The cash machine, two doors down", act: "atm" }], hank: "Number twenty-six. A small souvenir shop, with a name in gold on the window. The owner is called Gabriel: the name of the angel who brought Daniel the seventy weeks." },
       { id: "inside", img: "gabriel-counter", cap: "Inside: the glass counter, shelves of menorahs and silver cups behind it, and the window onto the street", go: { back: "street", left: "shelf", right: "window" }, puzzle: "souvenir", who: ["gabriel"],
         hots: [{ box: [0, 50, 100, 40], label: "The counter", act: "shop" },
           { box: [45, 2, 40, 14], label: "The menorahs on the top shelf", text: "Brass menorahs, seven branches and nine, in every size. “Thou shalt make a candlestick of pure gold… six branches shall come out of the sides of it” (Exodus 25:31–32)." }] },

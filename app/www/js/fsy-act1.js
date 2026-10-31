@@ -368,7 +368,7 @@
     if (s.id === "gabriel" && !A().q.found26) { K.card('<div class="kick">King George Street</div><h2>Which door?</h2><p>A long street of shops, and you do not know the number. The page gave you the street and a verse. The violinist on Ben Yehuda will tell you if you tell him the number.</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); return false; }
     if (s.id === "model") {
       if (!ride("model", () => FW.go(s.id))) return false;
-      if (!has("museum")) { K.card('<div class="kick">The Israel Museum</div><h2>The ticket desk</h2><p>“One adult? Twenty-five shekels. The model is outside, down the path, you cannot miss it.”</p><button class="cta" data-act="b">Buy a ticket (25 shekels)</button><button class="cta alt" data-act="x">Not now</button>', { b: () => { if (H.pay(25, "the museum ticket")) { give("museum", true); FW.go(s.id); } }, x: () => {} }); return false; }
+      if (!has("museum")) { K.card('<div class="kick">The Israel Museum</div><h2>The ticket desk</h2><p>“One adult? Twenty-five shekels. The model is outside, down the path, you cannot miss it.”</p>' + (A().money < 25 ? '<p class="fwarn">You count your money: ' + A().money + ' shekels. Not enough. There is a cash machine on King George Street, two doors from Gabriel’s shop, and the Lamplighter’s envelope may hold more than coins.</p>' : "") + '<button class="cta" data-act="b">Buy a ticket (25 shekels)</button><button class="cta alt" data-act="x">Not now</button>', { b: () => { if (H.pay(25, "the museum ticket")) { give("museum", true); FW.go(s.id); } }, x: () => {} }); return false; }
     }
     if (s.id === "hotel") return ride("hotel", () => FW.go(s.id));
     if (s.id === "hebron") return ride("hebron", () => FW.go(s.id));

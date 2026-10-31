@@ -182,3 +182,4 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 ## v4n (built, Oct 31)
 - v4m plus the departures board, the boarding checklist, "City On the Hill" under the flight, and the flight paced to the song.
 - Note (Richard): if the music works, songs may follow at Golgotha and the Garden Tomb, Gethsemane, and a couple of other places.
+- Oct 31 (Richard reached the museum with 14 shekels): a cash machine on King George Street, two doors from Gabriel's (hotspot on the street view; same ATM as the hotel's, so the bank card is found there if it hasn't been yet). The ticket desk card says where it is when you're short.
