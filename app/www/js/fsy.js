@@ -187,7 +187,7 @@
       K.card('<div class="kick">The Watchman’s journal · page 1 of 12</div><h2>Blue ink, and a small drawn lamp</h2>' +
         wnote("“If you are reading this, he gave you the book. Then he trusts you, and so must I.<br><br>Do not believe what you are told about the Mount. Believe what you can see and measure. The city has been rebuilt on its own ruins so many times that the stones lie to the careless. They do not lie to the patient.<br><br>Begin where every pilgrim began: go <i>up</i>. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed.<br><br>Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.”") +
         "<p>The rest of the pages have been torn out. You put the journal in your backpack.</p>" +
-        '<button class="cta" data-act="x">To passport control</button>', { x: () => { if (Lamp.fsyWalk) Lamp.fsyWalk.go("airport", "control"); } });
+        '<button class="cta" data-act="x">Board the flight</button>', { x: () => { const land = () => { if (Lamp.fsyWalk) Lamp.fsyWalk.go("airport", "control"); }; if (Lamp.fsyFlight) Lamp.fsyFlight(land); else land(); } });
     };
   }
   /* which of the kept puzzles are finished (for the route map) */

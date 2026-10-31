@@ -741,3 +741,26 @@
 #adv .asheet .flampfilm{width:min(78%,260px);margin:4px auto 6px;border-radius:12px;overflow:hidden;background:#0A1222}
 #adv .asheet .flampfilm video{display:block;width:100%;aspect-ratio:1;object-fit:cover}
 #adv .asheet .fmoti{display:block;width:120px;height:120px;border-radius:50%;object-fit:cover;margin:4px auto 8px;border:2px solid #C9A24A}
+
+/* the flight map (Oct 30) */
+.fflight{position:fixed;inset:0;z-index:60;background:radial-gradient(ellipse at 50% 30%,#18264a,#070c1f 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 20px);color:#F3E9CE;animation:fflin .5s ease}
+.fflight.out{opacity:0;transition:opacity .45s}
+@keyframes fflin{from{opacity:0}}
+.fflight .ffl-kick{font:600 12px/1 system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#C9A24A}
+.fflight h1{margin:0;font:400 34px/1.1 "Hoefler Text","Baskerville",Georgia,serif;color:#F3DFA6}
+.fflight .ffl-map{width:calc(100% + 16px);max-width:640px;border-radius:14px;overflow:hidden;border:2px solid rgba(201,162,74,.55);box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.fflight svg{display:block;width:100%;height:auto}
+.fflight .ffl-land{fill:#3e5080;stroke:#E3BC5C;stroke-opacity:.55;stroke-width:1.2}
+.fflight .ffl-route{fill:none;stroke:#F3DFA6;stroke-opacity:.28;stroke-width:2.5;stroke-dasharray:3 9;stroke-linecap:round}
+.fflight .ffl-fly{stroke-dasharray:3000;stroke-dashoffset:3000;fill:none;stroke:#F6C453;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(246,196,83,.8))}
+.fflight .ffl-dot{fill:#0b1430;stroke:#F3DFA6;stroke-width:4;r:9px}
+.fflight .ffl-dot.a,.fflight .ffl-dot.on{fill:#F6C453}
+.fflight .ffl-lab{fill:#F3E9CE;font:700 34px "Baskerville",Georgia,serif;paint-order:stroke;stroke:#0b1430;stroke-width:7px}
+.fflight .ffl-plane{fill:#fff;stroke:#0b1430;stroke-width:1.5;transform:scale(2.2)}
+.fflight .ffl-leg{min-height:58px;text-align:center}
+.fflight .ffl-leg b{display:block;font:400 22px "Baskerville",Georgia,serif;color:#F3DFA6}
+.fflight .ffl-leg small{display:block;margin-top:4px;font:italic 400 16px "Baskerville",Georgia,serif;color:#d9ccab}
+.fflight .ffl-leg.in{animation:fflin .5s ease}
+.fflight .fbtn{min-width:220px;padding:14px 22px;border-radius:999px;border:1px solid rgba(201,162,74,.6);background:rgba(12,18,40,.8);color:#F3E9CE;font:600 17px system-ui,sans-serif}
+.fflight .fbtn.glow{background:#C9A24A;color:#0b1430;border-color:#F3DFA6;box-shadow:0 0 22px rgba(246,196,83,.55)}
+.fflight .fbtn[hidden]{display:none}

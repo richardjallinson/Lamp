@@ -164,3 +164,7 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Pass → moti-pass clip; he stamps the slip himself; hint about the man in the grey coat ("His was better rehearsed"). flags.moti set.
 - Clips: moti-book, moti-wrong, moti-pass. Portrait img/fsy/people/moti.jpg. Opening clip moti-sit plays on his first question.
 - Change (Richard, Oct 30): everyone goes through Moti. After the bag check ("Thank you"), she does not stamp: "Please step aside… Then come back to me." → grey door → Moti's three questions. Two wrong answers at the booth also send you there. Moti no longer stamps; he signs a form and sends you back to the booth, where she stamps the slip (officer-stamp clip).
+
+## The flight map (Oct 30)
+- After page 1 of the journal, "Board the flight" opens a map: Toronto Pearson → Athens (about 10 hours) → Ben Gurion (about 2 hours). A plane flies each leg along the great-circle route; Skip button; "Land at Ben Gurion" goes to passport control.
+- js/fsy-flight.js (map baked in). Land outlines from Natural Earth (public domain). To change the departure city, edit YYZ in tools/flightmap/gen.py and the LEGS names.
