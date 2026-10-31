@@ -592,7 +592,7 @@
   }
   function bagIcon() { return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 8h12l-1 13H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>'; }
   /* ------------------------------------------------------------ the backpack: everything you are carrying ------------------------------------------------------------ */
-  function backpack() {
+  function backpack(after) {
     const w = W(), p = F.P(), pages = Object.keys(w.pages).length; let relics = {};
     try { relics = (K.A && K.A().relics) || {}; } catch (e) { relics = {}; }
     const items = (H.items ? H.items() : []).concat([
@@ -607,7 +607,7 @@
     ]).filter((x) => x[0]);
     K.card('<div class="kick">Your backpack</div><h2>' + items.length + " thing" + (items.length === 1 ? "" : "s") + "</h2>" + (H.money ? H.money() : "") +
       '<div class="fbag">' + items.map((x) => "<div><b>" + esc(x[1]) + "</b><small>" + esc(x[2]) + "</small></div>").join("") + "</div>" +
-      '<button class="cta alt" data-act="j">Open the journal</button><button class="cta" data-act="x">Close</button>', { j: journal, x: () => {} });
+      '<button class="cta alt" data-act="j">Open the journal</button><button class="cta" data-act="x">Close</button>', { j: journal, x: () => { if (after) after(); } });
   }
   function journalIcon() { return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 3h11a3 3 0 0 1 3 3v15H8a3 3 0 0 1-3-3V3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7h7M8 11h7" stroke="currentColor" stroke-width="1.6"/></svg>'; }
 
@@ -1084,7 +1084,9 @@
       ];
       const el = screen("Passport control", "Ben Gurion Airport", '<div class="fclipbig"><video id="foff" src="video/fsy/officer.mp4" poster="video/fsy/officer.jpg" playsinline preload="auto"></video><button class="fplay" id="fplay" aria-label="Play">▶</button></div><div id="fans" class="fans"></div>', null);
       void el;
-      const v = $("foff"); let k = 0, stopAt = 0; if (H.duckFor) H.duckFor(v);
+      const v = $("foff"); let k = 0, stopAt = 0, misses = 0; if (H.duckFor) H.duckFor(v);
+      /* two wrong answers at the booth and you are taken aside to Moti (Richard, Oct 30) */
+      const miss = (msg) => { misses++; if (misses >= 2) { v.pause(); stopAt = 0; setTimeout(aside, 2400); wrong("She stops typing. “Please step aside. Someone will speak with you.”"); return; } wrong(msg); };
       const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => ($("fplay").style.display = "grid")); };
       $("fplay").onclick = () => { $("fplay").style.display = "none"; tryPlay(); };
       v.addEventListener("timeupdate", () => { if (stopAt && v.currentTime >= stopAt) { stopAt = 0; v.pause(); answer(); } });
@@ -1095,7 +1097,7 @@
         $("fans").innerHTML = '<div class="fq">' + esc(A.q) + '</div><div class="fchoices">' + A.a.map((x, i) => '<button data-a="' + i + '">' + esc(x[0]) + "</button>").join("") + "</div>";
         $("fans").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => {
           const x = A.a[+b.dataset.a];
-          if (!x[1]) { wrong(x[2]); return; }
+          if (!x[1]) { miss(x[2]); return; }
           K.sfx("click"); k++;
           if (k < SEG.length) play(); else bag();   /* the last segment, her question about the book, ends in bag() */
         }));
@@ -1103,9 +1105,42 @@
       function bag() {
         $("fans").innerHTML = "";
         K.card('<div class="kick">Passport control</div><h2>“Where did you get this book?”</h2><p>She lifts the journal out of your backpack, turns it over, and stops. On the cover, small, in blue ink: a drawn lamp.</p>' +
-          '<div class="fsay"><button data-act="a">“A man gave it to me this morning.”</button><button data-act="a">“It’s mine.”</button><button data-act="a">“I found it.”</button></div>',
-          { a: () => K.card('<div class="kick">Passport control</div><h2>The lamp on the cover</h2><div class="fhim">She is quiet for a moment. “A man in a grey coat came through this morning. He asked whether anyone had come in carrying a book with a lamp on it.” She slides the journal back into your bag. “I told him nothing.”</div>' +
+          '<div class="fsay"><button data-act="a">“A man gave it to me this morning.”</button><button data-act="m">“It’s mine.”</button><button data-act="f">“I found it.”</button></div>',
+          { m: () => { miss("She opens it. The handwriting is an old man’s, and the pages are torn out. “Yours?”"); if (misses < 2) bag(); },
+            f: () => { miss("“Found it. With a lamp drawn on the cover.” She does not believe you."); if (misses < 2) bag(); },
+            a: () => K.card('<div class="kick">Passport control</div><h2>The lamp on the cover</h2><div class="fhim">She is quiet for a moment. “A man in a grey coat came through this morning. He asked whether anyone had come in carrying a book with a lamp on it.” She slides the journal back into your bag. “I told him nothing.”</div>' +
             '<button class="cta" data-act="x">“Thank you.”</button>', { x: stamp }) });
+      }
+      /* the side room: Moti, the senior officer. Three questions; the truth, consistently, gets you through */
+      function aside() {
+        const QS = [
+          { clip: null, title: "“Where are you going?”", lead: "A small bare room. Your backpack is emptied onto a plastic tray: your passport, the journal, the Lamplighter’s envelope. Across the table, an older officer with reading glasses pushed up on his forehead. “My name is Moti. Sit.” He looks at you for a long moment. “So. Where are you going?”",
+            a: [["“Up, to Jerusalem.”", 1], ["“To the beach in Tel Aviv.”", 0], ["“Wherever the book says.”", 0]] },
+          { clip: "moti-book", title: "“Who gave you this book?”", lead: "He turns the journal over in his hands and lowers his glasses onto his nose.",
+            a: [["“An old man, this morning. He said to read it in Jerusalem.”", 1], ["“I bought it in a shop.”", 0], ["“It’s my diary.”", 0]] },
+          { clip: null, title: "“How much money are you carrying?”", lead: "He taps the envelope without opening it. “Tell me what is in here. Then I count it.” <i>(Your Backpack shows your money.)</i>",
+            a: [["“One hundred shekels.”", 1], ["“Two hundred shekels.”", 0], ["“I don’t know.”", 0]] },
+        ];
+        let q = 0;
+        const ask = () => {
+          const Q = QS[q];
+          K.card('<div class="kick">The side room · Moti, the senior officer</div><h2>' + Q.title + "</h2>" + (Q.clip && H.clip ? H.clip(Q.clip) : '<img class="fmoti" src="img/fsy/people/moti.jpg" alt="Moti, the senior officer">') +
+            "<p>" + Q.lead + "</p>" + '<div class="fsay">' + Q.a.map((x, i) => '<button data-act="a' + i + '">' + esc(x[0]) + "</button>").join("") + "</div>" +
+            (q === 2 ? '<button class="cta alt" data-act="bp">Look in the backpack first</button>' : ""),
+            Object.assign({ bp: () => backpack(ask) },
+              Object.fromEntries(Q.a.map((x, i) => ["a" + i, () => {
+                if (!x[1]) { F.S("knock", null, 0.6); K.card('<div class="kick">Moti</div><h2>“No.”</h2>' + (H.clip ? H.clip("moti-wrong") : "") + "<p>He leans back and folds his arms. “Think. Then answer.”</p><button class=\"cta\" data-act=\"x\">Try again</button>", { x: ask }); return; }
+                K.sfx("click"); q++; if (q < QS.length) ask(); else pass();
+              }]))));
+        };
+        const pass = () => {
+          F.S("stamp", null, 0.9);
+          K.card('<div class="kick">Moti</div><h2>“The truth is boring. Good.”</h2>' + (H.clip ? H.clip("moti-pass") : "") +
+            "<p>He stamps the blue entry slip himself and pushes your things back across the table. At the door he says, quieter: “The man in the grey coat who came through this morning. He also had a story. His was better rehearsed.”</p>" +
+            '<button class="cta" data-act="x">Into the arrivals hall</button>',
+            { x: () => { W().flags.passport = 1; W().flags.moti = 1; save(); if (H.give) H.give("slip", true); pzDone("passport", () => walk(V("hall"))); } });
+        };
+        ask();
       }
       function stamp() {
         F.S("stamp", null, 0.9);

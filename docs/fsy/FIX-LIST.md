@@ -157,3 +157,9 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 ## TestFlight 1 (tf1, Xcode build 4)
 
 Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, the End of Part 1 offers only "Back to the episodes"); tester tools off (no Skip); FRESH_EACH_BUILD off (testers keep their progress between updates); CURRENT_PROJECT_VERSION 4. For further tester builds for Richard, switch TESTER and FRESH_EACH_BUILD back on, and PART1_ONLY off.
+
+## Passport control, harder (Moti) — after tf1
+- Two wrong answers at the booth (Tel Aviv / don't know, or "It's mine" / "I found it" about the book) → "Please step aside. Someone will speak with you."
+- The side room: Moti, the senior officer. Three questions — where are you going (up, to Jerusalem), who gave you this book (an old man, this morning), how much money (₪100; "Look in the backpack first" button). Wrong → moti-wrong clip, "Think. Then answer.", try again. No game over.
+- Pass → moti-pass clip; he stamps the slip himself; hint about the man in the grey coat ("His was better rehearsed"). flags.moti set.
+- Clips: moti-book, moti-wrong, moti-pass. Portrait img/fsy/people/moti.jpg. Opening clip (moti-sit: "My name is Moti. Sit…") still to come — the portrait stands in.
