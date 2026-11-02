@@ -198,3 +198,6 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - The hotel meeting is now one continuous sit-down (hallerTalk): his clip, then choices at each step, no "Ask something else" menu. Side question about the flight folds back in.
 - He offers ₪200 on a napkin, then ₪500. Keep it → "look south from the walls", "mind the weather", Act 1 as before. Sell it (₪500) → a.q.sold, W.flags.journalSold, +500; the Journal still opens ("as you remember them"), backpack says "(sold)", end card has a different Lamplighter line and "Next: get the journal back".
 - Act 2 plan for the sold path (one scene, then the paths are one): the morning clerk hands over a parcel — the journal back, one page torn out, Haller's note "Keep it. I have what I needed." — and Gabriel gives the page back with a lecture. Thereafter a.q.sold only colours the odd line (Haller in Act 3, the Lamplighter at the end, act end cards).
+
+## v4p (built, Nov 1)
+- v4o plus Haller as one continuous conversation with the sell-the-journal path (₪500), and the Act 2 portraits, objects, scenes and the first 10 Act 2 clips in the bundle (not yet wired: Act 2 build is next).
