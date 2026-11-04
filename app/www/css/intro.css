@@ -128,7 +128,7 @@
 #intro.fly #in-wickglow{opacity:0;animation:none}
 
 /* the film of the flight */
-#in-film{object-fit:cover;opacity:0;transition:opacity .5s ease;pointer-events:none}
+#in-film{width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;object-position:50% 50%;background:#061033;opacity:0;transition:opacity .5s ease;pointer-events:none}
 #intro.film #in-film{opacity:1}
 #intro.film #in-lamp,#intro.film #in-gate{display:none}
 #intro.film.gone #in-film{transition:opacity 1.2s ease 1.2s;opacity:0}
