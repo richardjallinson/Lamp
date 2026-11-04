@@ -126,3 +126,9 @@
   background:radial-gradient(circle,rgba(255,214,120,.5) 0%,rgba(245,196,81,.16) 35%,rgba(245,196,81,0) 70%);transition:width 2.4s cubic-bezier(.2,.7,.2,1),height 2.4s cubic-bezier(.2,.7,.2,1),opacity 1s}
 #intro.lit #in-wickglow{width:min(130vw,760px);height:min(130vw,760px);opacity:1;animation:in-breathe 3.4s ease-in-out 2.4s infinite}
 #intro.fly #in-wickglow{opacity:0;animation:none}
+
+/* the film of the flight */
+#in-film{object-fit:cover;opacity:0;transition:opacity .5s ease;pointer-events:none}
+#intro.film #in-film{opacity:1}
+#intro.film #in-lamp,#intro.film #in-gate{display:none}
+#intro.film.gone #in-film{transition:opacity 1.2s ease 1.2s;opacity:0}

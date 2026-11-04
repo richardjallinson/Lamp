@@ -1,6 +1,6 @@
 /* Lamp — start screen (see css/intro.css for the look).
-   Shown each time the app opens. The first time, the full version (about 9 s, music hit at 8.6 s);
-   after that, the quick version (about 2 s, hit at 2.0 s). Lamp.state.intro remembers that the full
+   Shown each time the app opens. The first time, the full version (verse, then Richard's film of the
+   lamp flying into the gate, about 13 s); after that, the quick version (the last 3.5 s of the film). Lamp.state.intro remembers that the full
    one has been seen (also mirrored to iCloud with the rest of the progress). */
 (function () {
   "use strict";
@@ -74,7 +74,28 @@
     sfx("wings", 0.55, 0); sfx("wingsflap", 0.45, ms * 0.45);
   }
 
-  function arrive() { stage.classList.add("gone"); Lamp.haptic && Lamp.haptic("success"); sfx("door", 0.9, 0); sfx("shofar", 0.6, 700); }
+  function arrive(quiet) { stage.classList.add("gone"); Lamp.haptic && Lamp.haptic("success"); if (!quiet) { sfx("door", 0.9, 0); sfx("shofar", 0.6, 700); } }
+
+  /* ---------- Richard's film of the flight (video/start/gate.mp4, 8 s, with its own sound): the lamp lifts, banks away
+     and goes in as the gate opens (doors open at about 5 s, wide by 6.9 s). The quick replay plays its last 3.5 s. ---------- */
+  const FILM = { open: 6.9, quickFrom: 4.5 };
+  let filmOn = false;
+  function film(quick, fallback) {
+    const v = $("in-film"); if (!v) { fallback(); return; }
+    let opened = false, done = false;
+    const open = () => { if (opened || !stage) return; opened = true; arrive(true); };
+    const end = () => { if (done || !stage) return; done = true; open(); toTitle(); };
+    const fail = () => { if (filmOn || done) return; stage.classList.remove("film"); fallback(); };
+    v.onerror = fail;
+    v.ontimeupdate = () => { if (v.currentTime >= FILM.open) open(); };
+    v.onended = end;
+    placeGate(); stage.classList.add("fly", "film");
+    try { v.currentTime = quick ? FILM.quickFrom : 0; } catch (e) {}
+    const pr = v.play();
+    if (pr && pr.then) pr.then(() => { filmOn = true; }, fail); else filmOn = true;
+    later(end, (quick ? 8.3 - FILM.quickFrom : 8.3) * 1000 + 1500);   // whatever happens, the title comes
+  }
+  function stopFilm() { const v = $("in-film"); if (v) { try { v.pause(); } catch (e) {} v.ontimeupdate = v.onended = v.onerror = null; } }
   function toTitle() {
     stage.classList.add("title");
     if (!Lamp.state.intro || Lamp.state.introAgain) { Lamp.state.intro = true; delete Lamp.state.introAgain; Lamp.save(); }
@@ -89,22 +110,18 @@
     if (quick) {
       music("quick"); stage.classList.add("quick");
       later(() => stage.classList.add("reveal"), 120);
-      later(() => fly(2200), 240);
-      later(arrive, 2440);
-      later(toTitle, 2700);
+      later(() => film(true, () => { fly(2200); later(arrive, 200); later(toTitle, 460); }), 240);
       return;
     }
-    music("full");
+    // the film carries its own sound, so the old intro music stays off
     const spans = stage.querySelectorAll(".in-verse span:not(.in-ref)");
     spans.forEach((s, i) => later(() => s.classList.add("on"), 1400 + i * 650));
     later(() => stage.querySelector(".in-ref").classList.add("on"), 1400 + spans.length * 650 + 200);
     later(() => stage.classList.add("reveal"), 4600);
-    later(() => fly(2800), 6800);
-    later(arrive, 9600);
-    later(toTitle, 9900);
+    later(() => film(false, () => { fly(2800); later(arrive, 2800); later(toTitle, 3100); }), 5400);
   }
   function skip() {
-    timers.forEach(clearTimeout); timers = []; started = true;
+    timers.forEach(clearTimeout); timers = []; started = true; stopFilm(); stage.classList.remove("film");
     const lamp = $("in-lamp"); if (lamp.getAnimations) lamp.getAnimations().forEach((a) => a.finish());
     placeGate(); stage.classList.add("lit", "reveal", "fly", "gone"); toTitle(); embers.start();
   }
@@ -112,7 +129,7 @@
     if (!stage || stage.classList.contains("closing")) return;
     stage.classList.add("closing");
     setTimeout(() => {
-      embers.stop(); timers.forEach(clearTimeout);
+      embers.stop(); timers.forEach(clearTimeout); stopFilm();
       stage.remove(); stage = null;
       Lamp.introOn = false; Lamp.musicUpdate && Lamp.musicUpdate();
       Lamp.afterIntro && Lamp.afterIntro();
@@ -161,6 +178,7 @@
       '<div class="in-layer" id="in-gatepaint"></div>' +
       '<div id="in-gate"></div>' +
       '<div id="in-lamp" aria-hidden="true"><div id="in-glow"></div><img id="in-clay" src="img/start/lamp-cut.png" alt=""></div>' +
+      '<video class="in-layer" id="in-film" src="video/start/gate.mp4" playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>' +
       '<div class="in-layer" id="in-open"></div>' +
       '<div class="in-layer" id="in-shade"></div>' +
       '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>' + (G ? "The Seven Candles" : "Lamp · Bible Word Puzzle Adventure") + "</small></div>" +
