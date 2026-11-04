@@ -224,3 +224,6 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - The forgery compared on Gabriel's map before choosing: the scratched lamp's spout points to the northern summit, the chalk one to the spring (compareOnMap).
 - Parked for Acts 3–5: the Ark as a rotatable object (needs a 3D asset), the instrument case by ear, the Tombs by fragments, the Temple Mount survey table; the tile/model compartment pay-off at the Institute; Watchman Mode (v2).
 - Nov 3: the Lamplighter's opening in Shlomi's voice (w-intro-desk, 1:54; paragraph gaps 1.2 s, inner pauses 0.55 s, loudnorm -18). Plays at the desk; "Take the journal" stops it.
+
+## v4s (built, Nov 3)
+- v4r plus the Lamplighter's opening in Shlomi's voice.
