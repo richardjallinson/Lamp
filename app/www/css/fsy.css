@@ -879,3 +879,20 @@
 #adv .asheet .fhan img{display:block;width:100%}
 #adv .asheet .fhan-flame{position:absolute;width:3.6%;height:4.6%;margin-left:-1.8%;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 75%,#FFF8D8 0%,#FFD86A 35%,#FF9A2A 70%,rgba(255,120,20,0) 100%);box-shadow:0 0 12px 5px rgba(255,190,80,.55);transform-origin:50% 100%;animation:fflick 1.8s ease-in-out infinite alternate}
 #adv .asheet .fhan-flame.servant{animation-delay:.6s}
+
+/* the journal's three parts (Nov 3) */
+#adv .asheet .fjtabs{display:flex;gap:6px;margin:6px 0 10px}
+#adv .asheet .fjtabs button{flex:1;border-radius:12px;border:1px solid rgba(20,26,51,.25);background:#fff;color:#141A33;font:700 14px system-ui,sans-serif;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
+#adv .asheet .fjtabs button small{font:600 11px system-ui,sans-serif;opacity:.6}
+#adv .asheet .fjtabs button.on{background:#141A33;color:#F3E9CE;border-color:#141A33}
+#adv .asheet .fjtabs button.on small{opacity:.8}
+#adv .asheet .fjlead{font:italic 400 14px "Baskerville",Georgia,serif;opacity:.75;margin:6px 0}
+#adv .asheet .fjverses{display:grid;gap:8px;margin-top:8px}
+#adv .asheet .fjverse{padding:10px 12px;border-radius:12px;background:rgba(20,26,51,.06);border:1px solid rgba(20,26,51,.12)}
+#adv .asheet .fjverse b{display:block;font:700 12px system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8a6a1a;margin-bottom:4px}
+#adv .asheet .fjverse p{margin:0;font:italic 400 15px/1.45 "Baskerville",Georgia,serif}
+#adv .asheet .fjevidence p{margin:6px 0;font:400 15px/1.45 "Baskerville",Georgia,serif}
+#adv .asheet .fcmap{position:relative;width:100%;border-radius:12px;overflow:hidden;margin:6px 0;border:1px solid rgba(20,26,51,.2)}
+#adv .asheet .fcmap img{display:block;width:100%}
+#adv .asheet .fcmap svg{position:absolute;inset:0;width:100%;height:100%}
+#adv .asheet .fclab{position:absolute;font:700 11px system-ui,sans-serif;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:6px;white-space:nowrap}

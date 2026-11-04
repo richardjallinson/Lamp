@@ -417,17 +417,19 @@
       if (!has("charcoal")) { K.card('<div class="kick">Warren’s Gate</div><h2>Something is scratched here</h2><p>Lines on the stone beside the gate, too faint for the torch. A rubbing would bring them up, if you had something to rub with.</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); return; }
       const el = screen("Warren’s Gate", "The Western Wall tunnels", q("Hold the paper to the stone and rub Talia’s charcoal across it with your finger. What is cut into the stone comes up through the paper.") +
         '<div class="frub" id="frub"><img src="' + IMG + 'tunnel-forgery.jpg" alt=""><canvas id="frubc"></canvas></div><div class="fsmall" id="frubn">Rub.</div>' +
-        '<div id="frubchoice" hidden><div class="fq">Two lines. One is scratched into the stone, old and faint. One is chalk, fresh. Beside each, a small lamp. The journal has room for one of them. Which do you copy in?</div>' +
+        '<div id="frubchoice" hidden><button class="fbtn" id="fcompare">Lay both copies on Gabriel’s map</button><div class="fq">Two lines. One is scratched into the stone, old and faint. One is chalk, fresh. Beside each, a small lamp. The journal has room for one of them. Which do you copy in?</div>' +
           '<div class="fsay"><button class="fbtn" id="ftop">The scratched line (top)</button><button class="fbtn" id="fbot">The chalk line (bottom)</button></div></div>', "warren", "chamber", "tunnel-warren");
       const c = $("frubc");
       scratch(c, "#1a1512", (fr) => { if (fr > 0.55 && !A().q.rubbed) { A().q.rubbed = 1; save(); $("frubn").textContent = "The stone speaks."; $("frubchoice").hidden = false; F.S("parchment", null, 0.6);
         setTimeout(() => K.say("Two lines on one stone. One scratched by a man with a shaking hand, years ago. One in chalk, this morning, by a man with a steady one.", "", 5200), 400); } });
+      $("fcompare").onclick = () => compareOnMap();
       $("ftop").onclick = () => { ok(); A().q.lamp4 = 1; delete A().f.falseline; save(); fact("warren", "Scratched by the Watchman at Warren's Gate: 'Close to the house, but not the house. Where David bought the floor. 2 Chr 3:1.' His lamp, spout to the right.");
         F.V("w-tunnels-warren"); FW.lightLamp(4, () => K.card('<div class="kick">Warren’s Gate</div><h2>The true line</h2><p>“Close to the house, but not the house. Where David bought the floor.” The chalk line below it says the opposite, in a hand that does not shake, beside a lamp drawn the wrong way round. The Watchman draws his lamp with the spout to the right. Always. Look at every lamp you find from now on.</p><button class="cta" data-act="x">Show Noa</button>', { x: () => C.pzDone("rubbing", () => C.finish("tunnels")) })); };
       $("fbot").onclick = () => { F.S("knock", null, 0.6); W().flags.falseline = 1; save(); fact("falseline", "Copied from the stone at Warren's Gate: 'NOT NORTH. SOUTH, TO THE SPRING.'");
         K.card('<div class="kick">Warren’s Gate</div><h2>You copy it in</h2><p>“NOT NORTH. SOUTH, TO THE SPRING.” It goes into the journal in your own hand, under the Watchman’s. Something about the little lamp beside it bothers you, and you cannot say what. The stone is still there. So is the other line.</p><button class="cta" data-act="x">Back to the tunnel</button>', { x: () => C.walk(C.V("warren")) }); };
     } },
 
+    /* the two lamp copies laid on Gabriel's map of the Old City (Gerry, Nov 3): the old spout points at the northern summit, the fresh one at the spring */
     /* 9. The stone of the tomb: the groove slopes; pull the downhill wedge */
     stone: { label: "Roll the stone", run: () => {
       let state = "held", jammed = false;
@@ -460,6 +462,22 @@
       draw();
     } },
   });
+
+  function compareOnMap() {
+    let step = 0;
+    const draw = () => '<div class="fcmap"><img src="' + IMG + 'map-old.jpg" alt="Gabriel’s map of the Old City">' +
+      '<svg viewBox="0 0 100 100" preserveAspectRatio="none"><defs><marker id="fcarr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="currentColor"/></marker></defs>' +
+      (step >= 1 ? '<g class="old"><line x1="53" y1="29" x2="62" y2="23" stroke="#2A3A7A" stroke-width="1.2" marker-end="url(#fcarr)"/><circle cx="62" cy="23" r="2.2" fill="none" stroke="#2A3A7A" stroke-width=".8"/></g>' : "") +
+      (step >= 2 ? '<g class="new"><line x1="53" y1="29" x2="69" y2="61" stroke="#c9c9c9" stroke-width="1.2" stroke-dasharray="2 1.5" marker-end="url(#fcarr)"/><circle cx="70" cy="63" r="2.2" fill="none" stroke="#c9c9c9" stroke-width=".8"/></g>' : "") +
+      '<circle cx="53" cy="29" r="1.6" fill="#F6C453"/></svg>' +
+      (step >= 1 ? '<span class="fclab" style="left:63%;top:17%;color:#2A3A7A">the northern summit</span>' : "") + (step >= 2 ? '<span class="fclab" style="left:60%;top:65%;color:#555">the spring, down the valley</span>' : "") +
+      '<span class="fclab" style="left:38%;top:30%;color:#8a6a1a">Warren’s Gate</span></div>';
+    const show = () => K.card('<div class="kick">Warren’s Gate · on Gabriel’s map</div><h2>' + (step === 0 ? "Where does each lamp point?" : step === 1 ? "The scratched lamp" : "The chalk lamp") + "</h2>" + draw() +
+      "<p>" + (step === 0 ? "You put the rubbing on the map at Warren’s Gate, and turn each copy so its base lies along the Wall, the way it does on the stone. The spout is the pointer." : step === 1 ? "The old scratched lamp, spout to the right as you face the stone: it points up the Mount, to the high ground at its northern end." : "The fresh chalk lamp, spout the other way: it points down, out of the city, to the spring in the valley. The two lines disagree, and so do the two lamps. Someone has turned the spout round.") + "</p>" +
+      (step < 2 ? '<button class="cta" data-act="n">' + (step === 0 ? "Lay the scratched copy" : "Lay the chalk copy") + "</button>" : '<button class="cta" data-act="x">Back to the stone</button>'),
+      { n: () => { step++; F.S("parchment", null, 0.5); show(); }, x: () => { A().q.compared = 1; save(); fact("twolamps", "On Gabriel's map: the scratched lamp at Warren's Gate points to the northern summit of the Mount; the fresh chalk lamp points south to the spring. Someone turned the spout round."); } });
+    show();
+  }
 
   /* ------------------------------------------------------------ the end of Act 2: the second candle ------------------------------------------------------------ */
   const CANDLE_X = [17.6, 25.2, 33.2, 41, 58.4, 66.2, 74.2, 82], SERVANT = [49.8, 14];

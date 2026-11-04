@@ -284,7 +284,8 @@
         hank: "Something glints in the wet under the arch, where the doves are sheltering. Iron." },
       { id: "northdoor", img: "ramparts-storm", cap: "The locked iron door across the walk, where the north section begins. Avi is at it, trying every key on his ring", go: { back: "arch2", fwd: "clear" }, who: ["avi2"] },
       { id: "clear", img: "wallagain-footprints", cap: "Beyond the door: the wet stones of the north wall, and a line of a man’s wet shoe prints leading away toward Damascus Gate", hank: "Someone has walked here since the rain. A man’s shoes, going north, in a hurry. He is no longer half a day ahead of you. He is an hour.",
-        go: { fwd: "damascus", back: "northdoor" }, hots: [{ box: [35, 50, 30, 45], label: "The footprints", text: "A man’s shoes, a long stride, going north. Still wet, so made since the rain stopped: within the hour. They do not stop at any of the views." }] },
+        go: { fwd: "damascus", back: "northdoor" }, hots: [{ box: [35, 50, 30, 45], label: "The footprints", text: "A man’s shoes, a long stride, going north. Still wet, so made since the rain stopped: within the hour. They do not stop at any of the views." },
+          { box: [4, 60, 24, 18], label: "Something pale in a puddle", act: "fpStub" }, { box: [72, 36, 26, 16], label: "A white smear on the battlement", act: "fpChalk" }, { box: [66, 58, 30, 14], label: "A thread caught on the stone", act: "fpThread" }] },
       { id: "damascus", img: "wallagain-damascus", cap: "Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements", go: { back: "clear", fwd: "road" },
         hots: [{ box: [20, 20, 60, 60], label: "The gate", text: "Suleiman’s grandest gate, 1537, built over Hadrian’s Roman gate, whose arch is still below. The road north to Damascus began here." }] },
       { id: "road", img: "wallagain-road", cap: "Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb”", go: { back: "damascus" }, hots: [{ box: [10, 20, 80, 50], label: "The sign: through the gate", act: "toGarden" }] },
@@ -641,11 +642,13 @@
   /* the journal as one Torah-style scroll (Richard, Oct 30): wooden rollers top and bottom, parchment sheets sewn together,
      each page a column with its Hebrew letter-number in the margin, ink like a scribe's */
   const HEBN = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "יא", "יב"];
-  function journal() {
+  /* the journal in three parts (Gerry, Nov 3): Scripture (the lamps), the evidence (what you measured and found), and the Watchman's own pages.
+     So the reasoning is visible: the player can see how a conclusion was reached, not just that it was. */
+  function journal(tab) {
     const w = W(), p = F.P();
     const got = Object.keys(w.pages).map(Number).sort((a, b) => a - b);
     const notes = [
-      w.flags.courses ? w.flags.courses + " courses of stone below the floor under Wilson’s Arch." : "",
+      w.flags.courses ? w.flags.courses + " courses of Herod’s stone below the floor under Wilson’s Arch." : "",
       p.ti && p.ti.courts ? "187 cubits from the Eastern Gate to the sanctuary." : "",
       p.olives ? "The line from the Mount of Olives, through the Eastern Gate, onto the Mount." : "",
       w.flags.bought ? "The Temple stood on the threshing floor David bought from Ornan (1 Chronicles 21:25; 2 Chronicles 3:1)." : "",
@@ -653,15 +656,19 @@
     ].filter(Boolean);
     const col = (n) => '<div class="ftorah-col"><span class="ftorah-n" aria-label="Page ' + n + '">' + HEBN[n] + "</span><p>" + esc(PAGES[n].text) + "</p>" + (PAGES[n].ref ? "<small>" + esc(PAGES[n].ref) + "</small>" : "") + "</div>";
     const L = lamps(), nl = Object.keys(L).length;
-    K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages</h2>" + (w.flags.journalSold ? '<p class="fwarn">You sold the journal to Victor Haller at the Jerusalem Hotel. These are the pages as you remember them.</p>' : "") +
-      '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
-        (nl ? '<div class="fjlampv">' + LAMPS.filter((x) => L[x.n]).map((x) => "<span><b>" + x.n + "</b> " + esc(x.ref) + "</span>").join("") + "</div>" : "") + "</div>" +
-      '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
+    const facts = H.journal ? H.journal() : "";
+    const T = tab || w.flags.jtab || "pages";
+    const tabs = [["scripture", "Scripture", nl + "/7"], ["evidence", "Evidence", String(notes.length + (H.factCount ? H.factCount() : 0))], ["pages", "The Watchman", got.length + "/12"]];
+    K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages · " + nl + " of 7 lamps</h2>" + (w.flags.journalSold ? '<p class="fwarn">You sold the journal to Victor Haller at the Jerusalem Hotel. These are the pages as you remember them.</p>' : "") +
+      '<div class="fjtabs">' + tabs.map((t) => '<button data-act="tab-' + t[0] + '" class="' + (T === t[0] ? "on" : "") + '">' + t[1] + "<small>" + t[2] + "</small></button>").join("") + "</div>" +
+      (T === "scripture" ? '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
+        (nl ? '<div class="fjverses">' + LAMPS.filter((x) => L[x.n]).map((x) => '<div class="fjverse"><b>' + x.n + " · " + esc(x.ref) + "</b><p>“" + esc(x.text) + "”</p></div>").join("") + "</div>" : "") + "</div>" : "") +
+      (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + "</div>" : "") +
+      (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
-        (notes.length ? '<div class="ftorah-seam" aria-hidden="true"></div><div class="ftorah-col ftorah-notes"><span class="ftorah-n">✎</span><p class="ftorah-h">Noted in the margin</p>' + notes.map((t) => "<p>" + esc(t) + "</p>").join("") + "</div>" : "") +
-      '</div><div class="ftorah-roll"><i></i></div></div>' +
-      (H.journal ? H.journal() : "") +
-      '<button class="cta" data-act="x">Roll up the journal</button>', Object.assign({ x: () => {} }, H.journalActs ? H.journalActs() : {}));
+        '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
+      '<button class="cta" data-act="x">Roll up the journal</button>',
+      Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); } }, H.journalActs ? H.journalActs() : {}));
     const sh = document.querySelector(".ftorah-sheet"); if (sh) sh.scrollTop = 0;
   }
 
@@ -1479,6 +1486,9 @@
     navonLight: () => { K.card('<div class="kick">Yitzhak Navon station</div><h2>Up into the light</h2><p>Halfway up the escalator the journal feels warm in your bag. You take it out. One line of the first page seems darker than the rest:</p>' + F.wnote("“When you come up out of the earth into the light, go to the market, where everything is weighed.”") + '<p>At the top, Jaffa Road, and the light rail. The market is three stops away.</p><button class="cta" data-act="x">Out into the city</button>', { x: () => {} }); },
     gabrielTalk: () => { K.card('<div class="kick">Gabriel</div><h2>“Shalom. Come in, come in.”</h2><p>Gabriel is behind the counter, a small man with a big voice, and within a minute you are talking about the end of days. “Everybody who comes in here wants to know when,” he says. “Nobody asks where. You ask where. Good.” He taps the counter. “Everyone takes a souvenir home. Choose.”</p><button class="cta" data-act="x">Look at the counter</button>', { x: () => {} }); },
     toGarden: () => finish("wallagain"),
+    fpStub: () => { K.card('<div class="kick">On the wall</div><h2>A ticket stub</h2><p>Face down in a puddle: the stub of a Ramparts ticket, today’s date, torn by the machine at the booth. He did not pay Avi. He had a ticket already, from somewhere else, or from someone.</p><button class="cta" data-act="x">Keep it</button>', { x: () => H.fact && H.fact("fpstub", "A Ramparts ticket stub in a puddle on the north wall, today's date. Haller had a ticket without buying one from Avi.") }); },
+    fpChalk: () => { K.card('<div class="kick">On the wall</div><h2>Chalk</h2><p>A white smear on the top of the battlement where a hand rested: chalk, soft and fresh, the same white as the line on the stone by Warren’s Gate. He came up here after the tunnels, with chalk still on his fingers.</p><button class="cta" data-act="x">Note it</button>', { x: () => H.fact && H.fact("fpchalk", "Fresh white chalk on the battlement of the north wall: the same as the chalk line at Warren's Gate. He wrote it, then came up here.") }); },
+    fpThread: () => { const sold = H.A && H.A().q.sold; K.card('<div class="kick">On the wall</div><h2>A wet thread</h2><p>Caught on a rough edge of the stone: a short length of hairy brown string, the kind a parcel is tied with.' + (sold ? " The same string that was round the parcel Avi handed you this morning." : " He has been carrying a parcel.") + '</p><button class="cta" data-act="x">Note it</button>', { x: () => H.fact && H.fact("fpthread", "Brown parcel string caught on the north wall." + (sold ? " It matches the string on Haller's parcel." : " Haller was carrying a parcel.")) }); },
     warrenGate: () => { const w = W(); K.card('<div class="kick">Warren’s Gate</div><h2>“Entrance gate to the Temple Mount”</h2><p>The sign says: one of four gates in the Western Wall from the Second Temple period, found by Charles Warren in 1867. From 638 to 1099 the passage inside it was the main synagogue of the Jews in Jerusalem, called “the Cave”, placed here because it was close to the Holy of Holies. Today it is a cistern.</p>' + (w.flags.arksign ? "<p>Parker, in the City of David, dug for the Ark and fled. The old tradition says it lies in a chamber beyond this gate, under the Mount. In 1981 the rabbis of the Wall broke through here and began to dig; the passage was sealed again by order. Whatever is behind this stone, no one has seen it since.</p>" : "<p>Behind the stone, the tunnel is said to run on under the Mount. There is a story about this gate. You will hear it in the City of David.</p>") + '<button class="cta" data-act="x">Back</button>', { x: () => {} }); },
   };
 

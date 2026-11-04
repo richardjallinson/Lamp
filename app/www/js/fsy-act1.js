@@ -66,13 +66,15 @@
     greycard: ["A card the man in grey left", "No name, a phone number, and on the back in pencil: NOT NORTH."],
   };
   const give = (id, quiet) => { A().items[id] = 1; save(); if (!quiet) { F.S("parchment", "click"); K.say("✓ " + ITEMS[id][0] + " goes into your backpack.", "", 3000); } };
-  H.give = give;
+  H.give = give; H.A = A;
   H.has = (id) => !!A().items[id];
   H.items = () => Object.keys(ITEMS).filter(has).map((id) => [1, ITEMS[id][0], ITEMS[id][1]]);
 
   /* ------------------------------------------------------------ what you know (the journal) ------------------------------------------------------------ */
   const fact = (key, text) => { const a = A(); if (a.f[key]) return; a.f[key] = text; a.facts.push(key); save(); K.say("Noted in the journal: " + text, "", 3400); };
-  H.journal = () => { const a = A(); return (a.facts.length ? a.facts.map((k) => "<p><b>Noted:</b> " + esc(a.f[k]) + "</p>").join("") : "") + (a.q.daniel ? '<button class="cta alt" data-act="dan">Read Daniel 9</button>' : ""); };
+  H.fact = fact;
+  H.factCount = () => A().facts.length;
+  H.journal = () => { const a = A(); return (a.facts.length ? a.facts.map((k) => "<p><b>Found:</b> " + esc(a.f[k]) + "</p>").join("") : "") + (a.q.daniel ? '<button class="cta alt" data-act="dan">Read Daniel 9</button>' : ""); };
   H.journalActs = () => ({ dan: daniel9 });
 
   /* ------------------------------------------------------------ people ------------------------------------------------------------ */
