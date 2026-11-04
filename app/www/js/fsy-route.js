@@ -667,7 +667,7 @@
       (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
-      '<button class="cta" data-act="x">Roll up the journal</button>',
+      (H.journalExtra ? H.journalExtra() : "") + '<button class="cta" data-act="x">Roll up the journal</button>',
       Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); } }, H.journalActs ? H.journalActs() : {}));
     const sh = document.querySelector(".ftorah-sheet"); if (sh) sh.scrollTop = 0;
   }
