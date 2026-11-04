@@ -214,3 +214,6 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Tester menu: "Play Acts 1 and 2 as if done" (devAct2).
 - Narration ids for Shlomi (auto from scene/view): w-jaffa-outside, w-ramparts-stairs, w-ramparts-golgotha, w-ramparts-storm (puzzle), w-jewish-cardo, w-jewish-wallsteps, w-wall-plaza, w-wilson-hall, w-tunnels-entry, w-tunnels-sign (look up), w-tunnels-warren (forgery), w-wallagain-arch2, w-wallagain-clear, w-gtomb-garden, w-gtomb-bench, w-bazaar-steps, w-bazaar-lamps, w-jaffa-parcel (sold path).
 - Still to come: clips eliezer-covenant, abusami, kasparian, lampstall, forgerystone, bench, footprints (ids registered); Shlomi's lines; music m12–m16.
+
+## v4q (built, Nov 3)
+- Act 2 playable end to end (Jaffa Gate to the second candle). Tester menu has "Play Acts 1 and 2 as if done".
