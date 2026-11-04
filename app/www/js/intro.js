@@ -54,22 +54,27 @@
     stage.style.setProperty("--wx", (ox + WICK.x * PIC.w * k) + "px"); stage.style.setProperty("--wy", (oy + WICK.y * PIC.h * k) + "px");
     const L = $("in-lamp"); if (L) { L.style.left = (ox + LAMPBOX.x * PIC.w * k) + "px"; L.style.top = (oy + LAMPBOX.y * PIC.h * k) + "px"; L.style.width = (LAMPBOX.w * PIC.w * k) + "px"; L.style.height = (LAMPBOX.h * PIC.h * k) + "px"; } }
 
+  const sfx = (name, vol, delay) => setTimeout(() => { try { if (Lamp.score && Lamp.state.settings.sound !== false) Lamp.score.sfx("fsy-sfx-" + name, vol); } catch (e) {} }, delay || 0);
   function fly(ms) {
     const lamp = $("in-lamp"), r = lamp.getBoundingClientRect(), st = stage.getBoundingClientRect(), g = gatePoint();
     placeGate(); stage.classList.add("fly");
     if (!lamp.animate) return;
-    const cx = r.left - st.left + r.width / 2, cy = r.top - st.top + r.height / 2, dx = g.x - cx, dy = g.y - cy, lift = -Math.min(st.height * 0.16, 140);
-    /* the lamp lifts off the rock, turns so the flame leads, and goes in through the gate */
+    const cx = r.left - st.left + r.width / 2, cy = r.top - st.top + r.height / 2, dx = g.x - cx, dy = g.y - cy;
+    /* like a plane: it moves off forward (away from you, so it shrinks at once), drifts right and up, then banks into the turn
+       so the flame leads and the handle trails, and goes in through the gate */
+    const P = "perspective(900px) ";
     lamp.animate([
-      { transform: "translate(0,0) scale(1) rotate(0deg)", opacity: 1 },
-      { transform: "translate(" + (dx * 0.08) + "px," + lift + "px) scale(.78) rotate(-8deg)", opacity: 1, offset: 0.3 },
-      { transform: "translate(" + (dx * 0.45) + "px," + (dy * 0.45 + lift * 0.6) + "px) scale(.42) rotate(-55deg)", opacity: 1, offset: 0.62 },
-      { transform: "translate(" + (dx * 0.9) + "px," + (dy * 0.92) + "px) scale(.12) rotate(-80deg)", opacity: 1, offset: 0.9 },
-      { transform: "translate(" + dx + "px," + dy + "px) scale(.02) rotate(-85deg)", opacity: 0 },
-    ], { duration: ms, easing: "cubic-bezier(.45,0,.75,.6)", fill: "forwards" });
+      { transform: P + "translate(0,0) scale(1) rotateY(0deg) rotateZ(0deg)", opacity: 1 },
+      { transform: P + "translate(" + (dx * 0.1 + 30) + "px," + (dy * 0.08 - 20) + "px) scale(.66) rotateY(-12deg) rotateZ(-6deg)", opacity: 1, offset: 0.22 },
+      { transform: P + "translate(" + (dx * 0.3 + 60) + "px," + (dy * 0.3 - 10) + "px) scale(.46) rotateY(-42deg) rotateZ(-38deg)", opacity: 1, offset: 0.48 },
+      { transform: P + "translate(" + (dx * 0.62 + 30) + "px," + (dy * 0.62) + "px) scale(.28) rotateY(-28deg) rotateZ(-70deg)", opacity: 1, offset: 0.7 },
+      { transform: P + "translate(" + (dx * 0.92) + "px," + (dy * 0.93) + "px) scale(.09) rotateY(0deg) rotateZ(-84deg)", opacity: 1, offset: 0.92 },
+      { transform: P + "translate(" + dx + "px," + dy + "px) scale(.015) rotateY(0deg) rotateZ(-86deg)", opacity: 0 },
+    ], { duration: ms, easing: "cubic-bezier(.4,0,.7,.5)", fill: "forwards" });
+    sfx("wings", 0.55, 0); sfx("wingsflap", 0.45, ms * 0.45);
   }
 
-  function arrive() { stage.classList.add("gone"); Lamp.haptic && Lamp.haptic("success"); }
+  function arrive() { stage.classList.add("gone"); Lamp.haptic && Lamp.haptic("success"); sfx("door", 0.9, 0); sfx("shofar", 0.6, 700); }
   function toTitle() {
     stage.classList.add("title");
     if (!Lamp.state.intro || Lamp.state.introAgain) { Lamp.state.intro = true; delete Lamp.state.introAgain; Lamp.save(); }
@@ -79,7 +84,7 @@
   function light() {
     if (started) return; started = true;
     const quick = seen();
-    stage.classList.add("lit"); embers.start();
+    stage.classList.add("lit"); embers.start(); sfx("harp", 0.45, 200);
     Lamp.haptic && Lamp.haptic("light");
     if (quick) {
       music("quick"); stage.classList.add("quick");
