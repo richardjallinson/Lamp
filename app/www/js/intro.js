@@ -6,8 +6,9 @@
   "use strict";
   const Lamp = (window.Lamp = window.Lamp || {});
   const WORDS = ["Thy word is a lamp", "unto my feet,", "and a light", "unto my path."];
-  const GATE = { x: 0.614, y: 0.275 };   // the Temple on the hill in Richard's lamp picture (fraction of the picture); the light travels there from the wick
-  const WICK = { x: 0.844, y: 0.544 };   // the wick of the painted lamp
+  const GATE = { x: 0.5, y: 0.5 };       // the Eastern Gate in the night Jerusalem painting (title-gate.jpg), fraction of the picture
+  const WICK = { x: 0.844, y: 0.544 };   // the wick of the painted lamp in Richard's lamp picture (title.jpg)
+  const LAMPBOX = { x: 0.0685, y: 0.269, w: 0.882, h: 0.3875 };   // where the cut-out lamp (lamp-cut.png) sits over the painted one
   const PIC = { w: 1080, h: 1920 };
   let stage = null, timers = [], started = false, bufs = {}, decoding = false;
 
@@ -49,19 +50,22 @@
     return { x: (r.width - PIC.w * k) / 2 + GATE.x * PIC.w * k, y: (r.height - PIC.h * k) / 2 + GATE.y * PIC.h * k };
   }
   function placeGate() { const g = gatePoint(); stage.style.setProperty("--gx", g.x + "px"); stage.style.setProperty("--gy", g.y + "px");
-    const r = stage.getBoundingClientRect(), k = Math.max(r.width / PIC.w, r.height / PIC.h); stage.style.setProperty("--wx", ((r.width - PIC.w * k) / 2 + WICK.x * PIC.w * k) + "px"); stage.style.setProperty("--wy", ((r.height - PIC.h * k) / 2 + WICK.y * PIC.h * k) + "px"); }
+    const r = stage.getBoundingClientRect(), k = Math.max(r.width / PIC.w, r.height / PIC.h), ox = (r.width - PIC.w * k) / 2, oy = (r.height - PIC.h * k) / 2;
+    stage.style.setProperty("--wx", (ox + WICK.x * PIC.w * k) + "px"); stage.style.setProperty("--wy", (oy + WICK.y * PIC.h * k) + "px");
+    const L = $("in-lamp"); if (L) { L.style.left = (ox + LAMPBOX.x * PIC.w * k) + "px"; L.style.top = (oy + LAMPBOX.y * PIC.h * k) + "px"; L.style.width = (LAMPBOX.w * PIC.w * k) + "px"; L.style.height = (LAMPBOX.h * PIC.h * k) + "px"; } }
 
   function fly(ms) {
     const lamp = $("in-lamp"), r = lamp.getBoundingClientRect(), st = stage.getBoundingClientRect(), g = gatePoint();
     placeGate(); stage.classList.add("fly");
     if (!lamp.animate) return;
-    const dx = g.x - (r.left - st.left + r.width / 2), dy = g.y - (r.top - st.top + r.height / 2), B = "translate(-50%,-40%) ";
+    const cx = r.left - st.left + r.width / 2, cy = r.top - st.top + r.height / 2, dx = g.x - cx, dy = g.y - cy, lift = -Math.min(st.height * 0.16, 140);
+    /* the lamp lifts off the rock, turns so the flame leads, and goes in through the gate */
     lamp.animate([
-      { transform: B + "translate(0,0) scale(1) rotate(0)", opacity: 1 },
-      { transform: B + "translate(" + (dx * 0.1 + 18) + "px," + dy * 0.16 + "px) scale(.78) rotate(-5deg)", opacity: 1, offset: 0.22 },
-      { transform: B + "translate(" + (dx * 0.5 + 22) + "px," + dy * 0.58 + "px) scale(.34) rotate(2deg)", opacity: 1, offset: 0.6 },
-      { transform: B + "translate(" + (dx * 0.92 + 4) + "px," + dy * 0.93 + "px) scale(.1) rotate(0)", opacity: 1, offset: 0.88 },
-      { transform: B + "translate(" + dx + "px," + dy + "px) scale(.02)", opacity: 0 },
+      { transform: "translate(0,0) scale(1) rotate(0deg)", opacity: 1 },
+      { transform: "translate(" + (dx * 0.08) + "px," + lift + "px) scale(.78) rotate(-8deg)", opacity: 1, offset: 0.3 },
+      { transform: "translate(" + (dx * 0.45) + "px," + (dy * 0.45 + lift * 0.6) + "px) scale(.42) rotate(-55deg)", opacity: 1, offset: 0.62 },
+      { transform: "translate(" + (dx * 0.9) + "px," + (dy * 0.92) + "px) scale(.12) rotate(-80deg)", opacity: 1, offset: 0.9 },
+      { transform: "translate(" + dx + "px," + dy + "px) scale(.02) rotate(-85deg)", opacity: 0 },
     ], { duration: ms, easing: "cubic-bezier(.45,0,.75,.6)", fill: "forwards" });
   }
 
@@ -80,9 +84,9 @@
     if (quick) {
       music("quick"); stage.classList.add("quick");
       later(() => stage.classList.add("reveal"), 120);
-      later(() => fly(1760), 240);
-      later(arrive, 2000);
-      later(toTitle, 2300);
+      later(() => fly(2200), 240);
+      later(arrive, 2440);
+      later(toTitle, 2700);
       return;
     }
     music("full");
@@ -90,9 +94,9 @@
     spans.forEach((s, i) => later(() => s.classList.add("on"), 1400 + i * 650));
     later(() => stage.querySelector(".in-ref").classList.add("on"), 1400 + spans.length * 650 + 200);
     later(() => stage.classList.add("reveal"), 4600);
-    later(() => fly(1760), 6800);
-    later(arrive, 8560);
-    later(toTitle, 8900);
+    later(() => fly(2800), 6800);
+    later(arrive, 9600);
+    later(toTitle, 9900);
   }
   function skip() {
     timers.forEach(clearTimeout); timers = []; started = true;
@@ -115,8 +119,11 @@
     let cv, c, ps = [], run = false, raf = 0, W = 0, H = 0;
     function size() { const dpr = Math.min(window.devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0); }
     function spawn() {
-      const f = $("in-flame").getBoundingClientRect(), st = stage.getBoundingClientRect();
-      return { x: f.left - st.left + f.width * (0.44 + Math.random() * 0.12), y: f.top - st.top + f.height * 0.14, vx: (Math.random() - 0.5) * 0.35, vy: -(0.35 + Math.random() * 0.9), life: 0, max: 180 + Math.random() * 200, r: 0.6 + Math.random() * 1.6 };
+      /* embers rise from the wick: the painted lamp's wick before the flight, the flying lamp's wick during it */
+      const L = $("in-lamp"), st = stage.getBoundingClientRect(); let x, y;
+      if (stage.classList.contains("fly") && L) { const r = L.getBoundingClientRect(); x = r.left - st.left + r.width * 0.878; y = r.top - st.top + r.height * 0.6; }
+      else { x = parseFloat(stage.style.getPropertyValue("--wx")) || st.width * 0.84; y = (parseFloat(stage.style.getPropertyValue("--wy")) || st.height * 0.54) - 30; }
+      return { x: x + (Math.random() - 0.5) * 10, y, vx: (Math.random() - 0.5) * 0.35, vy: -(0.35 + Math.random() * 0.9), life: 0, max: 180 + Math.random() * 200, r: 0.6 + Math.random() * 1.6 };
     }
     function tick() {
       if (!stage) return;
@@ -144,10 +151,11 @@
     el.id = "intro"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Lamp");
     el.innerHTML =
       '<div class="in-layer" id="in-paint"></div>' +
+      '<div id="in-wickglow" aria-hidden="true"></div>' +
       '<canvas class="in-layer" id="in-embers"></canvas>' +
+      '<div class="in-layer" id="in-gatepaint"></div>' +
       '<div id="in-gate"></div>' +
-      '<div id="in-lamp" aria-hidden="true"><div id="in-glow"></div><img id="in-clay" src="img/start/clay-lamp.webp" alt=""><img id="in-warm" src="img/start/clay-lamp-warm.webp" alt="">' +
-      '<div id="in-flame"><img src="img/start/flame.webp" alt=""></div></div>' +
+      '<div id="in-lamp" aria-hidden="true"><div id="in-glow"></div><img id="in-clay" src="img/start/lamp-cut.png" alt=""></div>' +
       '<div class="in-layer" id="in-open"></div>' +
       '<div class="in-layer" id="in-shade"></div>' +
       '<div class="in-prompt" aria-hidden="true">Tap to light the lamp<small>' + (G ? "The Seven Candles" : "Lamp · Bible Word Puzzle Adventure") + "</small></div>" +

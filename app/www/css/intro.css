@@ -105,12 +105,24 @@
 #intro .in-based{margin-top:14px;font:600 12px/1.45 var(--ui);letter-spacing:.06em;color:rgba(243,223,166,.72);text-align:center}
 #intro .in-based i{font-style:italic;color:#F3DFA6}
 
-/* Nov 3: the start screen is Richard's lamp before the Temple. The picture is there from the first moment, dark; the tap lights it from the wick, and the light travels up to the Temple. The old separate clay lamp is retired. */
-#in-paint{opacity:1;filter:brightness(.16) saturate(.6);-webkit-mask-image:none;mask-image:none;transition:filter 3.2s ease}
+/* Nov 3: the start screen is Richard's lamp before the Temple. The picture is on screen dark from the first moment; the tap lights it from the wick;
+   then the night Jerusalem painting comes up behind, the lamp (cut out of the picture) lifts off the rock, turns so the flame leads, and goes in through the Eastern Gate. */
+#in-paint{opacity:1;filter:brightness(.16) saturate(.6);-webkit-mask-image:none;mask-image:none;transition:filter 3.2s ease,opacity 1.6s ease}
 #intro.lit #in-paint{filter:brightness(.42) saturate(.85)}
 #intro.reveal #in-paint{filter:brightness(.95) saturate(1)}
-#intro.quick #in-paint{transition:filter 1.2s ease}
-#in-clay,#in-warm,#in-flame{display:none}
-#in-lamp{left:var(--wx,84%);top:var(--wy,54%);width:0;height:0;aspect-ratio:auto;transform:none;--fx:0;--fy:0}
-#intro.lit #in-glow{width:min(120vw,700px);height:min(120vw,700px)}
+#intro.fly #in-paint{opacity:0}
+#intro.quick #in-paint{transition:filter 1.2s ease,opacity 1s ease}
+#in-gatepaint{background:url(../img/start/title-gate.jpg) center/cover no-repeat;opacity:0;filter:brightness(.9);transition:opacity 1.6s ease}
+#intro.fly #in-gatepaint{opacity:1}
+#in-open{background-image:url(../img/start/title-gate-open.jpg)}
+#in-warm,#in-flame{display:none}
+#in-lamp{aspect-ratio:auto;transform:none;transform-origin:50% 50%;opacity:0;--fx:87.8%;--fy:71%}
+#intro.fly #in-lamp{opacity:1}
+#in-clay{filter:none;transition:none}
+#intro.lit #in-clay{filter:none}
+#in-glow{display:none}
 #in-gate{width:min(60vw,280px);height:min(60vw,280px)}
+#in-wickglow{position:absolute;left:var(--wx,84%);top:var(--wy,54%);width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(255,214,120,.5) 0%,rgba(245,196,81,.16) 35%,rgba(245,196,81,0) 70%);transition:width 2.4s cubic-bezier(.2,.7,.2,1),height 2.4s cubic-bezier(.2,.7,.2,1),opacity 1s}
+#intro.lit #in-wickglow{width:min(130vw,760px);height:min(130vw,760px);opacity:1;animation:in-breathe 3.4s ease-in-out 2.4s infinite}
+#intro.fly #in-wickglow{opacity:0;animation:none}
