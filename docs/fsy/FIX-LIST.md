@@ -232,3 +232,8 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Six Act 3–4 quiz puzzles replaced by interactive ones, taken from the zip Richard sent (built on v4r): bought (place the three payments on the deed stones), north (set the compass), zionq (pin ancient Zion on the trader's 1910 map), siloamq (open spring → tunnel → pool), ascents (climb the fifteen steps), whose (inspect the Kidron monuments). Plus a "board" puzzle (trace the railway ascent) that nothing uses yet.
 - The journal's Evidence tab gains a "Connections" block (H.connections): rod, bekah, lamp, blue ink and chalk, public purchase.
 - Everything else from that zip was already ours or older (it predates the intro narration), so only these pieces were merged.
+
+## App Store look (Nov 3) → v4t
+- App icon: Richard's clay lamp before the Temple (mirrored, spout right). Original in images/originals/app/icon-lamp.png.
+- Start screen: the same picture, extended to 1080×1920 (img/start/title.jpg; the old Eastern Gate painting kept as title-gate.jpg). The picture is on screen dark from the first moment; the tap lights it from the wick (WICK in intro.js), the glow travels to the Temple (GATE), then the title. The separate clay-lamp overlay is retired (display:none).
+- Home-screen name: LAMP (CFBundleDisplayName).

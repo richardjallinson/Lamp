@@ -6,7 +6,8 @@
   "use strict";
   const Lamp = (window.Lamp = window.Lamp || {});
   const WORDS = ["Thy word is a lamp", "unto my feet,", "and a light", "unto my path."];
-  const GATE = { x: 0.5, y: 0.5 };   // the Eastern Gate in the night Jerusalem painting (fraction of the picture)
+  const GATE = { x: 0.614, y: 0.275 };   // the Temple on the hill in Richard's lamp picture (fraction of the picture); the light travels there from the wick
+  const WICK = { x: 0.844, y: 0.544 };   // the wick of the painted lamp
   const PIC = { w: 1080, h: 1920 };
   let stage = null, timers = [], started = false, bufs = {}, decoding = false;
 
@@ -47,7 +48,8 @@
     const r = stage.getBoundingClientRect(), k = Math.max(r.width / PIC.w, r.height / PIC.h);
     return { x: (r.width - PIC.w * k) / 2 + GATE.x * PIC.w * k, y: (r.height - PIC.h * k) / 2 + GATE.y * PIC.h * k };
   }
-  function placeGate() { const g = gatePoint(); stage.style.setProperty("--gx", g.x + "px"); stage.style.setProperty("--gy", g.y + "px"); }
+  function placeGate() { const g = gatePoint(); stage.style.setProperty("--gx", g.x + "px"); stage.style.setProperty("--gy", g.y + "px");
+    const r = stage.getBoundingClientRect(), k = Math.max(r.width / PIC.w, r.height / PIC.h); stage.style.setProperty("--wx", ((r.width - PIC.w * k) / 2 + WICK.x * PIC.w * k) + "px"); stage.style.setProperty("--wy", ((r.height - PIC.h * k) / 2 + WICK.y * PIC.h * k) + "px"); }
 
   function fly(ms) {
     const lamp = $("in-lamp"), r = lamp.getBoundingClientRect(), st = stage.getBoundingClientRect(), g = gatePoint();
@@ -160,7 +162,7 @@
       '<button class="in-sr" id="in-light">Light the lamp</button>';
     document.body.appendChild(el);
     stage = el; Lamp.introOn = true; started = false; timers = [];
-    embers.init();
+    embers.init(); placeGate();
     el.addEventListener("click", (e) => {
       if (e.target.closest("button")) return;
       if (!started) light(); else if (!el.classList.contains("title")) skip();
