@@ -1,6 +1,6 @@
 /* Lamp — start screen (see css/intro.css for the look).
    Shown each time the app opens. The first time, the full version (verse, then Richard's film of the
-   lamp flying into the gate, about 13 s); after that, the quick version (the last 3.5 s of the film). Lamp.state.intro remembers that the full
+   lamp flying into the gate, about 13 s); after that, the quick version (straight into the film, no verse). Lamp.state.intro remembers that the full
    one has been seen (also mirrored to iCloud with the rest of the progress). */
 (function () {
   "use strict";
@@ -110,7 +110,8 @@
     if (quick) {
       stage.classList.add("quick");
       later(() => stage.classList.add("reveal"), 120);
-      later(() => { music("full", FILM.music + FILM.quickFrom); film(true, () => { fly(2200); later(arrive, 200); later(toTitle, 460); }); }, 240);
+      /* the whole film plays every time (only the verse is first-time); the cue joins at the point that puts its hit on the door */
+      later(() => { music("full", FILM.music); film(false, () => { fly(2200); later(arrive, 200); later(toTitle, 460); }); }, 240);
       return;
     }
     later(() => music("full"), 5400 - FILM.music * 1000);   // the cue's swell and hit land on the gate opening in the film
