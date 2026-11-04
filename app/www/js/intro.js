@@ -30,10 +30,10 @@
       } catch (e) {}
     });
   }
-  function music(which) {
+  function music(which, offset) {
     if (!Lamp.state.settings.sound || !Lamp.audioOut) return;
     const a = Lamp.audioOut(); if (!a) return;
-    const go = () => { const s = a.ctx.createBufferSource(); s.buffer = bufs[which]; s.connect(a.out); s.start(); };
+    const go = () => { const s = a.ctx.createBufferSource(); s.buffer = bufs[which]; s.connect(a.out); s.start(0, offset || 0); };
     if (bufs[which]) { go(); return; }
     decode();
     const t0 = Date.now(), wait = setInterval(() => {      // still decoding: start as soon as it's ready, if it's not too late
@@ -78,7 +78,7 @@
 
   /* ---------- Richard's film of the flight (video/start/gate.mp4, 8 s, with its own sound): the lamp lifts, banks away
      and goes in as the gate opens (doors open at about 5 s, wide by 6.9 s). The quick replay plays its last 3.5 s. ---------- */
-  const FILM = { open: 6.9, quickFrom: 4.5 };
+  const FILM = { open: 6.9, quickFrom: 4.5, music: 3.65 };   // music: where in the "full" cue the film starts, so the cue's hit (8.6 s) lands on the door (4.95 s)
   let filmOn = false;
   function film(quick, fallback) {
     const v = $("in-film"); if (!v) { fallback(); return; }
@@ -108,17 +108,17 @@
     stage.classList.add("lit"); embers.start(); sfx("harp", 0.45, 200);
     Lamp.haptic && Lamp.haptic("light");
     if (quick) {
-      music("quick"); stage.classList.add("quick");
+      stage.classList.add("quick");
       later(() => stage.classList.add("reveal"), 120);
-      later(() => film(true, () => { fly(2200); later(arrive, 200); later(toTitle, 460); }), 240);
+      later(() => { music("full", FILM.music + FILM.quickFrom); film(true, () => { fly(2200); later(arrive, 200); later(toTitle, 460); }); }, 240);
       return;
     }
-    // the film carries its own sound, so the old intro music stays off
+    later(() => music("full"), 5400 - FILM.music * 1000);   // the cue's swell and hit land on the gate opening in the film
     const spans = stage.querySelectorAll(".in-verse span:not(.in-ref)");
     spans.forEach((s, i) => later(() => s.classList.add("on"), 1400 + i * 650));
     later(() => stage.querySelector(".in-ref").classList.add("on"), 1400 + spans.length * 650 + 200);
     later(() => stage.classList.add("reveal"), 4600);
-    later(() => film(false, () => { fly(2800); later(arrive, 2800); later(toTitle, 3100); }), 5400);
+    later(() => film(false, () => { fly(2800); later(arrive, 2800); later(toTitle, 3100); }), 5400);   // music hit at 5400 + 4950
   }
   function skip() {
     timers.forEach(clearTimeout); timers = []; started = true; stopFilm(); stage.classList.remove("film");
