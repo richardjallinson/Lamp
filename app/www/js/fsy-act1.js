@@ -76,6 +76,15 @@
   H.factCount = () => A().facts.length;
   H.journal = () => { const a = A(); return a.facts.length ? a.facts.map((k) => "<p><b>Found:</b> " + esc(a.f[k]) + "</p>").join("") : ""; };
   H.journalExtra = () => (A().q.daniel ? '<button class="cta alt" data-act="dan">Read Daniel 9</button>' : "");
+  H.connections = () => {
+    const a = A(), w = W(), links = [];
+    if (a.items.rod) links.push(["Cubit rod", "measurement", "The Watchman’s notches turn claims into distances you can test."]);
+    if (a.items.bekah || (w && w.flags && w.flags.bekah)) links.push(["Bekah weight", "witnessed payment", "A just weight connects the market, Abraham’s silver, and David’s purchase of the threshing floor."]);
+    if (a.items.lamp || (w && w.flags && w.flags.lit)) links.push(["Oil lamp", "water route", "The lamp leads from Solomon’s anointing at Gihon through Hezekiah’s dark tunnel to Siloam."]);
+    if (a.f.haller || a.f.falseline || a.f.twolamps) links.push(["Blue ink and chalk", "two hands", "The Watchman records evidence; the grey-coated pursuer alters it. Their marks must not be trusted equally."]);
+    if (w && w.flags && w.flags.bought) links.push(["Public purchase", "level bedrock", "Ornan’s bought threshing floor supplies a physical test for the Temple’s foundation."]);
+    return links.length ? '<div class="fjconnections"><h3>Connections</h3>' + links.map((x) => '<div><b>' + esc(x[0]) + ' <span>→</span> ' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div>').join("") + "</div>" : "";
+  };
   H.journalActs = () => ({ dan: daniel9 });
 
   /* ------------------------------------------------------------ people ------------------------------------------------------------ */

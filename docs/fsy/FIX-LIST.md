@@ -227,3 +227,8 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 
 ## v4s (built, Nov 3)
 - v4r plus the Lamplighter's opening in Shlomi's voice.
+
+## Merged from Richard's ChatGPT pass (Nov 3)
+- Six Act 3–4 quiz puzzles replaced by interactive ones, taken from the zip Richard sent (built on v4r): bought (place the three payments on the deed stones), north (set the compass), zionq (pin ancient Zion on the trader's 1910 map), siloamq (open spring → tunnel → pool), ascents (climb the fifteen steps), whose (inspect the Kidron monuments). Plus a "board" puzzle (trace the railway ascent) that nothing uses yet.
+- The journal's Evidence tab gains a "Connections" block (H.connections): rod, bekah, lamp, blue ink and chalk, public purchase.
+- Everything else from that zip was already ours or older (it predates the intro narration), so only these pieces were merged.

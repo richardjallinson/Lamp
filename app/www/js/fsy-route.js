@@ -663,7 +663,7 @@
       '<div class="fjtabs">' + tabs.map((t) => '<button data-act="tab-' + t[0] + '" class="' + (T === t[0] ? "on" : "") + '">' + t[1] + "<small>" + t[2] + "</small></button>").join("") + "</div>" +
       (T === "scripture" ? '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
         (nl ? '<div class="fjverses">' + LAMPS.filter((x) => L[x.n]).map((x) => '<div class="fjverse"><b>' + x.n + " · " + esc(x.ref) + "</b><p>“" + esc(x.text) + "”</p></div>").join("") + "</div>" : "") + "</div>" : "") +
-      (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + "</div>" : "") +
+      (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + (H.connections ? H.connections() : "") + "</div>" : "") +
       (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
@@ -1250,10 +1250,20 @@
       }
       draw();
     } },
-    board: { label: "Read the board", run: () => fill({ title: "The departures board", kick: "The airport station", intro: q("The board shows your train: Jerusalem, Yitzhak Navon. Under it, someone has written on a scrap of paper and tucked it into the frame. A line of a psalm, with words missing, and a small drawn lamp."),
-      text: ["Who shall ", "ASCEND", " into the hill of the LORD? or who shall stand in his ", "HOLY", " place?"], ref: "Psalm 24:3", chips: ["ASCEND", "HOLY", "DESCEND", "HIGH", "COME", "GREAT"],
-      bad: { DESCEND: "The other way. Every pilgrim went up.", HIGH: "Close, but the psalm names the place by what it is: set apart." },
-      done: () => pzDone("board", () => finish("train", () => walk(V("platform")))) }) },
+    board: { label: "Trace the ascent", run: () => {
+      let n = 0;
+      screen("The line climbs to Jerusalem", "The airport station",
+        q("The departures board shows Jerusalem–Yitzhak Navon. A railway profile has been tucked behind its frame, marked with the Watchman’s lamp. Trace the red line from the low country to the highest station.") +
+        '<div class="froute"><img src="' + PZ + 'route-map.jpg" alt="Railway route climbing from the airport toward Jerusalem"><div class="froute-line"><button data-r="0" style="--x:12%;--y:78%">Airport</button><button data-r="1" style="--x:43%;--y:61%">Foothills</button><button data-r="2" style="--x:72%;--y:38%">Judean Hills</button><button data-r="3" style="--x:88%;--y:17%">Jerusalem</button></div></div>' +
+        '<div class="fsmall" id="froute-read">Start at the airport.</div>' + verse("Who shall ascend into the hill of the LORD? or who shall stand in his holy place?", "Psalm 24:3"), null);
+      document.querySelectorAll("[data-r]").forEach((b) => (b.onclick = () => {
+        const i = +b.dataset.r;
+        if (i !== n) { wrong(i < n ? "You have already passed that point." : "Follow the railway one rise at a time."); return; }
+        b.classList.add("on"); n++; F.S("step", "click", 0.55); K.buzz && K.buzz("tap");
+        $("froute-read").textContent = n < 4 ? "The line is still climbing…" : "1,120 metres of ascent. Jerusalem is reached by going up.";
+        if (n === 4) setTimeout(() => pzDone("board", () => finish("train", () => walk(V("platform")))), 900);
+      }));
+    } },
     /* The Watchman's sack (Richard, Oct 29): the Temple incense of Exodus 30:34. Pick the four spices from Yosef's nine bowls,
        weigh each against the bekah ("of each a like weight"), then the cord is cut and page 2 lies inside, torn into strips. */
     sleep: { label: "Go to sleep", run: () => {
@@ -1390,23 +1400,43 @@
         { x: () => { W().flags.modelq = 1; save();
           K.card('<div class="kick">The guide</div><h2>“Before Solomon. Before David.”</h2><p>She rests the tip of her pointer on the highest point of the model, behind the sanctuary. “Everyone asks who built it. Ask instead where it began. A thousand years before Solomon, a man walked three days with his son to a mountain God would show him.” She taps the rock. “This ridge. It had a name before it had a temple.”</p>' +
             '<button class="cta" data-act="x">“Moriah.”</button>', { x: () => lightLamp(1, () => pzDone("modelq", () => walk(view))) }); } }); } }) },
-    bought: { label: "Bought, not taken", run: () => ask({ title: "Bought, not taken", kick: "The Cave of Machpelah", intro: verse("And Abraham weighed to Ephron the silver, which he had named in the audience of the sons of Heth, four hundred shekels of silver, current money with the merchant.", "Genesis 23:16") +
-      q("An old teaching (Genesis Rabbah 79:7) names three places in the land that no one can say were stolen, because each was bought and paid for. Name the prices."),
-      qs: [
-        { q: "What did Abraham pay for this cave?", a: [["Nothing: it was a gift", 0, "Ephron offered it as a gift. Abraham insisted on paying (Genesis 23:11–13)."], ["Four hundred shekels of silver", 1, "Weighed out in front of everyone at the gate (Genesis 23:16)."], ["Seven ewe lambs", 0, "That was the well at Beersheba (Genesis 21:30)."]] },
-        { q: "What did Jacob pay for the field at Shechem, where Joseph was later buried?", a: [["An hundred pieces of money", 1, "“He bought a parcel of a field… for an hundred pieces of money” (Genesis 33:19; Joshua 24:32)."], ["Seven years of work", 0, "That was for Rachel (Genesis 29:20)."], ["A mess of pottage", 0, "That was Esau’s birthright (Genesis 25:34)."]] },
-        { q: "And the third place: what did David pay Ornan the Jebusite for his threshing floor?", a: [["Six hundred shekels of gold", 1, "“So David gave to Ornan for the place six hundred shekels of gold by weight” (1 Chronicles 21:25)."], ["Nothing: Ornan gave it", 0, "Ornan offered it freely. David said: I will not offer that which costs me nothing (1 Chronicles 21:24)."], ["Thirty pieces of silver", 0, "That is another price, and another story (Matthew 26:15)."]] },
-      ],
-      done: () => { W().flags.bought = 1; save(); K.card('<div class="kick">The Cave of Machpelah</div><h2>Three places, bought</h2><p>The cave of Abraham, the field of Joseph, and the threshing floor of Ornan: bought and paid for, in front of witnesses. The third is the place of the Temple: “in mount Moriah… in the threshingfloor of Ornan the Jebusite” (2 Chronicles 3:1).</p><p><b>So the Temple stood on a threshing floor that David bought.</b> When you stand on the Mount, look for a threshing floor. It goes in your journal.</p><button class="cta" data-act="x">Back to Jerusalem: Mount Zion</button>', { x: () => pzDone("bought", () => finish("hebron", () => go(byId.zion))) }); } }) },
-    north: { label: "The psalm on the wall", run: () => fill({ title: "The sides of the north", kick: "David’s Tomb", intro: q("Embroidered on the velvet cover over the cenotaph, a line from a psalm, with words worn away."),
-      text: ["Beautiful for situation, the joy of the whole earth, is mount Zion, on the sides of the ", "NORTH", ", the city of the great ", "KING", "."], ref: "Psalm 48:2", chips: ["NORTH", "SOUTH", "KING", "PRIEST", "EAST", "JUDGE"],
-      bad: { SOUTH: "The psalm says the opposite side. Hold on to that: it will matter on the Mount.", EAST: "Not east. Which side of the mountain does the psalm name?" },
-      done: () => { K.card('<div class="kick">Psalm 48</div><h2>On the sides of the north</h2><p>Zion, the city of the great King, “on the sides of the north.” Remember which side. Under the edge of the cover, a page.</p><button class="cta" data-act="x">Take the page</button>', { x: () => pzDone("north", () => finish("zion")) }); } }) },
+    bought: { label: "Set the three payments", run: () => {
+      const want = ["400 shekels of silver", "100 pieces of money", "600 shekels of gold"], placed = [0, 0, 0]; let held = -1;
+      screen("Bought, not taken", "The Cave of Machpelah",
+        verse("And Abraham weighed to Ephron the silver… four hundred shekels of silver, current money with the merchant.", "Genesis 23:16") +
+        q("Three deed stones stand beside the cave. Place each payment on the land it purchased. The inscriptions give you the witnesses.") +
+        '<div class="fdeeds">' + [["Machpelah", "Genesis 23:16"], ["Shechem", "Genesis 33:19"], ["Ornan’s threshing floor", "1 Chronicles 21:25"]].map((x, i) => '<button class="fdeed" data-d="' + i + '"><b>' + x[0] + '</b><small>' + x[1] + '</small><span id="fdeed-' + i + '">empty</span></button>').join("") + '</div>' +
+        '<div class="fcoins">' + want.map((x, i) => '<button data-pay="' + i + '"><i>' + (i === 1 ? "◉" : "●") + '</i>' + x + '</button>').join("") + '</div><div class="fsmall" id="fpayread">Pick up a payment, then touch its deed stone.</div>', null);
+      const redraw = () => {
+        document.querySelectorAll("[data-pay]").forEach((b) => { const i = +b.dataset.pay; b.classList.toggle("held", i === held); b.disabled = placed.includes(i + 1); });
+      };
+      document.querySelectorAll("[data-pay]").forEach((b) => (b.onclick = () => { held = +b.dataset.pay; F.S("coin", "click", 0.6); redraw(); }));
+      document.querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => {
+        const d = +b.dataset.d; if (held < 0 || placed[d]) return;
+        if (held !== d) { wrong("The inscription and metal do not agree. Check the Scripture reference cut into the stone."); return; }
+        placed[d] = held + 1; $("fdeed-" + d).textContent = "✓ " + want[held]; b.classList.add("on"); held = -1; F.S("lock", null, 0.55); redraw();
+        if (placed.every(Boolean)) setTimeout(() => { W().flags.bought = 1; save(); K.card('<div class="kick">The Cave of Machpelah</div><h2>Three places, bought</h2><p>Machpelah, Shechem, and Ornan’s threshing floor were bought publicly. The third became the place of the Temple: “in mount Moriah… in the threshingfloor of Ornan the Jebusite” (2 Chronicles 3:1).</p><p><b>The Temple stood on a level threshing floor David paid for.</b> That physical requirement goes into your journal.</p><button class="cta" data-act="x">Back to Jerusalem: Mount Zion</button>', { x: () => pzDone("bought", () => finish("hebron", () => go(byId.zion))) }); }, 700);
+      }));
+      redraw();
+    } },
+    north: { label: "Set the compass", run: () => {
+      let deg = 180;
+      screen("The sides of the north", "David’s Tomb", q("A small brass compass is caught under the velvet cover. Its card has been turned around. Set north upright to read the blue-ink mark beneath it.") +
+        '<div class="fcompass"><div class="fcompass-card" id="fcompass-card"><b>N</b><span>E</span><i>S</i><em>W</em><u>▲</u></div></div>' +
+        '<div class="fdial2"><button id="fcleft">↶</button><button id="fcright">↷</button></div>' + verse("Beautiful for situation… is mount Zion, on the sides of the north, the city of the great King.", "Psalm 48:2"), null);
+      const draw = () => { $("fcompass-card").style.transform = "rotate(" + deg + "deg)"; };
+      const turn = (d) => { deg = (deg + d + 360) % 360; draw(); F.S("step", "click", 0.45); if (!deg) setTimeout(() => K.card('<div class="kick">Psalm 48</div><h2>North</h2><p>With the compass true, a blue lamp aligns with the north point. Beneath the cover is a page: <b>Zion, the city of the great King, on the sides of the north.</b></p><button class="cta" data-act="x">Take the page</button>', { x: () => pzDone("north", () => finish("zion")) }), 500); };
+      $("fcleft").onclick = () => turn(-45); $("fcright").onclick = () => turn(45); draw();
+    } },
     arksign: { label: "Read the sign", run: () => { W().flags.arksign = 1; save(); K.card('<div class="kick">The City of David</div><h2>“Raiders of the Lost Ark”</h2><p>The sign tells of Montague Parker, an Englishman who dug in the City of David from 1909 to 1911, looking for the treasures of the Temple. He found the ancient water system, but no treasure. So he bribed the guards of the Temple Mount and began to dig beneath it. When he was discovered, he fled Jerusalem, and newspapers around the world asked: <b>“Have Englishmen found the Ark of the Covenant?”</b></p><p>They had not. But the old tradition says the Ark was hidden before the Babylonians came, in a chamber under the Mount: near the gate Charles Warren found in the Western Wall. You have stood at that gate. The sign goes into your journal.</p><button class="cta" data-act="x">Noted</button>', { x: () => pzDone("arksign", () => walk(view)) }); } },
-    zionq: { label: "Where was Zion?", run: () => fill({ title: "The strong hold of Zion", kick: "The City of David", intro: q("The trader’s map marks the ridge you are standing on. The verse beside it has gaps."),
-      text: ["Nevertheless David took the strong hold of ", "ZION", ": the same is the city of ", "DAVID", "."], ref: "2 Samuel 5:7", chips: ["ZION", "DAVID", "MORIAH", "SAUL", "HEBRON", "JEBUS"],
-      bad: { MORIAH: "Moriah is the Temple hill, just north. David took the city first.", JEBUS: "The Jebusites held it; Zion is what David took." },
-      done: () => { K.card('<div class="kick">The City of David</div><h2>Where it began</h2><p>This ridge is Zion, David’s city. The Temple Mount is the higher hill just north of it, which David bought from Ornan the Jebusite. The city grew up the hill toward the house of God. Follow the steps down to the spring.</p><button class="cta" data-act="x">Down to the spring</button>', { x: () => pzDone("zionq", () => finish("cod", () => walk(V("descent")))) }); } }) },
+    zionq: { label: "Pin Zion on the ridge", run: () => {
+      screen("The strong hold of Zion", "The City of David", q("The trader’s old map has lost its brass location pin. Put the pin on David’s original city: the narrow ridge south of the Temple Mount.") +
+        '<div class="fzionmap"><img src="' + PZ + 'citymap.jpg" alt="Old map of the City of David and Temple Mount"><button data-z="0" style="left:49%;top:22%">A</button><button data-z="1" style="left:54%;top:62%">B</button><button data-z="2" style="left:24%;top:50%">C</button></div>' + verse("Nevertheless David took the strong hold of Zion: the same is the city of David.", "2 Samuel 5:7"), null);
+      document.querySelectorAll("[data-z]").forEach((b) => (b.onclick = () => {
+        if (+b.dataset.z !== 1) { wrong(+b.dataset.z === 0 ? "That is Mount Moriah, the Temple hill north of David’s first city." : "That is outside the narrow ridge. Follow the spring and the old walls."); return; }
+        b.classList.add("on"); F.S("lock", null, 0.55); setTimeout(() => K.card('<div class="kick">The City of David</div><h2>The ridge below the Mount</h2><p>The pin sits on Zion, David’s city. Immediately north is the higher Temple hill, the threshing floor he later bought from Ornan. The city grew uphill toward the house of God.</p><button class="cta" data-act="x">Down to the spring</button>', { x: () => pzDone("zionq", () => finish("cod", () => walk(V("descent")))) }), 600);
+      }));
+    } },
     lampstone: { label: "Look along the rock", run: () => find({ title: "The anointing of Solomon", kick: "The Gihon Spring", dark: true, img: "pz:gihon-wall", scene: "The rock wall by the spring", intro: verse("And Zadok the priest took an horn of oil out of the tabernacle, and anointed Solomon. And they blew the trumpet; and all the people said, God save king Solomon.", "1 Kings 1:39"),
       q: "It is dark by the water. Drag your finger to carry the light along the wall. One stone carries the Watchman’s lamp.", counter: "Found", last: "Light the lamp",
       spots: [{ label: "A wet stone", at: [8, 70], w: 16, h: 14, decoy: true, text: "Wet, green, nothing on it." }, { label: "A flat stone", at: [30, 74], w: 16, h: 14, decoy: true, text: "Flat and dry. Nothing." }, { label: "A cracked stone", at: [52, 70], w: 16, h: 14, decoy: true, text: "Cracked through. Nothing." }, { label: "A stone with a mark", at: [80, 56], w: 16, h: 14, text: "Scratched into the stone, small, a lamp. Beside it a splash of something dark that smells of olives: oil. Enough to fill your lamp for the tunnel." }, { label: "A rounded stone", at: [40, 50], w: 14, h: 12, decoy: true, text: "Round and smooth. Nothing." }],
@@ -1419,14 +1449,28 @@
         { label: "A lamp on the wall", at: [12, 72], text: "Scratched into the rock at shoulder height, a small lamp, and under it a word: WEST. The tunnel bends, but it is heading west, under the city, as the Chronicler said." },
       ],
       done: () => { K.card('<div class="kick">Hezekiah’s Tunnel</div><h2>Through the hill</h2><p>Half a kilometre of rock, cut from both ends by men with picks and lamps, meeting in the middle. The water still runs. Ahead, a grey light grows: the pool.</p><button class="cta" data-act="x">Out to the pool</button>', { x: () => pzDone("darktunnel", () => finish("hezekiah", () => go(byId.siloam))) }); } }) },
-    siloamq: { label: "The pool", run: () => fill({ title: "Sent", kick: "The Pool of Siloam", intro: q("On the top step, scratched in the stone in the same hand as the journal, the verse, with three words left out."),
-      text: ["And said unto him, Go, wash in the pool of ", "SILOAM", ", (which is by interpretation, ", "SENT", ".) He went his way therefore, and washed, and came ", "SEEING", "."], ref: "John 9:7", chips: ["SILOAM", "SENT", "SEEING", "BETHESDA", "BLIND", "WASHED"],
-      bad: { BETHESDA: "Bethesda is the other pool, north of the Temple. This one is Siloam.", BLIND: "He was blind when he went. What was he when he came back?" },
-      done: () => { K.card('<div class="kick">The Pool of Siloam</div><h2>Came seeing</h2><p>Sent, and came back seeing. You came through the dark and out into the light. On the step, a page.</p><button class="cta" data-act="x">Take the page</button>', { x: () => pzDone("siloamq", () => finish("siloam")) }); } }) },
-    ascents: { label: "Climb the steps", run: () => fill({ title: "The Songs of Ascents", kick: "The Southern Steps", intro: q("Fifteen psalms, 120 to 134, each headed “A Song of degrees”: sung, the Mishnah says, one on each of the fifteen steps. The first words of the third song are cut into the bottom step."),
-      text: ["I was ", "GLAD", " when they said unto me, Let us go into the ", "HOUSE", " of the LORD. Our ", "FEET", " shall stand within thy ", "GATES", ", O Jerusalem."], ref: "Psalm 122:1–2", chips: ["GLAD", "HOUSE", "FEET", "GATES", "AFRAID", "WALLS"],
-      bad: { AFRAID: "Not afraid. How did the pilgrims feel, going up?", WALLS: "Not the walls. What did they stand within?" },
-      done: () => { K.card('<div class="kick">The Southern Steps</div><h2>Within thy gates</h2><p>Up the steps the pilgrims went, singing, to the Huldah Gates and the tunnels that brought them up into the Court of the Women. The gates are walled now. Round the corner, the stones.</p><button class="cta" data-act="x">Round the corner</button>', { x: () => pzDone("ascents", () => walk(V("robinson"))) }); } }) },
+    siloamq: { label: "Open the watercourse", run: () => {
+      let n = 0;
+      screen("Sent through the rock", "The Pool of Siloam", q("Three stone sluices show the path of the water. Open them in the direction the water was sent: spring, tunnel, pool.") +
+        '<div class="fwaterpath"><button data-w="0"><i>♨</i><b>Gihon Spring</b></button><span>→</span><button data-w="1"><i>▰</i><b>Hezekiah’s Tunnel</b></button><span>→</span><button data-w="2"><i>≈</i><b>Pool of Siloam</b></button><div id="fwaterfill"></div></div>' +
+        verse("Go, wash in the pool of Siloam, (which is by interpretation, Sent.) He went… and came seeing.", "John 9:7"), null);
+      document.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
+        const i = +b.dataset.w; if (i !== n) { wrong("The water cannot reach that stone yet. Begin where it rises."); return; }
+        b.classList.add("on"); n++; $("fwaterfill").style.width = (n * 33.34) + "%"; F.S("water", "click", 0.55);
+        if (n === 3) setTimeout(() => K.card('<div class="kick">The Pool of Siloam</div><h2>Out of darkness</h2><p>The water runs from the spring, through the dark rock, into the pool. On the wet top step, the Watchman left a page: <b>Sent, and came seeing.</b></p><button class="cta" data-act="x">Take the page</button>', { x: () => pzDone("siloamq", () => finish("siloam")) }), 700);
+      }));
+    } },
+    ascents: { label: "Climb the fifteen steps", run: () => {
+      let n = 0;
+      screen("The Songs of Ascents", "The Southern Steps", q("Fifteen psalms—120 through 134—were linked with fifteen steps. Move the pilgrim upward, one worn step at a time.") +
+        '<div class="fascents" id="fascents"><div class="fpilgrim" id="fpilgrim">♟</div>' + Array.from({ length: 15 }, (_, i) => '<button data-step="' + i + '"><span>' + (134 - i) + '</span></button>').join("") + '</div>' +
+        '<div class="fsmall" id="fstepread">Psalm 120 · the first step</div>' + verse("I was glad when they said unto me, Let us go into the house of the LORD.", "Psalm 122:1"), null);
+      document.querySelectorAll("[data-step]").forEach((b) => (b.onclick = () => {
+        const i = +b.dataset.step; if (i !== n) { wrong("Take the next step. An ascent is made in order."); return; }
+        b.classList.add("on"); n++; $("fpilgrim").style.bottom = (5 + n * 5.55) + "%"; $("fstepread").textContent = "Psalm " + (119 + n) + " · step " + n + " of 15"; F.S("step", "click", 0.45);
+        if (n === 15) setTimeout(() => K.card('<div class="kick">The Southern Steps</div><h2>Within thy gates</h2><p>Fifteen rises, fifteen Songs of Ascents. Pilgrims climbed toward the Huldah Gates and emerged into the Court of the Women. The gates are blocked now. Around the corner, fallen stones wait below Robinson’s Arch.</p><button class="cta" data-act="x">Round the corner</button>', { x: () => pzDone("ascents", () => walk(V("robinson"))) }), 600);
+      }));
+    } },
     robinson: { label: "The stones", run: () => F.robinson() },
     moses: { label: "The gate across the path", run: () => talk({ title: "Moses", kick: "The Dung Gate", who: "Moses", intro: verse("And I went out by night by the gate of the valley… and to the dung port, and viewed the walls of Jerusalem.", "Nehemiah 2:13"), run: (T) => {
       T.line('<div class="fq">The path down into the Kidron is barred by an iron gate across the road. As you put your hand on it, a man steps out of the shade of the wall. Older, in a worn jacket, with a kind, tired face.</div>');
@@ -1453,12 +1497,17 @@
         });
       });
     } }) },
-    whose: { label: "Whose tomb?", run: () => ask({ title: "Who lies here?", kick: "The Kidron Valley", intro: verse("Now Absalom in his lifetime had taken and reared up for himself a pillar, which is in the king’s dale… and it is called unto this day, Absalom’s place.", "2 Samuel 18:18"),
-      qs: [
-        { q: "The tall monument with the cone roof is called Absalom’s Pillar. Its style is Greek and Roman, a thousand years after Absalom. What does that tell you?", a: [["It is a fake", 0, "Not a fake: a real tomb, of someone, from the first century."], ["It remembers Absalom; it does not hold him", 1, "A memorial name on a later tomb. Jerusalem is full of those."], ["Absalom lived in Roman times", 0, "Absalom was David’s son, about 1000 BC."]] },
-        { q: "The block with the pyramid on top has no door and no room inside. What is it, then?", a: [["A sealed grave", 0, "Look at the sign beside it: it was never used for burial."], ["A nefesh: a monument to the name of the dead", 1, "A nefesh, cut from the living rock, to keep a name. Tradition gave it Zechariah’s."], ["A watchtower over the valley", 0, "No stairs, no room, no way up."]] },
-      ],
-      done: () => { K.card('<div class="kick">The Kidron Valley</div><h2>Between the temple and the altar</h2><p>Zechariah the priest was stoned “in the court of the house of the LORD” (2 Chronicles 24:21), and the monument that carries his name faces the place. Up the hill behind it, a side path leads to a cave: the Tombs of the Prophets. The main path goes on up to the top of the Mount of Olives.</p><button class="cta" data-act="x">Up the hill</button>', { x: () => pzDone("whose", () => finish("kidron")) }); } }) },
+    whose: { label: "Inspect the monuments", run: () => {
+      const seen = [0, 0, 0, 0];
+      screen("Names cut into memory", "The Kidron Valley", verse("Absalom… reared up for himself a pillar, which is in the king’s dale… and it is called unto this day, Absalom’s place.", "2 Samuel 18:18") +
+        q("Do not guess who is buried here. Inspect the stonework. Touch the marked features on both monuments.") +
+        '<div class="fmonuments"><div><img src="' + IMG + 'kidron-absalom.jpg" alt="Absalom monument"><button data-m="0" style="left:49%;top:18%"></button><button data-m="1" style="left:42%;top:62%"></button><b>Absalom’s Pillar</b></div><div><img src="' + IMG + 'kidron-zechariah.jpg" alt="Zechariah monument"><button data-m="2" style="left:51%;top:18%"></button><button data-m="3" style="left:51%;top:67%"></button><b>Zechariah monument</b></div></div><div class="fsmall" id="fmonread">Four physical details to inspect.</div>', null);
+      const text = ["The cone and classical columns date to the first century—about a thousand years after David’s son Absalom.", "A burial chamber exists, but its traditional name is a later memorial association, not proof of its occupant.", "The pyramid is a solid nefesh: a monument preserving a name.", "No doorway. No room. No body could be placed inside this solid rock monument."];
+      document.querySelectorAll("[data-m]").forEach((b) => (b.onclick = () => {
+        const i = +b.dataset.m; if (seen[i]) return; seen[i] = 1; b.classList.add("on"); F.S("stone", "click", 0.5); K.say(text[i], "", 3500); $("fmonread").textContent = seen.reduce((a, x) => a + x, 0) + " of 4 details inspected";
+        if (seen.every(Boolean)) setTimeout(() => K.card('<div class="kick">The Kidron Valley</div><h2>Memorial is not identity</h2><p>The stones separate evidence from tradition: “Absalom’s” monument is centuries too late for Absalom, and “Zechariah’s” is solid—a memorial, not a grave. Names can travel. Stonework does not.</p><p>Zechariah the priest died in the court of the house of the LORD. His monument faces the Mount. The path now climbs toward the Tombs of the Prophets and the Mount of Olives.</p><button class="cta" data-act="x">Up the hill</button>', { x: () => pzDone("whose", () => finish("kidron")) }), 700);
+      }));
+    } },
     lastpage: { label: "Look in the hollow", run: () => { K.card('<div class="kick">Gethsemane</div><h2>At the foot of the oldest tree</h2><p>Through the mesh, wedged in a crack at the foot of the great trunk, where no gardener would see it: a fold of paper, blue at the edges. The last torn page.</p><button class="cta" data-act="x">Unfold it</button>', { x: () => pzDone("lastpage", () => finish("gethsemane")) }); } },
     greytop: { label: "The man by the arcade", run: () => talk({ title: "At the top of the bridge", kick: "The Temple Mount", who: "The man in the grey coat", run: (T) => {
       T.line('<div class="fq">He is leaning on a pillar of the arcade, as if he has been there a while. Grey coat, grey hair, a face you have seen on three platforms and in two crowds. He straightens up as you come through the gate.</div>');

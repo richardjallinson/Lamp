@@ -896,3 +896,45 @@
 #adv .asheet .fcmap img{display:block;width:100%}
 #adv .asheet .fcmap svg{position:absolute;inset:0;width:100%;height:100%}
 #adv .asheet .fclab{position:absolute;font:700 11px system-ui,sans-serif;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:6px;white-space:nowrap}
+
+/* Act 3–5 interactive puzzles and journal connections (merged from Richard's ChatGPT pass, Nov 3) */
+
+/* v4s: physical evidence puzzles replace the remaining fill-in-the-blank gates */
+#adv .froute{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(201,162,74,.55);margin:8px 0;background:#17140f}
+#adv .froute>img{display:block;width:100%;opacity:.82}
+#adv .froute-line{position:absolute;inset:0}
+#adv .froute-line button{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);border:2px solid #F3E9CE;border-radius:999px;background:#141A33;color:#F3E9CE;font:700 10px var(--ui);padding:7px 9px;box-shadow:0 2px 9px #000}
+#adv .froute-line button.on{background:#C9A24A;color:#141A33;box-shadow:0 0 0 5px rgba(246,196,83,.28)}
+#adv .fdeeds{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}
+#adv .fdeed{min-height:116px;border:1px solid #8a6a3a;border-radius:12px;background:linear-gradient(#d9c9a5,#aa9368);color:#201a12;padding:8px 5px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;font:600 11px var(--ui)}
+#adv .fdeed b{font:700 13px var(--display)}#adv .fdeed small{font-size:9px}#adv .fdeed span{font-size:10px;color:#5b4320}
+#adv .fdeed.on{box-shadow:inset 0 0 0 3px #F3E9CE,0 0 12px rgba(246,196,83,.45)}
+#adv .fcoins{display:grid;gap:6px}
+#adv .fcoins button{border:1px solid rgba(201,162,74,.7);border-radius:999px;background:#141A33;color:#F3E9CE;padding:8px 10px;font:700 12px var(--ui)}
+#adv .fcoins button i{color:#C9A24A;font-style:normal;margin-right:7px}#adv .fcoins button.held{background:#C9A24A;color:#141A33;transform:translateY(-2px)}
+#adv .fcompass{width:230px;height:230px;margin:8px auto;border-radius:50%;padding:13px;background:radial-gradient(circle,#8f7847 0,#c1a461 46%,#5d4927 49%,#b49a5e 53%,#2f2516 70%);box-shadow:0 8px 20px rgba(0,0,0,.55),inset 0 0 0 3px #ddca87}
+#adv .fcompass-card{position:relative;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#f1e6c7,#cfc09a);transition:transform .35s ease;box-shadow:inset 0 0 15px rgba(0,0,0,.35)}
+#adv .fcompass-card b,#adv .fcompass-card span,#adv .fcompass-card i,#adv .fcompass-card em{position:absolute;font:700 22px var(--display);color:#282015;font-style:normal;text-decoration:none}
+#adv .fcompass-card b{left:50%;top:5%;transform:translateX(-50%);color:#8c1c18}#adv .fcompass-card span{right:7%;top:50%;transform:translateY(-50%)}#adv .fcompass-card i{left:50%;bottom:5%;transform:translateX(-50%)}#adv .fcompass-card em{left:7%;top:50%;transform:translateY(-50%)}
+#adv .fcompass-card u{position:absolute;left:50%;top:25%;transform:translateX(-50%);font-size:70px;color:#24324b;text-decoration:none;text-shadow:0 2px #fff}
+#adv .fzionmap{position:relative;margin:8px 0;border-radius:14px;overflow:hidden;border:1px solid rgba(201,162,74,.5)}
+#adv .fzionmap img{display:block;width:100%}#adv .fzionmap button{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:2px solid #F3E9CE;background:rgba(20,26,51,.82);color:#F3E9CE;font:700 17px var(--ui);box-shadow:0 2px 9px #000}
+#adv .fzionmap button.on{background:#C9A24A;color:#141A33;box-shadow:0 0 0 8px rgba(246,196,83,.25)}
+#adv .fwaterpath{position:relative;display:flex;align-items:center;gap:4px;margin:10px 0;padding:12px 7px 18px;border-radius:14px;background:linear-gradient(#5a4934,#2e251c);overflow:hidden}
+#adv .fwaterpath button{position:relative;z-index:2;flex:1;min-width:0;border:1px solid #bca67a;border-radius:10px;background:#cdbb95;color:#2a2118;padding:9px 3px;font:700 10px var(--ui)}
+#adv .fwaterpath button i{display:block;font:700 25px var(--display);font-style:normal}#adv .fwaterpath button b{display:block}
+#adv .fwaterpath button.on{background:#d9eef2;box-shadow:0 0 12px #70cbe1}#adv .fwaterpath>span{position:relative;z-index:2;color:#F3E9CE}
+#adv #fwaterfill{position:absolute;left:0;bottom:5px;height:8px;width:0;background:linear-gradient(90deg,#4d9eb5,#9de9f4);box-shadow:0 0 9px #68d6ed;transition:width .5s ease}
+#adv .fascents{position:relative;display:flex;flex-direction:column;margin:8px auto;width:90%;height:410px;justify-content:flex-end;padding-left:35px}
+#adv .fascents button{height:25px;border:1px solid #5d4d38;border-radius:2px;background:linear-gradient(#b8a585,#8b7657);color:#352a1e;text-align:right;padding-right:9px;font:700 9px var(--ui);transform:translateX(calc((14 - var(--i,0))*0px))}
+#adv .fascents button.on{background:linear-gradient(#ead9b9,#c9a24a);box-shadow:0 0 8px rgba(246,196,83,.45)}
+#adv .fpilgrim{position:absolute;left:2px;bottom:5%;z-index:3;font-size:30px;color:#141A33;text-shadow:0 1px #F3E9CE;transition:bottom .28s ease}
+#adv .fmonuments{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+#adv .fmonuments>div{position:relative;border-radius:12px;overflow:hidden;background:#17130e;border:1px solid rgba(201,162,74,.55)}
+#adv .fmonuments img{display:block;width:100%;height:230px;object-fit:cover}#adv .fmonuments b{display:block;padding:7px;color:#F3E9CE;font:700 11px var(--ui);text-align:center}
+#adv .fmonuments button{position:absolute;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;border:2px dashed #F3E9CE;background:rgba(20,26,51,.35)}
+#adv .fmonuments button.on{border-style:solid;background:rgba(201,162,74,.75);box-shadow:0 0 12px #F6C453}
+#adv .asheet .fjconnections{margin-top:12px;padding-top:10px;border-top:2px solid rgba(20,26,51,.15)}
+#adv .asheet .fjconnections h3{margin:0 0 7px;font:700 17px var(--display);color:#141A33}
+#adv .asheet .fjconnections>div{padding:8px 10px;margin:6px 0;border-radius:10px;background:rgba(201,162,74,.13);border-left:3px solid #C9A24A}
+#adv .asheet .fjconnections b{font:700 12px system-ui,sans-serif;color:#6f5418}#adv .asheet .fjconnections b span{color:#141A33}#adv .asheet .fjconnections p{margin:3px 0 0}
