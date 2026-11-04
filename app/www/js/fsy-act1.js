@@ -497,6 +497,8 @@
   }
 
   /* ------------------------------------------------------------ the tester’s shortcut: Act 1 as if played ------------------------------------------------------------ */
+  /* for the later acts (js/fsy-act2.js …): the same people/items/money machinery */
+  FW.adv = { PEOPLE, ITEMS, RIDE, PORTRAITS, CLIPS, A, has, done, give, reply, talk, fact, portrait, ride, machine, hallerTalk, endPart1 };
   FW.devAct1 = () => {
     const a = A(), w = W();
     Object.assign(a.q, { eitan: 1, metGrandma: 1, sack: 1, daniel: 1, greyKG: 1, shmuel: 1, found26: 1, shopOpen: 1, dudu: 3 });

@@ -201,3 +201,16 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 
 ## v4p (built, Nov 1)
 - v4o plus Haller as one continuous conversation with the sell-the-journal path (₪500), and the Act 2 portraits, objects, scenes and the first 10 Act 2 clips in the bundle (not yet wired: Act 2 build is next).
+
+## Act 2 built (Nov 3) — js/fsy-act2.js, scenes in fsy-route.js
+- Nine places rewired with the new pictures (Avi's booth, the tile shop, the lamp stall, the footprints, the forgery stone, the bench, the Kotel hanukkiah, the wall projection at the end). Eleven people: Avi (booth and north door), Hagop, Mr Kasparian, Talia, Dudu's grandmother at the Wall, Rav Eliezer, Noa, Mr Hollis, Haller on the bench, the trader, Abu Sami. Clips in: haller-bench, haller-flight, avi, talia, grandma-wall, eliezer-riddle, noa-rod, noa-forgery, hagop, hollis.
+- The ten puzzles, Myst standard: telescope (match the page-4 sketch; the doves' arch), storm (flash/thunder, 3 s = 1 km, choose the stair), doves' arch (lee side), Burnt House (scratch the ash, then order by depth), courses (lower the lamp, count only drafted stones, 17 opens the grille), great stone (lay the rod 26 times, count), look up (prayer in the empty crack, lamp reveals the chalk lamp and page 7), rubbing (scratch the charcoal; copy the scratched line → lamp 4; the chalk line → a false note, retry), tomb stone (sloped groove: pull the downhill wedge; uphill first jams it, lever back), false weight (test the trader's three against the bekah).
+- Lamps 3 (Rav Eliezer's covenant line, Daniel 9:27) and 4 (the rubbing, 2 Chr 3:1). Pages 5–8.
+- Sold path: Scene 0 at Jaffa Gate (Avi's parcel, Haller's note, page 3 gone; Gabriel gives it back, journalSold cleared). Haller on the bench: one continuous conversation ending on "Who do you think told me your flight?"
+- Money: ticket 20, key +40, kite +15 (tile), tunnels 30 or free with the rod, lamp 30 (skipped if Gabriel's lamp was bought), map for the bekah. Fallback: the trader buys the model for 20.
+- Gates: Ramparts needs the ticket; the tunnels need Noa (pay or rod); the north wall needs Avi's key; the bench needs the tomb done. "Everyone required" lists for all nine places. Hints for the telescope, storm, doves, riddle, courses, forgery, tomb, false weight.
+- End of Act 2: the hanukkiah painting with two candles and the servant lit (FW.hanukkiahHTML(n) lights n from the right), the Lamplighter's line (kept / sold).
+- Lamp-spout audit: hotel-drawer.jpg mirrored so the Watchman's lamp points right; WLAMP, the telescope sketch and the chalk lamp all point right; Richard's forgery stone has top right, bottom left.
+- Tester menu: "Play Acts 1 and 2 as if done" (devAct2).
+- Narration ids for Shlomi (auto from scene/view): w-jaffa-outside, w-ramparts-stairs, w-ramparts-golgotha, w-ramparts-storm (puzzle), w-jewish-cardo, w-jewish-wallsteps, w-wall-plaza, w-wilson-hall, w-tunnels-entry, w-tunnels-sign (look up), w-tunnels-warren (forgery), w-wallagain-arch2, w-wallagain-clear, w-gtomb-garden, w-gtomb-bench, w-bazaar-steps, w-bazaar-lamps, w-jaffa-parcel (sold path).
+- Still to come: clips eliezer-covenant, abusami, kasparian, lampstall, forgerystone, bench, footprints (ids registered); Shlomi's lines; music m12–m16.

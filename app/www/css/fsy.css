@@ -785,3 +785,97 @@
 .fflight .ffl-check button.on i::after{content:"✓";font-weight:800;font-size:15px}
 .fflight .ffl-check button small{display:block;font:italic 400 13px/1.3 "Baskerville",Georgia,serif;color:#d9ccab}
 #adv .asheet .fwarn{color:#8b2a1a;font-style:italic}
+
+/* ===================== Act 2 (Nov 3) ===================== */
+#adv .asheet .fphoto1{display:block;width:100%;max-height:260px;object-fit:contain;border-radius:12px;background:#000;margin:8px 0}
+/* the telescope */
+#adv .fsketch{margin:6px auto 10px;width:100%;max-width:380px;padding:8px 10px;background:#F3E9CE;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(42,59,122,.25),0 4px 14px rgba(0,0,0,.35);transform:rotate(-.8deg)}
+#adv .fsketch svg{display:block;width:100%;height:auto}
+#adv .ftele{position:relative;width:min(86vw,360px);aspect-ratio:1;margin:6px auto;border-radius:50%;overflow:hidden;background:#000;touch-action:none;cursor:grab;box-shadow:0 0 0 10px #1a1a1a,0 0 0 13px #3a3a3a,0 12px 40px rgba(0,0,0,.7)}
+#adv .ftele-strip{position:absolute;left:0;top:0;height:100%;display:flex;will-change:transform}
+#adv .ftele-strip img{height:100%;width:min(86vw,360px);object-fit:cover;flex:none;pointer-events:none}
+#adv .ftele-ring{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 40px 18px rgba(0,0,0,.9);pointer-events:none}
+#adv .ftele-hair{position:absolute;left:50%;top:50%;width:46%;height:46%;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.35);border-radius:50%;pointer-events:none}
+#adv .ftele-hair::before,#adv .ftele-hair::after{content:"";position:absolute;background:rgba(255,255,255,.35)}
+#adv .ftele-hair::before{left:50%;top:-20%;width:1px;height:140%}#adv .ftele-hair::after{top:50%;left:-20%;height:1px;width:140%}
+#adv .ftele.zoom .ftele-strip{transition:transform .9s ease,scale .9s ease;scale:1.6}
+/* the storm */
+#adv .fstorm{position:relative;width:100%;height:200px;border-radius:14px;overflow:hidden;margin:6px 0;background:linear-gradient(180deg,#0b0d1a,#2a2f45 60%,#3a3a3a);border:1px solid rgba(201,162,74,.4)}
+#adv .fstorm-sky{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(120,130,160,.35),transparent 60%)}
+#adv .fstorm-flash{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .08s}
+#adv .fstorm-flash.on{opacity:.95}
+#adv .fstorm-read{position:absolute;left:0;right:0;bottom:12px;text-align:center;font:italic 600 16px "Baskerville",Georgia,serif;color:#F3E9CE;text-shadow:0 1px 6px #000}
+#adv .fstorm.shake{animation:fshake .6s ease}
+@keyframes fshake{0%,100%{transform:translate(0,0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(3px,-1px)}}
+/* the doves */
+#adv .fdoves{position:relative;width:100%;margin:6px 0;border-radius:14px;overflow:hidden}
+#adv .fdoves img{display:block;width:100%}
+#adv .fdoves .fhit span{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);white-space:nowrap;font:700 12px var(--ui);color:#F3E9CE;background:rgba(12,18,40,.75);padding:4px 8px;border-radius:999px;border:1px solid rgba(201,162,74,.5)}
+/* the Burnt House */
+#adv .fash{position:relative;width:100%;height:300px;border-radius:14px;overflow:hidden;margin:6px 0;background:#4a3d33;touch-action:none}
+#adv .fash-floor{position:absolute;inset:0;background:radial-gradient(ellipse at 40% 50%,#6b5a4a,#3b2f27 70%)}
+#adv .fash-floor::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.08) 0 2px,transparent 2px 38px),repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 2px,transparent 2px 30px)}
+#adv .fash canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+#adv .fash-find{position:absolute;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:none;background:transparent;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s}
+#adv .fash-find.clear{pointer-events:auto;opacity:1}
+#adv .fash-find i{display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#c9a24a 0,#8a6a3a 50%,transparent 72%);box-shadow:0 0 12px rgba(0,0,0,.6)}
+#adv .fash-find span{position:absolute;left:50%;top:100%;transform:translateX(-50%);white-space:nowrap;font:700 11px var(--ui);color:#F3E9CE;text-shadow:0 1px 4px #000;opacity:0}
+#adv .fash-find.on i{background:radial-gradient(circle,#F6C453 0,#C9A24A 50%,transparent 72%)}
+#adv .fash-find.on span{opacity:1}
+/* the shaft */
+#adv .fshaft{position:relative;height:470px;width:190px;margin:6px auto;border-radius:10px;overflow:hidden;background:#0a0806;touch-action:none;cursor:ns-resize;border:2px solid rgba(201,162,74,.5)}
+#adv .fshaft-wall{position:absolute;inset:0;display:flex;flex-direction:column}
+#adv .fcourse{flex:1;position:relative;background:#b9a27a;border-bottom:2px solid #5a4a36}
+#adv .fcourse.drafted{background:#d8c6a0;box-shadow:inset 0 0 0 3px #a08a60,inset 0 0 0 4px #efe2c2,inset 0 0 0 7px #c9b48c}
+#adv .fcourse.rough{background:linear-gradient(135deg,#8f7c5a 0,#6f5c40 40%,#9a8766 60%,#6a5840 100%);box-shadow:inset 0 0 0 1px #4a3a28}
+#adv .fcourse i{position:absolute;top:0;bottom:0;width:2px;background:#5a4a36}
+#adv .fcourse i:first-child{left:35%}#adv .fcourse i:last-child{left:72%}
+#adv .fcourse.rough i:first-child{left:20%}#adv .fcourse.rough i:last-child{left:55%}
+#adv .fshaft-dark{position:absolute;inset:0;pointer-events:none}
+#adv .fshaft-lamp{position:absolute;left:50%;top:0;transform:translateX(-50%);font-size:34px;filter:drop-shadow(0 0 10px #F6C453);pointer-events:none}
+#adv .fdial2{display:flex;justify-content:center;gap:18px;margin:10px 0}
+#adv .fdial2-w{display:flex;flex-direction:column;align-items:center;gap:4px}
+#adv .fdial2-w b{font:700 34px var(--display);color:#141A33;background:#F3E9CE;border-radius:8px;min-width:48px;text-align:center;padding:4px 6px}
+#adv .fdial2-w button{border:none;background:#C9A24A;color:#141A33;border-radius:8px;width:44px;height:34px;font-size:14px}
+/* the rod */
+#adv .frodw{position:relative;width:100%;height:150px;border-radius:14px;overflow:hidden;margin:6px 0;background:#15110d;border:1px solid rgba(201,162,74,.4)}
+#adv .frodstrip{position:absolute;left:0;top:0;height:100%;background:linear-gradient(180deg,#8d7a5c 0,#a89272 30%,#8d7a5c 70%,#5a4a36 100%);transition:transform .35s ease}
+#adv .frodstrip::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 23px)}
+#adv .frod-end{position:absolute;top:0;bottom:0;width:40px;background:#0a0806}
+#adv .frod-end.l{left:0}#adv .frod-end.r{right:0;opacity:0}
+#adv .frodstrip.end .frod-end.r{opacity:1}
+#adv .ftick{position:absolute;top:20%;height:60%;width:3px;background:#fff;box-shadow:0 0 4px #fff;opacity:.9}
+#adv .frod{position:absolute;bottom:14px;font-size:30px;transform:rotate(-6deg);filter:drop-shadow(0 2px 4px #000);transition:left .35s ease}
+/* look up */
+#adv .flookup{position:relative;width:100%;height:60vh;max-height:520px;border-radius:14px;overflow:hidden;margin:6px 0;background:linear-gradient(180deg,#2a2118,#4a3b2c 50%,#3a2d22);background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 58px),repeating-linear-gradient(90deg,rgba(0,0,0,.2) 0 2px,transparent 2px 120px),linear-gradient(180deg,#2a2118,#4a3b2c 50%,#3a2d22)}
+#adv .flookup-img{position:absolute;left:0;right:0;bottom:0;transition:transform 1.2s ease}
+#adv .flookup-img img{display:block;width:100%}
+#adv .flookup-img.up{transform:translateY(34%)}
+#adv .fcrack{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border:none;background:transparent}
+#adv .fcrack i{display:block;width:100%;height:100%;border-radius:50%;border:2px dashed rgba(243,233,206,.75);background:rgba(0,0,0,.15)}
+#adv .fcrack.off i{opacity:0}#adv .fcrack.done i{opacity:1;border-style:solid;background:#F3E9CE}
+#adv .flookup-dark{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.97) 0,rgba(0,0,0,.97) 40%,rgba(0,0,0,0) 62%);opacity:0;transition:opacity .8s}
+#adv .flookup-dark.on{opacity:1}
+#adv .flookup-dark.torch{background:radial-gradient(ellipse at 50% 22%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 90px,rgba(0,0,0,.92) 220px)}
+#adv .fchalklamp{position:absolute;left:38%;top:3%;width:26%;opacity:0;transition:opacity .8s;z-index:3}
+#adv .fchalklamp.on{opacity:1}
+#adv .fchalklamp svg{display:block;width:100%;filter:drop-shadow(0 0 6px rgba(243,233,206,.7))}
+#adv .fpage7{position:absolute;left:50%;top:-44px;transform:translateX(-50%);border:none;background:#F3E9CE;color:#141A33;border-radius:6px;width:40px;height:30px;font-size:16px;box-shadow:0 0 10px rgba(243,233,206,.8)}
+/* the rubbing */
+#adv .frub{position:relative;width:100%;border-radius:14px;overflow:hidden;margin:6px 0;touch-action:none;max-height:52vh}
+#adv .frub img{display:block;width:100%;max-height:52vh;object-fit:cover}
+#adv .frub canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+/* the tomb */
+#adv .ftombs{position:relative;width:100%;border-radius:14px;overflow:hidden;margin:6px 0}
+#adv .ftombs img{display:block;width:100%}
+#adv .ftomb-stone{position:absolute;left:38%;top:30%;width:24%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,#cdbf9e,#8a7a5c 60%,#4a3d2f);box-shadow:0 6px 16px rgba(0,0,0,.7);transition:transform 1.3s cubic-bezier(.3,.7,.4,1),left 1.3s}
+#adv .ftomb-stone.lean{transform:translateX(6%) rotate(8deg)}
+#adv .ftomb-stone.roll{left:74%;transform:rotate(420deg)}
+#adv .ftomb-wedge{position:absolute;bottom:8%;border:1px solid rgba(201,162,74,.6);background:rgba(12,18,40,.8);color:#F3E9CE;font:700 12px var(--ui);padding:8px 10px;border-radius:999px}
+#adv .ftomb-wedge.l{left:4%}#adv .ftomb-wedge.r{right:4%}
+#adv .ftomb-wedge:disabled{opacity:.4}
+/* the hanukkiah end card */
+#adv .asheet .fhan{position:relative;width:100%;max-width:340px;margin:6px auto 10px;border-radius:12px;overflow:hidden;border:2px solid rgba(201,162,74,.6)}
+#adv .asheet .fhan img{display:block;width:100%}
+#adv .asheet .fhan-flame{position:absolute;width:3.6%;height:4.6%;margin-left:-1.8%;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 75%,#FFF8D8 0%,#FFD86A 35%,#FF9A2A 70%,rgba(255,120,20,0) 100%);box-shadow:0 0 12px 5px rgba(255,190,80,.55);transform-origin:50% 100%;animation:fflick 1.8s ease-in-out infinite alternate}
+#adv .asheet .fhan-flame.servant{animation-delay:.6s}
