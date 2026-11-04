@@ -122,7 +122,7 @@
     "08-parchment-verse", "09-parchment", "09b-postcard", "10-olives", "11-olives-gate", "12-mount-open", "13-theory", "14-journal", "15-floor", "16-summit", "17-line", "18-cubits",
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark", "waqf-1", "waqf-2",
     /* the walking route, in Shlomi's voice (the Lamplighter from v4d on) */
-    "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide", "w-hotel-outside", "w-hotel-room", "w-end-part1"]);
+    "w-intro-desk", "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide", "w-hotel-outside", "w-hotel-room", "w-end-part1"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "amb-airport", "amb-train", "amb-market", "amb-tram", "song"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
@@ -177,12 +177,13 @@
   function intro() {
     cur = ""; M("theme", "chamber");
     const film = INTRO_FILM ? '<video class="ffilm" src="' + INTRO_FILM + '" playsinline controls autoplay></video>' :
-      '<div class="fdesk">' + INTRO_WORDS.map((t) => "<p>" + t + "</p>").join("") + "<small>The Lamplighter · his film will play here</small></div>";
+      '<div class="fdesk">' + INTRO_WORDS.map((t) => "<p>" + t + "</p>").join("") + "<small>The Lamplighter</small></div>";
     const credit = '<div class="fcredit">Every photograph and painting in this episode is by Richard J. Allinson, taken and made in Israel.</div>';
     stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>The Lamplighter’s desk</h1>' + (INTRO_FILM ? "" : '<img class="fdeskimg" src="img/fsy/w/intro-desk.jpg" alt="The Lamplighter’s desk at night: an oil lamp, a journal tied with cord, a map of Jerusalem">') + film + credit +
       '<button class="fbtn glow" id="fgo">Take the journal</button>', "w/intro-desk.jpg");
+    V("w-intro-desk");
     $("fgo").onclick = () => {
-      K.sfx("click"); const p = P(); p.watchCard = 1; save(); S("parchment");
+      Lamp.narr && Lamp.narr.stop(); K.sfx("click"); const p = P(); p.watchCard = 1; save(); S("parchment");
       const W = Lamp.fsyWalk && Lamp.fsyWalk.W(); if (W) { W.pages[1] = 1; save(); }
       K.card('<div class="kick">The Watchman’s journal · page 1 of 12</div><h2>Blue ink, and a small drawn lamp</h2>' +
         wnote("“If you are reading this, he gave you the book. Then he trusts you, and so must I.<br><br>Do not believe what you are told about the Mount. Believe what you can see and measure. The city has been rebuilt on its own ruins so many times that the stones lie to the careless. They do not lie to the patient.<br><br>Begin where every pilgrim began: go <i>up</i>. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed.<br><br>Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.”") +
