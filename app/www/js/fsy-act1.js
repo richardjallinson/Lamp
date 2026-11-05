@@ -449,6 +449,21 @@
     };
     return L[scene.id] || null;
   };
+  /* the tester's Skip: everything a scene would have given, so the gates after it open */
+  H.devDone = (id) => {
+    const a = A(), w = W(), q = a.q, it = a.items;
+    const D = {
+      airport: () => { w.flags.passport = 1; w.flags.ticket = 1; w.flags.moti = 1; w.pages[1] = 1; q.clerkWhich = 1; it.slip = 1; },
+      train: () => { q.eitan = 1; },
+      rail: () => { it.card = 1; q.metGrandma = 1; a.rode.rail = 1; },
+      market: () => { w.done["market:scales"] = 1; w.done["market:incense"] = 1; q.sack = 1; q.dudu = 3; it.frankincense = 1; },
+      benyehuda: () => { q.found26 = 1; },
+      gabriel: () => { q.shopOpen = 1; it.rod = 1; it.map = 1; it.kippah = 1; w.done["gabriel:souvenir"] = 1; },
+      hotel: () => { q.checkedIn = 1; q.hotelWay = 1; q.hotelSee = 1; q.hotelGrey = 1; q.slept = 1; it.hotelnote = 1; q.hallerWhy = 1; q.hallerDone = 1; },
+      model: () => { it.museum = 1; w.done["model:modelq"] = 1; q.guideMan = 1; q.levShown = 1; },
+    };
+    if (D[id]) D[id]();
+  };
   H.side = (scene) => (scene.id === "market" ? duduList(A()) : "");
   H.task = (scene) => {
     const a = A();

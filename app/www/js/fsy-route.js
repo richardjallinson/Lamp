@@ -1557,6 +1557,7 @@
   function devSkip() {
     const nx = nextScene(); if (!nx) return false;
     if (nx.kept) return false;   // fsy.js handles its own
+    if (H.devDone) H.devDone(nx.id);   // as if played: the items, answers and puzzles the scene gives, so no later gate is locked
     W().done[nx.id] = 1; if (nx.page) W().pages[nx.page] = 1; save();
     map(); return true;
   }

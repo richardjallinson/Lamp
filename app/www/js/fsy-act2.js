@@ -180,6 +180,22 @@
     bazaar: (a, w) => [r("Buy an oil lamp", has("lamp"), "Abu Sami's stall"), r("Ask him where to find oil", a.q.oil, "Abu Sami"), r("Weigh out the trader's half shekel", has("citymap"), "The trader, with your bekah")],
   };
   H.list = (scene) => (L2[scene.id] ? L2[scene.id](A(), W()) : list1 ? list1(scene) : null);
+  const devDone1 = H.devDone;
+  H.devDone = (id) => {
+    const a = A(), w = W(), q = a.q, it = a.items, pz = (k) => (w.done[k] = 1);
+    const D = {
+      jaffa: () => { it.rticket = 1; q.keyQuest = 1; q.aviGrey = 1; q.parcel = 1; },
+      ramparts: () => { pz("ramparts:telescope"); pz("ramparts:storm"); q.hagop = 1; q.kite = 1; q.teleDone = 1; },
+      jewish: () => { q.taliaWhat = 1; q.charcoal = 1; q.taliaPhoto = 1; it.charcoal = 1; pz("jewish:burnt"); },
+      wall: () => { q.gmWall = 1; q.gmFear = 1; },
+      wilson: () => { q.riddle = 1; q.covenant = 1; q.floor = 1; pz("wilson:courses"); w.flags.courses = 17; },
+      tunnels: () => { q.noaIn = 1; q.rubbed = 1; q.noaForgery = 1; q.noaHoly = 1; q.lamp4 = 1; pz("tunnels:measure"); pz("tunnels:lookup"); pz("tunnels:rubbing"); },
+      wallagain: () => { q.northOpen = 1; pz("wallagain:doves"); },
+      gtomb: () => { q.hollisTomb = 1; q.hollisGrey = 1; q.bench = 1; pz("gtomb:stone"); },
+      bazaar: () => { it.lamp = 1; it.citymap = 1; q.oil = 1; pz("bazaar:falseweight"); },
+    };
+    if (D[id]) D[id](); else if (devDone1) devDone1(id);
+  };
   H.task = (scene) => {
     const a = A();
     if (scene.id === "jaffa" && a.q.sold && !a.q.parcel) return "Avi has something for you.";
