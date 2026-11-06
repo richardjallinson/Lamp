@@ -373,7 +373,7 @@
     if (w.done.steps) { K.card('<div class="kick">Act 3</div><h2>The third night</h2>' + FW.hanukkiahHTML(3) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }
     F.S("harp", null, 0.6); F.V("w-act3-end");
     K.card('<div class="kick">Act 3 · Down to the Water</div><h2>The third candle</h2>' + FW.hanukkiahHTML(3) +
-      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps. The seventh is his.<br><br>You have a question for me. Hold it until the garden. I will answer with the tree between us, because I am not brave enough to answer it anywhere else.<br><br>Tomorrow: everything is ready but one thing.”</div>' +
+      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps, and the seventh is his.<br><br>You have a question for me. Hold it until the garden, and I will answer it there, with the tree between us, because I am not brave enough to answer it anywhere else.<br><br>Tomorrow: everything is ready but one thing.”</div>' +
       '<button class="cta" data-act="n">The night</button>', { n: () => {
         F.S("harp", null, 0.4);
         K.card('<div class="kick">The third night · the hotel</div><h2>The lamp on the desk is still warm.</h2>' +

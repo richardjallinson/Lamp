@@ -283,3 +283,7 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - End of Act 3: the third-candle card shortened to Gerry's text.
 - Tunnel: a small note on the first fork says the forks are adapted from the abandoned cuttings, not a map of the real tunnel.
 - w-hebron-prices and w-act3-end taken out of HAVE (silent) until Shlomi re-records them with the new words.
+
+## v5g — Act 3 end line without ElevenLabs
+- w-act3-end cut down from the old take (kept: "Three candles. Six lamps, and the seventh is his." / "You have a question for me." / "Hold it until the garden… anywhere else." / "Tomorrow: everything is ready but one thing."). The long take is in images/originals/fsy/audio/shlomi.
+- Card text matched to the cut. Hebron "Remember the witnesses." stays text only.
