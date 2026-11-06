@@ -237,7 +237,7 @@
     if (scene.id === "wilson" && A().q.riddle && !done("wilson", "courses")) return n === 1 ? "Rav Eliezer said: count only Herod's stones. His have the smooth border round a raised middle." : n === 2 ? "Lower the lamp slowly. The rough stones near the top are later work: skip them." : "Seventeen. The grille takes two numbers.";
     if (scene.id === "tunnels" && A().q.rubbed && !done("tunnels", "rubbing")) return n === 1 ? "One line is scratched into the stone, old. One is chalk, fresh." : n === 2 ? "Look at the two little lamps. Which way does the spout point on each?" : "The Watchman draws his lamp with the spout to the right. Always. Copy that line.";
     if (scene.id === "gtomb" && !done("gtomb", "stone")) return n === 1 ? "Mr Hollis said the groove is not level." : "The stone wants to roll downhill, to the right. Pull the wedge on that side.";
-    if (scene.id === "bazaar" && !has("citymap")) return n === 1 ? "Twelve for a half shekel? Yosef's balanced ten this morning." : n === 2 ? "You have a true half shekel in your pack. Put it on the pan instead of the coins." : "Then put each of his three weights against it. The light one tips the beam.";
+    if (scene.id === "bazaar" && !has("citymap")) return n === 1 ? "Twelve for a half shekel? Yosef's balanced ten this morning." : n === 2 ? "You have a true half shekel in your pack. Put it on the pan instead of the coins." : "Then put each of his three weights against it. The false one sinks his side of the beam.";
     return hint1 ? hint1(scene, v, n) : null;
   };
 
@@ -513,9 +513,10 @@ Object.assign(C.PUZZLES, {
     } },
 
     /* 10. The trader's false weight (Gerry, 6 Nov): he weighs the price and it comes out heavy. The player can pay, or remember the bekah in the pack
-       and put it on the pan; then his three weights against it, and the light one tips. "Caught." */
+       and put it on the pan; then his three weights against it, and the heavy one sinks his side. "Caught."
+       v5o (Gerry): the false weight is HEAVY throughout (it took twelve coins to balance, not ten), so the comparison agrees with the first weighing. */
     falseweight: { label: "Weigh the half shekel", run: () => {
-      const WTS = [["Half shekel, stamped", 10], ["Half shekel, worn", 8], ["Half shekel, new", 10]]; let on = null, coins = 0, phase = 1, his = 1;
+      const WTS = [["Half shekel, stamped", 10], ["Half shekel, old", 12], ["Half shekel, new", 10]]; let on = null, coins = 0, phase = 1, his = 1;
       const el = screen("Half a shekel", "The bazaar street", verse("A false balance is abomination to the LORD: but a just weight is his delight.", "Proverbs 11:1") +
         q("“The old way: weighed.” He sets one of his half-shekel weights on his pan. “Your coins on the other, until the beam is level. Then the map is yours.”") +
         '<div class="fscale" id="fscale" style="--tilt:0deg"><img class="fsc-stand" src="' + PZ + 'bal-stand.png" alt=""><div class="fsc-beam"><img src="' + PZ + 'bal-beam.png" alt="">' +
@@ -541,13 +542,13 @@ Object.assign(C.PUZZLES, {
           const d = on === null ? 0 : WTS[on][1] - 10;
           $("fload-l").innerHTML = stone(2, "Your bekah"); $("fload-r").innerHTML = on === null ? "" : stone(on);
           $("fscale").style.setProperty("--tilt", (d * 1.8) + "deg");
-          $("fread").textContent = on === null ? "Your bekah against nothing. Put each of his on the other pan." : (d === 0 ? "Level. That one is honest." : "The beam tips: his is light.");
+          $("fread").textContent = on === null ? "Your bekah against nothing. Put each of his on the other pan." : (d === 0 ? "Level. That one is honest." : "His side sinks. Heavy: twelve, not ten.");
           $("ftray").innerHTML = WTS.map((w, i) => '<button class="fsc-w' + (i === on ? " used" : "") + '" data-i="' + i + '"><img src="' + PZ + 'weight-' + (i + 1) + '.png" alt=""><small>' + esc(w[0]) + "</small></button>").join("");
           $("fpack").innerHTML = '<button class="fbtn" id="ffalse"' + (on === null ? " disabled" : "") + '>“This one is false.”</button>';
           el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { on = +b.dataset.i; F.S("step", "click", 0.5); draw(); }));
           $("ffalse").onclick = () => { if (on === null) return; if (WTS[on][1] === 10) { wrong("He frowns. “That one is honest. Weigh it again if you doubt me.”"); return; }
-            ok(); give("citymap"); fact("falseweight", "The trader in the bazaar keeps a light half-shekel weight. Caught, he laughed and sold the 1910 map of the City of David for the bekah alone.");
-            K.card('<div class="kick">The trader</div><h2>“Caught.”</h2><p>He laughs so hard he has to sit down. “Forty years and nobody weighs the weights. Everyone weighs the goods.” He pushes the light one into a drawer. “Your bekah, then. For the map. And nothing else, because you have shamed me.” The old map goes into your backpack.</p><img class="fphoto1" src="' + PZ + 'citymap.jpg" alt="An old hand-drawn map of a narrow ridge city"><button class="cta" data-act="x">Thank him</button>', { x: () => C.pzDone("falseweight", () => C.walk(C.V("end"))) }); };
+            ok(); give("citymap"); fact("falseweight", "The trader in the bazaar keeps a heavy half-shekel weight: it took twelve coins where a true one takes ten. Caught, he laughed and sold the 1910 map of the City of David for the bekah alone.");
+            K.card('<div class="kick">The trader</div><h2>“Caught.”</h2><p>He laughs so hard he has to sit down. “Forty years and nobody weighs the weights. Everyone weighs the goods.” He pushes the heavy one into a drawer. “Your bekah, then. For the map. And nothing else, because you have shamed me.” The old map goes into your backpack.</p><img class="fphoto1" src="' + PZ + 'citymap.jpg" alt="An old hand-drawn map of a narrow ridge city"><button class="cta" data-act="x">Thank him</button>', { x: () => C.pzDone("falseweight", () => C.walk(C.V("end"))) }); };
         }
       };
       draw();

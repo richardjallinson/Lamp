@@ -345,17 +345,20 @@
       const el = screen("Along the wall", "Hezekiah’s Tunnel", q("Dark rock, wet and close. Carry the lamp along the wall with your finger. Low, and slowly.") +
         '<div class="ftun fsweep" id="fsweep"><img draggable="false" src="' + IMG + 'tunnel-recess.jpg" alt="The tunnel wall in the dark">' +
         '<div class="fsweep-dark" id="fdark"></div></div><span class="fsmall" id="fsweepsay"></span>', null, "chamber", "tunnel-recess");
-      const box = $("fsweep"), dk = $("fdark"), T = [0.77, 0.56]; let near = 0, found = false, last = 0, sweeps = 0;
+      const box = $("fsweep"), dk = $("fdark"), T = [0.77, 0.56]; let near = 0, found = false, last = 0, sweeps = 0, holdT = 0;
       const light = (x, y) => { dk.style.background = "radial-gradient(circle at " + x * 100 + "% " + y * 100 + "%, rgba(0,0,0,0) 0, rgba(0,0,0,0) " + (13 - dim * 1.5) + "%, rgba(0,0,0,.95) " + (25 - dim * 2) + "%)"; };
       light(0.15, 0.7);
       const at = (e) => { const r = box.getBoundingClientRect(); return [Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (e.clientY - r.top) / r.height))]; };
       const move = (e) => { if (found) return; const p = at(e); light(p[0], p[1]); sweeps++;
         const d = Math.hypot(p[0] - T[0], p[1] - T[1]);
-        if (d < 0.11) { if (!near) near = Date.now(); else if (Date.now() - near > 650) return reveal(); $("fsweepsay").textContent = "Something on the stone. Hold the light there."; }
-        else { near = 0; if (Date.now() - last > 1800) { last = Date.now(); $("fsweepsay").textContent = sweeps > 120 ? "Lower. To the right of the water. A dry patch in the wet rock." : d < 0.25 ? "The rock is dry here. Strange, with the water so close." : ""; } } };
+        /* v5o (Gerry): a timer, not the next move event, decides the hold, so a finger held perfectly still still reveals it */
+        if (d < 0.11) { if (!near) { near = Date.now(); clearTimeout(holdT); holdT = setTimeout(() => { if (near && !found) reveal(); }, 650); } $("fsweepsay").textContent = "Something on the stone. Hold the light there."; }
+        else { near = 0; clearTimeout(holdT); if (Date.now() - last > 1800) { last = Date.now(); $("fsweepsay").textContent = sweeps > 120 ? "Lower. To the right of the water. A dry patch in the wet rock." : d < 0.25 ? "The rock is dry here. Strange, with the water so close." : ""; } } };
       box.addEventListener("pointerdown", (e) => { try { box.setPointerCapture(e.pointerId); } catch (x) {} move(e); });
       box.addEventListener("pointermove", (e) => { if (e.buttons || e.pointerType === "touch") move(e); });
-      const reveal = () => { found = true; light(T[0], T[1]); dk.classList.add("held"); K.buzz && K.buzz("light");
+      const lift = () => { if (!found) { near = 0; clearTimeout(holdT); } };
+      box.addEventListener("pointerup", lift); box.addEventListener("pointercancel", lift);
+      const reveal = () => { if (found) return; clearTimeout(holdT); found = true; light(T[0], T[1]); dk.classList.add("held"); K.buzz && K.buzz("light");
         $("fsweepsay").textContent = "";
         setTimeout(() => K.root() && silence(), 900); };
     };

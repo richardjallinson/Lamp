@@ -343,3 +343,7 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - A second count runs on the sky (1 · 2 · 3 …) from the flash, so the player can see the gap, not only feel it.
 - "Watch it again" replays the round in hand (flash, count, thunder, and the distance in words); a missed round offers it. The choice card has "Watch the three flashes again".
 - The choice card shows the three gaps in a table, says the storm is in the west and closing, and says where each way down is: ahead is west, into it; behind is east, away from it, 400 m and a covered street; the tower is open to the west. The consequence (page 4 wet) is unchanged; the reason for it is now on the card.
+
+## v5o — Gerry's review of v5m (score 7.5 → 8)
+- Hezekiah's Tunnel, the sweep: a timer now decides the hold, not the next move event, so a finger held perfectly still on the charcoal reveals it after 0.65 s. Lifting the finger or moving off cancels it. Tested with a single press and no further movement.
+- The trader's false weight: it is now HEAVY throughout. The first weighing needs twelve coins where Yosef's took ten; in the comparison his false weight sinks his side ("His side sinks. Heavy: twelve, not ten."). Relabelled "Half shekel, old" (a worn weight would read as light). Fact, the "Caught" card and hint 3 all say heavy.
