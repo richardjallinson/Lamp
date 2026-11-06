@@ -124,7 +124,8 @@
     /* the walking route, in Shlomi's voice (the Lamplighter from v4d on) */
     "w-intro-desk", "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide", "w-hotel-outside", "w-hotel-room", "w-end-part1",
     "w-hotel-envelope", "w-hebron-prices", "w-zion-pit", "w-gihon-mouth", "w-act3-end",
-    "w-jaffa-outside", "w-ramparts-stairs", "w-ramparts-golgotha", "w-jewish-cardo", "w-jewish-wallsteps", "w-wall-plaza", "w-wilson-hall", "w-tunnels-entry", "w-wallagain-arch2", "w-wallagain-clear"]);
+    "w-jaffa-outside", "w-ramparts-stairs", "w-ramparts-golgotha", "w-jewish-cardo", "w-jewish-wallsteps", "w-wall-plaza", "w-wilson-hall", "w-tunnels-entry", "w-wallagain-arch2", "w-wallagain-clear",
+    "w-bazaar-steps", "w-bazaar-lamps", "w-gtomb-garden", "w-gtomb-bench", "w-tunnels-sign", "w-tunnels-warren", "w-jaffa-parcel"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "amb-airport", "amb-train", "amb-market", "amb-tram", "song"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
