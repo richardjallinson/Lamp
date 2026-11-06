@@ -218,7 +218,7 @@
         hots: [{ box: [10, 10, 80, 50], label: "The cloud", text: "A winter storm off the Mediterranean. The wind comes first, warm, then cold. Watch which way the rain slants: it comes in from the west. “He causeth the vapours to ascend from the ends of the earth; he maketh lightnings for the rain” (Psalm 135:7)." }] },
       { id: "storm", img: "ramparts-storm", cap: "The wall ahead, toward Damascus Gate: the sky has gone black, and the first lightning is over the hills", go: { back: "sky" }, puzzle: "storm" },
     ] });
-  S({ id: "jewish", act: 2, title: "The Jewish Quarter", kick: "After the storm", music: "m14", amb: "street", page: 5,
+  S({ id: "jewish", act: 2, title: "The Jewish Quarter", kick: "After the storm", music: "m13", amb: "street", page: 5,
     views: [
       { id: "streetsign", img: "jewish-sign", cap: "Jewish Quarter Street: a sign pointing the way to the Western Wall, the Hurva, the Burnt House and the Cardo", go: { fwd: "cardo" } },
       { id: "cardo", img: "jq-cardo-2", cap: "The Cardo: the columns of the Roman main street, below today’s street", hank: "The rain is easing. This was the main street of Roman Jerusalem, and it is six metres below the street you came down. The city has been rebuilt on its own ruins so many times that the old ground is always under your feet. Remember that when someone tells you where something stood.",
@@ -238,7 +238,7 @@
         hots: [{ box: [60, 13, 20, 13], label: "The sign", text: "Beit Katros: the house of Kathros, a priestly family named in the Talmud, and found written on a stone weight in the ash here. The house lies below today’s street, under two metres of burnt debris." }] },
       { id: "wallsteps", img: "jewish-wallsteps", cap: "The wide steps down from the Jewish Quarter: the Western Wall plaza below, the Wall golden in the afternoon light", go: { back: "hurva" }, hank: "Page one. He had page one before he had anything of yours. Only two people ever held that page. You are one of them. Down the steps, and there it is." },
     ] });
-  S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m14", amb: "street",
+  S({ id: "wall", act: 2, title: "The Western Wall", kick: "The Kotel", music: "m13", amb: "street",
     views: [
       { id: "plaza", img: "wall-plaza", cap: "The Western Wall plaza, from above: the prayer courts, the great stones", hank: "The Western Wall. Not the Temple: the retaining wall Herod built to hold up the platform the Temple stood on. People pray here because it is the closest they can come. Closest to what, is the question you came to ask.",
         go: { fwd: "stones" } },
@@ -262,7 +262,7 @@
       { id: "scrolls", img: "wilson-scrolls", cap: "The Torah ark against the Wall, men at prayer before it", go: { right: "hall" }, hots: [{ box: [20, 10, 60, 70], label: "The scrolls", text: "“Thy word is a lamp unto my feet, and a light unto my path” (Psalm 119:105)." }] },
       { id: "shaft", img: "wilson-shaft", cap: "A glass-covered shaft in the floor: Herod’s stones going down and down below the hall. Beside it, an iron grille with a number lock on the door to the tunnels", go: { back: "hall" }, puzzle: "courses" },
     ] });
-  S({ id: "tunnels", act: 2, title: "The Western Wall tunnels", kick: "Beneath the city", music: "m15", amb: "chamber", page: 7,
+  S({ id: "tunnels", act: 2, title: "The Western Wall tunnels", kick: "Beneath the city", music: "m14", amb: "chamber", page: 7,
     views: [
       { id: "entry", img: "tunnel-1", cap: "Into the tunnel: Herod’s Wall on the left, a narrow passage running north under the Muslim Quarter. Noa, the guide, with her torch", hank: "Four hundred and eighty metres of Herod’s wall, buried under the Muslim Quarter. The biggest stone weighs more than a jumbo jet. Measure it. The Watchman did.",
         go: { fwd: "master" }, who: ["noa"] },
@@ -290,7 +290,7 @@
         hots: [{ box: [20, 20, 60, 60], label: "Down through the gate", act: "toBazaar" }] },
       { id: "road", img: "wallagain-road", cap: "The Nablus Road, and a tiled sign on an old stone wall: “The Garden Tomb”. Not yet: the market street first, while the stalls are still open", go: { back: "damascus" }, hots: [{ box: [10, 20, 80, 50], label: "The sign", text: "The Garden Tomb is up this road. Page 7 said: the market first. Back down through the gate." }] },
     ] });
-  S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Inside Damascus Gate", music: "m10", amb: "street",
+  S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Inside Damascus Gate", music: "m15", amb: "street",
     views: [
       { id: "steps", img: "bazaar-steps", cap: "Through the great gate: the street drops in wide steps into the bazaar, stalls on both sides. The storm has passed; the stones steam", hank: "From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.",
         go: { fwd: "stalls" } },

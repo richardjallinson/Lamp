@@ -275,3 +275,4 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Shlomi's lines all recorded (Act 3: w-act3-end re-recorded with the new wording).
 - Portraits: Ori a touch younger if it matters (Gerry).
 - v5c: Act 2's last seven clips are in (Richard, 5 Nov): eliezer-covenant, abusami, kasparian (play in their replies); lampstall, forgerystone, bench, footprints play once as a card the first time the player reaches that view (SCENECLIP in fsy-act2.js H.before). Ori's younger portrait; w-act3-end re-recorded.
+- v5d: Act 2 music (Richard, ElevenLabs Music, 5 Nov), levelled to -20 LUFS, 96k, fades: m12 "Wall at Midday" (Jaffa Gate, Ramparts, north wall), m13 "Ashes Remembered" (Jewish Quarter, Western Wall), m14 "Understone Drift" (Wilson's Arch, tunnels), m15 "Evening in the Market" (bazaar). m16 (Garden Tomb) still to come; falls back to "olives".
