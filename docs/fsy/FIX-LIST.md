@@ -274,3 +274,4 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - dev.js: TESTER false (no Skip, no tester panel).
 - Shlomi's lines all recorded (Act 3: w-act3-end re-recorded with the new wording).
 - Portraits: Ori a touch younger if it matters (Gerry).
+- v5c: Act 2's last seven clips are in (Richard, 5 Nov): eliezer-covenant, abusami, kasparian (play in their replies); lampstall, forgerystone, bench, footprints play once as a card the first time the player reaches that view (SCENECLIP in fsy-act2.js H.before). Ori's younger portrait; w-act3-end re-recorded.

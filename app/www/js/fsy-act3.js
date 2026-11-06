@@ -161,7 +161,7 @@
     if (scene.id === "zion" && v.id === "up") { A().q.pit = 1; save(); }
     if (scene.id === "siloam" && v.id === "pool" && !A().q.sawHaller) {
       A().q.sawHaller = 1; save();
-      setTimeout(() => K.root() && K.card('<div class="kick">The path to the great pool</div><div class="ftalk">' + portrait("hallerfront", PEOPLE.hallerpool) + '<div><div class="kick">From above</div><h2>He is waiting.</h2></div></div>' +
+      setTimeout(() => K.root() && W().at === "siloam" && K.card('<div class="kick">The path to the great pool</div><div class="ftalk">' + portrait("hallerfront", PEOPLE.hallerpool) + '<div><div class="kick">From above</div><h2>He is waiting.</h2></div></div>' +
         "<p>Before you reach it you can see, from above, the broad stone steps of the Second Temple pool, and on them, with his coat folded beside him, a man sitting and watching the way you must come. He has been there a while.</p>" +
         '<button class="cta" data-act="x">Down the path</button>', { x: () => {} }), 500);
     }

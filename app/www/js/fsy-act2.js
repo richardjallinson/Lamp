@@ -166,6 +166,14 @@
     if (scene.id === "wallagain" && v.id === "clear" && !A().q.northOpen) { K.say("The iron door across the walk is locked. Avi is at it with his keys.", "", 3000); return false; }
     if (scene.id === "gtomb" && v.id === "bench" && !done("gtomb", "stone")) { K.say("The bench is empty for now. The tomb first.", "", 2600); return false; }
     if (scene.id === "gtomb" && v.id === "dusk" && !A().q.bench) { K.say("The man on the bench is waiting. He has been waiting for you.", "", 2600); return false; }
+    /* the four places that come alive the first time you reach them (Richard's clips, 5 Nov) */
+    const SCENECLIP = { "bazaar:lamps": ["lampstall", "The lamp stall", "Clay and brass, the light just beginning to go."], "tunnels:warren": ["forgerystone", "Warren’s Gate", "Your torch moves over the stone. Something is scratched on it, twice."],
+      "gtomb:bench": ["bench", "The bench", "Under the olive trees, a grey coat laid over the arm of an empty bench."], "wallagain:clear": ["footprints", "The north wall", "Wet stone, still dripping, and a line of a man’s shoe prints going away."] };
+    const sc = SCENECLIP[scene.id + ":" + v.id], wf = W().flags;
+    if (sc && !wf["clip:" + scene.id + ":" + v.id] && H.clip) {
+      wf["clip:" + scene.id + ":" + v.id] = 1; save();
+      setTimeout(() => K.root() && W().at === scene.id && K.card('<div class="kick">' + esc(scene.title) + "</div><h2>" + esc(sc[1]) + "</h2>" + H.clip(sc[0]) + "<p>" + esc(sc[2]) + '</p><button class="cta" data-act="x">Go on</button>', { x: () => {} }), 350);
+    }
     return before1 ? before1(scene, v, prev) : true;
   };
   const r = (t, ok, where, opt) => ({ t, ok: !!ok, where, opt: !!opt });
