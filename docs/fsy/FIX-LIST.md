@@ -277,3 +277,9 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - v5c: Act 2's last seven clips are in (Richard, 5 Nov): eliezer-covenant, abusami, kasparian (play in their replies); lampstall, forgerystone, bench, footprints play once as a card the first time the player reaches that view (SCENECLIP in fsy-act2.js H.before). Ori's younger portrait; w-act3-end re-recorded.
 - v5d: Act 2 music (Richard, ElevenLabs Music, 5 Nov), levelled to -20 LUFS, 96k, fades: m12 "Wall at Midday" (Jaffa Gate, Ramparts, north wall), m13 "Ashes Remembered" (Jewish Quarter, Western Wall), m14 "Understone Drift" (Wilson's Arch, tunnels), m15 "Evening in the Market" (bazaar). m16 (Garden Tomb) still to come; falls back to "olives".
 - v5e: the Garden Tomb song "He Is Risen" (Richard's original lyrics written with Claude, ElevenLabs Music, 6 Nov; 2:00): fsy-risen-song, plays once at song level from the moment the stone rolls ("He is not here"), through the tomb and the garden; the bench is quiet (music off, birds only); dusk returns to m16 (still falling back to "olives").
+
+## v5f — Gerry's Act 3 notes (restraint)
+- Hebron: the Lamplighter's "Three purchases. Three prices…" speech cut to "Remember the witnesses."
+- End of Act 3: the third-candle card shortened to Gerry's text.
+- Tunnel: a small note on the first fork says the forks are adapted from the abandoned cuttings, not a map of the real tunnel.
+- w-hebron-prices and w-act3-end taken out of HAVE (silent) until Shlomi re-records them with the new words.

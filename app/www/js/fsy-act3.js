@@ -239,7 +239,7 @@
       if (placed.every(Boolean)) setTimeout(() => { W().flags.bought = 1; save(); fact("ornan", "Ornan's place: 600 shekels of gold (1 Chronicles 21:25). The threshing floor and the oxen: 50 shekels of silver (2 Samuel 24:24). Two accounts, one purchase, before witnesses.");
         K.card('<div class="kick">The Cave of Machpelah</div><h2>Three purchases, before witnesses</h2><p>Machpelah, Shechem, and Ornan’s place were bought publicly, and the price was written down. The third became the place of the Temple: “in mount Moriah… in the threshingfloor of Ornan the Jebusite” (2 Chronicles 3:1).</p>' +
           '<p class="fsmall">A note for the journal: Chronicles gives 600 shekels of gold for <i>the place</i>; Samuel gives 50 shekels of silver for <i>the threshing floor and the oxen</i>. Two accounts of one purchase. Both were paid.</p>' +
-          '<button class="cta" data-act="x">The Lamplighter</button>', { x: () => { F.V("w-hebron-prices"); K.card('<div class="kick">The Lamplighter</div><h2>Three prices</h2><div class="fend-said">“Three purchases. Three prices. Three records made before witnesses. A price paid leaves testimony. Remember that when someone offers to buy your silence.”</div><button class="cta" data-act="x">Back to Jerusalem</button>', { x: () => C.pzDone("bought", () => C.finish("hebron")) }); } }); }, 700);
+          '<button class="cta" data-act="x">The Lamplighter</button>', { x: () => { F.V("w-hebron-prices"); K.card('<div class="kick">The Lamplighter</div><h2>The witnesses</h2><div class="fend-said">“Remember the witnesses.”</div><button class="cta" data-act="x">Back to Jerusalem</button>', { x: () => C.pzDone("bought", () => C.finish("hebron")) }); } }); }, 700);
     }));
     redraw();
   } };
@@ -295,7 +295,7 @@
     const fork = (i) => {
       const f = FORKS[i]; let shown = false;
       const el = screen("Hezekiah’s Tunnel", "In the dark", (i === 0 ? verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30") : "") +
-        q(i === 0 ? "The tunnel forks. The diggers cut false starts and turned back; the water did not. The water runs toward Siloam." : i === 1 ? "A second fork. The lamp knows the draught that follows the water." : "A third fork, the last. You have one thing left in your pocket that floats.") +
+        (i === 0 ? '<p class="fsmall">The real tunnel is one long winding channel. The forks here are adapted from the abandoned cuttings the diggers left, not a map of it.</p>' : "") + q(i === 0 ? "The tunnel forks. The diggers cut false starts and turned back; the water did not. The water runs toward Siloam." : i === 1 ? "A second fork. The lamp knows the draught that follows the water." : "A third fork, the last. You have one thing left in your pocket that floats.") +
         '<div class="ftun"><img src="' + IMG + f.img + '.jpg" alt="A fork in the tunnel">' + shade() + '<button class="fhit ftun-l" data-go="l" aria-label="The left opening"></button><button class="fhit ftun-r" data-go="r" aria-label="The right opening"></button></div>' +
         '<div class="ftun-tools"><button class="fbtn" id="ftool">' + esc(f.tool) + '</button><span class="fsmall" id="ftoolsay"></span></div>', null, "chamber", f.img);
       $("ftool").onclick = () => {
@@ -373,7 +373,7 @@
     if (w.done.steps) { K.card('<div class="kick">Act 3</div><h2>The third night</h2>' + FW.hanukkiahHTML(3) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }
     F.S("harp", null, 0.6); F.V("w-act3-end");
     K.card('<div class="kick">Act 3 · Down to the Water</div><h2>The third candle</h2>' + FW.hanukkiahHTML(3) +
-      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps, and the seventh is his. He is alive, and you know it, and Haller knows that you know it, which is why, when money and fear failed, he gave you a page. You have a question for me. I can hear it from here. Hold it until the garden, and I will answer it there, with the tree between us, because I am not brave enough to answer it anywhere else. Tomorrow: everything is ready but one thing. Go and see what is ready.”</div>' +
+      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps. The seventh is his.<br><br>You have a question for me. Hold it until the garden. I will answer with the tree between us, because I am not brave enough to answer it anywhere else.<br><br>Tomorrow: everything is ready but one thing.”</div>' +
       '<button class="cta" data-act="n">The night</button>', { n: () => {
         F.S("harp", null, 0.4);
         K.card('<div class="kick">The third night · the hotel</div><h2>The lamp on the desk is still warm.</h2>' +
