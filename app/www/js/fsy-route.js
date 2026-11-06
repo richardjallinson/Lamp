@@ -82,7 +82,7 @@
       img: "fsy/w/act3-title.jpg", verse: "Nevertheless David took the strong hold of Zion: the same is the city of David.", ref: "2 Samuel 5:7" },
     { n: 4, title: "Everything But the Place", sub: "The fallen stones, the Institute, the gates, the tombs, the Mount of Olives, the garden",
       img: "fsy/w/egate-steps.jpg", verse: "And he shall confirm the covenant with many for one week.", ref: "Daniel 9:27" },
-    { n: 5, title: "Measure the Temple", sub: "The Mughrabi Gate, the clues, the verdict, the sealed gate",
+    { n: 5, title: "The Seventh Lamp", sub: "The Mughrabi ramp, the five witnesses, the verdict, the seventh lamp, the gate before sunrise",
       img: "fsy/w/mughrabi-0.jpg", verse: "Rise, and measure the temple of God, and the altar, and them that worship therein.", ref: "Revelation 11:1" },
   ];
   const R = [];
@@ -520,8 +520,8 @@
       { id: "below", img: "mughrabi-0", cap: "From the south-west corner: the fallen stones, the Wall, and the wooden Mughrabi ramp climbing to the gate", go: { fwd: "under" },
         hots: [{ box: [0, 12, 35, 20], label: "The ramp", text: "The covered wooden ramp runs from the Western Wall plaza up to the Mughrabi Gate. It was built as a temporary bridge after the old earth ramp collapsed in 2004, and it is still there." }] },
       { id: "under", img: "mughrabi-under", cap: "Under the covered bridge: it crosses over the women’s section on steel legs", go: { back: "below", fwd: "entrance" } },
-      { id: "entrance", img: "mughrabi-1", cap: "The entrance to the wooden Mughrabi bridge, from the Western Wall plaza", hank: "The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.",
-        go: { fwd: "security", back: "under" } },
+      { id: "entrance", img: "mughrabi-1", cap: "The entrance to the wooden Mughrabi bridge, before opening: the barrier down, and a man in a grey coat standing at it", hank: "The only gate by which a Jew or a Christian may go up onto the Temple Mount. Security, then the bridge. Go up.",
+        go: { fwd: "security", back: "under" }, puzzle: "hallerramp" },
       { id: "security", img: "mughrabi-security", cap: "The checkpoint inside the bridge: police on the benches, visitors waiting their turn to go up", go: { back: "entrance", fwd: "inside" },
         hots: [{ box: [55, 30, 40, 50], label: "The police", text: "Israeli police guard the bridge and walk every group across the Mount. Jews and Christians may visit at set hours, in groups, and may not pray aloud." }] },
       { id: "inside", img: "mughrabi-2", cap: "Inside the covered bridge, climbing above the plaza", go: { back: "security", fwd: "benches" },
@@ -532,12 +532,19 @@
       { id: "down", img: "mughrabi-down", cap: "Looking down from the bridge: the Western Wall plaza, the men’s section, and the arch to Wilson’s prayer hall", go: { right: "open" },
         hots: [{ box: [42, 49, 14, 11], label: "The dark arch", text: "Under that arch, at the left end of the Wall, is the prayer hall under Wilson’s Arch, where you counted the stones going down. From here you are looking at it from above." }] },
       { id: "near", img: "mughrabi-near", cap: "The last few metres: the gate in the wall, under its minaret", go: { back: "open", fwd: "top" } },
-      { id: "top", img: "mughrabi-4", cap: "Through the gate: the Temple Mount. Al-Aqsa on the right. And by the arcade, waiting, a man in a grey coat", go: { back: "near" }, puzzle: "greytop" },
+      { id: "top", img: "mughrabi-4", cap: "Through the gate: the Temple Mount. Al-Aqsa on the right. Somewhere on the platform, in sight and out of reach, a grey coat", go: { back: "near" },
+        hots: [{ box: [20, 20, 60, 50], label: "Onto the platform", act: "ontoMount" }] },
     ] });
   S({ id: "mount", act: 5, title: "The Temple Mount", kick: "Where was the Temple?", music: "investigation", amb: "platform", kept: "mount",
     views: [{ id: "in", img: "tm-north-walk", cap: "" }] });
-  S({ id: "gate", act: 5, title: "The Eastern Gate, inside", kick: "This gate shall be shut", music: "gate", amb: "chamber", kept: "gate",
+  S({ id: "gate", act: 5, title: "The Eastern Gate, from the platform", kick: "This gate shall be shut", music: "gate", amb: "platform", kept: "gate",
     views: [{ id: "in", img: null, cap: "" }] });
+  S({ id: "yoelgate", act: 5, title: "The Eastern Gate, before sunrise", kick: "Come alone", music: null, amb: "olives",
+    views: [
+      { id: "path", img: "egate-path", cap: "The path under the eastern wall in the blue before dawn, the graves grey on the slope", go: { fwd: "gate" }, dawn: true,
+        hank: "Before the sun. The other side of the stone. You have the rod, and the pages, and the lamps are seven." },
+      { id: "gate", img: "egate-gate", cap: "The sealed gate in the half-light. At the foot of the wall, an old man with a cane, measuring the base of the stones with a rod", go: { back: "path" }, puzzle: "yoel", who: ["yoel"], dawn: true },
+    ] });
 
   const byId = {}; R.forEach((s, i) => { s.n = i + 1; byId[s.id] = s; });
 
@@ -753,14 +760,14 @@
     hezekiah: "Light your lamp and go in.", siloam: "Come out of the tunnel at the pool and look at it.",
     steps: "Climb the steps, then round the corner to the fallen stones.", dawn: "Read the stones in daylight.", dung: "Go out by the gate and down the road. Find the man.",
     egate: "Up the steps between the graves. Go up to the gate.", kidron: "Down in the valley. Whose tomb is it?",
-    gethsemane: "Walk among the trees. Find the oldest one and look in the hollow.", mughrabi: "Up the ramp. Find the man by the arcade."
+    gethsemane: "Walk among the trees. Find the oldest one and look in the hollow.", mughrabi: "The barrier is down. Talk to the man at it, then go up.", yoelgate: "Down the path to the foot of the gate. Before the sun."
   };
   function walk(v) {
     if (H.before && H.before(scene, v, view) === false) return;
     view = v; F.cur("walk"); F.M(scene.music, scene.amb);
     const w = W(), done = isDone(scene.id), pz = v.puzzle && PUZZLES[v.puzzle], pzDone = pz && w.done[scene.id + ":" + v.puzzle];
     const nx = R[scene.n] || null, prev = R[scene.n - 2] || null;
-    const pic = v.img ? '<img class="fwimg" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
+    const pic = v.img ? '<img class="fwimg' + (v.dawn ? " fdawn" : "") + '" draggable="false" src="' + IMG + v.img + '.jpg" alt="' + esc(v.cap) + '">' : placeholder(v);
     const hots = (v.hots || []).map((h, i) => '<button class="fhit fwhot" data-h="' + i + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"><span></span></button>').join("");
     const g = v.go || {};
     const list = H.list ? H.list(scene) : null, need = list ? list.filter((r) => !r.opt) : [];
@@ -1558,6 +1565,7 @@
     navonLight: () => { K.card('<div class="kick">Yitzhak Navon station</div><h2>Up into the light</h2><p>Halfway up the escalator the journal feels warm in your bag. You take it out. One line of the first page seems darker than the rest:</p>' + F.wnote("“When you come up out of the earth into the light, go to the market, where everything is weighed.”") + '<p>At the top, Jaffa Road, and the light rail. The market is three stops away.</p><button class="cta" data-act="x">Out into the city</button>', { x: () => {} }); },
     gabrielTalk: () => { K.card('<div class="kick">Gabriel</div><h2>“Shalom. Come in, come in.”</h2><p>Gabriel is behind the counter, a small man with a big voice, and within a minute you are talking about the end of days. “Everybody who comes in here wants to know when,” he says. “Nobody asks where. You ask where. Good.” He taps the counter. “Everyone takes a souvenir home. Choose.”</p><button class="cta" data-act="x">Look at the counter</button>', { x: () => {} }); },
     toBazaar: () => finish("wallagain"),
+    ontoMount: () => go(byId.mount),
     toGarden: () => finish("bazaar"),
     fpStub: () => { K.card('<div class="kick">On the wall</div><h2>A ticket stub</h2><p>Face down in a puddle: the stub of a Ramparts ticket, today’s date, torn by the machine at the booth. He did not pay Avi. He had a ticket already, from somewhere else, or from someone.</p><button class="cta" data-act="x">Keep it</button>', { x: () => H.fact && H.fact("fpstub", "A Ramparts ticket stub in a puddle on the north wall, today's date. Haller had a ticket without buying one from Avi.") }); },
     fpChalk: () => { K.card('<div class="kick">On the wall</div><h2>Chalk</h2><p>A white smear on the top of the battlement where a hand rested: chalk, soft and fresh, the same white as the line on the stone by Warren’s Gate. He came up here after the tunnels, with chalk still on his fingers.</p><button class="cta" data-act="x">Note it</button>', { x: () => H.fact && H.fact("fpchalk", "Fresh white chalk on the battlement of the north wall: the same as the chalk line at Warren's Gate. He wrote it, then came up here.") }); },

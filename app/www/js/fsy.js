@@ -50,7 +50,11 @@
       '<g class="dome small" transform="translate(' + SPOT.spirits[0] + "," + SPOT.spirits[1] + ')"><circle r="6"/></g><text class="ml" x="' + (SPOT.spirits[0] - 40) + '" y="' + (SPOT.spirits[1] - 14) + '">Dome of the Spirits</text>' +
       '<rect class="gatemk" x="254" y="150" width="12" height="20"/><text class="ml" x="214" y="146">Eastern Gate</text>' +
       '<text class="ml" x="150" y="425" text-anchor="middle">S</text><text class="ml n" x="152" y="28" text-anchor="middle">N ▲</text>' +
-      (cl.line || o.line ? '<line class="sight" x1="' + SPOT.olives[0] + '" y1="160" x2="40" y2="160"/>' : "") +
+      (cl.floor && !o.noLayers ? '<ellipse class="lay lay-floor" cx="' + SPOT.spirits[0] + '" cy="' + SPOT.spirits[1] + '" rx="30" ry="22"/>' : "") +
+      (cl.middle && !o.noLayers ? '<rect class="lay lay-middle" x="' + (SPOT.rock[0] - 40) + '" y="' + (SPOT.rock[1] - 30) + '" width="80" height="60" rx="4"/><text class="ml g" x="' + (SPOT.rock[0] - 36) + '" y="' + (SPOT.rock[1] + 44) + '">the open middle</text>' : "") +
+      (cl.summit && !o.noLayers ? '<circle class="lay lay-summit" cx="' + SPOT.spirits[0] + '" cy="' + SPOT.spirits[1] + '" r="16"/>' : "") +
+      (cl.line || o.line ? '<line class="sight lay lay-line" x1="' + SPOT.olives[0] + '" y1="160" x2="40" y2="160"/>' : "") +
+      (cl.cubits && !o.noLayers && !o.extra && !o.measure ? '<g class="lay lay-court loose" transform="translate(200 330) rotate(180)"><rect x="' + (-187 * 0.6417) + '" y="' + (-135 * 0.6417 / 2) + '" width="' + (187 * 0.6417) + '" height="' + (135 * 0.6417) + '"/></g><text class="ml g" x="70" y="350">the court, not yet placed</text>' : "") +
       (cl.summit ? pin("spirits", "") : "") +
       (o.pace != null ? '<g class="pacer"><line x1="' + SPOT.gate[0] + '" y1="172" x2="' + (SPOT.gate[0] - o.pace * 0.6417) + '" y2="172"/><circle cx="' + (SPOT.gate[0] - o.pace * 0.6417) + '" cy="172" r="5"/></g>' : "") +
       (o.extra || "") + "</svg>";
@@ -64,12 +68,13 @@
     { id: "summit", title: "The top of the mountain", ref: "Josephus, Wars 5.184", run: clueSummit,
       v: "The Temple stood on the very top of the mountain, on ground that needed no preparation.",
       learned: "Josephus, a priest who served in the Temple, says it stood on the very top of the mountain. The natural summit is the northern rise." },
-    { id: "line", title: "The line from the Eastern Gate", ref: "Josephus, Wars 5.222", run: clueLine,
-      v: "The Temple faced east: from the sanctuary, through the Eastern Gate, to the Mount of Olives.",
-      learned: "A straight line west from the Eastern Gate passes over the Dome of the Spirits, not the Dome of the Rock." },
-    { id: "cubits", title: "The measuring cubits", ref: "Mishnah, Middot 2:5", run: clueCubits,
-      v: "The Court of the Women was a hundred and thirty-five cubits long and a hundred and thirty-five cubits wide.",
-      learned: "Walked out from the Eastern Gate, the Mishnah's courts add up to about 187 cubits to the sanctuary. That distance ends at the northern bedrock." },
+    { id: "line", title: "The line of sight", ref: "Mishnah, Middot 2:4", run: clueLine,
+      v: "All the walls there were high, except the eastern wall, so that the priest who burned the red heifer, standing on the top of the Mount of Olives, could see straight into the door of the sanctuary.",
+      learned: "The eastern wall was kept low so that a priest on the Mount of Olives could look through the gates to the sanctuary door: the gate, the sanctuary and the mountain in one line. Sighted from the platform, that line runs west over the Dome of the Spirits, not the Dome of the Rock.",
+      note: "Yoel's reconstruction assumes the present eastern gate preserves the ancient line." },
+    { id: "cubits", title: "The 187-cubit court", ref: "Mishnah, Middot 2:6, 5:1", run: clueCubits,
+      v: "The whole court was a hundred and eighty-seven cubits long and a hundred and thirty-five wide.",
+      learned: "The inner court, built from the Mishnah with Yoel's rod: from the east, the Court of Israel 11, the Court of the Priests 11, the altar 32, the space between the altar and the porch 22, the sanctuary 100, and 11 behind. A hundred and eighty-seven cubits. A shape, not a distance: it has not been placed yet." },
     { id: "middle", title: "The middle of the court", ref: "2 Chronicles 7:7", run: clueMiddle,
       v: "Moreover Solomon hallowed the middle of the court that was before the house of the LORD: for there he offered burnt offerings, and the fat of the peace offerings, because the brasen altar which Solomon had made was not able to receive the burnt offerings.",
       learned: "The middle of the court had to stay open for offerings. The Dome of the Rock stands in that middle, so the Temple could not have stood there.",
@@ -83,8 +88,8 @@
   /* where each clue is found on the Mount, in Richard's photographs */
   CLUES[0].scene = ["tm-bedrock.jpg", "Inside the Dome of the Spirits: the bedrock, flat and level, with its seam"];
   CLUES[1].scene = ["tm-north.jpg", "The northern end of the platform: the Dome of the Spirits stands alone on the open paving"];
-  CLUES[2].scene = ["tm-line.jpg", "From the Dome of the Spirits, looking east: the Eastern Gate’s dome, and the Mount of Olives behind it"];
-  CLUES[3].scene = ["tm-gate-wide.jpg", "The Eastern Gate from inside the Mount: the place to start counting"];
+  CLUES[2].scene = ["tm-line.jpg", "From the Dome of the Spirits, looking east: the Eastern Gate’s dome, and the Mount of Olives behind it. The priest on the mountain looked back along this line"];
+  CLUES[3].scene = ["tm-gate-wide.jpg", "The eastern wall from the platform: the court is built from here, section by section, with the rod"];
   CLUES[4].scene = ["tm-dome-rock.jpg", "The Dome of the Rock, in the middle of the great court"];
   CLUES[2].photo = ["gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount"];
   CLUES[4].photo = ["dome-rock.jpg", "The Dome of the Rock, in the middle of the court"];
@@ -827,13 +832,13 @@
     }));
     const pl = $("fplace"); if (pl) pl.onclick = place;
     const en = $("fend"); if (en) en.onclick = () => (p.gateDone ? ending() : p.waqf ? walkDone("mount") : today());
-    if (!finished && found === 0) { K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200); V("14-journal"); }
+    if (!finished && found === 0) { K.say("Five clues are hidden in Scripture and history. Gather them, then decide.", "", 4200); V("14-journal"); const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5) H5.tal(() => {}); }
   }
   function solved(c) {
     P().clues[c.id] = 1; save(); S("journal"); setTimeout(() => S("harp", null, 0.6), 300); K.buzz("success");
     K.card('<div class="kick">Clue found · ' + esc(c.ref) + "</div><h2>" + esc(c.title) + '</h2><div class="v">“' + esc(c.v) + '”</div>' + (c.photo ? photo(c.photo[0], c.photo[1]) : "") + '<p><b>What it shows.</b> ' + esc(c.learned) + "</p>" + (c.note ? '<p class="fnote">' + esc(c.note) + "</p>" : "") +
       '<p class="fgo">Go deeper: <i>' + BOOK + "</i>, chapter 3.</p>" + '<button class="cta" data-act="x">Add to the journal</button>',
-      { x: () => board() });
+      { x: () => { board(); const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5) H5.sighted(CLUES.filter((k) => P().clues[k.id]).length); } });
   }
   function clueScreen(c, html) {
     M("puzzle", "platform"); preS("journal", "harp", "knock", "stone", "rod", "step");
@@ -907,18 +912,16 @@
     const hit = document.createElement("button"); hit.className = "fgatehit"; hit.setAttribute("aria-label", "The Eastern Gate"); hit.onclick = go; $("fm").appendChild(hit);
     }
   }
-  /* 4. pace out the cubits from the gate */
+  /* 4. build the inner court from the Mishnah, a section at a time, with Yoel's rod */
+  const COURTS5 = [["The Court of Israel", 11], ["The Court of the Priests", 11], ["The altar", 32], ["Between the altar and the porch", 22], ["The sanctuary", 100], ["Behind the sanctuary", 11]];
   function clueCubits(c) {
-    let v = 0;
-    const s = clueScreen(c, '<div class="fq">' + (P().flax ? "Take out the line of flax from the tomb: a knot for every cubit. " : "Take out the measuring line from your satchel. ") + "You walked these courts at the Institute: the Court of the Women, 135 cubits, then the courts of Israel and the priests, the altar and the steps, another 52. Pay out the line from the Eastern Gate.</div>" +
-      '<div class="fmapwrap small" id="fm">' + mapSVG({ pace: 0 }) + '</div><div class="fpace"><button id="fminus">−</button><b id="fval">0 cubits</b><button id="fplus">+</button></div><button class="fbtn" id="fstop">Stop here</button>');
-    const draw = () => { $("fm").innerHTML = mapSVG({ pace: v }); $("fval").textContent = v + " cubits"; };
-    $("fplus").onclick = () => { v = Math.min(300, v + 11); if (v > 180 && v < 194) v = 187; S("rod", "click", 0.7); draw(); };
-    $("fminus").onclick = () => { v = Math.max(0, v - 11); if (v > 180 && v < 194) v = 187; S("rod", "click", 0.7); draw(); };
-    $("fstop").onclick = () => {
-      if (v !== 187) { wrong(v < 187 ? "Not far enough. Add the two parts together: 135 and 52." : "Too far. 135 and 52 make the whole distance."); return; }
-      S("step", "stone"); K.say("187 cubits from the gate, and you stand on the flat northern bedrock.", "", 3600); setTimeout(() => K.root() && solved(c), 1400);
-    };
+    let at = 0, tot = 0;
+    const s = clueScreen(c, '<div class="fq">Take out Yoel\u2019s rod. The Mishnah gives the inner court from east to west, section by section. Lay the rod along each until the court is whole. It is a shape, not a distance from the gate.</div>' +
+      '<div class="fcourt" id="fcourt"></div><div class="fpace"><b id="fval">0 of 187 cubits</b></div><button class="fbtn" id="flay">Lay the rod: The Court of Israel, 11 cubits</button>');
+    const draw = () => { $("fcourt").innerHTML = '<div class="fcourtbar">' + COURTS5.map((k, i) => '<span class="' + (i < at ? "on" : "") + '" style="flex:' + k[1] + '"><b>' + k[1] + "</b></span>").join("") + "</div>" + '<div class="fsmall">' + COURTS5.map((k, i) => (i < at ? "\u2713 " : "") + esc(k[0]) + " " + k[1]).join(" \u00b7 ") + "</div>"; $("fval").textContent = tot + " of 187 cubits"; const b = $("flay"); if (at < COURTS5.length) b.textContent = "Lay the rod: " + COURTS5[at][0] + ", " + COURTS5[at][1] + " cubits"; else b.style.display = "none"; };
+    draw();
+    $("flay").onclick = () => { if (at >= COURTS5.length) return; tot += COURTS5[at][1]; at++; S("rod", "click", 0.7); draw();
+      if (at === COURTS5.length) { S("step", "stone"); K.say("A hundred and eighty-seven cubits, east to west: the whole inner court, in your hands. Now it needs its place.", "", 4200); setTimeout(() => K.root() && solved(c), 1800); } };
   }
   /* 5. tap the middle of the court */
   function clueMiddle(c) {
@@ -948,34 +951,43 @@
   }
   const PT = (x, y, r) => { const a = (r * Math.PI) / 180; return [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]; };
   function place() {
+    const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5 && !P().sawBefore) { P().sawBefore = 1; save(); return H5.beforeVerdict(place); }
     M("m24", "platform"); cur = "verdict";
-    const s = stage('<div class="fkick">The verdict</div><h1>Lay the Temple on the Mount</h1><div class="fq">You built the Temple plan at the Institute, court by court. Now drag it onto the Mount, and turn it, until everything fits.</div>' +
+    const s = stage('<div class="fkick">The verdict</div><h1>Lay the court on the Mount</h1><div class="fq">Four layers are fixed to the ground: the floor, the summit, the line, the open middle. The court is loose. Drag it along the line, and turn it, and watch the layers: where they all agree, it will lock.</div>' +
       '<div class="fmapwrap" id="fm">' + mapSVG({ extra: planSVG() }) + "</div>" +
       '<div class="fplanbar"><button id="frot">⟳ Turn the plan</button><button class="fbtn" id="fset">Set it here</button></div>' +
       '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => board();
     const svg = $("fm").querySelector("svg"), g = $("fplan");
     let tx = 120, ty = 330, r = 180, drag = null;
-    const draw = () => g.setAttribute("transform", "translate(" + tx + " " + ty + ") rotate(" + r + ")");
+    const near = (a, b, d) => Math.hypot(a[0] - b[0], a[1] - b[1]) < d;
+    const hohAt = () => { const hp = PT(-(PLAN.women + PLAN.inner + PLAN.hoh / 2), 0, r); return [tx + hp[0], ty + hp[1]]; };
+    let locked = false;
+    const lit = () => { const hoh = hohAt(), onLine = r === 0 && Math.abs(ty - SPOT.gate[1]) < 14, st = { floor: near(hoh, SPOT.spirits, 22), summit: near(hoh, SPOT.spirits, 22), line: onLine, middle: !near(hoh, SPOT.rock, 40) && onLine };
+      ["floor", "summit", "line", "middle"].forEach((k) => svg.querySelectorAll(".lay-" + k).forEach((e) => e.classList.toggle("lit", !!st[k])));
+      return st.floor && st.summit && st.line && st.middle && near([tx, ty], SPOT.gate, 24); };
+    const lock = () => { if (locked) return; locked = true; tx = SPOT.gate[0]; ty = SPOT.gate[1]; r = 0; draw(); g.classList.add("fit"); svg.querySelectorAll(".lay").forEach((e) => e.classList.add("lit")); S("lock", null, 0.8); K.buzz("success");
+      const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); setTimeout(() => K.root() && (H5 ? H5.locked(reveal) : makeCase()), 1400); };
+    const draw = () => { g.setAttribute("transform", "translate(" + tx + " " + ty + ") rotate(" + r + ")"); if (!locked && lit()) lock(); };
     draw();
     const pt = (e) => { const q = svg.createSVGPoint(); q.x = e.clientX; q.y = e.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); };
-    g.addEventListener("pointerdown", (e) => { const q = pt(e); drag = [q.x - tx, q.y - ty]; g.setPointerCapture(e.pointerId); g.classList.add("drag"); });
+    g.addEventListener("pointerdown", (e) => { const q = pt(e); drag = [q.x - tx, q.y - ty]; try { g.setPointerCapture(e.pointerId); } catch (x) {} g.classList.add("drag"); });
     g.addEventListener("pointermove", (e) => { if (!drag) return; const q = pt(e); tx = q.x - drag[0]; ty = q.y - drag[1]; draw(); });
     g.addEventListener("pointerup", () => { drag = null; g.classList.remove("drag"); S("step", "click", 0.4); });
     $("frot").onclick = () => { r = (r + 90) % 360; S("stone", "click", 0.4); draw(); };
     $("fset").onclick = () => {
-      const hohL = -(PLAN.women + PLAN.inner + PLAN.hoh / 2), hp = PT(hohL, 0, r), hoh = [tx + hp[0], ty + hp[1]];
+      if (locked) return;
+      const hoh = hohAt();
       const corners = [[0, -PLAN.women / 2], [0, PLAN.women / 2], [-(PLAN.women + PLAN.inner + PLAN.hoh), -PLAN.women / 2], [-(PLAN.women + PLAN.inner + PLAN.hoh), PLAN.women / 2]].map((c) => { const q = PT(c[0], c[1], r); return [tx + q[0], ty + q[1]]; });
       const off = corners.some((c) => c[0] < 44 || c[0] > 268 || c[1] < 30 || c[1] > 412);
-      const near = (a, b, d) => Math.hypot(a[0] - b[0], a[1] - b[1]) < d;
       if (r !== 0) { wrong("The Temple faced east: turn the plan until its gate looks toward the Eastern Gate and the Mount of Olives."); return; }
-      if (near([tx, ty], SPOT.gate, 20) && near(hoh, SPOT.spirits, 20)) { tx = SPOT.gate[0]; ty = SPOT.gate[1]; draw(); g.classList.add("fit"); S("lock", null, 0.7); setTimeout(() => K.root() && makeCase(), 1600); return; }
+      if (near([tx, ty], SPOT.gate, 20) && near(hoh, SPOT.spirits, 20)) { lock(); return; }
       if (off) { wrong("Part of the Temple hangs off the edge of the Mount. Move it back onto the platform."); return; }
       if (near(hoh, SPOT.rock, 26)) { wrong("Here the Holy of Holies sits on the jagged rock, and the Temple’s gate stands far from the Eastern Gate. The courts would cover the middle Solomon kept open."); return; }
       if (!near([tx, ty], SPOT.gate, 26)) { wrong("The Temple’s gate must open onto the Eastern Gate: the line from the Mount of Olives runs straight through both."); return; }
       wrong("Close. Slide it along the line until the Holy of Holies rests on flat bedrock.");
     };
-    K.say("Drag the plan onto the Mount, and turn it to face east.", "", 3600); V("20-verdict");
+    K.say("Drag the court along the line, and turn it to face east. Watch the layers.", "", 3600); V("20-verdict");
   }
   /* before the reveal: answer a sceptic with the three strongest pieces of evidence */
   const CASEV = [
@@ -1016,9 +1028,8 @@
   function reveal() {
     const p = P(), first = !p.done;
     p.done = 1; save(); S("shofar", "stone"); K.buzz("success");
-    const ev = (p.case || []).map((k) => (CASEV.find((c) => c[0] === k) || [])[1]).filter(Boolean);
     const was = '<div class="fjrnl"><b>From your journal</b>' + (p.theory === "rock" ? "<p>You came thinking the Temple stood under the golden Dome of the Rock, as most people do.</p>" : p.theory === "spirits" ? "<p>You came already suspecting the northern rise.</p>" : "<p>You came with an open mind.</p>") +
-      (ev.length ? "<p>What made the case:</p><ul>" + ev.map((e) => "<li>" + esc(e) + "</li>").join("") + "</ul>" : "") + "</div>";
+      "<p>Yoel's five lines of evidence converge here: the floor, the summit, the line, the court, the open middle.</p></div>";
     const s = stage('<div class="fkick">Revealed</div><h1>The northern summit</h1><div class="fmapwrap" id="fm">' + mapSVG({ measure: true }) + "</div>" +
       '<div class="fverse">“Rise, and measure the temple of God, and the altar, and them that worship therein. But the court which is without the temple leave out, and measure it not; for it is given unto the Gentiles.”<small>Revelation 11:1–2</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits, on the northern summit: where the Holy of Holies stood"));
     void s;
@@ -1034,8 +1045,7 @@
         '<div class="fview"><b>The author’s view.</b> Scripture, Josephus, the Mishnah and the bedrock agree: the Holy of Holies stood on the northern summit, beneath today’s Dome of the Spirits. A Third Temple can be rebuilt there without touching the Dome of the Rock, exactly as Revelation 11 describes.<small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapter 3</small></div>" +
         '<div class="fview"><b>From the author.</b> I first read that the Holy of Holies stood at the Dome of the Spirits in Grant R. Jeffrey’s <i>Armageddon: Appointment with Destiny</i>. I spent years investigating it afterwards. I walked the Temple Mount many times, on my own and with my wife, and once with a guide, to confirm that the floor inside the Dome of the Spirits is bedrock, not paving stone laid by Herod. What you have just seen is where that investigation led.<small>Richard J. Allinson</small></div>' + photo("dome-spirits.jpg", "The Dome of the Spirits today") +
         (oil ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +2 oil</div></div>" : "") +
-        '<p><b>And now the man in the grey coat knows it too.</b></p>' +
-        '<button class="cta" data-act="next">The Temple Mount today</button>', { next: today });
+        '<button class="cta" data-act="next">' + ((Lamp.fsyWalk && Lamp.fsyWalk.H.act5) ? "The northern outcrop" : "The Temple Mount today") + '</button>', { next: () => { const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5) H5.lamp7(); else today(); } });
     }, 4200);
   }
 
@@ -1077,9 +1087,10 @@
       }, 1300);
     }, 600);
     function done() {
-      line('<p class="fq">I thanked him, and quickly left the Temple Mount.</p>' +
+      const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5) line('<div class="fhim">' + H5.waqfLine + '<small>The official</small></div>');
+      line('<p class="fq">' + (H5 ? "He walks you toward the eastern wall himself, the long way, past the sealed gate." : "I thanked him, and quickly left the Temple Mount.") + '</p>' +
         '<div class="fview"><b>From the author.</b> That was the end of my time on the Mount that day. I had just finished at the Dome of the Spirits when he came over.<small>Richard J. Allinson, Jerusalem</small></div>' +
-        '<button class="fbtn glow" id="fwgo">One place remains: the Eastern Gate</button>');
+        '<button class="fbtn glow" id="fwgo">' + (H5 ? "Along the eastern wall" : "One place remains: the Eastern Gate") + '</button>');
       $("fwgo").onclick = () => { K.sfx("click"); walkDone("mount"); };
     }
   }
@@ -1089,9 +1100,9 @@
     chips: ["SHUT", "OPENED", "ENTERED", "DEPARTED", "PRINCE", "PRIEST"] };
   function gate() {
     cur = "gate"; M("gate", "chamber"); const p = P(); let at = 1;
-    const s = stage('<div class="fkick">Act 5 · Inside the Temple Mount</div><h1>The Eastern Gate</h1>' +
-      photo("tm-gate-wide.jpg", "The Eastern Gate, from inside the Temple Mount: the stairs down to the sealed arches", "Photo: Richard J. Allinson, inside the Temple Mount") +
-      '<div class="fnarr">“You have walked the whole city, stood on the mountain, and found the place. One gate is left: the one the police were guarding, from the other side. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
+    const s = stage('<div class="fkick">Act 5 · On the platform, by the eastern wall</div><h1>The Eastern Gate</h1>' +
+      photo("tm-gate-wide.jpg", "The Eastern Gate from the platform: over the wall of the stair, the sealed arches below", "Photo: Richard J. Allinson, on the Temple Mount") +
+      '<div class="fnarr">“You have walked the whole city, stood on the mountain, and found the place. One gate is left: the one the police were guarding, from the other side. You do not go down to it; nobody does. Open the journal to Yoel’s drawing of it. Ezekiel saw it shut, and wrote down why. <b>Fill in his words.</b>”<small>The Lamplighter</small></div>' +
       '<div class="fscroll" id="fscroll"></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(GATE.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("The map"), "gate-inside.jpg");
     wire(s, stops);
@@ -1105,7 +1116,7 @@
         '<button class="cta" data-act="x">Fill in Ezekiel’s words</button>', { x: then });
       V("22b-watchman");
     };
-    note(() => V("22-gate-open"));
+    if ((Lamp.fsyWalk && Lamp.fsyWalk.H.act5)) V("22-gate-open"); else note(() => V("22-gate-open"));
     const drawScroll = () => { $("fscroll").innerHTML = GATE.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Ezekiel 44:2–3</small>"; };
     drawScroll();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -1116,11 +1127,11 @@
         setTimeout(() => {
           if (!K.root()) return;
           const first = !p.gateDone; p.gateDone = 1; save(); S("shofar", null, 0.7); K.buzz("success"); V("23-gate-verse");
-          K.card('<div class="kick">Episode 1 solved</div><h2>The gate is shut</h2>' + photo("gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount", "Photo: Richard J. Allinson, inside the Temple Mount") +
+          K.card('<div class="kick">' + ((Lamp.fsyWalk && Lamp.fsyWalk.H.act5) ? "Ezekiel 44:2" : "Episode 1 solved") + '</div><h2>The gate is shut</h2>' + photo("gate-inside.jpg", "The Eastern Gate, sealed, seen from inside the Temple Mount", "Photo: Richard J. Allinson, inside the Temple Mount") +
             "<p>Ezekiel saw the glory of the LORD enter by this gate from the east, and heard the command: <b>shut it</b>. The Turks walled it with stone in 1541, and it has stayed shut. It waits for one person: <b>the Prince</b>.</p>" +
             '<div class="fview"><b>The author’s view.</b> The Temple will stand again on the northern summit, in line with this gate. The Prince for whom the gate waits is the Messiah, and he will come to the Mount of Olives, exactly where you stood. The place is found. <b>The question now is when.</b><small>From <i>' + BOOK + "</i> by Richard J. Allinson, chapters 3 and 15</small></div>" +
             (first && !st.hints && st.misses <= 1 ? '<div class="rewards"><div>' + Lamp.ICON.oil + " <b>Sharp investigator</b> · +1 oil</div></div>" : "") +
-            '<button class="cta" data-act="next">What comes next</button>', { next: () => (Lamp.fsyWalk ? Lamp.fsyWalk.finish("gate", ending) : ending()) });
+            '<button class="cta" data-act="next">' + ((Lamp.fsyWalk && Lamp.fsyWalk.H.act5) ? "The official" : "What comes next") + '</button>', { next: () => { const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); if (H5) H5.page13(() => Lamp.fsyWalk.finish("gate")); else if (Lamp.fsyWalk) Lamp.fsyWalk.finish("gate", ending); else ending(); } });
           if (first && !st.hints && st.misses <= 1) { Lamp.state.oil += 1; save(); }
         }, 800);
       } else K.say(at === 3 ? "Shut. And the reason follows." : "Entered in by it. And one more: for whom is the gate kept?", "", 3200);
@@ -1174,7 +1185,7 @@
       save(); stops();
     },
     /* what js/fsy-route.js needs from here */
-    parts: { P, keptDone, cur: (v) => (cur = v), M, V, S, stage, wnote, photo, wrong: (m) => wrong(m), back, wire, shuffle, verse: null,
+    parts: { P, keptDone, cur: (v) => (cur = v), M, V, S, stage, wnote, photo, wrong: (m) => wrong(m), back, wire, shuffle, verse: null, waqf, ending,
       intro, institute, prophets: olivesSign, olives, robinson, chapter, gate, ending },
     card() {
       const p = P();

@@ -9,7 +9,7 @@
      Garden Gate, mark the first three stories done, reset the adventure, replay the full start screen. */
 (function () {
   "use strict";
-  const TESTER = true;    // tester build v5h
+  const TESTER = true;    // tester build v5i
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.tester = TESTER;
   if (!TESTER) return;
@@ -67,7 +67,7 @@
     const row = (act, title, small) => '<button class="row" data-dev="' + act + '"><span class="l"><b>' + title + "</b><small>" + small + "</small></span></button>";
     return '<div class="group tester"><div class="row"><span class="l"><b>Tester tools</b><small>For testing only. Turned off before the App Store.</small></span></div>' +
       '<div class="row"><span class="l"><b>Skip button</b><small>Finish any level, card or puzzle with one tap.</small></span><button class="switch" role="switch" aria-checked="' + (st.devskip !== false) + '" data-set="devskip"></button></div>' +
-      (Lamp.gameOnly ? row("act1", "Play Act 1 as if done", "Jumps to Jaffa Gate with everything Act 1 gives you.") + row("act2", "Play Acts 1 and 2 as if done", "Jumps to the end of the bazaar street with lamps 1 to 4.") + row("act3", "Play Acts 1 to 3 as if done", "Jumps to the Southern Steps at the third candle, with lamps 1 to 6 and pages 1 to 10.") + row("act4", "Play Acts 1 to 4 as if done", "Jumps to Gethsemane at the fourth candle, with pages 1 to 12.") + row("intro", "Show the full start screen again", "Plays the long version next time the app opens.") + "</div>" : "") +
+      (Lamp.gameOnly ? row("act1", "Play Act 1 as if done", "Jumps to Jaffa Gate with everything Act 1 gives you.") + row("act2", "Play Acts 1 and 2 as if done", "Jumps to the end of the bazaar street with lamps 1 to 4.") + row("act3", "Play Acts 1 to 3 as if done", "Jumps to the Southern Steps at the third candle, with lamps 1 to 6 and pages 1 to 10.") + row("act4", "Play Acts 1 to 4 as if done", "Jumps to Gethsemane at the fourth candle, with pages 1 to 12.") + row("act5", "Play Acts 1 to 5 as if done", "The whole episode as if played: all seven lamps, page 13.") + row("intro", "Show the full start screen again", "Plays the long version next time the app opens.") + "</div>" : "") +
       (Lamp.gameOnly ? "" :       row("unlock", "Unlock all stories", Lamp.state.unlocked ? "All 66 books are open." : "Open every book without buying (test only).") +
       row("oil", "Fill the lamp", "Add 10 drops of oil.") +
       '<div class="row"><span class="l"><b>Open every story</b><small>Ignore the adventure order (puzzles still work).</small></span><button class="switch" role="switch" aria-checked="' + !!Lamp.state.devOpen + '" data-dev="open"></button></div>' +
@@ -92,6 +92,7 @@
     if (a === "act2") { Lamp.fsyWalk && Lamp.fsyWalk.devAct2 && Lamp.fsyWalk.devAct2(); toast("Acts 1 and 2 done (test). Open Episode 1."); }
     if (a === "act3") { Lamp.fsyWalk && Lamp.fsyWalk.devAct3 && Lamp.fsyWalk.devAct3(); toast("Acts 1 to 3 done (test). Open Episode 1."); }
     if (a === "act4") { Lamp.fsyWalk && Lamp.fsyWalk.devAct4 && Lamp.fsyWalk.devAct4(); toast("Acts 1 to 4 done (test). Open Episode 1."); }
+    if (a === "act5") { Lamp.fsyWalk && Lamp.fsyWalk.devAct5 && Lamp.fsyWalk.devAct5(); toast("Acts 1 to 5 done (test). Open Episode 1."); }
     if (a === "act1") { Lamp.fsyWalk && Lamp.fsyWalk.devAct1 && Lamp.fsyWalk.devAct1(); toast("Act 1 done (test). Open Episode 1."); }
     if (a === "intro") { s.intro = false; s.introAgain = true; Lamp.save(); toast("The full start screen plays next time the app opens"); }
     Lamp.render && Lamp.render();

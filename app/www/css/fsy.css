@@ -973,3 +973,26 @@
 #adv .ftab.ph2{background:#5A5A5A;color:#EEE;flex-basis:100%}
 #adv .ftab.ph2 small{color:#CCC}
 #adv .fcall{margin:10px 0;padding:12px 14px;border-left:3px solid #9A8A6A;color:#3A2E10;font-style:italic;line-height:1.5}
+
+/* ---- Act 5 ---- */
+#adv .fwimg.fdawn{filter:brightness(.55) saturate(.6) sepia(.15) hue-rotate(190deg)}
+#adv .fgrate{position:relative;width:100%;max-width:420px;border-radius:12px;overflow:hidden;touch-action:none;user-select:none}
+#adv .fgrate img{display:block;width:100%}
+#adv .frodtip{position:absolute;bottom:0;width:10px;height:38%;margin-left:-5px;background:linear-gradient(#8A6A2A,#E8C66A 70%,#F5E6A8);border-radius:3px 3px 1px 1px;box-shadow:0 0 10px rgba(0,0,0,.7);pointer-events:none;transform:rotate(-8deg);transform-origin:bottom}
+#adv .fgratemk{position:absolute;left:57%;bottom:2%;width:10%;height:5%;border-radius:2px;background:repeating-linear-gradient(90deg,#2A2A2A 0 3px,#555 3px 5px);box-shadow:0 1px 3px rgba(0,0,0,.8)}
+#adv .fjoint{border-radius:50%}
+#adv .fjoint.on{box-shadow:0 0 0 3px #F5D27A,0 0 16px #F5D27A}
+#adv .fcourt{width:100%;max-width:380px}
+#adv .fcourtbar{display:flex;height:40px;border:2px solid #7A5A2A;border-radius:6px;overflow:hidden;background:#2A1C0E;margin:8px 0}
+#adv .fcourtbar span{display:flex;align-items:center;justify-content:center;border-right:1px solid #7A5A2A;color:#6A5428;font:700 11px var(--ui);transition:background .3s}
+#adv .fcourtbar span.on{background:linear-gradient(160deg,#D9B560,#8A6A26);color:#1A1406}
+#adv .flast{font:800 15px/1.6 var(--ui);letter-spacing:.06em;color:#1A1406}
+#adv .fmap .lay{transition:all .35s;opacity:.45}
+#adv .fmap .lay-floor{fill:rgba(120,120,120,.35);stroke:none}
+#adv .fmap .lay-summit{fill:none;stroke:#7A5A2A;stroke-width:2;stroke-dasharray:3 3}
+#adv .fmap .lay-middle{fill:none;stroke:#3A7A3A;stroke-width:2;stroke-dasharray:4 3}
+#adv .fmap .lay-court rect{fill:rgba(201,162,74,.18);stroke:#9A7A3A;stroke-width:1.5;stroke-dasharray:5 3}
+#adv .fmap .lay.lit{opacity:1;filter:drop-shadow(0 0 4px #F5D27A)}
+#adv .fmap .lay-floor.lit{fill:rgba(245,210,122,.55)}
+#adv .fmap .lay-summit.lit,#adv .fmap .lay-middle.lit{stroke:#F5D27A;stroke-width:3;stroke-dasharray:none}
+#adv .fmap line.lay-line.lit{stroke:#F5D27A;stroke-width:3}

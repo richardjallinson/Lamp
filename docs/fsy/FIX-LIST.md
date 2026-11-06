@@ -304,3 +304,16 @@ Clips (video/fsy/<id>.mp4 + .jpg; then add the id to CLIPS in fsy-act4.js):
 Shlomi (audio/narration/fsy-<id>.mp3; then add the id to HAVE in fsy.js):
 - w-dawn-stones ("A trumpet once sounded from the top of that corner…"), w-institute-plates ("You cannot stop a sacrifice that never started…"), w-egate-package ("The covenant Daniel saw is not one treaty…"), w-gethsemane-letter (the letter, read quietly), w-act4-end ("Four candles…"), w-hebron-prices ("Remember the witnesses.")
 Music: m20–m23 (Dung Gate, Eastern Gate, Kidron, Gethsemane) and m24 (the stones at dawn) still fall back.
+
+## v5i — Act 5 built (script: third draft, approved by Gerry 6 Nov)
+- New fsy-act5.js. Haller at the barrier before opening (the forgery as his test; ninety minutes as a story limit); Officer Tal on the board; a sighting after each witness; "He is there" before the verdict opens; the verdict is now drag-and-lock (the four fixed layers light as the court comes into register; locks at the gate line over the northern summit; no "convince me"); the journal's "My five lines of evidence converge here" and the Lamplighter's four sentences; the reveal; the brass plate under the grate (drag the rod's end, tilt) and lamp 7; the shutter and Haller's last lines; the Waqf official's Friday line; the gate as a journal reconstruction from the platform; the official's minute; the paving joints and page 13; the fifth candle and the night; Yoel at the gate before sunrise (new route scene "yoelgate", blue-cast views); the sun; the last page; the ending card.
+- Witness 3 is Middot 2:4 (the line of sight), with the gate-axis caveat in its note; witness 4 builds the 187-cubit court section by section (no longer paced from the gate). The journal map now draws the layers: floor wash, summit ring, line, the open middle, the loose court.
+- Act 5 title "The Seventh Lamp". Tester: "Play Acts 1 to 5 as if done". Test: scratchpad act5.js plays it through.
+
+### Act 5 assets still to come
+Portraits: yoel (seventy-eight, flat cap, wool coat, rod and cane, very straight, quick eyes), tal (police escort, twenty-five, pale blue shirt, earpiece).
+Objects (img/fsy/pz/): brassplate (the flat brass plate on the rod's end under the grate: soot, the lamp spout right, a date, six reversed words).
+Clips (then add to CLIPS in fsy-act5.js): haller-barrier, rod-grate, haller-shutter, yoel-measure, gate-sun.
+Shlomi (then add to HAVE in fsy.js): w-mughrabi-goup, w-mount-three, w-verdict-five, w-seven, w-act5-end, w-final-when.
+Yoel's voice (a second ElevenLabs voice, older and drier; ids yoel-1 … yoel-6, then add to HAVE): the six answers at the gate.
+Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 pictures serve with a blue cast).
