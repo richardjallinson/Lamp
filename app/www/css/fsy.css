@@ -1005,3 +1005,36 @@
 #adv .fperson p{margin:2px 0;font-size:13px;line-height:1.4}
 #adv .fperson .fpnote{color:#3A2E10;padding-left:10px;border-left:2px solid #C9A24A}
 #adv .frecap p{margin:0 0 10px;padding-left:12px;border-left:3px solid #C9A24A;font-style:italic;line-height:1.5}
+
+/* ---- the tunnel, reworked (Gerry, 6 Nov) ---- */
+#adv .ftun-pack{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+#adv .ftun-pack .ftool{padding:8px 12px;font-size:13px}
+#adv .ftun-pack .ftool.tried{opacity:.7}
+#adv .ftun-fx{position:absolute;inset:0;pointer-events:none;opacity:0}
+#adv .ftun-fx.on{opacity:1}
+#adv .ftun-fx.ripple.l{background:radial-gradient(ellipse 30% 18% at 25% 80%,rgba(160,210,255,.35),transparent 70%);animation:ftunrip 1.4s ease-out 3}
+#adv .ftun-fx.ripple.r{background:radial-gradient(ellipse 30% 18% at 75% 80%,rgba(160,210,255,.35),transparent 70%);animation:ftunrip 1.4s ease-out 3}
+@keyframes ftunrip{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.3);opacity:0}}
+#adv .ftun-fx.lean::after{content:"";position:absolute;left:47%;bottom:16%;width:14px;height:34px;border-radius:50% 50% 45% 45%;background:radial-gradient(ellipse at 50% 70%,#FFF4C2,#F5B942 55%,rgba(245,120,40,0) 75%);box-shadow:0 0 24px 8px rgba(245,185,66,.45);transform-origin:50% 100%;animation:ftunlean 2.4s ease-in-out forwards}
+#adv .ftun-fx.lean.r::after{--lean:28deg}
+#adv .ftun-fx.lean.l::after{--lean:-28deg}
+@keyframes ftunlean{0%{transform:rotate(0)}100%{transform:rotate(var(--lean))}}
+#adv .ftun-fx.drift::after{content:"";position:absolute;left:47%;bottom:12%;width:12px;height:9px;background:#E8DCC0;border-radius:2px;box-shadow:0 0 6px rgba(255,255,255,.4);animation:ftundrift 3s ease-in forwards}
+#adv .ftun-fx.drift.l::after{--dx:-150px;--dy:-60px}
+#adv .ftun-fx.drift.r::after{--dx:150px;--dy:-60px}
+@keyframes ftundrift{0%{transform:translate(0,0) rotate(0)}30%{transform:translate(0,-4px) rotate(40deg)}100%{transform:translate(var(--dx),var(--dy)) rotate(220deg);opacity:0}}
+#adv .ftun-fx.still{background:rgba(0,0,0,.18);animation:ftunstill .8s ease-out forwards}
+@keyframes ftunstill{0%{opacity:.8}100%{opacity:0}}
+#adv .fsweep{touch-action:none;user-select:none;cursor:none}
+#adv .fsweep img{pointer-events:none}
+#adv .fsweep-dark{position:absolute;inset:0;pointer-events:none;transition:background .05s}
+#adv .fsweep-dark.held{transition:background 1.2s}
+#adv .falive-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:12px}
+#adv .falive-lines p{margin:6px 0;text-align:center;font:italic 17px/1.5 var(--serif,Georgia);color:#E8DCC0;opacity:0;transition:opacity 1.4s}
+#adv .falive-lines p.on,#adv .falive-wrap h1.on,#adv .falive-wrap .fbtn.on{opacity:1}
+#adv .falive-wrap h1{opacity:0;transition:opacity 2s;margin:8px 0}
+#adv .falive-wrap .fbtn{opacity:0;transition:opacity 1s}
+#adv .ftun-pack{width:100%;max-width:380px;flex-wrap:nowrap}
+#adv .ftun-pack .ftool{flex:1 1 0;min-width:0;width:auto;margin:0;padding:9px 4px;font-size:12.5px;white-space:normal;line-height:1.2}
+#adv .falive-wrap .fphoto1{width:100%;max-width:300px;max-height:36vh;object-fit:cover;border-radius:10px;flex:none}
+#adv .falive-wrap h1.falive{font-size:30px}

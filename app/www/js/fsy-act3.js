@@ -214,7 +214,7 @@
     if (scene.id === "zion" && !done("zion", "north")) return n === 1 ? "Yitzhak read you the line: the sides of the north. Turn the compass until north is up." : "Each tap turns the card 45 degrees. Eight taps round.";
     if (scene.id === "cod" && !done("cod", "zionq")) return n === 1 ? "David’s city is the narrow ridge below the Mount, not the Mount." : "The spring is on the ridge’s eastern side. Pin the ridge, halfway down.";
     if (scene.id === "gihon" && !done("gihon", "lampstone")) return n === 1 ? "Carry the light slowly along the whole wall, low and high." : "The marked stone is on the right, low.";
-    if (scene.id === "hezekiah") return n === 1 ? "Which way does the water go?" : n === 2 ? "Listen. Lower the lamp. Drop something on the water. The water runs toward Siloam." : "The true opening is the one the water flows into. The dry one is a dead end.";
+    if (scene.id === "hezekiah") return n === 1 ? "Which way does the water go? Try each thing in your pack: one of them will tell you, and the others will not." : n === 2 ? "First fork: listen. Second: the lamp, low. Third: something that floats." : "Left, then right, then left. After the meeting point, carry the lamp low along the right-hand wall.";
     if (scene.id === "siloam" && !done("siloam", "siloamq")) return "Begin where the water rises: the spring, then the tunnel, then the pool.";
     if (scene.id === "siloam" && A().q.bench3 && !A().q.proof) return n === 1 ? "Look at the two little lamps. Which way does the spout point on each?" : "The Watchman draws his lamp with the spout to the right. Always.";
     if (scene.id === "siloam" && A().q.proof && !W().pages[10]) return "Mahmoud said: dry shoes. The water at the foot of the great steps.";
@@ -283,25 +283,43 @@
       done: () => { W().flags.lit = 1; save(); fact("gihonlamp", "The Watchman's lamp scratched above the Gihon Spring, where Solomon was anointed: his oldest mark."); FW.lightLamp(5, () => K.card('<div class="kick">The Gihon Spring</div><h2>Lit</h2>' + clip("mahmoud-lamp") + '<p>Mahmoud reads Dr Adler’s note on the ticket, lights the lamp from his kettle flame, and picks up his telephone to tell the pool. “They will count you out the other end. Keep it low. The air is good but the roof is not. And do not stop for anything that is not his.”</p><button class="cta" data-act="x">To the tunnel mouth</button>', { x: () => C.pzDone("lampstone", () => C.finish("gihon", () => C.walk(C.V("mouth")))) })); } });
   } };
 
-  /* 5. The water knows the way: three forks in the dark, then the meeting point, then the charcoal. Lamp 6. */
+  /* 5. The water knows the way (Gerry, 6 Nov): three forks in the dark. At each fork the player chooses what to try from the backpack:
+     their ear, the lamp held low, a scrap of the envelope. At each fork one of the three tells the truth and the other two say nothing useful,
+     so the player experiments. Every clue is shown, heard and written. A wrong turn dims the lamp and returns you to the same fork; it never goes out.
+     At the end, the charcoal is found by sweeping the lamp along the wall, then a silence, then the words. Lamp 6. */
   C.PUZZLES.darktunnel = { label: "Go in", run: () => {
     const w = W(); let dim = w.flags.tunnelDim || 0;
+    const TOOLS = [["ear", "Listen"], ["lamp", "The lamp, low"], ["scrap", "A scrap of paper"]];
     const FORKS = [
-      { img: "tunnel-fork-left2", truth: "l", tool: "Listen", used: "You stand still. The water is louder on the left: it is going somewhere. On the right, nothing moves.", sfx: "water", buzz: "l" },
-      { img: "tunnel-fork-right", truth: "r", tool: "Lower the lamp", used: "You hold the lamp at the water. The flame leans to the right, steady, pulled by the draught that follows the water.", clip: "flame-leans" },
-      { img: "tunnel-fork-left", truth: "l", tool: "Drop a scrap of the envelope", used: "You tear a corner from the Lamplighter’s envelope and set it on the water. It turns once, and drifts left, and is gone into the dark.", clip: "scrap-drifts" },
+      { img: "tunnel-fork-left2", truth: "l", lead: "The tunnel forks. The diggers cut false starts and turned back; the water did not. Two openings, and the water at your ankles. What do you try?",
+        ear: { ok: 1, say: "You stand still and hold your breath. On the left, the water talks: a low run over stone, going somewhere. On the right, nothing at all.", fx: "ripple", side: "l", sfx: "water" },
+        lamp: { say: "You lower the flame to the water. It stands straight up. The air here does not move either way." },
+        scrap: { say: "You set a scrap of the envelope on the water. It is too shallow here; it sticks on the stones at your feet and goes nowhere." } },
+      { img: "tunnel-fork-right", truth: "r", lead: "A second fork. The noise of the water is everywhere now, off both walls. What do you try?",
+        ear: { say: "You listen. The sound comes off both walls at once, and off the roof. You cannot tell where it starts." },
+        lamp: { ok: 1, say: "You hold the lamp low over the water. The flame leans to the right, steady, pulled by the draught that follows the water.", fx: "lean", side: "r", clip: "flame-leans" },
+        scrap: { say: "The scrap turns in a slow eddy at the fork and does not choose. The water is pooled here." } },
+      { img: "tunnel-fork-left", truth: "l", lead: "A third fork, the last. A draught comes down both openings, and the water is loud. What do you try?",
+        ear: { say: "Water, both ways, and a drip somewhere behind you. Nothing you can trust." },
+        lamp: { say: "The flame flutters one way and then the other. There is air down both openings." },
+        scrap: { ok: 1, say: "You tear a corner from the Lamplighter’s envelope and set it on the water. It turns once, and drifts left, and is gone into the dark.", fx: "drift", side: "l", clip: "scrap-drifts" } },
     ];
     const shade = () => '<div class="ftun-dim" style="opacity:' + (dim * 0.16) + '"></div>';
     const fork = (i) => {
-      const f = FORKS[i]; let shown = false;
+      const f = FORKS[i], tried = {};
+      F.M(null, "chamber");
       const el = screen("Hezekiah’s Tunnel", "In the dark", (i === 0 ? verse("This same Hezekiah also stopped the upper watercourse of Gihon, and brought it straight down to the west side of the city of David.", "2 Chronicles 32:30") : "") +
-        (i === 0 ? '<p class="fsmall">The real tunnel is one long winding channel. The forks here are adapted from the abandoned cuttings the diggers left, not a map of it.</p>' : "") + q(i === 0 ? "The tunnel forks. The diggers cut false starts and turned back; the water did not. The water runs toward Siloam." : i === 1 ? "A second fork. The lamp knows the draught that follows the water." : "A third fork, the last. You have one thing left in your pocket that floats.") +
-        '<div class="ftun"><img src="' + IMG + f.img + '.jpg" alt="A fork in the tunnel">' + shade() + '<button class="fhit ftun-l" data-go="l" aria-label="The left opening"></button><button class="fhit ftun-r" data-go="r" aria-label="The right opening"></button></div>' +
-        '<div class="ftun-tools"><button class="fbtn" id="ftool">' + esc(f.tool) + '</button><span class="fsmall" id="ftoolsay"></span></div>', null, "chamber", f.img);
-      $("ftool").onclick = () => {
-        shown = true; $("ftoolsay").textContent = f.used; if (f.sfx) F.S(f.sfx, null, 0.7); K.buzz && K.buzz("success");
-        if (f.clip && CLIPS.has(f.clip)) { K.card('<div class="kick">In the dark</div>' + clip(f.clip) + "<p>" + esc(f.used) + "</p>" + '<button class="cta" data-act="x">Choose</button>', { x: () => {} }); }
-      };
+        (i === 0 ? '<p class="fsmall">The real tunnel is one long winding channel. The forks here are adapted from the abandoned cuttings the diggers left, not a map of it.</p>' : "") + q(f.lead) +
+        '<div class="ftun" id="ftun"><img src="' + IMG + f.img + '.jpg" alt="A fork in the tunnel">' + shade() + '<div class="ftun-fx" id="ftunfx"></div><button class="fhit ftun-l" data-go="l" aria-label="The left opening"></button><button class="fhit ftun-r" data-go="r" aria-label="The right opening"></button></div>' +
+        '<div class="ftun-tools"><div class="ftun-pack">' + TOOLS.map((t) => '<button class="fbtn ftool" data-t="' + t[0] + '">' + esc(t[1]) + "</button>").join("") + '</div><span class="fsmall" id="ftoolsay">Tap a way to go, or try something first.</span></div>', null, "chamber", f.img);
+      el.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => {
+        const t = b.dataset.t, r = f[t]; tried[t] = 1; b.classList.add("tried");
+        $("ftoolsay").textContent = r.say; F.S(t === "ear" ? "water" : t === "lamp" ? "lamp" : "parchment", null, r.ok ? 0.8 : 0.35);
+        const fx = $("ftunfx"); fx.className = "ftun-fx"; void fx.offsetWidth;
+        if (r.ok) { fx.className = "ftun-fx on " + r.fx + " " + r.side; K.buzz && K.buzz("light");
+          if (r.clip && CLIPS.has(r.clip)) setTimeout(() => K.root() && K.card('<div class="kick">In the dark</div>' + clip(r.clip) + "<p>" + esc(r.say) + "</p>" + '<button class="cta" data-act="x">Choose a way</button>', { x: () => {} }), 900); }
+        else fx.className = "ftun-fx on still";
+      }));
       el.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => {
         if (b.dataset.go === f.truth) { F.S("water", "click", 0.5); if (i < 2) fork(i + 1); else meeting(); }
         else dead(i);
@@ -309,32 +327,49 @@
     };
     const dead = (i) => {
       dim = Math.min(dim + 1, 3); w.flags.tunnelDim = dim; save(); F.S("knock", null, 0.5); K.buzz && K.buzz("error");
-      screen("A dead end", "In the dark", q("A few metres, and the roof comes down and the rock closes. The water on the floor is still and black. The flame bends, and shrinks, and does not go out. You back out the way you came." + (dim >= 2 ? " The light is smaller than it was." : "")) +
+      screen("A dead end", "In the dark", q("A few metres, and the roof comes down and the rock closes. The water on the floor is still and black. The flame bends, and shrinks" + (dim >= 3 ? " to a bead, and holds there. It will not go out; you will not let it." : dim >= 2 ? ". The light is smaller than it was." : ", and does not go out.") + " You back out the way you came.") +
         '<div class="ftun"><img src="' + IMG + 'tunnel-deadend.jpg" alt="A dead end in the tunnel">' + shade() + '</div><button class="fbtn" id="fback">Back to the fork</button>', null, "chamber", "tunnel-deadend");
       $("fback").onclick = () => fork(i);
     };
     const meeting = () => {
       screen("The meeting point", "Hezekiah’s Tunnel", q("The roof rises and the walls change. Here the two teams met, cutting toward each other by the sound of each other’s picks. The marks slant one way on the left wall and the other way on the right.") +
         '<div class="ftun"><img src="' + IMG + 'tunnel-meeting.jpg" alt="The meeting point of the two tunnels">' + shade() + '<button class="fhit" style="left:8%;top:30%;width:34%;height:40%" id="finscr" aria-label="The wall where the inscription was cut"></button></div>' +
-        '<button class="fbtn" id="flow">Hold the lamp low</button>', null, "chamber", "tunnel-meeting");
+        '<button class="fbtn" id="flow">Go on, along the wall</button>', null, "chamber", "tunnel-meeting");
       $("finscr").onclick = () => K.card('<div class="kick">The meeting point</div><h2>The Siloam inscription</h2><img class="fphoto1" src="' + PZ + 'siloam-inscription.jpg" alt="A pencil copy of the Siloam inscription in a notebook">' +
         "<p>The inscription was cut here in Hezekiah’s time, in the late eighth century BC; the stone itself is in Istanbul. A copy is in the journal: “…and while there were still three cubits to be cut through, there was heard the voice of a man calling to his fellow… and on the day of the breakthrough the quarrymen struck, each man toward his fellow, axe against axe, and the water flowed.”</p>" +
         '<button class="cta" data-act="x">Close</button>', { x: () => {} });
-      $("flow").onclick = recess;
+      $("flow").onclick = wall;
     };
-    const recess = () => {
-      screen("Low on the wall", "Hezekiah’s Tunnel", q("At knee height, beside the meeting point, a shallow dry recess in the wet rock. Something is drawn in it.") +
-        '<div class="ftun"><img src="' + IMG + 'tunnel-recess.jpg" alt="A recess in the tunnel wall with a drawing in it">' + shade() + '<button class="fhit" style="left:60%;top:40%;width:34%;height:34%" id="frecess" aria-label="The recess"></button></div>', null, "chamber", "tunnel-recess");
-      $("frecess").onclick = charcoal;
+    /* sweep the lamp along the wall; the charcoal shows only where the light falls */
+    const wall = () => {
+      const el = screen("Along the wall", "Hezekiah’s Tunnel", q("Dark rock, wet and close. Carry the lamp along the wall with your finger. Low, and slowly.") +
+        '<div class="ftun fsweep" id="fsweep"><img draggable="false" src="' + IMG + 'tunnel-recess.jpg" alt="The tunnel wall in the dark">' +
+        '<div class="fsweep-dark" id="fdark"></div></div><span class="fsmall" id="fsweepsay"></span>', null, "chamber", "tunnel-recess");
+      const box = $("fsweep"), dk = $("fdark"), T = [0.77, 0.56]; let near = 0, found = false, last = 0, sweeps = 0;
+      const light = (x, y) => { dk.style.background = "radial-gradient(circle at " + x * 100 + "% " + y * 100 + "%, rgba(0,0,0,0) 0, rgba(0,0,0,0) " + (13 - dim * 1.5) + "%, rgba(0,0,0,.95) " + (25 - dim * 2) + "%)"; };
+      light(0.15, 0.7);
+      const at = (e) => { const r = box.getBoundingClientRect(); return [Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (e.clientY - r.top) / r.height))]; };
+      const move = (e) => { if (found) return; const p = at(e); light(p[0], p[1]); sweeps++;
+        const d = Math.hypot(p[0] - T[0], p[1] - T[1]);
+        if (d < 0.11) { if (!near) near = Date.now(); else if (Date.now() - near > 650) return reveal(); $("fsweepsay").textContent = "Something on the stone. Hold the light there."; }
+        else { near = 0; if (Date.now() - last > 1800) { last = Date.now(); $("fsweepsay").textContent = sweeps > 120 ? "Lower. To the right of the water. A dry patch in the wet rock." : d < 0.25 ? "The rock is dry here. Strange, with the water so close." : ""; } } };
+      box.addEventListener("pointerdown", (e) => { try { box.setPointerCapture(e.pointerId); } catch (x) {} move(e); });
+      box.addEventListener("pointermove", (e) => { if (e.buttons || e.pointerType === "touch") move(e); });
+      const reveal = () => { found = true; light(T[0], T[1]); dk.classList.add("held"); K.buzz && K.buzz("light");
+        $("fsweepsay").textContent = "";
+        setTimeout(() => K.root() && silence(), 900); };
     };
-    const charcoal = () => {
-      K.card('<div class="kick">The dry recess</div><img class="fphoto1 fcharcoal" src="' + PZ + 'charcoal-tunnel.jpg" alt="Charcoal on dry stone: a lamp, a date, three words">' +
-        '<div class="fend-said fcharcoal-words">A lamp, spout to the right.<br>A date: this week. Six days ago.<br><b>Still watching. Hurry.</b></div>' +
-        '<button class="cta" data-act="x">…</button>', { x: () => {
-          w.flags.watchmanAlive = 1; save(); fact("alive", "Charcoal in a dry recess at the meeting point of Hezekiah's Tunnel, dated six days ago: his lamp, and three words. 'Still watching. Hurry.' The Watchman, Yoel, is alive.");
-          K.card('<div class="kick">Hezekiah’s Tunnel</div><h2 class="falive">He is alive.</h2><p>Six days ago he stood where you are standing, with a lamp, and wrote three words for whoever came next. The pages were never a dead man’s last word. Someone is waiting at the end of them.</p><button class="cta" data-act="x">The sixth lamp</button>',
-            { x: () => FW.lightLamp(6, () => K.card('<div class="kick">The journal</div><h2>Six of seven</h2><p>Six of seven lamps found. The last is still his to show you.</p><p>The rest of the tunnel is short, and the water deeper, and then light.</p><button class="cta" data-act="x">Out to the pool</button>', { x: () => C.pzDone("darktunnel", () => C.finish("hezekiah", () => FW.go("siloam"))) })) });
-        } });
+    /* the pause: no music, the water only, then the words one line at a time */
+    const silence = () => {
+      F.M(null, "chamber");
+      const el = F.stage('<div class="falive-wrap"><img class="fphoto1 fcharcoal" src="' + PZ + 'charcoal-tunnel.jpg" alt="Charcoal on dry stone: a lamp, a date, three words">' +
+        '<div class="falive-lines"><p id="fl1">A lamp, spout to the right.</p><p id="fl2">A date: this week. Six days ago.</p><p id="fl3"><b>Still watching. Hurry.</b></p></div>' +
+        '<h1 class="falive" id="fl4">He is alive.</h1><button class="fbtn glow" id="fl5">The sixth lamp</button></div>', "w/tunnel-recess.jpg");
+      ["fl1", "fl2", "fl3", "fl4", "fl5"].forEach((id, k) => setTimeout(() => { const e = document.getElementById(id); if (e) e.classList.add("on"); if (k === 3) { K.buzz && K.buzz("success"); F.S("harp", null, 0.5); } }, 1800 + k * 1700));
+      $("fl5").onclick = () => {
+        w.flags.watchmanAlive = 1; save(); fact("alive", "Charcoal in a dry recess at the meeting point of Hezekiah's Tunnel, dated six days ago: his lamp, and three words. 'Still watching. Hurry.' The Watchman, Yoel, is alive.");
+        FW.lightLamp(6, () => K.card('<div class="kick">The journal</div><h2>Six of seven</h2><p>Six days ago he stood where you are standing, with a lamp, and wrote three words for whoever came next. The pages were never a dead man’s last word. Someone is waiting at the end of them.</p><p>The rest of the tunnel is short, and the water deeper, and then light.</p><button class="cta" data-act="x">Out to the pool</button>', { x: () => C.pzDone("darktunnel", () => C.finish("hezekiah", () => FW.go("siloam"))) }));
+      };
     };
     fork(0);
   } };
