@@ -11,7 +11,7 @@
   const clip = (id) => (H.clip && CLIPS.has(id) ? H.clip(id) : "");
   /* portraits and clips to come (Richard, 7 Nov): add each id here when its file is in; until then a lettered medallion / no clip */
   ["shira", "benami", "noor", "matteo", "hallerphone", "moses"].forEach((p) => PORTRAITS.add(p));
-  ["plate-drops", "benami-package", "noor-photo"].forEach((c) => CLIPS.add(c));   /* to come: haller-phone, matteo-gap */
+  ["plate-drops", "benami-package", "noor-photo", "haller-phone", "matteo-gap"].forEach((c) => CLIPS.add(c));
   function screen(title, kick, html, backTo, amb, bg) {
     F.M("puzzle", amb || "chamber");
     const ttl = document.getElementById("adv-ttl"), same = ttl && ttl.textContent.trim() === kick;
