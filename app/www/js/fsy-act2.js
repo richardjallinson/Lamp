@@ -63,7 +63,7 @@
     ] },
     grandmawall: { name: "Dudu's grandmother", kick: "The Western Wall", desc: "The same grandmother from the tram stop, in her sun hat, a prayer book in her hand, standing by the screen of the women's section.", lines: [
       { id: "prayer", say: "I still have your prayer.", when: (a) => !a.q.gmWall, run: () => { A().q.gmWall = 1; save(); reply("grandmawall", "“Good.” She takes your hand in both of hers. “Not here. In the tunnel, opposite the place. Find a crack that is empty, there are not many. And when you have put it in, look up.”"); } },
-      { id: "fear", say: "Is something wrong?", when: (a) => a.q.gmWall && !a.q.gmFear, run: () => { A().q.gmFear = 1; save(); fact("dudu", "Haller came to the tram stop this morning and asked the grandmother whether a tourist had carried her bags. He knew Dudu's name. She is frightened."); reply("grandmawall", "She holds your sleeve. “A man came to the stop this morning while I was waiting for the tram. He asked whether a tourist had carried my bags. He knew Dudu's name.” Her hand is not steady. “I told him I am an old woman and I do not remember. Then I came here to pray, because that is what I do when I am frightened.” She lets go. “Put my prayer in the Wall. Then go and finish whatever this is, so that he stops asking about my grandson.”", { clip: "grandma-wall" }); } },
+      { id: "fear", say: "Is something wrong?", when: (a) => a.q.gmWall && !a.q.gmFear, run: () => { A().q.gmFear = 1; save(); fact("hallergrandma", "Haller came to the tram stop this morning and asked the grandmother whether a tourist had carried her bags. He knew Dudu's name. She is frightened."); reply("grandmawall", "She holds your sleeve. “A man came to the stop this morning while I was waiting for the tram. He asked whether a tourist had carried my bags. He knew Dudu's name.” Her hand is not steady. “I told him I am an old woman and I do not remember. Then I came here to pray, because that is what I do when I am frightened.” She lets go. “Put my prayer in the Wall. Then go and finish whatever this is, so that he stops asking about my grandson.”", { clip: "grandma-wall" }); } },
       { id: "sorry", say: "I'm sorry he frightened you.", when: (a) => a.q.gmFear, run: () => reply("grandmawall", "“Pff. I have been frightened by better men than him.” But she looks along the plaza as she says it.") },
     ] },
     eliezer: { name: "Rav Eliezer", kick: "Under Wilson's Arch", desc: "An old man with a long white beard, a black hat and a dark coat, a large old book open on a wooden stand, a small clay lamp burning beside it. He does not look up until you speak.", lines: [
@@ -527,8 +527,8 @@
         K.card('<div class="kick">The second night · the hotel</div><h2>You cannot sleep.</h2>' +
           '<p>You go back through the day, and you keep stopping in the same place. Talia, on the step of the Burnt House: <i>a man, this morning, showed me a photograph on his telephone. A page with writing and a little lamp drawn on it.</i></p>' +
           '<p>Page 1. The page with the lamp. You read it for the first time in the airport, when you broke the seal on the Lamplighter’s envelope.</p>' +
-          '<p>The envelope was sealed when he gave it to you. Nobody had seen that page but the man who sealed it.</p>' +
-          '<p class="fwarn">Victor Haller had a photograph of it before your plane landed.</p>' +
+          '<p>The envelope was sealed when he gave it to you.</p>' +
+          '<p class="fwarn">Victor Haller had a photograph of it before your plane landed. Either the Lamplighter showed it to him, or someone opened the envelope before it reached you.</p>' +
           '<button class="cta" data-act="x">End of Act 2</button>', { x: () => C.finish("gtomb") });
       } });
   };
