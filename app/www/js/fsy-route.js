@@ -329,13 +329,13 @@
   S({ id: "hebron", act: 3, title: "Hebron", kick: "The Cave of the Patriarchs", music: "m17", amb: "indoor",
     views: [
       { id: "bus", img: "hebron-building", cap: "Hebron: Herod’s great wall around the Cave of Machpelah, with its two minarets", hank: "Before Zion, Hebron. David was king here seven years before he ever took Jerusalem. And here Abraham bought the first piece of the land, with silver, weighed out in front of everyone.",
-        go: { fwd: "pit", left: "sign" }, note: () => K.card('<div class="kick">On the bus south</div><h2>The only tourists</h2><p>The armoured bus to Hebron is full of young paratroopers going back to their posts. You and one other passenger are the only visitors aboard. The window beside your seat has a bullet hole in it, starred and old.</p><p>The soldiers joke, sleep, and look out of the windows. Nobody seems worried, and after a while neither are you.</p><button class="cta" data-act="x">Off the bus</button>', { x: () => {} }),
+        go: { fwd: "pit", left: "sign" }, who: ["ori"], note: () => K.card('<div class="kick">On the bus south</div><h2>The only tourists</h2><p>The armoured bus to Hebron is full of young paratroopers going back to their posts. You and one other passenger are the only visitors aboard. The window beside your seat has a bullet hole in it, starred and old.</p><p>The soldiers joke, sleep, and look out of the windows. Nobody seems worried, and after a while neither are you.</p><button class="cta" data-act="x">Off the bus</button>', { x: () => {} }),
         hots: [{ box: [20, 30, 65, 45], label: "Herod’s wall", text: "Herod built this enclosure over the cave about 2,000 years ago, with the same drafted-margin stones as the Temple Mount walls. It is the only building of his still standing whole: what the Temple Mount walls looked like, all the way up." }] },
       { id: "sign", img: "hebron-sign", cap: "A welcome sign: “To the first Hebrew city, Hebron, site of the Tomb of the Forefathers and Mothers”", go: { right: "bus" },
         hots: [{ box: [5, 40, 90, 50], label: "Read the sign", text: "The sign tells how Abraham bought the field and the Cave of Machpelah from the Hittites, and that Abraham and Sarah, Isaac and Rebekah, Jacob and Leah are buried here. For centuries Jews were allowed no further than the seventh step of the outside stair; since 1967 the building has been open to visitors of every faith, at set times." }] },
       { id: "pit", img: "hebron-pit", cap: "Beside the great wall: a deep opening in the bedrock, fenced off", go: { back: "bus", fwd: "hall" },
         hots: [{ box: [25, 50, 50, 35], label: "The opening", text: "An old Jewish tradition says there are four couples in the caves below, not three: Adam and Eve as well. So the place is called Kiryat Arba, the city of the four (Genesis 23:2). The Midrash says Abraham chose this cave because he found Adam there; the Zohar calls it the passage to the Garden of Eden. A tradition, not Scripture, but an old one." }] },
-      { id: "hall", img: "hebron-hall", cap: "Inside, in the Jewish section: a long vaulted hall, lamps hanging, bookcases between the pillars", go: { back: "pit", fwd: "abraham", right: "jacob", left: "arnon" } },
+      { id: "hall", img: "hebron-hall", cap: "Inside, in the Jewish section: a long vaulted hall, lamps hanging, bookcases between the pillars, and an old caretaker on a chair by the books", go: { back: "pit", fwd: "abraham", right: "jacob", left: "arnon" }, who: ["shimon"] },
       { id: "abraham", img: "hebron-abraham", cap: "Behind the bars: the tomb monument of the Patriarch Abraham", go: { back: "hall" }, puzzle: "bought",
         hots: [{ box: [8, 15, 64, 22], label: "The plaque", text: "“Tomb Monument of the Patriarch Abraham.” The monuments are cenotaphs, memorial markers. The real graves are in the caves deep below the floor." }] },
       { id: "jacob", img: "hebron-jacob", cap: "Through the green bars: the tomb monument of the Patriarch Jacob, prayer notes on the floor", go: { left: "hall" },
@@ -354,11 +354,11 @@
       { id: "pitsign", img: "caiaphas-sign", cap: "The sign: “Sacred pit (dungeon)”", go: { back: "mosaic", fwd: "pit" },
         hots: [{ box: [0, 25, 90, 35], label: "Read the sign", text: "Excavations in 1889 found three Byzantine crosses engraved round the opening at the top, red and black crosses on the walls, and the outline of a praying figure. The Byzantines remembered here Jesus’ imprisonment overnight as he awaited trial before Caiaphas and the Sanhedrin (Matthew 26:57)." }] },
       { id: "pit", img: "caiaphas-pit", cap: "Down in the pit: bare rock walls, and a single stand with a book of the Psalms open on it", go: { back: "pitsign", fwd: "up" },
-        hots: [{ box: [60, 30, 25, 12], label: "The open book", text: "Psalm 88, left open for whoever comes down: “I am shut up, and I cannot come forth” (Psalm 88:8)." }] },
-      { id: "up", img: "caiaphas-up", cap: "Looking up: the round hole in the rock, and the light far above", go: { back: "pit" },
+        hots: [{ box: [60, 30, 25, 12], label: "The open book", text: "Psalm 88, left open for whoever comes down: “I am shut up, and I cannot come forth” (88:8). And lower on the page, the last line: “Lover and friend hast thou put far from me” (88:18)." }] },
+      { id: "up", img: "caiaphas-up", cap: "Looking up: the round hole in the rock, and the light far above", go: { back: "pit" }, hank: "They let him down on a rope and left him in the dark until morning. The man who swore he would never leave him was outside by the fire, saying he did not know him. Do not be too hard on Peter. You have not been asked yet.",
         hots: [{ box: [20, 12, 40, 20], label: "The opening", text: "The only way in or out was a rope through that hole. “And Peter went out, and wept bitterly” (Luke 22:62): somewhere above, the cock crowed." }] },
       { id: "tomb", img: "zion-tomb", cap: "David’s Tomb: men reading psalms before the great cenotaph under its blue and gold cover", hank: "By tradition, David lies here. In truth his tomb was in the City of David, below. But the people who come here are not wrong to remember him: he bought the threshing floor.",
-        go: { fwd: "gatesign", back: "door", left: "sign" }, puzzle: "north" },
+        go: { fwd: "gatesign", back: "door", left: "sign" }, puzzle: "north", who: ["yitzhak"] },
       { id: "sign", img: "zion-sign", cap: "The sign: “King David’s Tomb”", go: { right: "tomb" },
         hots: [{ box: [3, 35, 35, 20], label: "Read the sign", text: "“The place where King David was buried according to a Medieval tradition.” The Bible says David “was buried in the city of David” (1 Kings 2:10): the ridge below, which you will walk next. The real tomb has never been found." }] },
       { id: "gatesign", img: "zion-gatesign", cap: "A sign by Zion Gate: 1, King David’s Tomb; 2, the Room of the Last Supper; 3, the Dormition Abbey", go: { back: "tomb", fwd: "courtyard" } },
@@ -373,7 +373,7 @@
       { id: "entrance", img: "cod-entrance", cap: "In the City of David: a sign pointing on, “To the Water Systems: Warren’s Shaft & Hezekiah’s Tunnel”", hank: "This narrow ridge, outside today’s walls, is the Jerusalem David took. The Temple Mount is the hill just north of it. Look for the sign about the Ark.",
         go: { fwd: "view", right: "sign" } },
       { id: "sign", img: "cod-ark-sign", cap: "A sign in the water system: “Raiders of the Lost Ark”, the Parker expedition, 1909–1911", go: { left: "entrance" }, puzzle: "arksign" },
-      { id: "view", img: "cod-ruins", cap: "Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top", go: { back: "entrance", fwd: "descent", left: "tower" }, puzzle: "zionq",
+      { id: "view", img: "cod-ruins", cap: "Over the excavations: the stone houses of David’s city, the great stepped wall, and the tower on top. On the walkway, a woman in a sun hat with a trowel in her pocket", go: { back: "entrance", fwd: "descent", left: "tower" }, puzzle: "zionq", who: ["adler"],
         hots: [{ box: [45, 25, 55, 55], label: "The stepped stone wall", text: "A huge stepped stone structure holds up the top of the ridge. Many archaeologists think it carried the fortress of Zion that David took, and the palace he built on it: “David dwelt in the fort, and called it the city of David” (2 Samuel 5:9)." }] },
       { id: "tower", img: "cod-tower", cap: "The Hasmonean tower at the top of the slope", go: { right: "view", fwd: "towersign" } },
       { id: "towersign", img: "cod-tower-sign", cap: "The sign at the tower: Nehemiah’s call to rebuild the wall", go: { back: "tower" },
@@ -392,7 +392,7 @@
   S({ id: "gihon", act: 3, title: "The Gihon Spring", kick: "The water of the city", music: "m17", amb: "chamber",
     views: [
       { id: "spring", img: "gihon-pool", cap: "Deep in the rock by the Gihon Spring: the Canaanite pool, lit blue, a dark doorway leading on", hank: "Gihon. Here Zadok the priest anointed Solomon king, the day Adonijah tried to take the throne. The king who built the Temple was made king at this water.",
-        go: { fwd: "mouth", left: "gsign", right: "canaanite", back: "psign" }, puzzle: "lampstone" },
+        go: { fwd: "mouth", left: "gsign", right: "canaanite", back: "psign" }, puzzle: "lampstone", who: ["mahmoud"] },
       { id: "psign", img: "gihon-pool-sign", cap: "The sign: “The Canaanite Pool”", go: { fwd: "spring" },
         hots: [{ box: [8, 25, 84, 60], label: "Read the sign", text: "Carved into the rock 3,800 years ago and fed by the Gihon Spring: Jerusalem’s water in time of siege. Some think Solomon was crowned king at this very spot (1 Kings 1:32–40). Late in the First Temple period it was filled with earth and houses were built on it; hundreds of clay seal impressions and thousands of fish bones were found in the fill." }] },
       { id: "gsign", img: "gihon-sign", cap: "The sign: “The Gihon Spring, Jerusalem’s beating heart”", go: { right: "spring" },
@@ -409,19 +409,21 @@
     ] });
   S({ id: "siloam", act: 3, title: "The Pool of Siloam", kick: "Sent", music: "m17", amb: "olives", page: 10,
     views: [
-      { id: "pool", img: "siloam-pool", cap: "The Pool of Siloam: the wide stone steps uncovered in 2004, running down to the pool floor", hank: "Out of the dark, into the light, at the pool. A blind man washed here and came back seeing. Sent, the name means.",
-        go: { fwd: "road", left: "sign", right: "water" }, puzzle: "siloamq" },
+      { id: "pool", img: "siloam-pool", cap: "The great Pool of Siloam: the wide stone steps uncovered in 2004, running down to the water. On the steps, a man in a grey coat, sitting, waiting", 
+        go: { fwd: "road", left: "sign", right: "water" }, who: ["hallerpool"], hots: [{ box: [25, 70, 50, 28], label: "The water at the foot of the steps", act: "tubeDown" }] },
       { id: "sign", img: "siloam-sign", cap: "The sign: “The Pool of Shiloah (Siloam), Second Temple splendour”", go: { right: "pool" },
         hots: [{ box: [5, 40, 90, 35], label: "Read the sign", text: "“…how he made the pool and the conduit and brought the water into the city” (2 Kings 20:20). In 2004 a very large pool from the Second Temple period was found here, about three quarters of an acre. Beside it, a stepped street: the road the pilgrims climbed from the pool to the Temple Mount. Under its paving, a drainage channel where the last rebels hid from the Romans in AD 70." }] },
-      { id: "water", img: "siloam-water", cap: "Where Hezekiah’s Tunnel comes out: still water, three old column drums, the light again", go: { left: "pool" },
+      { id: "water", img: "siloam-water", cap: "Where Hezekiah’s Tunnel comes out: the small Byzantine pool, still water, three old column drums, the light again. The path leads on to the great pool", hank: "Out of the dark, into the light. A blind man washed here and came back seeing. Sent, the name means. The great pool is a little further on. So is he.", go: { left: "pool" }, puzzle: "siloamq",
         hots: [{ box: [25, 30, 50, 25], label: "The column drums", text: "Stumps of columns from a Byzantine church built here, about AD 450, to remember the man born blind who washed and came back seeing (John 9:7)." }] },
       { id: "road", img: "siloam-road", cap: "The Pilgrim Road, dug out under the hill: the ancient stepped street climbing from the pool toward the Temple Mount, lamps along the steel supports", go: { back: "pool" },
         hots: [{ box: [20, 0, 60, 60], label: "Up the road", text: "Pilgrims washed in the pool and climbed this street to the Temple. Far ahead, going up fast, a grey coat." }] },
     ] });
-  S({ id: "steps", act: 3, title: "The Southern Steps", kick: "The Songs of Ascents", music: "m19", amb: "olives", doneBy: "robinson",
+  S({ id: "steps", act: 3, title: "The Southern Steps", kick: "The Songs of Ascents", music: "m19", amb: "olives",
     views: [
       { id: "steps", img: "steps-steps", cap: "The Southern Steps: the broad stair along the south wall, the Mount of Olives beyond", hank: "The pilgrims’ stair. The steps are wide and narrow by turns, so no one could run up to the house of God. Fifteen songs for fifteen steps: the Songs of Ascents.",
-        go: { fwd: "robinson" }, puzzle: "ascents" },
+        go: { fwd: "robinson", right: "candle3" }, puzzle: "ascents", who: ["avner"] },
+      { id: "candle3", img: "hanukkah-jaffa", cap: "From the top step, across the valley, as the light goes: the third candle is lit", go: { left: "steps" },
+        hots: [{ box: [15, 15, 70, 60], label: "The third candle", act: "endAct3" }] },
       { id: "robinson", img: "robinson-wide", cap: "Round the corner: the south-west corner of the Temple Mount, the fallen stones on the Herodian street, and the wooden Mughrabi ramp high above", go: { back: "steps", fwd: "wall", left: "above" }, hank: "Round the south-west corner, the stones the Romans threw down still lie where they fell.",
         hots: [{ box: [38, 26, 25, 12], label: "The wooden ramp above", text: "High above, the covered wooden Mughrabi bridge: the only way up onto the Mount for a Jew or a Christian today. You will climb it at the end." }] },
       { id: "above", img: "robinson-above", cap: "Looking down from the walkway: the stones piled where they landed against the Wall", go: { right: "robinson" } },
@@ -430,7 +432,7 @@
         hots: [{ box: [10, 22, 70, 12], label: "The arch stones", text: "The arch carried a monumental stairway from the street up to the Royal Stoa on the Temple Mount. Edward Robinson noticed the curved stones in 1838. The rest of the arch lies in the street below." }] },
       { id: "pier", img: "robinson-pier", cap: "A sign by the pier: “A pier of large stones which originally supported the western springer of Robinson’s Arch”", go: { left: "springer" },
         hots: [{ box: [5, 25, 90, 20], label: "Read the sign", text: "The pier held up the far end of the arch, and inside it were four small shops opening onto the paved street. Pilgrims on their way up to the Temple bought here, under the stair." }] },
-      { id: "stones", img: "robinson-fallen", cap: "On the street: the stones from the top of the Wall, lying where they fell", go: { back: "springer", right: "stonesign" }, puzzle: "robinson" },
+      { id: "stones", img: "robinson-fallen", cap: "On the street: the stones from the top of the Wall, lying where they fell. Too dark now to read them; tomorrow", go: { back: "springer", right: "stonesign" } },
       { id: "stonesign", img: "robinson-sign", cap: "A sign among the stones", go: { left: "stones" },
         hots: [{ box: [10, 35, 80, 25], label: "Read the sign", text: "“Collapsed on the paved street are stones of the western wall of the Temple Mount enclosure. They were hurled down by the soldiers of the Roman Legion after the destruction of the Temple on the ninth day of the month of Av, 70 CE.”" }] },
     ] });
@@ -1567,5 +1569,5 @@
   Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
-    actCard, lightLamp, lamps, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, earn: null } };
+    actCard, lightLamp, lamps, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, find, earn: null } };
 })();

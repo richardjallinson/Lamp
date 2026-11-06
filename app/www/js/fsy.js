@@ -123,7 +123,7 @@
     "19-middle", "20-verdict", "21-reveal", "22-gate-open", "23-gate-verse", "24-cliffhanger", "guide-welcome", "guide-souvenir", "guide-ark", "waqf-1", "waqf-2",
     /* the walking route, in Shlomi's voice (the Lamplighter from v4d on) */
     "w-intro-desk", "w-airport-control", "w-airport-hall", "w-airport-signs", "w-train-board", "w-train-navon", "w-rail-stop", "w-market-street", "w-benyehuda-street", "w-gabriel-street", "w-model-wide", "w-hotel-outside", "w-hotel-room", "w-end-part1",
-    "w-hotel-envelope", "w-hebron-prices", "w-zion-pit", "w-gihon-mouth", "w-act3-end",
+    "w-hotel-envelope", "w-hebron-prices", "w-zion-up", "w-gihon-mouth", "w-act3-end",
     "w-jaffa-outside", "w-ramparts-stairs", "w-ramparts-golgotha", "w-jewish-cardo", "w-jewish-wallsteps", "w-wall-plaza", "w-wilson-hall", "w-tunnels-entry", "w-wallagain-arch2", "w-wallagain-clear",
     "w-bazaar-steps", "w-bazaar-lamps", "w-gtomb-garden", "w-gtomb-bench", "w-tunnels-sign", "w-tunnels-warren", "w-jaffa-parcel", "w-ramparts-storm"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */

@@ -253,3 +253,16 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
   6. Scene order: ... wallagain → bazaar → gtomb (Damascus Gate, down the souk, then out to the Nablus Road). wallagain ends at the gate (toBazaar); bazaar ends at the Garden Tomb sign (toGarden); the act ends after the bench at the "dusk" view (second candle).
   7. Cliffhanger: after the Lamplighter's second-candle card, "The night": Haller had a photograph of page 1 before the plane landed, and page 1 was in a sealed envelope.
 - v4z (Gerry's third pass): evidence id "dudu" was used by Act 1 (the grandmother) and Act 2 (Haller at the tram stop), so the Act 2 fact never recorded → renamed "hallergrandma". The night card now keeps the mystery: "Either the Lamplighter showed it to him, or someone opened the envelope before it reached you" (the plot: the Lamplighter never gave Haller a page).
+
+## v5a — Act 3: Down to the Water (built 5 Nov from the fourth-draft script)
+- New js/fsy-act3.js (loaded after fsy-act2.js): people Ori, Reb Shimon, Yitzhak, Dr Adler, Mahmoud, Haller on the pool steps (hallerpool, portrait hallerfront), Rabbi Avner and the boys; items envelope2, codticket, oil, forgery, brasstube; RIDE.zion (the 160 back, then the 1).
+- The morning: entering Hebron the first time runs morning(): the clerk, the envelope (+200, read aloud w-hotel-envelope), "Ask the clerk to ring the number" (it rings; nobody), then the 160.
+- Hebron: bought puzzle re-done with "Ornan's place" (600 gold) and the 50-silver note; the Lamplighter's three-prices card (w-hebron-prices). Reb Shimon has the Watchman-measured-the-wall line.
+- Zion: north puzzle led in by the unpicked stitching; page 9 given by the puzzle; the pit's book shows 88:18; the Lamplighter speaks at the hole (w-zion-up, auto id); q.pit required.
+- City of David: 30-shekel ticket at the gate; Dr Adler names Yoel (flags.watchmanName); after the Zion pin she writes the authorisation herself (q.tunnelOk).
+- Gihon: Mahmoud sells oil (12); the find needs oil; the marked stone lights Lamp 5; Mahmoud lights the lamp (clip mahmoud-lamp), phones the pool.
+- Hezekiah: darktunnel re-done as "the water knows the way": three forks (listen / lower the lamp [clip flame-leans] / drop a scrap [clip scrap-drifts]); wrong = dead end, flame dims (flags.tunnelDim, never out); the meeting point (inscription card); the recess; the charcoal card, silent; "He is alive."; Lamp 6; flags.watchmanAlive.
+- Siloam: two pools. siloamq at the Byzantine pool (place of page 10, not the page); first sight of Haller from above (hallerfront card); hallerPool() four screens incl. "That sounds like a threat" / "A threat promises what will happen…"; the forged page (lamp LEFT); the proof (two pictures, "Which is his?"); dry shoes; tubeDown hotspot → brass tube → page 10 → finish.
+- Southern Steps: ascents is a no-fail coda with the first words of Psalms 120–134; Robinson's stones have no puzzle tonight (Act 4); candle3 view (hanukkah-jaffa) → endAct3: third candle (w-act3-end) → the night card → finish.
+- Tester: H.devDone for all seven scenes; FW.devAct3.
+- Narration: Shlomi's 23 lines (18 Act 2 + 5 Act 3) levelled and registered in HAVE.
