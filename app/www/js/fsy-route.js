@@ -587,7 +587,7 @@
     el.querySelectorAll("[data-s]").forEach((b) => (b.onclick = () => {
       const s = byId[b.dataset.s]; K.sfx("click");
       if (Lamp.part1Only && s.act > 1) { K.say(s.title + ": Part " + s.act + " is coming soon.", "", 2800); return; }
-      if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; }
+      if (!canOpen(s) && !isDone(s.id)) { if (Lamp.openActs) return jumpTo(s); K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; }
       go(s);
     }));
     el.querySelectorAll("[data-sheet]").forEach((b) => (b.onclick = () => { K.sfx("click"); map(b.dataset.sheet); }));
@@ -595,6 +595,17 @@
     el.querySelector("[data-b]").onclick = () => { K.sfx("click"); backpack(); };
     el.querySelector("[data-list]").onclick = () => { K.sfx("click"); list(); };
     const en = $("fend"); if (en) en.onclick = F.ending;
+  }
+  /* testing only (Lamp.openActs): jump straight to any place; everything before it is marked as played */
+  function jumpTo(s) {
+    K.card('<div class="kick">Testing · jump ahead</div><h2>' + esc(s.title) + '</h2><p>Everything before this place will be marked as played, with what you would have collected on the way (pages, lamps, the rod, the map, the tickets). You can’t undo it except by starting the episode again.</p>' +
+      '<button class="cta" data-act="j">Jump to ' + esc(s.title) + '</button><button class="cta alt" data-act="x">Not now</button>', { x: () => {}, j: () => {
+        const w = W(), FW = Lamp.fsyWalk, dev = FW["devAct" + (s.act - 1)];
+        if (s.act > 1 && dev) dev(); else if (s.act > 1) { for (let n = 1; n < s.act; n++) if (FW["devAct" + n]) FW["devAct" + n](); }
+        for (let n = 1; n <= s.act; n++) w.flags["actcard" + n] = 1;
+        R.filter((x) => x.act === s.act && x.n < s.n && !x.kept).forEach((x) => { if (H.devDone) H.devDone(x.id); w.done[x.id] = 1; if (x.page) w.pages[x.page] = 1; });
+        w.at = s.id; save(); go(s);
+      } });
   }
   /* the plain list of all 32 places, by act */
   function list() {
@@ -608,7 +619,7 @@
       });
     });
     const acts = { x: () => {} };
-    R.forEach((s) => (acts[s.id] = () => { if (!canOpen(s) && !isDone(s.id)) { K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; } go(s); }));
+    R.forEach((s) => (acts[s.id] = () => { if (!canOpen(s) && !isDone(s.id)) { if (Lamp.openActs) return jumpTo(s); K.say(s.title + ": first finish “" + nx.title + "”.", "", 2800); return; } go(s); }));
     K.card(h + '</div><button class="cta alt" data-act="x">Back to the map</button>', acts);
   }
   function bagIcon() { return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 8h12l-1 13H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>'; }

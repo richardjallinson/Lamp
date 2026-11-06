@@ -19,12 +19,16 @@
   /* PART1_ONLY = true: the App Store release of Part 1. Act 1 ends at Jaffa Gate with "End of Part 1", and Acts 2 to 5
      show as "Coming soon". Testers (false) can carry on from the ending into Act 2. */
   const PART1_ONLY = false;   // TestFlight and App Store: Act 1 only, Acts 2–5 "coming soon"
+  /* OPEN_ACTS = true: every act can be entered straight from the map; jumping ahead marks the earlier acts as played
+     (with everything the player would have collected). Richard, 5 Nov: on while testing. !! Off for the App Store. */
+  const OPEN_ACTS = true;
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.build = BUILD;
   Lamp.freshEachBuild = FRESH_EACH_BUILD;
   Lamp.fsyOpen = FSY_OPEN;
   Lamp.gameOnly = GAME_ONLY;
   Lamp.part1Only = PART1_ONLY;
+  Lamp.openActs = OPEN_ACTS;
   Lamp.preview = FIRST_RELEASE;
   Lamp.openBooks = OPEN_BOOKS;
   if (!FIRST_RELEASE || !window.LAMP_DATA) return;

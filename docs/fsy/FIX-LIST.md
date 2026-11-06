@@ -266,3 +266,4 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Southern Steps: ascents is a no-fail coda with the first words of Psalms 120–134; Robinson's stones have no puzzle tonight (Act 4); candle3 view (hanukkah-jaffa) → endAct3: third candle (w-act3-end) → the night card → finish.
 - Tester: H.devDone for all seven scenes; FW.devAct3.
 - Narration: Shlomi's 23 lines (18 Act 2 + 5 Act 3) levelled and registered in HAVE.
+- v5a (second cut): OPEN_ACTS in release.js (on for testing, !! off for the App Store): a locked place on the map or in "All places" offers "Jump to …", which marks everything before it as played (devAct1/2/3 + devDone for earlier scenes of the act) and goes there.
