@@ -244,3 +244,11 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - v4w (third cut): the film had no explicit width/height, so WebKit drew it at 720×1280 pixels (a zoomed-in corner on the phone); now width/height 100%, object-fit cover.
 - v4w (fourth cut): the replay now shows the whole film too (verse first time only); the cue joins at 3.65 s so its hit still lands on the door.
 - v4x: the tester Skip stranded Richard at Jaffa Gate (scene marked done, no Ramparts ticket, so the wall's gate stayed locked). Skip now plays the scene "as if": H.devDone(id) in fsy-act1/act2 gives the items, answers and puzzles each scene would have given (ticket, map, kippah, museum ticket, the clerk's answers, Avi's key, the lamp...). Verified scene by scene through both acts.
+- v4y — Gerry's second set of Act 2 notes:
+  1. Tunnels "Hold up the lamp" (the clay lamp is not bought until the bazaar) → "Borrow Noa's torch"; the chalk lamp and page 7 are found in her beam.
+  2. One objective: H.task opens with a WHY line per scene on arrival; side errands marked optional in the checklist (kite news to Kasparian, Talia's "anyone else asked", Noa's "why holy", Abu Sami's oil).
+  3. Dialogue trimmed ~15% on Avi, Avi at the door, Eliezer, Noa, Hollis, Haller on the bench.
+  4. Second Haller sighting: Talia, mid-conversation, sees him at the top of the Burnt House steps (the wall near Golgotha was the first).
+  5. Page 8 now explains the scattered pages: a man followed the Watchman for a year, wanted the book whole, so the pages were hidden one per place.
+  6. Scene order: ... wallagain → bazaar → gtomb (Damascus Gate, down the souk, then out to the Nablus Road). wallagain ends at the gate (toBazaar); bazaar ends at the Garden Tomb sign (toGarden); the act ends after the bench at the "dusk" view (second candle).
+  7. Cliffhanger: after the Lamplighter's second-candle card, "The night": Haller had a photograph of page 1 before the plane landed, and page 1 was in a sealed envelope.

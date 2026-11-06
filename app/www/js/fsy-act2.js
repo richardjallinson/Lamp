@@ -37,11 +37,11 @@
     avi: { name: "Avi, the ticket man", kick: "The Ramparts booth", desc: "A man in his sixties in a flat cap and a cardigan, leaning out of a small wooden booth with an old radio on the shelf. Talks to everyone, loses everything.", lines: [
       { id: "ticket", say: "One ticket for the Ramparts.", when: () => !has("rticket"), run: () => reply("avi", "“Twenty shekels. South is open. North is locked, because I lost the key.” He pats his pockets, one after another. “Again.”", { btn: "Buy a ticket (20 shekels)", then: () => { if (pay(20, "the Ramparts ticket")) give("rticket"); } }) },
       { id: "lost", say: "Where did you lose the key?", when: () => has("rticket") && !A().q.keyQuest, run: () => { A().q.keyQuest = 1; save(); fact("avikey", "Avi lost the key to the north wall up on the walk, this morning, 'where the doves sit': an arch the doves love. Find it and he pays forty."); reply("avi", "“Up there, this morning, checking the doors. Where the doves sit. There is an arch; the doves love it.” He shrugs. “Find it and I give you your twenty back, and twenty more.”"); } },
-      { id: "grey", say: "Did a man in a grey coat come through?", when: () => has("rticket") && !A().q.aviGrey, run: () => { A().q.aviGrey = 1; save(); fact("aviname", "Haller came back down from the wall and asked Avi whether a tourist with a backpack had been through. He said your name."); reply("avi", "“Went up this morning. No ticket. I shouted, he did not turn round.” He looks at you properly for the first time. “He came back down ten minutes later and asked me if a tourist with a backpack had been through. He said your name.” A beat. “I said I do not remember names. I remember faces.” He taps his temple. “I remember his.”" + (A().q.sold ? "<br><br>“He was carrying a parcel when he went up and not when he came down. I did not ask.”" : ""), { clip: "avi" }); } },
+      { id: "grey", say: "Did a man in a grey coat come through?", when: () => has("rticket") && !A().q.aviGrey, run: () => { A().q.aviGrey = 1; save(); fact("aviname", "Haller came back down from the wall and asked Avi whether a tourist with a backpack had been through. He said your name."); reply("avi", "“Went up this morning. No ticket.” He looks at you properly for the first time. “Came back down ten minutes later and asked if a tourist with a backpack had been through. He said your name.” A beat. “I said I do not remember names. I remember faces.” He taps his temple." + (A().q.sold ? "<br><br>“He was carrying a parcel when he went up and not when he came down. I did not ask.”" : ""), { clip: "avi" }); } },
       { id: "north", say: "How do I get onto the north wall?", when: () => has("rticket"), run: () => reply("avi", "“With my key, which I do not have. The door is on the wall past the doves. When the rain stops I go up and try every key I own.”") },
     ] },
     avi2: { name: "Avi, at the north door", kick: "On the wall", desc: "Avi, out of breath, a ring of keys in his hand, trying each one in the iron door across the walk.", lines: [
-      { id: "key", say: "(Give him the key)", when: () => has("key"), run: () => { delete A().items.key; A().q.northOpen = 1; save(); H.earn(40, "Avi, for his key"); reply("avi2", "“My key!” He holds it up to the light like a coin. “You are a good person. Forty shekels, as I said, and the north is yours.” The lock turns with a sound like a cough, and the iron door swings in. “Mind the wet stones. And mind that one.” He nods along the wall. “He went through before the rain. Without a ticket.”", { leave: () => C.walk(C.V("clear")) }); } },
+      { id: "key", say: "(Give him the key)", when: () => has("key"), run: () => { delete A().items.key; A().q.northOpen = 1; save(); H.earn(40, "Avi, for his key"); reply("avi2", "“My key!” He holds it up like a coin. “Forty shekels, as I said, and the north is yours.” The lock turns with a sound like a cough, and the iron door swings in. “Mind the wet stones. And mind that one.” He nods along the wall. “He went through before the rain.”", { leave: () => C.walk(C.V("clear")) }); } },
       { id: "luck", say: "Any luck?", when: () => !has("key") && !A().q.northOpen, run: () => reply("avi2", "“Nineteen keys and none of them mine.” He wipes rain off his cap. “The doves' arch, I am sure of it. Where would a key go in the rain? Where a dove would go.”") },
       { id: "after", say: "Thank you, Avi.", when: () => A().q.northOpen, run: () => reply("avi2", "“Go, go. Before the light goes. And when you find whatever you are looking for, come and tell an old man at a booth.”") },
     ] },
@@ -57,7 +57,7 @@
     ] },
     talia: { name: "Talia", kick: "The Burnt House", desc: "A young woman in her twenties, an archaeology student, dark hair tied up, dust on her shirt, a sketchbook and a stick of charcoal in her hands.", lines: [
       { id: "what", say: "What happened here?", run: () => { A().q.taliaWhat = 1; save(); reply("talia", "“The family of Kathros. Priests. Their house burned a month after the Temple did.” She closes the sketchbook on her finger. “We found a girl's arm by the stairs, a spear, and a stone weight with the family's name on it. Everything in the room is exactly where it fell. Go in and look. Brush, don't dig.”"); } },
-      { id: "draw", say: "What are you drawing?", when: (a) => !a.q.charcoal, run: () => { A().q.charcoal = 1; save(); give("charcoal"); reply("talia", "“The ash layer. A metre deep in places.” She snaps her charcoal in two and holds out half. “Here. Everyone should draw something in Jerusalem. Or rub something. Charcoal on paper over a stone and the stone tells you things.”"); } },
+      { id: "draw", say: "What are you drawing?", when: (a) => !a.q.charcoal, run: () => { A().q.charcoal = 1; save(); give("charcoal"); reply("talia", "“The ash layer. A metre deep in places.” She snaps her charcoal in two and holds out half. “Here. Everyone should draw something in Jerusalem. Or rub something. Charcoal on paper over a stone and the stone tells you things.”<br><br>She stops, looking past you, up the steps. “There he is again.” You turn. At the top of the steps, a grey coat, and then only the steps."); } },
       { id: "watchman", say: "Did an old man with a journal come here?", when: () => done("jewish", "burnt"), run: () => reply("talia", "“The Watchman? That is what the guards called him. He sat where you are sitting and wrote for an hour, and he left that page on the stone table for whoever came next.” She looks at you. “Nobody came. Until today.”") },
       { id: "asked", say: "Has anyone else asked about him?", when: (a) => done("jewish", "burnt") && !a.q.taliaPhoto, run: () => { A().q.taliaPhoto = 1; save(); fact("photo", "Haller showed Talia a photograph on his phone of a journal page with a drawn lamp: page 1. He had it this morning, before he had anything of yours."); reply("talia", "She hesitates. “A man, this morning. Grey coat. Very polite. He showed me a photograph on his telephone, a page with writing and a little lamp drawn on it, and asked whether the old man had left anything like it here.” She shrugs. “I said no. It was true then.”", { clip: "talia" }); } },
     ] },
@@ -68,20 +68,20 @@
     ] },
     eliezer: { name: "Rav Eliezer", kick: "Under Wilson's Arch", desc: "An old man with a long white beard, a black hat and a dark coat, a large old book open on a wooden stand, a small clay lamp burning beside it. He does not look up until you speak.", lines: [
       { id: "ask", say: "May I ask you something?", when: (a) => !a.q.riddle, run: () => riddle() },
-      { id: "reading", say: "What are you reading?", when: (a) => a.q.riddle && !a.q.covenant, run: () => { A().q.covenant = 1; save(); reply("eliezer", "“Daniel. The ninth chapter. I read it every year at this season, and every year it is worse.” He turns the book so you can see the line. “‘And he shall confirm the covenant with many for one week.’ A covenant over this place. Men are talking about it now, in rooms with good chairs. They think a covenant is a thing you sign.” He closes the book. “The prophet thought it was a thing you break.”", { clip: "eliezer-covenant", btn: "The third lamp", then: () => FW.lightLamp(3, () => {}) }); fact("covenant9", "Rav Eliezer, on Daniel 9:27: men are talking now, in rooms with good chairs, about a covenant over this place. 'They think a covenant is a thing you sign. The prophet thought it was a thing you break.'"); } },
-      { id: "floor", say: "What is under the floor?", when: (a) => a.q.riddle, run: () => { A().q.floor = 1; save(); reply("eliezer", "“More wall. Herod's wall, going down to the street of his day.” He points without looking. “The glass by the door shows you. Count it. But count only his stones: the ones with the smooth border. The rough ones above are later men's work, and later men do not count.”"); } },
-      { id: "grey", say: "Did a man in a grey coat come in?", when: (a) => a.q.riddle, run: () => reply("eliezer", "“He stood at the back for a long time and did not pray. Then he asked me the same question you asked, about the covenant. I gave him the same answer.” A dry look over the book. “He smiled as if I had agreed with him.”") },
+      { id: "reading", say: "What are you reading?", when: (a) => a.q.riddle && !a.q.covenant, run: () => { A().q.covenant = 1; save(); reply("eliezer", "“Daniel, the ninth chapter. Every year at this season, and every year it is worse.” He turns the book so you can see the line. “‘He shall confirm the covenant with many for one week.’ A covenant over this place. Men are talking about it now, in rooms with good chairs. They think a covenant is a thing you sign.” He closes the book. “The prophet thought it was a thing you break.”", { clip: "eliezer-covenant", btn: "The third lamp", then: () => FW.lightLamp(3, () => {}) }); fact("covenant9", "Rav Eliezer, on Daniel 9:27: men are talking now, in rooms with good chairs, about a covenant over this place. 'They think a covenant is a thing you sign. The prophet thought it was a thing you break.'"); } },
+      { id: "floor", say: "What is under the floor?", when: (a) => a.q.riddle, run: () => { A().q.floor = 1; save(); reply("eliezer", "“Herod's wall, going down to the street of his day.” He points without looking. “The glass by the door. Count it. Only his stones: the ones with the smooth border. The rough ones are later men's work, and later men do not count.”"); } },
+      { id: "grey", say: "Did a man in a grey coat come in?", when: (a) => a.q.riddle, run: () => reply("eliezer", "“He stood at the back a long time and did not pray. He asked about the covenant. I gave him the same answer.” A dry look over the book. “He smiled as if I had agreed with him.”") },
     ] },
     noa: { name: "Noa, the guide", kick: "The tunnels", desc: "A woman in her thirties with short dark hair, a headset microphone and a torch, a proud brisk smile. She loves every stone down here.", lines: [
-      { id: "watchman", say: "You knew the Watchman?", when: (a) => a.q.noaRod, run: () => reply("noa", "“He stood at the Master Course for an hour with that rod and a notebook. The tour went on without him and he did not notice.” She clicks her torch. “He said something I wrote down afterwards. ‘The stones are honest. The signs are not.’”") },
-      { id: "holy", say: "Why is this place holy?", run: () => { A().q.noaHoly = 1; save(); reply("noa", "“Tradition says the Holy of Holies stood just there, behind the Wall, on the rock under the Dome. People pray at the plaque because it is the closest they can come.” She shrugs with one shoulder. “That is the tradition. I show the stones. The stones I can measure.”"); } },
-      { id: "grey", say: "A man in grey came through?", run: () => reply("noa", "“This morning. He asked to see the plaque and Warren's Gate and nothing else, which nobody does, and he stood at the gate a long time with his back to me.” She frowns. “I do not like a visitor whose back I cannot see past.”") },
+      { id: "watchman", say: "You knew the Watchman?", when: (a) => a.q.noaRod, run: () => reply("noa", "“An hour at the Master Course with that rod and a notebook. The tour went on without him.” She clicks her torch. “He said one thing I wrote down. ‘The stones are honest. The signs are not.’”") },
+      { id: "holy", say: "Why is this place holy?", run: () => { A().q.noaHoly = 1; save(); reply("noa", "“Tradition says the Holy of Holies stood just there, behind the Wall, under the Dome. People pray at the plaque because it is the closest they can come.” One shoulder shrugs. “I show the stones. The stones I can measure.”"); } },
+      { id: "grey", say: "A man in grey came through?", run: () => reply("noa", "“This morning. He asked for the plaque and Warren's Gate and nothing else, which nobody does, and stood at the gate a long time with his back to me.” She frowns. “I do not like a back I cannot see past.”") },
       { id: "forgery", say: "(Show her the stone by Warren's Gate)", when: (a) => a.q.rubbed && !a.q.noaForgery, run: () => { A().q.noaForgery = 1; save(); reply("noa", "She shines her torch on the chalk line and goes very still. “That was not there last week. I would know. I clean this stone with my own hands.” She looks at the old scratched line above it, and then at you. “Two lines. One of them is lying. Which one did you believe?”", { clip: "noa-forgery" }); } },
     ] },
     hollis: { name: "Mr Hollis", kick: "The Garden Tomb", desc: "An elderly Englishman in a grey cardigan with a lanyard, white hair, gentle and precise. He has told the story a thousand times and still means it.", lines: [
       { id: "tomb", say: "Is this the tomb?", run: () => { A().q.hollisTomb = 1; save(); reply("hollis", "“We don't say it is. We say it might be.” He smiles. “And whether it is or not, he is not here.”", { clip: "hollis" }); } },
       { id: "stone", say: "How did the stone work?", run: () => reply("hollis", "“A great wheel of rock, in that groove. You will notice the groove is not level.” He lets that sit. “Whoever cut it meant the stone to be easy to close and hard to open. Think about which way it wants to roll before you touch anything.”") },
-      { id: "grey", say: "Did a man in grey come through?", when: () => done("gtomb", "stone"), run: () => { A().q.hollisGrey = 1; save(); reply("hollis", "“Your friend? An hour ago. He asked me which tomb was the real one, this or the Sepulchre.” A small shake of the head. “I told him neither is the point. He did not like that at all. Then he sat on the bench by the path for a long time, as if he were waiting for someone.”"); } },
+      { id: "grey", say: "Did a man in grey come through?", when: () => done("gtomb", "stone"), run: () => { A().q.hollisGrey = 1; save(); reply("hollis", "“Your friend? An hour ago. He asked which tomb was the real one, this or the Sepulchre. I told him neither is the point. He did not like that.” A small nod toward the path. “Then he sat on the bench a long time, as if he were waiting for someone.”"); } },
     ] },
     hallerbench: { name: "Victor Haller", kick: "The bench by the path", desc: "The man in the grey coat, the coat folded over the arm of the bench beside him, his hands loose in his lap. He has been waiting for you.", lines: [
       { id: "sit", say: "(Sit down)", when: (a) => !a.q.bench, run: () => hallerBench() },
@@ -115,16 +115,16 @@
         '<div class="fhim">' + text + "</div>" + '<div class="fsay">' + choices.map((c, i) => '<button data-act="c' + i + '">' + esc(c[0]) + "</button>").join("") + "</div>", Object.fromEntries(choices.map((c, i) => ["c" + i, c[1]]))); };
     const s1 = () => card("“He is not here.”", "“On that, at least, we agree.” He makes room on the bench. " + (a.q.sold ? "“Sit. You have your book back. You see that I keep my word, even when nobody asks me to.”" : "“Sit. I will not offer to buy anything. You have made your position clear, and I respect a position.”"),
       [["“You asked for me by name.”", s2], ["“You wrote on the stone.”", s3]]);
-    const s2 = () => card(null, "“I did. I also asked a frightened old woman about her grandson, which I regret, and will not do again. I wanted you to understand that I can find anyone you have spoken to.” He looks at the garden. “Now you understand it. There is no need for anyone to be upset.”",
+    const s2 = () => card(null, "“I did. I also asked a frightened old woman about her grandson, which I regret. I wanted you to understand that I can find anyone you have spoken to.” He looks at the garden. “Now you understand it.”",
       [["“You wrote on the stone.”", s3], ["“Why do you care where I go?”", s4]]);
-    const s3 = () => card(null, "He does not deny it. “I corrected it. The old man's line points north. North is a hillside with no history, a garden that might be a tomb, and a theory in a notebook. South is the City of David, the spring, three thousand years of digging.” He opens his hands. “I sent you where the evidence is. You should thank me.”",
+    const s3 = () => card(null, "He does not deny it. “I corrected it. The old man's line points north: a hillside with no history, a garden that might be a tomb, a theory in a notebook. South is the City of David, the spring, three thousand years of digging.” He opens his hands. “I sent you where the evidence is.”",
       [["“Why do you care where I go?”", s4], ["“That was a lie, not a correction.”", () => card(null, "“A lie is a thing you say knowing it is false.” He considers. “I do not know it is false. Neither do you. That is rather my point.”", [["“Why do you care where I go?”", s4]])]]);
     const s4 = () => { fact("secondanswer", "Haller: when the agreement is signed there must be one answer about where the house stood. The journal is a second answer. 'I am asking you, politely, to let it be wrong.'");
-      card(null, "“Because when the agreement is signed, and it will be signed, there must be one answer in the world about where the house stood. Not two. A man who has walked every stone with a measuring rod and written it down in a book with a lamp on the cover is a second answer.” He stands, and takes the coat from the arm of the bench. “You are carrying the second answer around Jerusalem in a backpack. I am asking you, politely, to let it be wrong.”",
+      card(null, "“Because when the agreement is signed, and it will be signed, there must be one answer about where the house stood. Not two. A man who walked every stone with a measuring rod and wrote it in a book with a lamp on the cover is a second answer.” He stands and takes his coat from the bench. “You are carrying it around Jerusalem in a backpack. I am asking you, politely, to let it be wrong.”",
         [["“And if I don't?”", s5], ["(Say nothing)", s5]], { clip: "haller-bench" }); };
     const s5 = () => { a.q.bench = 1; save(); fact("flight", "Haller, leaving: 'Who do you think told me your flight? Ask the old man who gave you the book how he and I know each other. Ask him what he was, before he sat at a desk with a lamp.'");
-      card("“One more thing.”", "He turns to go, and turns back. “Since you like questions. Who do you think told me your flight?” He lets it hang. “Ask the old man who gave you the book how he and I know each other. Ask him what he was, before he sat at a desk with a lamp. Then decide whose errand you are running.” He goes out through the garden gate without hurrying.",
-        [["He goes.", () => { F.V("w-gtomb-bench"); C.finish("gtomb"); }]], { clip: "haller-flight" }); };
+      card("“One more thing.”", "He turns to go, and turns back. “Since you like questions: who do you think told me your flight?” He lets it hang. “Ask the old man who gave you the book how he and I know each other. What he was, before he sat at a desk with a lamp. Then decide whose errand you are running.” He goes out through the garden gate without hurrying.",
+        [["He goes.", () => { F.V("w-gtomb-bench"); C.walk(C.V("dusk")); }]], { clip: "haller-flight" }); };
     s1();
   }
 
@@ -165,19 +165,20 @@
     if (scene.id === "jaffa" && A().q.sold && !A().q.parcel) setTimeout(() => K.root() && !A().q.parcel && parcel(), 700);
     if (scene.id === "wallagain" && v.id === "clear" && !A().q.northOpen) { K.say("The iron door across the walk is locked. Avi is at it with his keys.", "", 3000); return false; }
     if (scene.id === "gtomb" && v.id === "bench" && !done("gtomb", "stone")) { K.say("The bench is empty for now. The tomb first.", "", 2600); return false; }
+    if (scene.id === "gtomb" && v.id === "dusk" && !A().q.bench) { K.say("The man on the bench is waiting. He has been waiting for you.", "", 2600); return false; }
     return before1 ? before1(scene, v, prev) : true;
   };
   const r = (t, ok, where, opt) => ({ t, ok: !!ok, where, opt: !!opt });
   const L2 = {
     jaffa: (a, w) => [r("Buy a Ramparts ticket", has("rticket"), "Avi's booth by the citadel"), r("Ask Avi where he lost the key", a.q.keyQuest, "The booth"), r("Ask Avi about the man in grey", a.q.aviGrey, "The booth"), r("Bring Hagop's kite news to his father", a.q.kasparianPaid, "The tile shop inside the gate, after the wall", 1)],
     ramparts: (a, w) => [r("Match the journal's sketch through the telescope", done("ramparts", "telescope"), "The telescope above Jaffa Gate"), r("Talk to the boy with the kite", a.q.hagop, "Along the wall"), r("Get his kite down", a.q.kite, "Use something from your backpack"), r("Read the storm", done("ramparts", "storm"), "At the far end of the wall")],
-    jewish: (a, w) => [r("Ask Talia what happened here", a.q.taliaWhat, "The step of the Burnt House"), r("Ask what she is drawing", a.q.charcoal, "Talia"), r("Brush the ash and put the night in order", done("jewish", "burnt"), "Inside the Burnt House"), r("Ask whether anyone else asked about him", a.q.taliaPhoto, "Talia, after")],
+    jewish: (a, w) => [r("Ask Talia what happened here", a.q.taliaWhat, "The step of the Burnt House"), r("Ask what she is drawing", a.q.charcoal, "Talia"), r("Brush the ash and put the night in order", done("jewish", "burnt"), "Inside the Burnt House"), r("Ask whether anyone else asked about him", a.q.taliaPhoto, "Talia, after", 1)],
     wall: (a, w) => [r("Find Dudu's grandmother", a.q.gmWall, "By the great hanukkiah"), r("Ask her what is wrong", a.q.gmFear, "She is holding your sleeve")],
     wilson: (a, w) => [r("Answer Rav Eliezer's question", a.q.riddle, "The old man at the book"), r("Ask what he is reading", a.q.covenant, "Rav Eliezer"), r("Ask what is under the floor", a.q.floor, "Rav Eliezer"), r("Count Herod's courses and open the grille", done("wilson", "courses"), "The glass shaft")],
-    tunnels: (a, w) => [r("Get into the tunnels", a.q.noaIn, "Noa, at the entrance"), r("Measure the great stone", done("tunnels", "measure"), "The Master Course"), r("Put the prayer in the Wall and look up", done("tunnels", "lookup"), "Opposite the Holy of Holies"), r("Rub the stone by Warren's Gate", a.q.rubbed, "Warren's Gate, with the charcoal"), r("Copy the true line into the journal", done("tunnels", "rubbing"), "Which lamp is his?"), r("Show Noa the stone", a.q.noaForgery, "Noa"), r("Ask Noa why this place is holy", a.q.noaHoly, "Noa")],
+    tunnels: (a, w) => [r("Get into the tunnels", a.q.noaIn, "Noa, at the entrance"), r("Measure the great stone", done("tunnels", "measure"), "The Master Course"), r("Put the prayer in the Wall and look up", done("tunnels", "lookup"), "Opposite the Holy of Holies"), r("Rub the stone by Warren's Gate", a.q.rubbed, "Warren's Gate, with the charcoal"), r("Copy the true line into the journal", done("tunnels", "rubbing"), "Which lamp is his?"), r("Show Noa the stone", a.q.noaForgery, "Noa"), r("Ask Noa why this place is holy", a.q.noaHoly, "Noa", 1)],
     wallagain: (a, w) => [r("Find Avi's key", has("key") || a.q.northOpen, "Under the doves' arch"), r("Give it to Avi", a.q.northOpen, "The north door")],
     gtomb: (a, w) => [r("Ask Mr Hollis about the tomb", a.q.hollisTomb, "The volunteer by the path"), r("Roll the stone", done("gtomb", "stone"), "The groove in front of the tomb"), r("Ask him about the man in grey", a.q.hollisGrey, "Mr Hollis, after"), r("Sit down with the man on the bench", a.q.bench, "Coming out of the tomb")],
-    bazaar: (a, w) => [r("Buy an oil lamp", has("lamp"), "Abu Sami's stall"), r("Ask him where to find oil", a.q.oil, "Abu Sami"), r("Weigh out the trader's half shekel", has("citymap"), "The trader, with your bekah")],
+    bazaar: (a, w) => [r("Buy an oil lamp", has("lamp"), "Abu Sami's stall"), r("Ask him where to find oil", a.q.oil, "Abu Sami", 1), r("Weigh out the trader's half shekel", has("citymap"), "The trader, with your bekah")],
   };
   H.list = (scene) => (L2[scene.id] ? L2[scene.id](A(), W()) : list1 ? list1(scene) : null);
   const devDone1 = H.devDone;
@@ -199,10 +200,22 @@
   H.task = (scene) => {
     const a = A();
     if (scene.id === "jaffa" && a.q.sold && !a.q.parcel) return "Avi has something for you.";
+    const WHY = {
+      jaffa: "Page 4 says: go in at Jaffa Gate and climb the wall. The Ramparts Walk starts at Avi’s booth.",
+      ramparts: "Walk the wall and count the towers, as the page says. The telescope above the gate first.",
+      jewish: "Page 5 is in the Jewish Quarter: the Burnt House. Talia is on its step.",
+      wall: "Down to the Wall. Dudu’s grandmother is here, and she gave you a prayer to carry.",
+      wilson: "Page 6 is under Wilson’s Arch, with an old man and a book. Answer him, then count the stones down.",
+      tunnels: "Page 6 said: follow the stones down, and count. Find the stone the Watchman measured.",
+      wallagain: "The rain has stopped. Back up on the wall: the north side, where Avi lost his key and the grey coat went.",
+      bazaar: "Through Damascus Gate and down the market street before the stalls close. A lamp, and a map worth weighing.",
+      gtomb: "Up the Nablus Road to the garden. Page 8 is in the tomb, and the man in grey is ahead of you.",
+    };
+    const need = L2[scene.id] ? L2[scene.id](a, W()).filter((r) => !r.opt && !r.ok) : [];
     if (scene.id === "ramparts" && !done("ramparts", "telescope")) return "There is a sketch in the margin of page 4. The telescope above the gate will show you what it is of.";
     if (scene.id === "wilson" && !a.q.riddle) return "The old man will not talk until you answer him. Psalms 120 to 134 are called something.";
     if (scene.id === "tunnels" && a.q.rubbed && !done("tunnels", "rubbing")) return "Two lines on one stone. Look at every lamp you have seen since the Lamplighter's desk.";
-    if (L2[scene.id]) return H.left(scene);
+    if (L2[scene.id]) { const left = H.left(scene) || ""; const fresh = need.length && need.length === L2[scene.id](a, W()).filter((r) => !r.opt).length; return ((fresh && WHY[scene.id]) ? WHY[scene.id] + " " : "") + left || null; }
     return task1 ? task1(scene) : null;
   };
   H.hint = (scene, v, n) => {
@@ -412,20 +425,20 @@
           CRACKS.map((c, i) => '<button class="fcrack' + (placed ? " off" : "") + '" data-c="' + i + '" style="left:' + c[0] + "%;top:" + c[1] + '%"><i></i></button>').join("") +
           '<div class="fchalklamp" id="fchalk"><svg viewBox="0 0 60 30"><path d="M8 18c6-6 20-6 28 0 3 2 0 5-3 6H12c-4-1-7-4-4-6z M36 20l12 1 M24 11v-4" fill="none" stroke="#f3e9ce" stroke-width="2.2" stroke-linecap="round"/></svg><button class="fpage7" id="fpage7" aria-label="A folded page in the crack">✉</button></div>' +
           '<div class="flookup-dark" id="fldark"></div></div></div>' +
-        '<button class="fbtn" id="flup"' + (placed ? "" : " disabled") + '>Look up</button><button class="fbtn" id="fllamp" hidden>Hold up the lamp</button>', "sign", "chamber", "tunnel-plaque");
+        '<button class="fbtn" id="flup"' + (placed ? "" : " disabled") + '>Look up</button><button class="fbtn" id="fllamp" hidden>Borrow Noa’s torch</button>', "sign", "chamber", "tunnel-plaque");
       el.querySelectorAll(".fcrack").forEach((b) => (b.onclick = () => {
         if (placed) return;
         if (+b.dataset.c !== empty) { wrong("Full. Somebody’s prayer is already there, folded tight. Not that one."); return; }
         placed = true; delete A().items.note; save(); F.S("parchment", null, 0.6); b.classList.add("done"); el.querySelectorAll(".fcrack").forEach((x) => x.classList.add("off")); $("flup").disabled = false;
         K.say("You fold her prayer small and push it into the crack. It goes in as if the crack were made for it.", "", 3600);
       }));
-      $("flup").onclick = () => { up = true; $("flimg").classList.add("up"); $("fldark").classList.add("on"); $("flup").hidden = true; $("fllamp").hidden = false; K.say("Above the plaque the Wall goes up into the dark. Nothing to see. Unless you have a light.", "", 3400); };
+      $("flup").onclick = () => { up = true; $("flimg").classList.add("up"); $("fldark").classList.add("on"); $("flup").hidden = true; $("fllamp").hidden = false; K.say("Above the plaque the Wall goes up into the dark. Nothing to see without a light. Noa is beside you with her torch.", "", 3400); };
       $("fllamp").onclick = () => {
-        if (!has("lamp") && !W().flags.lit) { $("fldark").classList.add("torch"); } else $("fldark").classList.add("torch");
+        $("fldark").classList.add("torch");
         $("fchalk").classList.add("on"); $("fllamp").hidden = true; F.S("harp", null, 0.5); F.V("w-tunnels-sign");
-        K.say("She said look up. People pray here because they believe the house stood just beyond this stone. The Watchman came here too. And he looked up.", "", 5000);
+        K.say("Noa hands you the torch without a word. “Point it up. Everyone down here looks at their feet.” The beam climbs the stone. The Watchman came here too. And he looked up.", "", 5000);
       };
-      $("fpage7").onclick = () => { if (!$("fchalk").classList.contains("on")) return; ok(); K.card('<div class="kick">High on the Wall</div><h2>A lamp in chalk, and a page</h2><p>Four metres up, where nobody looks, a small chalk lamp, spout to the right, and above it a page folded into a crack. You reach it with the rod.</p><button class="cta" data-act="x">Take the page</button>', { x: () => C.pzDone("lookup", () => { C.page(7, () => C.walk(C.V("prayer"))); }) }); };
+      $("fpage7").onclick = () => { if (!$("fchalk").classList.contains("on")) return; ok(); K.card('<div class="kick">High on the Wall</div><h2>A lamp in chalk, and a page</h2><p>Four metres up, in the torch beam where nobody looks, a small chalk lamp, spout to the right, and above it a page folded into a crack. You reach it with the rod.</p><button class="cta" data-act="x">Take the page</button>', { x: () => C.pzDone("lookup", () => { C.page(7, () => C.walk(C.V("prayer"))); }) }); };
     } },
 
     /* 8. The rubbing and the forgery: two lines on one stone, copy one */
@@ -505,11 +518,19 @@
   FW.hanukkiahHTML = hanukkiahHTML;
   C.ACTS_FN.endAct2 = () => {
     const a = A(), w = W();
-    if (w.done.bazaar) { K.card('<div class="kick">Act 2</div><h2>The second night</h2>' + hanukkiahHTML(2) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }
+    if (w.done.gtomb) { K.card('<div class="kick">Act 2</div><h2>The second night</h2>' + hanukkiahHTML(2) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }
     F.S("harp", null, 0.6);
     K.card('<div class="kick">Act 2 · Watchmen on the Walls</div><h2>The second candle</h2>' + hanukkiahHTML(2) +
       '<div class="fend-said"><span class="fend-who">The Lamplighter</span>' + (a.q.sold ? "“Two candles. Four lamps. The book is back in your hands, and a page of it is back because an old shopkeeper kept a copy and would not sell it. Learn from him. Tomorrow: Zion, where David lies.”" : "“Two candles. Four lamps. Four pages more than yesterday, and a man who sat in a garden and asked you whose errand you are running. It is a fair question. I will answer it when you ask me. Tomorrow: Zion, where David lies. Go down, to go up.”") + "</div>" +
-      '<button class="cta" data-act="x">The night, and tomorrow</button>', { x: () => C.finish("bazaar") });
+      '<button class="cta" data-act="n">The night</button>', { n: () => {
+        F.S("harp", null, 0.4);
+        K.card('<div class="kick">The second night · the hotel</div><h2>You cannot sleep.</h2>' +
+          '<p>You go back through the day, and you keep stopping in the same place. Talia, on the step of the Burnt House: <i>a man, this morning, showed me a photograph on his telephone. A page with writing and a little lamp drawn on it.</i></p>' +
+          '<p>Page 1. The page with the lamp. You read it for the first time in the airport, when you broke the seal on the Lamplighter’s envelope.</p>' +
+          '<p>The envelope was sealed when he gave it to you. Nobody had seen that page but the man who sealed it.</p>' +
+          '<p class="fwarn">Victor Haller had a photograph of it before your plane landed.</p>' +
+          '<button class="cta" data-act="x">End of Act 2</button>', { x: () => C.finish("gtomb") });
+      } });
   };
   C.ACTS_FN.rampartsUp = () => { if (!has("rticket")) K.say("The iron gate at the top of the stair is locked. Avi sells tickets.", "", 2800); else FW.go("ramparts"); };
 

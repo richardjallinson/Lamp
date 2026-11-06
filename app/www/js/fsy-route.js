@@ -61,8 +61,8 @@
     4: { at: "model", text: "Mark it well: the house faced the rising sun. Whatever stands in its way is not the house. Go in at Jaffa Gate and climb the wall.", ref: "Ezekiel 43:4" },
     5: { at: "jewish", text: "Not one stone upon another, he said. But they left the stones below the ground. Go down to the Wall, and then deeper.", ref: "Luke 19:44" },
     6: { at: "wilson", text: "The Wall goes deeper than you think. Follow the stones down. Count them: you will need the number again.", ref: "" },
-    7: { at: "tunnels", text: "This is the first answer. Don’t believe it yet. When the sky clears, go back up on the wall and down to the garden.", ref: "" },
-    8: { at: "gtomb", text: "He is not here. The answer is not where they told you either. Go through the market street to Zion, where David lies.", ref: "Mark 16:6" },
+    7: { at: "tunnels", text: "This is the first answer. Don’t believe it yet. When the sky clears, go back up on the wall. Then the market, and the garden.", ref: "" },
+    8: { at: "gtomb", text: "He is not here. The answer is not where they told you either. A man has followed me for a year. He wants the book whole, so the book will not be whole: one page in each place I was sure of. Find them and you have followed me, not him. Tomorrow: Zion, where David lies.", ref: "Mark 16:6" },
     9: { at: "zion", text: "On the sides of the north, the city of the great King. Go down to where the city began, and come up by the water.", ref: "Psalm 48:2" },
     10: { at: "siloam", text: "Sent, and came seeing. Climb the steps the pilgrims climbed. Then see what is ready at the Institute. Everything but one thing.", ref: "John 9:7" },
     11: { at: "institute", text: "Stand where His feet shall stand, and look back at the gate. Then you will see where it stood.", ref: "Zechariah 14:4" },
@@ -286,10 +286,22 @@
       { id: "clear", img: "wallagain-footprints", cap: "Beyond the door: the wet stones of the north wall, and a line of a man’s wet shoe prints leading away toward Damascus Gate", hank: "Someone has walked here since the rain. A man’s shoes, going north, in a hurry. He is no longer half a day ahead of you. He is an hour.",
         go: { fwd: "damascus", back: "northdoor" }, hots: [{ box: [35, 50, 30, 45], label: "The footprints", text: "A man’s shoes, a long stride, going north. Still wet, so made since the rain stopped: within the hour. They do not stop at any of the views." },
           { box: [4, 60, 24, 18], label: "Something pale in a puddle", act: "fpStub" }, { box: [72, 36, 26, 16], label: "A white smear on the battlement", act: "fpChalk" }, { box: [66, 58, 30, 14], label: "A thread caught on the stone", act: "fpThread" }] },
-      { id: "damascus", img: "wallagain-damascus", cap: "Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements", go: { back: "clear", fwd: "road" },
-        hots: [{ box: [20, 20, 60, 60], label: "The gate", text: "Suleiman’s grandest gate, 1537, built over Hadrian’s Roman gate, whose arch is still below. The road north to Damascus began here." }] },
-      { id: "road", img: "wallagain-road", cap: "Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb”", go: { back: "damascus" }, hots: [{ box: [10, 20, 80, 50], label: "The sign: through the gate", act: "toGarden" }] },
+      { id: "damascus", img: "wallagain-damascus", cap: "Damascus Gate: the grandest gate of the Old City, crowds going in and out under its battlements. Down through it, the market street", go: { back: "clear", right: "road" },
+        hots: [{ box: [20, 20, 60, 60], label: "Down through the gate", act: "toBazaar" }] },
+      { id: "road", img: "wallagain-road", cap: "The Nablus Road, and a tiled sign on an old stone wall: “The Garden Tomb”. Not yet: the market street first, while the stalls are still open", go: { back: "damascus" }, hots: [{ box: [10, 20, 80, 50], label: "The sign", text: "The Garden Tomb is up this road. Page 7 said: the market first. Back down through the gate." }] },
     ] });
+  S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Inside Damascus Gate", music: "m10", amb: "street",
+    views: [
+      { id: "steps", img: "bazaar-steps", cap: "Through the great gate: the street drops in wide steps into the bazaar, stalls on both sides. The storm has passed; the stones steam", hank: "From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.",
+        go: { fwd: "stalls" } },
+      { id: "stalls", img: "bazaar-stalls", cap: "The bazaar under its stone vaults: spices, sweets, scarves, lamps, the smell of coffee and cardamom", go: { back: "steps", fwd: "trader", left: "lamps" },
+        hots: [{ box: [0, 0, 50, 60], label: "The lamps", text: "Brass lamps, glass lamps, clay lamps. “Thy word is a lamp unto my feet.” The lamp stall is just down the lane." }] },
+      { id: "lamps", img: "bazaar-lamps", cap: "A stall of clay and brass oil lamps under the vault, a kettle steaming on a little stove, an old man on a stool beside it", go: { right: "stalls" }, who: ["abusami"],
+        hank: "Tomorrow you go under the city, and that dark is total. Buy the lamp today." },
+      { id: "trader", img: "bazaar-trader", cap: "A trader’s stall: olive-wood carvings, a brass balance, a dish of old coins and weights, and a rolled map", go: { back: "stalls", fwd: "road" }, puzzle: "falseweight", who: ["trader"] },
+      { id: "road", img: "wallagain-road", cap: "Back up the steps and out through Damascus Gate. Up the Nablus Road: a tiled sign on an old stone wall, “The Garden Tomb”", go: { back: "trader" }, hots: [{ box: [10, 20, 80, 50], label: "The sign: through the gate", act: "toGarden" }] },
+    ] });
+
   S({ id: "gtomb", act: 2, title: "The Garden Tomb", kick: "A garden, and a tomb", music: "m16", amb: "olives", page: 8,
     views: [
       { id: "garden", img: "gtomb-garden", cap: "The garden: a courtyard below a rock face, and in the rock a small doorway. After the storm, everything drips and shines. An elderly volunteer in a cardigan waits by the path", hank: "Many believe this is the garden, and that the tomb. Whether or not it is, what is true is true: he is not here.",
@@ -308,22 +320,11 @@
         hots: [{ box: [10, 30, 70, 40], label: "The burial place", text: "“And he… laid him in a sepulchre which was hewn out of a rock” (Mark 15:46). The women came early on the first day of the week, and found the stone rolled away. “He is not here: for he is risen, as he said. Come, see the place where the Lord lay” (Matthew 28:6)." }] },
       { id: "cross", img: "gtomb-cross", cap: "On the wall above: a cross painted in dark red, with Greek letters", go: { right: "inside" },
         hots: [{ box: [40, 10, 25, 25], label: "The cross", text: "IC XC: the first and last letters of “Jesus Christ” in Greek. Below them Alpha and Omega: “I am Alpha and Omega, the beginning and the ending, saith the Lord” (Revelation 1:8). Painted by early Christians who came here." }] },
-      { id: "bench", img: "gtomb-bench", cap: "Coming back out into the light: a wooden bench by the path under the olive trees, and a grey coat laid over its arm. He has been waiting", go: { back: "inside" }, who: ["hallerbench"],
+      { id: "bench", img: "gtomb-bench", cap: "Coming back out into the light: a wooden bench by the path under the olive trees, and a grey coat laid over its arm. He has been waiting", go: { back: "inside", fwd: "dusk" }, who: ["hallerbench"],
         hank: "He did not threaten you. Notice that. He frightened a grandmother and wrote a lie on a stone, and then he sat in a garden and was reasonable. That is how it is done, in rooms with good chairs. He has given you a doubt to carry. Carry it. Do not put it down yet." },
-    ] });
-  S({ id: "bazaar", act: 2, title: "The bazaar street", kick: "Damascus Gate to the Western Wall", music: "m10", amb: "street",
-    views: [
-      { id: "steps", img: "bazaar-steps", cap: "Through the great gate: the street drops in wide steps into the bazaar, stalls on both sides. The light is going", hank: "From Damascus Gate one street runs straight down the old valley, along the western side of the Mount, to the Wall. The Street of the Valley: HaGai, El Wad. It has been a market since the Romans.",
-        go: { fwd: "stalls" } },
-      { id: "stalls", img: "bazaar-stalls", cap: "The bazaar under its stone vaults: spices, sweets, scarves, lamps, the smell of coffee and cardamom", go: { back: "steps", fwd: "trader", left: "lamps" },
-        hots: [{ box: [0, 0, 50, 60], label: "The lamps", text: "Brass lamps, glass lamps, clay lamps. “Thy word is a lamp unto my feet.” The lamp stall is just down the lane." }] },
-      { id: "lamps", img: "bazaar-lamps", cap: "A stall of clay and brass oil lamps under the vault, a kettle steaming on a little stove, an old man on a stool beside it", go: { right: "stalls" }, who: ["abusami"],
-        hank: "Where you are going next, the dark is total. Buy the lamp." },
-      { id: "trader", img: "bazaar-trader", cap: "A trader’s stall: olive-wood carvings, a brass balance, a dish of old coins and weights, and a rolled map", go: { back: "stalls", fwd: "end" }, puzzle: "falseweight", who: ["trader"] },
-      { id: "end", img: "hanukkah-wall-projection", cap: "The bottom of the street, and dusk. On the wall by Jaffa Gate, across the city, the lights come on: candles projected on the stone, and in the windows above the Quarter the hanukkiahs are being lit, two flames and the servant", go: { back: "trader" },
+      { id: "dusk", img: "hanukkah-wall-projection", cap: "Out of the garden gate, and dusk. On the wall across the city the lights come on: candles projected on the stone, and in the windows above the Quarter the hanukkiahs are being lit, two flames and the servant", go: { back: "bench" },
         hots: [{ box: [20, 20, 70, 50], label: "The second candle", act: "endAct2" }] },
     ] });
-
   /* ---- Act 3 ---- */
   S({ id: "hebron", act: 3, title: "Hebron", kick: "The Cave of the Patriarchs", music: "m17", amb: "indoor",
     views: [
@@ -1534,7 +1535,8 @@
     bagel: () => (H.bagel ? H.bagel() : K.card('<div class="kick">Holy Bagel</div><h2>The counter</h2><p>Bagels, salads, coffee. The queue moves.</p><button class="cta" data-act="x">Back</button>', { x: () => {} })),
     navonLight: () => { K.card('<div class="kick">Yitzhak Navon station</div><h2>Up into the light</h2><p>Halfway up the escalator the journal feels warm in your bag. You take it out. One line of the first page seems darker than the rest:</p>' + F.wnote("“When you come up out of the earth into the light, go to the market, where everything is weighed.”") + '<p>At the top, Jaffa Road, and the light rail. The market is three stops away.</p><button class="cta" data-act="x">Out into the city</button>', { x: () => {} }); },
     gabrielTalk: () => { K.card('<div class="kick">Gabriel</div><h2>“Shalom. Come in, come in.”</h2><p>Gabriel is behind the counter, a small man with a big voice, and within a minute you are talking about the end of days. “Everybody who comes in here wants to know when,” he says. “Nobody asks where. You ask where. Good.” He taps the counter. “Everyone takes a souvenir home. Choose.”</p><button class="cta" data-act="x">Look at the counter</button>', { x: () => {} }); },
-    toGarden: () => finish("wallagain"),
+    toBazaar: () => finish("wallagain"),
+    toGarden: () => finish("bazaar"),
     fpStub: () => { K.card('<div class="kick">On the wall</div><h2>A ticket stub</h2><p>Face down in a puddle: the stub of a Ramparts ticket, today’s date, torn by the machine at the booth. He did not pay Avi. He had a ticket already, from somewhere else, or from someone.</p><button class="cta" data-act="x">Keep it</button>', { x: () => H.fact && H.fact("fpstub", "A Ramparts ticket stub in a puddle on the north wall, today's date. Haller had a ticket without buying one from Avi.") }); },
     fpChalk: () => { K.card('<div class="kick">On the wall</div><h2>Chalk</h2><p>A white smear on the top of the battlement where a hand rested: chalk, soft and fresh, the same white as the line on the stone by Warren’s Gate. He came up here after the tunnels, with chalk still on his fingers.</p><button class="cta" data-act="x">Note it</button>', { x: () => H.fact && H.fact("fpchalk", "Fresh white chalk on the battlement of the north wall: the same as the chalk line at Warren's Gate. He wrote it, then came up here.") }); },
     fpThread: () => { const sold = H.A && H.A().q.sold; K.card('<div class="kick">On the wall</div><h2>A wet thread</h2><p>Caught on a rough edge of the stone: a short length of hairy brown string, the kind a parcel is tied with.' + (sold ? " The same string that was round the parcel Avi handed you this morning." : " He has been carrying a parcel.") + '</p><button class="cta" data-act="x">Note it</button>', { x: () => H.fact && H.fact("fpthread", "Brown parcel string caught on the north wall." + (sold ? " It matches the string on Haller's parcel." : " Haller was carrying a parcel.")) }); },
