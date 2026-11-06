@@ -50,7 +50,7 @@
     frankincense: ["A twist of frankincense", "Levonah, from Yosef. Pale resin tears in a twist of paper. Priests and the curious."],
     loaf: ["The good loaf", "From the stall with the blue awning. For Dudu's grandmother."],
     bagel: ["A Holy Bagel", "Sesame, still warm, from the cafe under the arch in the Jewish Quarter. Lunch."],
-    bankcard: ["The Lamplighter’s bank card", "Blue, in the envelope with the money. On the back, a scrap in the Watchman’s hand: “Psalm 48:2”."],
+    bankcard: ["The Lamplighter’s bank card", "Blue, in the envelope with the money. With it, a scrap in the Watchman’s hand: “Psalm 48:2”. The cash machines want a four-digit PIN."],
     pizza: ["A slice from Pizza HaOr", "Wrapped in paper, still hot. Olives and za’atar."],
     roomkey: ["A room key card", "Room 412, the Jerusalem Hotel. Paid for by someone else."],
     hotelnote: ["A note pushed under your door", "Hotel notepaper, neat handwriting: “Welcome to Jerusalem. Rest well. The north is cold at this time of year.” No name."],
@@ -335,9 +335,12 @@
     const a = A(); const day = Math.max(1, Object.keys(W().done).filter((k) => !k.includes(":")).length);
     if (!a.items.bankcard) { a.items.bankcard = 1; save(); K.card('<div class="kick">The envelope</div><h2>Something else in it</h2><p>Feeling for coins at the bottom of the Lamplighter’s envelope, you find a blue bank card, and behind it a scrap of paper in the Watchman’s small hand: <b>“Psalm 48:2”</b>. Nothing else.</p><button class="cta" data-act="x">Try the machine</button>', { x: () => H.atm() }); return; }
     const scr = (lines, btns, acts) => K.card('<div class="kick">בנק · The cash machine</div><div class="fatm"><div class="fatm-scr">' + lines + "</div></div>" + btns, acts);
+    /* v5p (Richard's playtest): after one wrong button the machine is read for you a little: the language key gets its English word */
+    let miss = 0;
     const heb = () => scr("<b>ברוכים הבאים</b><small>בנק ירושלים</small><div class=\"fatm-row\"><span>משיכת מזומן</span><span>יתרה</span><span>הפקדה</span><span>שפה</span></div>",
-      '<div class="fchoices two"><button data-act="w">משיכת מזומן</button><button data-act="b">יתרה</button><button data-act="d">הפקדה</button><button data-act="l">שפה</button></div><button class="cta alt" data-act="x">Walk away</button>',
-      { w: () => { K.say("Hebrew menus, Hebrew prompts. You could guess, but a wrong guess might swallow the card.", "", 3200); heb(); }, b: () => { K.say("A screen of Hebrew and a number. You press back.", "", 2600); heb(); }, d: () => { K.say("It wants you to put money in. Not today.", "", 2600); heb(); },
+      '<p class="fsmall">' + (miss ? "Hebrew. One of these must be the language button: the short word, bottom right, with a small globe drawn beside it." : "All Hebrew. Somewhere on a machine like this there is always a language button.") + "</p>" +
+      '<div class="fchoices two"><button data-act="w">משיכת מזומן</button><button data-act="b">יתרה</button><button data-act="d">הפקדה</button><button data-act="l">' + (miss ? "🌐 שפה" : "שפה") + '</button></div><button class="cta alt" data-act="x">Walk away</button>',
+      { w: () => { miss++; K.say("Hebrew menus, Hebrew prompts. You could guess, but a wrong guess might swallow the card. Find the language button.", "", 3200); heb(); }, b: () => { miss++; K.say("A screen of Hebrew and a number. You press back.", "", 2600); heb(); }, d: () => { miss++; K.say("It wants you to put money in. Not today.", "", 2600); heb(); },
         l: () => scr("<b>שפה · Language</b>", '<div class="fchoices two"><button data-act="he">עברית</button><button data-act="ar">العربية</button><button data-act="ru">Русский</button><button data-act="en">English</button></div>', { he: heb, ar: heb, ru: heb, en: card }), x: () => {} });
     const card = () => scr("Insert card<small>הכנס כרטיס</small>", '<button class="cta" data-act="c">Insert the Lamplighter’s card</button><button class="cta alt" data-act="x">Walk away</button>', { c: pin, x: () => {} });
     let tries = 0;
@@ -345,6 +348,7 @@
       let v = "";
       const draw = () => { const el = document.getElementById("fatm-pin"); if (el) el.textContent = "●".repeat(v.length) + "○".repeat(4 - v.length); };
       scr("Enter PIN<small>הקש קוד סודי</small>" + (msg ? '<em class="fatm-err">' + esc(msg) + "</em>" : "") + '<div class="fatm-pin" id="fatm-pin">○○○○</div>',
+        '<div class="fatm-scrap">' + F.wnote("Psalm 48:2") + '<small>The scrap that came with the card. The machine wants four digits.' + (tries >= 2 ? " The Watchman writes everything as a verse: chapter, then verse." : "") + "</small></div>" +
         '<div class="fpad" id="fpad">' + [1,2,3,4,5,6,7,8,9,"⌫",0,"OK"].map((k) => '<button data-k="' + k + '">' + k + "</button>").join("") + '</div><button class="cta alt" data-act="x">Take the card back</button>', { x: () => {} });
       document.querySelectorAll("#fpad [data-k]").forEach((b) => (b.onclick = (e) => { e.stopPropagation(); const k = b.dataset.k; K.sfx("click");
         if (k === "⌫") v = v.slice(0, -1); else if (k === "OK") { if (v.length < 4) return; document.querySelectorAll(".asheet").forEach((x) => x.remove()); if (v === "4802") menu(); else { tries++; if (tries >= 3) { tries = 0; K.card('<div class="kick">The cash machine</div><h2>Card retained</h2><p>The machine thinks for a long moment and keeps the card. A slip prints: <i>Please contact your branch.</i></p><p>The hotel clerk, when you ask, makes a phone call and gets it back for you. “Try the Psalms,” she says, not looking up.</p><button class="cta" data-act="x">Try again later</button>', { x: () => {} }); } else pin("Incorrect PIN. " + (3 - tries) + " attempt" + (tries === 2 ? "" : "s") + " left"); } return; }

@@ -347,3 +347,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 ## v5o — Gerry's review of v5m (score 7.5 → 8)
 - Hezekiah's Tunnel, the sweep: a timer now decides the hold, not the next move event, so a finger held perfectly still on the charcoal reveals it after 0.65 s. Lifting the finger or moving off cancels it. Tested with a single press and no further movement.
 - The trader's false weight: it is now HEAVY throughout. The first weighing needs twelve coins where Yosef's took ten; in the comparison his false weight sinks his side ("His side sinks. Heavy: twelve, not ten."). Relabelled "Half shekel, old" (a worn weight would read as light). Fact, the "Caught" card and hint 3 all say heavy.
+
+## v5p — Richard's first iPhone playtest: the cash machine
+- The bank card and the "Psalm 48:2" scrap now come at the airport, with the note under the journal's cord, in the Watchman's hand: "For the cash machines, when the shekels run out. Four digits." In the Backpack from then on. Older saves past the airport get the card quietly.
+- The Hebrew screen: a line says there is always a language button; after one wrong button it says which (bottom right) and the key shows 🌐 שפה.
+- The PIN screen shows the scrap, "Psalm 48:2", with "The machine wants four digits." After two wrong PINs: "The Watchman writes everything as a verse: chapter, then verse."
+- The map key: "Done · tap to go back".

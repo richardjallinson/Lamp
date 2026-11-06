@@ -1059,3 +1059,7 @@
 #adv .fsc-tray .fbtn{width:auto;margin:4px}
 #adv .fbtn.alt{background:rgba(12,18,40,.82);color:#F3E9CE;border:1px solid rgba(201,162,74,.55)}
 #adv .fbtn:disabled{opacity:.45;animation:none}
+#adv .asheet .fatm-scrap{display:flex;align-items:center;gap:12px;margin:0 0 10px}
+#adv .asheet .fatm-scrap .fwnote{flex:0 0 auto;margin:0;padding:8px 14px;font-size:20px}
+#adv .asheet .fatm-scrap small{font:600 13px/1.35 var(--ui);color:#5B5340}
+#adv .asheet .fatm-scrap .fwnote{padding-right:42px} #adv .asheet .fatm-scrap .fwl{width:28px;right:8px;bottom:6px}

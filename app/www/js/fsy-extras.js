@@ -17,8 +17,11 @@
         "<p>You stop by the pillars to put the bag straight after the search. The journal is where she put it back. Under the cord that ties it, folded small, a slip of paper you had not noticed. You did not put it there. It was there before the booth; it was there before the flight.</p>" +
         F.wnote("He knows you have it.") +
         "<p>Four words. A neat hand, an old one. You have seen the hand somewhere, and cannot think where.</p>" +
-        '<button class="cta" data-act="x">Keep it</button>', { x: () => { give("airnote"); fact("airnote", "A note under the journal’s cord at the airport, in a neat old hand: 'He knows you have it.' It was there before the flight."); } }), 500);
+        "<p>Under it, at the bottom of the Lamplighter’s envelope, something you missed at the desk: a blue bank card, and with it a scrap in the Watchman’s small hand.</p>" + F.wnote("Psalm 48:2") +
+        "<p>For the cash machines, when the shekels run out. Four digits.</p>" +
+        '<button class="cta" data-act="x">Keep them</button>', { x: () => { give("airnote"); give("bankcard"); fact("airnote", "A note under the journal’s cord at the airport, in a neat old hand: 'He knows you have it.' It was there before the flight."); } }), 500);
     }
+    if (scene.id !== "airport" && W().flags.passport && !A().items.bankcard) { A().items.bankcard = 1; save(); }
     return before5 ? before5(scene, v, prev) : true;
   };
 
