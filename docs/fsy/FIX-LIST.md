@@ -353,3 +353,10 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - The Hebrew screen: a line says there is always a language button; after one wrong button it says which (bottom right) and the key shows 🌐 שפה.
 - The PIN screen shows the scrap, "Psalm 48:2", with "The machine wants four digits." After two wrong PINs: "The Watchman writes everything as a verse: chapter, then verse."
 - The map key: "Done · tap to go back".
+
+## v5q — iPad
+- The app is now iPhone and iPad (TARGETED_DEVICE_FAMILY 1,2). iPhone stays portrait-only; iPad allows all four orientations, as Apple expects of iPad apps.
+- On iPad the whole page is enlarged with WKWebView.pageZoom (ZoomingWebView in LampWebView.swift): laid out about 430 × 900 points, then scaled to fit, in 5% steps, between 1× and 1.8×. Text stays crisp; taps and drags line up exactly as on the phone.
+- Landscape on iPad: the game stays a tall column; the current scene fills the sides, blurred and dark, instead of flat navy.
+- Tested at iPad sizes: Acts 1–5 portrait, Acts 3 and 5 landscape (tunnel wall, grate, verdict plan), all pass.
+- Not yet done: re-exporting scene pictures larger (175 of 348 have a larger original here; the crops need aligning first so tap spots don't move). App Store iPad screenshots (13-inch) to make before submission.

@@ -1063,3 +1063,7 @@
 #adv .asheet .fatm-scrap .fwnote{flex:0 0 auto;margin:0;padding:8px 14px;font-size:20px}
 #adv .asheet .fatm-scrap small{font:600 13px/1.35 var(--ui);color:#5B5340}
 #adv .asheet .fatm-scrap .fwnote{padding-right:42px} #adv .asheet .fatm-scrap .fwl{width:28px;right:8px;bottom:6px}
+/* iPad (v5q): on a wide screen the scene behind the game column fills the sides, softly blurred, instead of flat navy */
+@media (min-aspect-ratio: 4/5) and (min-width: 700px) {
+  #adv .fsy .bgp, #adv .seal .bgp { max-width: none; inset: -40px; filter: blur(22px) brightness(.32) saturate(.9); }
+}
