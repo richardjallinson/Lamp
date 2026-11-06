@@ -230,14 +230,14 @@
     return task1 ? task1(scene) : null;
   };
   H.hint = (scene, v, n) => {
-    if (scene.id === "ramparts" && v && v.id === "jaffa" && !done("ramparts", "telescope")) return n === 1 ? "Open the Journal and look at page 4. Something is drawn beside the words." : n === 2 ? "Four little pictures in a row, and a lamp over one of them. Turn the telescope until the city is in that order." : "The lamp is over the iron arches with the birds. Put them in the middle of the glass and look closer.";
+    if (scene.id === "ramparts" && v && v.id === "jaffa" && !done("ramparts", "telescope")) return n === 1 ? "Avi mentioned the doves. Did the Watchman draw anything that might help?" : n === 2 ? "Page 4, in the margin: four little pictures, and a lamp over one of them. Which one?" : "Turn the telescope to the iron arches, right at the end, and focus.";
     if (scene.id === "ramparts" && v && v.id === "storm") return n === 1 ? "Light travels faster than sound. The gap between the flash and the thunder tells you how far away the storm is." : n === 2 ? "Three seconds to a kilometre. Is the gap getting longer or shorter?" : "The storm comes from the west, over Damascus Gate. Go the other way: back to the stair by the arch.";
     if (scene.id === "wallagain" && !has("key") && !A().q.northOpen) return n === 1 ? "The rain came in from the west. Where does a dove shelter from a west wind?" : "On the side away from the wind. The east face of the arch.";
     if (scene.id === "wilson" && !A().q.riddle) return n === 1 ? "The Levites sang one psalm on each step. The psalms have a name: ‘A Song of Ascents’." : "Psalms 120 to 134. Count them.";
     if (scene.id === "wilson" && A().q.riddle && !done("wilson", "courses")) return n === 1 ? "Rav Eliezer said: count only Herod's stones. His have the smooth border round a raised middle." : n === 2 ? "Lower the lamp slowly. The rough stones near the top are later work: skip them." : "Seventeen. The grille takes two numbers.";
     if (scene.id === "tunnels" && A().q.rubbed && !done("tunnels", "rubbing")) return n === 1 ? "One line is scratched into the stone, old. One is chalk, fresh." : n === 2 ? "Look at the two little lamps. Which way does the spout point on each?" : "The Watchman draws his lamp with the spout to the right. Always. Copy that line.";
     if (scene.id === "gtomb" && !done("gtomb", "stone")) return n === 1 ? "Mr Hollis said the groove is not level." : "The stone wants to roll downhill, to the right. Pull the wedge on that side.";
-    if (scene.id === "bazaar" && !has("citymap")) return n === 1 ? "Three weights, all stamped as half a shekel. Yosef's bekah is a true one." : "Put each of his on the pan against your bekah. The light one tips the beam.";
+    if (scene.id === "bazaar" && !has("citymap")) return n === 1 ? "Twelve for a half shekel? Yosef's balanced ten this morning." : n === 2 ? "You have a true half shekel in your pack. Put it on the pan instead of the coins." : "Then put each of his three weights against it. The light one tips the beam.";
     return hint1 ? hint1(scene, v, n) : null;
   };
 
@@ -260,12 +260,7 @@
     return { cleared: () => cleared };
   }
 
-  Object.assign(C.PUZZLES, {
-    /* 1. The telescope: match the sketch in the margin of page 4 */
-    telescope: { label: "Look through the telescope", run: () => {
-      const strip = ["ramparts-tower", "ramparts-jaffa", "ramparts-north", "ramparts-arch"], target = 3;
-      const el = screen("The telescope on the wall", "The Ramparts Walk", q("A coin telescope on an iron post. In the margin of page 4 of the journal, beside the words, the Watchman drew four small pictures in a row, and over one of them his lamp. Turn the telescope until the city is in the order he drew it, then put the picture with the lamp in the middle of the glass.") +
-        '<div class="fsketch" aria-label="The sketch in the journal: a tower, a gate, domes, and iron arches with birds, with a small lamp drawn over the arches">' +
+    const SKETCH = '<div class="fsketch" aria-label="The sketch in the journal: a tower, a gate, domes, and iron arches with birds, with a small lamp drawn over the arches">' +
           '<svg viewBox="0 0 400 90"><g fill="none" stroke="#2a3b7a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
           '<path d="M20 70V34h8v-8h8v8h8v-8h8v8h8v-8h8v8h8V70z M44 70V52h8v18"/>' +
           '<path d="M120 70V40a22 22 0 0 1 44 0v30 M132 70V50h20v20 M108 70h68"/>' +
@@ -273,20 +268,31 @@
           '<path d="M316 70V40a24 24 0 0 1 48 0v30 M308 70h64 M324 70V48a16 16 0 0 1 32 0v22"/>' +
           '<path d="M333 33l4-3 4 3 M349 31l4-3 4 3"/>' +
           '<path d="M332 16c6-4 14-4 18 0 2 2 0 4-2 5h-14c-2-1-4-3-2-5z M352 18l6 1 M341 12v-3"/>' +
-          '</g></svg></div>' +
-        '<div class="ftele" id="ftele"><div class="ftele-strip" id="fstrip">' + strip.map((s) => '<img src="' + IMG + s + '.jpg" alt="" draggable="false">').join("") + '</div><div class="ftele-ring"></div><div class="ftele-hair"></div></div>' +
-        '<div class="fsmall">Drag to turn the telescope.</div><button class="fbtn" id="flook">Look closer</button>', "jaffa", "olives", "ramparts-jaffa");
-      const tele = $("ftele"), st = $("fstrip"); let x = 0.4, px = null;
-      const draw = () => { const w = tele.clientWidth; st.style.transform = "translateX(" + (-x * w) + "px)"; };
-      tele.addEventListener("pointerdown", (e) => { px = e.clientX; tele.setPointerCapture(e.pointerId); e.preventDefault(); });
+          '</g></svg></div>';
+Object.assign(C.PUZZLES, {
+    /* 1. The telescope (Gerry, 6 Nov): nothing is explained. The player opens the journal to page 4, sees the four little pictures and the lamp over one,
+       turns the telescope to put that one in the glass, and focuses. A click when it is sharp, and the doves. */
+    telescope: { label: "Look through the telescope", run: () => {
+      const strip = ["ramparts-tower", "ramparts-jaffa", "ramparts-north", "ramparts-arch"], target = 3, a = A();
+      const el = screen("The telescope on the wall", "The Ramparts Walk", q(a.q.keyQuest ? "A coin telescope on an iron post, pointed at the city. Avi lost his key where the doves sit. Where is that?" : "A coin telescope on an iron post, pointed at the city. The wall runs north from here, and the page says to climb it. Is there anything worth looking for first?") +
+        '<div class="ftele" id="ftele"><div class="ftele-strip blur" id="fstrip">' + strip.map((s) => '<img src="' + IMG + s + '.jpg" alt="" draggable="false">').join("") + '</div><div class="ftele-ring"></div><div class="ftele-hair"></div></div>' +
+        '<div class="fsmall" id="ftelesay">Drag to turn the telescope.</div><div class="ftun-pack"><button class="fbtn ftool" id="fpage4">Page 4 of the journal</button><button class="fbtn ftool" id="flook">Focus the glass</button></div>', "jaffa", "olives", "ramparts-jaffa");
+      const tele = $("ftele"), st = $("fstrip"); let x = 0.4, px = null, sharp = false;
+      const draw = () => { const w = tele.clientWidth; st.style.transform = "translateX(" + (-x * w) + "px)"; if (sharp) { sharp = false; st.classList.add("blur"); } };
+      tele.addEventListener("pointerdown", (e) => { px = e.clientX; try { tele.setPointerCapture(e.pointerId); } catch (z) {} e.preventDefault(); });
       tele.addEventListener("pointermove", (e) => { if (px === null) return; x = Math.max(0, Math.min(strip.length - 1, x - (e.clientX - px) / tele.clientWidth)); px = e.clientX; draw(); });
       const up = () => { px = null; }; tele.addEventListener("pointerup", up); tele.addEventListener("pointercancel", up);
       requestAnimationFrame(draw);
+      $("fpage4").onclick = () => { a.q.sawSketch = 1; save(); K.card('<div class="kick">The journal · page 4</div><h2>In the margin</h2>' + F.wnote("Mark it well: the house faced the rising sun. Whatever stands in its way is not the house. Go in at Jaffa Gate and climb the wall.<small>Ezekiel 43:4</small>") +
+        "<p>Beside the words, in the margin, four small pictures in a row, and over one of them, his lamp.</p>" + SKETCH + '<button class="cta" data-act="x">Close the journal</button>', { x: () => {} }); };
       $("flook").onclick = () => {
-        if (Math.abs(x - target) > 0.35) { F.S("dial", "click", 0.4); wrong(x < target - 0.35 ? "Through the glass: not the picture with the lamp over it. Turn further." : "Too far. Back a little."); return; }
-        tele.classList.add("zoom"); ok(); A().q.teleDone = 1; save(); fact("doves", "The sketch on page 4: the lamp is drawn over the iron arches where the doves sit. 'Where the doves sit' is where Avi lost his key.");
+        const near = Math.abs(x - target) <= 0.35;
+        st.classList.remove("blur"); sharp = true; F.S("dial", "click", 0.5);
+        if (!near) { $("ftelesay").textContent = x < 0.5 ? "The tower, sharp. Stones and a flag. Nothing he drew a lamp over." : x < 1.5 ? "Jaffa Gate, sharp, and the traffic. Nothing here." : x < 2.5 ? "Domes and roofs, sharp. The city, not a place." : "Not quite. Turn a little."; return; }
+        $("ftelesay").textContent = "The iron arches. And on the first one, two birds.";
+        tele.classList.add("zoom"); ok(); a.q.teleDone = 1; save(); fact("doves", "The sketch on page 4: the lamp is drawn over the iron arches where the doves sit. 'Where the doves sit' is where Avi lost his key.");
         setTimeout(() => K.card('<div class="kick">Through the telescope</div><h2>The iron arches, and the doves</h2><p>Two turtledoves on the first arch, exactly as he drew them, and above them, in the sketch, his lamp. “Where the doves sit,” Avi said. That is where the key is. You could go and look now; but the sky to the west has gone the colour of slate, and the arch is in the open.</p>' +
-          '<button class="cta" data-act="x">Walk on along the wall</button>', { x: () => C.pzDone("telescope", () => C.walk(C.V("north1"))) }), 900);
+          '<button class="cta" data-act="x">Walk on along the wall</button>', { x: () => C.pzDone("telescope", () => C.walk(C.V("north1"))) }), 1100);
       };
     } },
 
@@ -484,21 +490,44 @@
         state = "rolling"; F.S("stone", "stone", 0.9); stone.classList.add("roll"); setTimeout(() => { ok(); W().flags.risenAt = Date.now(); save(); F.M("risen-song", "olives"); K.card('<div class="kick">The Garden Tomb</div><h2>He is not here</h2><p>The stone rolls downhill along its groove and comes to rest against the end stop, and the doorway is open. Inside: a weeping chamber, and a bench cut in the rock. Empty. On the bench, weighed down with a pebble, a page.</p><button class="cta" data-act="x">Take the page</button>', { x: () => C.pzDone("stone", () => C.page(8, () => C.walk(C.V("inside")))) }); }, 1400); };
     } },
 
-    /* 10. The trader's false weight */
+    /* 10. The trader's false weight (Gerry, 6 Nov): he weighs the price and it comes out heavy. The player can pay, or remember the bekah in the pack
+       and put it on the pan; then his three weights against it, and the light one tips. "Caught." */
     falseweight: { label: "Weigh the half shekel", run: () => {
-      const WTS = [["Half shekel, stamped", 10], ["Half shekel, worn", 8], ["Half shekel, new", 10]]; let on = null;
+      const WTS = [["Half shekel, stamped", 10], ["Half shekel, worn", 8], ["Half shekel, new", 10]]; let on = null, coins = 0, phase = 1, his = 1;
       const el = screen("Half a shekel", "The bazaar street", verse("A false balance is abomination to the LORD: but a just weight is his delight.", "Proverbs 11:1") +
-        q("Three of the trader’s weights, each stamped as half a shekel. Your bekah from Yosef is a true half shekel. Put each of his on the pan against it. One of them is lying.") +
+        q("“The old way: weighed.” He sets one of his half-shekel weights on his pan. “Your coins on the other, until the beam is level. Then the map is yours.”") +
         '<div class="fscale" id="fscale" style="--tilt:0deg"><img class="fsc-stand" src="' + PZ + 'bal-stand.png" alt=""><div class="fsc-beam"><img src="' + PZ + 'bal-beam.png" alt="">' +
-          '<div class="fsc-hang l"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load"><span class="fsc-stone"><img src="' + PZ + 'weight-3.png" alt=""><b>Your bekah</b></span></div></div>' +
-          '<div class="fsc-hang r"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-r"></div></div></div><div class="fsc-read" id="fread">Nothing on his pan</div></div>' +
-        '<div class="fsc-tray" id="ftray">' + WTS.map((w, i) => '<button class="fsc-w" data-i="' + i + '"><img src="' + PZ + 'weight-' + (i + 1) + '.png" alt=""><small>' + esc(w[0]) + "</small></button>").join("") + "</div>" +
-        '<button class="fbtn" id="ffalse" disabled>“This one is false.”</button>', "trader", "street", "bazaar-trader");
-      const draw = () => { const d = on === null ? 0 : WTS[on][1] - 10; $("fscale").style.setProperty("--tilt", (d * 1.8) + "deg"); $("fload-r").innerHTML = on === null ? "" : '<span class="fsc-stone"><img src="' + PZ + 'weight-' + (on + 1) + '.png" alt=""></span>'; $("fread").textContent = on === null ? "Nothing on his pan" : (d === 0 ? "Level." : "The beam tips: his is light."); el.querySelectorAll("[data-i]").forEach((b) => b.classList.toggle("used", +b.dataset.i === on)); $("ffalse").disabled = on === null; };
-      el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { on = +b.dataset.i; F.S("step", "click", 0.5); draw(); }));
-      $("ffalse").onclick = () => { if (on === null) return; if (WTS[on][1] === 10) { wrong("He frowns. “That one is honest. Weigh it again if you doubt me.”"); return; }
-        ok(); give("citymap"); fact("falseweight", "The trader in the bazaar keeps a light half-shekel weight. Caught, he laughed and sold the 1910 map of the City of David for the bekah alone.");
-        K.card('<div class="kick">The trader</div><h2>“Caught.”</h2><p>He laughs so hard he has to sit down. “Forty years and nobody weighs the weights. Everyone weighs the goods.” He pushes the light one into a drawer. “Your bekah, then. For the map. And nothing else, because you have shamed me.” The old map goes into your backpack.</p><img class="fphoto1" src="' + PZ + 'citymap.jpg" alt="An old hand-drawn map of a narrow ridge city"><button class="cta" data-act="x">Thank him</button>', { x: () => C.pzDone("falseweight", () => C.walk(C.V("end"))) }); };
+          '<div class="fsc-hang l"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-l"></div></div>' +
+          '<div class="fsc-hang r"><img class="fsc-pan" src="' + PZ + 'bal-pan.png" alt=""><div class="fsc-load" id="fload-r"></div></div></div><div class="fsc-read" id="fread"></div></div>' +
+        '<div class="fsc-tray" id="ftray"></div><div class="ftun-pack" id="fpack"></div>', "trader", "street", "bazaar-trader");
+      const stone = (i, lab) => '<span class="fsc-stone"><img src="' + PZ + 'weight-' + (i + 1) + '.png" alt="">' + (lab ? "<b>" + esc(lab) + "</b>" : "") + "</span>";
+      const draw = () => {
+        if (phase === 1) {
+          const d = (coins - 12) * 0.8; /* his "half shekel" balances twelve coins, where Yosef's balanced ten */
+          $("fload-r").innerHTML = stone(his); $("fload-l").innerHTML = coins ? '<span class="fsc-coins">' + "●".repeat(Math.min(coins, 14)) + "<b>" + coins + "</b></span>" : "";
+          $("fscale").style.setProperty("--tilt", Math.max(-8, Math.min(8, -d)) + "deg");
+          $("fread").textContent = coins === 0 ? "His weight alone. The beam is down on his side." : d < -0.1 ? "Still down on his side. More." : d > 0.1 ? "Over. Take one off." : "Level. Twelve shekels, he says, for half a shekel of silver.";
+          $("ftray").innerHTML = '<button class="fbtn" id="fplus">Add a shekel</button>' + (coins ? '<button class="fbtn" id="fminus">Take one off</button>' : "") + (Math.abs(d) <= 0.1 ? '<button class="fbtn" id="fpay">Pay the twelve</button>' : "");
+          $("fpack").innerHTML = '<span class="fsmall">In your pack:</span>' + (W().flags.bekah ? '<button class="fbtn ftool" id="fbekah">Yosef’s bekah</button>' : "") + '<button class="fbtn ftool" id="fjournal">The journal</button>';
+          $("fplus").onclick = () => { coins = Math.min(coins + 1, 14); F.S("coin", "click", 0.4); draw(); };
+          const m = $("fminus"); if (m) m.onclick = () => { coins = Math.max(coins - 1, 0); F.S("coin", "click", 0.3); draw(); };
+          const pay = $("fpay"); if (pay) pay.onclick = () => { if (A().money < 12) { wrong("You do not have twelve. And you are not sure you should."); return; }
+            K.card('<div class="kick">The trader</div><h2>Twelve for a half.</h2><p>Yosef’s half shekel of spice balanced ten of your coins this morning; his balances twelve. Either Yosef was generous, or something on this pan is not what it says it is.</p><button class="cta alt" data-act="p">Pay anyway</button><button class="cta" data-act="x">Look in your pack first</button>', { p: () => { if (H.pay(12, "the map, weighed heavy")) { give("citymap"); fact("paidheavy", "Paid the trader twelve shekels for 'half a shekel' of silver by weight. Something on his pan was wrong, and you let it go."); C.pzDone("falseweight", () => C.walk(C.V("end"))); } }, x: () => {} }); };
+          const jb = $("fjournal"); jb.onclick = () => K.card('<div class="kick">The journal · evidence</div><p>Measured: ' + esc("Yosef's bekah: half a shekel of the sanctuary, ten gerahs. Ten of your coins balanced it.") + "</p>" + '<button class="cta" data-act="x">Close</button>', { x: () => {} });
+          const bk = $("fbekah"); if (bk) bk.onclick = () => { phase = 2; F.S("step", "click", 0.5); K.say("You take out Yosef’s little stone and set it on your pan in place of the coins. “A true half shekel,” you say. He stops smiling.", "", 4200); draw(); };
+        } else {
+          const d = on === null ? 0 : WTS[on][1] - 10;
+          $("fload-l").innerHTML = stone(2, "Your bekah"); $("fload-r").innerHTML = on === null ? "" : stone(on);
+          $("fscale").style.setProperty("--tilt", (d * 1.8) + "deg");
+          $("fread").textContent = on === null ? "Your bekah against nothing. Put each of his on the other pan." : (d === 0 ? "Level. That one is honest." : "The beam tips: his is light.");
+          $("ftray").innerHTML = WTS.map((w, i) => '<button class="fsc-w' + (i === on ? " used" : "") + '" data-i="' + i + '"><img src="' + PZ + 'weight-' + (i + 1) + '.png" alt=""><small>' + esc(w[0]) + "</small></button>").join("");
+          $("fpack").innerHTML = '<button class="fbtn" id="ffalse"' + (on === null ? " disabled" : "") + '>“This one is false.”</button>';
+          el.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => { on = +b.dataset.i; F.S("step", "click", 0.5); draw(); }));
+          $("ffalse").onclick = () => { if (on === null) return; if (WTS[on][1] === 10) { wrong("He frowns. “That one is honest. Weigh it again if you doubt me.”"); return; }
+            ok(); give("citymap"); fact("falseweight", "The trader in the bazaar keeps a light half-shekel weight. Caught, he laughed and sold the 1910 map of the City of David for the bekah alone.");
+            K.card('<div class="kick">The trader</div><h2>“Caught.”</h2><p>He laughs so hard he has to sit down. “Forty years and nobody weighs the weights. Everyone weighs the goods.” He pushes the light one into a drawer. “Your bekah, then. For the map. And nothing else, because you have shamed me.” The old map goes into your backpack.</p><img class="fphoto1" src="' + PZ + 'citymap.jpg" alt="An old hand-drawn map of a narrow ridge city"><button class="cta" data-act="x">Thank him</button>', { x: () => C.pzDone("falseweight", () => C.walk(C.V("end"))) }); };
+        }
+      };
       draw();
     } },
   });

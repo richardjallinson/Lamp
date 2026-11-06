@@ -1038,3 +1038,12 @@
 #adv .ftun-pack .ftool{flex:1 1 0;min-width:0;width:auto;margin:0;padding:9px 4px;font-size:12.5px;white-space:normal;line-height:1.2}
 #adv .falive-wrap .fphoto1{width:100%;max-width:300px;max-height:36vh;object-fit:cover;border-radius:10px;flex:none}
 #adv .falive-wrap h1.falive{font-size:30px}
+#adv .ffit{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;width:100%;max-width:380px;margin:6px 0;font-size:12px;line-height:1.3;color:#B8A88A}
+#adv .ffit span{transition:color .3s}
+#adv .ffit span.ok{color:#F5D27A}
+#adv .ffit b{font-weight:700}
+#adv .ftele-strip.blur{filter:blur(3px) brightness(.85)}
+#adv .ftele-strip{transition:filter .5s}
+#adv .fsc-coins{display:inline-flex;align-items:center;gap:4px;color:#E8C66A;font-size:10px;letter-spacing:-1px}
+#adv .fsc-coins b{font:700 12px var(--ui);color:#F5E6A8;letter-spacing:0;margin-left:3px}
+#adv .fsc-tray .fbtn{width:auto;margin:4px}

@@ -331,3 +331,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Still silent: w-hebron-prices ("Remember the witnesses."), until credits reset on 24 Nov.
 
 ## v5l — the last line: w-hebron-prices ("Remember the witnesses."). Every line in Episode 1 is now voiced.
+
+## v5m — Gerry's puzzle notes, first pass (discovery over instruction)
+- Hezekiah's Tunnel: at each fork the player chooses what to try (listen, the lamp low, a scrap of paper); one tells the truth there, the others say nothing useful; the clue is shown (ripple, flame leaning, the scrap drifting), heard and written. Dead ends dim the lamp to a bead and never put it out. After the meeting point, the charcoal is found by sweeping the lamp along the wall with a finger; then silence, the lines one at a time, "He is alive." Hints: three levels.
+- The verdict (Act 5): a readout under the plan says in words which of the four fixed layers fit as the court moves.
+- The telescope (Act 2): no explanation. "Page 4 of the journal" shows the margin sketch; the view is blurred until "Focus the glass"; off-target focus names what is there and nothing more. Hints: Avi's doves → the margin → the arches.
+- The false weight (Act 2): the trader weighs the price; it balances at twelve coins where Yosef's half shekel balanced ten. The player can pay anyway (map, no "caught" fact) or take the bekah from the pack, set it on the pan, and weigh his three against it.

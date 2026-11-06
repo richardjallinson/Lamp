@@ -956,6 +956,7 @@
     M("m24", "platform"); cur = "verdict";
     const s = stage('<div class="fkick">The verdict</div><h1>Lay the court on the Mount</h1><div class="fq">Four layers are fixed to the ground: the floor, the summit, the line, the open middle. The court is loose. Drag it along the line, and turn it, and watch the layers: where they all agree, it will lock.</div>' +
       '<div class="fmapwrap" id="fm">' + mapSVG({ extra: planSVG() }) + "</div>" +
+      '<div class="ffit" id="ffit"></div>' +
       '<div class="fplanbar"><button id="frot">⟳ Turn the plan</button><button class="fbtn" id="fset">Set it here</button></div>' +
       '<button class="fback" id="fback">‹ Journal</button>');
     $("fback").onclick = () => board();
@@ -966,6 +967,8 @@
     let locked = false;
     const lit = () => { const hoh = hohAt(), onLine = r === 0 && Math.abs(ty - SPOT.gate[1]) < 14, st = { floor: near(hoh, SPOT.spirits, 22), summit: near(hoh, SPOT.spirits, 22), line: onLine, middle: !near(hoh, SPOT.rock, 40) && onLine };
       ["floor", "summit", "line", "middle"].forEach((k) => svg.querySelectorAll(".lay-" + k).forEach((e) => e.classList.toggle("lit", !!st[k])));
+      const ff = $("ffit"); if (ff) { const ns = { floor: ["The floor", "level bedrock under the Holy of Holies", "jagged rock under the Holy of Holies"], summit: ["The summit", "on the high ground", "off the summit"], line: ["The line", "in at the sanctuary door", r !== 0 ? "turned off the line" : "off the line from the gate"], middle: ["The open middle", "the court is open ground", "the court is blocked"] };
+        ff.innerHTML = Object.keys(ns).map((k) => '<span class="' + (st[k] ? "ok" : "") + '">' + (st[k] ? "✓ " : "· ") + "<b>" + ns[k][0] + "</b> " + ns[k][st[k] ? 1 : 2] + "</span>").join(""); }
       return st.floor && st.summit && st.line && st.middle && near([tx, ty], SPOT.gate, 24); };
     const lock = () => { if (locked) return; locked = true; tx = SPOT.gate[0]; ty = SPOT.gate[1]; r = 0; draw(); g.classList.add("fit"); svg.querySelectorAll(".lay").forEach((e) => e.classList.add("lit")); S("lock", null, 0.8); K.buzz("success");
       const H5 = (Lamp.fsyWalk && Lamp.fsyWalk.H.act5); setTimeout(() => K.root() && (H5 ? H5.locked(reveal) : makeCase()), 1400); };
