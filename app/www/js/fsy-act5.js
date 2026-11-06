@@ -11,7 +11,7 @@
   const clip = (id) => (H.clip && CLIPS.has(id) ? H.clip(id) : "");
   /* portraits and clips to come: add each id here when its file is in */
   ["yoel", "tal"].forEach((p) => PORTRAITS.add(p));
-  ["haller-barrier", "rod-grate", "haller-shutter"].forEach((c) => CLIPS.add(c));   /* to come: yoel-measure, gate-sun */
+  ["haller-barrier", "rod-grate", "haller-shutter", "yoel-measure"].forEach((c) => CLIPS.add(c));   /* to come: gate-sun */
   const q = (t) => '<div class="fq">' + esc(t) + "</div>";
   const ok = () => { F.S("harp", null, 0.6); K.buzz("success"); };
   const said = (who, text) => '<div class="fend-said"><span class="fend-who">' + esc(who) + "</span>" + text + "</div>";
