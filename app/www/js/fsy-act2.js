@@ -166,6 +166,9 @@
     if (scene.id === "wallagain" && v.id === "clear" && !A().q.northOpen) { K.say("The iron door across the walk is locked. Avi is at it with his keys.", "", 3000); return false; }
     if (scene.id === "gtomb" && v.id === "bench" && !done("gtomb", "stone")) { K.say("The bench is empty for now. The tomb first.", "", 2600); return false; }
     if (scene.id === "gtomb" && v.id === "dusk" && !A().q.bench) { K.say("The man on the bench is waiting. He has been waiting for you.", "", 2600); return false; }
+    /* the Garden Tomb: "He Is Risen" starts as the stone rolls and plays once through the tomb and the garden; the bench is quiet (Richard, 6 Nov) */
+    if (scene.id === "gtomb") { const t = W().flags.risenAt, on = t && Date.now() - t < 118000;
+      scene.music = v.id === "bench" ? null : v.id === "dusk" ? "m16" : on ? "risen-song" : "m16"; }
     /* the four places that come alive the first time you reach them (Richard's clips, 5 Nov) */
     const SCENECLIP = { "bazaar:lamps": ["lampstall", "The lamp stall", "Clay and brass, the light just beginning to go."], "tunnels:warren": ["forgerystone", "Warren’s Gate", "Your torch moves over the stone. Something is scratched on it, twice."],
       "gtomb:bench": ["bench", "The bench", "Under the olive trees, a grey coat laid over the arm of an empty bench."], "wallagain:clear": ["footprints", "The north wall", "Wet stone, still dripping, and a line of a man’s shoe prints going away."] };
@@ -478,7 +481,7 @@
       $("fwl").onclick = () => { if (state !== "held") return; F.S("stone", "stone", 0.6); $("fwl").disabled = true; jammed = true; stone.classList.add("lean"); wrong("You pull the uphill wedge. The stone settles its whole weight downhill onto the other wedge and jams it in the groove: it will not come out now. Mr Hollis, from the path: “Easy to close. Hard to open. You will have to lever it back.”"); $("flever").hidden = false; };
       $("flever").onclick = () => { F.S("stone", "stone", 0.8); jammed = false; stone.classList.remove("lean"); $("fwl").disabled = false; $("flever").hidden = true; K.say("Both shoulders and a long minute. The stone eases back uphill and the wedge comes loose. Think about which way it wants to roll.", "", 4200); };
       $("fwr").onclick = () => { if (state !== "held") return; if (jammed) { wrong("Jammed under the stone’s weight. Lever it back first."); return; }
-        state = "rolling"; F.S("stone", "stone", 0.9); stone.classList.add("roll"); setTimeout(() => { ok(); K.card('<div class="kick">The Garden Tomb</div><h2>He is not here</h2><p>The stone rolls downhill along its groove and comes to rest against the end stop, and the doorway is open. Inside: a weeping chamber, and a bench cut in the rock. Empty. On the bench, weighed down with a pebble, a page.</p><button class="cta" data-act="x">Take the page</button>', { x: () => C.pzDone("stone", () => C.page(8, () => C.walk(C.V("inside")))) }); }, 1400); };
+        state = "rolling"; F.S("stone", "stone", 0.9); stone.classList.add("roll"); setTimeout(() => { ok(); W().flags.risenAt = Date.now(); save(); F.M("risen-song", "olives"); K.card('<div class="kick">The Garden Tomb</div><h2>He is not here</h2><p>The stone rolls downhill along its groove and comes to rest against the end stop, and the doorway is open. Inside: a weeping chamber, and a bench cut in the rock. Empty. On the bench, weighed down with a pebble, a page.</p><button class="cta" data-act="x">Take the page</button>', { x: () => C.pzDone("stone", () => C.page(8, () => C.walk(C.V("inside")))) }); }, 1400); };
     } },
 
     /* 10. The trader's false weight */
