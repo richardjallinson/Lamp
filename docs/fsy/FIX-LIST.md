@@ -329,3 +329,5 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Clips: plate-drops, benami-package, noor-photo, haller-phone, matteo-gap, haller-barrier, rod-grate, haller-shutter, yoel-measure, gate-sun (all cropped 720→480 square; gate-sun trimmed 2.8 s at the start).
 - Shlomi: the five Act 4 lines and the six Act 5 lines. Yoel: six lines in the ElevenLabs library voice "Ergun Kalbak" (originals in images/originals/fsy/audio/yoel). Processing script for Yoel: scratchpad yoel.py (same as shlomi3.py, no w- prefix).
 - Still silent: w-hebron-prices ("Remember the witnesses."), until credits reset on 24 Nov.
+
+## v5l — the last line: w-hebron-prices ("Remember the witnesses."). Every line in Episode 1 is now voiced.
