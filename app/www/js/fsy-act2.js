@@ -231,7 +231,7 @@
   };
   H.hint = (scene, v, n) => {
     if (scene.id === "ramparts" && v && v.id === "jaffa" && !done("ramparts", "telescope")) return n === 1 ? "Avi mentioned the doves. Did the Watchman draw anything that might help?" : n === 2 ? "Page 4, in the margin: four little pictures, and a lamp over one of them. Which one?" : "Turn the telescope to the iron arches, right at the end, and focus.";
-    if (scene.id === "ramparts" && v && v.id === "storm") return n === 1 ? "Light travels faster than sound. The gap between the flash and the thunder tells you how far away the storm is." : n === 2 ? "Three seconds to a kilometre. Is the gap getting longer or shorter?" : "The storm comes from the west, over Damascus Gate. Go the other way: back to the stair by the arch.";
+    if (scene.id === "ramparts" && v && v.id === "storm") return n === 1 ? "Light travels faster than sound. The gap between the flash and the thunder tells you how far away the storm is." : n === 2 ? "Three seconds to a kilometre. Is the gap getting longer or shorter? Watch it again if you missed one." : "The storm comes from the west, over Damascus Gate, and the stair ahead is west too. Go the other way: east, back to the stair by the arch.";
     if (scene.id === "wallagain" && !has("key") && !A().q.northOpen) return n === 1 ? "The rain came in from the west. Where does a dove shelter from a west wind?" : "On the side away from the wind. The east face of the arch.";
     if (scene.id === "wilson" && !A().q.riddle) return n === 1 ? "The Levites sang one psalm on each step. The psalms have a name: ‘A Song of Ascents’." : "Psalms 120 to 134. Count them.";
     if (scene.id === "wilson" && A().q.riddle && !done("wilson", "courses")) return n === 1 ? "Rav Eliezer said: count only Herod's stones. His have the smooth border round a raised middle." : n === 2 ? "Lower the lamp slowly. The rough stones near the top are later work: skip them." : "Seventeen. The grille takes two numbers.";
@@ -296,37 +296,59 @@ Object.assign(C.PUZZLES, {
       };
     } },
 
-    /* 2. The storm: flash, count, thunder; then choose the stair the storm reaches last */
+    /* 2. The storm: flash, count, thunder; then choose the stair the storm reaches last.
+       v5n (Gerry): the thunder is shown as well as heard, any round can be watched again, and the choice card says where the storm is and where each stair is. */
     storm: { label: "Read the storm", run: () => {
       setTimeout(() => F.M("m13", "olives"), 50);
-      const GAPS = [6.0, 4.2, 2.4]; let round = 0, flashAt = 0, thunderAt = 0, timer = 0, got = [];
-      const el = screen("The storm", "The Ramparts Walk", q("The sky goes black over Damascus Gate. Lightning, and then, some seconds later, thunder. Every three seconds between the flash and the thunder is a kilometre. Watch the flash. Tap when you hear the thunder. Three times.") +
-        '<div class="fstorm" id="fstorm"><div class="fstorm-sky"></div><div class="fstorm-flash" id="fflash"></div><div class="fstorm-read" id="fsread">Watch the sky.</div></div>' +
-        '<button class="fbtn glow" id="fthunder" disabled>Thunder!</button><div class="fsmall" id="fgaps"></div>', "sky", "olives", "ramparts-storm");
+      const GAPS = [6.0, 4.2, 2.4]; let round = 0, flashAt = 0, thunderAt = 0, timer = 0, tick = 0, wait = 0, got = [], busy = false;
+      const el = screen("The storm", "The Ramparts Walk", q("The sky goes black over Damascus Gate. Lightning, and then, some seconds later, thunder. Every three seconds between the flash and the thunder is a kilometre. Watch the flash. Tap when you hear the thunder, or see it: the wall shakes. Three times. If you miss one, watch it again.") +
+        '<div class="fstorm" id="fstorm"><div class="fstorm-sky"></div><div class="fstorm-flash" id="fflash"></div><div class="fstorm-boom" id="fboom">THUNDER</div><div class="fstorm-count" id="fcount"></div><div class="fstorm-read" id="fsread">Watch the sky.</div></div>' +
+        '<div class="frow"><button class="fbtn glow" id="fthunder" disabled>Thunder!</button><button class="fbtn alt" id="fagain" disabled>Watch it again</button></div><div class="fsmall" id="fgaps"></div>', "sky", "olives", "ramparts-storm");
       const say = (t) => { $("fsread").textContent = t; };
+      const stop = () => { clearTimeout(timer); clearTimeout(wait); clearInterval(tick); $("fcount").textContent = ""; };
+      const flash = () => { $("fflash").classList.add("on"); setTimeout(() => $("fflash").classList.remove("on"), 180); };
+      const boom = () => { const st = $("fstorm"), bm = $("fboom"), bt = $("fthunder"); st.classList.add("shake"); bm.classList.add("on"); bt.classList.add("hot"); F.S("door", null, 0.9);
+        setTimeout(() => { st.classList.remove("shake"); bm.classList.remove("on"); bt.classList.remove("hot"); }, 900); };
+      const counting = (from) => { let n = 0; $("fcount").textContent = ""; tick = setInterval(() => { n++; $("fcount").textContent = Array.from({ length: n }, (_, i) => i + 1).join(" · "); if (n > 12) clearInterval(tick); }, 1000); };
+      const km = (gap) => Math.round(gap / 3 * 10) / 10;
+      const list = () => { $("fgaps").textContent = got.map((k, i) => "Flash " + (i + 1) + ": " + k[0].toFixed(1) + " s, about " + k[1] + " km").join(" · "); };
+      /* one round: random wait, flash, the gap, thunder. The player taps at the thunder. */
       const go = () => {
         if (round >= GAPS.length) return decide();
-        say("Round " + (round + 1) + " of 3. Watch the sky."); $("fthunder").disabled = false;
-        timer = setTimeout(() => { $("fflash").classList.add("on"); setTimeout(() => $("fflash").classList.remove("on"), 180); flashAt = performance.now(); thunderAt = 0; say("Flash. Count.");
-          timer = setTimeout(() => { thunderAt = performance.now(); $("fstorm").classList.add("shake"); F.S("door", null, 0.9); setTimeout(() => $("fstorm").classList.remove("shake"), 700); say("Thunder.");
-            timer = setTimeout(() => { if (thunderAt) { say("You missed it. Again."); round = Math.max(0, round); go(); } }, 2600); }, GAPS[round] * 1000); }, 1200 + Math.random() * 1500);
+        stop(); say("Round " + (round + 1) + " of 3. Watch the sky."); $("fthunder").disabled = false; $("fagain").disabled = round === 0 && !got.length ? true : false; flashAt = 0; thunderAt = 0;
+        timer = setTimeout(() => { flash(); flashAt = performance.now(); counting(); say("Flash. Count.");
+          timer = setTimeout(() => { thunderAt = performance.now(); boom(); say("Thunder. Tap.");
+            timer = setTimeout(() => { if (thunderAt) { stop(); say("You missed it. Watch it again, or wait for the next flash."); $("fagain").disabled = false; wait = setTimeout(go, 1800); } }, 2600); }, GAPS[round] * 1000); }, 1200 + Math.random() * 1500);
       };
+      /* a replay of one round, with the seconds counted on the sky; no tap needed. then back to the round in hand */
+      const replay = (i, then) => {
+        busy = true; stop(); $("fthunder").disabled = true; $("fagain").disabled = true; flashAt = 0; thunderAt = 0; say("Again. Flash " + (i + 1) + ".");
+        timer = setTimeout(() => { flash(); counting(); say("Flash. Count.");
+          timer = setTimeout(() => { boom(); stop(); say("Thunder, at " + GAPS[i].toFixed(1) + " seconds: about " + km(GAPS[i]) + " km."); 
+            wait = setTimeout(() => { busy = false; then(); }, 1800); }, GAPS[i] * 1000); }, 900);
+      };
+      $("fagain").onclick = () => { if (busy) return; stop(); const i = Math.min(round, GAPS.length - 1); replay(i, go); };
       $("fthunder").onclick = () => {
-        if (!flashAt) return;
-        if (!thunderAt) { F.S("knock", null, 0.6); say("That was before the thunder. Watch again."); clearTimeout(timer); flashAt = 0; return go(); }
-        clearTimeout(timer); const gap = (performance.now() - flashAt) / 1000, km = Math.round(gap / 3 * 10) / 10; got.push(km); F.S("step", "click", 0.5);
-        $("fgaps").textContent = got.map((k, i) => "Flash " + (i + 1) + ": about " + k + " km").join(" · "); round++; flashAt = 0; thunderAt = 0; setTimeout(go, 900);
+        if (busy || !flashAt) return;
+        if (!thunderAt) { F.S("knock", null, 0.6); stop(); say("That was before the thunder. Wait for the wall to shake."); flashAt = 0; return go(); }
+        stop(); const gap = (performance.now() - flashAt) / 1000; got.push([gap, km(gap)]); F.S("step", "click", 0.5); list();
+        say(got.length > 1 ? (got[got.length - 1][1] < got[got.length - 2][1] ? "Closer than the last one." : "No closer.") : "About " + km(gap) + " km away."); round++; flashAt = 0; thunderAt = 0; wait = setTimeout(go, 1200);
       };
+      /* the choice. the storm is in the west; so is the stair ahead. the stair behind is east, and farther */
       const decide = () => {
-        $("fthunder").disabled = true; say("Closer each time. It is coming from the west, over Damascus Gate.");
-        K.card('<div class="kick">The storm</div><h2>Off the wall. Which way?</h2><p>Your count: ' + got.map((k) => k + " km").join(", then ") + '. Ahead, where the walk goes down to Damascus Gate, two men stand across the path with their hands up: “Not this way. Not today.” The rain is already slanting in from the west behind them.</p>' +
-          '<div class="fsay"><button data-act="on">Push on to the Damascus Gate stair, 150 metres ahead</button><button data-act="back">Back to the stair by the doves’ arch, 400 metres</button><button data-act="tower">Shelter in the tower here and wait</button></div>',
-          { back: () => after(true), on: () => after(false, "You push on. The men do not move, and the rain reaches the wall before you reach them: thrown gravel, then a wall of water. You turn back soaked to the skin, and the arch stair is a river. In your bag, page 4 has taken the water: the ink has run at one corner."),
-            tower: () => after(false, "You shelter in the tower. The storm sits on the wall for forty minutes as if it had come for you. When it moves on, the light has changed and the bag at your feet is in a puddle: page 4 has taken the water, and the ink has run at one corner.") });
+        stop(); $("fthunder").disabled = true; $("fagain").disabled = true; say("It is coming from the west, over Damascus Gate.");
+        const rows = got.map((k, i) => "<tr><td>Flash " + (i + 1) + "</td><td>" + k[0].toFixed(1) + " s</td><td>about " + k[1] + " km</td></tr>").join("");
+        K.card('<div class="kick">The storm</div><h2>Off the wall. Which way?</h2><table class="fstormtab">' + rows + "</table>" +
+          "<p>Closer each time: it has come a kilometre and more while you counted, and it is coming from the <b>west</b>, over Damascus Gate. The last gap was under a minute of walking away. The wall has two ways down.</p>" +
+          "<p><b>Ahead, west:</b> the Damascus Gate stair, 150 metres, towards the storm. Two men stand across the path with their hands up: “Not this way. Not today.” The rain is already slanting in behind them.<br><b>Behind, east:</b> the stair by the doves’ arch, 400 metres, away from the storm, and a covered street at the bottom.<br><b>Here:</b> the tower, open to the west, where the storm will sit.</p>" +
+          '<div class="fsay"><button data-act="on">Push on to the Damascus Gate stair, 150 metres ahead</button><button data-act="back">Back to the stair by the doves’ arch, 400 metres</button><button data-act="tower">Shelter in the tower here and wait</button><button data-act="again">Watch the three flashes again</button></div>',
+          { back: () => after(true), again: () => { let i = 0; const next = () => (i < GAPS.length ? replay(i++, next) : decide()); next(); },
+            on: () => after(false, "You push on, into the west. The men do not move, and the rain reaches the wall before you reach them: thrown gravel, then a wall of water. You turn back soaked to the skin, and by the time you reach it the arch stair is a river. In your bag, page 4 has taken the water: the ink has run at one corner."),
+            tower: () => after(false, "You shelter in the tower, which is open to the west. The storm sits on the wall for forty minutes as if it had come for you. When it moves on, the light has changed and the bag at your feet is in a puddle: page 4 has taken the water, and the ink has run at one corner.") });
       };
       const after = (good, text) => {
         if (!good) { W().flags.wetpage = 1; save(); }
-        K.card('<div class="kick">The storm</div><h2>' + (good ? "Down the arch stair, dry" : "Soaked") + "</h2><p>" + (good ? "You are at the bottom of the arch stair and under the Quarter's first arch when the storm reaches the wall: a wall of water where you were standing a minute ago. You measured it right." : esc(text)) + "</p>" +
+        K.card('<div class="kick">The storm</div><h2>' + (good ? "Down the arch stair, dry" : "Soaked") + "</h2><p>" + (good ? "Four hundred metres east, away from it, and down. You are at the bottom of the arch stair and under the Quarter's first arch when the storm reaches the wall: a wall of water where you were standing a minute ago. You measured it right." : esc(text)) + "</p>" +
           "<p>He told you to mind the weather. He did not read it in the sky. He read it on his telephone this morning, and he said it to you like a prophet. Remember that. Men like him deal in things that are already certain.</p>" +
           '<button class="cta" data-act="x">Down into the Jewish Quarter</button>', { x: () => { F.V("w-ramparts-storm"); C.pzDone("storm", () => C.finish("ramparts")); } });
       };

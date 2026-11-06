@@ -337,3 +337,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - The verdict (Act 5): a readout under the plan says in words which of the four fixed layers fit as the court moves.
 - The telescope (Act 2): no explanation. "Page 4 of the journal" shows the margin sketch; the view is blurred until "Focus the glass"; off-target focus names what is there and nothing more. Hints: Avi's doves → the margin → the arches.
 - The false weight (Act 2): the trader weighs the price; it balances at twelve coins where Yosef's half shekel balanced ten. The player can pay anyway (map, no "caught" fact) or take the bekah from the pack, set it on the pan, and weigh his three against it.
+
+## v5n — Gerry's puzzle notes, fourth item: the storm (Act 2)
+- The thunder is seen as well as heard: the sky flashes THUNDER, the wall shakes, the Thunder button lights.
+- A second count runs on the sky (1 · 2 · 3 …) from the flash, so the player can see the gap, not only feel it.
+- "Watch it again" replays the round in hand (flash, count, thunder, and the distance in words); a missed round offers it. The choice card has "Watch the three flashes again".
+- The choice card shows the three gaps in a table, says the storm is in the west and closing, and says where each way down is: ahead is west, into it; behind is east, away from it, 400 m and a covered street; the tower is open to the west. The consequence (page 4 wet) is unchanged; the reason for it is now on the card.

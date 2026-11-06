@@ -806,6 +806,16 @@
 #adv .fstorm-flash.on{opacity:.95}
 #adv .fstorm-read{position:absolute;left:0;right:0;bottom:12px;text-align:center;font:italic 600 16px "Baskerville",Georgia,serif;color:#F3E9CE;text-shadow:0 1px 6px #000}
 #adv .fstorm.shake{animation:fshake .6s ease}
+#adv .fstorm-boom{position:absolute;left:0;right:0;top:34%;text-align:center;font:800 30px "Baskerville",Georgia,serif;letter-spacing:.3em;color:#F3E9CE;text-shadow:0 0 18px #fff,0 2px 8px #000;opacity:0;transform:scale(.8);transition:opacity .1s,transform .1s;pointer-events:none}
+#adv .fstorm-boom.on{opacity:1;transform:scale(1.08);animation:fboom .9s ease}
+@keyframes fboom{0%{opacity:0;transform:scale(.7)}12%{opacity:1;transform:scale(1.1)}70%{opacity:.9}100%{opacity:0;transform:scale(1)}}
+#adv .fstorm-count{position:absolute;left:0;right:0;top:12px;text-align:center;font:600 18px "Baskerville",Georgia,serif;color:rgba(243,233,206,.85);letter-spacing:.1em;text-shadow:0 1px 6px #000}
+#adv .fbtn.hot{box-shadow:0 0 0 3px #F3E9CE,0 0 22px #fff;background:#F3E9CE;color:#111}
+#adv .frow{display:flex;gap:8px;width:100%;max-width:360px;margin:6px auto 0}
+#adv .frow .fbtn{flex:1 1 0;min-width:0;width:auto}
+#adv .fstormtab{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:15px}
+#adv .fstormtab td{padding:4px 6px;border-bottom:1px solid rgba(201,162,74,.25)}
+#adv .fstormtab td:last-child{text-align:right;color:#C9A24A}
 @keyframes fshake{0%,100%{transform:translate(0,0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(3px,-1px)}}
 /* the doves */
 #adv .fdoves{position:relative;width:100%;margin:6px 0;border-radius:14px;overflow:hidden}
@@ -1047,3 +1057,5 @@
 #adv .fsc-coins{display:inline-flex;align-items:center;gap:4px;color:#E8C66A;font-size:10px;letter-spacing:-1px}
 #adv .fsc-coins b{font:700 12px var(--ui);color:#F5E6A8;letter-spacing:0;margin-left:3px}
 #adv .fsc-tray .fbtn{width:auto;margin:4px}
+#adv .fbtn.alt{background:rgba(12,18,40,.82);color:#F3E9CE;border:1px solid rgba(201,162,74,.55)}
+#adv .fbtn:disabled{opacity:.45;animation:none}
