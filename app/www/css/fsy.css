@@ -996,3 +996,12 @@
 #adv .fmap .lay-floor.lit{fill:rgba(245,210,122,.55)}
 #adv .fmap .lay-summit.lit,#adv .fmap .lay-middle.lit{stroke:#F5D27A;stroke-width:3;stroke-dasharray:none}
 #adv .fmap line.lay-line.lit{stroke:#F5D27A;stroke-width:3}
+
+/* ---- the People page and the recap ---- */
+#adv .fperson{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(0,0,0,.08)}
+#adv .fperson .fface{width:52px;height:52px;flex:none;border-radius:50%;object-fit:cover}
+#adv .fperson b{display:block;font:700 15px var(--ui)}
+#adv .fperson small{display:block;color:#7A6A4A;font-size:11px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+#adv .fperson p{margin:2px 0;font-size:13px;line-height:1.4}
+#adv .fperson .fpnote{color:#3A2E10;padding-left:10px;border-left:2px solid #C9A24A}
+#adv .frecap p{margin:0 0 10px;padding-left:12px;border-left:3px solid #C9A24A;font-style:italic;line-height:1.5}

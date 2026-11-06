@@ -165,6 +165,7 @@
     K.open(BOOK + " · Episode 1", { hint: hint }, "fsy");
     const p = P();
     if (!p.began || !p.watchCard) { const first = !p.began; p.began = 1; save(); return first && Lamp.fsyWalk && Lamp.fsyWalk.actCard ? Lamp.fsyWalk.actCard(1, intro) : intro(); }
+    const HW = Lamp.fsyWalk && Lamp.fsyWalk.H; if (HW && HW.recapDue && HW.recapDue()) return HW.recap(stops);
     stops();
   }
   /* the route map (js/fsy-route.js) replaces the old list of four stops */

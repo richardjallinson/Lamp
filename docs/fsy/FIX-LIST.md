@@ -317,3 +317,9 @@ Clips (then add to CLIPS in fsy-act5.js): haller-barrier, rod-grate, haller-shut
 Shlomi (then add to HAVE in fsy.js): w-mughrabi-goup, w-mount-three, w-verdict-five, w-seven, w-act5-end, w-final-when.
 Yoel's voice (a second ElevenLabs voice, older and drier; ids yoel-1 … yoel-6, then add to HAVE): the six answers at the gate.
 Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 pictures serve with a blue cast).
+
+## v5j — Gerry's three (6 Nov): the airport note, the People page, the recap
+- Airport: in the arrivals hall after passport control, a slip under the journal's cord, "He knows you have it." Neat old hand, author unstated (it is the Lamplighter's; the hand matches his envelopes; Gethsemane gives it meaning). Item "airnote", an Evidence fact. It is not listed under the Lamplighter on the People page.
+- Journal: a People tab. Everyone the player has spoken to (plus the Lamplighter, Haller, Ben-Ami, Noor, Tal, Yoel, Moti from their card scenes), with portrait, place, one line, and notes that appear only when the matching fact, item or flag is in the player's hands. No verdicts.
+- "Previously…": after 20 hours away (W().flags.seen is stamped on every scene change), reopening the episode shows the last three milestones and where the player is, with Go on. Also a "Previously…" button in the journal.
+- New file fsy-extras.js, loaded last.

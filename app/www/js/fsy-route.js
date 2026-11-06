@@ -689,16 +689,18 @@
     const facts = H.journal ? H.journal() : "";
     const T = tab || w.flags.jtab || "pages";
     const tabs = [["scripture", "Scripture", nl + "/7"], ["evidence", "Evidence", String(notes.length + (H.factCount ? H.factCount() : 0))], ["pages", "The Watchman", got.length + "/12"]];
+    if (H.peoplePage) tabs.push(["people", "People", String(H.peopleCount ? H.peopleCount() : "")]);
     K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages · " + nl + " of 7 lamps</h2>" + (w.flags.journalSold ? '<p class="fwarn">You sold the journal to Victor Haller at the Jerusalem Hotel. These are the pages as you remember them.</p>' : "") +
       '<div class="fjtabs">' + tabs.map((t) => '<button data-act="tab-' + t[0] + '" class="' + (T === t[0] ? "on" : "") + '">' + t[1] + "<small>" + t[2] + "</small></button>").join("") + "</div>" +
       (T === "scripture" ? '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
         (nl ? '<div class="fjverses">' + LAMPS.filter((x) => L[x.n]).map((x) => '<div class="fjverse"><b>' + x.n + " · " + esc(x.ref) + "</b><p>“" + esc(x.text) + "”</p></div>").join("") + "</div>" : "") + "</div>" : "") +
       (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + (H.connections ? H.connections() : "") + "</div>" : "") +
+      (T === "people" && H.peoplePage ? H.peoplePage() : "") +
       (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
       (H.journalExtra ? H.journalExtra() : "") + '<button class="cta" data-act="x">Roll up the journal</button>',
-      Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); } }, H.journalActs ? H.journalActs() : {}));
+      Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); }, "tab-people": () => { w.flags.jtab = "people"; save(); journal("people"); } }, H.journalActs ? H.journalActs() : {}));
     const sh = document.querySelector(".ftorah-sheet"); if (sh) sh.scrollTop = 0;
   }
 
@@ -723,7 +725,7 @@
     if (Lamp.part1Only && s.act > 1 && !(s.id === "jaffa" && H.gate)) { K.say(s.title + ": Part " + s.act + " is coming soon.", "", 2800); return; }
     if (H.gate && H.gate(s, scene) === false) return;
     if (s.act > 1 && !W().flags["actcard" + s.act] && R.find((x) => x.act === s.act) === s) return actCard(s.act, () => go(s, vid));
-    scene = s; W().at = s.id; save();
+    scene = s; W().at = s.id; W().flags.seen = Date.now(); save();
     if (s.kept) { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = s.title; t.onclick = null; } return kept(s); }
     const v = s.views.find((x) => x.id === vid) || s.views[0];
     walk(v);
