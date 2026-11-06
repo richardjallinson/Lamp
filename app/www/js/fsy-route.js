@@ -65,7 +65,7 @@
     8: { at: "gtomb", text: "He is not here. The answer is not where they told you either. A man has followed me for a year. He wants the book whole, so the book will not be whole: one page in each place I was sure of. Find them and you have followed me, not him. Tomorrow: Zion, where David lies.", ref: "Mark 16:6" },
     9: { at: "zion", text: "On the sides of the north, the city of the great King. Go down to where the city began, and come up by the water.", ref: "Psalm 48:2" },
     10: { at: "siloam", text: "Sent, and came seeing. Climb the steps the pilgrims climbed. Then see what is ready at the Institute. Everything but one thing.", ref: "John 9:7" },
-    11: { at: "institute", text: "Stand where His feet shall stand, and look back at the gate. Then you will see where it stood.", ref: "Zechariah 14:4" },
+    11: { at: "institute", text: "Everything is ready but one thing. They will sign for the place. Stand where His feet shall stand, and look back at the gate; then you will see the line upon which it stood. Find it before they sign.", ref: "Zechariah 14:4" },
     12: { at: "gethsemane", text: "Go up. Measure. The answer is waiting. He is looking too.", ref: "" },
   };
 
@@ -80,8 +80,8 @@
       img: "fsy/w/act2-title.jpg", verse: "I have set watchmen upon thy walls, O Jerusalem.", ref: "Isaiah 62:6" },
     { n: 3, title: "Where the City Began", sub: "Hebron, Zion, the City of David, the spring, the tunnel, the pool, the steps",
       img: "fsy/w/act3-title.jpg", verse: "Nevertheless David took the strong hold of Zion: the same is the city of David.", ref: "2 Samuel 5:7" },
-    { n: 4, title: "The Feast of Dedication", sub: "The Institute, the gates, the tombs, the Mount of Olives",
-      img: "fsy/w/egate-steps.jpg", verse: "And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon’s porch.", ref: "John 10:22–23" },
+    { n: 4, title: "Everything But the Place", sub: "The fallen stones, the Institute, the gates, the tombs, the Mount of Olives, the garden",
+      img: "fsy/w/egate-steps.jpg", verse: "And he shall confirm the covenant with many for one week.", ref: "Daniel 9:27" },
     { n: 5, title: "Measure the Temple", sub: "The Mughrabi Gate, the clues, the verdict, the sealed gate",
       img: "fsy/w/mughrabi-0.jpg", verse: "Rise, and measure the temple of God, and the altar, and them that worship therein.", ref: "Revelation 11:1" },
   ];
@@ -438,6 +438,15 @@
     ] });
 
   /* ---- Act 4 ---- */
+  S({ id: "dawn", act: 4, title: "Robinson’s Arch, first light", kick: "The fallen stones", music: "m24", amb: "platform",
+    views: [
+      { id: "stones", img: "robinson-fallen", cap: "First light on the Herodian street: the stones from the top of the Wall, lying where they fell. Now you can read them", puzzle: "robinson", go: { right: "stonesign", fwd: "springer" },
+        hank: "A trumpet once sounded from the top of that corner, to tell the city when holy time began and ended. Every holy thing in this city had a place. That is the whole of what you are looking for: the place." },
+      { id: "stonesign", img: "robinson-sign", cap: "The sign among the stones", go: { left: "stones" },
+        hots: [{ box: [10, 35, 80, 25], label: "Read the sign", text: "“Collapsed on the paved street are stones of the western wall of the Temple Mount enclosure. They were hurled down by the soldiers of the Roman Legion after the destruction of the Temple on the ninth day of the month of Av, 70 CE.”" }] },
+      { id: "springer", img: "robinson-springer", cap: "Robinson’s Arch in the morning light: the first stones of the great arch, still jutting from the Wall", go: { back: "stones" },
+        hots: [{ box: [10, 22, 70, 12], label: "The arch stones", text: "The arch carried a monumental stairway from the street up to the Royal Stoa. Up there, Josephus says, at the south-west corner, a priest blew the trumpet to begin and end the Sabbath. The place of trumpeting: one of the fallen stones below carries those words." }] },
+    ] });
   S({ id: "institute", act: 4, title: "The Temple Institute", kick: "Everything is ready", music: "hall", amb: "indoor", kept: "institute", page: 11,
     views: [{ id: "in", img: null, cap: "" }] });
   S({ id: "dung", act: 4, title: "The Dung Gate", kick: "Moses", music: "m20", amb: "street",
@@ -448,7 +457,7 @@
         go: { fwd: "road", back: "inner", left: "sign" } },
       { id: "sign", img: "dung-sign", cap: "The sign beside the gate, in Hebrew, Arabic and English", go: { back: "gate" },
         hots: [{ box: [5, 40, 90, 32], label: "Dung Gate", text: "“The gate was originally a small wicket gate built by Suleiman the Magnificent. It is named after the gate mentioned in the Book of Nehemiah.” Nehemiah 3:14: “But the dung gate repaired Malchiah the son of Rechab… he built it, and set up the doors thereof, the locks thereof, and the bars thereof.” The walls were rebuilt gate by gate, with a name beside every gate." }] },
-      { id: "road", img: "dung-road", cap: "Outside the gate: the dirt path down toward the Kidron Valley, and the town of Silwan on the slope beyond", go: { back: "gate" }, puzzle: "moses",
+      { id: "road", img: "dung-road", cap: "Outside the gate: the dirt path down toward the Kidron Valley, and the town of Silwan on the slope beyond", go: { back: "gate" }, puzzle: "moses", who: ["moses"],
         hots: [{ box: [0, 25, 100, 22], label: "The town of Silwan", text: "Silwan: the town that climbs the slope across the valley from the City of David. Its name comes from Siloam, the pool below. Its cliffs are full of tombs cut in the days of the kings of Judah." }] },
     ] });
   S({ id: "egate", act: 4, title: "The Eastern Gate, outside", kick: "The steps and the cemetery", music: "m21", amb: "olives",
@@ -486,7 +495,7 @@
       { id: "entrance", img: "gethsemane-sign", cap: "At the gate: “Hortus Gethsemani”, the Garden of Gethsemane, under the Jerusalem cross", go: { fwd: "trees" },
         hots: [{ box: [5, 45, 70, 25], label: "The inscription", text: "Latin for the Garden of Gethsemane. The Franciscans have kept this garden since 1681. The small plaque below reads: Holy Place, here Jesus began his Passion." }] },
       { id: "trees", img: "gethsemane-trees", cap: "Inside: gravel paths, flower beds, and the great old olive trunks", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
-        go: { fwd: "ancient", right: "oldtree", left: "wide", back: "gate" } },
+        go: { fwd: "ancient", right: "oldtree", left: "wide", back: "gate" }, who: ["matteo"] },
       { id: "ancient", img: "gethsemane-ancient", cap: "One of the oldest trees, split into two great trunks, the domes of the Church of All Nations behind", go: { back: "trees", fwd: "church", left: "path" } },
       { id: "path", img: "gethsemane-path", cap: "A gravel path between the olive trees, their old trunks twisted like rope", go: { right: "ancient" } },
       { id: "gate", img: "gethsemane-gate", cap: "Turn round: straight across the Kidron, the sealed Eastern Gate in the wall, the Temple Mount behind it", go: { fwd: "trees" },
@@ -708,7 +717,7 @@
     if (H.gate && H.gate(s, scene) === false) return;
     if (s.act > 1 && !W().flags["actcard" + s.act] && R.find((x) => x.act === s.act) === s) return actCard(s.act, () => go(s, vid));
     scene = s; W().at = s.id; save();
-    if (s.kept) return kept(s);
+    if (s.kept) { const t = document.getElementById("adv-ttl"); if (t) { t.textContent = s.title; t.onclick = null; } return kept(s); }
     const v = s.views.find((x) => x.id === vid) || s.views[0];
     walk(v);
   }
@@ -742,7 +751,7 @@
     hebron: "Go inside. Find Abraham, and what he paid.", zion: "Caiaphas’s pit, then David’s Tomb. Find the psalm on the wall.",
     cod: "Find the sign about the Ark, and work out where Zion was.", gihon: "Go down to the spring. Look along the rock.",
     hezekiah: "Light your lamp and go in.", siloam: "Come out of the tunnel at the pool and look at it.",
-    steps: "Climb the steps, then round the corner to the fallen stones.", dung: "Go out by the gate and down the road. Find the man.",
+    steps: "Climb the steps, then round the corner to the fallen stones.", dawn: "Read the stones in daylight.", dung: "Go out by the gate and down the road. Find the man.",
     egate: "Up the steps between the graves. Go up to the gate.", kidron: "Down in the valley. Whose tomb is it?",
     gethsemane: "Walk among the trees. Find the oldest one and look in the hollow.", mughrabi: "Up the ramp. Find the man by the arcade."
   };

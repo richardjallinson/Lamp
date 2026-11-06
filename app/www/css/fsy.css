@@ -955,3 +955,21 @@
 #adv .asheet .fcharcoal-words{text-align:center;font-size:16px}
 #adv .asheet .falive{font-size:30px;text-align:center;margin:14px 0}
 #adv .fsung{font-style:italic;text-align:center}
+
+/* ---- Act 4 ---- */
+#adv .fplate{margin:10px 0;padding:14px 16px;border-radius:10px;background:linear-gradient(160deg,#D9B560,#8A6A26);color:#1A1406;box-shadow:0 4px 12px rgba(0,0,0,.5);text-align:center}
+#adv .fplate b{display:block;font:800 16px var(--ui);letter-spacing:.02em}
+#adv .fplate small{display:block;margin-top:6px;font-size:12px;color:#3A2E10}
+#adv .fframe{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:380px;padding:14px;border-radius:14px;background:#2A1C0E;box-shadow:inset 0 0 0 3px #4A3418,0 6px 16px rgba(0,0,0,.6)}
+#adv .fplateslot{position:static;min-height:62px;border:0;border-radius:8px;background:#1A1208;color:#C9A24A;font:700 13px var(--ui);padding:8px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:inset 0 0 0 1px #4A3418}
+#adv .fplateslot i{font:700 22px var(--ui);color:#6A5428;font-style:normal}
+#adv .fplateslot.on{background:linear-gradient(160deg,#D9B560,#8A6A26);color:#1A1406;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+#adv .fplateslot.empty{grid-column:1/3}
+#adv .fplateslot.drop{transform:perspective(300px) rotateX(-55deg);transform-origin:bottom;transition:transform .9s ease;background:#3A2A14}
+#adv .ftabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:380px}
+#adv .ftab{border:0;border-radius:8px;padding:8px 12px;background:linear-gradient(160deg,#D9B560,#8A6A26);color:#1A1406;font:700 13px var(--ui);text-align:left;box-shadow:0 3px 8px rgba(0,0,0,.5)}
+#adv .ftab small{display:block;font-weight:500;font-size:11px;color:#3A2E10}
+#adv .ftab.on{opacity:.45;transform:scale(.96)}
+#adv .ftab.ph2{background:#5A5A5A;color:#EEE;flex-basis:100%}
+#adv .ftab.ph2 small{color:#CCC}
+#adv .fcall{margin:10px 0;padding:12px 14px;border-left:3px solid #9A8A6A;color:#3A2E10;font-style:italic;line-height:1.5}

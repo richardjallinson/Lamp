@@ -287,3 +287,20 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 ## v5g — Act 3 end line without ElevenLabs
 - w-act3-end cut down from the old take (kept: "Three candles. Six lamps, and the seventh is his." / "You have a question for me." / "Hold it until the garden… anywhere else." / "Tomorrow: everything is ready but one thing."). The long take is in images/originals/fsy/audio/shlomi.
 - Card text matched to the cut. Hebron "Remember the witnesses." stays text only.
+
+## v5h — Act 4 built (script: third draft, approved by Gerry 6 Nov)
+- New fsy-act4.js. Scenes: dawn (Robinson's stones, moved from Act 3), institute (plates from the exhibits; frame; page 11; Shira at the desk; 35 shekels in), dung (Moses' new line), egate (Sergeant Ben-Ami, the sealed package, the date lock, the annex and the seal), kidron (unchanged), olives (kept; then Noor and Haller's call on the way down), gethsemane (Brother Matteo; the gap at the back; page 12 front and back; the letter; the fourth candle).
+- Act 4 title: "Everything But the Place" (Daniel 9:27). Pages 11 and 12 text per the script. The postcard at the Institute is no longer page 11.
+- Tester: "Play Acts 1 to 4 as if done" in Settings.
+- Act 4 test: scratchpad act4.js plays it through (money 122 → 87).
+
+### Act 4 assets still to come (Richard, 7 Nov)
+Portraits (480×480, img/fsy/people/<id>.jpg; the ids are already registered, so just drop the files in):
+- shira, benami, noor (with her son), matteo, hallerphone (from behind, on the telephone among the graves), moses (optional; the old man at the Dung Gate)
+Objects (img/fsy/pz/<id>.jpg, 400×600 or square):
+- photo1 (page 1 through glass at the bag check), accords (the map with gold tabs and the Phase 2 sheet), annex (the blank page, the paperclip mark, the gold seal: a crown over a broken ring)
+Clips (video/fsy/<id>.mp4 + .jpg; then add the id to CLIPS in fsy-act4.js):
+- plate-drops, benami-package, noor-photo, haller-phone, matteo-gap
+Shlomi (audio/narration/fsy-<id>.mp3; then add the id to HAVE in fsy.js):
+- w-dawn-stones ("A trumpet once sounded from the top of that corner…"), w-institute-plates ("You cannot stop a sacrifice that never started…"), w-egate-package ("The covenant Daniel saw is not one treaty…"), w-gethsemane-letter (the letter, read quietly), w-act4-end ("Four candles…"), w-hebron-prices ("Remember the witnesses.")
+Music: m20–m23 (Dung Gate, Eastern Gate, Kidron, Gethsemane) and m24 (the stones at dawn) still fall back.

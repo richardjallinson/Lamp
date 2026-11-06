@@ -195,7 +195,7 @@
     };
   }
   /* which of the kept puzzles are finished (for the route map) */
-  function keptDone(k) { const p = P(); return k === "intro" ? !!p.watchCard : k === "institute" ? !!p.ti.postcard : k === "prophets" ? !!p.tombs : k === "olives" ? !!p.olives : k === "robinson" ? !!p.robinson : k === "mount" ? !!(p.done && p.waqf) : k === "gate" ? !!p.gateDone : false; }
+  function keptDone(k) { const p = P(); return k === "intro" ? !!p.watchCard : k === "institute" ? !!p.ti.page11 : k === "prophets" ? !!p.tombs : k === "olives" ? !!p.olives : k === "robinson" ? !!p.robinson : k === "mount" ? !!(p.done && p.waqf) : k === "gate" ? !!p.gateDone : false; }
   const walkDone = (id) => Lamp.fsyWalk && Lamp.fsyWalk.keptDone(id);
 
   /* ================================================================ 1. the Temple Institute ================================================================ */
@@ -212,8 +212,8 @@
       const s = stage('<div class="fkick">Act 4 · The Jewish Quarter</div><h1>The Temple Institute</h1>' +
         photo("ti-sign.jpg", "The Temple Institute Visitors’ Center, in the Jewish Quarter", TI) +
         '<div class="fnarr">“Here the vessels of the Temple have been made again, ready for the day it stands: the Ark, the menorah, the harps and trumpets. Everything is prepared. <b>Everything but the place.</b> Go in, and look closely at five things.”<small>The Lamplighter</small></div>' +
-        '<button class="fbtn glow" id="fgo">Go inside</button>' + back("The map"));
-      wire(s, stops); $("fgo").onclick = () => { S("door", "stone"); p.ti.entered = 1; save(); institute(); }; V("02-outside");
+        '<button class="fbtn glow" id="fgo">Go inside (35 shekels)</button>' + back("The map"));
+      wire(s, stops); $("fgo").onclick = () => { const H4 = Lamp.fsyWalk && Lamp.fsyWalk.H.act4; if (H4 && !H4.entry()) return; S("door", "stone"); p.ti.entered = 1; save(); institute(); }; V("02-outside");
       return;
     }
     hall();
@@ -230,16 +230,16 @@
     { k: "cards", label: "The postcard stand", box: [91, 27, 9, 62] },
   ];
   function hall() {
-    cur = "hall"; const p = P(); M("hall", "indoor");
+    cur = "hall"; const p = P(); M("hall", "indoor"); const H4 = Lamp.fsyWalk && Lamp.fsyWalk.H.act4, held = H4 ? Object.keys(H4.held()).length : 0;
     const all = EXHIBITS.every((e) => p.ti[e.id]), left = EXHIBITS.filter((e) => !p.ti[e.id]);
     const s = stage('<div class="fkick">Act 4 · The Temple Institute</div><h1>The entrance hall</h1>' +
-      '<div class="fq">' + (p.ti.postcard ? "You have the postcard. The Mount of Olives is waiting." : all ? "Every exhibit is solved. Before you leave, look around the hall once more." : "Tap anything in the room to walk over to it. You can leave a puzzle and come back to it at any time.") + "</div>" +
+      '<div class="fq">' + (p.ti.page11 ? "Page 11 is in the journal. The Mount of Olives is waiting." : all ? "Every exhibit is solved. Four plates: the frame beside the menorah window." : "Tap anything in the room to walk over to it. You can leave a puzzle and come back to it at any time.") + "</div>" +
       '<div class="fark fhall" id="fhall"><img src="img/fsy/ti-hall.jpg" alt="The entrance hall of the Temple Institute">' +
       HALL.map((h) => '<button class="fhit" data-h="' + h.k + '" aria-label="' + esc(h.label) + '" style="left:' + h.box[0] + "%;top:" + h.box[1] + "%;width:" + h.box[2] + "%;height:" + h.box[3] + '%"></button>' +
         (h.dot ? (p.ti[h.k] ? '<span class="fdone" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%">✓</span>' : '<span class="fglint" style="left:' + h.dot[0] + "%;top:" + h.dot[1] + '%"></span>') : "")).join("") +
-      (all && !p.ti.postcard ? '<span class="fglint big" style="left:96.5%;top:43%"></span>' : "") + "</div>" +
-      '<div class="fprog">' + EXHIBITS.map((x) => '<button data-e="' + x.id + '" class="' + (p.ti[x.id] ? "done" : x.needs && !p.ti[x.needs] ? "locked" : "") + '">' + (p.ti[x.id] ? "✓ " : "") + esc(x.title.replace(/^The /, "")) + "</button>").join("") + "</div>" +
-      (p.ti.postcard ? '<button class="fbtn glow" id="fgo">Leave: out by the Dung Gate</button>' : "") + back("The map"), "ti-hall.jpg");
+      "</div>" +
+      '<div class="fprog">' + (H4 ? '<button data-e="frame" class="' + (p.ti.page11 ? "done" : held === 4 ? "glow" : "") + '">' + (p.ti.page11 ? "✓ " : "") + "The frame · " + held + "/4 plates</button>" : "") + EXHIBITS.map((x) => '<button data-e="' + x.id + '" class="' + (p.ti[x.id] ? "done" : x.needs && !p.ti[x.needs] ? "locked" : "") + '">' + (p.ti[x.id] ? "✓ " : "") + esc(x.title.replace(/^The /, "")) + "</button>").join("") + "</div>" +
+      (p.ti.page11 ? '<button class="fbtn glow" id="fgo">Leave: out by the Dung Gate</button>' : "") + back("The map"), "ti-hall.jpg");
     wire(s, stops);
     const go = $("fgo"); if (go) go.onclick = () => { K.sfx("click"); walkDone("institute"); };
     const openEx = (id) => {
@@ -247,9 +247,10 @@
       if (x.needs && !p.ti[x.needs]) { K.say("The parchment lies inside the instrument case. Open the case first.", "", 3200); return; }
       x.run();
     };
-    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => { K.sfx("click"); openEx(b.dataset.e); }));
+    s.querySelectorAll("[data-e]").forEach((b) => (b.onclick = () => { K.sfx("click"); if (b.dataset.e === "frame") { if (H4) H4.frame(hall); return; } openEx(b.dataset.e); }));
     s.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => {
       const h = b.dataset.h; K.sfx("click");
+      if (h === "courts" && H4 && !H4.held()[1]) { K.card('<div class="kick">The hall</div><h2>The map of the Mount</h2><p>Beside the painting of the Temple, a map of the Mount and the city round it, and the nations beyond, and a card: <i>“he shall confirm the covenant with many for one week”</i> (Daniel 9:27). Many. With whom?</p><button class="cta" data-act="x">Look closer</button>', { x: () => H4.give(1, hall) }); return; }
       if (h === "vessels" || h === "lock" || h === "ark" || h === "courts") { if (h === "courts") K.say("The painting shows the Temple on its mountain. Beside it, a plan of the courts.", "", 2200); openEx(h); return; }
       if (h === "priest") K.say("The white linen of an ordinary priest: “thou shalt embroider the coat of fine linen, and thou shalt make the mitre of fine linen.”", "Exodus 28:39", 5200);
       else if (h === "books") {
@@ -262,21 +263,23 @@
         V("07-instruments-verse");
       }
       else if (h === "desk") {
+        if (H4) { H4.shira(); return; }
         if (all) { K.say("The guide smiles. “Did you find what you came for? Everyone takes a souvenir home.”", "", 5200); V("guide-souvenir"); }
         else if (!p.ti.ark && !p.ti.greeted) { p.ti.greeted = 1; save(); K.say("The guide smiles. “Shalom! Take your time. Everything here was made for the Temple.”", "", 4600); V("guide-welcome", () => { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.” He hands you a little map of the hall, drawn by hand in blue ink.", "", 5600); V("guide-ark"); }); }
         else if (!p.ti.ark) { K.say("“The Ark? The pictures are on the far wall. Start there, if you like.”", "", 4600); V("guide-ark"); }
-        else K.say("The guide smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
+        else K.say("Shira smiles. “Take your time. " + (left.length === 1 ? "One exhibit is left: " : left.length + " exhibits are left, starting with ") + left[0].title.replace(/^The /, "the ") + ".”", "", 5200);
       }
-      else if (h === "cards") { if (all) postcard(); else K.say("Postcards of the menorah, the Western Wall and the Temple model. Nothing stands out yet.", "", 3600); }
+      else if (h === "cards") K.say("Postcards of the menorah, the Western Wall and the Temple model. Nothing stands out.", "", 3600);
     }));
-    if (p.ti.postcard) return;
-    if (all) K.say("Before you leave: the guide said everyone takes a souvenir home.", "", 3600);
+    if (p.ti.page11) return;
+    if (all) K.say(held === 4 ? "Four plates. The frame beside the menorah window has five positions." : "Every exhibit is done. One plate is still on its hook: the map of the Mount, beside the painting.", "", 3600);
     else if (left.length === EXHIBITS.length) { if (!p.ti.heardHall) { p.ti.heardHall = 1; save(); V("02b-hall"); } } if (!all && left.length === EXHIBITS.length) K.say("The glints mark the exhibits. Start wherever you like: the pictures of the Ark on the far wall are a good place.", "", 4600);
   }
   function exhibitDone(id, html, acts) {
     const p = P(); p.ti[id] = 1; save(); S("harp", null, 0.8); K.buzz("success");
     if (id === "scroll") V("08-parchment-verse", () => V("09-parchment")); else V({ courts: "06-courts", lock: "07b-instruments", vessels: "07c-vessels" }[id]);
-    K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">Back to the entrance hall</button>', Object.assign({ x: hall }, acts || {}));
+    const H4 = Lamp.fsyWalk && Lamp.fsyWalk.H.act4, n = H4 && H4.plateFor[id];
+    K.card(html + '<button class="cta' + (acts ? " alt" : "") + '" data-act="x">' + (n ? "The guide has something for you" : "Back to the entrance hall") + '</button>', Object.assign({ x: () => (n ? H4.give(n, hall) : hall()) }, acts || {}));
   }
   function exhibit(x, html, bg) {
     M("puzzle", "indoor"); preS("wings", "wingsflap", "staves", "step", "dial", "lock", "harp", "knock", "parchment");
@@ -768,14 +771,14 @@
   /* at the foot of the Mount, before going up: the stones the Romans threw down (Matthew 24:2) */
   const STONES = { text: ["Verily I say unto you, There shall not be left here one ", "STONE", " upon ", "ANOTHER", ", that shall not be ", "THROWN", " down."], chips: ["STONE", "TEMPLE", "ANOTHER", "ALTAR", "THROWN", "RAISED"] };
   function robinson() {
-    cur = "robinson"; M("m24", "platform"); const p = P(); let at = 1;
-    const s = stage('<div class="fkick">Act 3 · Below the southwest corner</div><h1>The stones of the Temple</h1>' +
+    cur = "robinson"; M("m24", "platform"); const p = P(); let at = 1; const here = () => (Lamp.fsyWalk && Lamp.fsyWalk.W().at) || "steps";
+    const s = stage('<div class="fkick">Act 4 · First light, below the southwest corner</div><h1>The stones of the Temple</h1>' +
       photo("robinson-stones.jpg", "Beneath Robinson’s Arch: great stones from the Temple Mount, lying where they fell on the street below", "Photo: Richard J. Allinson, at the southwest corner of the Temple Mount") +
       '<div class="fverse">“And Jesus went out, and departed from the temple: and his disciples came to him for to shew him the buildings of the temple. And Jesus said unto them, See ye not all these things?”<small>Matthew 24:1–2</small></div>' +
       '<div class="fq">What did Jesus say would happen to the Temple? Fill in his words.</div>' +
       '<div class="fscroll" id="fscroll"></div>' +
       '<div class="fchips six" id="fchips">' + shuffle(STONES.chips).map((w) => '<button data-w="' + w + '"><b>' + w + "</b></button>").join("") + "</div>" + back("Back to the steps"), "robinson-stones.jpg");
-    wire(s, () => Lamp.fsyWalk && Lamp.fsyWalk.go("steps"));
+    wire(s, () => Lamp.fsyWalk && Lamp.fsyWalk.go(here()));
     const draw = () => { $("fscroll").innerHTML = STONES.text.map((t, i) => i % 2 ? '<b class="' + (i < at ? "got" : i === at ? "gap now" : "gap") + '">' + (i < at ? t : "_".repeat(t.length)) + "</b>" : esc(t)).join("") + "<small>Matthew 24:2</small>"; };
     draw();
     s.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
@@ -789,7 +792,7 @@
         K.card('<div class="kick">Clue found · Matthew 24:2</div><h2>Not one stone upon another</h2>' + photo("robinson-stones.jpg", "The stones still lie where they fell, nearly two thousand years later") +
           "<p>In AD 70 the Roman legions destroyed the Temple and threw its stones down from the Mount onto this street, just as Jesus said forty years before. Some are the size of a car. You can still see where they cracked the paving when they landed.</p>" +
           "<p><b>The Temple Jesus spoke of is gone.</b> The Bible says another will stand. But where? Everything for it is ready, a few streets away, at the Temple Institute. Everything but the place.</p>" +
-          '<button class="cta" data-act="x">To the Temple Institute</button>', { x: () => walkDone("steps") });
+          '<button class="cta" data-act="x">To the Temple Institute</button>', { x: () => walkDone(here()) });
       }, 700);
     }));
   }
@@ -1161,7 +1164,7 @@
       if (Lamp.fsyWalk && Lamp.fsyWalk.devSkip()) return;
       const nx = Lamp.fsyWalk && Lamp.fsyWalk.next(); const k = nx && nx.kept;
       if (k === "intro") { p.watchCard = 1; Lamp.fsyWalk.W().pages[1] = 1; }
-      else if (k === "institute") { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, postcard: 1 }); Lamp.fsyWalk.W().pages[11] = 1; }
+      else if (k === "institute") { Object.assign(p.ti, { entered: 1, ark: 1, courts: 1, lock: 1, vessels: 1, scroll: 1, page11: 1 }); if (Lamp.fsyWalk.H.devDone) Lamp.fsyWalk.H.devDone("institute"); Lamp.fsyWalk.W().pages[11] = 1; }
       else if (k === "prophets") { p.tombs = 1; p.tombIn = 1; p.tombOil = 1; p.flax = 1; p.prophets = { haggai: 1, zechariah: 1, malachi: 1 }; }
       else if (k === "olives") p.olives = 1;
       else if (k === "robinson") p.robinson = 1;
