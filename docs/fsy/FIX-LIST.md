@@ -267,3 +267,10 @@ Act 1 only (PART1_ONLY on: Acts 2–5 "coming soon", the map won't open them, th
 - Tester: H.devDone for all seven scenes; FW.devAct3.
 - Narration: Shlomi's 23 lines (18 Act 2 + 5 Act 3) levelled and registered in HAVE.
 - v5a (second cut): OPEN_ACTS in release.js (on for testing, !! off for the App Store): a locked place on the map or in "All places" offers "Jump to …", which marks everything before it as played (devAct1/2/3 + devDone for earlier scenes of the act) and goes there.
+- v5b (Gerry's Act 3 build notes): tester panel gets "Play Acts 1 to 3 as if done" (devAct3); the third-candle line is now "…which is why, when money and fear failed, he gave you a page" (Shlomi's w-act3-end needs re-recording to match); "701 BC" → "in Hezekiah's time, in the late eighth century BC"; the first tunnel fork has its own picture (tunnel-fork-left2, the right-hand fork mirrored) so the scrap-drift fork keeps the picture its clip was made from; the script's money section now describes the Rav-Kav rides the build uses.
+
+## App Store checklist (before any store or TestFlight build)
+- release.js: FRESH_EACH_BUILD false (players keep progress); OPEN_ACTS false (acts lock again); PART1_ONLY as decided; BUILD "tfN"; raise CURRENT_PROJECT_VERSION in project.pbxproj.
+- dev.js: TESTER false (no Skip, no tester panel).
+- Shlomi's lines all recorded (Act 3: w-act3-end re-recorded with the new wording).
+- Portraits: Ori a touch younger if it matters (Gerry).

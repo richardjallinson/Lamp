@@ -287,7 +287,7 @@
   C.PUZZLES.darktunnel = { label: "Go in", run: () => {
     const w = W(); let dim = w.flags.tunnelDim || 0;
     const FORKS = [
-      { img: "tunnel-fork-left", truth: "l", tool: "Listen", used: "You stand still. The water is louder on the left: it is going somewhere. On the right, nothing moves.", sfx: "water", buzz: "l" },
+      { img: "tunnel-fork-left2", truth: "l", tool: "Listen", used: "You stand still. The water is louder on the left: it is going somewhere. On the right, nothing moves.", sfx: "water", buzz: "l" },
       { img: "tunnel-fork-right", truth: "r", tool: "Lower the lamp", used: "You hold the lamp at the water. The flame leans to the right, steady, pulled by the draught that follows the water.", clip: "flame-leans" },
       { img: "tunnel-fork-left", truth: "l", tool: "Drop a scrap of the envelope", used: "You tear a corner from the Lamplighter’s envelope and set it on the water. It turns once, and drifts left, and is gone into the dark.", clip: "scrap-drifts" },
     ];
@@ -318,7 +318,7 @@
         '<div class="ftun"><img src="' + IMG + 'tunnel-meeting.jpg" alt="The meeting point of the two tunnels">' + shade() + '<button class="fhit" style="left:8%;top:30%;width:34%;height:40%" id="finscr" aria-label="The wall where the inscription was cut"></button></div>' +
         '<button class="fbtn" id="flow">Hold the lamp low</button>', null, "chamber", "tunnel-meeting");
       $("finscr").onclick = () => K.card('<div class="kick">The meeting point</div><h2>The Siloam inscription</h2><img class="fphoto1" src="' + PZ + 'siloam-inscription.jpg" alt="A pencil copy of the Siloam inscription in a notebook">' +
-        "<p>The inscription was cut here in 701 BC; the stone itself is in Istanbul. A copy is in the journal: “…and while there were still three cubits to be cut through, there was heard the voice of a man calling to his fellow… and on the day of the breakthrough the quarrymen struck, each man toward his fellow, axe against axe, and the water flowed.”</p>" +
+        "<p>The inscription was cut here in Hezekiah’s time, in the late eighth century BC; the stone itself is in Istanbul. A copy is in the journal: “…and while there were still three cubits to be cut through, there was heard the voice of a man calling to his fellow… and on the day of the breakthrough the quarrymen struck, each man toward his fellow, axe against axe, and the water flowed.”</p>" +
         '<button class="cta" data-act="x">Close</button>', { x: () => {} });
       $("flow").onclick = recess;
     };
@@ -373,7 +373,7 @@
     if (w.done.steps) { K.card('<div class="kick">Act 3</div><h2>The third night</h2>' + FW.hanukkiahHTML(3) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }
     F.S("harp", null, 0.6); F.V("w-act3-end");
     K.card('<div class="kick">Act 3 · Down to the Water</div><h2>The third candle</h2>' + FW.hanukkiahHTML(3) +
-      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps, and the seventh is his. He is alive, and you know it, and Haller knows that you know it, which is why he gave you a page instead of a threat. You have a question for me. I can hear it from here. Hold it until the garden, and I will answer it there, with the tree between us, because I am not brave enough to answer it anywhere else. Tomorrow: everything is ready but one thing. Go and see what is ready.”</div>' +
+      '<div class="fend-said"><span class="fend-who">The Lamplighter</span>“Three candles. Six lamps, and the seventh is his. He is alive, and you know it, and Haller knows that you know it, which is why, when money and fear failed, he gave you a page. You have a question for me. I can hear it from here. Hold it until the garden, and I will answer it there, with the tree between us, because I am not brave enough to answer it anywhere else. Tomorrow: everything is ready but one thing. Go and see what is ready.”</div>' +
       '<button class="cta" data-act="n">The night</button>', { n: () => {
         F.S("harp", null, 0.4);
         K.card('<div class="kick">The third night · the hotel</div><h2>The lamp on the desk is still warm.</h2>' +
