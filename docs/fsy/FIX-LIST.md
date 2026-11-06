@@ -323,3 +323,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Journal: a People tab. Everyone the player has spoken to (plus the Lamplighter, Haller, Ben-Ami, Noor, Tal, Yoel, Moti from their card scenes), with portrait, place, one line, and notes that appear only when the matching fact, item or flag is in the player's hands. No verdicts.
 - "Previously…": after 20 hours away (W().flags.seen is stamped on every scene change), reopening the episode shows the last three milestones and where the player is, with Go on. Also a "Previously…" button in the journal.
 - New file fsy-extras.js, loaded last.
+
+## v5k — every Act 4 and Act 5 asset in
+- Portraits: shira, benami, noor, matteo, hallerphone, moses, yoel, tal. Objects: photo1, accords, annex, brassplate.
+- Clips: plate-drops, benami-package, noor-photo, haller-phone, matteo-gap, haller-barrier, rod-grate, haller-shutter, yoel-measure, gate-sun (all cropped 720→480 square; gate-sun trimmed 2.8 s at the start).
+- Shlomi: the five Act 4 lines and the six Act 5 lines. Yoel: six lines in the ElevenLabs library voice "Ergun Kalbak" (originals in images/originals/fsy/audio/yoel). Processing script for Yoel: scratchpad yoel.py (same as shlomi3.py, no w- prefix).
+- Still silent: w-hebron-prices ("Remember the witnesses."), until credits reset on 24 Nov.
