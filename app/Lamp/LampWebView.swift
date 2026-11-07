@@ -19,7 +19,10 @@ struct LampWebView: UIViewRepresentable {
         controller.add(MessageRelay { [weak coordinator] body in coordinator?.handle(body) }, name: "lamp")
         config.userContentController = controller
 
-        let web = ZoomingWebView(frame: .zero, configuration: config)
+        // iPad: always the mobile page (not the desktop-class one iPad picks by default), so the page's own viewport tag
+        // decides the size; see the fit script at the top of www/index.html.
+        config.defaultWebpagePreferences.preferredContentMode = .mobile
+        let web = WKWebView(frame: .zero, configuration: config)
         web.isOpaque = false
         web.backgroundColor = UIColor(red: 11 / 255, green: 19 / 255, blue: 40 / 255, alpha: 1)
         web.scrollView.backgroundColor = web.backgroundColor
@@ -186,19 +189,3 @@ final class CloudState {
     }
 }
 
-/// On an iPad the game is enlarged as a whole page (the same zoom Safari uses), so the
-/// phone layout fills the screen with crisp text, and every tap and drag lines up exactly
-/// as it does on an iPhone. The page is laid out about 430 points wide and 900 tall,
-/// then scaled up to fit; in landscape it stays a tall column with the scene blurred at the sides.
-final class ZoomingWebView: WKWebView {
-    private var zoomedFor: CGSize = .zero
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard traitCollection.userInterfaceIdiom == .pad, bounds.width > 0, bounds.size != zoomedFor else { return }
-        zoomedFor = bounds.size
-        let fit = min(bounds.width / 430, bounds.height / 900)
-        let zoom = max(1, min(1.8, (fit * 20).rounded(.down) / 20))   // in steps of 5%
-        if abs(pageZoom - zoom) > 0.01 { pageZoom = zoom }
-    }
-}

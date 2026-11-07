@@ -360,3 +360,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Landscape on iPad: the game stays a tall column; the current scene fills the sides, blurred and dark, instead of flat navy.
 - Tested at iPad sizes: Acts 1–5 portrait, Acts 3 and 5 landscape (tunnel wall, grate, verdict plan), all pass.
 - Not yet done: re-exporting scene pictures larger (175 of 348 have a larger original here; the crops need aligning first so tap spots don't move). App Store iPad screenshots (13-inch) to make before submission.
+
+## v5r — iPad fix (Richard's first iPad run: page offset right, bottom cut off, could not start)
+- v5q's WKWebView.pageZoom enlarged the page without re-fitting the layout, so it overflowed right and bottom. Removed.
+- Now: the web view always asks for the mobile page (preferredContentMode .mobile; iPad otherwise picks the desktop-class page), and a small script at the top of index.html sets the viewport tag on an iPad window: width = window ÷ zoom, initial/min/max scale = zoom, zoom = fit of 430 × 900 in 5% steps, 1×–1.8×. Phones and narrow iPad windows keep width=device-width. Re-fits on rotation.
+- Tested in a mobile browser at iPad 11", 13", mini (portrait) and 11" landscape: the title page with Enter, scenes, Acts 1, 2, 3 and 5 play through. iPhone unchanged.
