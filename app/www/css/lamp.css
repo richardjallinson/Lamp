@@ -303,3 +303,6 @@ button:focus-visible,.search:focus-visible{outline:2px solid var(--cream);outlin
 .epx .lock{width:22px;height:22px;color:#9A927A;flex:none}
 
 .tabs.two{grid-template-columns:1fr 1fr}
+/* Episode 2 prototype button (tester builds) */
+.epx.ep2t{width:100%;text-align:left;opacity:1;cursor:pointer;border-color:rgba(201,162,74,.6);color:inherit;font:inherit}
+.epx.ep2t .lock{color:#F5C451}

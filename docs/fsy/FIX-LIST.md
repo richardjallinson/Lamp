@@ -365,3 +365,10 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - v5q's WKWebView.pageZoom enlarged the page without re-fitting the layout, so it overflowed right and bottom. Removed.
 - Now: the web view always asks for the mobile page (preferredContentMode .mobile; iPad otherwise picks the desktop-class page), and a small script at the top of index.html sets the viewport tag on an iPad window: width = window ÷ zoom, initial/min/max scale = zoom, zoom = fit of 430 × 900 in 5% steps, 1×–1.8×. Phones and narrow iPad windows keep width=device-width. Re-fits on rotation.
 - Tested in a mobile browser at iPad 11", 13", mini (portrait) and 11" landscape: the title page with Enter, scenes, Acts 1, 2, 3 and 5 play through. iPhone unchanged.
+
+## v5s — Episode 2, Act 1 prototype (The Ninth of Av)
+- New file app/www/js/fsy-ep2.js, built from the approved Act 1 script (Gerry 8.5/10, "ready to prototype"). Tester builds only: a button on the Episodes screen ("Episode 2 · The Appointed Time") when TESTER is on in dev.js. Its own save (Lamp.state.ep2); Episode 1 progress is not touched. The tester Skip button works scene by scene.
+- Prologue and seven scenes, playable start to finish: the rod handle; the Lamplighter's desk and calendar; Haller at the airport; train, taxi and the walk down; the Wall on 9 Av (no puzzle); the Street of the Chain (three shops, two lamp marks, the 9:27 clock, the watchmaker's rod test), Yoel's room and the optional seventy weeks; the first frame (three invented documents, Yoel's D1 ruling marked provisional, the torn page grey); the ring of Av and the sunset marker (no timing test), the car door.
+- Stand-ins: every picture is an Episode 1 photo, labelled "Stand-in picture" in tester builds. Yoel's seven lines (e2-*) show as cards and subtitles; when recorded, add their ids to HAVE in fsy-ep2.js and put the files in audio/narration as fsy-e2-*.mp3.
+- Open: the coffee cup shows "your name" because the game has no player name; new pictures and portraits per the script's asset list.
+- Tested by script at iPhone size: full playthrough without Skip, no errors.
