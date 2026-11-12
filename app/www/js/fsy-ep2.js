@@ -9,7 +9,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge"]);
+  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -101,26 +101,27 @@
           hots: [{ box: [20, 45, 60, 35], label: "The reading", text: "The book of Lamentations, chanted low in a dozen groups at once, so the sounds overlap like water.", f: "w2" }] }] },
     { id: "chain", title: "The Street of the Chain · 9 Av", act: "Scene 5", music: "m13", amb: "market",
       task: () => (!has("key") ? "Find the room above the man who puts the hours back in order." : !flag("room") ? "Go up to the room." : "Yoel's room. Look at everything."),
-      views: [{ id: "street", img: "market-street", cap: "The Street of the Chain, looking down toward the Mount's Chain Gate. Three shops close together, each with a door to an upstairs room", go: { fwd: "room" },
-          hots: [{ box: [2, 30, 30, 40], label: "The clock stall", act: "shop:clocks" }, { box: [35, 30, 30, 40], label: "The souvenir shop", act: "shop:sand" },
-            { box: [68, 30, 30, 40], label: "The watch-repair shop", act: "shop:watch" }] },
-        { id: "room", img: "hotel-room", cap: "Yoel's room: a window, a bed, a kettle, and a table with five empty brass frames in a row", go: { back: "street" }, need: "key",
-          hots: [{ box: [60, 8, 34, 30], label: "The window", text: "It looks straight down the street to the Chain Gate of the Mount. He could see who went up, and when.", f: "r1" },
-            { box: [4, 50, 40, 28], label: "The bed", text: "Made tight, corners squared, the way soldiers make them. Or men who were soldiers once.", f: "r2" },
-            { box: [48, 44, 16, 14], label: "The kettle and one cup", text: "One cup. Washed. Upside down to dry. He did not expect company until you.", f: "r3" },
-            { box: [64, 38, 18, 12], label: "A photograph, face down", act: "photo" },
-            { box: [4, 14, 22, 26], label: "A postcard by the door", text: "From the Lamplighter, in his hand, years old: “Come for Shabbat. Bring nothing.” Never answered. A pin through the corner.", f: "r5" },
-            { box: [30, 66, 40, 22], label: "The five frames", act: "frames" }] }] },
+      views: [{ id: "street", img: "chain-street", cap: "The Street of the Chain, looking down toward the Mount's Chain Gate", go: { fwd: "shops" } },
+        { id: "shops", img: "chain-shops", cap: "Three shops close together, each with a door to an upstairs room", go: { back: "street", fwd: "room" },
+          hots: [{ box: [3, 37, 32, 48], label: "The clock stall", act: "shop:clocks" }, { box: [37, 37, 31, 48], label: "The souvenir shop", act: "shop:sand" },
+            { box: [70, 38, 27, 46], label: "The watch-repair shop", act: "shop:watch" }] },
+        { id: "room", img: "yoel-room", cap: "Yoel's room: a window, a bed, a kettle, and a table with five empty brass frames in a row", go: { back: "shops" }, need: "key",
+          hots: [{ box: [36, 9, 30, 30], label: "The window", text: "It looks straight down the street to the Chain Gate of the Mount. He could see who went up, and when.", f: "r1" },
+            { box: [0, 44, 30, 40], label: "The bed", text: "Made tight, corners squared, the way soldiers make them. Or men who were soldiers once.", f: "r2" },
+            { box: [38, 42, 15, 10], label: "The kettle and one cup", text: "One cup. Washed. Upside down to dry. He did not expect company until you.", f: "r3" },
+            { box: [54, 38, 12, 6], label: "A photograph, face down", act: "photo" },
+            { box: [82, 24, 11, 10], label: "A postcard by the door", text: "From the Lamplighter, in his hand, years old: \u201cCome for Shabbat. Bring nothing.\u201d Never answered. A pin through the corner.", f: "r5" },
+            { box: [70, 40, 22, 15], label: "The five frames", act: "frames" }] }] },
     { id: "table", title: "Yoel's table", act: "Scene 6", music: "m14", amb: "indoor",
       task: () => (flag("c1") ? "Done here." : "The first frame: slide each page under it."),
-      views: [{ id: "table", img: "hotel-room", cap: "Under the frames, a folder in Yoel's hand: The first question",
-        hots: [{ box: [25, 55, 50, 30], label: "The folder", act: "c1" }] }] },
+      views: [{ id: "table", img: "yoel-room", cap: "Under the frames, a folder in Yoel's hand: The first question",
+        hots: [{ box: [62, 54, 30, 12], label: "The folder", act: "c1" }] }] },
     { id: "roof", title: "Sunset · 13 August", act: "Scene 7", music: "olives", amb: "olives",
       task: () => (!flag("ring") ? "Mark the seventeen days on Yoel's instrument." : !flag("open") ? "Up to the roof. Watch the sun go." : "Done."),
-      views: [{ id: "inst", img: "hotel-room", cap: "On the end of the table, Yoel's calendar instrument, incomplete", go: { fwd: "roof" },
-          hots: [{ box: [55, 55, 40, 30], label: "The instrument", act: "ring" }] },
-        { id: "roof", img: "ramparts-sky", cap: "The flat roof: the Old City's roofs, the domes, the hills going gold", go: { back: "inst" }, need: "ring",
-          hots: [{ box: [30, 50, 40, 30], label: "Set the instrument on the parapet", act: "sunset" }] }] },
+      views: [{ id: "inst", img: "yoel-room", cap: "On the end of the table, Yoel's calendar instrument, incomplete", go: { fwd: "roof" },
+          hots: [{ box: [62, 54, 30, 12], label: "The instrument", act: "ring" }] },
+        { id: "roof", img: "roof-sunset", cap: "The flat roof: the Old City's roofs, the domes, the hills going gold", go: { back: "inst" }, need: "ring",
+          hots: [{ box: [12, 66, 76, 14], label: "Set the instrument on the parapet", act: "sunset" }] }] },
   ];
   const byId = (id) => SC.find((s) => s.id === id);
   const idx = (id) => SC.findIndex((s) => s.id === id);
