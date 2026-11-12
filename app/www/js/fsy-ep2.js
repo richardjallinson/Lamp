@@ -296,10 +296,13 @@
     const q3 = (h) => K.card('<div class="kick">The arrivals hall</div>' + h + clip("haller-leaves") + "<p>He puts the second coffee down on the ledge beside you, nods, and is gone into the crowd at the doors.</p>" +
       '<button class="cta" data-act="x">Pick up the cup</button>',
       { x: () => { give("coffee"); note("haller", "At the airport: “We are both waiting for the same seventeen days.”");
-        K.card('<div class="e2-cup"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M20 20h80l-8 120H28z" fill="#EFE7D6" stroke="#B9AD92" stroke-width="2"/><path d="M14 10h92v14H14z" fill="#3A3A3A"/><text x="60" y="88" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="17" fill="#1F2A6B" transform="rotate(-6 60 88)">' + esc(playerName()) + "</text></svg></div>" +
+        K.card('<div class="e2-cup"><svg viewBox="0 0 120 160" aria-hidden="true"><defs><linearGradient id="e2cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9773A"/><stop offset="1" stop-color="#5A2E14"/></linearGradient></defs>' +
+          '<path d="M64 2l-3 30" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/><path d="M22 30h76l-9 122H31z" fill="url(#e2cf)" stroke="#D8D2C4" stroke-width="2.5"/><path d="M22 30h76l-1.6 22H23.6z" fill="#E9E2D2" opacity=".55"/>' +
+          '<rect x="34" y="40" width="13" height="12" rx="3" fill="#F4EEE0" opacity=".7" transform="rotate(-12 40 46)"/><rect x="56" y="44" width="13" height="12" rx="3" fill="#F4EEE0" opacity=".6" transform="rotate(9 62 50)"/><rect x="76" y="39" width="12" height="11" rx="3" fill="#F4EEE0" opacity=".65" transform="rotate(-6 82 44)"/>' +
+          '<path d="M17 22h86v10H17z" fill="#EDE7D8" stroke="#C9C1AE" stroke-width="1.5"/><rect x="36" y="78" width="48" height="32" rx="3" fill="#FBF8EF" stroke="#C9C1AE"/><text x="60" y="101" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="20" fill="#1F2A6B" transform="rotate(-5 60 96)">23A</text></svg></div>' +
+          '<p>In marker on the label: <b>23A</b>. Your seat on the flight.</p>' +
           '<button class="cta" data-act="x">Go on</button>', { x: () => K.card('<div class="kick">The arrivals hall</div><p>He does not know what Yoel wants on the Mount. Neither do you.</p><button class="cta" data-act="x">On to Jerusalem</button>', { x: after }) }); } });
   };
-  const playerName = () => (Lamp.state.name || "your name").slice(0, 14);
   /* Scene 3 */
   ACT.book = () => {
     set("book:book1"); set("book:book2"); set("book:address"); set("bookread");
@@ -572,10 +575,16 @@
     const items = AV.map((d, i) => {
       const a = ((i - (at - 1)) / 30) * 2 * Math.PI, x = 110 + 86 * Math.sin(a), y = 110 - 86 * Math.cos(a);
       const inWin = marks.length === 2 && d >= 11 && d <= 27, isMark = marks.includes(d);
-      return '<text x="' + x.toFixed(1) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="middle" font-size="' + (d === at ? 15 : 11) + '" font-weight="' + (d === at ? 800 : 600) + '" fill="' + (isMark ? "#B23A2A" : inWin ? "#7A5A12" : "#3A3020") + '">' + d + "</text>";
+      return '<text x="' + x.toFixed(1) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="middle" font-size="' + (d === at ? 15 : 11) + '" font-weight="' + (d === at ? 800 : 600) + '" fill="' + (isMark ? "#9E2416" : inWin ? "#5A3F0C" : "#2E2208") + '" font-family="Georgia, serif">' + d + "</text>";
     }).join("");
-    return '<svg class="e2-ring" viewBox="0 0 220 220" aria-hidden="true"><circle cx="110" cy="110" r="104" fill="#E3BC5C" stroke="#7A5A12" stroke-width="3"/><circle cx="110" cy="110" r="68" fill="#C9A24A" stroke="#7A5A12" stroke-width="2"/>' +
-      '<path d="M110 2 l-7 14 h14z" fill="#B23A2A"/>' + items + '<text x="110" y="106" text-anchor="middle" font-size="14" font-weight="800" fill="#2A2010">אב</text><text x="110" y="124" text-anchor="middle" font-size="11" fill="#2A2010">Av 5787</text></svg>';
+    const ticks = AV.map((d, i) => { const a = ((i - (at - 1)) / 30) * 2 * Math.PI, s = Math.sin(a), c = Math.cos(a); return '<path d="M' + (110 + 99 * s).toFixed(1) + " " + (110 - 99 * c).toFixed(1) + "L" + (110 + 103 * s).toFixed(1) + " " + (110 - 103 * c).toFixed(1) + '" stroke="#5A3F0C" stroke-width="1.4"/>'; }).join("");
+    return '<svg class="e2-ring" viewBox="0 0 220 220" aria-hidden="true"><defs>' +
+      '<radialGradient id="e2br" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#F3DA8C"/><stop offset=".55" stop-color="#C99A3C"/><stop offset="1" stop-color="#8A6418"/></radialGradient>' +
+      '<radialGradient id="e2bi" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#D9B458"/><stop offset=".7" stop-color="#A97C26"/><stop offset="1" stop-color="#7A5712"/></radialGradient></defs>' +
+      '<circle cx="110" cy="110" r="107" fill="#4A3308"/><circle cx="110" cy="110" r="104" fill="url(#e2br)" stroke="#6A4A0E" stroke-width="2"/>' + ticks +
+      '<circle cx="110" cy="110" r="70" fill="#4A3308"/><circle cx="110" cy="110" r="68" fill="url(#e2bi)" stroke="#6A4A0E" stroke-width="1.5"/><circle cx="110" cy="110" r="60" fill="none" stroke="#6A4A0E" stroke-width=".8" opacity=".6"/>' +
+      '<circle cx="110" cy="150" r="5" fill="#8A6418" stroke="#4A3308"/><circle cx="110" cy="150" r="1.6" fill="#3A2806"/>' +
+      '<path d="M110 2 l-7 14 h14z" fill="#B23A2A" stroke="#6A1E14" stroke-width="1"/>' + items + '<text x="110" y="106" text-anchor="middle" font-size="15" font-weight="800" fill="#3A2806">אב</text><text x="110" y="124" text-anchor="middle" font-size="11" font-weight="600" fill="#3A2806">Av 5787</text></svg>';
   }
 
   /* ------------------------------------------------------------ hints ------------------------------------------------------------ */

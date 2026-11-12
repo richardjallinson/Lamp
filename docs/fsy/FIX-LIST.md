@@ -403,3 +403,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 
 ## v5y — Haller's coffee clip remade
 - haller-coffee: new clip (whole head in frame, two takeaway cups, by a pillar), 9 s. The first version is kept as haller-coffee-v1 in the originals. Card text: "The grey coat on, even in this heat."
+
+## v5z — Episode 2, Act 1: three finishing fixes
+- wallsteps-dusk: the sun (which was in the east) painted out; the edited original is wallsteps-dusk-nosun.png.
+- The coffee cup: no player name. It is now a clear iced-coffee cup with "23A" on the label, and the line "Your seat on the flight."
+- The ring of Av is drawn as brass (shading, engraved ticks, serif numerals) so it matches the instrument photograph.
