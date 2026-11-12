@@ -414,3 +414,6 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - The painted clock in the shopfront picture now reads 9:27, matching the close-up (hands repainted on chain-shops; edited original chain-shops-927.png).
 - The documents: a page is now picked up and examined (the wording, the date, the signatures, one tap each), then the player calls it (a thing done / only promised / cannot tell) before the frame answers. A wrong call costs nothing; the frame shows the truth and why. The third page still leads to Yoel's rule.
 - The tester intro card no longer says the pictures are stand-ins and the lines unvoiced.
+
+## Signing (from v6b on)
+- project.pbxproj carries DEVELOPMENT_TEAM = 6Q528KH5G5 (Richard John Allinson) so Xcode opens with his team already chosen. Keep it in every build.
