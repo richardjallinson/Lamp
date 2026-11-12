@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -676,8 +676,8 @@
           hots: [{ box: [72, 40, 20, 14], label: "The second frame", act: "c2" }, { box: [64, 43, 7, 8], label: "Yoel's instrument", act: "binst" }] }] },
     { id: "b3", title: "The fallen stones · 12 Av", act: "Scene 3", music: "e2-chain", amb: "street",
       task: () => (!flag("b:lamp") ? "Find the stone in the drawing. Follow the kerb to Yoel's lamp." : !flag("b:meas") ? "Measure from the stone to the lamp with the rod." : !has("bcase") ? "Take what is hidden under the lamp." : "Done."),
-      views: [{ id: "ticket", img: "robinson-wide", cap: "The excavations at the south-west corner of the Mount", go: { fwd: "street" },
-          hots: [{ box: [8, 55, 34, 30], label: "The ticket window", act: "bticket" }] },
+      views: [{ id: "ticket", img: "excavation-ticket", cap: "The excavations at the south-west corner of the Mount", go: { fwd: "street" },
+          hots: [{ box: [0, 42, 22, 38], label: "The ticket window", act: "bticket" }] },
         { id: "street", img: "robinson-wall", cap: "The paved street under the wall. High up, the stub of Robinson's Arch", go: { back: "ticket", fwd: "stones" },
           hots: [{ box: [30, 5, 40, 30], label: "The corner above", text: "The south-west corner of the Mount, against the sky. The sun is over your shoulder. Up there, they say, a priest stood with a trumpet.", f: "b:corner" }] },
         { id: "stones", img: "robinson-fallen", cap: "The heap of fallen stones, left where they fell", go: { back: "street" },
