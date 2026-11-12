@@ -1,7 +1,7 @@
 /* The Final Seven Years · Episode 2: The Appointed Time · Act 1, The Ninth of Av (PROTOTYPE).
    Built from the approved script (Claude Doc "Episode 2, Act 1: The Ninth of Av — Script", 10 Nov 2026).
    Tester builds only: it opens from the Episodes screen when js/dev.js has TESTER on.
-   Pictures are stand-ins from Episode 1 (marked on screen); Yoel's lines show as subtitles until they are voiced.
+   Act 1 has its own pictures, clips, music and Yoel's seven lines; a few places reuse Episode 1's pictures on purpose.
    Its own save: Lamp.state.ep2. It reuses Episode 1's screen styles (fwalk, fwview, fwbar …) and adds e2-* ones. */
 (function () {
   const K = Lamp.adv && Lamp.adv.kit, F = Lamp.fsy && Lamp.fsy.parts;
@@ -103,7 +103,7 @@
     { id: "chain", title: "The Street of the Chain · 9 Av", act: "Scene 5", music: "e2-chain", amb: "market",
       task: () => (!has("key") ? "Find the room above the man who puts the hours back in order." : !flag("room") ? "Go up to the room." : "Yoel's room. Look at everything."),
       views: [{ id: "street", img: "chain-street", cap: "The Street of the Chain, looking down toward the Mount's Chain Gate", go: { fwd: "shops" } },
-        { id: "shops", img: "chain-shops", cap: "Three shops close together, each with a door to an upstairs room", go: { back: "street", fwd: "room" },
+        { id: "shops", img: "chain-shops", cap: "Three shops close together. Each has a narrow stair at the back, up to the shuttered room above it", go: { back: "street", fwd: "room" },
           hots: [{ box: [3, 37, 32, 48], label: "The clock stall", act: "shop:clocks" }, { box: [37, 37, 31, 48], label: "The souvenir shop", act: "shop:sand" },
             { box: [70, 38, 27, 46], label: "The watch-repair shop", act: "shop:watch" }] },
         { id: "room", img: "yoel-room", cap: "Yoel's room: a window, a bed, a kettle, and a table with five empty brass frames in a row", go: { back: "shops" }, need: "key",
@@ -343,7 +343,7 @@
     const FACE = { clocks: "clockseller", sand: "souvenir", watch: "watchmaker" }[which];
     K.card('<div class="kick">The Street of the Chain</div><img class="e2-face" src="' + PP + FACE + '.jpg" alt=""><h2>' + S[0] + "</h2><p>" + S[1] + "</p>" + (reply ? '<p class="e2-said"><b>' + S[5] + "</b> " + esc(reply) + "</p>" : "") +
       '<div class="fsay"><button data-act="t">Talk to the keeper</button>' + (which !== "watch" ? '<button data-act="y">Ask about an old man with a stick</button>' : '<button data-act="y">Ask about Yoel</button><button data-act="c">Look at the painted clock</button>') +
-      '<button data-act="d">Look at the door to the upstairs room</button></div><button class="cta alt" data-act="x">Back to the street</button>',
+      '<button data-act="d">Look at the stair door at the back of the shop</button></div><button class="cta alt" data-act="x">Back to the street</button>',
       { t: () => ACT.shop(which, S[2]),
         y: () => (which === "watch" ? watchmaker() : ACT.shop(which, S[3])),
         c: () => clock(),
@@ -351,8 +351,8 @@
   };
   function door(which, spout) {
     if (spout) set("mark:" + spout);
-    K.card('<div class="kick">The door to the upstairs room</div>' + (spout ? lampMark(spout) : "") +
-      "<p>" + (spout === "left" ? "Scratched small into the wood beside the door: a lamp. The lamp’s spout points left. Yoel’s pointed right." : spout === "right" ? "Scratched small into the wood beside the stair door: a lamp, its spout to the right." : "Plain wood, a brass number, nothing scratched in it.") + "</p>" +
+    K.card('<div class="kick">At the back of the shop \u00b7 the stair door</div>' + (spout ? lampMark(spout) : "") +
+      "<p>" + (spout === "left" ? "A low door at the back, with a stair behind it going up to the room over the shop. Scratched small into the wood beside it: a lamp. The lamp’s spout points left. Yoel’s pointed right." : spout === "right" ? "A low door at the back, behind his bench, with a stair going up to the room over the shop. Scratched small into the wood beside it: a lamp, its spout to the right." : "A low door at the back, with a stair going up to the room over the shop. Plain wood, a brass number, nothing scratched in it.") + "</p>" +
       (spout === "left" ? '<p class="fsmall">The door is locked. The stallholder shrugs.</p>' : "") + '<button class="cta" data-act="x">Back</button>', { x: () => ACT.shop(which) });
   }
   function clock() {
@@ -363,7 +363,7 @@
         x: () => ACT.shop("watch") });
   }
   function watchmaker(miss) {
-    if (has("key")) { K.say("He nods at the stair door. “It is open for you.”", "", 3000); return; }
+    if (has("key")) { K.say("He nods at the stair door behind his bench. “It is open for you.”", "", 3000); return; }
     K.card('<div class="kick">The watch-repair shop</div><img class="e2-face" src="' + PP + 'watchmaker.jpg" alt=""><h2>The watchmaker</h2>' + (miss ? '<p class="e2-said"><b>The watchmaker</b> \u201cThat one is new. He never owned anything new.\u201d</p>' : "<p>He puts down his loupe.</p>") +
       '<p class="e2-said"><b>The watchmaker</b> “He said you would come on the fast. He said you would carry two rods. Show me his.”</p>' +
       '<div class="e2-rods"><button class="e2-rod" data-act="a">' + rodSVG(false) + "<span>The first rod</span></button>" +
@@ -371,7 +371,7 @@
       '<p class="fsmall">Look closely at the grips before you choose.</p><button class="cta alt" data-act="x">Not yet</button>',
       { a: () => { K.snd("bad"); K.buzz("error"); set("rodMiss", (E().f.rodMiss || 0) + 1); watchmaker(true); },
         b: () => { F.S("rod", "click", 0.6); K.buzz("success"); give("key");
-          K.card('<div class="kick">The watch-repair shop</div>' + clip("watchmaker-key") + '<p>He turns it once, nods, and gives it back with a key on a loop of string.</p><button class="cta" data-act="x">Up the stair</button>',
+          K.card('<div class="kick">The watch-repair shop</div>' + clip("watchmaker-key") + '<p>He turns it once, nods, and gives it back with a key on a loop of string. He tips his head at the low door behind his bench.</p><button class="cta" data-act="x">Up the stair</button>',
             { x: () => walk(byId("chain").views.find((x) => x.id === "room")) }); },
         x: () => {} });
   }
@@ -406,6 +406,13 @@
       dots(left) + tray(0, "First") + tray(1, "Second") + tray(2, "Third") + '<div class="fsay"><button data-act="h">What does Daniel say?</button></div><button class="cta alt" data-act="x">Put it away</button>', acts);
   }
   /* Scene 6: the first frame */
+  /* what the player finds on each page when they look closely: the wording, the date, the signatures */
+  const LOOK = {
+    A: ["“…have this day concluded and signed the present Treaty.” Past tense. Finished.", "Dated in full: day, month and year.", "Two signatures, two witnesses, two seals."],
+    B: ["“…will begin negotiations toward a framework.” Future tense. A plan to talk.", "Dated. A date on a promise is still a promise.", "Signed by two ministers. What they signed is a promise."],
+    C: ["“An agreement has been concluded,” and then, “it will be signed.” Both, in one sentence.", "Dated the day of the statement. The ceremony is set for two weeks later.", "No signatures yet. Only the announcement."],
+    D: ["“The parties have held talks concerning a framework for…” and then the tear.", "Where the date would be, there is no paper.", "Torn away with the rest."],
+  };
   const DOCS = {
     A: ["Treaty between the Republic of the North and the Coastal Kingdom", "Signed by both heads of government, dated, with two witnesses.", "lit", "Concluded and signed. A thing done."],
     B: ["Joint Declaration", "The two governments “will begin negotiations toward a framework” on trade and borders.", "dark", "A promise to talk. Nothing is agreed yet."],
@@ -420,13 +427,30 @@
     K.card('<div class="kick">Yoel’s table · the first frame</div><h2>Is it a thing done, or a thing promised?</h2>' +
       '<div class="e2-frames">' + [0, 1, 2, 3, 4].map((i) => '<i class="e2-frame' + (i === 0 ? " on" : "") + '">' + (i === 0 ? "<small>נעשה</small><b>Done</b>" : "") + "</i>").join("") + "</div>" +
       '<div class="e2-docs">' + order.map((k) => '<button class="e2-doc" data-act="d' + k + '"><b>' + esc(DOCS[k][0]) + "</b><span>" + esc(DOCS[k][1]) + "</span>" + state(k) + "</button>").join("") + "</div>" +
-      '<p class="fsmall">Tap a page to slide it under the first frame.</p><button class="cta alt" data-act="x">Leave the table</button>',
-      { dA: () => slide("A"), dB: () => slide("B"), dC: () => slide("C"), dD: () => slide("D"), x: () => {} });
-    function slide(k) {
+      '<p class="fsmall">Pick up a page. Read it closely, judge it, then slide it under the first frame.</p><button class="cta alt" data-act="x">Leave the table</button>',
+      { dA: () => page("A"), dB: () => page("B"), dC: () => page("C"), dD: () => page("D"), x: () => {} });
+    /* a page in the hand: look at the wording, the date and the signatures, then make the call before the frame does */
+    function page(k, seen) {
+      const D = DOCS[k], L = LOOK[k]; seen = seen || [0, 0, 0]; K.sfx("click");
+      if (r[k]) return slide(k);
+      const all = seen[0] && seen[1] && seen[2], names = ["The wording", "The date", "The signatures"];
+      const acts = { x: ACT.c1 };
+      [0, 1, 2].forEach((i) => (acts["k" + i] = () => { const n = seen.slice(); n[i] = 1; F.S("parchment", "click", 0.4); page(k, n); }));
+      const call = (v) => () => { set("c1call:" + k, v); if (D[2] === "rule") return rule(); slide(k, v); };
+      acts.vl = call("lit"); acts.vd = call("dark"); acts.vg = call("grey");
+      K.card('<div class="kick">In your hand</div><div class="e2-paper' + (k === "D" ? " torn" : "") + '"><b>' + esc(D[0]) + "</b>" +
+        [0, 1, 2].map((i) => '<button class="e2-look' + (seen[i] ? " seen" : "") + '" data-act="k' + i + '"><em>' + names[i] + "</em>" + (seen[i] ? "<span>" + esc(L[i]) + "</span>" : "<span class=\"q\">Tap to look closely</span>") + "</button>").join("") + "</div>" +
+        (all ? '<h2 class="e2-q">What is it?</h2><div class="e2-calls"><button data-act="vl">A thing done</button><button data-act="vd">Only promised</button><button data-act="vg">Cannot tell</button></div>'
+          : '<p class="fsmall">Look at all three before you judge it.</p>') +
+        '<button class="cta alt" data-act="x">Put it down</button>', acts);
+    }
+    function slide(k, called) {
       const D = DOCS[k]; K.sfx("click");
       if (D[2] === "rule" && !r.C) return rule();
       r[k] = D[2] === "rule" ? "lit" : D[2]; set("c1r", r); F.S(r[k] === "lit" ? "harp" : "knock", null, 0.5);
-      K.card('<div class="kick">Under the first frame</div><h2>' + esc(D[0]) + "</h2>" + '<div class="e2-frames"><i class="e2-frame on ' + r[k] + '"><small>נעשה</small><b>Done</b></i></div>' +
+      const SAID = { lit: "a thing done", dark: "only promised", grey: "impossible to tell" }, DOES = { lit: "The frame lights.", dark: "The frame stays dark.", grey: "The frame goes grey." };
+      const verdict = !called ? "" : '<p class="fsmall">' + (called === r[k] ? "You called it " + SAID[called] + ". " + DOES[r[k]] : "You called it " + SAID[called] + ". " + DOES[r[k]] + " Look again at why.") + "</p>";
+      K.card('<div class="kick">Under the first frame</div><h2>' + esc(D[0]) + "</h2>" + '<div class="e2-frames"><i class="e2-frame on ' + r[k] + '"><small>נעשה</small><b>Done</b></i></div>' + verdict +
         '<p class="e2-jline">' + esc(D[3] || "") + "</p>" + '<button class="cta" data-act="x">Back to the table</button>', { x: () => {
           if (r.A && r.B && r.C && !r.D && !flag("torn")) { set("torn"); K.card('<div class="kick">Yoel’s table</div><p>A fourth slip falls out of the folder: the top of a page, the rest torn away.</p><button class="cta" data-act="x">Look at it</button>', { x: ACT.c1 }); return; }
           if (r.A && r.B && r.C && r.D) return c1Done(); ACT.c1(); } });
@@ -609,7 +633,7 @@
     const e = E(); if (!e.began) { e.began = 1; save(); }
     const id = SC.find((s) => !isDone(s.id)) ? (byId(e.at) && !isDone(e.at) ? e.at : SC.find((s) => !isDone(s.id)).id) : "roof";
     scene = byId(id);
-    if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Tester build · prototype</div><h2>Episode 2, Act 1</h2><p>Pictures are stand-ins from Episode 1. Yoel’s lines show as subtitles until they are voiced. Your Episode 1 progress is not touched.</p><button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
+    if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Tester build · prototype</div><h2>Episode 2, Act 1</h2><p>Act 1 has its own pictures, clips, music and Yoel’s voice. Acts 2 onward are not built yet. Your Episode 1 progress is not touched.</p><button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
     go(id);
   }
   function devSkip() {

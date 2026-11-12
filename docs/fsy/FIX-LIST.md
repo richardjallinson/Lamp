@@ -408,3 +408,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - wallsteps-dusk: the sun (which was in the east) painted out; the edited original is wallsteps-dusk-nosun.png.
 - The coffee cup: no player name. It is now a clear iced-coffee cup with "23A" on the label, and the line "Your seat on the flight."
 - The ring of Av is drawn as brass (shading, engraved ticks, serif numerals) so it matches the instrument photograph.
+
+## v6a — Gerry's v5y notes (Episode 2, Act 1)
+- The stair doors: each shop's way up is now a low door at the back of the shop with a stair behind it (caption, button, door cards, the watchmaker's nod). The doors seen from the street are the rooms' shutters.
+- The painted clock in the shopfront picture now reads 9:27, matching the close-up (hands repainted on chain-shops; edited original chain-shops-927.png).
+- The documents: a page is now picked up and examined (the wording, the date, the signatures, one tap each), then the player calls it (a thing done / only promised / cannot tell) before the frame answers. A wrong call costs nothing; the frame shows the truth and why. The third page still leads to Yoel's rule.
+- The tester intro card no longer says the pictures are stand-ins and the lines unvoiced.

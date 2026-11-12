@@ -1143,3 +1143,15 @@
 @keyframes e2spring{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.06)}100%{transform:scale(1)}}
 #adv .e2-sunset .cta.alt{background:rgba(12,18,40,.82);color:#F3E9CE;border:1px solid rgba(201,162,74,.55);max-width:420px}
 #adv .e2-obj{display:block;width:100%;max-width:300px;margin:6px auto 10px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+
+/* Episode 2: a page in the hand (look closely, then judge) */
+#adv .e2-paper{position:relative;margin:8px 0 12px;padding:16px 14px 12px;border-radius:4px;background:linear-gradient(180deg,#FBF6E6,#F1E7CC);border:1px solid #CDBF9C;box-shadow:0 6px 16px rgba(0,0,0,.18);transform:rotate(-.6deg)}
+#adv .e2-paper.torn{clip-path:polygon(0 0,100% 0,100% 82%,88% 90%,74% 84%,60% 94%,44% 86%,30% 95%,14% 88%,0 96%);padding-bottom:30px}
+#adv .e2-paper>b{display:block;font:700 16px/1.3 var(--serif,Georgia,serif);color:#1F2A4A;text-align:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #CDBF9C}
+#adv .e2-look{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 11px;border-radius:8px;border:1px dashed #B9A46C;background:rgba(255,255,255,.45);cursor:pointer}
+#adv .e2-look.seen{border-style:solid;background:rgba(255,255,255,.75)}
+#adv .e2-look em{display:block;font:700 11px var(--ui);letter-spacing:.08em;text-transform:uppercase;color:#8A6A1C;font-style:normal}
+#adv .e2-look span{display:block;margin-top:3px;font:500 14px/1.4 var(--serif,Georgia,serif);color:#2A2A3A}
+#adv .e2-look span.q{font:500 13px var(--ui);color:#8A8270}
+#adv .e2-calls{display:flex;gap:8px;margin:6px 0 10px}
+#adv .e2-calls button{flex:1;padding:12px 6px;border-radius:10px;border:2px solid #B08A2E;background:linear-gradient(180deg,#F6E3A8,#D9B458);font:700 13px var(--ui);color:#2A2010;cursor:pointer}
