@@ -373,3 +373,4 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Open: the coffee cup shows "your name" because the game has no player name; new pictures and portraits per the script's asset list.
 - Tested by script at iPhone size: full playthrough without Skip, no errors.
 - (after v5s) Episode 2 portraits placed: watchmaker, clockseller, souvenir, taxidriver (img/fsy/people, originals in images/originals/fsy/people). Shown in the shop, watchmaker, clock and taxi cards.
+- (after v5s) Episode 2 scene pictures placed: home-table, desk-day, taxi-rank, jaffa-dusk, wall-9av (+ wall-9av-edge, a crop of the readers). Tap spots moved to match. The Stand-in label now shows only on Episode 1 photos.

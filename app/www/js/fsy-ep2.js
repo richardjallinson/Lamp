@@ -8,6 +8,8 @@
   if (!K || !F) return;
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
+  /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
+  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -65,17 +67,17 @@
   const SC = [
     { id: "pro", title: "Home · the sixth night", act: "Prologue", music: "theme", amb: "indoor",
       task: () => (flag("handle") ? "Read the second book." : "Look at the two rods."),
-      views: [{ id: "table", img: "intro-desk", cap: "A table at home, at night: the journal open on its drawing of the hanukkiah, and two rods side by side",
-        hots: [{ box: [8, 52, 40, 24], label: "The two rods", text: "The same length, the same notches. Yours is new. His is worn smooth where a hand has held it for years." },
-          { box: [52, 52, 40, 24], label: "Yoel's handle", act: "handle" }] }] },
+      views: [{ id: "table", img: "home-table", cap: "A table at home, at night: the journal open on its drawing of the hanukkiah, and two rods side by side",
+        hots: [{ box: [64, 32, 32, 36], label: "The two rods", text: "The same length, the same notches. Yours is new. His is worn smooth where a hand has held it for years." },
+          { box: [72, 70, 24, 22], label: "Yoel's handle", act: "handle" }] }] },
     { id: "desk", title: "The Lamplighter's desk", act: "Scene 1", music: "theme", amb: "indoor",
       task: () => "The Lamplighter's desk. Look around.",
-      views: [{ id: "desk", img: "intro-desk", cap: "The desk where Episode 1 began, in daylight. The chair is pushed in",
-        hots: [{ box: [55, 22, 26, 26], label: "The lamp", text: "Cold. The wick has been trimmed, cleanly, and never lit again.", f: "lamp" },
-          { box: [8, 58, 30, 30], label: "The chair", text: "Pushed in, square to the desk. He always left it pulled out, as if he were coming back.", f: "chair" },
-          { box: [10, 10, 34, 30], label: "A wall calendar", act: "calendar" },
-          { box: [44, 64, 28, 18], label: "The drawer", text: "Locked. A card taped to it in his hand: “Not this time.”", f: "drawer" },
-          { box: [76, 56, 20, 20], label: "The telephone", act: "phone" }] }] },
+      views: [{ id: "desk", img: "desk-day", cap: "The desk where Episode 1 began, in daylight. The chair is pushed in",
+        hots: [{ box: [20, 21, 16, 24], label: "The lamp", text: "Cold. The wick has been trimmed, cleanly, and never lit again.", f: "lamp" },
+          { box: [34, 48, 34, 36], label: "The chair", text: "Pushed in, square to the desk. He always left it pulled out, as if he were coming back.", f: "chair" },
+          { box: [69, 8, 21, 20], label: "A wall calendar", act: "calendar" },
+          { box: [72, 49, 21, 9], label: "The drawer", text: "Locked. A card taped to it in his hand: “Not this time.”", f: "drawer" },
+          { box: [66, 32, 18, 11], label: "The telephone", act: "phone" }] }] },
     { id: "airport", title: "Ben Gurion · the eve of the fast", act: "Scene 2", music: "m9", amb: "airport",
       task: () => (has("coffee") ? "Done here." : "Through passport control, into the arrivals hall."),
       views: [{ id: "control", img: "passport-control", cap: "Passport control. This time the officer only stamps and nods", go: { fwd: "hall" } },
@@ -85,18 +87,18 @@
       task: () => (!flag("bookread") ? "On the train: open the second book." : !flag("taxi") ? "Take a taxi from the station rank." : "Walk down to the steps above the Wall."),
       views: [{ id: "train", img: "train-board", cap: "The airport train, half empty now", go: { fwd: "rank" },
           hots: [{ box: [30, 40, 40, 30], label: "The second book", act: "book" }] },
-        { id: "rank", img: "train-navon", cap: "Jerusalem's central station. A taxi waits at the rank, engine running", go: { back: "train", fwd: "jaffa" },
-          hots: [{ box: [25, 45, 50, 30], label: "The taxi driver", act: "taxi" }] },
-        { id: "jaffa", img: "jaffa-1", cap: "Jaffa Gate at about six. Some shutters are coming down; some shops are still open", go: { back: "rank", fwd: "lanes" }, need: "taxi" },
+        { id: "rank", img: "taxi-rank", cap: "Jerusalem's central station. A taxi waits at the rank, engine running", go: { back: "train", fwd: "jaffa" },
+          hots: [{ box: [60, 50, 38, 24], label: "The taxi driver", act: "taxi" }] },
+        { id: "jaffa", img: "jaffa-dusk", cap: "Jaffa Gate at about six. Some shutters are coming down; some shops are still open", go: { back: "rank", fwd: "lanes" }, need: "taxi" },
         { id: "lanes", img: "jq-cardo", cap: "Down through the Jewish Quarter, the map in your hand", go: { back: "jaffa", fwd: "steps" } },
         { id: "steps", img: "jewish-wallsteps", cap: "The steps above the Western Wall plaza, as the sun touches the roofs", go: { back: "lanes" }, end: 1 }] },
     { id: "wall", title: "The Wall · the night of 9 Av", act: "Scene 4", music: null, amb: null,
       task: () => (has("seventy") ? "Done here." : "Watch, from the back of the plaza."),
-      views: [{ id: "plaza", img: "wall-plaza", cap: "From the back: thousands sitting on the stone and on low stools, small lights, the Wall lit from below", go: { fwd: "edge" },
-          hots: [{ box: [10, 55, 80, 30], label: "The people on the ground", text: "They sit on the ground, the way mourners do. Shoes of canvas, not leather. No one is talking.", f: "w1" },
-            { box: [20, 10, 60, 30], label: "The Wall", text: "The stones Herod's men laid, the lowest courses of the platform Yoel measured. Tonight nobody is measuring anything.", f: "w3" }] },
-        { id: "edge", img: "wall-gold", cap: "Closer, from the edge: people reading by candle and phone light", go: { back: "plaza" },
-          hots: [{ box: [15, 40, 70, 40], label: "The reading", text: "The book of Lamentations, chanted low in a dozen groups at once, so the sounds overlap like water.", f: "w2" }] }] },
+      views: [{ id: "plaza", img: "wall-9av", cap: "From the back: thousands sitting on the stone and on low stools, small lights, the Wall lit from below", go: { fwd: "edge" },
+          hots: [{ box: [8, 66, 84, 26], label: "The people on the ground", text: "They sit on the ground, the way mourners do. Shoes of canvas, not leather. No one is talking.", f: "w1" },
+            { box: [28, 33, 52, 13], label: "The Wall", text: "The stones Herod's men laid, the lowest courses of the platform Yoel measured. Tonight nobody is measuring anything.", f: "w3" }] },
+        { id: "edge", img: "wall-9av-edge", cap: "Closer, from the edge: people reading by candle and phone light", go: { back: "plaza" },
+          hots: [{ box: [20, 45, 60, 35], label: "The reading", text: "The book of Lamentations, chanted low in a dozen groups at once, so the sounds overlap like water.", f: "w2" }] }] },
     { id: "chain", title: "The Street of the Chain · 9 Av", act: "Scene 5", music: "m13", amb: "market",
       task: () => (!has("key") ? "Find the room above the man who puts the hours back in order." : !flag("room") ? "Go up to the room." : "Yoel's room. Look at everything."),
       views: [{ id: "street", img: "market-street", cap: "The Street of the Chain, looking down toward the Mount's Chain Gate. Three shops close together, each with a door to an upstairs room", go: { fwd: "room" },
@@ -156,7 +158,7 @@
       '<div class="fwbg" style="background-image:url(' + IMG + v.img + '.jpg)"></div>' +
       '<button class="fwtask' + (done ? " done" : "") + '" id="fwtask"><span>' + (done ? "✓ " : "") + esc(task) + "</span></button>" +
       '<div class="fwarea" id="fwarea"><div class="fwview" id="fwv">' + pic + hots + who + arrow("fwd", g.fwd) + arrow("back", g.back) +
-        (Lamp.tester ? '<span class="e2-stand">Stand-in picture</span>' : "") +
+        (Lamp.tester && !REAL.has(v.img) ? '<span class="e2-stand">Stand-in picture</span>' : "") +
         '<button class="fwlamp" id="fwlamp" aria-label="Yoel’s second book">' + ICON.lamp + "</button>" +
         '<div class="fwsub" id="fwsub" aria-live="polite"></div></div></div>' +
       '<nav class="fwbar"><button class="fwtool" data-j="1">' + ICON.j + '<span>Journal</span></button><button class="fwtool" data-b="1">' + ICON.b + "<span>Backpack</span></button>" +
