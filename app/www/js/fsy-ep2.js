@@ -621,7 +621,7 @@
   const ACTNAME = { 1: "Act 1 · The Ninth of Av", 2: "Act 2 · The Trumpeting Stone" };
   Object.assign(LINES, {
     "e2-2-stone": "They found this stone where it fell, at the foot of the south-west corner. It says: to the place of trumpeting. A priest stood up there and sounded the trumpet when the Sabbath came in, and again when it went out. Josephus tells it. Some say the stone was that priest's very place. It is proposed, not proven. But I needed somewhere to keep the part that tells where the day turns, and I could think of no better address.",
-    "e2-2-c2": "The second question is not who is named. Any clerk can type a name. It is whose hand made it strong. Look at each page the way my friend downstairs looks at a watch. Then tell me whether the man himself did this.",
+    "e2-2-c2": "The verse does not say he makes a covenant. It says he makes one strong. So the second question is not who is named. Any clerk can type a name. It is whose hand made it strong. Look at each page the way my friend downstairs looks at a watch. Then tell me whether the man himself did this.",
     "e2-2-plate": "Midnight is a clerk's invention. Here the day turns when the sun goes, and the minute of sunset changes through the season. I wrote down the minute for each of the seventeen days. When the news comes, you will need to know which side of the line it fell on.",
     "e2-2-thirteen": "I circled this day and I was afraid of it. A whole city can be wrong together, and happy. Two frames are lit. You do not know the other three questions yet, so you do not know the answer. Neither do they.",
   });
@@ -640,6 +640,7 @@
     ["c2", "The second question: Who made it strong?", "Not a machine. Not a deputy. His own hand, or his own voice on the record. “A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own.”"],
     ["meas", "The measurement", ""],
     ["plate", "The sunset plate", "The day turns at sunset, and the minute changes every evening. Each line is the sunset that begins a Hebrew day. Two parts are still missing."],
+    ["strong", "Made strong", "'And he shall confirm the covenant with many for one week.' Daniel 9:27. On 13 Av the President said: 'What was begun, I have made strong.'"],
     ["phase", "Second Phase", "The sheet calls it the second phase of the accords of the preceding years, now strengthened. The map on Haller's wall had a clipped sheet headed Phase 2, with question marks. The question marks are gone."],
     ["t13", "13 Av · the Framework of Peace", "Done: lit. Made strong: lit, by his own voice. Three questions I have not been taught. Not confirmed under Yoel's test."],
     ["table", "TABLE", "Haller raised a coffee at Jaffa Gate and left a second one on the ledge. The label said TABLE. He knows where I sat."]
@@ -945,9 +946,11 @@
     K.card('<div class="kick">The Ramparts ticket booth</div>' + face + "<h2>Avi, with the radio turned up</h2>" + said("Avi", "You again! You picked a day. Listen, listen.") +
       '<button class="cta" data-act="x">Listen</button>', { x: () => K.card('<div class="kick">The radio</div><h2>The President</h2>' +
         said("The President", "Today the Coastal Kingdom, its neighbours and the State of Israel have concluded a framework of peace: the second phase of the accords that came before it. What was begun, I have made strong, and I will sign it before the month is out.") +
-        '<p class="fsmall">His own voice, a little thin, with a crowd under it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { give("sheet"); set("b:radio");
+        '<p class="fsmall">His own voice, a little thin, with a crowd under it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:radio"); set("book:strong");
+          K.card('<div class="kick">The journal turns back</div><h2>Made strong</h2><p>' + (has("seventy") ? "The page the old woman gave you at the Wall:" : "A line from the second book:") +
+            " 'And he shall confirm the covenant with many for one week.' Daniel 9:27. You have just heard a man say he made something strong.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: () => { give("sheet");
           K.card('<div class="kick">The Ramparts ticket booth</div>' + face + said("Avi", "Peace! After everything. My mother is crying in the kitchen.") + "<p>He pushes a printed sheet under the glass.</p>" + said("Avi", "They are giving these out at the gate. Take one. Frame it.") +
-            '<button class="cta" data-act="x">Take the sheet</button>', { x: after }); } }) });
+            '<button class="cta" data-act="x">Take the sheet</button>', { x: after }); } }); } }) });
   };
   ACT.btest = () => {
     const r = E().f.t13 || {};
@@ -993,7 +996,7 @@
       "<p>The ring has turned to 14 Av. The little shelter Yoel drew is on the 15th, which begins at the next sunset.</p>" +
       '<p class="fsmall">Prototype: Act 3, The Cottage in the Vineyard, is not written yet.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 2 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A2.forEach((id) => { delete e.done[id]; });
-        Object.keys(e.f).forEach((k) => { if (/^(b:|c2|t13|book:(stone|diagram|c2|meas|plate|phase|t13|table)|heard:e2-2|seenAct:b)/.test(k)) delete e.f[k]; });
+        Object.keys(e.f).forEach((k) => { if (/^(b:|c2|t13|book:(stone|diagram|c2|meas|plate|strong|phase|t13|table)|heard:e2-2|seenAct:b)/.test(k)) delete e.f[k]; });
         ["loupe", "pages", "bcase", "plate", "sheet", "coffee2"].forEach((k) => delete e.items[k]); save(); go("b1"); } });
   }
   function hint2(id) {
@@ -1043,7 +1046,7 @@
       table: () => { set("c1r", { A: "lit", B: "dark", C: "lit", D: "grey" }); set("c1"); set("book:c1"); }, roof: () => { set("ring"); set("ringMarks", [11, 27]); set("open"); },
       b1: () => { ["b:book", "b:stars", "book:stone", "book:diagram"].forEach((k) => set(k)); }, b2: () => { give("pages"); give("loupe"); set("c2r", { A: "lit", B: "dark", C: "dark", D: "lit" }); set("c2"); set("book:c2"); },
       b3: () => { set("b:lamp"); set("b:meas", "3.1"); set("book:meas"); give("bcase"); }, b4: () => { set("b:open"); give("plate"); set("b:plate"); set("book:plate"); },
-      b5: () => { give("sheet"); set("t13", { 1: 1, 2: 1 }); set("b:t13"); set("book:t13"); set("book:phase"); }, b6: () => { set("b:end"); set("book:table"); } };
+      b5: () => { give("sheet"); set("t13", { 1: 1, 2: 1 }); set("b:t13"); set("book:t13"); set("book:phase"); set("book:strong"); }, b6: () => { set("b:end"); set("book:table"); } };
     fill[id](); e.done[id] = 1; save();
     const nx = SC[idx(id) + 1]; if (nx) go(nx.id); else endAct2();
   }

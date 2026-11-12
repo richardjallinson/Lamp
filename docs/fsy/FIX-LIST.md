@@ -436,3 +436,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - The leftover "lit · open" display code and styles are removed (one line remains that converts an old v6b save).
 - The file header describes both acts.
 - The plate's sunset times were checked by that project against a standard solar calculation (agree within a minute); still to confirm against the published table that will be cited.
+
+## v6e — Act 2 tied to Daniel 9:27 (the Danielic Chronology project's request, 12 Nov 2026)
+- Yoel's second-frame line (e2-2-c2, not yet recorded) now opens: "The verse does not say he makes a covenant. It says he makes one strong. So the second question is not who is named…"
+- 13 Av: after the President's radio line and before Avi's sheet, every player sees "The journal turns back · Made strong" with Daniel 9:27 (KJV). Without the seventy weeks page it begins "A line from the second book:".
+- New journal page "Made strong" (book:strong); "Play Act 2 again" clears it. No verdict added.
