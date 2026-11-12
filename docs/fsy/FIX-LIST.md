@@ -474,3 +474,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Portraits: the street preacher, the ticket student.
 - Fixed: v6i added a second function named clockSVG, which replaced the painted-shutter clock in Act 1 with the preacher's clock. Removed.
 - The celebration at Jaffa Gate (13 Av): white bunting and olive branches, no flags (Richard did not want rainbow flags). The newspaper seller is now in the two old men's tap spot.
+
+## v6k (12 Nov 2026) · Act 2 clips and the celebration picture
+
+- Clips (Richard, cropped 720→480 square): watchmaker-loupe (the watchmaker's card when he hands over the pages), avi-radio (Avi's booth, 13 Av), haller-toast (Jaffa Gate at sunset: he raises one coffee, sets the other down, walks in through the gate). The take where he stays is kept in the originals as haller-toast-v1-stays.
+- Haller's card and the TABLE lines now say the cup is left on the stones by the gate (the clip), not on a ledge or behind a line of dancers.
+- The celebration picture at Jaffa Gate (13 Av), no flags.

@@ -653,7 +653,7 @@
     ["strong", "Made strong", "'And he shall confirm the covenant with many for one week.' Daniel 9:27. On 13 Av the President said: 'What was begun, I have made strong.'"],
     ["phase", "Second Phase", "The sheet calls it the second phase of the accords of the preceding years, now strengthened. The map on Haller's wall had a clipped sheet headed Phase 2, with question marks. The question marks are gone."],
     ["t13", "13 Av · the Framework of Peace", "Done: lit. Made strong: lit, by his own voice. Three questions I have not been taught. Not confirmed under Yoel's test."],
-    ["table", "TABLE", "Haller raised a coffee at Jaffa Gate and left a second one on the ledge. The label said TABLE. He knows where I sat."]
+    ["table", "TABLE", "Haller raised a coffee at Jaffa Gate and left a second one on the stones by the gate. The label said TABLE. He knows where I sat."]
   );
   const MEAS = { "3.1": "three cubits and a hand", "4.2": "four cubits and two hands" };
   const SUNSET = { 11: ["Fri 13 August", "7:26"], 12: ["Sat 14 August", "7:25"], 13: ["Sun 15 August", "7:24"], 14: ["Mon 16 August", "7:23"], 15: ["Tue 17 August", "7:22"], 16: ["Wed 18 August", "7:20"], 17: ["Thu 19 August", "7:19"], 18: ["Fri 20 August", "7:18"], 19: ["Sat 21 August", "7:17"], 20: ["Sun 22 August", "7:16"], 21: ["Mon 23 August", "7:15"], 22: ["Tue 24 August", "7:14"], 23: ["Wed 25 August", "7:13"], 24: ["Thu 26 August", "7:11"], 25: ["Fri 27 August", "7:10"], 26: ["Sat 28 August", "7:09"], 27: ["Sun 29 August", "7:08"] }; /* provisional: to be checked against a published table */
@@ -796,7 +796,7 @@
       '<div class="fsay"><button data-act="y">“It has.”</button><button data-act="c">Ask about the grey car</button><button data-act="k">Ask about the clock on the shelf that is not running</button></div>',
       { k: ACT.bclock, c: () => K.card('<div class="kick">The watch-repair shop</div>' + face + said("Since Thursday. A man who buys coffee and does not drink it.") + '<button class="cta" data-act="x">Back</button>', { x: ACT.bwatch }),
         y: () => { give("pages"); give("loupe"); F.S("parchment", "click", 0.5);
-          K.card('<div class="kick">The watch-repair shop</div>' + face + OBJ("e2-pages") + "<p>He slides a flat packet across the glass, then takes the loupe off his own forehead and puts it on top.</p>" +
+          K.card('<div class="kick">The watch-repair shop</div>' + (clip("watchmaker-loupe") || face) + OBJ("e2-pages") + "<p>He slides a flat packet across the glass, then takes the loupe off his own forehead and puts it on top.</p>" +
             said("You will need this more than I will tonight. A signature is like a watch. From across the room they all look the same.") + '<button class="cta" data-act="x">Up the stair</button>', { x: () => walk(byId("b2").views[1]) }); } });
   };
   /* The preacher's clock (Richard, 12 Nov 2026). The street preacher from Jaffa Gate wrote the torn scroll of Episode 1 and left this clock at the
@@ -992,7 +992,7 @@
   ACT.bavi = () => {
     if (has("sheet")) { K.say("“Peace! Go, go, show it to somebody.”", "Avi", 3000); return; }
     const face = '<img class="e2-face" src="' + PP + 'avi.jpg" alt="">', said = (w, t) => '<p class="e2-said"><b>' + w + "</b> “" + t + "”</p>";
-    K.card('<div class="kick">The Ramparts ticket booth</div>' + face + "<h2>Avi, with the radio turned up</h2>" + said("Avi", "You again! You picked a day. Listen, listen.") +
+    K.card('<div class="kick">The Ramparts ticket booth</div>' + (clip("avi-radio") || face) + "<h2>Avi, with the radio turned up</h2>" + said("Avi", "You again! You picked a day. Listen, listen.") +
       '<button class="cta" data-act="x">Listen</button>', { x: () => K.card('<div class="kick">The radio</div><h2>The President</h2>' +
         said("The President", "Today the Coastal Kingdom, its neighbours and the State of Israel have concluded a framework of peace: the second phase of the accords that came before it. What was begun, I have made strong, and I will sign it before the month is out.") +
         '<p class="fsmall">His own voice, a little thin, with a crowd under it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:radio"); set("book:strong");
@@ -1026,13 +1026,13 @@
   /* Scene 6: Haller raises a coffee */
   ACT.bhaller = () => {
     if (flag("b:end")) return endAct2();
-    K.card('<div class="kick">Jaffa Gate</div><img class="e2-face" src="' + PP + 'haller.jpg" alt="Haller"><h2>Haller</h2><p>Standing still at the edge of the crowd, in the grey coat, with two iced coffees. He sees you. He does not come over.</p>' +
-      "<p>He lifts one cup a few inches, the way a man raises a glass, and holds it there. Then a line of dancers passes between you, and when it has gone, so has he.</p>" + '<button class="cta" data-act="x">Go to where he stood</button>',
+    K.card('<div class="kick">Jaffa Gate</div>' + (clip("haller-toast") || '<img class="e2-face" src="' + PP + 'haller.jpg" alt="Haller">') + '<h2>Haller</h2><p>Standing still in front of the gate, in the grey coat, with two iced coffees. He sees you. He does not come over.</p>' +
+      "<p>He lifts one cup a few inches, the way a man raises a glass, and nods. Then he sets the other cup down on the stones, turns, and walks in through the gate.</p>" + '<button class="cta" data-act="x">Go to where he stood</button>',
       { x: () => { note("haller", "At Jaffa Gate, as 13 Av ended, he raised a coffee and said nothing. He left a second cup labelled TABLE."); set("book:table");
         K.card('<div class="e2-cup"><svg viewBox="0 0 120 160" aria-hidden="true"><defs><linearGradient id="e2cf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9773A"/><stop offset="1" stop-color="#5A2E14"/></linearGradient></defs>' +
           '<path d="M64 2l-3 30" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/><path d="M22 30h76l-9 122H31z" fill="url(#e2cf2)" stroke="#D8D2C4" stroke-width="2.5"/><path d="M17 22h86v10H17z" fill="#EDE7D8" stroke="#C9C1AE" stroke-width="1.5"/>' +
           '<rect x="30" y="78" width="60" height="32" rx="3" fill="#FBF8EF" stroke="#C9C1AE"/><text x="60" y="101" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="18" fill="#1F2A6B" transform="rotate(-5 60 96)">TABLE</text></svg></div>' +
-          '<p>On the ledge: the second coffee, untouched. The label says <b>TABLE</b>.</p><p class="fsmall">He knows where you sat last night. The journal notes it either way.</p>' +
+          '<p>On the stones where he stood: the second coffee, untouched. The label says <b>TABLE</b>.</p><p class="fsmall">He knows where you sat last night. The journal notes it either way.</p>' +
           '<div class="fchoices two"><button data-act="t">Take it</button><button data-act="l">Leave it</button></div>',
           { t: () => { give("coffee2"); set("b:cup", "taken"); last(); }, l: () => { set("b:cup", "left"); last(); } }); } });
     const last = () => K.card('<div class="kick">Jaffa Gate</div><h2>The sun goes</h2><p>Behind the towers the light goes out of the stone. By Yoel’s plate, the sun went at <b>7:23</b>.</p>' +
