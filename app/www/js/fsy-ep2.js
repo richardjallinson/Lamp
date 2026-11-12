@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -666,8 +666,8 @@
         hots: [{ box: [36, 9, 30, 30], label: "The window", act: "bwindow" }, { box: [68, 51, 17, 6], label: "The second book", act: "bbook" },
           { box: [73, 40, 19, 10], label: "The five frames", act: "bframes" }, { box: [63, 42, 9, 9], label: "Yoel's instrument", act: "binst" },
           { box: [91, 12, 9, 60], label: "The stair door", act: "bstair" }] },
-        { id: "gate", img: "jaffa-1", cap: "Outside Jaffa Gate on the Sabbath afternoon. A man with a Bible in his hand is preaching", go: { back: "room" }, need: "b:book",
-          hots: [{ box: [30, 42, 40, 40], label: "The street preacher", act: "bpreacher" }] }] },
+        { id: "gate", img: "jaffa-preacher", cap: "Outside Jaffa Gate on the Sabbath afternoon. A man with a Bible in his hand is preaching", go: { back: "room" }, need: "b:book",
+          hots: [{ box: [48, 18, 46, 78], label: "The street preacher", act: "bpreacher" }] }] },
     { id: "b2", title: "After the Sabbath", act: "Scene 2", music: "e2-table", amb: "indoor",
       task: () => (!has("pages") ? "Three stars. Go down to the watchmaker." : !flag("c2") ? "At Yoel's table: the second frame." : "Done."),
       views: [{ id: "shops", img: "chain-shops-night", cap: "The street after dark. The watchmaker's shutter is half up, his lamp lit", go: { fwd: "room" },
@@ -744,8 +744,8 @@
   /* the street preacher outside Jaffa Gate (Richard's own meeting; he is never named) */
   ACT.bpreacher = () => {
     const verse = F.wnote("And when these things begin to come to pass, then look up, and lift up your heads; for your redemption draweth nigh.") + '<p class="fsmall">Luke 21:28</p>';
-    if (flag("b:preacher")) { K.card('<div class="kick">Outside Jaffa Gate</div><h2>The street preacher</h2><p>He is still there, the Bible open in his hand, preaching to whoever passes.</p>' + verse + '<button class="cta" data-act="x">Back</button>', { x: after }); return; }
-    K.card('<div class="kick">Outside Jaffa Gate</div><h2>A street preacher</h2><p>A man stands by the wall outside the gate with a Bible in his hand, preaching to whoever passes. Most do not stop. He does not seem to mind.</p>' + verse + (scrollHeld() && !flag("b:clock") ? "<p>The margins of his Bible are full of pencil. The hand looks like the hand on the torn scroll.</p>" : "") +
+    if (flag("b:preacher")) { K.card('<div class="kick">Outside Jaffa Gate</div><img class="e2-face" src="' + PP + 'preacher.jpg" alt=""><h2>The street preacher</h2><p>He is still there, the Bible open in his hand, preaching to whoever passes.</p>' + verse + '<button class="cta" data-act="x">Back</button>', { x: after }); return; }
+    K.card('<div class="kick">Outside Jaffa Gate</div><img class="e2-face" src="' + PP + 'preacher.jpg" alt=""><h2>A street preacher</h2><p>A man stands by the wall outside the gate with a Bible in his hand, preaching to whoever passes. Most do not stop. He does not seem to mind.</p>' + verse + (scrollHeld() && !flag("b:clock") ? "<p>The margins of his Bible are full of pencil. The hand looks like the hand on the torn scroll.</p>" : "") +
       '<div class="fsay"><button data-act="h">Shake his hand and thank him</button></div><button class="cta alt" data-act="x">Walk on</button>',
       { h: () => { set("b:preacher"); set("book:preacher"); K.buzz("success");
           K.card('<div class="kick">Outside Jaffa Gate</div><h2>The street preacher</h2><p>You shake his hand and thank him. He nods, and goes back to the verse.</p><p>You walk in through the gate, into the Old City, toward the Jewish Quarter.</p><button class="cta" data-act="x">Back to Yoel’s room</button>', { x: () => walk(byId("b1").views[0]) }); },
@@ -796,20 +796,12 @@
       '<div class="fsay"><button data-act="y">“It has.”</button><button data-act="c">Ask about the grey car</button><button data-act="k">Ask about the clock on the shelf that is not running</button></div>',
       { k: ACT.bclock, c: () => K.card('<div class="kick">The watch-repair shop</div>' + face + said("Since Thursday. A man who buys coffee and does not drink it.") + '<button class="cta" data-act="x">Back</button>', { x: ACT.bwatch }),
         y: () => { give("pages"); give("loupe"); F.S("parchment", "click", 0.5);
-          K.card('<div class="kick">The watch-repair shop</div>' + face + "<p>He slides a flat packet across the glass, then takes the loupe off his own forehead and puts it on top.</p>" +
+          K.card('<div class="kick">The watch-repair shop</div>' + face + OBJ("e2-pages") + "<p>He slides a flat packet across the glass, then takes the loupe off his own forehead and puts it on top.</p>" +
             said("You will need this more than I will tonight. A signature is like a watch. From across the room they all look the same.") + '<button class="cta" data-act="x">Up the stair</button>', { x: () => walk(byId("b2").views[1]) }); } });
   };
   /* The preacher's clock (Richard, 12 Nov 2026). The street preacher from Jaffa Gate wrote the torn scroll of Episode 1 and left this clock at the
      watchmaker's. It answers the scroll's question with 2 Thessalonians 2:1-3: a falling away first, that man of sin revealed, then that day and our
      gathering together unto him. Optional: the act does not wait for it. Who the preacher was is never told. */
-  function clockSVG() {
-    const tick = (deg, r1, r2, w) => { const a = (deg - 90) * Math.PI / 180; return '<line x1="' + (100 + r1 * Math.cos(a)).toFixed(1) + '" y1="' + (100 + r1 * Math.sin(a)).toFixed(1) + '" x2="' + (100 + r2 * Math.cos(a)).toFixed(1) + '" y2="' + (100 + r2 * Math.sin(a)).toFixed(1) + '" stroke="#3A2A14" stroke-width="' + w + '" stroke-linecap="round"/>'; };
-    let t = ""; for (let i = 0; i < 60; i++) if (i % 5) t += tick(i * 6, 80, 84, 0.8);
-    const num = (deg, s) => { const a = (deg - 90) * Math.PI / 180; return '<text x="' + (100 + 54 * Math.cos(a)).toFixed(1) + '" y="' + (105 + 54 * Math.sin(a)).toFixed(1) + '" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#9E2416">' + s + "</text>"; };
-    return '<svg class="e2-clock" viewBox="0 0 200 200" role="img" aria-label="A clock face with three marks before twelve. The hand stands just short of the second mark."><circle cx="100" cy="100" r="96" fill="#B08D3C"/><circle cx="100" cy="100" r="88" fill="#F6ECD2" stroke="#7A5C1E" stroke-width="2"/>' + t +
-      tick(300, 70, 86, 3.2) + tick(330, 70, 86, 3.2) + tick(0, 66, 86, 4.2) + num(300, "1") + num(330, "2") + num(0, "3") +
-      '<line x1="100" y1="100" x2="100" y2="24" stroke="#1F2A4A" stroke-width="3.4" stroke-linecap="round" transform="rotate(-36 100 100)"/><circle cx="100" cy="100" r="5" fill="#1F2A4A"/></svg>';
-  }
   ACT.bclock = () => {
     const face = '<img class="e2-face" src="' + PP + 'watchmaker.jpg" alt="">', said = (t) => '<p class="e2-said"><b>The watchmaker</b> “' + t + "”</p>";
     let ep1 = false; try { ep1 = Lamp.fsyWalk.scrollState().n > 0; } catch (e) {}
@@ -818,14 +810,14 @@
       K.card('<div class="kick">The back of the clock</div><h2>A folded paper</h2><p>There is no movement inside, and there never was. Only a folded paper, written in pencil' + (ep1 ? ", in the same hand as the torn scroll." : ".") + "</p>" +
         F.wnote("Now we beseech you, brethren, by the coming of our Lord Jesus Christ, and by our gathering together unto him,") + '<p class="fsmall">2 Thessalonians 2:1</p>' +
         F.wnote("Let no man deceive you by any means: for that day shall not come, except there come a falling away first, and that man of sin be revealed, the son of perdition;") + '<p class="fsmall">2 Thessalonians 2:3</p>' +
-        '<p>Under the verses, three lines, numbered like the marks on the face:</p><ol class="e2-three"><li>A falling away first.</li><li>That man of sin revealed.</li><li>That day: our gathering together unto him.</li></ol>' +
+        '<p>Under the verses, three lines, one for each mark on the face:</p><ol class="e2-three"><li>A falling away first.</li><li>That man of sin revealed.</li><li>That day: our gathering together unto him.</li></ol>' +
         "<p>You turn the clock over again. The hand has passed the first mark. It stands a hair short of the second.</p>" +
         said("I asked him how long. He said: ask who is about to sign.") +
         '<p class="fsmall">' + (ep1 ? "The scroll asked when. This is his answer, as far as he gives one. " : "") + 'It goes into the journal.</p><button class="cta" data-act="x">Put the clock back</button>', { x: () => {} }); };
     K.card('<div class="kick">The watch-repair shop</div>' + face + "<h2>The clock that is not running</h2>" +
       said("That one is not mine. A man with a Bible in his hand left it on Friday, before the Sabbath." + (met ? " You have seen him. He preaches outside Jaffa Gate." : "")) +
-      said("He paid me and told me not to mend it. He said it is not broken. He said it shows the right time.") + clockSVG() +
-      "<p>A brass mantel clock with one plain face and one hand. No hours, only three marks cut deep before twelve, numbered 1, 2 and 3. It does not tick.</p>" +
+      said("He paid me and told me not to mend it. He said it is not broken. He said it shows the right time.") + OBJ("e2-clock") +
+      "<p>A small brass mantel clock with one plain face and one hand. No hours, only three marks cut before twelve. It does not tick.</p>" +
       said("I asked his name. He said it did not matter. My wife says Elijah. My neighbour says Moses. I say a man who pays in advance.") +
       '<div class="fsay"><button data-act="o">Open the back of the clock</button></div><button class="cta alt" data-act="x">Leave it</button>', { x: () => {}, o: open });
   };
@@ -880,8 +872,8 @@
   };
   FINISH.b2 = () => walk(view);
   /* Scene 3: the fallen stones */
-  ACT.bticket = () => { set("b:ticket"); K.card('<div class="kick">The ticket window</div><h2>A student, selling tickets</h2><p class="e2-said"><b>The student</b> “The stone with the writing? The real one is in the museum. Ours is a copy, set where the real one fell. Everyone photographs it.”</p><p class="fsmall">Twenty shekels.</p><button class="cta" data-act="x">Go in</button>', { x: after }); };
-  ACT.bstone = () => { set("b:stone"); K.card('<div class="kick">The fallen stones</div><h2>The inscribed stone</h2>' + stoneSVG() + "<p>One corner has been cut away into a niche. Three words in Hebrew run along the edge and stop at a break. A low kerb runs along the paving from the cut corner.</p>" + '<button class="cta" data-act="x">Back</button>', { x: after }); };
+  ACT.bticket = () => { set("b:ticket"); K.card('<div class="kick">The ticket window</div><img class="e2-face" src="' + PP + 'ticket-student.jpg" alt=""><h2>A student, selling tickets</h2><p class="e2-said"><b>The student</b> “The stone with the writing? The real one is in the museum. Ours is a copy, set where the real one fell. Everyone photographs it.”</p><p class="fsmall">Twenty shekels.</p><button class="cta" data-act="x">Go in</button>', { x: after }); };
+  ACT.bstone = () => { set("b:stone"); K.card('<div class="kick">The fallen stones</div><h2>The inscribed stone</h2>' + OBJ("e2-stone") + "<p>One corner has been cut away into a niche. Three words in Hebrew run along the edge and stop at a break. A low kerb runs along the paving from the cut corner.</p>" + '<button class="cta" data-act="x">Back</button>', { x: after }); };
   ACT.bsign = () => { set("b:sign"); K.card('<div class="kick">The sign</div><h2>“To the place of trumpeting to…”</h2><p>The last word is lost.</p><p class="fsmall">“Thought to have fallen from the top of the corner above. Its exact position is not certain.”</p><button class="cta" data-act="x">Back</button>', { x: after }); };
   ACT.bblock = (n) => {
     if (+n !== 5) { K.card('<div class="kick">Along the kerb</div><h2>A fallen block</h2><p>Squared, drafted at the edges, tipped on its side. Nothing scratched on it.</p><button class="cta" data-act="x">Back</button>', { x: after }); return; }
@@ -889,7 +881,7 @@
     K.card('<div class="kick">Along the kerb</div><h2>The fifth block</h2>' + lampMark("right") + "<p>Scratched very small into its face: a lamp, spout to the right.</p>" +
       (has("bcase") ? '<p class="fsmall">The gap behind it is empty now.</p>' : "<p>Behind a wedge of rubble under the mark, something flat and brass.</p>") +
       (has("bcase") ? "" : '<div class="fsay"><button data-act="t">Reach into the gap</button></div>') + '<button class="cta alt" data-act="x">Back</button>',
-      { t: () => { give("bcase"); F.S("stone", "click", 0.6); K.card('<div class="kick">In the gap</div><h2>A brass case</h2><p>Flat, the size of a book. On its lid, a small model of the corner. No keyhole. It will not open.</p>' +
+      { t: () => { give("bcase"); F.S("stone", "click", 0.6); K.card('<div class="kick">In the gap</div><h2>A brass case</h2>' + OBJ("e2-case") + '<p>Flat, the size of a book. On its lid, two small dials, a blank window and a sliding brass sun. No keyhole. It will not open.</p>' +
           '<p class="e2-said"><b>The ticket student, calling over</b> “Did you drop something? An old man was always dropping something just there.”</p><button class="cta" data-act="x">Back</button>', { x: after }); }, x: after });
   };
   /* the player lays the rod themselves and counts; nothing is counted for them */
@@ -990,7 +982,7 @@
   };
   function plate() {
     if (flag("b:plate")) return ACT.binst();
-    const seat = () => K.card('<div class="kick">Inside the case</div><h2>The sunset plate</h2><p>A thin brass plate, curved to sit against the ring, engraved with seventeen short lines of figures. A slip of paper in Yoel’s hand:</p>' + F.wnote("where the day turns") +
+    const seat = () => K.card('<div class="kick">Inside the case</div><h2>The sunset plate</h2>' + OBJ("e2-plate") + '<p>A thin brass plate, curved to sit against the ring, engraved with seventeen short lines of figures. A slip of paper in Yoel’s hand:</p>' + F.wnote("where the day turns") +
       '<button class="cta" data-act="x">Seat it beside the ring</button>', { x: () => { give("plate"); set("b:plate"); set("book:plate"); F.S("lock", "click", 0.7); ACT.binst(); } });
     if (!flag("heard:e2-2-plate")) return yoelCard("e2-2-plate", seat, "Lift the plate out");
     seat();

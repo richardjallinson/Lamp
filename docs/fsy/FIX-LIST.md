@@ -466,3 +466,11 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - The preacher's card notes the pencil hand in his Bible if the player holds a half of the scroll.
 - Episode 1 journal: new tab "The scroll" once a half is held (halves, joined scroll, and the clock once found). Tabs wrap to two rows.
 - Episode 2 journal: button "The torn scroll" opens the same page.
+
+## v6j (12 Nov 2026) · Richard's Act 2 pictures
+
+- Scenes: Yoel's room on the Sabbath, at night and at last light; the watchmaker's street after dark; the excavation entrance; the street under the wall; the fallen stones with the niche stone and five-block kerb; the street preacher at Jaffa Gate. Tap spots refitted to each.
+- Objects: the inscribed stone, the brass case (the tool drew a Latin "A" in the letter window; painted out so it does not give or contradict the Hebrew answer), the sunset plate and ring, the four pages and loupe, the preacher's clock (replaces the drawn one).
+- Portraits: the street preacher, the ticket student.
+- Fixed: v6i added a second function named clockSVG, which replaced the painted-shutter clock in Act 1 with the preacher's clock. Removed.
+- Still stand-ins: the celebration at Jaffa Gate (13 Av).
