@@ -395,3 +395,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 ## v5w — Episode 2, Act 1: music in
 - Four tracks (Richard, ElevenLabs Music, 11 Nov), levelled to -20 LUFS, 96k, fades, 2:00 each: e2-wall "Candlelight Lament" (the Wall on 9 Av, which was silent before), e2-chain "Hidden Door In Stone" (Street of the Chain), e2-table "Upstairs Papers" (Yoel's table), e2-roof "Held Breath Over the Rooftops" (the roof at sunset). Originals in images/originals/fsy/audio/music.
 - Episode 2 Act 1 now has all its pictures, clips, voice and music.
+
+## v5x — Episode 2, Act 1: last two pictures
+- airport-hall-august (the arrivals hall) and wallsteps-dusk (the steps above the Wall) replace the Episode 1 stand-ins. Note: wallsteps-dusk shows the sun low beside the Dome, which is east of the viewer; Richard may regenerate it with the sun behind the viewer.
+- Passport control, the train and the Cardo lane reuse Episode 1's pictures on purpose; the stand-in label is off them.
+- "11 Av. The window is open." now sits on a dark plate and stays on screen (it used to fade out over the clip).

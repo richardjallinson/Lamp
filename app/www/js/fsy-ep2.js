@@ -9,7 +9,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset"]);
+  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -82,7 +82,7 @@
     { id: "airport", title: "Ben Gurion · the eve of the fast", act: "Scene 2", music: "m9", amb: "airport",
       task: () => (has("coffee") ? "Done here." : "Through passport control, into the arrivals hall."),
       views: [{ id: "control", img: "passport-control", cap: "Passport control. This time the officer only stamps and nods", go: { fwd: "hall" } },
-        { id: "hall", img: "airport-1", cap: "The arrivals hall in August: heat at the doors, families meeting soldiers home on leave", go: { back: "control" },
+        { id: "hall", img: "airport-hall-august", cap: "The arrivals hall in August: heat at the doors, families meeting soldiers home on leave", go: { back: "control" },
           who: [{ id: "haller", name: "By the pillars", act: "haller" }] }] },
     { id: "city", title: "Up to Jerusalem", act: "Scene 3", music: "m10", amb: "train",
       task: () => (!flag("bookread") ? "On the train: open the second book." : !flag("taxi") ? "Take a taxi from the station rank." : "Walk down to the steps above the Wall."),
@@ -92,7 +92,7 @@
           hots: [{ box: [60, 50, 38, 24], label: "The taxi driver", act: "taxi" }] },
         { id: "jaffa", img: "jaffa-dusk", cap: "Jaffa Gate at about six. Some shutters are coming down; some shops are still open", go: { back: "rank", fwd: "lanes" }, need: "taxi" },
         { id: "lanes", img: "jq-cardo", cap: "Down through the Jewish Quarter, the map in your hand", go: { back: "jaffa", fwd: "steps" } },
-        { id: "steps", img: "jewish-wallsteps", cap: "The steps above the Western Wall plaza, as the sun touches the roofs", go: { back: "lanes" }, end: 1 }] },
+        { id: "steps", img: "wallsteps-dusk", cap: "The steps above the Western Wall plaza, as the sun touches the roofs", go: { back: "lanes" }, end: 1 }] },
     { id: "wall", title: "The Wall · the night of 9 Av", act: "Scene 4", music: "e2-wall", amb: null,
       task: () => (has("seventy") ? "Done here." : "Watch, from the back of the plaza."),
       views: [{ id: "plaza", img: "wall-9av", cap: "From the back: thousands sitting on the stone and on low stools, small lights, the Wall lit from below", go: { fwd: "edge" },
