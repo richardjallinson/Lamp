@@ -425,3 +425,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Episode 2 now opens with the "A work of fiction" card. Act 1 text: the instrument is missing three parts, not one. Act 1's end card has "Go on to Act 2".
 - Sunset times on the plate are calculated, not yet checked against a published table. Backpack: "Haller's coffee, 23A" and "Haller's coffee, TABLE".
 - From this build the Xcode project carries Richard's development team.
+
+## v6c — the second frame follows the protocol (D2)
+- On the Danielic Chronology project's advice (12 Nov 2026): a recorded statement in the President's own voice lights the second frame fully, the same as his own signature. The "lit but open" state and the seal mark are removed. Autopen and deputy still dark. Yoel's note: "A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own."
+- 13 Av: frame 2 lit by his voice. The 13 Av agreement is still "not confirmed under Yoel's test" (three questions not yet learned).
+- Plot: in Act 5 the radio says the earlier text is set aside and replaced, so the 25 Av text is a new agreement (keeps clear of the protocol's companion rule).

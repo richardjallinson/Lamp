@@ -635,11 +635,11 @@
   BOOKP.push(
     ["stone", "The stone", "A squared stone with a niche cut in one corner. “From the cut corner, along the kerb, to my lamp. Measure it. You will need the number.”"],
     ["diagram", "Yoel's diagram", "A plan of the corner with eight ticks, each marked with a Hebrew letter. His line runs to the tick marked ה (he)."],
-    ["c2", "The second question: Who made it strong?", "Not a machine. Not a deputy. His own voice lights the frame. Only his own hand closes it. “His voice tells me he means it. His hand tells me when.”"],
+    ["c2", "The second question: Who made it strong?", "Not a machine. Not a deputy. His own hand, or his own voice on the record. “A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own.”"],
     ["meas", "The measurement", ""],
     ["plate", "The sunset plate", "The day turns at sunset, and the minute changes every evening. Each line is the sunset that begins a Hebrew day. Two parts are still missing."],
     ["phase", "Second Phase", "The sheet calls it the second phase of the accords of the preceding years, now strengthened. The map on Haller's wall had a clipped sheet headed Phase 2, with question marks. The question marks are gone."],
-    ["t13", "13 Av · the Framework of Peace", "Done: lit. Made strong: lit by his voice, not yet closed by his hand. Three questions I have not been taught. Not confirmed under Yoel's test."],
+    ["t13", "13 Av · the Framework of Peace", "Done: lit. Made strong: lit, by his own voice. Three questions I have not been taught. Not confirmed under Yoel's test."],
     ["table", "TABLE", "Haller raised a coffee at Jaffa Gate and left a second one on the ledge. The label said TABLE. He knows where I sat."]
   );
   const MEAS = { "3.1": "three cubits and a hand", "4.2": "four cubits and two hands" };
@@ -774,7 +774,7 @@
     A: { t: "Decree, page one", looks: [["The signature", "Ink that pools where the pen stopped and thins where it hurried. One blot."], ["The back of the sheet", "The pen pressed through. You can feel the line with a fingernail."], ["The line under it", "His name and his office, typed. Nothing else."]], call: "hand", st: "lit", why: "His own hand. The frame lights, and it is closed." },
     B: { t: "Decree, two sheets clipped together", looks: [["The stamps", "ORIGINAL 1 of 2. ORIGINAL 2 of 2. These are not copies of each other. Each was signed."], ["One laid over the other", "Every stroke matches. Every loop, every tremor, the same. No hand signs the same way twice.", "over"], ["Clipped behind them", "A signing-office slip: “Device 3. Two originals. Pattern on file.”"]], call: "machine", st: "dark", why: "A machine wrote it. The frame stays dark." },
     C: { t: "Decree, page three", looks: [["The signature", "Firm, quick, real. A pen in a hand."], ["The line under it", "“For and on behalf of.” Then his name."], ["The small type", "A different name: a deputy secretary."]], call: "deputy", st: "dark", why: "Another man’s hand. The frame stays dark." },
-    D: { t: "Transcript", looks: [["Where a signature would be", "Nothing. It was never a page for signing."], ["The stamp", "RECORDED STATEMENT. A reel number, a date, a room."], ["The words", "In his own voice: “I have made this strong.”"]], call: "voice", st: "open2", why: "His own voice. The frame lights, but it stays open: the border is broken at the top." },
+    D: { t: "Transcript", looks: [["Where a signature would be", "Nothing. It was never a page for signing."], ["The stamp", "RECORDED STATEMENT. A reel number, a date, a room."], ["The words", "In his own voice: “I have made this strong.”"]], call: "voice", st: "lit", why: "His own voice, on a reel with a number and a date. A recorded statement is his own act. The frame lights." },
   };
   const CALLS = [["hand", "His own hand"], ["machine", "A machine"], ["deputy", "Another man’s hand"], ["voice", "His own voice"]];
   function sigSVG(over, blot) {
@@ -808,14 +808,13 @@
       const name = (c) => (CALLS.find((x) => x[0] === c) || [0, ""])[1].toLowerCase();
       K.card('<div class="kick">Under the second frame</div><h2>' + esc(S.t) + "</h2>" + framesRow(S.st) +
         (called ? '<p class="fsmall">' + (called === S.call ? "You called it " + name(called) + "." : "You called it " + name(called) + ". Look again at why.") + "</p>" : "") + '<p class="e2-jline">' + esc(S.why) + "</p>" +
-        (k === "D" ? F.wnote("His voice tells me he means it. His hand tells me when. A voice lights the frame. Only his hand closes it.") : "") +
+        (k === "D" ? F.wnote("A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own.") : "") +
         '<button class="cta" data-act="x">Back to the table</button>', { x: () => { if (["A", "B", "C", "D"].every((x) => r[x])) return c2Done(); ACT.c2(); } });
     }
     function c2Done() {
       if (flag("c2")) return ACT.c2();
       set("c2"); set("book:c2"); K.buzz("success");
-      K.card('<div class="kick">The journal · a new page</div><h2>The second question</h2><p>Who made it strong? Not a machine. Not a deputy. His own voice counts. His own hand finishes it.</p>' +
-        '<div class="e2-two"><span><div class="e2-frames a2"><i class="e2-frame on open2"><small>הגביר</small><b>open</b></i></div><em>Lit by his voice: still open</em></span><span><div class="e2-frames a2"><i class="e2-frame on lit"><small>הגביר</small><b>Strong</b></i></div><em>Closed by his own hand</em></span></div>' +
+      K.card('<div class="kick">The journal · a new page</div><h2>The second question</h2><p>Who made it strong? Not a machine. Not a deputy. His own hand, or his own voice on the record: the act must be his own.</p>' +
         '<button class="cta" data-act="x">Close the packet</button>', { x: after });
     }
   };
@@ -959,10 +958,10 @@
     [1, 2, 3, 4, 5].forEach((n) => (acts["f" + n] = () => {
       if (n > 2) { K.snd("bad"); K.say("The shutter does not lift. You have not learned this question yet. You cannot answer what you have not been asked.", "", 4200); return ACT.btest(); }
       r[n] = 1; set("t13", r); F.S("harp", null, 0.5);
-      K.card('<div class="kick">Under the ' + (n === 1 ? "first" : "second") + ' frame</div><h2>Framework of Peace</h2>' + framesRow(n === 2 ? "open2" : (r[2] ? "open2" : ""), "lit") +
-        '<p class="e2-jline">' + (n === 1 ? "Lit, dated 13 Av. Announced as concluded: by Yoel’s rule, a thing done." : "Lit by his voice on the radio. The signature line is blank, so the frame stays open.") + "</p>" +
+      K.card('<div class="kick">Under the ' + (n === 1 ? "first" : "second") + ' frame</div><h2>Framework of Peace</h2>' + framesRow(n === 2 ? "lit" : (r[2] ? "lit" : ""), "lit") +
+        '<p class="e2-jline">' + (n === 1 ? "Lit, dated 13 Av. Announced as concluded: by Yoel’s rule, a thing done." : "Lit. His own voice on the radio: his own act. The signature line is still blank; he has said he will sign.") + "</p>" +
         '<button class="cta" data-act="x">Back</button>', { x: () => { if (r[1] && r[2] && !flag("b:t13")) return yoelCard("e2-2-thirteen", () => { set("b:t13"); set("book:t13"); K.buzz("success");
-          K.card('<div class="kick">The journal · a new page</div><h2>13 Av</h2><p>The Framework of Peace. Done: lit. Made strong: lit by his voice, not yet closed by his hand. Three questions I have not been taught.</p><p class="fsmall">Not confirmed under Yoel’s test.</p><button class="cta" data-act="x">Close</button>', { x: after }); }, "Go on"); ACT.btest(); } });
+          K.card('<div class="kick">The journal · a new page</div><h2>13 Av</h2><p>The Framework of Peace. Done: lit. Made strong: lit, by his own voice. Three questions I have not been taught.</p><p class="fsmall">Not confirmed under Yoel’s test.</p><button class="cta" data-act="x">Close</button>', { x: after }); }, "Go on"); ACT.btest(); } });
     }));
     K.card('<div class="kick">Yoel’s table · 13 Av</div><div class="e2-paper"><b>Framework of Peace</b>' +
       LOOKS.map((L, i) => '<button class="e2-look' + (seen[i] ? " seen" : "") + '" data-act="k' + i + '"><em>' + L[0] + "</em>" + (seen[i] ? "<span>" + esc(L[1]) + "</span>" : '<span class="q">Tap to look closely</span>') + "</button>").join("") + "</div>" +
@@ -996,7 +995,7 @@
   function hint2(id) {
     const f = flag, n = (k) => { const c = (E().f[k] || 0); set(k, c + 1); return c; };
     if (id === "b1") return !f("b:book") ? "Open the second book on the table." : "Tap the window and wait for three stars.";
-    if (id === "b2") return !has("pages") ? "The watch-repair shop: his lamp is lit now." : ["Use the loupe on each page: look at all three places before you judge.", "For the two clipped sheets: read the stamps, lay one over the other, and look behind them.", "His own hand lights and closes the frame. His own voice lights it but leaves it open. A machine and a deputy stay dark."][Math.min(2, n("hint:b2"))];
+    if (id === "b2") return !has("pages") ? "The watch-repair shop: his lamp is lit now." : ["Use the loupe on each page: look at all three places before you judge.", "For the two clipped sheets: read the stamps, lay one over the other, and look behind them.", "His own hand lights the frame, and so does his own recorded voice. A machine and a deputy stay dark."][Math.min(2, n("hint:b2"))];
     if (id === "b3") return !f("b:lamp") ? ["Follow the kerb from the corner of the stone that has been cut away. Look at each block.", "One block has Yoel’s lamp scratched on it: the last one along."][Math.min(1, n("hint:b3a"))] : !f("b:meas") ? "Tap the kerb. Lay the rod from the cut corner to the lamp and count the lengths yourself." : "Go back to the fifth block and reach into the gap.";
     if (id === "b4") return f("b:open") ? "Seat the plate beside the ring." : ["Three questions are engraved on the case. You measured the answer to the first.", "Yoel’s diagram in the journal answers the second. Match the letter his line points to.", "When did the priest sound the trumpet to begin the Sabbath? Slide the sun there."][Math.min(2, n("hint:b4"))];
     if (id === "b5") return !has("sheet") ? "Find Avi’s booth at Jaffa Gate." : "At the table, read the sheet closely, then slide it under the first and second frames.";
@@ -1038,7 +1037,7 @@
       airport: () => give("coffee"), city: () => ["bookread", "taxi", "steps", "book:book1", "book:book2", "book:address"].forEach((k) => set(k)),
       wall: () => { ["w1", "w2", "w3"].forEach((k) => set(k)); give("seventy"); }, chain: () => { give("key"); set("room"); set("heard:e2-1-room"); },
       table: () => { set("c1r", { A: "lit", B: "dark", C: "lit", D: "grey" }); set("c1"); set("book:c1"); }, roof: () => { set("ring"); set("ringMarks", [11, 27]); set("open"); },
-      b1: () => { ["b:book", "b:stars", "book:stone", "book:diagram"].forEach((k) => set(k)); }, b2: () => { give("pages"); give("loupe"); set("c2r", { A: "lit", B: "dark", C: "dark", D: "open2" }); set("c2"); set("book:c2"); },
+      b1: () => { ["b:book", "b:stars", "book:stone", "book:diagram"].forEach((k) => set(k)); }, b2: () => { give("pages"); give("loupe"); set("c2r", { A: "lit", B: "dark", C: "dark", D: "lit" }); set("c2"); set("book:c2"); },
       b3: () => { set("b:lamp"); set("b:meas", "3.1"); set("book:meas"); give("bcase"); }, b4: () => { set("b:open"); give("plate"); set("b:plate"); set("book:plate"); },
       b5: () => { give("sheet"); set("t13", { 1: 1, 2: 1 }); set("b:t13"); set("book:t13"); set("book:phase"); }, b6: () => { set("b:end"); set("book:table"); } };
     fill[id](); e.done[id] = 1; save();

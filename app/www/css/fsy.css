@@ -1161,7 +1161,6 @@
 #adv .e2-frame.shut small,#adv .e2-frame.shut b{color:#3A2806}
 #adv .e2-frame.open2{background:radial-gradient(circle at 50% 40%,#FFF3C4,#F5C451 60%,#C9A24A);box-shadow:0 0 14px rgba(245,196,81,.6);border-top-color:transparent;border-style:dashed}
 #adv .e2-frame.open2 b{color:#9E2416}
-#adv .e2-frame.lit::after{content:"";position:absolute;right:-6px;bottom:-6px;width:14px;height:14px;border-radius:50%;background:#9E2416;border:2px solid #FBF7EC}
 #adv .e2-frames.a2 .e2-frame.on{width:54px;height:68px}
 #adv .e2-two{display:flex;gap:10px;justify-content:center;margin:8px 0}
 #adv .e2-two span{flex:1;text-align:center}
