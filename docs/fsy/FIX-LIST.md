@@ -473,4 +473,4 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Objects: the inscribed stone, the brass case (the tool drew a Latin "A" in the letter window; painted out so it does not give or contradict the Hebrew answer), the sunset plate and ring, the four pages and loupe, the preacher's clock (replaces the drawn one).
 - Portraits: the street preacher, the ticket student.
 - Fixed: v6i added a second function named clockSVG, which replaced the painted-shutter clock in Act 1 with the preacher's clock. Removed.
-- Still stand-ins: the celebration at Jaffa Gate (13 Av).
+- The celebration at Jaffa Gate (13 Av): white bunting and olive branches, no flags (Richard did not want rainbow flags). The newspaper seller is now in the two old men's tap spot.

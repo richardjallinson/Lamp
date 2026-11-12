@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -691,10 +691,10 @@
         hots: [{ box: [69, 48, 12, 6], label: "The brass case", act: "bcase" }, { box: [62, 42, 7, 6], label: "Yoel's instrument", act: "binst" }] }] },
     { id: "b5", title: "The thirteenth of Av", act: "Scene 5", music: "e2-chain", amb: "market",
       task: () => (!has("sheet") ? "The first circled day. Go and listen." : !flag("b:t13") ? "Take the sheet back to Yoel's table and test it." : "Done."),
-      views: [{ id: "gate", img: "jaffa-1", cap: "Jaffa Gate: crowds, flags, strangers shaking hands", go: { fwd: "table" },
+      views: [{ id: "gate", img: "jaffa-celebration", cap: "Jaffa Gate: white bunting, olive branches, strangers shaking hands", go: { fwd: "table" },
           who: [{ id: "avi", name: "Avi's booth", act: "bavi" }],
-          hots: [{ box: [30, 40, 40, 30], label: "The crowd", text: "A man is pouring wine into paper cups. A girl has a flag painted on each cheek. Car horns, all the way down the Jaffa Road.", f: "b:crowd" },
-            { box: [72, 60, 22, 22], label: "A newspaper seller", text: "The headline is one word: PEACE.", f: "b:news" }] },
+          hots: [{ box: [0, 48, 55, 34], label: "The crowd", text: "A man is pouring wine into paper cups. Children run in a ring round the grown-ups. Car horns, all the way down the Jaffa Road.", f: "b:crowd" },
+            { box: [56, 50, 44, 48], label: "Two old men, embracing", text: "Two old men hold each other and do not let go. Someone beside you says: I never thought I would live to see this. A newspaper seller goes by. His front page is one word: PEACE.", f: "b:news" }] },
         { id: "table", img: "yoel-room", cap: "Yoel's table, the ring on 13 Av", go: { back: "gate" }, need: "sheet",
           hots: [{ box: [70, 40, 22, 15], label: "The frames", act: "btest" }, { box: [66, 56, 26, 8], label: "Yoel's instrument", act: "binst" }] }] },
     { id: "b6", title: "Jaffa Gate · Monday at sunset", act: "Scene 6", music: "e2-chain", amb: "market",
