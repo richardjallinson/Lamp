@@ -17,6 +17,7 @@
     return s.ep2;
   };
   const has = (k) => !!E().items[k];
+  const OBJ = (n) => '<img class="e2-obj" src="img/fsy/pz/' + n + '.jpg" alt="">';
   const give = (k) => { E().items[k] = 1; save(); };
   const flag = (k) => !!E().f[k];
   const set = (k, v) => { E().f[k] = v === undefined ? 1 : v; save(); };
@@ -110,7 +111,7 @@
             { box: [0, 44, 30, 40], label: "The bed", text: "Made tight, corners squared, the way soldiers make them. Or men who were soldiers once.", f: "r2" },
             { box: [38, 42, 15, 10], label: "The kettle and one cup", text: "One cup. Washed. Upside down to dry. He did not expect company until you.", f: "r3" },
             { box: [54, 38, 12, 6], label: "A photograph, face down", act: "photo" },
-            { box: [82, 24, 11, 10], label: "A postcard by the door", text: "From the Lamplighter, in his hand, years old: \u201cCome for Shabbat. Bring nothing.\u201d Never answered. A pin through the corner.", f: "r5" },
+            { box: [82, 24, 11, 10], label: "A postcard by the door", img: "e2-postcard", text: "From the Lamplighter, in his hand, years old: \u201cCome for Shabbat. Bring nothing.\u201d Never answered. A pin through the corner.", f: "r5" },
             { box: [70, 40, 22, 15], label: "The five frames", act: "frames" }] }] },
     { id: "table", title: "Yoel's table", act: "Scene 6", music: "m14", amb: "indoor",
       task: () => (flag("c1") ? "Done here." : "The first frame: slide each page under it."),
@@ -173,7 +174,7 @@
       const h = v.hots[+b.dataset.h]; K.sfx("click");
       if (h.act) return ACT[h.act.split(":")[0]](h.act.split(":")[1]);
       if (h.f) set(h.f);
-      K.card('<div class="kick">' + esc(scene.title) + "</div><h2>" + esc(h.label) + "</h2><p>" + esc(h.text) + '</p><button class="cta" data-act="x">Back</button>', { x: () => after() });
+      K.card('<div class="kick">' + esc(scene.title) + "</div><h2>" + esc(h.label) + "</h2>" + (h.img ? OBJ(h.img) : "") + "<p>" + esc(h.text) + '</p><button class="cta" data-act="x">Back</button>', { x: () => after() });
     }));
     el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { K.sfx("click"); ACT[v.who[+b.dataset.w].act](); }));
     el.querySelector("[data-j]").onclick = () => { K.sfx("click"); journal(); };
@@ -248,7 +249,7 @@
   };
   function book2() {
     give("book2"); set("book:pro");
-    K.card('<div class="kick">Inside the handle</div><h2>The second book</h2>' +
+    K.card('<div class="kick">Inside the handle</div><h2>The second book</h2>' + OBJ("e2-book2") +
       "<p>Rolled tight inside the hollow handle, a long strip of very thin paper. Unrolled and folded along its creases, it makes a small book of twenty pages. Not the journal: a second book. No stones, no cubits. A drawing of a brass instrument with a part missing, and a line of writing.</p>" +
       '<button class="cta" data-act="x">Read it</button>',
       { x: () => yoelCard("e2-pro-1", candle, "The sixth candle") });
@@ -369,7 +370,7 @@
             { x: () => walk(byId("chain").views.find((x) => x.id === "room")) }); },
         x: () => {} });
   }
-  ACT.photo = () => { set("r4"); K.card('<div class="kick">On the sill</div><h2>A photograph, face down</h2><p>Turned over: a young woman laughing on the steps of a building you recognise, the Temple Institute. No name on the back.</p><p class="fsmall">You put it back face down, the way he left it.</p><button class="cta" data-act="x">Back</button>', { x: after }); };
+  ACT.photo = () => { set("r4"); K.card('<div class="kick">On the sill</div><h2>A photograph, face down</h2>' + OBJ("e2-photo") + '<p>Turned over: a young woman laughing on the steps of a building you recognise, the Temple Institute. No name on the back.</p><p class="fsmall">You put it back face down, the way he left it.</p><button class="cta" data-act="x">Back</button>', { x: after }); };
   ACT.frames = () => {
     K.card('<div class="kick">On the table</div><h2>Five brass frames</h2><div class="e2-frames">' + [0, 1, 2, 3, 4].map(() => '<i class="e2-frame"></i>').join("") + "</div>" +
       "<p>Brass, empty, each the size of a page, in a row along the table. A word engraved under each, in Hebrew. You cannot read them yet.</p>" +
@@ -451,6 +452,9 @@
   /* Scene 7: the ring, then the roof */
   const AV = Array.from({ length: 30 }, (_, i) => i + 1);
   ACT.ring = () => {
+    if (!flag("instSeen")) { set("instSeen"); return K.card('<div class="kick">On the end of the table</div><h2>Yoel\u2019s instrument</h2>' + OBJ("e2-instrument") +
+      "<p>Brass, the size of a dinner plate. A ring that turns around a centre plate, a small red pointer at the top, a worn push-button, and beside it an empty slot where a part is missing.</p>" +
+      '<button class="cta" data-act="x">Turn the ring</button>', { x: ACT.ring }); }
     let at = E().f.ringAt || 1; const m = E().f.ringMarks || [];
     const draw = () => K.card('<div class="kick">Yoel’s instrument · a model, not a machine</div><h2>The ring of Av</h2>' + ringSVG(at, m) +
       '<div class="e2-step big"><button data-act="b7">«</button><button data-act="b1">‹</button><em>' + at + ' Av</em><button data-act="f1">›</button><button data-act="f7">»</button></div>' +

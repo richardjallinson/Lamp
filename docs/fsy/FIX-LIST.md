@@ -375,3 +375,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - (after v5s) Episode 2 portraits placed: watchmaker, clockseller, souvenir, taxidriver (img/fsy/people, originals in images/originals/fsy/people). Shown in the shop, watchmaker, clock and taxi cards.
 - (after v5s) Episode 2 scene pictures placed: home-table, desk-day, taxi-rank, jaffa-dusk, wall-9av (+ wall-9av-edge, a crop of the readers). Tap spots moved to match. The Stand-in label now shows only on Episode 1 photos.
 - (after v5s) Episode 2 scenes complete: chain-street, chain-shops (new view between the street and the room), yoel-room (room, table and instrument views), roof-sunset (looking west; first try had the sun over the Mount of Olives, redone). No Episode 1 stand-ins left except the airport and train views, which are Episode 1's own places.
+
+## v5t — Episode 2, Act 1: Richard's pictures in
+- Portraits: watchmaker, clock seller, souvenir seller, taxi driver.
+- Scenes: home-table, desk-day, taxi-rank, jaffa-dusk, wall-9av (+ edge crop), chain-street, chain-shops (a new view between the street and the room), yoel-room, roof-sunset (looking west). Tap spots moved to match. Only the airport and train still use Episode 1 photos (the same real places).
+- Objects (img/fsy/pz/e2-*): the second book (in the handle card), the postcard (room), the photograph (sill), the instrument (a first look before the ring; its engraved numbers are jumbled, so the turning ring stays drawn by the game).
+- Still to make: Yoel's seven lines (e2-*), Haller's two airport clips, Episode 2 music.

@@ -1138,3 +1138,4 @@
 #adv .e2-now.spring{animation:e2spring .4s ease}
 @keyframes e2spring{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.06)}100%{transform:scale(1)}}
 #adv .e2-sunset .cta.alt{background:rgba(12,18,40,.82);color:#F3E9CE;border:1px solid rgba(201,162,74,.55);max-width:420px}
+#adv .e2-obj{display:block;width:100%;max-width:300px;margin:6px auto 10px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
