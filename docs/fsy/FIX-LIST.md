@@ -372,3 +372,4 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Stand-ins: every picture is an Episode 1 photo, labelled "Stand-in picture" in tester builds. Yoel's seven lines (e2-*) show as cards and subtitles; when recorded, add their ids to HAVE in fsy-ep2.js and put the files in audio/narration as fsy-e2-*.mp3.
 - Open: the coffee cup shows "your name" because the game has no player name; new pictures and portraits per the script's asset list.
 - Tested by script at iPhone size: full playthrough without Skip, no errors.
+- (after v5s) Episode 2 portraits placed: watchmaker, clockseller, souvenir, taxidriver (img/fsy/people, originals in images/originals/fsy/people). Shown in the shop, watchmaker, clock and taxi cards.

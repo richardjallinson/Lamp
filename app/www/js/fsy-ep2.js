@@ -304,7 +304,7 @@
   };
   ACT.taxi = () => {
     set("taxi");
-    K.card('<div class="kick">The station taxi rank</div><h2>A driver heading home before sunset</h2>' +
+    K.card('<div class="kick">The station taxi rank</div><img class="e2-face" src="' + PP + 'taxidriver.jpg" alt=""><h2>A driver heading home before sunset</h2>' +
       '<p class="e2-said"><b>Driver</b> “Tonight many people will be fasting. Some businesses close, some don’t. The Wall will be full.”</p>' +
       '<p class="e2-said"><b>Driver</b> “Go and see it, if you can do so respectfully. You’ll understand something about this city.”</p>' +
       "<p>He drops you at Jaffa Gate. The map shows the way down through the Jewish Quarter.</p>" + '<button class="cta" data-act="x">Get out at Jaffa Gate</button>',
@@ -331,7 +331,8 @@
       sand: ["The souvenir shop", "Brass hourglasses, olive-wood boxes, postcards.", "\u201cSand and wood. Nothing that ticks.\u201d She points vaguely down the street.", "She shrugs. \u201cOld men come and go.\u201d", null, "The souvenir seller"],
       watch: ["The watch-repair shop", "Opened watches under glass, tiny tools. A clock face painted on the shutter, its hands fixed.", "The watchmaker looks up, and says nothing until he is asked the right thing.", null, "right", "The watchmaker"],
     }[which];
-    K.card('<div class="kick">The Street of the Chain</div><h2>' + S[0] + "</h2><p>" + S[1] + "</p>" + (reply ? '<p class="e2-said"><b>' + S[5] + "</b> " + esc(reply) + "</p>" : "") +
+    const FACE = { clocks: "clockseller", sand: "souvenir", watch: "watchmaker" }[which];
+    K.card('<div class="kick">The Street of the Chain</div><img class="e2-face" src="' + PP + FACE + '.jpg" alt=""><h2>' + S[0] + "</h2><p>" + S[1] + "</p>" + (reply ? '<p class="e2-said"><b>' + S[5] + "</b> " + esc(reply) + "</p>" : "") +
       '<div class="fsay"><button data-act="t">Talk to the keeper</button>' + (which !== "watch" ? '<button data-act="y">Ask about an old man with a stick</button>' : '<button data-act="y">Ask about Yoel</button><button data-act="c">Look at the painted clock</button>') +
       '<button data-act="d">Look at the door to the upstairs room</button></div><button class="cta alt" data-act="x">Back to the street</button>',
       { t: () => ACT.shop(which, S[2]),
@@ -349,12 +350,12 @@
     set("clock");
     K.card('<div class="kick">The painted shutter</div><h2>A clock that does not move</h2>' + clockSVG() +
       '<div class="fsay"><button data-act="a">Ask about it</button></div><button class="cta alt" data-act="x">Back</button>',
-      { a: () => { set("clockAsk"); K.card('<div class="kick">The watchmaker</div><p class="e2-said"><b>The watchmaker</b> “Nine twenty-seven. He asked me to paint it. He said it was not a time. It was a verse.”</p><p class="fsmall">Daniel 9:27.</p><button class="cta" data-act="x">Back</button>', { x: () => ACT.shop("watch") }); },
+      { a: () => { set("clockAsk"); K.card('<div class="kick">The watchmaker</div><img class="e2-face" src="' + PP + 'watchmaker.jpg" alt=""><p class="e2-said"><b>The watchmaker</b> “Nine twenty-seven. He asked me to paint it. He said it was not a time. It was a verse.”</p><p class="fsmall">Daniel 9:27.</p><button class="cta" data-act="x">Back</button>', { x: () => ACT.shop("watch") }); },
         x: () => ACT.shop("watch") });
   }
   function watchmaker(miss) {
     if (has("key")) { K.say("He nods at the stair door. “It is open for you.”", "", 3000); return; }
-    K.card('<div class="kick">The watch-repair shop</div><h2>The watchmaker</h2>' + (miss ? '<p class="e2-said"><b>The watchmaker</b> \u201cThat one is new. He never owned anything new.\u201d</p>' : "<p>He puts down his loupe.</p>") +
+    K.card('<div class="kick">The watch-repair shop</div><img class="e2-face" src="' + PP + 'watchmaker.jpg" alt=""><h2>The watchmaker</h2>' + (miss ? '<p class="e2-said"><b>The watchmaker</b> \u201cThat one is new. He never owned anything new.\u201d</p>' : "<p>He puts down his loupe.</p>") +
       '<p class="e2-said"><b>The watchmaker</b> “He said you would come on the fast. He said you would carry two rods. Show me his.”</p>' +
       '<div class="e2-rods"><button class="e2-rod" data-act="a">' + rodSVG(false) + "<span>The first rod</span></button>" +
       '<button class="e2-rod" data-act="b">' + rodSVG(true) + "<span>The second rod</span></button></div>" +
