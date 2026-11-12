@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
