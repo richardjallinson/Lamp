@@ -637,6 +637,8 @@
   BOOKP.push(
     ["stone", "The stone", "A squared stone with a niche cut in one corner. “From the cut corner, along the kerb, to my lamp. Measure it. You will need the number.”"],
     ["diagram", "Yoel's diagram", "A plan of the corner with eight ticks, each marked with a Hebrew letter. His line runs to the tick marked ה (he)."],
+    ["comfort", "The Sabbath of Comfort", "Shabbat Nachamu, the Sabbath after the Ninth of Av. “Comfort ye, comfort ye my people, saith your God.” Isaiah 40:1–2. The seventeen days open on it."],
+    ["preacher", "The street preacher", "Outside Jaffa Gate, a man with a Bible in his hand: “And when these things begin to come to pass, then look up, and lift up your heads; for your redemption draweth nigh.” Luke 21:28."],
     ["c2", "The second question: Who made it strong?", "Not a machine. Not a deputy. His own hand, or his own voice on the record. “A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own.”"],
     ["meas", "The measurement", ""],
     ["plate", "The sunset plate", "The day turns at sunset, and the minute changes every evening. Each line is the sunset that begins a Hebrew day. Two parts are still missing."],
@@ -651,11 +653,13 @@
 
   SC.push(
     { id: "b1", title: "Yoel's room · the Sabbath, 11 Av", act: "Scene 1", music: null, amb: "indoor",
-      task: () => (!flag("b:book") ? "The Sabbath. The watchmaker is closed until dark. Read." : !flag("b:stars") ? "Wait at the window for three stars." : "Done."),
-      views: [{ id: "room", img: "yoel-room", cap: "Yoel's room on the Sabbath morning. The street below is quiet",
+      task: () => (!flag("b:book") ? "The Sabbath. The watchmaker is closed until dark. Read." : !flag("b:preacher") ? "Hours until dark. Walk out as far as Jaffa Gate." : !flag("b:stars") ? "Back in Yoel’s room: wait at the window for three stars." : "Done."),
+      views: [{ id: "room", img: "yoel-room", cap: "Yoel's room on the Sabbath morning. The street below is quiet", go: { fwd: "gate" },
         hots: [{ box: [36, 9, 30, 30], label: "The window", act: "bwindow" }, { box: [38, 42, 15, 10], label: "The second book", act: "bbook" },
           { box: [70, 40, 22, 9], label: "The five frames", act: "bframes" }, { box: [66, 51, 26, 10], label: "Yoel's instrument", act: "binst" },
-          { box: [82, 14, 12, 24], label: "The stair door", act: "bstair" }] }] },
+          { box: [82, 14, 12, 24], label: "The stair door", act: "bstair" }] },
+        { id: "gate", img: "jaffa-1", cap: "Outside Jaffa Gate on the Sabbath afternoon. A man with a Bible in his hand is preaching", go: { back: "room" }, need: "b:book",
+          hots: [{ box: [30, 42, 40, 40], label: "The street preacher", act: "bpreacher" }] }] },
     { id: "b2", title: "After the Sabbath", act: "Scene 2", music: "e2-table", amb: "indoor",
       task: () => (!has("pages") ? "Three stars. Go down to the watchmaker." : !flag("c2") ? "At Yoel's table: the second frame." : "Done."),
       views: [{ id: "shops", img: "chain-shops", cap: "The street after dark. The watchmaker's shutter is half up, his lamp lit", go: { fwd: "room" },
@@ -692,7 +696,7 @@
         hots: [{ box: [20, 45, 50, 30], label: "The dancing", text: "A ring of dancers, hands on shoulders, going round faster than the band. Somebody pulls you in for half a turn and lets you go.", f: "b:dance" }] }] }
   );
   Object.assign(DONE, {
-    b1: () => flag("b:book") && flag("b:stars"), b2: () => flag("c2"), b3: () => has("bcase") && flag("b:meas"),
+    b1: () => flag("b:book") && flag("b:preacher") && flag("b:stars"), b2: () => flag("c2"), b3: () => has("bcase") && flag("b:meas"),
     b4: () => flag("b:plate"), b5: () => flag("b:t13"), b6: () => flag("b:end"),
   });
 
@@ -720,10 +724,24 @@
   };
   /* Scene 1: the Sabbath */
   ACT.bwindow = () => {
-    if (flag("b:book") && !flag("b:stars")) return stars();
+    if (flag("b:book") && flag("b:preacher") && !flag("b:stars")) return stars();
     set("b:w");
+    const comfort = () => { if (flag("book:comfort")) return after(); set("book:comfort");
+      K.card('<div class="kick">Through the window</div><h2>The Sabbath of Comfort</h2><p>From a synagogue down the street, a single voice reading. Today is the Sabbath after the Ninth of Av. They call it Shabbat Nachamu, after the first words of the reading:</p>' +
+        F.wnote("Comfort ye, comfort ye my people, saith your God. Speak ye comfortably to Jerusalem, and cry unto her, that her warfare is accomplished, that her iniquity is pardoned.") +
+        '<p class="fsmall">Isaiah 40:1–2. The seventeen days open on the Sabbath of Comfort.</p><button class="cta" data-act="x">Back</button>', { x: after }); };
     K.card('<div class="kick">The window</div><h2>The Street of the Chain</h2><p>Quiet. The watchmaker’s shutter is down, and so are most of the others. The painted clock still reads 9:27. Further along, one café has its door open.</p>' +
-      "<p>A grey car is parked where no car should be. Nobody is in it.</p><p class=\"fsmall\">You heard its door last night.</p>" + '<button class="cta" data-act="x">Back</button>', { x: after });
+      "<p>A grey car is parked where no car should be. Nobody is in it.</p><p class=\"fsmall\">You heard its door last night.</p>" + '<button class="cta" data-act="x">' + (flag("book:comfort") ? "Back" : "Listen") + "</button>", { x: comfort });
+  };
+  /* the street preacher outside Jaffa Gate (Richard's own meeting; he is never named) */
+  ACT.bpreacher = () => {
+    const verse = F.wnote("And when these things begin to come to pass, then look up, and lift up your heads; for your redemption draweth nigh.") + '<p class="fsmall">Luke 21:28</p>';
+    if (flag("b:preacher")) { K.card('<div class="kick">Outside Jaffa Gate</div><h2>The street preacher</h2><p>He is still there, the Bible open in his hand, preaching to whoever passes.</p>' + verse + '<button class="cta" data-act="x">Back</button>', { x: after }); return; }
+    K.card('<div class="kick">Outside Jaffa Gate</div><h2>A street preacher</h2><p>A man stands by the wall outside the gate with a Bible in his hand, preaching to whoever passes. Most do not stop. He does not seem to mind.</p>' + verse +
+      '<div class="fsay"><button data-act="h">Shake his hand and thank him</button></div><button class="cta alt" data-act="x">Walk on</button>',
+      { h: () => { set("b:preacher"); set("book:preacher"); K.buzz("success");
+          K.card('<div class="kick">Outside Jaffa Gate</div><h2>The street preacher</h2><p>You shake his hand and thank him. He nods, and goes back to the verse.</p><p>You walk in through the gate, into the Old City, toward the Jewish Quarter.</p><button class="cta" data-act="x">Back to Yoel’s room</button>', { x: () => walk(byId("b1").views[0]) }); },
+        x: () => { set("b:preacher"); set("book:preacher"); K.say("His voice follows you in through the gate.", "", 3000); walk(byId("b1").views[0]); } });
   };
   function stars() {
     let n = 0;
@@ -996,12 +1014,12 @@
       "<p>The ring has turned to 14 Av. The little shelter Yoel drew is on the 15th, which begins at the next sunset.</p>" +
       '<p class="fsmall">Prototype: Act 3, The Cottage in the Vineyard, is not written yet.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 2 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A2.forEach((id) => { delete e.done[id]; });
-        Object.keys(e.f).forEach((k) => { if (/^(b:|c2|t13|book:(stone|diagram|c2|meas|plate|strong|phase|t13|table)|heard:e2-2|seenAct:b)/.test(k)) delete e.f[k]; });
+        Object.keys(e.f).forEach((k) => { if (/^(b:|c2|t13|book:(stone|diagram|comfort|preacher|c2|meas|plate|strong|phase|t13|table)|heard:e2-2|seenAct:b)/.test(k)) delete e.f[k]; });
         ["loupe", "pages", "bcase", "plate", "sheet", "coffee2"].forEach((k) => delete e.items[k]); save(); go("b1"); } });
   }
   function hint2(id) {
     const f = flag, n = (k) => { const c = (E().f[k] || 0); set(k, c + 1); return c; };
-    if (id === "b1") return !f("b:book") ? "Open the second book on the table." : "Tap the window and wait for three stars.";
+    if (id === "b1") return !f("b:book") ? "Open the second book on the table." : !f("b:preacher") ? "Walk forward, out to Jaffa Gate. Someone is preaching there." : "Go back to the room, tap the window and wait for three stars.";
     if (id === "b2") return !has("pages") ? "The watch-repair shop: his lamp is lit now." : ["Use the loupe on each page: look at all three places before you judge.", "For the two clipped sheets: read the stamps, lay one over the other, and look behind them.", "His own hand lights the frame, and so does his own recorded voice. A machine and a deputy stay dark."][Math.min(2, n("hint:b2"))];
     if (id === "b3") return !f("b:lamp") ? ["Follow the kerb from the corner of the stone that has been cut away. Look at each block.", "One block has Yoel’s lamp scratched on it: the last one along."][Math.min(1, n("hint:b3a"))] : !f("b:meas") ? "Tap the kerb. Lay the rod from the cut corner to the lamp and count the lengths yourself." : "Go back to the fifth block and reach into the gap.";
     if (id === "b4") return f("b:open") ? "Seat the plate beside the ring." : ["Three questions are engraved on the case. You measured the answer to the first.", "Yoel’s diagram in the journal answers the second. Match the letter his line points to.", "When did the priest sound the trumpet to begin the Sabbath? Slide the sun there."][Math.min(2, n("hint:b4"))];
@@ -1044,7 +1062,7 @@
       airport: () => give("coffee"), city: () => ["bookread", "taxi", "steps", "book:book1", "book:book2", "book:address"].forEach((k) => set(k)),
       wall: () => { ["w1", "w2", "w3"].forEach((k) => set(k)); give("seventy"); }, chain: () => { give("key"); set("room"); set("heard:e2-1-room"); },
       table: () => { set("c1r", { A: "lit", B: "dark", C: "lit", D: "grey" }); set("c1"); set("book:c1"); }, roof: () => { set("ring"); set("ringMarks", [11, 27]); set("open"); },
-      b1: () => { ["b:book", "b:stars", "book:stone", "book:diagram"].forEach((k) => set(k)); }, b2: () => { give("pages"); give("loupe"); set("c2r", { A: "lit", B: "dark", C: "dark", D: "lit" }); set("c2"); set("book:c2"); },
+      b1: () => { ["b:book", "b:preacher", "b:stars", "book:stone", "book:diagram", "book:comfort", "book:preacher"].forEach((k) => set(k)); }, b2: () => { give("pages"); give("loupe"); set("c2r", { A: "lit", B: "dark", C: "dark", D: "lit" }); set("c2"); set("book:c2"); },
       b3: () => { set("b:lamp"); set("b:meas", "3.1"); set("book:meas"); give("bcase"); }, b4: () => { set("b:open"); give("plate"); set("b:plate"); set("book:plate"); },
       b5: () => { give("sheet"); set("t13", { 1: 1, 2: 1 }); set("b:t13"); set("book:t13"); set("book:phase"); set("book:strong"); }, b6: () => { set("b:end"); set("book:table"); } };
     fill[id](); e.done[id] = 1; save();

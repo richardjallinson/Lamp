@@ -441,3 +441,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Yoel's second-frame line (e2-2-c2, not yet recorded) now opens: "The verse does not say he makes a covenant. It says he makes one strong. So the second question is not who is named…"
 - 13 Av: after the President's radio line and before Avi's sheet, every player sees "The journal turns back · Made strong" with Daniel 9:27 (KJV). Without the seventy weeks page it begins "A line from the second book:".
 - New journal page "Made strong" (book:strong); "Play Act 2 again" clears it. No verdict added.
+
+## v6f — Act 2, Scene 1: the Sabbath of Comfort and the street preacher (Richard, 12 Nov 2026)
+- Through the window (first look): the reading for Shabbat Nachamu, Isaiah 40:1–2 (KJV), from Richard's commentary "From Fast to Feast". Journal page "The Sabbath of Comfort".
+- A second view in scene b1: outside Jaffa Gate on the Sabbath afternoon. "The street preacher" (unnamed, from Richard's own visit) with a Bible in his hand: Luke 21:28 (KJV). The player shakes his hand and thanks him, then walks in toward the Jewish Quarter. Journal page "The street preacher". The scene now runs: read the book, walk to the gate, three stars.
+- Stand-in picture for the gate (jaffa-1) until Richard's picture of the preacher is made; he is a tap spot until he has a portrait.
