@@ -366,7 +366,8 @@
       '<p class="fsmall">Look closely at the grips before you choose.</p><button class="cta alt" data-act="x">Not yet</button>',
       { a: () => { K.snd("bad"); K.buzz("error"); set("rodMiss", (E().f.rodMiss || 0) + 1); watchmaker(true); },
         b: () => { F.S("rod", "click", 0.6); K.buzz("success"); give("key");
-          K.card('<div class="kick">The watch-repair shop</div><p>He turns it once, nods, and gives it back with a key on a loop of string.</p><button class="cta" data-act="x">Up the stair</button>',
+          const fw = Lamp.fsyWalk, clip = fw && fw.adv && fw.H && fw.H.clip ? (fw.adv.CLIPS.add("watchmaker-key"), fw.H.clip("watchmaker-key")) : "";
+          K.card('<div class="kick">The watch-repair shop</div>' + clip + '<p>He turns it once, nods, and gives it back with a key on a loop of string.</p><button class="cta" data-act="x">Up the stair</button>',
             { x: () => walk(byId("chain").views.find((x) => x.id === "room")) }); },
         x: () => {} });
   }
