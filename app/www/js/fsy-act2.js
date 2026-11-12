@@ -579,6 +579,14 @@ Object.assign(C.PUZZLES, {
       CANDLE_X.slice(CANDLE_X.length - lit).map((x) => '<span class="fhan-flame" style="left:' + x + '%;top:19.5%"></span>').join("") + "</div>";
   }
   FW.hanukkiahHTML = hanukkiahHTML;
+  /* Richard, 12 Nov 2026: a note under the middle candle on the wall by Jaffa Gate (his own Hanukkah photograph). Pencilled in: found
+     here and kept (noteJohn); what it means is revealed later, with the note from Malachi's tomb. */
+  C.ACTS_FN.johnNote = () => {
+    const a = A(); if (!a.f.noteJohn) { a.f.noteJohn = 1; Lamp.save(); F.S("parchment", null, 0.5); }
+    K.card('<div class="kick">Under the middle candle</div><h2>A folded note</h2><p>At the foot of the wall, under the middle candle of the nine, a slip of paper is wedged between two stones.</p>' +
+      '<div class="v">And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon\u2019s porch.</div>' +
+      '<p class="fsmall">John 10:22\u201323. ' + (((K.A().p || {}).fsy || {}).noteMal ? "The same hand as the slip in Malachi\u2019s tomb. " : "A hand you have not seen before. ") + 'No lamp is drawn on it. You keep it.</p><button class="cta" data-act="x">Back</button>', { x: () => {} });
+  };
   C.ACTS_FN.endAct2 = () => {
     const a = A(), w = W();
     if (w.done.gtomb) { K.card('<div class="kick">Act 2</div><h2>The second night</h2>' + hanukkiahHTML(2) + '<button class="cta" data-act="x">Close</button>', { x: () => {} }); return; }

@@ -446,3 +446,8 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Through the window (first look): the reading for Shabbat Nachamu, Isaiah 40:1–2 (KJV), from Richard's commentary "From Fast to Feast". Journal page "The Sabbath of Comfort".
 - A second view in scene b1: outside Jaffa Gate on the Sabbath afternoon. "The street preacher" (unnamed, from Richard's own visit) with a Bible in his hand: Luke 21:28 (KJV). The player shakes his hand and thanks him, then walks in toward the Jewish Quarter. Journal page "The street preacher". The scene now runs: read the book, walk to the gate, three stars.
 - Stand-in picture for the gate (jaffa-1) until Richard's picture of the preacher is made; he is a tap spot until he has a portrait.
+
+## v6g — Episode 1: two notes pencilled in for a later reveal (Richard, 12 Nov 2026)
+- The Tombs of the Prophets: when the note in Malachi's niche is turned over, a second slip is folded inside it with Malachi 3:1–2 (KJV, Richard's wording), "in a hand you have not seen before". Flag P().noteMal. (js/fsy.js, malNote)
+- The dusk view by Jaffa Gate (Richard's Hanukkah wall-projection photograph): a new tap spot "Under the middle candle" with John 10:22–23 (KJV). Flag A().f.noteJohn. (js/fsy-act2.js johnNote; js/fsy-route.js)
+- Neither note has the Watchman's lamp. What they mean is revealed later (end of Episode 2 Act 5 or Episode 3: not decided). Not yet shown in the journal. Project doc: claude/LAMP-PENCILLED-CLUES.md.

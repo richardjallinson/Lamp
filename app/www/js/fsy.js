@@ -682,10 +682,19 @@
         '<button class="cta alt" data-act="x">Put it back</button>',
         Object.assign({ x: () => {} }, Object.fromEntries(PROPHETS.map((y) => [y.name, () => answer(x, y)]))));
     }
+    /* Richard, 12 Nov 2026: a second note by Malachi's tomb, pointing to the Lord's return. Pencilled in: it is found here and
+       kept (p.noteMal); what it means is revealed later (the end of Act 5 or Episode 3, not yet decided). Pairs with the note under the middle candle at Jaffa Gate. */
+    function malNote() {
+      const p2 = P(); if (!p2.noteMal) { p2.noteMal = 1; save(); }
+      return "<p>Folded inside it is a second slip, in a hand you have not seen before:</p>" +
+        '<div class="v">Behold, I will send my messenger, and he shall prepare the way before me:<br>and the Lord, whom ye seek, shall suddenly come to his temple,<br>even the messenger of the covenant, whom ye delight in:<br>behold, he shall come, saith the LORD of hosts.<br>But who may abide the day of his coming?<br>and who shall stand when he appeareth?<br>for he is like a refiner\u2019s fire, and like fullers\u2019 soap:</div>' +
+        '<p class="fsmall">Malachi 3:1\u20132. No lamp is drawn on it. You do not know who left it, or why. You keep it.</p>';
+    }
     function dated(x) {
       K.card('<div class="kick">The tomb of ' + esc(x.name) + '</div><h2>On the back of the note</h2>' + photo("w/tombs-niche-3.jpg", "A burial niche cut into the rock", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         wnote("“" + esc(x.date) + "”<small>" + esc(x.dref) + "</small>") +
         "<p>The front carries his word about the Temple (" + esc(x.ref) + "). The back carries the day he began to speak.</p>" +
+        (x.id === "malachi" ? malNote() : "") +
         '<button class="cta" data-act="x">Back to the passage</button>', { x: () => {} });
     }
     function answer(x, y) {
