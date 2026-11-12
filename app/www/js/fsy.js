@@ -132,7 +132,7 @@
     "w-jaffa-outside", "w-ramparts-stairs", "w-ramparts-golgotha", "w-jewish-cardo", "w-jewish-wallsteps", "w-wall-plaza", "w-wilson-hall", "w-tunnels-entry", "w-wallagain-arch2", "w-wallagain-clear",
     "w-bazaar-steps", "w-bazaar-lamps", "w-gtomb-garden", "w-gtomb-bench", "w-tunnels-sign", "w-tunnels-warren", "w-jaffa-parcel", "w-ramparts-storm"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
-  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "risen-song", "amb-airport", "amb-train", "amb-market", "amb-tram", "song"]);
+  const HAVE_M = new Set(["theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "risen-song", "amb-airport", "amb-train", "amb-market", "amb-tram", "song", "e2-wall", "e2-chain", "e2-table", "e2-roof"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }

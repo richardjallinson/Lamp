@@ -391,3 +391,7 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 ## v5v — Episode 2, Act 1: Yoel's voice in
 - Yoel's seven lines (fsy-e2-*.mp3, ElevenLabs "Ergun Kalbak"), processed with yoel.py like Episode 1. Originals in images/originals/fsy/audio/yoel.
 - Still to make: Episode 2 music.
+
+## v5w — Episode 2, Act 1: music in
+- Four tracks (Richard, ElevenLabs Music, 11 Nov), levelled to -20 LUFS, 96k, fades, 2:00 each: e2-wall "Candlelight Lament" (the Wall on 9 Av, which was silent before), e2-chain "Hidden Door In Stone" (Street of the Chain), e2-table "Upstairs Papers" (Yoel's table), e2-roof "Held Breath Over the Rooftops" (the roof at sunset). Originals in images/originals/fsy/audio/music.
+- Episode 2 Act 1 now has all its pictures, clips, voice and music.
