@@ -457,3 +457,12 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - With both halves, "Fit the two halves together" shows one scroll with a line readable across the tear: "His first coming, his second, or both?" Flag A().f.scrollFit.
 - The reference is Malachi 3:1–2 (Richard confirmed).
 - This opens a side quest ("when will He return?") that runs through the street preacher in Episode 2 (Luke 21:28) and is answered in Episode 3 (2 Thessalonians 2:3). Plan: claude/LAMP-PENCILLED-CLUES.md. Episode 2 does not read the Episode 1 flags yet.
+
+## v6i (12 Nov 2026) · the preacher's clock and the scroll's journal page
+
+Richard: the street preacher wrote the torn scroll (who he was is never told); 2 Thessalonians 2:3 is found at the watchmaker's in a clock he left; the scroll gets its own journal page.
+
+- Episode 2 Act 2 Scene 2: "Ask about the clock on the shelf that is not running" at the watch-repair shop (before or after taking the pages). A one-handed clock with three marks before twelve; a paper in the back with 2 Thessalonians 2:1 and 2:3 (KJV) and the three steps. Optional. New journal page "The preacher's clock". Cleared on replay.
+- The preacher's card notes the pencil hand in his Bible if the player holds a half of the scroll.
+- Episode 1 journal: new tab "The scroll" once a half is held (halves, joined scroll, and the clock once found). Tabs wrap to two rows.
+- Episode 2 journal: button "The torn scroll" opens the same page.

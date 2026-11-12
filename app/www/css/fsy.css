@@ -1206,3 +1206,15 @@
 #adv .fscroll2{margin:8px 0 12px}
 #adv .fscroll2 .fscrollhalf{margin:0}
 #adv .ftear{margin:-12px 0;position:relative;z-index:1;text-align:center;font:italic 700 15px Georgia,serif;color:#9E2416;text-shadow:0 0 6px #F8EFD6,0 0 6px #F8EFD6}
+
+/* the torn scroll's own journal page, and the preacher's clock (12 Nov 2026) */
+#adv .fjscroll .fscrollhalf{margin:8px 0}
+#adv .fjscroll .fscroll2 .fscrollhalf{margin:0}
+#adv .fjclock{margin-top:12px;padding-top:10px;border-top:1px solid #E6DCC4}
+#adv .fjclock b{font:700 14px var(--serif,Georgia,serif);color:#1F2A4A}
+#adv .fjclock .v small,#adv .fjscroll .v small{display:block;margin-top:6px;font:600 11px var(--ui);font-style:normal;color:#8A6A1C}
+#adv .e2-clock{display:block;width:min(200px,58%);margin:10px auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+#adv .e2-three{margin:6px 0 10px 22px;padding:0;font:italic 15px Georgia,serif;color:#3A2A14;line-height:1.6}
+#adv .fjscroll .fscrollhalf{display:block}
+#adv .asheet .fjtabs{flex-wrap:wrap}
+#adv .asheet .fjtabs button{min-width:30%}

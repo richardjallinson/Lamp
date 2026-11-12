@@ -674,6 +674,29 @@
   const HEBN = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "יא", "יב"];
   /* the journal in three parts (Gerry, Nov 3): Scripture (the lamps), the evidence (what you measured and found), and the Watchman's own pages.
      So the reasoning is visible: the player can see how a conclusion was reached, not just that it was. */
+  /* the torn scroll gets a page of its own (Richard, 12 Nov 2026): the halves the player holds, joined once they are fitted, and, from Episode 2,
+     the clock the street preacher left at the watchmaker's (2 Thessalonians 2:3). He wrote the scroll. Who he was is never told. */
+  const SCROLL_TOP = "Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple, even the messenger of the covenant, whom ye delight in: behold, he shall come, saith the LORD of hosts. But who may abide the day of his coming? and who shall stand when he appeareth? for he is like a refiner’s fire, and like fullers’ soap:";
+  const SCROLL_BOT = "And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon’s porch.";
+  function scrollState() {
+    const p = F.P(), f = (W().a || {}).f || {};
+    let clock = false; try { clock = !!(Lamp.ep2 && Lamp.ep2.state().f["b:clock"]); } catch (e) {}
+    return { top: !!p.noteMal, bot: !!f.noteJohn, fit: !!f.scrollFit, clock, n: (p.noteMal ? 1 : 0) + (f.noteJohn ? 1 : 0) };
+  }
+  function scrollHTML() {
+    const s = scrollState();
+    const top = '<div class="v fscrollhalf top">' + esc(SCROLL_TOP) + "<small>Malachi 3:1–2 · found folded in the note at Malachi’s tomb</small></div>";
+    const bot = '<div class="v fscrollhalf bot">' + esc(SCROLL_BOT) + "<small>John 10:22–23 · found in the wall by Jaffa Gate, at the middle candle</small></div>";
+    let h = '<div class="fjscroll"><p class="fjlead">A small scroll in a hand that is not the Watchman’s, torn in two and left in two places.</p>';
+    if (!s.n) h += "<p>You did not find either half. One was left at Malachi’s tomb and one in the wall by Jaffa Gate, in the winter.</p>";
+    else if (s.fit) h += '<div class="fscroll2">' + top + '<div class="ftear">His first coming, his second, or both?</div>' + bot + "</div><p><b>Joined.</b> The line across the tear can be read. Malachi said the Lord would come to his temple. John says he came, in winter, at the feast of the dedication. Malachi asks who can stand in the day of his coming.</p>";
+    else h += (s.top ? top : "") + (s.bot ? bot : "") + "<p>" + (s.n === 2 ? "You hold both halves. Look at either one again to fit them together." : s.top ? "The top half. The torn edge carries the tops of a few letters. The other half is somewhere else." : "The bottom half. The torn edge carries the bottoms of a few letters. The other half is somewhere else.") + "</p>";
+    if (s.clock) h += '<div class="fjclock"><b>The clock at the watchmaker’s</b><p>Left by the street preacher from Jaffa Gate. The paper in its back is in ' + (s.n ? "the same hand as the scroll" : "pencil, in his hand") + '.</p>' +
+      '<div class="v">Let no man deceive you by any means: for that day shall not come, except there come a falling away first, and that man of sin be revealed, the son of perdition;<small>2 Thessalonians 2:3</small></div>' +
+      "<p>Three marks before twelve: a falling away first; that man of sin revealed; that day, and our gathering together unto him. The hand has passed the first and stands a hair short of the second.</p></div>";
+    h += '<p class="fsmall">' + (s.clock ? (s.n ? "The street preacher wrote the scroll. " : "") + "Who he was, you were never told." : s.n ? "You do not know who wrote it, or why it was torn." : "") + "</p></div>";
+    return h;
+  }
   function journal(tab) {
     const w = W(), p = F.P();
     const got = Object.keys(w.pages).map(Number).sort((a, b) => a - b);
@@ -690,17 +713,19 @@
     const T = tab || w.flags.jtab || "pages";
     const tabs = [["scripture", "Scripture", nl + "/7"], ["evidence", "Evidence", String(notes.length + (H.factCount ? H.factCount() : 0))], ["pages", "The Watchman", got.length + "/12"]];
     if (H.peoplePage) tabs.push(["people", "People", String(H.peopleCount ? H.peopleCount() : "")]);
+    const sc = scrollState(); if (sc.n) tabs.push(["scroll", "The scroll", sc.fit ? "joined" : sc.n + "/2"]);
     K.card('<div class="kick">The Watchman’s journal</div><h2>' + got.length + " of 12 pages · " + nl + " of 7 lamps</h2>" + (w.flags.journalSold ? '<p class="fwarn">You sold the journal to Victor Haller at the Jerusalem Hotel. These are the pages as you remember them.</p>' : "") +
       '<div class="fjtabs">' + tabs.map((t) => '<button data-act="tab-' + t[0] + '" class="' + (T === t[0] ? "on" : "") + '">' + t[1] + "<small>" + t[2] + "</small></button>").join("") + "</div>" +
       (T === "scripture" ? '<div class="fjlamps">' + menorahHTML(L) + '<div class="fsmall">The Seven Lamps: ' + nl + " of 7 lit" + (nl ? "" : ". Each key scripture you find lights one.") + "</div>" +
         (nl ? '<div class="fjverses">' + LAMPS.filter((x) => L[x.n]).map((x) => '<div class="fjverse"><b>' + x.n + " · " + esc(x.ref) + "</b><p>“" + esc(x.text) + "”</p></div>").join("") + "</div>" : "") + "</div>" : "") +
       (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + (H.connections ? H.connections() : "") + "</div>" : "") +
       (T === "people" && H.peoplePage ? H.peoplePage() : "") +
+      (T === "scroll" ? scrollHTML() : "") +
       (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
       (H.journalExtra ? H.journalExtra() : "") + '<button class="cta" data-act="x">Roll up the journal</button>',
-      Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); }, "tab-people": () => { w.flags.jtab = "people"; save(); journal("people"); } }, H.journalActs ? H.journalActs() : {}));
+      Object.assign({ x: () => {}, "tab-scripture": () => { w.flags.jtab = "scripture"; save(); journal("scripture"); }, "tab-evidence": () => { w.flags.jtab = "evidence"; save(); journal("evidence"); }, "tab-pages": () => { w.flags.jtab = "pages"; save(); journal("pages"); }, "tab-people": () => { w.flags.jtab = "people"; save(); journal("people"); }, "tab-scroll": () => { w.flags.jtab = "scroll"; save(); journal("scroll"); } }, H.journalActs ? H.journalActs() : {}));
     const sh = document.querySelector(".ftorah-sheet"); if (sh) sh.scrollTop = 0;
   }
 
@@ -1596,7 +1621,7 @@
     map(); return true;
   }
 
-  Lamp.fsyWalk = { map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
+  Lamp.fsyWalk = { scrollHTML, scrollState, map, go: (id, v) => go(byId[id], v), finish, journal, page, hint, devSkip, route: R, acts: ACTS, pages: PAGES, W, isDone, next: nextScene,
     /* what the kept puzzles call when they are done */
     backpack, lockUI, keptDone(id) { finish(id, () => { const nx = R[byId[id].n]; if (nx) go(nx); else map(); }); },
     actCard, lightLamp, lamps, stats: () => st, H, core: { byId, V, walk: (v) => walk(v), finish, pzDone, page, save, isDone, nextScene, PUZZLES, ACTS_FN, TASK, PIN, wrong, find, earn: null } };

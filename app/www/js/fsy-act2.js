@@ -590,7 +590,7 @@ Object.assign(C.PUZZLES, {
       (mal ? '<button class="cta" data-act="fit">Fit the two halves together</button>' : "") + '<button class="cta alt" data-act="x">Back</button>', { x: () => {}, fit: C.ACTS_FN.fitScroll });
   };
   /* the two halves joined: one small scroll, and a question written across the tear. The side quest it opens ("when will He return?") runs through
-     the street preacher in Episode 2 (Luke 21:28) and is answered in Episode 3 (2 Thessalonians 2:3). See claude/LAMP-PENCILLED-CLUES.md. */
+     the street preacher in Episode 2 (Luke 21:28) and is answered by the clock he leaves at the watchmaker's in Episode 2 Act 2 (2 Thessalonians 2:3). He wrote the scroll; who he was is never told. See claude/LAMP-PENCILLED-CLUES.md. */
   C.ACTS_FN.fitScroll = () => {
     const a = A(); if (!a.f.scrollFit) { a.f.scrollFit = 1; Lamp.save(); F.S("parchment", null, 0.6); K.buzz("success"); }
     K.card('<div class="kick">The two halves</div><h2>One scroll</h2><p>The torn edges meet. It was one small scroll, in one hand, torn in two and left in two places.</p>' +

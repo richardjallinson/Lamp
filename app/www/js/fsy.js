@@ -683,7 +683,7 @@
         Object.assign({ x: () => {} }, Object.fromEntries(PROPHETS.map((y) => [y.name, () => answer(x, y)]))));
     }
     /* Richard, 12 Nov 2026: a second note by Malachi's tomb, pointing to the Lord's return. Pencilled in: it is found here and
-       kept (p.noteMal); what it means is revealed later (the end of Act 5 or Episode 3, not yet decided). Pairs with the note under the middle candle at Jaffa Gate. */
+       kept (p.noteMal); the street preacher of Episode 2 wrote it, and his clock at the watchmaker's answers it (2 Thessalonians 2:3). Pairs with the note under the middle candle at Jaffa Gate. */
     function malNote() {
       const p2 = P(); if (!p2.noteMal) { p2.noteMal = 1; save(); }
       return "<p>Folded inside it is a second slip, in a hand you have not seen before. It is the top half of a small scroll, torn straight across:</p>" +
