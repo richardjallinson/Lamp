@@ -417,3 +417,11 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 
 ## Signing (from v6b on)
 - project.pbxproj carries DEVELOPMENT_TEAM = 6Q528KH5G5 (Richard John Allinson) so Xcode opens with his team already chosen. Keep it in every build.
+
+## v6b — Episode 2, Act 2 prototype (The Trumpeting Stone)
+- Built from the second-draft script (Gerry 8.5/10, "ready to prototype") in js/fsy-ep2.js: six scenes b1–b6 after the roof. Stand-in pictures from Episode 1 (robinson-*, jaffa-1) are labelled; Yoel's four lines (e2-2-*) and the President's radio line are text only until recorded.
+- b1 the Sabbath room (second book: the stone and Yoel's diagram; three stars at the window). b2 the watchmaker's loupe and four pages; the second frame "Who made it strong?" (hand lit and closed; machine and deputy dark; voice lit but open). b3 the fallen stones: find Yoel's lamp on the fifth block, lay the rod yourself and say what you counted (wrong corner gives four cubits and two hands; re-measure any time). b4 the brass case: how far / which way (a Hebrew letter, ה) / when (sunset); the shadow shows which setting is wrong. Inside, the sunset plate; the ring then shows "Sunset that begins N Av". b5 Avi's radio, the "Framework of Peace · Second Phase" sheet, frames 1 and 2 (3–5 shut). b6 Haller raises a coffee; the TABLE cup (take or leave; the journal notes it either way).
+- Frame states: shut (not yet learned), lit with a seal (closed), lit with a broken border and the word "open", dark, grey.
+- Episode 2 now opens with the "A work of fiction" card. Act 1 text: the instrument is missing three parts, not one. Act 1's end card has "Go on to Act 2".
+- Sunset times on the plate are calculated, not yet checked against a published table. Backpack: "Haller's coffee, 23A" and "Haller's coffee, TABLE".
+- From this build the Xcode project carries Richard's development team.

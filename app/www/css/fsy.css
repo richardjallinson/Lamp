@@ -1155,3 +1155,52 @@
 #adv .e2-look span.q{font:500 13px var(--ui);color:#8A8270}
 #adv .e2-calls{display:flex;gap:8px;margin:6px 0 10px}
 #adv .e2-calls button{flex:1;padding:12px 6px;border-radius:10px;border:2px solid #B08A2E;background:linear-gradient(180deg,#F6E3A8,#D9B458);font:700 13px var(--ui);color:#2A2010;cursor:pointer}
+
+/* ---------- Episode 2, Act 2 (prototype) ---------- */
+#adv .e2-frame.shut{opacity:1;background:repeating-linear-gradient(180deg,#B08A3A 0 5px,#8A6A22 5px 7px);border-color:#6A4A0E}
+#adv .e2-frame.shut small,#adv .e2-frame.shut b{color:#3A2806}
+#adv .e2-frame.open2{background:radial-gradient(circle at 50% 40%,#FFF3C4,#F5C451 60%,#C9A24A);box-shadow:0 0 14px rgba(245,196,81,.6);border-top-color:transparent;border-style:dashed}
+#adv .e2-frame.open2 b{color:#9E2416}
+#adv .e2-frame.lit::after{content:"";position:absolute;right:-6px;bottom:-6px;width:14px;height:14px;border-radius:50%;background:#9E2416;border:2px solid #FBF7EC}
+#adv .e2-frames.a2 .e2-frame.on{width:54px;height:68px}
+#adv .e2-two{display:flex;gap:10px;justify-content:center;margin:8px 0}
+#adv .e2-two span{flex:1;text-align:center}
+#adv .e2-two em{display:block;font:600 12px var(--ui);color:#5A4420;font-style:normal}
+#adv .e2-two .e2-frames{margin:4px 0}
+#adv .e2-seats{display:flex;gap:8px;margin:10px 0}
+#adv .e2-seats span{flex:1;text-align:center;border:2px dashed #B9A46C;border-radius:10px;padding:8px 4px;min-height:64px}
+#adv .e2-seats span.in{border-style:solid;background:linear-gradient(180deg,#F6E3A8,#D9B458)}
+#adv .e2-seats b{display:block;height:22px;font-size:18px;color:#6A4A0E}
+#adv .e2-seats em{display:block;font:italic 500 11px/1.25 var(--serif,Georgia,serif);color:#5A4420}
+#adv .e2-sunline{text-align:center;font:500 14px var(--ui);color:#3A2806;background:#F6E9C4;border-radius:8px;padding:8px}
+#adv .e2-dusk{position:relative;height:120px;border-radius:12px;margin:8px 0 12px;background:linear-gradient(180deg,#1B2350,#4A3F6E 70%,#8A5A58)}
+#adv .e2-dusk i{position:absolute;width:6px;height:6px;border-radius:50%;background:#FFF6D0;opacity:0;transition:opacity .8s;box-shadow:0 0 10px 3px rgba(255,246,208,.8)}
+#adv .e2-dusk i.on{opacity:1}
+#adv .e2-draw{display:block;width:100%;max-width:340px;margin:8px auto;border-radius:6px;border:1px solid #CDBF9C}
+#adv .e2-draw.dial{max-width:190px}
+#adv .e2-sig{display:block;width:100%;max-width:300px;margin:4px auto 8px;border:1px solid #D8CDB4;border-radius:4px}
+#adv .e2-calls.four{flex-wrap:wrap}
+#adv .e2-calls.four button{flex:1 1 44%}
+#adv .e2-calls.five button{font-size:17px;padding:12px 0}
+#adv .e2-calls.five button.did{background:linear-gradient(180deg,#FFF3C4,#F5C451);box-shadow:0 0 10px rgba(245,196,81,.7)}
+#adv .e2-case{gap:8px}
+#adv .e2-casebox{width:100%;max-width:420px}
+#adv .e2-casesvg{display:block;width:100%;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+#adv .e2-casesay{min-height:40px;margin:8px 2px 0;font:500 14px/1.4 var(--ui);color:#F3E9CE;text-align:center}
+#adv .e2-case .e2-inst{width:100%;max-width:420px;box-sizing:border-box;padding:10px 12px;border-radius:12px;background:#F6EFDC;display:block}
+#adv .e2-engr{display:block;text-align:center;font:italic 600 12px var(--serif,Georgia,serif);color:#6A4A0E;margin-bottom:6px}
+#adv .e2-row{display:flex;align-items:center;gap:8px;margin:6px 0}
+#adv .e2-row>b{flex:0 0 78px;font:700 12px var(--ui);letter-spacing:.06em;text-transform:uppercase;color:#6A4A0E}
+#adv .e2-row .e2-step{flex:1;margin:0;display:flex;align-items:center;justify-content:space-between;gap:4px}
+#adv .e2-row .e2-step button{width:40px;height:40px;border-radius:8px;border:1px solid #B08A2E;background:#FBF7EC;font:700 20px var(--ui);color:#3A2806}
+#adv .e2-row .e2-step em{font:700 14px var(--ui);font-style:normal;color:#2A2010;min-width:58px;text-align:center}
+#adv .e2-row input[type=range]{flex:1;height:36px;accent-color:#B08A2E}
+#adv .e2-rg{flex:1;min-width:0}
+#adv .e2-rg input{width:100%;display:block}
+#adv .e2-marks{position:relative;height:16px;margin:0 12px}
+#adv .e2-marks span{position:absolute;transform:translateX(-50%);font:600 10px var(--ui);color:#6A4A0E;white-space:nowrap}
+#adv .e2-jbtn{display:block;width:100%;margin-top:6px;padding:9px;border-radius:8px;border:1px solid #B9A46C;background:#FBF7EC;font:600 13px var(--ui);color:#3A2806}
+#adv .e2-jbox{margin-top:6px;font:500 13px/1.4 var(--ui);color:#2A2A3A}
+#adv .e2-jbox p{margin:4px 0}
+#adv .e2-caseend{display:flex;gap:8px;width:100%;max-width:420px}
+#adv .e2-caseend .cta{flex:1;margin:0;font-size:14px}
