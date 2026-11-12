@@ -282,7 +282,7 @@
     if (has("coffee")) { K.say("He has gone. The second coffee is in your bag.", "", 3000); return; }
     const face = '<img class="e2-face" src="' + PP + 'haller.jpg" alt="Haller">';
     const said = (t) => '<p class="e2-said"><b>Haller</b> “' + esc(t) + "”</p>";
-    K.card('<div class="kick">The arrivals hall</div>' + (clip("haller-coffee") || face) + "<h2>Haller</h2><p>Waiting by the pillars, not hiding. The grey coat over his arm in the heat. Two iced coffees.</p>" +
+    K.card('<div class="kick">The arrivals hall</div>' + (clip("haller-coffee") || face) + "<h2>Haller</h2><p>Waiting by the pillars, not hiding. The grey coat on, even in this heat. Two iced coffees.</p>" +
       said("Iced. I guessed. You may want something before sunset. A great many people will be fasting tonight.") + said("We are both waiting for the same seventeen days.") +
       '<p class="fsmall">A pause.</p>' + said("The difference is, I know what happens if the page is filled.") +
       '<div class="fsay"><button data-act="a">“What page?”</button><button data-act="b">“How did you know I was coming?”</button><button data-act="c">Say nothing.</button></div>',

@@ -400,3 +400,6 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - airport-hall-august (the arrivals hall) and wallsteps-dusk (the steps above the Wall) replace the Episode 1 stand-ins. Note: wallsteps-dusk shows the sun low beside the Dome, which is east of the viewer; Richard may regenerate it with the sun behind the viewer.
 - Passport control, the train and the Cardo lane reuse Episode 1's pictures on purpose; the stand-in label is off them.
 - "11 Av. The window is open." now sits on a dark plate and stays on screen (it used to fade out over the clip).
+
+## v5y — Haller's coffee clip remade
+- haller-coffee: new clip (whole head in frame, two takeaway cups, by a pillar), 9 s. The first version is kept as haller-coffee-v1 in the originals. Card text: "The grey coat on, even in this heat."
