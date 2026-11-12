@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -680,11 +680,11 @@
           hots: [{ box: [0, 42, 22, 38], label: "The ticket window", act: "bticket" }] },
         { id: "street", img: "excavation-street", cap: "The paved street under the wall. High up, the stub of Robinson's Arch", go: { back: "ticket", fwd: "stones" },
           hots: [{ box: [50, 0, 20, 40], label: "The corner above", text: "The south-west corner of the Mount, against the sky. The sun is over your shoulder. Up there, they say, a priest stood with a trumpet.", f: "b:corner" }] },
-        { id: "stones", img: "robinson-fallen", cap: "The heap of fallen stones, left where they fell", go: { back: "street" },
-          hots: [{ box: [4, 30, 26, 24], label: "The inscribed stone", act: "bstone" }, { box: [4, 58, 20, 14], label: "The sign beside it", act: "bsign" },
-            { box: [32, 62, 12, 12], label: "A fallen block", act: "bblock:1" }, { box: [46, 58, 12, 12], label: "A fallen block", act: "bblock:2" }, { box: [60, 62, 12, 12], label: "A fallen block", act: "bblock:3" },
-            { box: [72, 54, 12, 12], label: "A fallen block", act: "bblock:4" }, { box: [84, 60, 13, 13], label: "A fallen block", act: "bblock:5" },
-            { box: [30, 80, 60, 12], label: "The kerb: measure with the rod", act: "bmeasure" }] }] },
+        { id: "stones", img: "fallen-stones", cap: "The heap of fallen stones, left where they fell", go: { back: "street" },
+          hots: [{ box: [2, 44, 38, 44], label: "The inscribed stone", act: "bstone" }, { box: [2, 90, 36, 9], label: "The sign beside it", act: "bsign" },
+            { box: [41, 75, 15, 11], label: "A fallen block", act: "bblock:1" }, { box: [57, 74, 11, 10], label: "A fallen block", act: "bblock:2" }, { box: [68, 73, 11, 9], label: "A fallen block", act: "bblock:3" },
+            { box: [79, 72, 10, 8], label: "A fallen block", act: "bblock:4" }, { box: [89, 70, 9, 8], label: "A fallen block", act: "bblock:5" },
+            { box: [40, 86, 58, 6], label: "The kerb: measure with the rod", act: "bmeasure" }] }] },
     { id: "b4", title: "The brass case · 12 Av, late afternoon", act: "Scene 4", music: "e2-table", amb: "indoor",
       task: () => (!flag("b:open") ? "Open the brass case. How far. Which way. When." : !flag("b:plate") ? "Seat the plate beside the ring." : "Done."),
       views: [{ id: "table", img: "yoel-room-dusk", cap: "Back at Yoel's table, the brass case in the last of the light",
