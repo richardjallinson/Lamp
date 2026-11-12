@@ -387,3 +387,7 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - roof-sunset: the clip is the sky on the roof, muted, at half speed; "the sun has gone" at 2.6 s of the clip. If it cannot play, the drawn sky is used.
 - Haller's card now says "Two iced coffees" to match the clips.
 - Still to make: Yoel's seven lines (e2-*), Episode 2 music.
+
+## v5v — Episode 2, Act 1: Yoel's voice in
+- Yoel's seven lines (fsy-e2-*.mp3, ElevenLabs "Ergun Kalbak"), processed with yoel.py like Episode 1. Originals in images/originals/fsy/audio/yoel.
+- Still to make: Episode 2 music.
