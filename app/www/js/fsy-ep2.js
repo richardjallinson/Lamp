@@ -11,7 +11,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -670,7 +670,7 @@
           hots: [{ box: [30, 42, 40, 40], label: "The street preacher", act: "bpreacher" }] }] },
     { id: "b2", title: "After the Sabbath", act: "Scene 2", music: "e2-table", amb: "indoor",
       task: () => (!has("pages") ? "Three stars. Go down to the watchmaker." : !flag("c2") ? "At Yoel's table: the second frame." : "Done."),
-      views: [{ id: "shops", img: "chain-shops", cap: "The street after dark. The watchmaker's shutter is half up, his lamp lit", go: { fwd: "room" },
+      views: [{ id: "shops", img: "chain-shops-night", cap: "The street after dark. The watchmaker's shutter is half up, his lamp lit", go: { fwd: "room" },
           hots: [{ box: [70, 38, 27, 46], label: "The watch-repair shop", act: "bwatch" }] },
         { id: "room", img: "yoel-room-night", cap: "Yoel's table at night", go: { back: "shops" }, need: "pages",
           hots: [{ box: [72, 40, 20, 14], label: "The second frame", act: "c2" }, { box: [64, 43, 7, 8], label: "Yoel's instrument", act: "binst" }] }] },
