@@ -276,11 +276,13 @@
   FINISH.desk = () => K.card('<div class="kick">Leaving</div><h2>Seventeen days</h2><p>Seventeen days left blank. Two of them circled. One with a little drawing of a shelter. He knew about the seventeen days. You still don’t know how.</p>' +
     '<button class="cta" data-act="x">To the airport</button>', { x: () => { note("lamplighter", "His desk is empty. He marked seventeen days of Av."); walk(view); } });
   /* Scene 2: Haller */
+  /* Richard's clips: reuse Episode 1's player (tap to replay, music dips while it plays) */
+  const clip = (id) => { const fw = Lamp.fsyWalk; if (!fw || !fw.adv || !fw.H || !fw.H.clip) return ""; fw.adv.CLIPS.add(id); return fw.H.clip(id); };
   ACT.haller = () => {
     if (has("coffee")) { K.say("He has gone. The second coffee is in your bag.", "", 3000); return; }
     const face = '<img class="e2-face" src="' + PP + 'haller.jpg" alt="Haller">';
     const said = (t) => '<p class="e2-said"><b>Haller</b> “' + esc(t) + "”</p>";
-    K.card('<div class="kick">The arrivals hall</div>' + face + "<h2>Haller</h2><p>Waiting by the pillars, not hiding. The grey coat over his arm in the heat. Two paper coffees.</p>" +
+    K.card('<div class="kick">The arrivals hall</div>' + (clip("haller-coffee") || face) + "<h2>Haller</h2><p>Waiting by the pillars, not hiding. The grey coat over his arm in the heat. Two iced coffees.</p>" +
       said("Iced. I guessed. You may want something before sunset. A great many people will be fasting tonight.") + said("We are both waiting for the same seventeen days.") +
       '<p class="fsmall">A pause.</p>' + said("The difference is, I know what happens if the page is filled.") +
       '<div class="fsay"><button data-act="a">“What page?”</button><button data-act="b">“How did you know I was coming?”</button><button data-act="c">Say nothing.</button></div>',
@@ -291,7 +293,7 @@
       said("Tell me only this. What does he believe belongs on the Mount? Not where. You found where. What.") +
       '<div class="fsay"><button data-act="a">“I don’t know.”</button><button data-act="b">“Ask him yourself.”</button></div>',
       { a: () => q3('<p class="fsmall">It is true, and he believes you. That is worse.</p>'), b: () => q3(said("I would, if anyone could find him.")) });
-    const q3 = (h) => K.card('<div class="kick">The arrivals hall</div>' + h + "<p>He puts the second coffee down on the ledge beside you, nods, and is gone into the crowd at the doors.</p>" +
+    const q3 = (h) => K.card('<div class="kick">The arrivals hall</div>' + h + clip("haller-leaves") + "<p>He puts the second coffee down on the ledge beside you, nods, and is gone into the crowd at the doors.</p>" +
       '<button class="cta" data-act="x">Pick up the cup</button>',
       { x: () => { give("coffee"); note("haller", "At the airport: “We are both waiting for the same seventeen days.”");
         K.card('<div class="e2-cup"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M20 20h80l-8 120H28z" fill="#EFE7D6" stroke="#B9AD92" stroke-width="2"/><path d="M14 10h92v14H14z" fill="#3A3A3A"/><text x="60" y="88" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="17" fill="#1F2A6B" transform="rotate(-6 60 88)">' + esc(playerName()) + "</text></svg></div>" +
@@ -366,8 +368,7 @@
       '<p class="fsmall">Look closely at the grips before you choose.</p><button class="cta alt" data-act="x">Not yet</button>',
       { a: () => { K.snd("bad"); K.buzz("error"); set("rodMiss", (E().f.rodMiss || 0) + 1); watchmaker(true); },
         b: () => { F.S("rod", "click", 0.6); K.buzz("success"); give("key");
-          const fw = Lamp.fsyWalk, clip = fw && fw.adv && fw.H && fw.H.clip ? (fw.adv.CLIPS.add("watchmaker-key"), fw.H.clip("watchmaker-key")) : "";
-          K.card('<div class="kick">The watch-repair shop</div>' + clip + '<p>He turns it once, nods, and gives it back with a key on a loop of string.</p><button class="cta" data-act="x">Up the stair</button>',
+          K.card('<div class="kick">The watch-repair shop</div>' + clip("watchmaker-key") + '<p>He turns it once, nods, and gives it back with a key on a loop of string.</p><button class="cta" data-act="x">Up the stair</button>',
             { x: () => walk(byId("chain").views.find((x) => x.id === "room")) }); },
         x: () => {} });
   }
@@ -478,7 +479,7 @@
     if (!flag("heard:e2-1-sunset")) return yoelCard("e2-1-sunset", ACT.sunset, "Watch the sun go");
     let at = 27, sun = 0, gone = false, timer = 0, pressed = false;
     const box = document.createElement("div"); box.className = "e2-sunset";
-    box.innerHTML = '<div class="e2-sky"><div class="e2-sun" id="e2sun"></div><div class="e2-roofs"></div><div class="e2-sunstate" id="e2state">The sun is still up.</div></div>' +
+    box.innerHTML = '<div class="e2-sky"><video class="e2-skyv" src="video/fsy/roof-sunset.mp4" poster="video/fsy/roof-sunset.jpg" muted playsinline preload="auto"></video><div class="e2-sun" id="e2sun"></div><div class="e2-roofs"></div><div class="e2-sunstate" id="e2state">The sun is still up.</div></div>' +
       '<div class="e2-inst"><div id="e2ring"></div><div class="e2-step big"><button data-s="-1" aria-label="One day back">\u2039</button><em id="e2at"></em><button data-s="1" aria-label="One day on">\u203a</button></div>' +
       '<button class="e2-now" id="e2now">now</button><small>The brass marker, worn bright</small></div>' +
       '<button class="cta alt" id="e2leave">Leave the roof</button>';
@@ -497,7 +498,17 @@
     };
     box.querySelector("#e2leave").onclick = () => { clearInterval(timer); box.remove(); };
     const root = K.root(); if (!root) return; root.appendChild(box); ring(); sky();
-    timer = setInterval(() => { if (!box.isConnected) return clearInterval(timer); sun = Math.min(100, sun + 2); if (sun >= 100) { gone = true; clearInterval(timer); } sky(); }, 300);
+    /* the sun goes down in Richard's clip, played at half speed; the sun is under the hills by 2.6 s of the clip.
+       If the clip cannot play, the drawn sky does the same job. */
+    const v = box.querySelector(".e2-skyv"); let drawn = false;
+    const drawSky = () => { if (drawn || gone) return; drawn = true; v.remove(); box.classList.remove("vid");
+      timer = setInterval(() => { if (!box.isConnected) return clearInterval(timer); sun = Math.min(100, sun + 2); if (sun >= 100) { gone = true; clearInterval(timer); } sky(); }, 300); };
+    box.classList.add("vid");
+    v.addEventListener("error", drawSky);
+    v.addEventListener("timeupdate", () => { if (!gone && v.currentTime >= 2.6) { gone = true; sky(); } });
+    v.addEventListener("loadedmetadata", () => { v.playbackRate = 0.5; });
+    const p = v.play(); if (p && p.catch) p.catch(drawSky); else if (!p) setTimeout(() => { if (v.paused) drawSky(); }, 1500);
+    v.playbackRate = 0.5;
   };
   function endAct() {
     E().done.roof = 1; save();

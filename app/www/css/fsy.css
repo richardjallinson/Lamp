@@ -1127,6 +1127,9 @@
 #adv .e2-page p{margin:3px 0 0;font-size:14px}
 #adv .e2-sunset{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;gap:10px;padding:calc(60px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px));background:#0A0E22;overflow-y:auto}
 #adv .e2-sky{position:relative;width:100%;max-width:420px;height:36vh;min-height:200px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#F2B35E 0%,#E07B48 55%,#7A3A4A 100%);transition:background 1.2s}
+#adv .e2-skyv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+#adv .e2-sunset.vid .e2-sun,#adv .e2-sunset.vid .e2-roofs{display:none}
+#adv .e2-sunset.vid .e2-sky,#adv .e2-sunset.vid.dusk .e2-sky{background:#2A2440}
 #adv .e2-sunset.dusk .e2-sky{background:linear-gradient(180deg,#2A3566 0%,#5A4A78 55%,#2A2440 100%)}
 #adv .e2-sun{position:absolute;left:50%;width:74px;height:74px;margin-left:-37px;border-radius:50%;background:radial-gradient(circle,#FFF6D0,#FFD27A 60%,#F2A040);box-shadow:0 0 50px 16px rgba(255,200,110,.6);transition:top .3s linear}
 #adv .e2-roofs{position:absolute;left:0;right:0;bottom:0;height:34%;background:#1A1426;clip-path:polygon(0 40%,8% 40%,8% 22%,16% 22%,16% 44%,26% 44%,30% 18%,34% 44%,46% 44%,46% 30%,56% 30%,62% 8%,68% 30%,78% 30%,78% 46%,90% 46%,90% 26%,100% 26%,100% 100%,0 100%)}

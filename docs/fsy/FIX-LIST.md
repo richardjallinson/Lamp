@@ -381,3 +381,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - Scenes: home-table, desk-day, taxi-rank, jaffa-dusk, wall-9av (+ edge crop), chain-street, chain-shops (a new view between the street and the room), yoel-room, roof-sunset (looking west). Tap spots moved to match. Only the airport and train still use Episode 1 photos (the same real places).
 - Objects (img/fsy/pz/e2-*): the second book (in the handle card), the postcard (room), the photograph (sill), the instrument (a first look before the ring; its engraved numbers are jumbled, so the turning ring stays drawn by the game).
 - Still to make: Yoel's seven lines (e2-*), Haller's two airport clips, Episode 2 music.
+
+## v5u — Episode 2, Act 1: Richard's clips in
+- haller-coffee (first Haller card, 8 s), haller-leaves (the card where he goes, 7.5 s, starts at 2.5 s of the original), watchmaker-key (the key card, trimmed to 3.5–10 s to skip the glasses glitch). They use Episode 1's clip player.
+- roof-sunset: the clip is the sky on the roof, muted, at half speed; "the sun has gone" at 2.6 s of the clip. If it cannot play, the drawn sky is used.
+- Haller's card now says "Two iced coffees" to match the clips.
+- Still to make: Yoel's seven lines (e2-*), Episode 2 music.
