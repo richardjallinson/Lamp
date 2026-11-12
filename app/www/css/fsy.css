@@ -1159,13 +1159,7 @@
 /* ---------- Episode 2, Act 2 (prototype) ---------- */
 #adv .e2-frame.shut{opacity:1;background:repeating-linear-gradient(180deg,#B08A3A 0 5px,#8A6A22 5px 7px);border-color:#6A4A0E}
 #adv .e2-frame.shut small,#adv .e2-frame.shut b{color:#3A2806}
-#adv .e2-frame.open2{background:radial-gradient(circle at 50% 40%,#FFF3C4,#F5C451 60%,#C9A24A);box-shadow:0 0 14px rgba(245,196,81,.6);border-top-color:transparent;border-style:dashed}
-#adv .e2-frame.open2 b{color:#9E2416}
 #adv .e2-frames.a2 .e2-frame.on{width:54px;height:68px}
-#adv .e2-two{display:flex;gap:10px;justify-content:center;margin:8px 0}
-#adv .e2-two span{flex:1;text-align:center}
-#adv .e2-two em{display:block;font:600 12px var(--ui);color:#5A4420;font-style:normal}
-#adv .e2-two .e2-frames{margin:4px 0}
 #adv .e2-seats{display:flex;gap:8px;margin:10px 0}
 #adv .e2-seats span{flex:1;text-align:center;border:2px dashed #B9A46C;border-radius:10px;padding:8px 4px;min-height:64px}
 #adv .e2-seats span.in{border-style:solid;background:linear-gradient(180deg,#F6E3A8,#D9B458)}

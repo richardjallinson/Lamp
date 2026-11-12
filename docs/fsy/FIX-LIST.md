@@ -430,3 +430,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - On the Danielic Chronology project's advice (12 Nov 2026): a recorded statement in the President's own voice lights the second frame fully, the same as his own signature. The "lit but open" state and the seal mark are removed. Autopen and deputy still dark. Yoel's note: "A pen, a seal, a voice on a reel: I do not ask which. I ask whether the act was his own."
 - 13 Av: frame 2 lit by his voice. The 13 Av agreement is still "not confirmed under Yoel's test" (three questions not yet learned).
 - Plot: in Act 5 the radio says the earlier text is set aside and replaced, so the 25 Av text is a new agreement (keeps clear of the protocol's companion rule).
+
+## v6d — Act 2, from the Danielic Chronology project's review of v6c
+- Scene 6 was on the wrong Hebrew day (after dark, still called 13 Av). It is now "Jaffa Gate · Monday at sunset", and the day turns on screen: "By Yoel's plate, the sun went at 7:23. It is the fourteenth of Av now." The end card and the ring say 14 Av.
+- The leftover "lit · open" display code and styles are removed (one line remains that converts an old v6b save).
+- The file header describes both acts.
+- The plate's sunset times were checked by that project against a standard solar calculation (agree within a minute); still to confirm against the published table that will be cited.

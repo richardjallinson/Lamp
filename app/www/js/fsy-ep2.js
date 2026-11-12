@@ -1,7 +1,9 @@
-/* The Final Seven Years · Episode 2: The Appointed Time · Act 1, The Ninth of Av (PROTOTYPE).
-   Built from the approved script (Claude Doc "Episode 2, Act 1: The Ninth of Av — Script", 10 Nov 2026).
-   Tester builds only: it opens from the Episodes screen when js/dev.js has TESTER on.
-   Act 1 has its own pictures, clips, music and Yoel's seven lines; a few places reuse Episode 1's pictures on purpose.
+/* The Final Seven Years · Episode 2: The Appointed Time (PROTOTYPE). Tester builds only: it opens from the Episodes screen when js/dev.js has TESTER on.
+   Act 1, The Ninth of Av (scenes pro … roof): built from the Claude Doc "Episode 2, Act 1: The Ninth of Av — Script" (10 Nov 2026).
+     It has its own pictures, clips, music and Yoel's seven lines; a few places reuse Episode 1's pictures on purpose.
+   Act 2, The Trumpeting Stone (scenes b1 … b6, further down): built from the Claude Doc "Episode 2, Act 2: The Trumpeting Stone — Script" (12 Nov 2026).
+     Stand-in pictures from Episode 1, labelled in tester builds; no voice yet. The second frame follows the protocol's rule D2.
+   Acts 3 to 5 are outlines only (the Claude Doc "Episode 2: The Appointed Time — The Plot (third draft)").
    Its own save: Lamp.state.ep2. It reuses Episode 1's screen styles (fwalk, fwview, fwbar …) and adds e2-* ones. */
 (function () {
   const K = Lamp.adv && Lamp.adv.kit, F = Lamp.fsy && Lamp.fsy.parts;
@@ -630,7 +632,7 @@
     bcase: ["A brass case", "Flat, the size of a book. On its lid, a small model of the corner of the Mount. No keyhole."],
     plate: ["The sunset plate", "Seated beside the ring. Seventeen lines: the minute the sun goes, for each day Yoel marked."],
     sheet: ["Framework of Peace · Second Phase", "The printed sheet they were handing out at Jaffa Gate on 13 Av."],
-    coffee2: ["Haller's coffee, TABLE", "From Jaffa Gate on the evening of 13 Av. Untouched. He knows where you sat."],
+    coffee2: ["Haller's coffee, TABLE", "From Jaffa Gate at sunset on Monday, as 13 Av ended. Untouched. He knows where you sat."],
   });
   BOOKP.push(
     ["stone", "The stone", "A squared stone with a niche cut in one corner. “From the cut corner, along the kerb, to my lamp. Measure it. You will need the number.”"],
@@ -682,9 +684,9 @@
             { box: [72, 60, 22, 22], label: "A newspaper seller", text: "The headline is one word: PEACE.", f: "b:news" }] },
         { id: "table", img: "yoel-room", cap: "Yoel's table, the ring on 13 Av", go: { back: "gate" }, need: "sheet",
           hots: [{ box: [70, 40, 22, 15], label: "The frames", act: "btest" }, { box: [66, 56, 26, 8], label: "Yoel's instrument", act: "binst" }] }] },
-    { id: "b6", title: "Jaffa Gate · the evening of 13 Av", act: "Scene 6", music: "e2-chain", amb: "market",
+    { id: "b6", title: "Jaffa Gate · Monday at sunset", act: "Scene 6", music: "e2-chain", amb: "market",
       task: () => (!flag("b:end") ? "Nothing more at the table tonight. Walk through the celebration." : "Done."),
-      views: [{ id: "gate", img: "jaffa-dusk", cap: "Lanterns, a band, dancing in the square inside the gate",
+      views: [{ id: "gate", img: "jaffa-dusk", cap: "The last of the sun on the gate. Lanterns being lit, a band, dancing in the square",
         who: [{ id: "haller", name: "At the edge of the crowd", act: "bhaller" }],
         hots: [{ box: [20, 45, 50, 30], label: "The dancing", text: "A ring of dancers, hands on shoulders, going round faster than the band. Somebody pulls you in for half a turn and lets you go.", f: "b:dance" }] }] }
   );
@@ -696,14 +698,14 @@
   /* the five frames as they stand in Act 2: 1 lit, 2 as learned, 3 to 5 covered (unopened, not dark) */
   function framesRow(two, one) {
     const st = [one || "lit", two === undefined ? (flag("c2") || flag("c2open") ? "" : "shut") : two, "shut", "shut", "shut"], lab = [["נעשה", "Done"], ["הגביר", "Strong"]];
-    return '<div class="e2-frames a2">' + st.map((s, i) => '<i class="e2-frame on ' + s + '">' + (s === "shut" ? "<small>•</small><b>shut</b>" : "<small>" + lab[i][0] + "</small><b>" + (s === "open2" ? "open" : lab[i][1]) + "</b>") + "</i>").join("") + "</div>";
+    return '<div class="e2-frames a2">' + st.map((s, i) => '<i class="e2-frame on ' + s + '">' + (s === "shut" ? "<small>•</small><b>shut</b>" : "<small>" + lab[i][0] + "</small><b>" + lab[i][1] + "</b>") + "</i>").join("") + "</div>";
   }
   ACT.bframes = () => K.card('<div class="kick">On the table</div><h2>Five brass frames</h2>' + framesRow() +
     "<p>The first frame is open. The others are covered with small brass shutters. " + (flag("c2") ? "The second shutter has lifted: <i>Who made it strong?</i>" : "They do not move.") + "</p>" +
     '<p class="fsmall">A shut frame is a question you have not been taught. It is not a failed test.</p><button class="cta" data-act="x">Back</button>', { x: after });
   /* the instrument in Act 2: the ring, and three seats for the missing parts */
   ACT.binst = () => {
-    let at = flag("b:t13") || has("sheet") ? 13 : 11;
+    let at = flag("b:end") ? 14 : flag("b:t13") || has("sheet") ? 13 : 11;
     const draw = () => {
       const s = SUNSET[at];
       K.card('<div class="kick">Yoel’s instrument</div><h2>The ring of Av</h2>' + ringSVG(at, [11, 27]) +
@@ -785,8 +787,8 @@
   }
   ACT.c2 = () => {
     if (!flag("heard:e2-2-c2")) { set("c2open"); return yoelCard("e2-2-c2", ACT.c2, "Open the packet"); }
-    const r = E().f.c2r || {};
-    const st = (k) => (r[k] ? '<i class="e2-st ' + (r[k] === "open2" ? "lit" : r[k]) + '">' + (r[k] === "open2" ? "lit · open" : r[k]) + "</i>" : "");
+    const r = E().f.c2r || {}; if (r.D === "open2") { r.D = "lit"; set("c2r", r); }
+    const st = (k) => (r[k] ? '<i class="e2-st ' + r[k] + '">' + r[k] + "</i>" : "");
     const acts = { x: () => {} }; Object.keys(SIG).forEach((k) => (acts["d" + k] = () => page(k)));
     K.card('<div class="kick">Yoel’s table · the second frame</div><h2>Who made it strong?</h2>' + framesRow("") +
       '<div class="e2-docs">' + Object.keys(SIG).map((k) => '<button class="e2-doc" data-act="d' + k + '"><b>' + esc(SIG[k].t) + "</b><span>Page " + k + "</span>" + st(k) + "</button>").join("") + "</div>" +
@@ -974,19 +976,21 @@
     if (flag("b:end")) return endAct2();
     K.card('<div class="kick">Jaffa Gate</div><img class="e2-face" src="' + PP + 'haller.jpg" alt="Haller"><h2>Haller</h2><p>Standing still at the edge of the crowd, in the grey coat, with two iced coffees. He sees you. He does not come over.</p>' +
       "<p>He lifts one cup a few inches, the way a man raises a glass, and holds it there. Then a line of dancers passes between you, and when it has gone, so has he.</p>" + '<button class="cta" data-act="x">Go to where he stood</button>',
-      { x: () => { note("haller", "At Jaffa Gate on 13 Av he raised a coffee and said nothing. He left a second cup labelled TABLE."); set("book:table");
+      { x: () => { note("haller", "At Jaffa Gate, as 13 Av ended, he raised a coffee and said nothing. He left a second cup labelled TABLE."); set("book:table");
         K.card('<div class="e2-cup"><svg viewBox="0 0 120 160" aria-hidden="true"><defs><linearGradient id="e2cf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9773A"/><stop offset="1" stop-color="#5A2E14"/></linearGradient></defs>' +
           '<path d="M64 2l-3 30" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/><path d="M22 30h76l-9 122H31z" fill="url(#e2cf2)" stroke="#D8D2C4" stroke-width="2.5"/><path d="M17 22h86v10H17z" fill="#EDE7D8" stroke="#C9C1AE" stroke-width="1.5"/>' +
           '<rect x="30" y="78" width="60" height="32" rx="3" fill="#FBF8EF" stroke="#C9C1AE"/><text x="60" y="101" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="18" fill="#1F2A6B" transform="rotate(-5 60 96)">TABLE</text></svg></div>' +
           '<p>On the ledge: the second coffee, untouched. The label says <b>TABLE</b>.</p><p class="fsmall">He knows where you sat last night. The journal notes it either way.</p>' +
           '<div class="fchoices two"><button data-act="t">Take it</button><button data-act="l">Leave it</button></div>',
           { t: () => { give("coffee2"); set("b:cup", "taken"); last(); }, l: () => { set("b:cup", "left"); last(); } }); } });
-    const last = () => K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Two frames lit. Three unopened.</h2><p style="text-align:center"><i>Lit is not the same as finished.</i></p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:end"); E().done.b6 = 1; save(); endAct2(); } });
+    const last = () => K.card('<div class="kick">Jaffa Gate</div><h2>The sun goes</h2><p>Behind the towers the light goes out of the stone. By Yoel’s plate, the sun went at <b>7:23</b>.</p>' +
+      "<p>It is the fourteenth of Av now. The band has not stopped. The city is still celebrating the thirteenth, and nobody dancing has noticed that it is over.</p>" + '<p class="fsmall">The day turns when the sun goes.</p><button class="cta" data-act="x">Go on</button>', { x: last2 });
+    const last2 = () => K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Two frames lit. Three unopened.</h2><p style="text-align:center"><i>Lit is not the same as finished.</i></p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:end"); E().done.b6 = 1; save(); endAct2(); } });
   };
   FINISH.b6 = () => endAct2();
   function endAct2() {
     K.card('<div class="kick">The Final Seven Years · Episode 2</div><div class="e2-acttitle"><small>Act 2 · The Trumpeting Stone</small><b>Complete</b></div>' +
-      "<p>The ring shows 13 Av. Two days to the little shelter Yoel drew on the 15th.</p>" +
+      "<p>The ring has turned to 14 Av. The little shelter Yoel drew is on the 15th, which begins at the next sunset.</p>" +
       '<p class="fsmall">Prototype: Act 3, The Cottage in the Vineyard, is not written yet.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 2 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A2.forEach((id) => { delete e.done[id]; });
         Object.keys(e.f).forEach((k) => { if (/^(b:|c2|t13|book:(stone|diagram|c2|meas|plate|phase|t13|table)|heard:e2-2|seenAct:b)/.test(k)) delete e.f[k]; });
