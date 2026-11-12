@@ -583,9 +583,22 @@ Object.assign(C.PUZZLES, {
      here and kept (noteJohn); what it means is revealed later, with the note from Malachi's tomb. */
   C.ACTS_FN.johnNote = () => {
     const a = A(); if (!a.f.noteJohn) { a.f.noteJohn = 1; Lamp.save(); F.S("parchment", null, 0.5); }
-    K.card('<div class="kick">Under the middle candle</div><h2>A folded note</h2><p>At the foot of the wall, under the middle candle of the nine, a slip of paper is wedged between two stones.</p>' +
-      '<div class="v">And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon\u2019s porch.</div>' +
-      '<p class="fsmall">John 10:22\u201323. ' + (((K.A().p || {}).fsy || {}).noteMal ? "The same hand as the slip in Malachi\u2019s tomb. " : "A hand you have not seen before. ") + 'No lamp is drawn on it. You keep it.</p><button class="cta" data-act="x">Back</button>', { x: () => {} });
+    const mal = ((K.A().p || {}).fsy || {}).noteMal;
+    K.card('<div class="kick">In the wall, at the middle candle</div><h2>A folded note</h2><p>Where the middle candle of the nine falls on the stone, there is a crevice between two blocks. A slip of paper has been pushed into it. It is the bottom half of a small scroll, torn straight across:</p>' +
+      '<div class="v fscrollhalf bot">And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon\u2019s porch.</div>' +
+      '<p class="fsmall">John 10:22\u201323. ' + (mal ? "The same hand as the half from Malachi\u2019s tomb. " : "A hand you have not seen before. ") + 'No lamp is drawn on it. Along the torn edge, the bottoms of a few letters. You keep it.</p>' +
+      (mal ? '<button class="cta" data-act="fit">Fit the two halves together</button>' : "") + '<button class="cta alt" data-act="x">Back</button>', { x: () => {}, fit: C.ACTS_FN.fitScroll });
+  };
+  /* the two halves joined: one small scroll, and a question written across the tear. The side quest it opens ("when will He return?") runs through
+     the street preacher in Episode 2 (Luke 21:28) and is answered in Episode 3 (2 Thessalonians 2:3). See claude/LAMP-PENCILLED-CLUES.md. */
+  C.ACTS_FN.fitScroll = () => {
+    const a = A(); if (!a.f.scrollFit) { a.f.scrollFit = 1; Lamp.save(); F.S("parchment", null, 0.6); K.buzz("success"); }
+    K.card('<div class="kick">The two halves</div><h2>One scroll</h2><p>The torn edges meet. It was one small scroll, in one hand, torn in two and left in two places.</p>' +
+      '<div class="fscroll2"><div class="v fscrollhalf top">\u2026and the Lord, whom ye seek, shall suddenly come to his temple\u2026 But who may abide the day of his coming? and who shall stand when he appeareth?<small>Malachi 3:1\u20132</small></div>' +
+      '<div class="ftear">His first coming, his second, or both?</div>' +
+      '<div class="v fscrollhalf bot">And it was at Jerusalem the feast of the dedication, and it was winter. And Jesus walked in the temple in Solomon\u2019s porch.<small>John 10:22\u201323</small></div></div>' +
+      '<p>The line across the tear can be read now. Malachi said the Lord would come to his temple. John says he came, in winter, at this feast. And Malachi asks who can stand in the day of his coming.</p>' +
+      '<p class="fsmall">You do not know who wrote it, or why it was torn. You keep both halves together.</p><button class="cta" data-act="x">Back</button>', { x: () => {} });
   };
   C.ACTS_FN.endAct2 = () => {
     const a = A(), w = W();

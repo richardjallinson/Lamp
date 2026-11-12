@@ -323,7 +323,7 @@
       { id: "bench", img: "gtomb-bench", cap: "Coming back out into the light: a wooden bench by the path under the olive trees, and a grey coat laid over its arm. He has been waiting", go: { back: "inside", fwd: "dusk" }, who: ["hallerbench"],
         hank: "He did not threaten you. Notice that. He frightened a grandmother and wrote a lie on a stone, and then he sat in a garden and was reasonable. That is how it is done, in rooms with good chairs. He has given you a doubt to carry. Carry it. Do not put it down yet." },
       { id: "dusk", img: "hanukkah-wall-projection", cap: "Out of the garden gate, and dusk. On the wall across the city the lights come on: candles projected on the stone, and in the windows above the Quarter the hanukkiahs are being lit, two flames and the servant", go: { back: "bench" },
-        hots: [{ box: [20, 20, 70, 38], label: "The second candle", act: "endAct2" }, { box: [66, 60, 20, 14], label: "Under the middle candle", act: "johnNote" }] },
+        hots: [{ box: [20, 20, 70, 38], label: "The second candle", act: "endAct2" }, { box: [66, 60, 20, 14], label: "A crevice in the wall, at the middle candle", act: "johnNote" }] },
     ] });
   /* ---- Act 3 ---- */
   S({ id: "hebron", act: 3, title: "Hebron", kick: "The Cave of the Patriarchs", music: "m17", amb: "indoor",

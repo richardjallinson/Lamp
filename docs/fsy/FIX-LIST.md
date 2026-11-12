@@ -451,3 +451,9 @@ Views if wanted: the Kidron path and the gate outside at dawn (the Act 4 picture
 - The Tombs of the Prophets: when the note in Malachi's niche is turned over, a second slip is folded inside it with Malachi 3:1–2 (KJV, Richard's wording), "in a hand you have not seen before". Flag P().noteMal. (js/fsy.js, malNote)
 - The dusk view by Jaffa Gate (Richard's Hanukkah wall-projection photograph): a new tap spot "Under the middle candle" with John 10:22–23 (KJV). Flag A().f.noteJohn. (js/fsy-act2.js johnNote; js/fsy-route.js)
 - Neither note has the Watchman's lamp. What they mean is revealed later (end of Episode 2 Act 5 or Episode 3: not decided). Not yet shown in the journal. Project doc: claude/LAMP-PENCILLED-CLUES.md.
+
+## v6h — Episode 1: the two notes are two halves of one torn scroll (Richard, 12 Nov 2026)
+- Malachi's slip is the top half, the Jaffa Gate slip the bottom half; each shows a torn edge. The Jaffa Gate half is now "in a crevice of the wall, where the middle candle of the nine falls on the stone".
+- With both halves, "Fit the two halves together" shows one scroll with a line readable across the tear: "His first coming, his second, or both?" Flag A().f.scrollFit.
+- The reference is Malachi 3:1–2 (Richard confirmed).
+- This opens a side quest ("when will He return?") that runs through the street preacher in Episode 2 (Luke 21:28) and is answered in Episode 3 (2 Thessalonians 2:3). Plan: claude/LAMP-PENCILLED-CLUES.md. Episode 2 does not read the Episode 1 flags yet.

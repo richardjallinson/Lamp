@@ -1197,3 +1197,12 @@
 #adv .e2-jbox p{margin:4px 0}
 #adv .e2-caseend{display:flex;gap:8px;width:100%;max-width:420px}
 #adv .e2-caseend .cta{flex:1;margin:0;font-size:14px}
+
+/* Episode 1: the torn scroll (two notes that fit together) */
+#adv .fscrollhalf{background:linear-gradient(180deg,#F8EFD6,#EFE1BC);color:#3A2A14;border:1px solid #CDBF9C;border-radius:4px;padding:12px 14px;font-style:italic;line-height:1.5}
+#adv .fscrollhalf.top{clip-path:polygon(0 0,100% 0,100% 94%,90% 100%,78% 93%,64% 100%,50% 94%,36% 100%,22% 93%,10% 100%,0 95%);padding-bottom:20px}
+#adv .fscrollhalf.bot{clip-path:polygon(0 5%,10% 0,22% 7%,36% 0,50% 6%,64% 0,78% 7%,90% 0,100% 6%,100% 100%,0 100%);padding-top:20px}
+#adv .fscrollhalf small{display:block;margin-top:6px;font:600 11px var(--ui);font-style:normal;color:#8A6A1C}
+#adv .fscroll2{margin:8px 0 12px}
+#adv .fscroll2 .fscrollhalf{margin:0}
+#adv .ftear{margin:-12px 0;position:relative;z-index:1;text-align:center;font:italic 700 15px Georgia,serif;color:#9E2416;text-shadow:0 0 6px #F8EFD6,0 0 6px #F8EFD6}

@@ -686,16 +686,17 @@
        kept (p.noteMal); what it means is revealed later (the end of Act 5 or Episode 3, not yet decided). Pairs with the note under the middle candle at Jaffa Gate. */
     function malNote() {
       const p2 = P(); if (!p2.noteMal) { p2.noteMal = 1; save(); }
-      return "<p>Folded inside it is a second slip, in a hand you have not seen before:</p>" +
-        '<div class="v">Behold, I will send my messenger, and he shall prepare the way before me:<br>and the Lord, whom ye seek, shall suddenly come to his temple,<br>even the messenger of the covenant, whom ye delight in:<br>behold, he shall come, saith the LORD of hosts.<br>But who may abide the day of his coming?<br>and who shall stand when he appeareth?<br>for he is like a refiner\u2019s fire, and like fullers\u2019 soap:</div>' +
-        '<p class="fsmall">Malachi 3:1\u20132. No lamp is drawn on it. You do not know who left it, or why. You keep it.</p>';
+      return "<p>Folded inside it is a second slip, in a hand you have not seen before. It is the top half of a small scroll, torn straight across:</p>" +
+        '<div class="v fscrollhalf top">Behold, I will send my messenger, and he shall prepare the way before me:<br>and the Lord, whom ye seek, shall suddenly come to his temple,<br>even the messenger of the covenant, whom ye delight in:<br>behold, he shall come, saith the LORD of hosts.<br>But who may abide the day of his coming?<br>and who shall stand when he appeareth?<br>for he is like a refiner\u2019s fire, and like fullers\u2019 soap:</div>' +
+        '<p class="fsmall">Malachi 3:1\u20132. No lamp is drawn on it. Along the torn edge, the tops of a few letters from a line that has been torn in two. You keep it.</p>' +
+        (((Lamp.fsyWalk && Lamp.fsyWalk.W().a || {}).f || {}).noteJohn ? '<button class="cta alt" data-act="fit">Fit it to the half from Jaffa Gate</button>' : "");
     }
     function dated(x) {
       K.card('<div class="kick">The tomb of ' + esc(x.name) + '</div><h2>On the back of the note</h2>' + photo("w/tombs-niche-3.jpg", "A burial niche cut into the rock", "Photo: Richard J. Allinson, in the Tombs of the Prophets") +
         wnote("“" + esc(x.date) + "”<small>" + esc(x.dref) + "</small>") +
         "<p>The front carries his word about the Temple (" + esc(x.ref) + "). The back carries the day he began to speak.</p>" +
         (x.id === "malachi" ? malNote() : "") +
-        '<button class="cta" data-act="x">Back to the passage</button>', { x: () => {} });
+        '<button class="cta" data-act="x">Back to the passage</button>', { x: () => {}, fit: () => Lamp.fsyWalk.core.ACTS_FN.fitScroll() });
     }
     function answer(x, y) {
       if (x.id !== y.id) { wrong(x.hint); setTimeout(() => K.root() && match(x), 900); return; }
