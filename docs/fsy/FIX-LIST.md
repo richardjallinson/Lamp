@@ -487,3 +487,7 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Yoel: e2-2-stone, e2-2-c2, e2-2-plate, e2-2-thirteen (matched to lines by length; Richard to confirm by ear).
 - The President's radio line e2-2-radio (ElevenLabs "Morgan"), made to sound like a radio: narrowed to 300–3,400 Hz, compressed, a faint crowd and hiss under it. Clean original kept in images/originals/fsy/audio.
 - Act 2 now has every picture, clip, line and piece of music in the script.
+
+## v6m (12 Nov 2026) · the Kingdom of Dedan
+
+- "The Kingdom of Dedan" replaces "the Coastal Kingdom" (Richard): the President's radio line in Act 2 and Document A in Act 1. Radio line re-recorded ("Morgan") with the same radio treatment.
