@@ -137,7 +137,7 @@
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
   const preS = (...n) => Lamp.score && Lamp.score.preload(n.filter((x) => HAVE_S.has(x)).map((x) => "fsy-sfx-" + x));
-  const FALL = { reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street", "amb-train": "amb-street", "amb-market": "amb-street", "amb-tram": "amb-street",
+  const FALL = { "e2-sabbath": "e2-table", "e2-feast": "e2-chain", reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street", "amb-train": "amb-street", "amb-market": "amb-street", "amb-tram": "amb-street",
     /* the new tracks for the walking route (M9–M25 in the doc): until Richard makes them, the nearest finished track plays */
     m9: "theme", m10: "hall", m11: "theme", m12: "olives", m13: "investigation", m14: "hall", m15: "puzzle", m16: "olives", m17: "theme", m18: "puzzle",
     m19: "olives", m20: "hall", m21: "investigation", m22: "olives", m23: "olives", m24: "investigation", m25: "reveal" };

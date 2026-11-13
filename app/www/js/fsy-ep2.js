@@ -660,7 +660,7 @@
   const HEB = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח"];
 
   SC.push(
-    { id: "b1", title: "Yoel's room · the Sabbath, 11 Av", act: "Scene 1", music: null, amb: "indoor",
+    { id: "b1", title: "Yoel's room · the Sabbath, 11 Av", act: "Scene 1", music: "e2-sabbath", amb: "indoor",
       task: () => (!flag("b:book") ? "The Sabbath. The watchmaker is closed until dark. Read." : !flag("b:preacher") ? "Hours until dark. Walk out as far as Jaffa Gate." : !flag("b:stars") ? "Back in Yoel’s room: wait at the window for three stars." : "Done."),
       views: [{ id: "room", img: "yoel-room-sabbath", cap: "Yoel's room on the Sabbath morning. The street below is quiet", go: { fwd: "gate" },
         hots: [{ box: [36, 9, 30, 30], label: "The window", act: "bwindow" }, { box: [68, 51, 17, 6], label: "The second book", act: "bbook" },
@@ -689,7 +689,7 @@
       task: () => (!flag("b:open") ? "Open the brass case. How far. Which way. When." : !flag("b:plate") ? "Seat the plate beside the ring." : "Done."),
       views: [{ id: "table", img: "yoel-room-dusk", cap: "Back at Yoel's table, the brass case in the last of the light",
         hots: [{ box: [69, 48, 12, 6], label: "The brass case", act: "bcase" }, { box: [62, 42, 7, 6], label: "Yoel's instrument", act: "binst" }] }] },
-    { id: "b5", title: "The thirteenth of Av", act: "Scene 5", music: "e2-chain", amb: "market",
+    { id: "b5", title: "The thirteenth of Av", act: "Scene 5", music: "e2-feast", amb: "market",
       task: () => (!has("sheet") ? "The first circled day. Go and listen." : !flag("b:t13") ? "Take the sheet back to Yoel's table and test it." : "Done."),
       views: [{ id: "gate", img: "jaffa-celebration", cap: "Jaffa Gate: white bunting, olive branches, strangers shaking hands", go: { fwd: "table" },
           who: [{ id: "avi", name: "Avi's booth", act: "bavi" }],
@@ -697,7 +697,7 @@
             { box: [56, 50, 44, 48], label: "Two old men, embracing", text: "Two old men hold each other and do not let go. Someone beside you says: I never thought I would live to see this. A newspaper seller goes by. His front page is one word: PEACE.", f: "b:news" }] },
         { id: "table", img: "yoel-room", cap: "Yoel's table, the ring on 13 Av", go: { back: "gate" }, need: "sheet",
           hots: [{ box: [70, 40, 22, 15], label: "The frames", act: "btest" }, { box: [66, 56, 26, 8], label: "Yoel's instrument", act: "binst" }] }] },
-    { id: "b6", title: "Jaffa Gate · Monday at sunset", act: "Scene 6", music: "e2-chain", amb: "market",
+    { id: "b6", title: "Jaffa Gate · Monday at sunset", act: "Scene 6", music: "e2-feast", amb: "market",
       task: () => (!flag("b:end") ? "Nothing more at the table tonight. Walk through the celebration." : "Done."),
       views: [{ id: "gate", img: "jaffa-dusk", cap: "The last of the sun on the gate. Lanterns being lit, a band, dancing in the square",
         who: [{ id: "haller", name: "At the edge of the crowd", act: "bhaller" }],
@@ -993,13 +993,13 @@
     if (has("sheet")) { K.say("“Peace! Go, go, show it to somebody.”", "Avi", 3000); return; }
     const face = '<img class="e2-face" src="' + PP + 'avi.jpg" alt="">', said = (w, t) => '<p class="e2-said"><b>' + w + "</b> “" + t + "”</p>";
     K.card('<div class="kick">The Ramparts ticket booth</div>' + (clip("avi-radio") || face) + "<h2>Avi, with the radio turned up</h2>" + said("Avi", "You again! You picked a day. Listen, listen.") +
-      '<button class="cta" data-act="x">Listen</button>', { x: () => K.card('<div class="kick">The radio</div><h2>The President</h2>' +
+      '<button class="cta" data-act="x">Listen</button>', { x: () => (Lamp.narr && HAVE.has("e2-2-radio") && Lamp.narr.play("fsy-e2-2-radio"), K.card('<div class="kick">The radio</div><h2>The President</h2>' +
         said("The President", "Today the Coastal Kingdom, its neighbours and the State of Israel have concluded a framework of peace: the second phase of the accords that came before it. What was begun, I have made strong, and I will sign it before the month is out.") +
         '<p class="fsmall">His own voice, a little thin, with a crowd under it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:radio"); set("book:strong");
           K.card('<div class="kick">The journal turns back</div><h2>Made strong</h2><p>' + (has("seventy") ? "The page the old woman gave you at the Wall:" : "A line from the second book:") +
             " 'And he shall confirm the covenant with many for one week.' Daniel 9:27. You have just heard a man say he made something strong.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: () => { give("sheet");
           K.card('<div class="kick">The Ramparts ticket booth</div>' + face + said("Avi", "Peace! After everything. My mother is crying in the kitchen.") + "<p>He pushes a printed sheet under the glass.</p>" + said("Avi", "They are giving these out at the gate. Take one. Frame it.") +
-            '<button class="cta" data-act="x">Take the sheet</button>', { x: after }); } }); } }) });
+            '<button class="cta" data-act="x">Take the sheet</button>', { x: after }); } }); } })) });
   };
   ACT.btest = () => {
     const r = E().f.t13 || {};
