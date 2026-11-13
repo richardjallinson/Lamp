@@ -24,7 +24,7 @@
   const flag = (k) => !!E().f[k];
   const set = (k, v) => { E().f[k] = v === undefined ? 1 : v; save(); };
   /* Yoel's lines: subtitles now; they play aloud once the files exist (audio/narration/fsy-e2-*.mp3, listed here) */
-  const HAVE = new Set(Object.keys({ "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1 }));
+  const HAVE = new Set(Object.keys({ "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1 /* e2-2-radio: re-record with "Kingdom of Dedan" */ }));
   const LINES = {
     "e2-pro-1": "You know where. This is when. Come back on the ninth of Av. Bring the rod.",
     "e2-1-book1": "The ninth of Av. Both houses burned on this day, the first and the second, more than six hundred years apart. A people that remembers the day its house was destroyed is a people that has not given up on the house.",
@@ -416,7 +416,7 @@
     D: ["“The parties have held talks concerning a framework for…” and then the tear.", "Where the date would be, there is no paper.", "Torn away with the rest."],
   };
   const DOCS = {
-    A: ["Treaty between the Republic of the North and the Coastal Kingdom", "Signed by both heads of government, dated, with two witnesses.", "lit", "Concluded and signed. A thing done."],
+    A: ["Treaty between the Republic of the North and the Kingdom of Dedan", "Signed by both heads of government, dated, with two witnesses.", "lit", "Concluded and signed. A thing done."],
     B: ["Joint Declaration", "The two governments “will begin negotiations toward a framework” on trade and borders.", "dark", "A promise to talk. Nothing is agreed yet."],
     C: ["Joint Statement", "The parties announce that an agreement “has been concluded” and “will be signed” on a date two weeks later.", "rule", ""],
     D: ["(a torn page)", "The top of a page, the rest torn away. “Joint Statement.” The two parties’ names. “The parties have held talks concerning a framework for…” No date, no signature, nothing to say whether anything was concluded or announced.", "grey", "Grey is not dark. Grey means we do not know. Yoel never turns a grey into a dark because he wishes it."],
@@ -994,7 +994,7 @@
     const face = '<img class="e2-face" src="' + PP + 'avi.jpg" alt="">', said = (w, t) => '<p class="e2-said"><b>' + w + "</b> “" + t + "”</p>";
     K.card('<div class="kick">The Ramparts ticket booth</div>' + (clip("avi-radio") || face) + "<h2>Avi, with the radio turned up</h2>" + said("Avi", "You again! You picked a day. Listen, listen.") +
       '<button class="cta" data-act="x">Listen</button>', { x: () => (Lamp.narr && HAVE.has("e2-2-radio") && Lamp.narr.play("fsy-e2-2-radio"), K.card('<div class="kick">The radio</div><h2>The President</h2>' +
-        said("The President", "Today the Coastal Kingdom, its neighbours and the State of Israel have concluded a framework of peace: the second phase of the accords that came before it. What was begun, I have made strong, and I will sign it before the month is out.") +
+        said("The President", "Today the Kingdom of Dedan, its neighbours and the State of Israel have concluded a framework of peace: the second phase of the accords that came before it. What was begun, I have made strong, and I will sign it before the month is out.") +
         '<p class="fsmall">His own voice, a little thin, with a crowd under it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:radio"); set("book:strong");
           K.card('<div class="kick">The journal turns back</div><h2>Made strong</h2><p>' + (has("seventy") ? "The page the old woman gave you at the Wall:" : "A line from the second book:") +
             " 'And he shall confirm the covenant with many for one week.' Daniel 9:27. You have just heard a man say he made something strong.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: () => { give("sheet");
