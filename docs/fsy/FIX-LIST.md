@@ -480,3 +480,10 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Clips (Richard, cropped 720→480 square): watchmaker-loupe (the watchmaker's card when he hands over the pages), avi-radio (Avi's booth, 13 Av), haller-toast (Jaffa Gate at sunset: he raises one coffee, sets the other down, walks in through the gate). The take where he stays is kept in the originals as haller-toast-v1-stays.
 - Haller's card and the TABLE lines now say the cup is left on the stones by the gate (the clip), not on a ledge or behind a line of dancers.
 - The celebration picture at Jaffa Gate (13 Av), no flags.
+
+## v6l (12 Nov 2026) · Act 2 sound
+
+- Music: e2-sabbath "Still Morning in Jerusalem" (scene 1); e2-feast "Circle Dance, Unsettled" (scenes 5–6). Both levelled to −20 LUFS with fades.
+- Yoel: e2-2-stone, e2-2-c2, e2-2-plate, e2-2-thirteen (matched to lines by length; Richard to confirm by ear).
+- The President's radio line e2-2-radio (ElevenLabs "Morgan"), made to sound like a radio: narrowed to 300–3,400 Hz, compressed, a faint crowd and hiss under it. Clean original kept in images/originals/fsy/audio.
+- Act 2 now has every picture, clip, line and piece of music in the script.
