@@ -508,3 +508,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Also in this build: the two fact fixes above (sunset plate, ticket price); the Episode 2 start card no longer calls Act 2 a prototype.
 - Tester skip works scene by scene through Act 3. "Play Act 3 again" clears only Act 3.
 - For the tester (Gerry): can the sighting be solved on a phone without the hints, and does the page of seals feel like investigation?
+
+## For the next build (v6o)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Episode 1 ends on the song the journey began with, "City On the Hill" (the flight song): it starts as the sun strikes the Eastern Gate and carries on through the last journal page and the closing card (Richard, 18 Nov 2026) | Done in code, waiting for the build |

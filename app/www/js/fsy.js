@@ -1152,7 +1152,7 @@
     }));
   }
   function ending() {
-    V("24-cliffhanger"); M("cliff");
+    V("24-cliffhanger"); if (!(Lamp.score && Lamp.score.playing && (Lamp.score.playing() || {}).music === "fsy-song")) M("cliff");   /* the closing song, if it is playing, carries on */
     K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
       "<p>The place is found, and now it is known. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many: and the Temple Mount will be on the table.</p>" +

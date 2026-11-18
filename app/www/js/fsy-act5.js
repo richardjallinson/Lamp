@@ -183,7 +183,12 @@
     const gone = () => { a.q.yoelGone = 1; save(); give("rod2", true);
       K.card('<div class="kick">The road below</div><h2>A car door closes.</h2><p>You turn. When you turn back, the old man is walking away among the graves, up the slope, not fast, not looking round, and the rod is leaning against the wall where he set it.</p><p>You take it. Two rods now.</p>' +
         '<button class="cta" data-act="x">The sun</button>', { x: sun }); };
-    const sun = () => { F.M("m25", "olives");
+    /* Episode 1 ends on the song the journey began with: "City On the Hill", from the flight (Richard, 18 Nov 2026) */
+    const endSong = () => { const play = () => F.M("song", null);
+      if (window.LAMP_TRACKS && window.LAMP_TRACKS["fsy-song"]) return play();
+      let sc = document.getElementById("fflsongjs"); if (!sc) { sc = document.createElement("script"); sc.id = "fflsongjs"; sc.src = "audio/music/fsy-song.js"; document.head.appendChild(sc); }
+      sc.addEventListener("load", play); setTimeout(play, 1500); };
+    const sun = () => { endSong();
       K.card('<div class="kick">The Mount of Olives</div><h2>The sun strikes the gate.</h2>' + clip("gate-sun") + '<img class="fphoto1" src="' + IMG + 'egate-gate.jpg" alt="The sealed Eastern Gate in the first sun">' +
         "<p>It comes up over the Mount of Olives behind you and moves down the stone of the sealed arches, and the journal’s final page writes itself.</p>" +
         '<button class="cta" data-act="x">The last page</button>', { x: lastPage }); };
