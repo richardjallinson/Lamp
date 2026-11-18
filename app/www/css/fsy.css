@@ -1218,3 +1218,16 @@
 #adv .fjscroll .fscrollhalf{display:block}
 #adv .asheet .fjtabs{flex-wrap:wrap}
 #adv .asheet .fjtabs button{min-width:30%}
+/* Episode 2, Act 3: the clock stamp, the plans, the sighting */
+#adv .e2-stamp{margin:0 0 6px;text-align:center;font:800 11px/1.2 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#8A6A1E}
+#adv .e2-heb{text-align:center;font-size:22px}
+#adv .e2-jline small{font:700 10px var(--ui);letter-spacing:.1em;text-transform:uppercase;color:#8A6A1E;font-style:normal}
+#adv .e2-vplan{max-width:360px}
+#adv .e2-roofplan{max-width:200px}
+#adv .e2-lampmark{max-width:200px}
+#adv .e2-row.wide{width:100%}
+#adv .e2-row.wide .e2-step{flex:0 0 auto}
+#adv .e2-sight .e2-inst .cta{margin:6px 0 0;width:100%}
+#adv .e2-sight .e2-inst .cta:disabled{opacity:.45}
+#adv .e2-sight{overflow-y:auto}
+#adv .asheet .fsay button:disabled{opacity:.55}

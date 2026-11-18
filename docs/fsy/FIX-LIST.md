@@ -499,3 +499,12 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 1 | Sunset plate: ten of the seventeen times were a minute late. Recalculated for Jerusalem (sea-level horizon, summer time), checked against known dates. Monday 16 August is now 7:22 (the "sun goes" card at Jaffa Gate follows the plate) | Done in code, waiting for the build |
 | 2 | Ticket window: "Twenty shekels" → "Forty shekels" (the park's adult price is listed at 30–40 NIS) | Done in code, waiting for the build |
 | – | Checked, no change: the inscription ("To the place of trumpeting to…", last word lost; found by Mazar in 1968 at the foot of the south-west corner; original in the Israel Museum; position inferred, not proven); Josephus, War 4.582 (a priest sounded the trumpet at the start and end of every seventh day); the park is shut on the Sabbath and open Sunday | – |
+
+## v6n (18 Nov 2026) · Episode 2, Act 3 prototype
+
+- **Act 3, The Cottage in the Vineyard**, is playable from the end of Act 2 ("Go on to Act 3"): seven scenes (c1 to c7) in js/fsy-ep2.js, from the Claude Doc "Episode 2, Act 3 — Outline and Script" (second draft after Gerry's review). Temporary pictures with labelled tap spots (img/fsy/w/v3-*.jpg, made by app/tools/make_e2_act3_standins.py); the three room scenes use the real room pictures. No voice yet: Yoel's four lines show as text.
+- Puzzles: the thread (when does the fifteenth begin?); the watchman's sighting (turn on the roof until the rod, a notch and the land line up; mark lines on Yoel's plan; the press; walk to a crossing; two lamps in the wall); the page of seals (read each with the loupe, place it, count); seating the wheel of days (half-tooth steps, checked against three lived days); the third frame.
+- The vineyard is one map (VG in the code): hut at 0,0; press 70 m east, 14 m north, wine ran toward 265°; notches at 74° (morning), 20° (cockcrow), 286° (evening), 180° (midnight). The evening crossing is the fourth terrace wall.
+- Also in this build: the two fact fixes above (sunset plate, ticket price); the Episode 2 start card no longer calls Act 2 a prototype.
+- Tester skip works scene by scene through Act 3. "Play Act 3 again" clears only Act 3.
+- For the tester (Gerry): can the sighting be solved on a phone without the hints, and does the page of seals feel like investigation?

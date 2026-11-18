@@ -1,0 +1,438 @@
+[
+ {
+  "scene": "The thread · 14 Av",
+  "img": "yoel-room-dusk",
+  "cap": "Yoel's room in the last light. The city has been celebrating for two days",
+  "hots": [
+   {
+    "box": [
+     36,
+     9,
+     30,
+     30
+    ],
+    "label": "The window"
+   },
+   {
+    "box": [
+     68,
+     51,
+     17,
+     6
+    ],
+    "label": "The second book"
+   },
+   {
+    "box": [
+     62,
+     42,
+     9,
+     9
+    ],
+    "label": "Yoel's instrument"
+   },
+   {
+    "box": [
+     73,
+     40,
+     19,
+     10
+    ],
+    "label": "The five frames"
+   },
+   {
+    "box": [
+     52,
+     37,
+     14,
+     8
+    ],
+    "label": "The photograph on the sill"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "Shira · 15 Av",
+  "img": "v3-steps",
+  "cap": "The top of the steps in the Jewish Quarter, early morning. White bunting across the lane",
+  "hots": [
+   {
+    "box": [
+     4,
+     44,
+     34,
+     40
+    ],
+    "label": "The newspaper seller"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "Shira · 15 Av",
+  "img": "v3-institute",
+  "cap": "The Temple Institute, as you left it in December",
+  "hots": [
+   {
+    "box": [
+     64,
+     12,
+     26,
+     52
+    ],
+    "label": "A white dress, on the door"
+   }
+  ],
+  "who": [
+   "At the desk"
+  ]
+ },
+ {
+  "scene": "The vineyard · 15 Av",
+  "img": "v3-track",
+  "cap": "Where the track ends. Crates of grapes in the shade",
+  "hots": [
+   {
+    "box": [
+     60,
+     56,
+     34,
+     26
+    ],
+    "label": "Crates of grapes"
+   },
+   {
+    "box": [
+     6,
+     40,
+     26,
+     14
+    ],
+    "label": "Far down the road"
+   },
+   {
+    "box": [
+     38,
+     16,
+     30,
+     12
+    ],
+    "label": "The ridge to the east"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "The vineyard · 15 Av",
+  "img": "v3-terraces",
+  "cap": "The terraces. White dresses on a line between two fig trees",
+  "hots": [
+   {
+    "box": [
+     8,
+     30,
+     50,
+     18
+    ],
+    "label": "The dresses on the line"
+   },
+   {
+    "box": [
+     62,
+     60,
+     30,
+     18
+    ],
+    "label": "The winepress"
+   },
+   {
+    "box": [
+     10,
+     70,
+     24,
+     14
+    ],
+    "label": "The cistern"
+   }
+  ],
+  "who": [
+   "On the third terrace"
+  ]
+ },
+ {
+  "scene": "The vineyard · 15 Av",
+  "img": "v3-hut",
+  "cap": "The watchman's hut: four rough walls, a flat roof, a stone stair up the outside",
+  "hots": [
+   {
+    "box": [
+     36,
+     40,
+     22,
+     30
+    ],
+    "label": "The doorway"
+   },
+   {
+    "box": [
+     38,
+     34,
+     18,
+     6
+    ],
+    "label": "The lintel"
+   },
+   {
+    "box": [
+     60,
+     30,
+     22,
+     40
+    ],
+    "label": "The stair to the roof"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "The watchman's sighting",
+  "img": "v3-hut",
+  "cap": "The hut, the press and the terraces. Late morning",
+  "hots": [
+   {
+    "box": [
+     60,
+     30,
+     22,
+     40
+    ],
+    "label": "The stair to the roof"
+   },
+   {
+    "box": [
+     2,
+     74,
+     30,
+     16
+    ],
+    "label": "Walk over to the winepress"
+   },
+   {
+    "box": [
+     66,
+     76,
+     30,
+     14
+    ],
+    "label": "Yoel's plan of the vineyard"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "The watchman's sighting",
+  "img": "v3-wall",
+  "cap": "The fourth terrace wall, where a fig grows out of the stones",
+  "hots": [
+   {
+    "box": [
+     6,
+     34,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     28,
+     30,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     50,
+     36,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     10,
+     52,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     34,
+     50,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     56,
+     54,
+     18,
+     12
+    ],
+    "label": "A stone"
+   },
+   {
+    "box": [
+     4,
+     74,
+     40,
+     12
+    ],
+    "label": "The earth at the foot of the wall"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "The little foxes · 15 Av, noon",
+  "img": "v3-haller",
+  "cap": "The terrace wall above. A grey coat, folded",
+  "hots": [],
+  "who": [
+   "On the wall, eating grapes"
+  ]
+ },
+ {
+  "scene": "The little foxes · 15 Av, noon",
+  "img": "v3-hutin",
+  "cap": "Inside the hut: a stone bench, a water jar, an empty shelf. Cool and dark",
+  "hots": [
+   {
+    "box": [
+     14,
+     56,
+     70,
+     20
+    ],
+    "label": "The stone bench: lay the page out"
+   }
+  ],
+  "who": [
+   "Shira"
+  ]
+ },
+ {
+  "scene": "With how many? · 15 Av",
+  "img": "v3-steps",
+  "cap": "The Quarter steps, mid-afternoon. The newspaper seller has the afternoon edition",
+  "hots": [
+   {
+    "box": [
+     4,
+     44,
+     34,
+     40
+    ],
+    "label": "The newspaper seller"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "With how many? · 15 Av",
+  "img": "yoel-room",
+  "cap": "Yoel's table. Shira waits on the stair; she will not come in",
+  "hots": [
+   {
+    "box": [
+     66,
+     56,
+     26,
+     8
+    ],
+    "label": "Yoel's instrument"
+   },
+   {
+    "box": [
+     70,
+     40,
+     22,
+     15
+    ],
+    "label": "The frames"
+   }
+  ],
+  "who": []
+ },
+ {
+  "scene": "The dance · 15 Av",
+  "img": "v3-dance",
+  "cap": "The vineyard at sunset. Lanterns along the walls; a fiddle, a drum, a clarinet",
+  "hots": [
+   {
+    "box": [
+     56,
+     14,
+     30,
+     22
+    ],
+    "label": "The roof of the hut"
+   },
+   {
+    "box": [
+     10,
+     46,
+     60,
+     26
+    ],
+    "label": "The dancing"
+   }
+  ],
+  "who": [
+   "Shira, in the borrowed dress"
+  ]
+ },
+ {
+  "scene": "The dance · 15 Av",
+  "img": "yoel-room-night",
+  "cap": "Yoel's room, 9 p.m. The door was locked, as you left it",
+  "hots": [
+   {
+    "box": [
+     56,
+     46,
+     12,
+     12
+    ],
+    "label": "On the table"
+   },
+   {
+    "box": [
+     52,
+     37,
+     14,
+     8
+    ],
+    "label": "The photograph on the sill"
+   },
+   {
+    "box": [
+     68,
+     51,
+     17,
+     6
+    ],
+    "label": "The second book"
+   }
+  ],
+  "who": []
+ }
+]
