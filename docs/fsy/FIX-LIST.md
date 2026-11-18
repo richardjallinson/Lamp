@@ -532,3 +532,4 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Act 3 clip 1 of 6 (shira-desk): plays when you first meet Shira at the Institute. Gemini makes 1280×720; the game crops the middle square to 480×480 like the other character clips, so Richard does not need to crop | Done in code, waiting for the build |
+| 2 | Act 3 clips 2 to 6 are in: Shira reading the cup's label (when she sees it), Haller holding out the page, Haller leaving, the vinedresser (his answer about the watchman), the dance (with the Mishnah card). All six Act 3 clips are done | Done in code, waiting for the build |
