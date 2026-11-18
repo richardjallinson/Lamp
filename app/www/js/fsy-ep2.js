@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1162,8 +1162,11 @@
     { id: "c4", title: "The watchman's sighting", act: "Scene 4 · Wednesday 18 August, 10:45 a.m.", music: "e2-vineyard", amb: "olives",
       task: () => (!(E().f["c:lines"] || []).length ? "The watch when the day turns. Climb to the roof and sight with the rod." : !flag("c:press") ? "Now the press: follow where the wine ran." : !flag("c:atwall") ? "Open the plan and walk to where your lines cross." : !has("wheel") ? "Somewhere in this wall. Yoel's lamp has its spout to the right." : "Done."),
       views: [{ id: "hut", img: "v3-hut", cap: "The hut, the press and the terraces. Late morning",
-          hots: [{ box: [52, 32, 36, 42], label: "The stair to the roof", act: "csight" }, { box: [0, 68, 34, 28], label: "Walk over to the winepress", act: "cpress" },
+          hots: [{ box: [52, 32, 36, 42], label: "The stair to the roof", act: "croof" }, { box: [0, 68, 34, 28], label: "Walk over to the winepress", act: "cpress" },
             { box: [64, 78, 36, 18], label: "Yoel's plan of the vineyard", act: "cplan" }] },
+        { id: "roof", img: "v3-roof", cap: "The roof of the hut: a low wall with notches, and a stone with a socket in the middle", go: { back: "hut" },
+          hots: [{ box: [37, 52, 26, 18], label: "The stone with the socket: stand the rod in it", act: "csight" },
+            { box: [62, 12, 26, 8], label: "The city on the ridge", text: "Jerusalem, on the skyline to the east. Yoel’s roof plan has a small arrow at one side: to the city.", f: "c:roofcity" }] },
         { id: "wall", img: "v3-wall", cap: "The fourth terrace wall, where a fig grows out of the stones", go: { back: "hut" }, need: "c:atwall",
           hots: [{ box: [6, 34, 18, 12], label: "A stone", act: "cstone:1" }, { box: [28, 30, 18, 12], label: "A stone", act: "cstone:2" }, { box: [50, 36, 18, 12], label: "A stone", act: "cstone:3" },
             { box: [10, 52, 18, 12], label: "A stone", act: "cstone:4" }, { box: [34, 50, 18, 12], label: "A stone", act: "cstone:5" }, { box: [56, 54, 18, 12], label: "A stone", act: "cstone:6" },
@@ -1184,7 +1187,7 @@
     { id: "c7", title: "The dance · 15 Av", act: "Scene 7 · Wednesday 18 August, 6:50 p.m.", music: "e2-dance", amb: "olives",
       task: () => (!flag("c:believe") ? "It is the fifteenth for half an hour more. See what the day is for." : !flag("c:end") ? "Back to the Street of the Chain." : "Done."),
       views: [{ id: "dance", img: "v3-dance", cap: "The vineyard at sunset. Lanterns along the walls; a fiddle, a drum, a clarinet", go: { fwd: "room" },
-          who: [{ id: "shira", name: "Shira, in the borrowed dress", act: "cdance" }],
+          who: [{ id: "shirawhite", name: "Shira, in the borrowed dress", act: "cdance" }],
           hots: [{ box: [62, 13, 20, 12], label: "The roof of the hut", text: "The vinedresser is sitting on the roof with his back to the music, looking out over the vines.", f: "c:watch" },
             { box: [24, 42, 74, 40], label: "The dancing", text: "The girls in white, going round between the rows. None of the dresses is the dancer's own.", f: "c:danc" }] },
         { id: "room", img: "yoel-room-cup", cap: "Yoel's room, 9 p.m. The door was locked, as you left it", go: { back: "dance" }, need: "c:sun2",
@@ -1300,6 +1303,7 @@
   FINISH.c3 = () => walk(view);
 
   /* ---- Scene 4: the watchman's sighting ---- */
+  ACT.croof = () => { F.S("step", "click", 0.5); walk(scene.views.find((v) => v.id === "roof")); };
   ACT.csight = () => {
     const root = K.root(); if (!root) return;
     let aim = 150, held = null;
@@ -1350,7 +1354,7 @@
       box.querySelector("#e2ss").textContent = "A pencil line on Yoel’s plan: from the hut, through " + VG.notch[held].name + ", across the hillside."; box.querySelector("#e2sm").disabled = true;
       const j = box.querySelector("#e2sjb"); j.hidden = false; j.innerHTML = planSVG(); };
     box.querySelector("#e2sj").onclick = () => { const j = box.querySelector("#e2sjb"); j.hidden = !j.hidden; j.innerHTML = "<p><b>The roof of the hut</b></p>" + roofPlanSVG() + "<p><i>Stand where he stood, in the watch when the day turns.</i></p><p><b>The plan</b></p>" + planSVG(); };
-    box.querySelector("#e2sl").onclick = () => { box.remove(); walk(view); };
+    box.querySelector("#e2sl").onclick = () => { box.remove(); walk(scene.views[0]); };
     root.appendChild(box); draw();
     if (!flag("c:roofsaid")) { set("c:roofsaid"); K.say("Late morning. Your own shadow lies long across the roof.", "", 3600); }
   };
@@ -1386,15 +1390,14 @@
       '<p class="e2-jline">Somebody had his mark and not his mind.</p><button class="cta" data-act="x">Back</button>', { x: after }); }
     if (n === 5) {
       if (has("wheel")) return K.card('<div class="kick">The fourth terrace wall</div><h2>The hollow</h2><p>Straw, and the ring where a jar stood for years.</p><button class="cta" data-act="x">Back</button>', { x: after });
-      return K.card('<div class="kick">The fourth terrace wall</div><h2>A lamp, spout to the right</h2>' + lampSVG(false, false) + "<p>Worn almost smooth. The stone moves. Behind it, in a hollow lined with straw: a clay jar the height of a forearm, its lid sealed with pitch.</p>" +
+      return K.card('<div class="kick">The fourth terrace wall</div><h2>A lamp, spout to the right</h2>' + lampSVG(false, false) + "<p>Worn almost smooth. The stone moves. Behind it, in a hollow lined with straw: a clay jar the height of a forearm, its lid sealed with pitch.</p>" + OBJ("e2-jar") +
         '<button class="cta" data-act="x">Break the seal</button>', { x: jar });
     }
     K.card('<div class="kick">The fourth terrace wall</div><h2>A stone</h2><p>' + ["Bare. Lichen, and a lizard that does not move.", "", "Bare. It does not shift.", "Bare, and warm from the sun.", "", "Bare. A snail shell in the joint."][n - 1] + '</p><button class="cta" data-act="x">Back</button>', { x: after });
   };
   function jar() {
     F.S("stone", "click", 0.6);
-    K.card('<div class="kick">The jar</div><h2>Wrapped in linen</h2>' + '<svg class="e2-draw" viewBox="0 0 200 130" aria-hidden="true"><rect width="200" height="130" fill="#2A2A32"/><circle cx="100" cy="65" r="50" fill="#C9A24A" stroke="#6A4A0E" stroke-width="3"/><circle cx="100" cy="65" r="34" fill="#E3C777" stroke="#6A4A0E"/><circle cx="100" cy="65" r="6" fill="#6A4A0E"/>' +
-      Array.from({ length: 31 }, (_, i) => { const a = i * 2 * Math.PI / 31; return '<path d="M' + (100 + 50 * Math.cos(a)).toFixed(1) + " " + (65 + 50 * Math.sin(a)).toFixed(1) + "L" + (100 + 58 * Math.cos(a)).toFixed(1) + " " + (65 + 58 * Math.sin(a)).toFixed(1) + '" stroke="#C9A24A" stroke-width="5"/>'; }).join("") + '<text x="100" y="96" text-anchor="middle" font-size="9" fill="#6A4A0E" font-style="italic">August</text></svg>' +
+    K.card('<div class="kick">The jar</div><h2>Wrapped in linen</h2>' + OBJ("e2-wheel") +
       "<p>A toothed brass wheel a hand across, its rim engraved with the numbers 1 to 31 and, in Yoel’s small hand, <i>August</i>. Each tooth is split by a fine line with a tiny sun on it.</p><p>And a strip of the second book, cut off and stored here.</p>" +
       '<button class="cta" data-act="x">Read the strip</button>', { x: () => { give("wheel");
         K.card('<div class="kick">The strip from the jar</div><h2 class="e2-heb">לָרַבִּים · With how many?</h2><p class="e2-jline">“And I subscribed the evidence, and sealed it, and took witnesses.”<br><small>Jeremiah 32:10</small></p><p class="e2-jline">“Take these evidences… and put them in an earthen vessel, that they may continue many days.”<br><small>Jeremiah 32:14</small></p>' +
@@ -1505,16 +1508,16 @@
         { x: () => yoelCard("e2-3-three", () => { set("c:c3"); set("book:t15");
           K.card('<div class="kick">The journal · a new page</div><h2>15 Av</h2><p>With the many: lit. Israel and three more. It passes by one, and the one is the Republic of the man who made it strong. Two questions I have not been taught.</p><button class="cta" data-act="x">Close</button>', { x: after }); }, "Go on") }); } });
   };
-  FINISH.c6 = () => K.card('<div class="kick">At the foot of the stair</div>' + stamp("6:50 p.m.") + face("shiradesk") + "<h2>Shira, in the borrowed white dress</h2>" + said("Shira", "It is the fifteenth for half an hour more. You have been in that room since the Ninth of Av. Come and see what the day is for.") + '<button class="cta" data-act="x">Go with her</button>', { x: () => go("c7") });
+  FINISH.c6 = () => K.card('<div class="kick">At the foot of the stair</div>' + stamp("6:50 p.m.") + face("shirawhite") + "<h2>Shira, in the borrowed white dress</h2>" + said("Shira", "It is the fifteenth for half an hour more. You have been in that room since the Ninth of Av. Come and see what the day is for.") + '<button class="cta" data-act="x">Go with her</button>', { x: () => go("c7") });
 
   /* ---- Scene 7: the dance, and the third cup ---- */
   ACT.cdance = () => {
     if (flag("c:sun2")) { K.say("“Go. I will drive you to the gate.”", "Shira", 3000); return; }
     const sun = () => { set("c:sun2"); K.card('<div class="kick">The vineyard</div>' + stamp("7:20 p.m. · the sun goes") + "<h2>The sixteenth of Av</h2><p>The light leaves the top terrace last. By the wheel and the plate: Wednesday 18 August, 7:20 p.m.</p><p>The dance has not stopped. On the roof of the hut the old man has not turned round.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: after }); };
-    const ans = (k, t) => () => { set("c:believe", k); note("yoel", "At the dance on 15 Av, asked whom I believed, I said: " + { y: "her grandfather", h: "Haller was right today", p: "neither; the page" }[k] + "."); K.card('<div class="kick">The vineyard</div>' + face("shira") + t + '<button class="cta" data-act="x">Go on</button>', { x: sun }); };
+    const ans = (k, t) => () => { set("c:believe", k); note("yoel", "At the dance on 15 Av, asked whom I believed, I said: " + { y: "her grandfather", h: "Haller was right today", p: "neither; the page" }[k] + "."); K.card('<div class="kick">The vineyard</div>' + face("shirawhite") + t + '<button class="cta" data-act="x">Go on</button>', { x: sun }); };
     if (flag("c:believe")) return sun();
     K.card('<div class="kick">The vineyard at sunset</div><h2>The fifteenth of Av</h2><p class="e2-jline">“There were no days so glad for Israel as the fifteenth of Av and the Day of Atonement. On them the daughters of Jerusalem went out in white garments, borrowed, so as not to shame any who had none, and danced in the vineyards. And what did they say? <i>Young man, lift up your eyes, and see what you choose.</i>”<br><small>Mishnah Ta’anit 4:8</small></p>' +
-      '<button class="cta" data-act="x">Go on</button>', { x: () => { set("book:dance"); K.card('<div class="kick">The vineyard</div>' + face("shira") + said("Shira", "Lift up your eyes and see what you choose. So. The man with the grapes says it will pass. My grandfather says keep counting. Tonight, which of them do you believe?") +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => { set("book:dance"); K.card('<div class="kick">The vineyard</div>' + face("shirawhite") + said("Shira", "Lift up your eyes and see what you choose. So. The man with the grapes says it will pass. My grandfather says keep counting. Tonight, which of them do you believe?") +
         '<div class="fsay"><button data-act="y">“Your grandfather.”</button><button data-act="h">“Haller was right today.”</button><button data-act="p">“Neither. I believe the page.”</button></div>',
         { y: ans("y", said("Shira", "He will be pleased. He should not be. You have not checked him either.")), h: ans("h", said("Shira", "He was. That is what frightens me about him.")),
           p: ans("p", "<p>Shira looks at you for a moment.</p>" + said("Shira", "That is what he was waiting to hear someone say.")) }); } });
@@ -1524,9 +1527,7 @@
   ACT.ccup = () => {
     if (flag("c:end")) return endAct3();
     set("book:three"); note("haller", "On the night of 15 Av, an iced coffee on Yoel's table behind a locked door, labelled THREE. He is counting too.");
-    K.card('<div class="e2-cup"><svg viewBox="0 0 120 160" aria-hidden="true"><defs><linearGradient id="e2cf3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9773A"/><stop offset="1" stop-color="#5A2E14"/></linearGradient></defs>' +
-      '<path d="M64 2l-3 30" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/><path d="M22 30h76l-9 122H31z" fill="url(#e2cf3)" stroke="#D8D2C4" stroke-width="2.5"/><path d="M17 22h86v10H17z" fill="#EDE7D8" stroke="#C9C1AE" stroke-width="1.5"/><rect x="40" y="40" width="12" height="11" rx="2" fill="#EAF2F6" opacity=".8"/><rect x="62" y="46" width="12" height="11" rx="2" fill="#EAF2F6" opacity=".8"/>' +
-      '<rect x="30" y="78" width="60" height="32" rx="3" fill="#FBF8EF" stroke="#C9C1AE"/><text x="60" y="101" text-anchor="middle" font-family="Marker Felt, Comic Sans MS, cursive" font-size="18" fill="#1F2A6B" transform="rotate(-5 60 96)">THREE</text></svg></div>' +
+    K.card('<div class="e2-cupph"><img src="img/fsy/pz/e2-cup3.jpg" alt="An iced coffee with a white label"><b>THREE</b></div>' +
       stamp("9 p.m.") + "<p>The door was locked, as you left it. The key turned.</p><p>On the table, beside the instrument, stands an iced coffee. Ice still floats beneath the lid. The label says <b>THREE</b>.</p>" +
       '<p class="fsmall">Nothing has been taken. The frames are as they were: three lit, two shut.</p><button class="cta" data-act="x">Go on</button>',
       { x: () => K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Three frames lit. Two unopened.</h2><p style="text-align:center"><i>He is counting too.</i></p><button class="cta" data-act="x">Go on</button>', { x: () => { set("c:end"); E().done.c7 = 1; save(); endAct3(); } }) });

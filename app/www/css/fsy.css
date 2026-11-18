@@ -1250,3 +1250,6 @@
 #adv .fseal{display:block;width:170px;margin:8px auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
 #adv .fsong{margin:8px 0 12px;text-align:center;font:italic 500 16px/1.55 var(--serif,Georgia,serif);color:#2A2A3A}
 #adv .fsong p{margin:0 0 14px}
+#adv .e2-cupph{position:relative;width:min(70%,260px);margin:6px auto 10px}
+#adv .e2-cupph img{display:block;width:100%;border-radius:12px}
+#adv .e2-cupph b{position:absolute;left:38%;top:48%;width:24%;height:16%;display:flex;align-items:center;justify-content:center;font:700 clamp(13px,4.4vw,19px) "Marker Felt","Comic Sans MS",cursive;color:#1F2A6B;transform:rotate(-4deg);letter-spacing:.02em}
