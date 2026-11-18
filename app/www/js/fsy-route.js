@@ -55,7 +55,7 @@
     "Arnon writes that no living person had been so close to the Patriarchs in thousands of years, and that each of them spent a while in silent prayer there, beside Abraham, Isaac and Jacob, Sarah, Rebecca and Leah.",
   ];
   const PAGES = {
-    1: { at: "airport", text: "If you are reading this, he gave you the book. Then he trusts you, and so must I. Do not believe what you are told about the Mount. Believe what you can see and measure: the stones lie to the careless, not to the patient. Begin where every pilgrim began: go up. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed. Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.", ref: "" },
+    1: { at: "airport", text: "If you are reading this, he gave you the book. Then he trusts you, and so must I. I know where it will stand. I do not know when it begins, and neither does any man. But it is close enough that someone is already drawing up the paper. Do not believe what you are told about the Mount. Believe what you can see and measure: the stones lie to the careless, not to the patient. Begin where every pilgrim began: go up. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed. Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.", ref: "" },
     2: { at: "market", text: "A just weight is his delight. Weigh everything you are told. Then go and see the city as it was: the model, at the museum.", ref: "Proverbs 11:1" },
     3: { at: "gabriel", text: "Everyone takes a souvenir home. Take the one that remembers the house. Then walk about Zion, and tell the towers thereof.", ref: "Psalm 48:12" },
     4: { at: "model", text: "Mark it well: the house faced the rising sun. Whatever stands in its way is not the house. Go in at Jaffa Gate and climb the wall.", ref: "Ezekiel 43:4" },
@@ -497,7 +497,8 @@
       { id: "trees", img: "gethsemane-trees", cap: "Inside: gravel paths, flower beds, and the great old olive trunks", hank: "Gethsemane means the olive press. Some of these trees are among the oldest living things in the land. Sit a while. The last page is here somewhere.",
         go: { fwd: "ancient", right: "oldtree", left: "wide", back: "gate" }, who: ["matteo"] },
       { id: "ancient", img: "gethsemane-ancient", cap: "One of the oldest trees, split into two great trunks, the domes of the Church of All Nations behind", go: { back: "trees", fwd: "church", left: "path" } },
-      { id: "path", img: "gethsemane-path", cap: "A gravel path between the olive trees, their old trunks twisted like rope", go: { right: "ancient" } },
+      { id: "path", img: "gethsemane-path", cap: "A gravel path between the olive trees, their old trunks twisted like rope", go: { right: "ancient" },
+        hots: [{ box: [20, 40, 60, 40], label: "Sit a while under the trees", act: "olivesong" }] },
       { id: "gate", img: "gethsemane-gate", cap: "Turn round: straight across the Kidron, the sealed Eastern Gate in the wall, the Temple Mount behind it", go: { fwd: "trees" },
         hots: [{ box: [38, 32, 30, 15], label: "The Eastern Gate", text: "From this garden the gate is straight across the valley, with the Temple Mount just behind the wall. Jesus came here often (Luke 22:39; John 18:2), and from here he could look across at the Temple. Whether that is why he chose this place the Bible does not say; but he prayed facing the house he had called “my Father’s house”, and the gate he will one day come back to." }] },
       { id: "wide", img: "gethsemane-wide", cap: "Across the garden: young trees among the old, and the beds the Franciscans keep", go: { right: "trees" },
@@ -721,7 +722,7 @@
       (T === "evidence" ? '<div class="fjevidence"><p class="fjlead">What you have measured, weighed and found. Facts, not conclusions.</p>' + (notes.length ? notes.map((t) => "<p><b>Measured:</b> " + esc(t) + "</p>").join("") : "") + (facts || (notes.length ? "" : "<p>Nothing yet. Measure something.</p>")) + (H.connections ? H.connections() : "") + "</div>" : "") +
       (T === "people" && H.peoplePage ? H.peoplePage() : "") +
       (T === "scroll" ? scrollHTML() : "") +
-      (T === "pages" ? '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
+      (T === "pages" ? (F.front ? F.front() : "") + '<div class="ftorah"><div class="ftorah-roll"><i></i></div><div class="ftorah-sheet">' +
         (got.length ? got.map(col).join('<div class="ftorah-seam" aria-hidden="true"></div>') : '<div class="ftorah-col"><p>Nothing yet but the question on the first page.</p></div>') +
         '</div><div class="ftorah-roll"><i></i></div></div><p class="fjlead">His pages are his conclusions. Test them against the evidence.</p>' : "") +
       (H.journalExtra ? H.journalExtra() : "") + '<button class="cta" data-act="x">Roll up the journal</button>',
@@ -1578,6 +1579,8 @@
   };
   const ACTS_FN = {
     readjournal: () => journal(),
+    /* a song moment in Gethsemane ("The Olive Press"); until it is recorded, players just sit a while */
+    olivesong: () => { if (F.hasSong && F.hasSong("olivepress")) F.song("olivepress", "Gethsemane · under the old trees"); else K.say("You sit a while. Wind in the leaves, and the city across the valley.", "", 4200); },
     drawer: () => {
       const L = lamps();
       if (L[2]) { journal(); return; }

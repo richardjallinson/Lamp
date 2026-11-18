@@ -1231,3 +1231,22 @@
 #adv .e2-sight .e2-inst .cta:disabled{opacity:.45}
 #adv .e2-sight{overflow-y:auto}
 #adv .asheet .fsay button:disabled{opacity:.55}
+/* the hook at the front of the Watchman's journal: his list, the date, the sealed page; and song moments */
+#adv .fwnote.fcheck{font-style:normal;padding-bottom:30px}
+#adv .fcheck>b{display:block;margin-bottom:8px;font:700 13px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:#2A3A7A}
+#adv .fcheck ul{list-style:none;margin:0;padding:0}
+#adv .fcheck li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dotted rgba(42,58,122,.35);font:600 15.5px/1.3 var(--serif,Georgia,serif);color:#2A3A7A}
+#adv .fcheck li.done span{text-decoration:line-through;text-decoration-thickness:1.5px;opacity:.75}
+#adv .fcheck li small{margin:0;font:700 10px var(--ui);letter-spacing:.1em;text-transform:uppercase;color:#5A6A9A;display:inline}
+#adv .fcheck li.open span{font-weight:800}
+#adv .fcheck li.open::after{content:"";flex:0 0 16px;height:16px;border:1.8px solid #2A3A7A;border-radius:3px}
+#adv .fcheck li.ink{height:19px;margin:6px 0 0;border:none;border-radius:3px;background:#1B2450;opacity:.92;transform:rotate(-.4deg)}
+#adv .fcheck li.ink.short{width:62%}
+#adv .fbegan{text-align:center;margin:8px 0;font:500 14px var(--ui);color:inherit}
+#adv .asheet .fbegan b{color:#1F2A6B}
+#adv .fsealed{text-align:center;font:500 14px/1.4 var(--serif,Georgia,serif);margin:8px 0}
+#adv .ffront{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #E0D5B8}
+#adv .fclock927{display:block;width:130px;margin:8px auto}
+#adv .fseal{display:block;width:170px;margin:8px auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+#adv .fsong{margin:8px 0 12px;text-align:center;font:italic 500 16px/1.55 var(--serif,Georgia,serif);color:#2A2A3A}
+#adv .fsong p{margin:0 0 14px}

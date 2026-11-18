@@ -509,8 +509,11 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - Tester skip works scene by scene through Act 3. "Play Act 3 again" clears only Act 3.
 - For the tester (Gerry): can the sighting be solved on a phone without the hints, and does the page of seals feel like investigation?
 
-## For the next build (v6o)
+## v6o (18 Nov 2026) · the hook, the closing song, song moments
 
-| # | Fix | State |
-| --- | --- | --- |
-| 1 | Episode 1 ends on the song the journey began with, "City On the Hill" (the flight song): it starts as the sun strikes the Eastern Gate and carries on through the last journal page and the closing card (Richard, 18 Nov 2026) | Done in code, waiting for the build |
+- **A new opening for Episode 1** (Richard: a huge hook; something is coming and nothing is named). At the Lamplighter's desk: a clock stopped at 9:27 ("Leave it. It is not broken."). Taking the journal now shows, in order: the Watchman's first words inside the cover, "Let no man deceive you by any means", with the date the player began written in (civil and Hebrew); his list "What must come first" (four lines struck through, "the place" and "the covenant" open, two more lines inked over); page 1, with one new sentence ("I know where it will stand. I do not know when it begins…"); a page sealed with wax, "Not before the last lamp is lit"; and a man in a grey coat on the stair reading the letterboxes. The journal's Watchman tab shows all of it above his pages. The Lamplighter's recorded words are unchanged.
+- **The sealed page opens as Episode 1 ends:** "…so that he as God sitteth in the temple of God, shewing himself that he is God." (2 Thessalonians 2:4, no reference given). "The place" is then struck through on the list.
+- **Episode 1 ends on "City On the Hill"**, the song from the flight: it starts as the sun strikes the Eastern Gate and carries on through the last page and the closing card.
+- **Song moments** (the game stops, the words show, the song plays): "Watching or Marching" just inside Jaffa Gate after the street preacher (Episode 2, Act 2); "The Olive Press" on the gravel path in Gethsemane (Episode 1, Act 4). The songs are not recorded yet: testers see the words with a note; players will not see the moment until the file is in. To switch one on: put fsy-watching.mp3 / fsy-olivepress.mp3 in audio/music and add "watching" / "olivepress" to HAVE_M in js/fsy.js.
+- The Hebrew date is worked out in the game (checked against 1 Tishri 5787 = 12 Sep 2026, 25 Kislev 5787 = 5 Dec 2026, 9 and 11 Av 5787, 15 Shevat 5791, 22 Tishri 5795).
+- Words: the game says "Jacob's trouble", "That Day" and "the son of perdition" only (docs: LAMP-TERMS). Not yet decided: the title "The Tribulation Experiment".

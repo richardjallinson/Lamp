@@ -196,7 +196,7 @@
       K.card('<div class="kick">The journal · the last page</div><h2 class="flast">YOEL’S PLACE — FOUND<br>THE ANNEX — NO LONGER BLANK<br>THE COVENANT — NOT YET CONFIRMED</h2>' +
         said("The Lamplighter", "“You know where. Now learn when.”") +
         "<p>Three nights of the feast remain. You will not be here to see them.</p>" +
-        '<button class="cta" data-act="x">End of Episode 1</button>', { x: () => C.pzDone("yoel", () => C.finish("yoelgate", () => Lamp.fsy.parts.ending())) }); };
+        '<button class="cta" data-act="x">The back of the journal</button>', { x: () => F.sealedPage(() => C.pzDone("yoel", () => C.finish("yoelgate", () => Lamp.fsy.parts.ending()))) }); };
     s0();
   }
   C.PUZZLES.yoel = { label: "The old man at the wall", run: () => yoelTalk() };

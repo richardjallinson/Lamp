@@ -148,6 +148,62 @@
     Lamp.score.set(m ? "fsy-" + m : null, a ? "fsy-" + a : null);
   }
   function V(name, then) { if (Lamp.narr && HAVE.has(name)) Lamp.narr.play("fsy-" + name, then); }
+  /* A song moment: the game stops, the words show, and the song plays (audio/music/fsy-<id>.mp3, added to HAVE_M when Richard has made it).
+     Until then testers see the words with a note, and players do not see the moment at all (hasSong). */
+  const SONGS = {
+    watching: ["Watching or Marching", [["White flags on the wire and a radio loud", "Somebody said peace and it emptied the house", "Everyone’s dancing, nobody’s asking", "Who held the pen, and who’s holding it now"],
+      ["There’s a man at the gate with a book in his hand", "Saying lift up your head while you can"],
+      ["Are you watching, or marching?", "Eyes on the road, or feet in the line?", "It looks like the morning", "It sounds like a hymn", "Are you watching, or marching in?"],
+      ["We wanted a king we could see from the street", "Somebody strong in the place where we’re weak", "Kept the old name on the door of the house", "Carried the throne out when no one looked round"],
+      ["There’s a clock on a shelf with a single hand", "Three marks before midnight, and one is behind", "Nobody wound it, and nobody can", "Stay awake, stay awake, stay awake"]]],
+    olivepress: ["The Olive Press", [["The trees are older than the wall", "The city sleeps across the valley", "Three friends who promised they would stay", "Are breathing slow beneath the branches"],
+      ["Not my will", "Not my will", "The cup is in Your hand", "Not my will"],
+      ["They named this garden for its work", "The weight comes down, and the oil runs", "If there’s another road, then show me now", "If there is not, I’ll walk this one"],
+      ["Lanterns on the hillside, coming up the path", "You could call ten thousand", "And You don’t"]]],
+  };
+  const hasSong = (id) => HAVE_M.has(id) || !!Lamp.tester;
+  function song(id, kick, then) {
+    const sg = SONGS[id]; if (!sg) return then && then();
+    const have = HAVE_M.has(id), was = Lamp.score && Lamp.score.playing ? Lamp.score.playing() : null;
+    if (have) M(id, null);
+    K.card('<div class="kick">' + kick + '</div><h2>' + sg[0] + '</h2><div class="fsong">' + sg[1].map((st) => "<p>" + st.join("<br>") + "</p>").join("") + "</div>" +
+      (have ? "" : '<p class="fsmall">Tester build: this song has not been recorded yet. The words are shown; the music will play here.</p>') +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => { if (have && was && Lamp.score) Lamp.score.set(was.music, was.amb); then && then(); } });
+  }
+  /* the Hebrew date of a civil day (the daylight part), for the date the player writes in the journal */
+  function hebDate(d) {
+    const el = (y) => { const m = Math.floor((235 * y - 234) / 19), pt = 12084 + 13753 * m; let day = m * 29 + Math.floor(pt / 25920); if ((3 * (day + 1)) % 7 < 3) day++; return day; };
+    const ny = (y) => { const a = el(y - 1), b = el(y), c = el(y + 1); return b + (c - b === 356 ? 2 : b - a === 382 ? 1 : 0); };
+    const dn = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5), base = Math.floor(Date.UTC(2026, 8, 12) / 864e5) - ny(5787);   /* 1 Tishri 5787 = 12 September 2026 */
+    let y = d.getFullYear() + 3760; while (ny(y + 1) + base <= dn) y++; while (ny(y) + base > dn) y--;
+    const len = ny(y + 1) - ny(y), leap = (7 * y + 1) % 19 < 7;
+    const mo = [["Tishri", 30], ["Cheshvan", len % 10 === 5 ? 30 : 29], ["Kislev", len % 10 === 3 ? 29 : 30], ["Tevet", 29], ["Shevat", 30]].concat(leap ? [["Adar I", 30], ["Adar II", 29]] : [["Adar", 29]], [["Nisan", 30], ["Iyar", 29], ["Sivan", 30], ["Tammuz", 29], ["Av", 30], ["Elul", 29]]);
+    let k = dn - (ny(y) + base), i = 0; while (k >= mo[i][1]) { k -= mo[i][1]; i++; }
+    return (k + 1) + " " + mo[i][0] + " " + y;
+  }
+  const DAYN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], MONN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const beganLine = () => { const p = P(); if (!p.began0) return ""; const d = new Date(p.began0); return DAYN[d.getDay()] + " " + d.getDate() + " " + MONN[d.getMonth()] + " " + d.getFullYear() + " · " + hebDate(d); };
+  /* the Watchman's list on the first page: what must come first */
+  function checklist() {
+    const p = P(), li = (t, d, done) => '<li class="' + (done ? "done" : "open") + '"><span>' + t + "</span>" + (d ? "<small>" + d + "</small>" : "") + "</li>";
+    return '<div class="fwnote fcheck"><b>What must come first</b><ul>' + li("A people back in the land", "1948", 1) + li("The city in their hands", "1967", 1) + li("The vessels made", "done", 1) + li("The priests trained", "done", 1) +
+      li("The place", p.sealOpen ? "found" : "", !!p.sealOpen) + li("The covenant", "", 0) + '<li class="ink" aria-label="A line inked over"></li><li class="ink short" aria-label="A line inked over"></li></ul>' + WLAMP + "</div>";
+  }
+  /* the front of the journal, shown above the Watchman's pages */
+  function front() {
+    const p = P(); if (!p.hook) return "";
+    return '<div class="ffront"><p class="fbegan">Began to watch: <b>' + esc(beganLine()) + "</b></p>" + wnote("“Let no man deceive you by any means.”") + checklist() +
+      (p.clock927 ? '<p class="fsmall">On the Lamplighter’s desk, a clock stopped at 9:27. “It is not broken.”</p>' : "") +
+      (p.sealOpen ? wnote("“…so that he as God sitteth in the temple of God, shewing himself that he is God.”<small>The sealed page</small>") : '<p class="fsealed">One page at the back is sealed with wax. <i>Not before the last lamp is lit.</i></p>') + "</div>";
+  }
+  function sealedPage(then) {
+    const p = P(); if (!p.hook || p.sealOpen) return then();
+    p.sealOpen = 1; save(); S("parchment");
+    K.card('<div class="kick">The journal · the sealed page</div><h2>The last lamp is lit</h2><p>Seven lamps. The wax on the page at the back of the journal has carried the Watchman’s lamp since the day you took the book. You break it.</p>' +
+      "<p>One line, in his hand. No reference.</p>" + wnote("“…so that he as God sitteth in the temple of God, shewing himself that he is God.”") +
+      "<p>Under it, smaller: <i>Now you know why the place matters, and to whom. Two lines of my list are still inked over. Learn when.</i></p>" +
+      '<button class="cta" data-act="x">Close the journal</button>', { x: then });
+  }
   function stage(html, bg) {
     Lamp.narr && Lamp.narr.stop();
     const sb = $("adv-say"); if (sb) sb.classList.remove("on");
@@ -189,15 +245,33 @@
       '<div class="fdesk">' + INTRO_WORDS.map((t) => "<p>" + t + "</p>").join("") + "<small>The Lamplighter</small></div>";
     const credit = '<div class="fcredit">Every photograph and painting in this episode is by Richard J. Allinson, taken and made in Israel.</div>';
     stage('<div class="fkick">' + BOOK + ' · Episode 1</div><h1>The Lamplighter’s desk</h1>' + (INTRO_FILM ? "" : '<img class="fdeskimg" src="img/fsy/w/intro-desk.jpg" alt="The Lamplighter’s desk at night: an oil lamp, a journal tied with cord, a map of Jerusalem">') + film + credit +
-      '<button class="fbtn glow" id="fgo">Take the journal</button>', "w/intro-desk.jpg");
+      '<button class="fbtn" id="fclock">Look at the clock on the desk</button><button class="fbtn glow" id="fgo">Take the journal</button>', "w/intro-desk.jpg");
     V("w-intro-desk");
+    /* the hook (Richard, 18 Nov 2026): something is coming, and the book in your hand knows what. Nothing is named. */
+    $("fclock").onclick = () => { K.sfx("click"); const p = P(); p.clock927 = 1; save();
+      K.card('<div class="kick">On the desk</div><h2>A clock that has stopped</h2><svg class="fclock927" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#F4EBD2" stroke="#8A6A1E" stroke-width="6"/>' +
+        Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return '<path d="M' + (60 + 44 * Math.sin(a)).toFixed(1) + " " + (60 - 44 * Math.cos(a)).toFixed(1) + "L" + (60 + 49 * Math.sin(a)).toFixed(1) + " " + (60 - 49 * Math.cos(a)).toFixed(1) + '" stroke="#3A2A14" stroke-width="2.5"/>'; }).join("") +
+        '<path d="M60 60L' + (60 + 26 * Math.sin(283.5 * Math.PI / 180)).toFixed(1) + " " + (60 - 26 * Math.cos(283.5 * Math.PI / 180)).toFixed(1) + '" stroke="#1A1206" stroke-width="5" stroke-linecap="round"/><path d="M60 60L' + (60 + 40 * Math.sin(162 * Math.PI / 180)).toFixed(1) + " " + (60 - 40 * Math.cos(162 * Math.PI / 180)).toFixed(1) + '" stroke="#1A1206" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#8A6A1E"/></svg>' +
+        "<p>A small brass clock, stopped at twenty-seven minutes past nine. You reach out to wind it.</p>" + '<div class="fhim">“Leave it. It is not broken.”<small>The Lamplighter</small></div>' +
+        '<button class="cta" data-act="x">Back</button>', { x: () => {} }); };
     $("fgo").onclick = () => {
-      Lamp.narr && Lamp.narr.stop(); K.sfx("click"); const p = P(); p.watchCard = 1; save(); S("parchment");
+      Lamp.narr && Lamp.narr.stop(); K.sfx("click"); const p = P(); p.watchCard = 1; p.hook = 1; if (!p.began0) p.began0 = Date.now(); save(); S("parchment");
       const W = Lamp.fsyWalk && Lamp.fsyWalk.W(); if (W) { W.pages[1] = 1; save(); }
-      K.card('<div class="kick">The Watchman’s journal · page 1 of 12</div><h2>Blue ink, and a small drawn lamp</h2>' +
-        wnote("“If you are reading this, he gave you the book. Then he trusts you, and so must I.<br><br>Do not believe what you are told about the Mount. Believe what you can see and measure. The city has been rebuilt on its own ruins so many times that the stones lie to the careless. They do not lie to the patient.<br><br>Begin where every pilgrim began: go <i>up</i>. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed.<br><br>Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.”") +
-        "<p>The rest of the pages have been torn out. You put the journal in your backpack.</p>" +
+      const fly = () => K.card('<div class="kick">The Watchman’s journal · inside the cover</div><h2>The first words</h2>' + wnote("“Let no man deceive you by any means.”") +
+        "<p>No reference. Under it, a ruled line for the name of whoever keeps the book next, and the day he began. You write today’s date.</p>" + '<p class="fbegan">Began to watch: <b>' + esc(beganLine()) + "</b></p>" +
+        '<button class="cta" data-act="x">Turn the page</button>', { x: list });
+      const list = () => { S("journal"); K.card('<div class="kick">The Watchman’s journal · the first leaf</div><h2>A list, in blue ink</h2>' + checklist() +
+        "<p>Four lines struck through. Two left open. Below them, two more lines have been inked over by the same pen, so heavily that the paper has gone soft.</p><p>Someone has been ticking off something very large, and it is nearly finished.</p>" +
+        '<button class="cta" data-act="x">Turn the page</button>', { x: page1 }); };
+      const page1 = () => K.card('<div class="kick">The Watchman’s journal · page 1 of 12</div><h2>Blue ink, and a small drawn lamp</h2>' +
+        wnote("“If you are reading this, he gave you the book. Then he trusts you, and so must I.<br><br>I know where it will stand. I do not know when it begins, and neither does any man. But it is close enough that someone is already drawing up the paper.<br><br>Do not believe what you are told about the Mount. Believe what you can see and measure. The city has been rebuilt on its own ruins so many times that the stones lie to the careless. They do not lie to the patient.<br><br>Begin where every pilgrim began: go <i>up</i>. Take the train from the airport to Jerusalem. When you come up out of the earth into the light, go to the market, where everything is weighed.<br><br>Trust the man with the angel’s name, at the number of the verse where Messiah is cut off. Be wary of the man in grey.”") +
+        "<p>The rest of the pages have been torn out.</p>" + '<button class="cta" data-act="x">Look at the back of the book</button>', { x: sealed });
+      const sealed = () => K.card('<div class="kick">The Watchman’s journal · the last leaf</div><h2>One page is sealed</h2><svg class="fseal" viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="8" width="104" height="64" rx="3" fill="#F1E7CC" stroke="#B9A46C"/><path d="M8 40h104" stroke="#CDBF9C" stroke-dasharray="3 3"/><circle cx="60" cy="40" r="17" fill="#8E1F14" stroke="#5A120B" stroke-width="2"/><path d="M50 43c0-4 4-5 9-5h6c3 0 5 1 6 3l-4 1c-2 3-6 4-9 4-4 0-8-1-8-3z" fill="none" stroke="#F1C9B8" stroke-width="1.4"/><path d="M71 40c1-3 0-6-1-8" fill="none" stroke="#F1C9B8" stroke-width="1.4"/></svg>' +
+        "<p>Folded over on itself and closed with red wax, pressed with a small lamp. Across the fold, in his hand:</p>" + wnote("“Not before the last lamp is lit.”") + "<p>You put the journal in your backpack.</p>" +
+        '<button class="cta" data-act="x">Go down to the street</button>', { x: stair });
+      const stair = () => K.card('<div class="kick">On the stair</div><h2>A grey coat</h2><p>On the landing below the Lamplighter’s door, a man in a grey coat is reading the names on the letterboxes, one at a time, with a finger. He does not look up as you pass.</p><p>At the street door you look back. He has stopped at one name.</p>' +
         '<button class="cta" data-act="x">Board the flight</button>', { x: () => { const land = () => { if (Lamp.fsyWalk) Lamp.fsyWalk.go("airport", "control"); }; if (Lamp.fsyFlight) Lamp.fsyFlight(land); else land(); } });
+      fly();
     };
   }
   /* which of the kept puzzles are finished (for the route map) */
@@ -1199,7 +1273,7 @@
       save(); stops();
     },
     /* what js/fsy-route.js needs from here */
-    parts: { P, keptDone, cur: (v) => (cur = v), M, V, S, stage, wnote, photo, wrong: (m) => wrong(m), back, wire, shuffle, verse: null, waqf, ending,
+    parts: { P, keptDone, cur: (v) => (cur = v), M, V, S, song, hasSong, front, sealedPage, hebDate, stage, wnote, photo, wrong: (m) => wrong(m), back, wire, shuffle, verse: null, waqf, ending,
       intro, institute, prophets: olivesSign, olives, robinson, chapter, gate, ending },
     card() {
       const p = P();
