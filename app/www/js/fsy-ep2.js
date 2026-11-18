@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["jq-cardo", "egate-gate", "v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1590,6 +1590,7 @@
   );
 
   /* the five frames in Act 4: the fifth is two half frames */
+  const pic4 = (id) => '<img class="e2-obj" src="' + PP + id + '.jpg" alt="">';
   const choice4 = () => E().f["d:choice"];
   function frames4(o) {
     o = o || {};
@@ -1643,14 +1644,14 @@
       views: [{ id: "room", img: "yoel-room", cap: "Yoel's room. The fifth shutter has two keyholes", go: { fwd: "inst" },
           hots: [{ box: [54, 38, 12, 6], label: "The photograph", act: "dphoto" }, { box: [70, 40, 22, 15], label: "The fifth shutter", act: "dfifth" }] },
         { id: "inst", img: "../ti-hall", cap: "The Temple Institute. Shira is at her desk with the printed sheet of the Framework", go: { back: "room", fwd: "steps" }, need: "d:up",
-          who: [{ id: "shiradesk", name: "Shira, at her desk", act: "dshira" }] },
+          who: [{ id: "shirakey", name: "Shira, at her desk", act: "dshira" }] },
         { id: "steps", img: "v3-steps", cap: "The steps outside, late morning", go: { back: "inst" }, need: "d:c5",
           hots: [{ box: [52, 68, 22, 14], label: "A paper cup on the step", act: "dcup4" }] }] },
     { id: "d3", title: "Haller’s coffee · 22 Av", act: "Scene 3 · Wednesday 25 August, 10:00 a.m.", music: "e2-chain", amb: "street",
       task: () => (!flag("d:coffee") ? "“Tomorrow, ten. The terrace above the Cardo. I’ll buy.”" : "Done."),
       views: [{ id: "cardo", img: "jq-cardo", cap: "The Cardo. A stair goes up to a terrace above the columns", go: { fwd: "cafe" } },
         { id: "cafe", img: "v4-cafe", cap: "A café terrace above the Cardo. Two coffees on the table. One is iced", go: { back: "cardo" },
-          who: [{ id: "haller", name: "Haller, already seated", act: "dhaller" }],
+          who: [{ id: "hallercoin", name: "Haller, already seated", act: "dhaller" }],
           hots: [{ box: [30, 58, 40, 16], label: "Two coffees", text: "One hot, his. One iced, where you would sit. The ice has not begun to melt.", f: "d:two" }] }] },
     { id: "d4", title: "Give us a king · 22 Av", act: "Scene 4 · Wednesday 25 August, 6:30 p.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("d:slips") ? "The second book has a page with a coin drawn at its head." : !flag("d:ezek") ? "Someone is calling in the street below." : "Done."),
@@ -1659,12 +1660,12 @@
     { id: "d5", title: "The annex · 23 Av", act: "Scene 5 · Thursday 26 August, 4:15 p.m.", music: "e2-chain", amb: "street",
       task: () => (!has("annex") ? "Haller is on the bench outside the watch repairer, with an envelope." : !flag("d:seal") ? "Test the seal on the annex against the one you trust." : "Done."),
       views: [{ id: "shops", img: "chain-shops", cap: "The Street of the Chain. The bench outside the watch repairer, under the clock painted at 9:27",
-        who: [{ id: "haller", name: "Haller, on the bench", act: "dannex" }],
+        who: [{ id: "hallerbench", name: "Haller, on the bench", act: "dannex" }],
         hots: [{ box: [70, 62, 27, 22], label: "Your satchel: the loupe and the tracing paper", act: "dseal" }] }] },
     { id: "d6", title: "The choice · 23 Av", act: "Scene 6 · Thursday 26 August, 4:40 p.m.", music: "e2-chain", amb: "street",
       task: () => (!choice4() ? "Lay the tracing in front of him." : !flag("d:after") ? "One thing is still unexplained." : "Done."),
       views: [{ id: "shops", img: "chain-shops", cap: "The same bench. The tracing lies on the annex between you",
-        who: [{ id: "haller", name: "Haller", act: "dchoice" }] }] },
+        who: [{ id: "hallerbench", name: "Haller", act: "dchoice" }] }] },
     { id: "d7", title: "The pointer · 24 Av", act: "Scene 7 · Friday 27 August, 4:30 p.m.", music: "e2-roof", amb: "olives",
       task: () => (!has("pointer") ? "The sergeant, at the shut gate, on the twenty-fourth." : !flag("d:seated") ? "Back to Yoel’s room. The instrument has one empty seat." : !flag("d:end") ? "The sun is going. Watch from the window." : "Done."),
       views: [{ id: "gate", img: "egate-gate", cap: "The Eastern Gate from outside, in the afternoon shade. The Kidron below", go: { fwd: "room" },
@@ -1777,10 +1778,10 @@
   ACT.dshira = () => {
     if (flag("d:c5")) { K.say("“Half is a no that has not finished speaking. Go carefully.”", "Shira", 3600); return; }
     if (flag("d:low")) return clauses();
-    K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<h2>Shira</h2><p>The printed sheet of the Framework is open on her desk. She wears a small brass key on a cord, and she does not hand it over at once.</p>" +
+    K.card('<div class="kick">The Temple Institute</div>' + pic4("shirakey") + "<h2>Shira</h2><p>The printed sheet of the Framework is open on her desk. She wears a small brass key on a cord, and she does not hand it over at once.</p>" +
       said("Shira", "He gave me this when I was nineteen and told me not to use it until someone came who had lit four. I thought he was being dramatic. He was being careful.") +
       '<button class="cta" data-act="x">Go on</button>', { x: () => { give("lowkey"); set("d:low"); F.S("lock", "click", 0.5);
-        K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<p>She lifts the cord over her head and puts the key in your hand.</p>" + said("Shira", "I know what is behind it. He made me learn it, in case the key was lost. The whole question reads: Peace, or safety? And the place: whose?") +
+        K.card('<div class="kick">The Temple Institute</div>' + face("shirakey") + "<p>She lifts the cord over her head and puts the key in your hand.</p>" + said("Shira", "I know what is behind it. He made me learn it, in case the key was lost. The whole question reads: Peace, or safety? And the place: whose?") +
           said("Shira", "You have the sheet they handed out at Jaffa Gate. So have I. Six clauses. Let us see which half each one answers.") + '<button class="cta" data-act="x">Lay out the sheet</button>', { x: clauses }); } });
   };
   ACT.dcup4 = () => {
@@ -1795,27 +1796,27 @@
     if (flag("d:coffee")) { K.say("He has gone. The money is under his saucer.", "", 3000); return; }
     const asked = E().f["d:hq"] || {}, mark = (k) => { asked[k] = 1; set("d:hq", asked); };
     const T = '<div class="kick">The terrace above the Cardo</div>';
-    if (!flag("d:hmet")) { set("d:hmet"); return K.card(T + stamp("Wednesday 25 August · 10:00 a.m. · 22 Av") + face("haller") + "<h2>Haller</h2><p>Already seated, jacket over the chair, two coffees on the table. One is iced.</p>" + said("Haller", "Iced. I no longer guess.") +
+    if (!flag("d:hmet")) { set("d:hmet"); return K.card(T + stamp("Wednesday 25 August · 10:00 a.m. · 22 Av") + pic4("hallercoin") + "<h2>Haller</h2><p>Already seated, jacket over the chair, two coffees on the table. One is iced.</p>" + said("Haller", "Iced. I no longer guess.") +
       said("Haller", "Four and a half. Don’t look surprised, I can count shutters through a window as well as anyone. The upper half lit, the lower half dark. The old man built a test that the best agreement in fifty years fails by half a frame.") +
       "<p>While he talks he turns a coin over and over on the table with one thumb.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); }
-    const coin = () => { mark("coin"); K.card(T + face("haller") + said("Haller", "A Temple coin. They struck them a few years ago.") + "<p>He slides it across.</p>" + said("Haller", "Go on.") + '<button class="cta" data-act="f">Look at the front</button>',
+    const coin = () => { mark("coin"); K.card(T + face("hallercoin") + said("Haller", "A Temple coin. They struck them a few years ago.") + "<p>He slides it across.</p>" + said("Haller", "Go on.") + '<button class="cta" data-act="f">Look at the front</button>',
       { f: () => K.card(T + "<h2>The front</h2>" + coinSVG(0) + "<p>A temple with tall pillars, and a dove carrying an olive sprig. No face on this side.</p>" + '<button class="cta" data-act="b">Turn it over</button>',
         { b: () => { set("book:coin"); K.card(T + "<h2>The back</h2>" + coinSVG(1) + "<p>A seven-branched lamp, and under it two faces in profile, one behind the other. The nearer is a bearded king in an ancient crown, with his name beneath: CYRUS.</p><p>The one behind him has been rubbed almost flat. A jaw. The line of a collar.</p>" +
           '<p class="fsmall">Round the rim, still sharp: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2. The rest of the lettering is worn to nothing where a thumb would rest.</p>' +
           '<div class="fsay"><button data-act="w">“Who is the one behind him?”</button></div><button class="cta alt" data-act="x">Slide it back</button>',
-          { x: ACT.dhaller, w: () => { mark("who"); K.card(T + face("haller") + said("Haller", "The one who finishes what the first began.") + "<p>He takes the coin back and closes his hand on it.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); } }); } }) }); };
-    const cyrus = () => { mark("cyrus"); K.card(T + face("haller") + said("Haller", "You know your Isaiah. “That saith of Cyrus, He is my shepherd, and shall perform all my pleasure: even saying to Jerusalem, Thou shalt be built; and to the temple, Thy foundation shall be laid.” A pagan king. Not one of the faithful, and God called him my shepherd all the same, because He needed a house built and Cyrus could build it.") +
-      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card(T + face("haller") + said("Haller", "I have waited my whole life for a man strong enough to do it again. So have a great many people who pray harder than I do. And now there is a page on a table with her seal on it and his word behind it. Peace. Safety. A house, if the last half-frame lights. Tell me what part of that I am supposed to fear.") +
+          { x: ACT.dhaller, w: () => { mark("who"); K.card(T + face("hallercoin") + said("Haller", "The one who finishes what the first began.") + "<p>He takes the coin back and closes his hand on it.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); } }); } }) }); };
+    const cyrus = () => { mark("cyrus"); K.card(T + face("hallercoin") + said("Haller", "You know your Isaiah. “That saith of Cyrus, He is my shepherd, and shall perform all my pleasure: even saying to Jerusalem, Thou shalt be built; and to the temple, Thy foundation shall be laid.” A pagan king. Not one of the faithful, and God called him my shepherd all the same, because He needed a house built and Cyrus could build it.") +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card(T + face("hallercoin") + said("Haller", "I have waited my whole life for a man strong enough to do it again. So have a great many people who pray harder than I do. And now there is a page on a table with her seal on it and his word behind it. Peace. Safety. A house, if the last half-frame lights. Tell me what part of that I am supposed to fear.") +
         '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }) }); };
     const pres = () => { mark("pres"); note("haller", "On 22 Av I asked him whether the President is the one the clock is waiting for. He laughed. “The one you are afraid of comes to destroy. This one builds.”");
-      K.card(T + face("haller") + "<p>Haller laughs. It is not unkind, and it is not acted.</p>" + said("Haller", "The son of perdition? The man who gives Israel peace and her Temple? You have been alone with those pages too long. The one you are afraid of comes to destroy. This one builds.") +
+      K.card(T + pic4("hallerlaugh") + "<p>Haller laughs. It is not unkind, and it is not acted.</p>" + said("Haller", "The son of perdition? The man who gives Israel peace and her Temple? You have been alone with those pages too long. The one you are afraid of comes to destroy. This one builds.") +
         said("Haller", "It looks like salvation because it is.") + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); };
-    const leave = () => K.card(T + face("haller") + (asked.pres ? "" : said("Haller", "You have read the Framework. It looks like salvation because it is.")) +
+    const leave = () => K.card(T + face("hallercoin") + (asked.pres ? "" : said("Haller", "You have read the Framework. It looks like salvation because it is.")) +
       said("Haller", "My employer says Annex C will be filled by Friday. He is not often wrong. You should hear him speak. People come out saying he could call fire down from the sky.") + "<p>He stands and leaves money under his saucer.</p>" +
       said("Haller", "Half a frame. Think about how small that is. Think about what is on the other side of it.") + '<button class="cta" data-act="x">Go on</button>',
       { x: () => { set("d:coffee"); note("haller", "On 22 Av, on the terrace. He carries a Temple coin: Cyrus, and behind him a second face worn smooth. He quoted Isaiah 44:28 and meant every word.");
         K.card('<div class="kick">The journal</div><h2>22 Av</h2><p>Haller. He carries a Temple coin: Cyrus, and behind him a second face worn smooth. He quoted Isaiah 44:28 and meant every word.' + (asked.pres ? " I asked him about the President." : "") + '</p><p class="e2-jline">He laughed. Then he looked at the coin again.</p><button class="cta" data-act="x">Close</button>', { x: after }); } });
-    K.card(T + face("haller") + '<h2>What do you say?</h2><div class="fsay">' +
+    K.card(T + face("hallercoin") + '<h2>What do you say?</h2><div class="fsay">' +
       '<button data-act="coin"' + (asked.coin ? ' class="asked"' : "") + ">Ask about the coin he keeps turning</button>" +
       (asked.coin ? '<button data-act="cyrus"' + (asked.cyrus ? ' class="asked"' : "") + ">“Why Cyrus?”</button>" : "") +
       (asked.cyrus ? '<button data-act="pres"' + (asked.pres ? ' class="asked"' : "") + ">“What if the President is the one the clock is waiting for?”</button>" : "") + "</div>" +
@@ -1870,7 +1871,7 @@
     if (flag("d:seal")) { K.say("He is watching you over the rim of his cup.", "", 2800); return; }
     if (has("annex")) { K.say("“Take your time. I have coffee.”", "Haller", 3000); return; }
     const T = '<div class="kick">The Street of the Chain</div>';
-    K.card(T + stamp("Thursday 26 August · 4:15 p.m. · 23 Av") + face("haller") + "<h2>The bench under the clock</h2><p>Two paper cups beside him, and a stiff envelope on his knee.</p>" +
+    K.card(T + stamp("Thursday 26 August · 4:15 p.m. · 23 Av") + pic4("hallerbench") + "<h2>The bench under the clock</h2><p>Two paper cups beside him, and a stiff envelope on his knee.</p>" +
       said("Haller", "Sit. Last week I gave you a page an hour before the newspapers, and it matched. I would like you to remember that.") + '<button class="cta" data-act="x">Take the envelope</button>',
       { x: () => { F.S("parchment", "click", 0.5); K.card(T + "<h2>One sheet of heavy paper</h2>" + annexHTML() + "<p>At the foot, the Republic’s seal, pressed into the paper.</p>" + '<button class="cta" data-act="x">Read the Schedule</button>',
         { x: () => K.card(T + "<h2>The Schedule</h2><p>Cubits and bearings from a corner of the platform. You know the line before you reach the end of it. It is the measure from Yoel’s first book: the one you found in the winter.</p>" +
@@ -1913,7 +1914,7 @@
     if (flag("d:after")) { K.say(c === "a" ? "“Tomorrow, then.” He lifts his cup to you." : "The bench is empty. He took your coffee with him.", c === "a" ? "Haller" : "", 3600); return; }
     const end = () => K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Those were Yoel’s numbers</h2><p style="text-align:center"><i>Somebody gave them the measure. It was not you. It was not Yoel.</i></p><button class="cta" data-act="x">Go on</button>', { x: () => { set("d:after"); after(); } });
     if (c) return end();
-    const menu = () => K.card(T + face("haller") + '<h2>Wait for proof, or use a page that might be right because you want it to be?</h2><p class="fsmall">You cannot check his story about a second die. It may be true. This cannot be undone.</p><div class="fsay">' +
+    const menu = () => K.card(T + face("hallerbench") + '<h2>Wait for proof, or use a page that might be right because you want it to be?</h2><p class="fsmall">You cannot check his story about a second die. It may be true. This cannot be undone.</p><div class="fsay">' +
       (flag("d:warned") ? "" : '<button data-act="w">Warn him</button>') + '<button data-act="a">Take the annex up to the fifth frame</button><button data-act="r">Hand it back</button></div>',
       { w: warn, a: () => sure("a"), r: () => sure("r") });
     const sure = (k) => K.card(T + "<h2>" + (k === "a" ? "Carry Haller’s annex up to the frame?" : "Hand the annex back?") + '</h2><p>This cannot be undone.</p><div class="fchoices two"><button data-act="y">Yes</button><button data-act="n">Not yet</button></div>', { n: menu, y: () => decide(k) });
@@ -1926,11 +1927,11 @@
       note("yoel", k === "a" ? "On 23 Av I carried up a page I did not know. The lower half went grey." : "On 23 Av I refused a page with a false seal. The lower half stayed dark.");
       K.card(k === "a" ? '<div class="kick">Yoel’s table</div><h2>The lower half</h2>' + frames4() + "<p>You slide the annex under the lower half of the fifth frame. It does not light. It does not stay dark. It goes grey.</p>" + F.wnote("Grey is not dark. Grey means we do not know. Ask yourself why you carried up a page you did not know.") + GO :
         T + "<h2>You hand it back</h2>" + frames4() + "<p>The lower half stays dark. Tucked in the second book, where the next strip begins:</p>" + F.wnote("A no that is true is worth more than a yes that is early.") + GO,
-        { x: () => K.card(T + face("haller") + (k === "a" ? "<p>Haller stays. He finishes his coffee beside you, in no hurry.</p>" + said("Haller", "Tomorrow, then, it becomes true, and no one will ever know which day you lit it.") :
+        { x: () => K.card(T + face("hallerbench") + (k === "a" ? "<p>Haller stays. He finishes his coffee beside you, in no hurry.</p>" + said("Haller", "Tomorrow, then, it becomes true, and no one will ever know which day you lit it.") :
           "<p>Haller stands. He picks up the second cup, the one he brought for you, and carries it away.</p>" + said("Haller", "Tomorrow you will light it anyway. You have only made yourself wait.")) + '<button class="cta" data-act="x">Go on</button>', { x: end }) }); };
-    K.card(T + stamp("4:40 p.m.") + face("haller") + "<p>You lay the tracing on the annex in front of him.</p>" + said("Haller", "A different die. Of course it is.") + "<p>He does not look caught.</p>" +
+    K.card(T + stamp("4:40 p.m.") + face("hallerbench") + "<p>You lay the tracing on the annex in front of him.</p>" + said("Haller", "A different die. Of course it is.") + "<p>He does not look caught.</p>" +
       said("Haller", "The office seals its advance drafts with a second die, so that no one can pass a draft off as the page. The words are final. The official page follows tomorrow, under the real press. I have only brought tomorrow to you one day early.") +
-      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card(T + face("haller") + said("Haller", "Do you know how many people will not believe a president, and will believe an old man who was right about where? If his five frames are lit before the announcement, they will say God told the watchers first. And they will be glad, and they will come. Who is harmed by one day?") +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card(T + face("hallerbench") + said("Haller", "Do you know how many people will not believe a president, and will believe an old man who was right about where? If his five frames are lit before the announcement, they will say God told the watchers first. And they will be glad, and they will come. Who is harmed by one day?") +
         said("Haller", "And if I am wrong by a word, it is a small untruth for a house of prayer on that hill. You want that half-frame lit as much as I do. I have watched you want it.") + '<button class="cta" data-act="x">Go on</button>', { x: menu }) });
   };
 
@@ -1940,7 +1941,7 @@
     const T = '<div class="kick">The Eastern Gate</div>', a = choice4() === "a";
     const ask = () => K.card(T + face("benami") + said("Ben-Ami", "He also said to ask one question first. How many are lit?") + '<div class="fsay"><button data-act="five">“Five.”</button><button data-act="true">' + (a ? "“Four and a half, and a grey half I put there myself.”" : "“Four and a half. The last half is dark.”") + "</button></div>",
       { five: () => { K.snd("bad"); K.card(T + face("benami") + "<p>He does not move the parcel.</p>" + said("Ben-Ami", "He said someone would say five.") + '<button class="cta" data-act="x">Answer again</button>', { x: ask }); },
-        true: () => K.card(T + face("benami") + (a ? "<p>He looks at you a moment longer.</p>" + said("Ben-Ami", "He said someone might say that too. He said give it to them anyway.") : "<p>He nods once.</p>") + "<p>He puts the parcel in your hands. Oilcloth, tied with Yoel’s thread.</p>" + '<button class="cta" data-act="x">Unwrap it</button>',
+        true: () => K.card(T + pic4("benamiparcel") + (a ? "<p>He looks at you a moment longer.</p>" + said("Ben-Ami", "He said someone might say that too. He said give it to them anyway.") : "<p>He nods once.</p>") + "<p>He puts the parcel in your hands. Oilcloth, tied with Yoel’s thread.</p>" + '<button class="cta" data-act="x">Unwrap it</button>',
           { x: () => { give("pointer"); set("book:pointer"); F.S("parchment", "click", 0.5); K.card(T + "<h2>The pointer</h2>" + pointerSVG() + "<p>A slim brass hand as long as your forearm, with a tiny toothed counter at its hub. A row of fine marks along the blade, and at the tip a number: 1,260.</p>" + '<button class="cta" data-act="x">Go on</button>',
             { x: () => yoelCard("e2-4-pointer", () => K.card(T + face("benami") + said("Ben-Ami", "I have stood at this gate eleven years. They say it opens for one man only. I am in no hurry to see the wrong one try it.") + '<button class="cta" data-act="x">Back to the Street of the Chain</button>', { x: after }), "Go on") }); } }) });
     K.card(T + stamp("Friday 27 August · 4:30 p.m. · 24 Av") + face("benami") + "<h2>Sergeant Ben-Ami</h2><p>Where you first met him, in the shade of the sealed gate. He is off duty, and he holds a long narrow parcel wrapped in oilcloth.</p>" +

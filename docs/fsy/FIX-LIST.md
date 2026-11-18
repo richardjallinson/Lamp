@@ -554,3 +554,10 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 2 | The fifth frame shows as two half frames (peace or safety above, the place below): lit, dark or grey | Done in v6s |
 | 3 | The annex gives the Mount to "a Council of the Parties" (Richard, 18 Nov) | Done in v6s |
 | 4 | Both choices (accept or refuse Haller's annex) played through by script with no errors | Checked |
+
+## For the next build (v6t)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 4 character pictures in (Richard, 18 Nov): Haller with the coin, Haller laughing, Haller on the bench, Shira with the key, Ben-Ami with the parcel (img/fsy/people; originals in images/originals/fsy/e2-act4). Shown large on the cards where each first appears | Done in code, waiting for the build |
+| – | Still to make for Act 4: the café terrace (the only stand-in), the Eastern Gate in afternoon light (the picture in use is a dusk one), the coin front and back, the annex, the two seals, the pointer, the key in the photograph; clips; Yoel's four lines; music | – |
