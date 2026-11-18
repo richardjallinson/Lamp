@@ -656,7 +656,7 @@
     ["table", "TABLE", "Haller raised a coffee at Jaffa Gate and left a second one on the stones by the gate. The label said TABLE. He knows where I sat."]
   );
   const MEAS = { "3.1": "three cubits and a hand", "4.2": "four cubits and two hands" };
-  const SUNSET = { 11: ["Fri 13 August", "7:26"], 12: ["Sat 14 August", "7:25"], 13: ["Sun 15 August", "7:24"], 14: ["Mon 16 August", "7:23"], 15: ["Tue 17 August", "7:22"], 16: ["Wed 18 August", "7:20"], 17: ["Thu 19 August", "7:19"], 18: ["Fri 20 August", "7:18"], 19: ["Sat 21 August", "7:17"], 20: ["Sun 22 August", "7:16"], 21: ["Mon 23 August", "7:15"], 22: ["Tue 24 August", "7:14"], 23: ["Wed 25 August", "7:13"], 24: ["Thu 26 August", "7:11"], 25: ["Fri 27 August", "7:10"], 26: ["Sat 28 August", "7:09"], 27: ["Sun 29 August", "7:08"] }; /* provisional: to be checked against a published table */
+  const SUNSET = { 11: ["Fri 13 August", "7:25"], 12: ["Sat 14 August", "7:24"], 13: ["Sun 15 August", "7:23"], 14: ["Mon 16 August", "7:22"], 15: ["Tue 17 August", "7:21"], 16: ["Wed 18 August", "7:20"], 17: ["Thu 19 August", "7:19"], 18: ["Fri 20 August", "7:18"], 19: ["Sat 21 August", "7:17"], 20: ["Sun 22 August", "7:16"], 21: ["Mon 23 August", "7:14"], 22: ["Tue 24 August", "7:13"], 23: ["Wed 25 August", "7:12"], 24: ["Thu 26 August", "7:11"], 25: ["Fri 27 August", "7:10"], 26: ["Sat 28 August", "7:08"], 27: ["Sun 29 August", "7:07"] }; /* sunset at Jerusalem (31.778 N, 35.235 E, sea-level horizon, Israel summer time), to the nearest minute; recalculated 17 Nov 2026 and checked against known dates */
   const HEB = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח"];
 
   SC.push(
@@ -872,7 +872,7 @@
   };
   FINISH.b2 = () => walk(view);
   /* Scene 3: the fallen stones */
-  ACT.bticket = () => { set("b:ticket"); K.card('<div class="kick">The ticket window</div><img class="e2-face" src="' + PP + 'ticket-student.jpg" alt=""><h2>A student, selling tickets</h2><p class="e2-said"><b>The student</b> “The stone with the writing? The real one is in the museum. Ours is a copy, set where the real one fell. Everyone photographs it.”</p><p class="fsmall">Twenty shekels.</p><button class="cta" data-act="x">Go in</button>', { x: after }); };
+  ACT.bticket = () => { set("b:ticket"); K.card('<div class="kick">The ticket window</div><img class="e2-face" src="' + PP + 'ticket-student.jpg" alt=""><h2>A student, selling tickets</h2><p class="e2-said"><b>The student</b> “The stone with the writing? The real one is in the museum. Ours is a copy, set where the real one fell. Everyone photographs it.”</p><p class="fsmall">Forty shekels.</p><button class="cta" data-act="x">Go in</button>', { x: after }); };
   ACT.bstone = () => { set("b:stone"); K.card('<div class="kick">The fallen stones</div><h2>The inscribed stone</h2>' + OBJ("e2-stone") + "<p>One corner has been cut away into a niche. Three words in Hebrew run along the edge and stop at a break. A low kerb runs along the paving from the cut corner.</p>" + '<button class="cta" data-act="x">Back</button>', { x: after }); };
   ACT.bsign = () => { set("b:sign"); K.card('<div class="kick">The sign</div><h2>“To the place of trumpeting to…”</h2><p>The last word is lost.</p><p class="fsmall">“Thought to have fallen from the top of the corner above. Its exact position is not certain.”</p><button class="cta" data-act="x">Back</button>', { x: after }); };
   ACT.bblock = (n) => {
@@ -1035,7 +1035,7 @@
           '<p>On the stones where he stood: the second coffee, untouched. The label says <b>TABLE</b>.</p><p class="fsmall">He knows where you sat last night. The journal notes it either way.</p>' +
           '<div class="fchoices two"><button data-act="t">Take it</button><button data-act="l">Leave it</button></div>',
           { t: () => { give("coffee2"); set("b:cup", "taken"); last(); }, l: () => { set("b:cup", "left"); last(); } }); } });
-    const last = () => K.card('<div class="kick">Jaffa Gate</div><h2>The sun goes</h2><p>Behind the towers the light goes out of the stone. By Yoel’s plate, the sun went at <b>7:23</b>.</p>' +
+    const last = () => K.card('<div class="kick">Jaffa Gate</div><h2>The sun goes</h2><p>Behind the towers the light goes out of the stone. By Yoel’s plate, the sun went at <b>7:22</b>.</p>' +
       "<p>It is the fourteenth of Av now. The band has not stopped. The city is still celebrating the thirteenth, and nobody dancing has noticed that it is over.</p>" + '<p class="fsmall">The day turns when the sun goes.</p><button class="cta" data-act="x">Go on</button>', { x: last2 });
     const last2 = () => K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Two frames lit. Three unopened.</h2><p style="text-align:center"><i>Lit is not the same as finished.</i></p><button class="cta" data-act="x">Go on</button>', { x: () => { set("b:end"); E().done.b6 = 1; save(); endAct2(); } });
   };

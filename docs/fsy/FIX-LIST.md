@@ -491,3 +491,11 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 ## v6m (12 Nov 2026) · the Kingdom of Dedan
 
 - "The Kingdom of Dedan" replaces "the Coastal Kingdom" (Richard): the President's radio line in Act 2 and Document A in Act 1. Radio line re-recorded ("Morgan") with the same radio treatment.
+
+## For the next build (v6n) · Act 2 facts checked (17 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Sunset plate: ten of the seventeen times were a minute late. Recalculated for Jerusalem (sea-level horizon, summer time), checked against known dates. Monday 16 August is now 7:22 (the "sun goes" card at Jaffa Gate follows the plate) | Done in code, waiting for the build |
+| 2 | Ticket window: "Twenty shekels" → "Forty shekels" (the park's adult price is listed at 30–40 NIS) | Done in code, waiting for the build |
+| – | Checked, no change: the inscription ("To the place of trumpeting to…", last word lost; found by Mazar in 1968 at the foot of the south-west corner; original in the Israel Museum; position inferred, not proven); Josephus, War 4.582 (a priest sounded the trumpet at the start and end of every seventh day); the park is shut on the Sabbath and open Sunday | – |
