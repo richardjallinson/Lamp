@@ -526,3 +526,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 2 | Act 3 pictures 6 to 10 are in (18 Nov): inside the hut, Haller in the vines, the dance, Yoel's room with the cup (and the photograph standing on the sill), Shira at the desk (her face in Scenes 2 to 6). The Temple Institute scene now uses the Episode 1 hall photograph; the white dress is looked at from Shira's conversation | Done |
 | 3 | Act 3 pictures 11 to 16 are in (18 Nov): Shira in white (from the foot of the stair and at the dance), the vinedresser, the jar, the wheel of days, the cup (THREE written on its label in the game), the hut roof. The stair now takes the player onto the roof (a view of its own: tap the socket stone to sight; the city on the ridge is a look) | Done |
 | 4 | Act 3 pictures 17 to 19 are in: the winepress (in the press card), the fourth terrace wall (six stones remapped to the photo; Yoel's is the stone right of the fig roots, the fresh lamp is above the dug earth), the treaty's last page (on the bench and beside the newspaper). Act 3 has no temporary pictures left | Done |
+
+## For the next build (v6q)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 3 clip 1 of 6 (shira-desk): plays when you first meet Shira at the Institute. Gemini makes 1280×720; the game crops the middle square to 480×480 like the other character clips, so Richard does not need to crop | Done in code, waiting for the build |
