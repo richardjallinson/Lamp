@@ -15,6 +15,7 @@ views = json.load(open(os.path.join(HERE, "e2_act3_views.json"))); seen = set()
 for v in views:
     n = v["img"]
     if not n.startswith("v3-") or n in seen: continue
+    if os.path.exists(os.path.join(HERE, "..", "..", "images", "originals", "fsy", "e2-act3", n + ".png")): continue   # Richard's real picture is in; never overwrite it
     seen.add(n)
     hots = [h for x in views if x["img"] == n for h in x["hots"]]
     top, bot = SKY.get(n, ((150, 195, 230), (232, 226, 200))); g = GROUND.get(n, (150, 165, 100))

@@ -517,3 +517,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - **Song moments** (the game stops, the words show, the song plays): "Watching or Marching" just inside Jaffa Gate after the street preacher (Episode 2, Act 2); "The Olive Press" on the gravel path in Gethsemane (Episode 1, Act 4). The songs are not recorded yet: testers see the words with a note; players will not see the moment until the file is in. To switch one on: put fsy-watching.mp3 / fsy-olivepress.mp3 in audio/music and add "watching" / "olivepress" to HAVE_M in js/fsy.js.
 - The Hebrew date is worked out in the game (checked against 1 Tishri 5787 = 12 Sep 2026, 25 Kislev 5787 = 5 Dec 2026, 9 and 11 Av 5787, 15 Shevat 5791, 22 Tishri 5795).
 - Words: the game says "Jacob's trouble", "That Day" and "the son of perdition" only (docs: LAMP-TERMS). Not yet decided: the title "The Tribulation Experiment".
+
+## For the next build (v6p)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 3 pictures 1 to 5 of 19 are in (18 Nov): Yoel's room with the moon (shown once the sun has gone), the Quarter steps, the vineyard track, the terraces, the hut. Tap spots moved to match; the winepress and cistern looks on the terraces became a basket and the ridge, since neither is in the picture | Done in code, waiting for the build |

@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1131,36 +1131,40 @@
   SC.push(
     { id: "c1", title: "The thread · 14 Av", act: "Scene 1 · Tuesday 17 August, 6:40 p.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("c:sun") ? "The next strip is tied: not before the fifteenth. When is that?" : !flag("c:strip") ? "The sun has gone. Cut the thread." : !flag("c:photo") ? "“My granddaughter.” Look at the photograph on the sill again." : "Done."),
-      views: [{ id: "room", img: "yoel-room-dusk", cap: "Yoel's room in the last light. The city has been celebrating for two days",
-        hots: [{ box: [36, 9, 30, 30], label: "The window", act: "cwindow" }, { box: [68, 51, 17, 6], label: "The second book", act: "cbook" },
-          { box: [62, 42, 9, 9], label: "Yoel's instrument", act: "cinst" }, { box: [73, 40, 19, 10], label: "The five frames", act: "cframes" },
-          { box: [52, 37, 14, 8], label: "The photograph on the sill", act: "cphoto" }] }] },
+      views: [{ id: "room", get img() { return flag("c:sun") ? "yoel-room-moon" : "yoel-room-dusk"; }, get cap() { return flag("c:sun") ? "Yoel's room. The moon is up over the Mount of Olives" : "Yoel's room in the last light. The city has been celebrating for two days"; },
+        get hots() { return flag("c:sun") ?
+          [{ box: [35, 8, 32, 32], label: "The window", act: "cwindow" }, { box: [70, 50, 11, 5], label: "The second book", act: "cbook" },
+            { box: [64, 41, 10, 9], label: "Yoel's instrument", act: "cinst" }, { box: [75, 42, 18, 12], label: "The five frames", act: "cframes" },
+            { box: [38, 40, 26, 4], label: "The photograph on the sill", act: "cphoto" }] :
+          [{ box: [36, 9, 30, 30], label: "The window", act: "cwindow" }, { box: [68, 51, 17, 6], label: "The second book", act: "cbook" },
+            { box: [62, 42, 9, 9], label: "Yoel's instrument", act: "cinst" }, { box: [73, 40, 19, 10], label: "The five frames", act: "cframes" },
+            { box: [52, 37, 14, 8], label: "The photograph on the sill", act: "cphoto" }]; } }] },
     { id: "c2", title: "Shira · 15 Av", act: "Scene 2 · Wednesday 18 August, 8:40 a.m.", music: "e2-chain", amb: "street",
       task: () => (!flag("c:shira") ? "Find the woman in the photograph." : "Done."),
       views: [{ id: "steps", img: "v3-steps", cap: "The top of the steps in the Jewish Quarter, early morning. White bunting across the lane", go: { fwd: "inst" },
-          hots: [{ box: [4, 44, 34, 40], label: "The newspaper seller", text: "Today's headline is three words: PEACE AND SAFETY. Under it, smaller: “Signature page to be published at 1 p.m.”", f: "c:headline" }] },
+          hots: [{ box: [5, 40, 36, 34], label: "The newspaper seller", text: "Today's headline is three words: PEACE AND SAFETY. Under it, smaller: “Signature page to be published at 1 p.m.”", f: "c:headline" }] },
         { id: "inst", img: "v3-institute", cap: "The Temple Institute, as you left it in December", go: { back: "steps" },
           who: [{ id: "shira", name: "At the desk", act: "cshira" }],
           hots: [{ box: [64, 12, 26, 52], label: "A white dress, on the door", act: "cdress" }] }] },
     { id: "c3", title: "The vineyard · 15 Av", act: "Scene 3 · Wednesday 18 August, 10:15 a.m.", music: "e2-vineyard", amb: "olives",
       task: () => (!flag("c:vd") ? "A terraced vineyard west of the city. Look around, and ask about the hut." : !flag("c:hut") ? "Find the watchman's hut." : "Done."),
       views: [{ id: "track", img: "v3-track", cap: "Where the track ends. Crates of grapes in the shade", go: { fwd: "terr" },
-          hots: [{ box: [60, 56, 34, 26], label: "Crates of grapes", text: "Dark grapes, picked this morning, stacked in the shade of a fig. The harvest has begun.", f: "c:crates" },
-            { box: [6, 40, 26, 14], label: "Far down the road", text: "Where the road bends under the pines, something grey is parked.", f: "c:grey" },
-            { box: [38, 16, 30, 12], label: "The ridge to the east", text: "Jerusalem, small and pale on the skyline. Shira points: “The city is that way. From the roof you can see the towers.”", f: "c:ridge" }] },
+          hots: [{ box: [62, 52, 38, 28], label: "Crates of grapes", text: "Dark grapes, picked this morning, stacked in the shade of a fig. The harvest has begun.", f: "c:crates" },
+            { box: [60, 37, 18, 9], label: "Far down the road", text: "Where the road bends under the pines, something grey is parked.", f: "c:grey" },
+            { box: [0, 20, 36, 9], label: "The ridge to the east", text: "Jerusalem, small and pale on the skyline. Shira points: “The city is that way. From the roof you can see the towers.”", f: "c:ridge" }] },
         { id: "terr", img: "v3-terraces", cap: "The terraces. White dresses on a line between two fig trees", go: { back: "track", fwd: "hut" },
           who: [{ id: "vinedresser", name: "On the third terrace", act: "cvd" }],
-          hots: [{ box: [8, 30, 50, 18], label: "The dresses on the line", text: "A dozen white dresses hung out to air, none the same size. Two girls are pinning up a thirteenth.", f: "c:line" },
-            { box: [62, 60, 30, 18], label: "The winepress", text: "A square floor cut into the bedrock, a channel leading from it to a deep vat. The channel is stained dark.", f: "c:press0" },
-            { box: [10, 70, 24, 14], label: "The cistern", text: "A round mouth in the rock with a stone lid. Dry.", f: "c:cist0" }] },
+          hots: [{ box: [8, 44, 84, 28], label: "The dresses on the line", text: "A dozen white dresses hung out to air, none the same size. Somebody has left a basket for the thirteenth.", f: "c:line" },
+            { box: [34, 15, 60, 9], label: "The ridge", text: "The city again, pale on the skyline to the east. From here the terraces fall away westward, toward the sea.", f: "c:ridge2" },
+            { box: [84, 75, 16, 9], label: "A basket", text: "A picker’s basket, empty. Beyond the hut there is a winepress cut in the rock, the old man says, and a dry cistern below it.", f: "c:press0" }] },
         { id: "hut", img: "v3-hut", cap: "The watchman's hut: four rough walls, a flat roof, a stone stair up the outside", go: { back: "terr" },
-          hots: [{ box: [36, 40, 22, 30], label: "The doorway", act: "chutin" }, { box: [38, 34, 18, 6], label: "The lintel", text: "Scratched on the lintel, very small: a lamp, spout to the right.", f: "c:lintel" },
-            { box: [60, 30, 22, 40], label: "The stair to the roof", text: "A narrow stone stair up the outside wall. From the roof a watchman could see every terrace.", f: "c:stair" }] }] },
+          hots: [{ box: [38, 45, 12, 19], label: "The doorway", act: "chutin" }, { box: [34, 41, 18, 4], label: "The lintel", text: "Scratched on the lintel, very small: a lamp, spout to the right.", f: "c:lintel" },
+            { box: [52, 32, 36, 42], label: "The stair to the roof", text: "A narrow stone stair up the outside wall. From the roof a watchman could see every terrace.", f: "c:stair" }] }] },
     { id: "c4", title: "The watchman's sighting", act: "Scene 4 · Wednesday 18 August, 10:45 a.m.", music: "e2-vineyard", amb: "olives",
       task: () => (!(E().f["c:lines"] || []).length ? "The watch when the day turns. Climb to the roof and sight with the rod." : !flag("c:press") ? "Now the press: follow where the wine ran." : !flag("c:atwall") ? "Open the plan and walk to where your lines cross." : !has("wheel") ? "Somewhere in this wall. Yoel's lamp has its spout to the right." : "Done."),
       views: [{ id: "hut", img: "v3-hut", cap: "The hut, the press and the terraces. Late morning",
-          hots: [{ box: [60, 30, 22, 40], label: "The stair to the roof", act: "csight" }, { box: [2, 74, 30, 16], label: "Walk over to the winepress", act: "cpress" },
-            { box: [66, 76, 30, 14], label: "Yoel's plan of the vineyard", act: "cplan" }] },
+          hots: [{ box: [52, 32, 36, 42], label: "The stair to the roof", act: "csight" }, { box: [0, 68, 34, 28], label: "Walk over to the winepress", act: "cpress" },
+            { box: [64, 78, 36, 18], label: "Yoel's plan of the vineyard", act: "cplan" }] },
         { id: "wall", img: "v3-wall", cap: "The fourth terrace wall, where a fig grows out of the stones", go: { back: "hut" }, need: "c:atwall",
           hots: [{ box: [6, 34, 18, 12], label: "A stone", act: "cstone:1" }, { box: [28, 30, 18, 12], label: "A stone", act: "cstone:2" }, { box: [50, 36, 18, 12], label: "A stone", act: "cstone:3" },
             { box: [10, 52, 18, 12], label: "A stone", act: "cstone:4" }, { box: [34, 50, 18, 12], label: "A stone", act: "cstone:5" }, { box: [56, 54, 18, 12], label: "A stone", act: "cstone:6" },
@@ -1175,7 +1179,7 @@
     { id: "c6", title: "With how many? · 15 Av", act: "Scene 6 · Wednesday 18 August, 3:30 p.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("c:paper") ? "The one o'clock paper has the page. Compare it with Haller's." : !flag("c:wheel") ? "At Yoel's table: seat the wheel of days." : !flag("c:c3") ? "Ask the third question." : "Done."),
       views: [{ id: "steps", img: "v3-steps", cap: "The Quarter steps, mid-afternoon. The newspaper seller has the afternoon edition", go: { fwd: "room" },
-          hots: [{ box: [4, 44, 34, 40], label: "The newspaper seller", act: "cpaper" }] },
+          hots: [{ box: [5, 40, 36, 34], label: "The newspaper seller", act: "cpaper" }] },
         { id: "room", img: "yoel-room", cap: "Yoel's table. Shira waits on the stair; she will not come in", go: { back: "steps" },
           hots: [{ box: [66, 56, 26, 8], label: "Yoel's instrument", act: "cwheel" }, { box: [70, 40, 22, 15], label: "The frames", act: "ctest" }] }] },
     { id: "c7", title: "The dance · 15 Av", act: "Scene 7 · Wednesday 18 August, 6:50 p.m.", music: "e2-dance", amb: "olives",
