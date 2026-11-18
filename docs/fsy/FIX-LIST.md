@@ -545,3 +545,12 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 4 | "Peaceful Offering" (m16): the Garden Tomb; also Gethsemane | Done in v6r |
 | 5 | "Quiet Between Thoughts" (m18): Hezekiah's Tunnel; also the Kidron Valley | Done in v6r |
 | – | "Even So, Come" stored as an original only (images/originals/fsy/audio/music/even-so-come.mp3), for the end of Episode 3 | Kept |
+
+## Build v6s (18 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Episode 2, Act 4 "The Blank Annex" built as a prototype (scenes d1–d7 in js/fsy-ep2.js), from the second-draft script after Gerry's review. Reached from the end of Act 3. Rooms and streets reuse finished pictures; the café terrace is a temporary picture (app/tools/make_e2_act4_standins.py). The coin, the seals and the pointer are drawings. No clips, no voice, no new music yet | Done in v6s |
+| 2 | The fifth frame shows as two half frames (peace or safety above, the place below): lit, dark or grey | Done in v6s |
+| 3 | The annex gives the Mount to "a Council of the Parties" (Richard, 18 Nov) | Done in v6s |
+| 4 | Both choices (accept or refuse Haller's annex) played through by script with no errors | Checked |

@@ -1254,3 +1254,14 @@
 #adv .e2-cupph img{display:block;width:100%;border-radius:12px}
 #adv .e2-cupph b{position:absolute;left:38%;top:48%;width:24%;height:16%;display:flex;align-items:center;justify-content:center;font:700 clamp(13px,4.4vw,19px) "Marker Felt","Comic Sans MS",cursive;color:#1F2A6B;transform:rotate(-4deg);letter-spacing:.02em}
 #adv .e2-obj.tall{aspect-ratio:3/4;max-height:42vh;width:auto;display:block;margin:6px auto;object-fit:cover}
+
+/* Episode 2, Act 4: the fifth frame in two halves; the coin and the seal */
+#adv .e2-frame.split{padding:0;overflow:hidden;gap:0;background:none;justify-content:stretch}
+#adv .e2-frame.split span{position:absolute;left:0;right:0;top:0;height:50%;min-height:0;display:flex;align-items:center;justify-content:center;font:800 9px var(--ui);letter-spacing:.08em;text-transform:uppercase;color:#7A5A12}
+#adv .e2-frame.split span+span{top:50%;border-top:2px solid #B08A3A}
+#adv .e2-frame.split span.lit{background:radial-gradient(circle at 50% 40%,#FFF3C4,#F5C451 60%,#C9A24A)}
+#adv .e2-frame.split span.dark{background:#26282E;color:#A89C82}
+#adv .e2-frame.split span.grey{background:#B9B6AE;color:#4A4A4A}
+#adv .e2-frame.split span.shut{background:repeating-linear-gradient(180deg,#B08A3A 0 5px,#8A6A22 5px 7px);color:#F4EBD2}
+#adv .e2-coin{display:block;width:min(56%,200px);margin:6px auto 10px}
+#adv .e2-seal{display:block;width:min(86%,300px);margin:6px auto 8px;border-radius:6px;border:1px solid #D9CFB6}
