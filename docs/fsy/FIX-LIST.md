@@ -527,9 +527,10 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 3 | Act 3 pictures 11 to 16 are in (18 Nov): Shira in white (from the foot of the stair and at the dance), the vinedresser, the jar, the wheel of days, the cup (THREE written on its label in the game), the hut roof. The stair now takes the player onto the roof (a view of its own: tap the socket stone to sight; the city on the ridge is a look) | Done |
 | 4 | Act 3 pictures 17 to 19 are in: the winepress (in the press card), the fourth terrace wall (six stones remapped to the photo; Yoel's is the stone right of the fig roots, the fresh lamp is above the dug earth), the treaty's last page (on the bench and beside the newspaper). Act 3 has no temporary pictures left | Done |
 
-## For the next build (v6q)
+## v6q (18 Nov 2026) · Act 3 clips and Yoel's voice
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Act 3 clip 1 of 6 (shira-desk): plays when you first meet Shira at the Institute. Gemini makes 1280×720; the game crops the middle square to 480×480 like the other character clips, so Richard does not need to crop | Done in code, waiting for the build |
-| 2 | Act 3 clips 2 to 6 are in: Shira reading the cup's label (when she sees it), Haller holding out the page, Haller leaving, the vinedresser (his answer about the watchman), the dance (with the Mishnah card). All six Act 3 clips are done | Done in code, waiting for the build |
+| 1 | Act 3 clip 1 of 6 (shira-desk): plays when you first meet Shira at the Institute. Gemini makes 1280×720; the game crops the middle square to 480×480 like the other character clips, so Richard does not need to crop | Done |
+| 2 | Act 3 clips 2 to 6 are in: Shira reading the cup's label (when she sees it), Haller holding out the page, Haller leaving, the vinedresser (his answer about the watchman), the dance (with the Mishnah card). All six Act 3 clips are done | Done |
+| 3 | Yoel's four Act 3 lines in his voice (Ergun Kalbak): e2-3-hut, e2-3-jar, e2-3-wheel, e2-3-three; originals in images/originals/fsy/audio/yoel | Done |
