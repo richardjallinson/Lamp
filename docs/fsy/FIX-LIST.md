@@ -50,20 +50,20 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | The station-wall map is now Richard's poster: the line from the coast past the airport into the rounded Judean hills, with a height profile underneath. Real stations on the dots (Tel Aviv Savidor, Ben Gurion Airport, Pa'atei Modi'in, Modi'in Central, Jerusalem Yitzhak Navon) and their heights (≈ 10, 40, 150, 250, 800 m); "go up" is read from the profile | Done in code, waiting for the build |
-| 2 | Act 1 clips: Dudu, the bread seller, the halva seller, Shmuel, Gabriel, the museum guide, the grandmother, each at their key moment. Every Act 1 person now has a clip | Done in code, waiting for the build |
-| 3 | Passport control: the clip now stops after each of her four lines (passport please / where are you going / open the backpack / where did you get this book) with the right answers each time; answers no longer squashed under the back button; the heading no longer shown twice | Done in code, waiting for the build |
+| 1 | The station-wall map is now Richard's poster: the line from the coast past the airport into the rounded Judean hills, with a height profile underneath. Real stations on the dots (Tel Aviv Savidor, Ben Gurion Airport, Pa'atei Modi'in, Modi'in Central, Jerusalem Yitzhak Navon) and their heights (≈ 10, 40, 150, 250, 800 m); "go up" is read from the profile | Done |
+| 2 | Act 1 clips: Dudu, the bread seller, the halva seller, Shmuel, Gabriel, the museum guide, the grandmother, each at their key moment. Every Act 1 person now has a clip | Done |
+| 3 | Passport control: the clip now stops after each of her four lines (passport please / where are you going / open the backpack / where did you get this book) with the right answers each time; answers no longer squashed under the back button; the heading no longer shown twice | Done |
 
 ## v4d (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | Clip for the woman at the stop (Dudu's grandmother on Jaffa Road), when you offer to carry her bags | Done in code, waiting for the build |
-| 2 | Clips for the coffee man ("Twelve.") and the fish man ("Fifteen. Wrapped."). Every Act 1 person now has a clip | Done in code, waiting for the build |
-| 3 | Music for Act 1: M9 "Road to the Old City" (airport, train, tram), M10 "Market Morning" (market, Ben Yehuda, Gabriel), M11 "Miniature Temple Wonder" (the model), levelled to match the other tracks | Done in code, waiting for the build |
-| 4 | Background sounds for Act 1: the airport hall, the train, the market, and the tram stops on Jaffa Road, each looping under its place and levelled with the others | Done in code, waiting for the build |
-| 5 | Sound effects for Act 1: the passport stamp, each coin into the ticket machine, the ticket printing, paying at a stall, the tram bell on each tram ride, and the shop bell going into Gabriel's | Done in code, waiting for the build |
-| 6 | The Lamplighter's voice is now Shlomi (an older man, gentle Hebrew accent): his 10 Act 1 lines, short pauses lengthened, levelled with the old narration | Done in code, waiting for the build |
+| 1 | Clip for the woman at the stop (Dudu's grandmother on Jaffa Road), when you offer to carry her bags | Done |
+| 2 | Clips for the coffee man ("Twelve.") and the fish man ("Fifteen. Wrapped."). Every Act 1 person now has a clip | Done |
+| 3 | Music for Act 1: M9 "Road to the Old City" (airport, train, tram), M10 "Market Morning" (market, Ben Yehuda, Gabriel), M11 "Miniature Temple Wonder" (the model), levelled to match the other tracks | Done |
+| 4 | Background sounds for Act 1: the airport hall, the train, the market, and the tram stops on Jaffa Road, each looping under its place and levelled with the others | Done |
+| 5 | Sound effects for Act 1: the passport stamp, each coin into the ticket machine, the ticket printing, paying at a stall, the tram bell on each tram ride, and the shop bell going into Gabriel's | Done |
+| 6 | The Lamplighter's voice is now Shlomi (an older man, gentle Hebrew accent): his 10 Act 1 lines, short pauses lengthened, levelled with the old narration | Done |
 
 ## v4e (built)
 
@@ -81,67 +81,67 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | Map numbers hard to read: the places not reached yet were faded to 45%. Now solid dark circles with clear white numbers (a dashed rim for not yet reached), a little bigger. Also the place name no longer sits on top of the map's own heading | Done in code, waiting for the build |
-| 2 | The ✕ at the top left looked like a back button. It now says **Quit**, and asks first: "Leave the game? Your progress is saved." with Keep playing / Leave the game | Done in code, waiting for the build |
-| 3 | Lost in the market after shopping: the task line now always shows Dudu's list (what is still to buy, and that coffee is from the coffee man, not Yosef), even after the market is done, and then where to take it. "The man with the sacks" renamed "the coffee man" so he is not confused with Yosef's sack; the main task now says "Go back to Yosef the spice seller and ask about the old sack in his corner" | Done in code, waiting for the build |
-| 4 | The shopping vanished from the backpack without a word: Dudu's grandmother's scene now says "You hand her the bread, the coffee and the fish: they leave your backpack." | Done in code, waiting for the build |
-| 5 | A checklist for every Act 1 place: the task line shows a count (2/3) and opens "Your list here": ticks for what is done, empty boxes with a hint for what is still to find, and the extras (Dudu's shopping, the frankincense) in their own section | Done in code, waiting for the build |
+| 1 | Map numbers hard to read: the places not reached yet were faded to 45%. Now solid dark circles with clear white numbers (a dashed rim for not yet reached), a little bigger. Also the place name no longer sits on top of the map's own heading | Done |
+| 2 | The ✕ at the top left looked like a back button. It now says **Quit**, and asks first: "Leave the game? Your progress is saved." with Keep playing / Leave the game | Done |
+| 3 | Lost in the market after shopping: the task line now always shows Dudu's list (what is still to buy, and that coffee is from the coffee man, not Yosef), even after the market is done, and then where to take it. "The man with the sacks" renamed "the coffee man" so he is not confused with Yosef's sack; the main task now says "Go back to Yosef the spice seller and ask about the old sack in his corner" | Done |
+| 4 | The shopping vanished from the backpack without a word: Dudu's grandmother's scene now says "You hand her the bread, the coffee and the fish: they leave your backpack." | Done |
+| 5 | A checklist for every Act 1 place: the task line shows a count (2/3) and opens "Your list here": ticks for what is done, empty boxes with a hint for what is still to find, and the extras (Dudu's shopping, the frankincense) in their own section | Done |
 
 ## v4g (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | A finale for the market, Richard's spice bowls and sack: the Watchman's sack is tied, its tag reads Exodus 30:34. Pick the four Temple incense spices (stacte, onycha, galbanum, frankincense) from Yosef's nine bowls, labelled in English and Hebrew; wrong picks get a line ("That is for soup"). Then "of each a like weight": spoon each onto the brass scales until it balances the bekah (10 gerahs). Yosef cuts the cord; inside, page 2 torn into five strips: swap them until the words read and the Watchman's ink stroke runs unbroken. The frankincense is now needed (bought at the bowl if not before) | Done in code, waiting for the build |
-| 2 | The night at the Jerusalem Hotel, the last stop of Act 1: the sign (made on Richard's own stone-wall photo, "Jerusalem Hotel / מלון ירושלים", no brand), the front desk with the desk clerk (check in: three nights already paid in cash by an older gentleman; the way to Jaffa Gate; "do the walls in the morning, a storm is coming"; a man telephoned asking about a guest with an old book), and Richard's room photo (the journal on the nightstand, the window, Go to sleep). In the morning a note under the door: "Welcome to Jerusalem. Rest well. The north is cold at this time of year." Front desk picture and the clerk to come from Richard | Done in code, waiting for the build |
-| 3 | Richard's spice-table photo (the bowls only, no people) behind Yosef's scales and the incense weighing | Done in code, waiting for the build |
-| 4 | The Dung Gate sign (Richard's photo) as a view beside the gate: tap it for Nehemiah 3:14 | Done in code, waiting for the build |
-| 5 | Richard's front desk painting and the desk clerk's face in the hotel | Done in code, waiting for the build |
-| 6 | Two hotel clerks: the night clerk (Richard's young woman) checks you in; after you sleep, the morning clerk (the young man) hands you the note left at the desk overnight ("a gentleman in a grey coat, very polite"), and the hotel is done. Also fixed: text in italics inside a reply was nearly invisible (the grandmother's hand-over line) | Done in code, waiting for the build |
-| 7 | Clips for the night clerk (checking in) and the morning clerk (the envelope) | Done in code, waiting for the build |
-| 8 | Buses and the Rav-Kav (Richard's bus pictures, card and tap clip): the travel card is now a Rav-Kav. The number 18 bus from the museum to the hotel, and the bus from the hotel to Jaffa Gate in the morning: board, tap the card (the clip, a green tick). The card's four rides run out on the way to the hotel, so in the morning the reader beeps red, "Insufficient balance", the driver takes no cash, and you top up at the Rav-Kav machine at the stop (language, card on the reader, load ₪5/₪10/₪20). An empty card on the tram also sends you to the machine now. Act 1 now ends with 22 shekels (10 loaded on the card) instead of 32 | Done in code, waiting for the build |
-| 9 | Every ride is on the Rav-Kav: the trams and the buses all need a tap (the clip, a green tick); no card, no ride; no credit, no ride (red, "Insufficient balance") and the Rav-Kav machine at the stop. Richard's bus front with its LED sign lit for each route: 66 Israel Museum, 18 City Centre, 38 Jaffa Gate. The machine is Richard's picture, its screen showing each step, the round reader pulsing to tap | Done in code, waiting for the build |
-| 10 | The end of Part 1 at Jaffa Gate: the bus arrives, the Lamplighter speaks, "End of Part 1 · Arrival", your pages, shekels and people met, and what comes next. PART1_ONLY switch in release.js: off for testers (a "Go up: on to Part 2" button), on for the App Store (Part 2 "Coming soon") | Done in code, waiting for the build |
+| 1 | A finale for the market, Richard's spice bowls and sack: the Watchman's sack is tied, its tag reads Exodus 30:34. Pick the four Temple incense spices (stacte, onycha, galbanum, frankincense) from Yosef's nine bowls, labelled in English and Hebrew; wrong picks get a line ("That is for soup"). Then "of each a like weight": spoon each onto the brass scales until it balances the bekah (10 gerahs). Yosef cuts the cord; inside, page 2 torn into five strips: swap them until the words read and the Watchman's ink stroke runs unbroken. The frankincense is now needed (bought at the bowl if not before) | Done |
+| 2 | The night at the Jerusalem Hotel, the last stop of Act 1: the sign (made on Richard's own stone-wall photo, "Jerusalem Hotel / מלון ירושלים", no brand), the front desk with the desk clerk (check in: three nights already paid in cash by an older gentleman; the way to Jaffa Gate; "do the walls in the morning, a storm is coming"; a man telephoned asking about a guest with an old book), and Richard's room photo (the journal on the nightstand, the window, Go to sleep). In the morning a note under the door: "Welcome to Jerusalem. Rest well. The north is cold at this time of year." Front desk picture and the clerk to come from Richard | Done |
+| 3 | Richard's spice-table photo (the bowls only, no people) behind Yosef's scales and the incense weighing | Done |
+| 4 | The Dung Gate sign (Richard's photo) as a view beside the gate: tap it for Nehemiah 3:14 | Done |
+| 5 | Richard's front desk painting and the desk clerk's face in the hotel | Done |
+| 6 | Two hotel clerks: the night clerk (Richard's young woman) checks you in; after you sleep, the morning clerk (the young man) hands you the note left at the desk overnight ("a gentleman in a grey coat, very polite"), and the hotel is done. Also fixed: text in italics inside a reply was nearly invisible (the grandmother's hand-over line) | Done |
+| 7 | Clips for the night clerk (checking in) and the morning clerk (the envelope) | Done |
+| 8 | Buses and the Rav-Kav (Richard's bus pictures, card and tap clip): the travel card is now a Rav-Kav. The number 18 bus from the museum to the hotel, and the bus from the hotel to Jaffa Gate in the morning: board, tap the card (the clip, a green tick). The card's four rides run out on the way to the hotel, so in the morning the reader beeps red, "Insufficient balance", the driver takes no cash, and you top up at the Rav-Kav machine at the stop (language, card on the reader, load ₪5/₪10/₪20). An empty card on the tram also sends you to the machine now. Act 1 now ends with 22 shekels (10 loaded on the card) instead of 32 | Done |
+| 9 | Every ride is on the Rav-Kav: the trams and the buses all need a tap (the clip, a green tick); no card, no ride; no credit, no ride (red, "Insufficient balance") and the Rav-Kav machine at the stop. Richard's bus front with its LED sign lit for each route: 66 Israel Museum, 18 City Centre, 38 Jaffa Gate. The machine is Richard's picture, its screen showing each step, the round reader pulsing to tap | Done |
+| 10 | The end of Part 1 at Jaffa Gate: the bus arrives, the Lamplighter speaks, "End of Part 1 · Arrival", your pages, shekels and people met, and what comes next. PART1_ONLY switch in release.js: off for testers (a "Go up: on to Part 2" button), on for the App Store (Part 2 "Coming soon") | Done |
 
 ## v4h (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | The man in grey becomes a person: Victor Haller, waiting in the hotel lobby the morning after with two coffees. Polite, reasonable, half right: he knew the Watchman, says the Temple stood on the rock as thirteen centuries have said, the people he serves are close to an agreement that needs everyone looking at the same rock, offers to buy the journal, and when refused asks you to look south from the walls and judge honestly. "How did you know my flight?" "Someone told me. Someone who wanted me to know." The hotel finishes when he leaves. Face and clip to come from Richard | Done in code, waiting for the build |
+| 1 | The man in grey becomes a person: Victor Haller, waiting in the hotel lobby the morning after with two coffees. Polite, reasonable, half right: he knew the Watchman, says the Temple stood on the rock as thirteen centuries have said, the people he serves are close to an agreement that needs everyone looking at the same rock, offers to buy the journal, and when refused asks you to look south from the walls and judge honestly. "How did you know my flight?" "Someone told me. Someone who wanted me to know." The hotel finishes when he leaves. Face and clip to come from Richard | Done |
 | 2 | Shlomi's three new lines: arriving at the hotel, the room, the end of Part 1 | In v4h |
 
 ## v4i (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | Stuck at "Choose a souvenir" in Gabriel's: the "buy the model first" message was a toast that vanished in three seconds. It is now a proper card with a "Buy the model (30 shekels)" button that goes straight on to choosing | Done in code, waiting for the build |
-| 2 | Holy Bagel: tap the counter to buy a bagel (12, or 14 with cream cheese); tap again to eat it on the red chair, and your lamp gains a drop of oil (hints cost one) | Done in code, waiting for the build |
-| 3 | Holy Bagel photo unblurred (Richard's wife said it is fine; she is side-on in the queue) | Done in code, waiting for the build |
-| 4 | The Holy Bagel girl: Richard's portrait and her "Next!" clip on the counter card (take 1, cap slightly clipped at the top; a retake with the wide picture would be cleaner) | Done in code, waiting for the build |
-| 5 | Hebron, the Noam Arnon sign: "Read the sign" now tells the whole story in a scrolling reading panel, retold in brief with a short quote (the sign is Arnon's copyrighted text; the full wording stays readable in Richard's photo behind the card; restore it word for word only with permission). The same panel is available for any other long sign (hotspot: long, title, sub) | Done in code, waiting for the build |
-| 6 | The 160 to Hebron (Act 3) is now a Rav-Kav ride from the Central Bus Station, with its lit sign: no credit, no ride, top up at the machine | Done in code, waiting for the build |
-| 7 | A cash machine beside the hotel door (Richard, Oct 30): Hebrew only until you find שפה (language) and choose English; the Lamplighter's blue bank card turns up in the envelope with a scrap in the Watchman's hand, "Psalm 48:2", so the PIN is 4802; three wrong tries and the machine keeps the card (the clerk gets it back: "Try the Psalms"); ₪50–₪200 once a day, ₪6 fee. Picture of the machine to come from Richard | Done in code, waiting for the build |
-| 8 | Richard's cash machine picture in place; Pizza HaOr (פיצה האור, "Pizza of the Light", name written on Richard's blank sign) across the lane from the hotel: a slice (10) or a whole pizza (38, half to the paratroopers), eaten on the stool for a drop of oil | Done in code, waiting for the build |
-| 9 | Victor Haller: Richard's portrait and his clip ("I am not your enemy…") on his first line in the lobby; the bagel girl's portrait switched on | Done in code, waiting for the build |
+| 1 | Stuck at "Choose a souvenir" in Gabriel's: the "buy the model first" message was a toast that vanished in three seconds. It is now a proper card with a "Buy the model (30 shekels)" button that goes straight on to choosing | Done |
+| 2 | Holy Bagel: tap the counter to buy a bagel (12, or 14 with cream cheese); tap again to eat it on the red chair, and your lamp gains a drop of oil (hints cost one) | Done |
+| 3 | Holy Bagel photo unblurred (Richard's wife said it is fine; she is side-on in the queue) | Done |
+| 4 | The Holy Bagel girl: Richard's portrait and her "Next!" clip on the counter card (take 1, cap slightly clipped at the top; a retake with the wide picture would be cleaner) | Done |
+| 5 | Hebron, the Noam Arnon sign: "Read the sign" now tells the whole story in a scrolling reading panel, retold in brief with a short quote (the sign is Arnon's copyrighted text; the full wording stays readable in Richard's photo behind the card; restore it word for word only with permission). The same panel is available for any other long sign (hotspot: long, title, sub) | Done |
+| 6 | The 160 to Hebron (Act 3) is now a Rav-Kav ride from the Central Bus Station, with its lit sign: no credit, no ride, top up at the machine | Done |
+| 7 | A cash machine beside the hotel door (Richard, Oct 30): Hebrew only until you find שפה (language) and choose English; the Lamplighter's blue bank card turns up in the envelope with a scrap in the Watchman's hand, "Psalm 48:2", so the PIN is 4802; three wrong tries and the machine keeps the card (the clerk gets it back: "Try the Psalms"); ₪50–₪200 once a day, ₪6 fee. Picture of the machine to come from Richard | Done |
+| 8 | Richard's cash machine picture in place; Pizza HaOr (פיצה האור, "Pizza of the Light", name written on Richard's blank sign) across the lane from the hotel: a slice (10) or a whole pizza (38, half to the paratroopers), eaten on the stool for a drop of oil | Done |
+| 9 | Victor Haller: Richard's portrait and his clip ("I am not your enemy…") on his first line in the lobby; the bagel girl's portrait switched on | Done |
 
 ## v4j (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | The journal as a Torah scroll: wooden rollers top and bottom, one sewn parchment sheet you scroll through, each page a column with its Hebrew letter-number (א, ב, ג…) in the margin in red, a large red first letter, and the margin notes at the end. Hoefler Text / Baskerville, Apple's built-in old-style faces, for the scribe's hand | Done in code, waiting for the build |
-| 2 | Music and background sound now dip whenever a person's clip plays (and under the officer at passport control), not only under the Lamplighter; the dip is deeper (music to 18%, street sound to 40%) and comes back when the clip ends or the card closes | Done in code, waiting for the build |
+| 1 | The journal as a Torah scroll: wooden rollers top and bottom, one sewn parchment sheet you scroll through, each page a column with its Hebrew letter-number (א, ב, ג…) in the margin in red, a large red first letter, and the margin notes at the end. Hoefler Text / Baskerville, Apple's built-in old-style faces, for the scribe's hand | Done |
+| 2 | Music and background sound now dip whenever a person's clip plays (and under the officer at passport control), not only under the Lamplighter; the dip is deeper (music to 18%, street sound to 40%) and comes back when the clip ends or the card closes | Done |
 
 ## Added to v4j (rebuilt)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | The Watchman's writing in a gentle italic (journal scroll and the single pages you find): a touch larger, more open spacing, so it reads like a hand without being hard to read; the red first letter and the verse references stay upright | Done in code, waiting for the build |
+| 1 | The Watchman's writing in a gentle italic (journal scroll and the single pages you find): a touch larger, more open spacing, so it reads like a hand without being hard to read; the red first letter and the verse references stay upright | Done |
 
 ## v4k (built)
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | The map on one fixed screen, nothing scrolls: the heading at the top, the map filling the middle at its proper shape (it shrinks on small phones), and the Jerusalem / Old City tabs, the key and Journal · Backpack · All places in one row at the bottom. Checked on a large and a small iPhone screen | Done in code, waiting for the build |
-| 2 | The guide's questions at the Temple model: tapping a name did nothing (it selected and unselected in the same tap). Now tap a name then a ?, or a ? then a name, or drag; the line underneath says what to do next; a wrong pairing names the label; the picture is sized to fit the screen; the sanctuary label sits above its pin so the two labels don't overlap | Done in code, waiting for the build |
+| 1 | The map on one fixed screen, nothing scrolls: the heading at the top, the map filling the middle at its proper shape (it shrinks on small phones), and the Jerusalem / Old City tabs, the key and Journal · Backpack · All places in one row at the bottom. Checked on a large and a small iPhone screen | Done |
+| 2 | The guide's questions at the Temple model: tapping a name did nothing (it selected and unselected in the same tap). Now tap a name then a ?, or a ? then a name, or drag; the line underneath says what to do next; a wrong pairing names the label; the picture is sized to fit the screen; the sanctuary label sits above its pin so the two labels don't overlap | Done |
 | 3 | The start screen: LAMP · The Seven Candles, with "Based on The Final Seven Years by Richard J. Allinson" beneath | In v4k |
 | 4 | A title screen before each act, like a film chapter: Episode 1 · The Jerusalem Mystery, the act number and name, its verse. Act 1 Go Up (the Eastern Gate), Act 2 Watchmen on the Walls (Richard's Damascus Gate at dusk, Isaiah 62:6), Act 3 Down to the Water (John 9:7), Act 4 The Feast of Dedication (John 10:22–23), Act 5 Measure the Temple (Revelation 11:1). Acts 3–5 use existing photos until Richard paints their dusk pictures | In v4k |
 
@@ -149,10 +149,10 @@ Last build sent: v3z (fixes 1–12 below; 11 still to do). App Store name: Lamp 
 
 | # | Fix | Status |
 |---|---|---|
-| 1 | Act 3 title screen: "Where the City Began", Richard's City of David painting at dusk (the stepped wall, the lamp-bearer at the top), 2 Samuel 5:7 | Done in code, waiting for the build |
-| 2 | The Seven Lamps begin: Richard's menorah at the top of the journal, its seven flames lit one by one ("2 of 7 lit", with the verse references). Lamp 1, Genesis 22:2: after her three questions, the guide at the model points to the summit, "It had a name before it had a temple." Lamp 2, Revelation 11:1–2: the nightstand drawer in Room 412 (Richard's painting), the old Bible open with a pressed olive leaf and the Watchman's drawn lamp | Done in code, waiting for the build |
-| 3 | Richard's film of the first lamp catching fire plays on the "A lamp is lit" card (lamps without a film yet show the painted menorah) | Done in code, waiting for the build |
-| 4 | Films for lamps 2 to 7, made from Richard's first lamp film (Gemini refused the others): the earlier lamps burn, the new one catches. All seven lamps now have their film | Done in code, waiting for the build |
+| 1 | Act 3 title screen: "Where the City Began", Richard's City of David painting at dusk (the stepped wall, the lamp-bearer at the top), 2 Samuel 5:7 | Done |
+| 2 | The Seven Lamps begin: Richard's menorah at the top of the journal, its seven flames lit one by one ("2 of 7 lit", with the verse references). Lamp 1, Genesis 22:2: after her three questions, the guide at the model points to the summit, "It had a name before it had a temple." Lamp 2, Revelation 11:1–2: the nightstand drawer in Room 412 (Richard's painting), the old Bible open with a pressed olive leaf and the Watchman's drawn lamp | Done |
+| 3 | Richard's film of the first lamp catching fire plays on the "A lamp is lit" card (lamps without a film yet show the painted menorah) | Done |
+| 4 | Films for lamps 2 to 7, made from Richard's first lamp film (Gemini refused the others): the earlier lamps burn, the new one catches. All seven lamps now have their film | Done |
 
 ## TestFlight 1 (tf1, Xcode build 4)
 
@@ -496,8 +496,8 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Sunset plate: ten of the seventeen times were a minute late. Recalculated for Jerusalem (sea-level horizon, summer time), checked against known dates. Monday 16 August is now 7:22 (the "sun goes" card at Jaffa Gate follows the plate) | Done in code, waiting for the build |
-| 2 | Ticket window: "Twenty shekels" → "Forty shekels" (the park's adult price is listed at 30–40 NIS) | Done in code, waiting for the build |
+| 1 | Sunset plate: ten of the seventeen times were a minute late. Recalculated for Jerusalem (sea-level horizon, summer time), checked against known dates. Monday 16 August is now 7:22 (the "sun goes" card at Jaffa Gate follows the plate) | Done |
+| 2 | Ticket window: "Twenty shekels" → "Forty shekels" (the park's adult price is listed at 30–40 NIS) | Done |
 | – | Checked, no change: the inscription ("To the place of trumpeting to…", last word lost; found by Mazar in 1968 at the foot of the south-west corner; original in the Israel Museum; position inferred, not proven); Josephus, War 4.582 (a priest sounded the trumpet at the start and end of every seventh day); the park is shut on the Sabbath and open Sunday | – |
 
 ## v6n (18 Nov 2026) · Episode 2, Act 3 prototype
@@ -518,10 +518,11 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 - The Hebrew date is worked out in the game (checked against 1 Tishri 5787 = 12 Sep 2026, 25 Kislev 5787 = 5 Dec 2026, 9 and 11 Av 5787, 15 Shevat 5791, 22 Tishri 5795).
 - Words: the game says "Jacob's trouble", "That Day" and "the son of perdition" only (docs: LAMP-TERMS). Not yet decided: the title "The Tribulation Experiment".
 
-## For the next build (v6p)
+## v6p (18 Nov 2026) · all nineteen Act 3 pictures
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Act 3 pictures 1 to 5 of 19 are in (18 Nov): Yoel's room with the moon (shown once the sun has gone), the Quarter steps, the vineyard track, the terraces, the hut. Tap spots moved to match; the winepress and cistern looks on the terraces became a basket and the ridge, since neither is in the picture | Done in code, waiting for the build |
-| 2 | Act 3 pictures 6 to 10 are in (18 Nov): inside the hut, Haller in the vines, the dance, Yoel's room with the cup (and the photograph standing on the sill), Shira at the desk (her face in Scenes 2 to 6). The Temple Institute scene now uses the Episode 1 hall photograph; the white dress is looked at from Shira's conversation | Done in code, waiting for the build |
-| 3 | Act 3 pictures 11 to 16 are in (18 Nov): Shira in white (from the foot of the stair and at the dance), the vinedresser, the jar, the wheel of days, the cup (THREE written on its label in the game), the hut roof. The stair now takes the player onto the roof (a view of its own: tap the socket stone to sight; the city on the ridge is a look) | Done in code, waiting for the build |
+| 1 | Act 3 pictures 1 to 5 of 19 are in (18 Nov): Yoel's room with the moon (shown once the sun has gone), the Quarter steps, the vineyard track, the terraces, the hut. Tap spots moved to match; the winepress and cistern looks on the terraces became a basket and the ridge, since neither is in the picture | Done |
+| 2 | Act 3 pictures 6 to 10 are in (18 Nov): inside the hut, Haller in the vines, the dance, Yoel's room with the cup (and the photograph standing on the sill), Shira at the desk (her face in Scenes 2 to 6). The Temple Institute scene now uses the Episode 1 hall photograph; the white dress is looked at from Shira's conversation | Done |
+| 3 | Act 3 pictures 11 to 16 are in (18 Nov): Shira in white (from the foot of the stair and at the dance), the vinedresser, the jar, the wheel of days, the cup (THREE written on its label in the game), the hut roof. The stair now takes the player onto the roof (a view of its own: tap the socket stone to sight; the city on the ridge is a look) | Done |
+| 4 | Act 3 pictures 17 to 19 are in: the winepress (in the press card), the fourth terrace wall (six stones remapped to the photo; Yoel's is the stone right of the fig roots, the fresh lamp is above the dug earth), the treaty's last page (on the bench and beside the newspaper). Act 3 has no temporary pictures left | Done |

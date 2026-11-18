@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1168,9 +1168,9 @@
           hots: [{ box: [37, 52, 26, 18], label: "The stone with the socket: stand the rod in it", act: "csight" },
             { box: [62, 12, 26, 8], label: "The city on the ridge", text: "Jerusalem, on the skyline to the east. Yoel’s roof plan has a small arrow at one side: to the city.", f: "c:roofcity" }] },
         { id: "wall", img: "v3-wall", cap: "The fourth terrace wall, where a fig grows out of the stones", go: { back: "hut" }, need: "c:atwall",
-          hots: [{ box: [6, 34, 18, 12], label: "A stone", act: "cstone:1" }, { box: [28, 30, 18, 12], label: "A stone", act: "cstone:2" }, { box: [50, 36, 18, 12], label: "A stone", act: "cstone:3" },
-            { box: [10, 52, 18, 12], label: "A stone", act: "cstone:4" }, { box: [34, 50, 18, 12], label: "A stone", act: "cstone:5" }, { box: [56, 54, 18, 12], label: "A stone", act: "cstone:6" },
-            { box: [4, 74, 40, 12], label: "The earth at the foot of the wall", text: "A patch of earth that has been dug and trodden back. Recently, and badly.", f: "c:dug" }] }] },
+          hots: [{ box: [3, 26, 25, 10], label: "A stone", act: "cstone:1" }, { box: [10, 63, 19, 11], label: "A stone", act: "cstone:2" }, { box: [25, 42, 40, 12], label: "A stone", act: "cstone:3" },
+            { box: [31, 29, 28, 11], label: "A stone", act: "cstone:4" }, { box: [67, 52, 14, 8], label: "A stone", act: "cstone:5" }, { box: [49, 67, 22, 12], label: "A stone", act: "cstone:6" },
+            { box: [0, 80, 44, 15], label: "The earth at the foot of the wall", text: "A patch of earth that has been dug and trodden back. Recently, and badly.", f: "c:dug" }] }] },
     { id: "c5", title: "The little foxes · 15 Av, noon", act: "Scene 5 · Wednesday 18 August, noon", music: "e2-chain", amb: "olives",
       task: () => (!has("lastpage") ? "You are not alone on the terrace." : !flag("c:sorted") ? "In the hut, out of the sun: read the page of seals with the loupe." : "Done."),
       views: [{ id: "above", img: "v3-haller", cap: "The terrace wall above. A grey coat, folded", go: { fwd: "bench" },
@@ -1360,8 +1360,7 @@
   };
   ACT.cpress = () => {
     if (flag("c:press")) return K.card('<div class="kick">The winepress</div><h2>The way the wine ran</h2>' + planSVG() + '<p>The line is on the plan.</p><button class="cta" data-act="x">Back</button>', { x: after });
-    K.card('<div class="kick">The winepress</div><h2>Lay the rod in the channel</h2><svg class="e2-draw" viewBox="0 0 300 90" aria-hidden="true"><rect width="300" height="90" fill="#D8CDB4"/><rect x="196" y="14" width="80" height="62" fill="#BFAF8A" stroke="#3A2A14" stroke-width="2"/><text x="236" y="50" text-anchor="middle" font-size="10" fill="#3A2A14">treading floor</text>' +
-      '<path d="M196 45H92" stroke="#5A1830" stroke-width="7"/><circle cx="64" cy="45" r="28" fill="#7A6A52" stroke="#3A2A14" stroke-width="2"/><text x="64" y="49" text-anchor="middle" font-size="10" fill="#F3E9CE">vat</text><path d="M96 38h96" stroke="#9B7A4A" stroke-width="4" stroke-linecap="round"/></svg>' +
+    K.card('<div class="kick">The winepress</div><h2>Lay the rod in the channel</h2><img class="e2-obj tall" src="img/fsy/w/v3-press.jpg" alt="A winepress cut in the rock: a treading floor, a stained channel, a deep round vat">' +
       "<p>The stained channel runs from the square floor to the deep vat. The rod lies in it exactly. It has two ends: which way do you sight along it?</p>" +
       '<div class="fsay"><button data-act="up">From the vat, back toward the floor</button><button data-act="dn">From the floor, on past the vat</button></div><button class="cta alt" data-act="x">Step back</button>',
       { x: after, up: () => { K.snd("bad"); K.say("The line runs uphill into the sky. Wine does not run uphill.", "", 3600); ACT.cpress(); },
@@ -1465,7 +1464,7 @@
         '<p class="fsmall">Counted, not yet trusted. The one o’clock paper will have it.</p><button class="cta" data-act="x">Go on</button>', { x: after });
     };
     const n = SEALS.filter((s) => put[s[0]] === "b" || put[s[0]] === "g").length;
-    K.card('<div class="kick">In the hut · the Framework’s last page</div><div class="e2-paper"><b>Signed, sealed, witnessed</b>' +
+    K.card('<div class="kick">In the hut · the Framework’s last page</div>' + OBJ("e2-lastpage") + '<div class="e2-paper"><b>Signed, sealed, witnessed</b>' +
       '<p class="fsmall" style="text-align:center"><i>I count states and governing bodies, never persons. One is counted if it is bound: as a party, by its signature; or as a guarantor, by its own act.</i></p>' +
       SEALS.map((s) => '<button class="e2-look' + (read[s[0]] ? " seen" : "") + '" data-act="s' + s[0] + '"><em>' + s[1] + "</em><span>" + esc(s[2]) + "</span>" + (put[s[0]] ? '<span class="q">→ ' + TRAYS[put[s[0]]] + "</span>" : '<span class="q">Tap to read with the loupe</span>') + "</button>").join("") + "</div>" +
       '<p class="e2-jline">In the count: <b>' + n + "</b>" + (n ? " (Israel and " + Math.max(0, n - 1) + " more, if Israel is among them)" : "") + '</p><button class="cta" data-act="count">Count them</button><button class="cta alt" data-act="x">Leave the bench</button>', acts);
@@ -1478,7 +1477,7 @@
     const seen = E().f["c:cmp"] || [0, 0, 0], L = [["The order of the seals", "The same, seal for seal, in both."], ["Kedar’s line", "Empty in the newspaper too. Typed beside it: to accede."], ["The row of small seals", "Seven with crowns, three empty rings, one set apart. The same."]];
     const acts = { x: after }; [0, 1, 2].forEach((i) => (acts["k" + i] = () => { const s = seen.slice(); s[i] = 1; set("c:cmp", s); F.S("parchment", "click", 0.3); ACT.cpaper(); }));
     acts.done = () => { set("c:paper"); K.buzz("success"); K.card('<div class="kick">The journal</div><h2>Checked</h2><p>Haller’s page is the page that was published. That does not show that every signature on it is genuine. The journal claims only what was checked:</p>' + F.wnote("From Haller. Matches the page published at 1 p.m.") + '<button class="cta" data-act="x">Close</button>', { x: after }); };
-    K.card('<div class="kick">The Quarter steps</div>' + stamp("3:30 p.m.") + '<div class="e2-paper"><b>The one o’clock edition, beside Haller’s page</b>' +
+    K.card('<div class="kick">The Quarter steps</div>' + stamp("3:30 p.m.") + OBJ("e2-lastpage") + '<div class="e2-paper"><b>The one o’clock edition, beside Haller’s page</b>' +
       L.map((l, i) => '<button class="e2-look' + (seen[i] ? " seen" : "") + '" data-act="k' + i + '"><em>' + l[0] + "</em>" + (seen[i] ? "<span>" + l[1] + "</span>" : '<span class="q">Tap to compare with the loupe</span>') + "</button>").join("") + "</div>" +
       (seen[0] && seen[1] && seen[2] ? '<button class="cta" data-act="done">Write it in the journal</button>' : "") + '<button class="cta alt" data-act="x">Step back</button>', acts);
   };
