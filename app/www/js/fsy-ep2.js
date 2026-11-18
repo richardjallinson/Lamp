@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1143,9 +1143,8 @@
       task: () => (!flag("c:shira") ? "Find the woman in the photograph." : "Done."),
       views: [{ id: "steps", img: "v3-steps", cap: "The top of the steps in the Jewish Quarter, early morning. White bunting across the lane", go: { fwd: "inst" },
           hots: [{ box: [5, 40, 36, 34], label: "The newspaper seller", text: "Today's headline is three words: PEACE AND SAFETY. Under it, smaller: “Signature page to be published at 1 p.m.”", f: "c:headline" }] },
-        { id: "inst", img: "v3-institute", cap: "The Temple Institute, as you left it in December", go: { back: "steps" },
-          who: [{ id: "shira", name: "At the desk", act: "cshira" }],
-          hots: [{ box: [64, 12, 26, 52], label: "A white dress, on the door", act: "cdress" }] }] },
+        { id: "inst", img: "../ti-hall", cap: "The Temple Institute, as you left it in December", go: { back: "steps" },
+          who: [{ id: "shiradesk", name: "At the desk", act: "cshira" }] }] },
     { id: "c3", title: "The vineyard · 15 Av", act: "Scene 3 · Wednesday 18 August, 10:15 a.m.", music: "e2-vineyard", amb: "olives",
       task: () => (!flag("c:vd") ? "A terraced vineyard west of the city. Look around, and ask about the hut." : !flag("c:hut") ? "Find the watchman's hut." : "Done."),
       views: [{ id: "track", img: "v3-track", cap: "Where the track ends. Crates of grapes in the shade", go: { fwd: "terr" },
@@ -1174,8 +1173,8 @@
       views: [{ id: "above", img: "v3-haller", cap: "The terrace wall above. A grey coat, folded", go: { fwd: "bench" },
           who: [{ id: "haller", name: "On the wall, eating grapes", act: "challer" }] },
         { id: "bench", img: "v3-hutin", cap: "Inside the hut: a stone bench, a water jar, an empty shelf. Cool and dark", go: { back: "above" }, need: "lastpage",
-          who: [{ id: "shira", name: "Shira", act: "cshira5" }],
-          hots: [{ box: [14, 56, 70, 20], label: "The stone bench: lay the page out", act: "csort" }] }] },
+          who: [{ id: "shiradesk", name: "Shira", act: "cshira5" }],
+          hots: [{ box: [31, 53, 49, 14], label: "The stone bench: lay the page out", act: "csort" }] }] },
     { id: "c6", title: "With how many? · 15 Av", act: "Scene 6 · Wednesday 18 August, 3:30 p.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("c:paper") ? "The one o'clock paper has the page. Compare it with Haller's." : !flag("c:wheel") ? "At Yoel's table: seat the wheel of days." : !flag("c:c3") ? "Ask the third question." : "Done."),
       views: [{ id: "steps", img: "v3-steps", cap: "The Quarter steps, mid-afternoon. The newspaper seller has the afternoon edition", go: { fwd: "room" },
@@ -1186,10 +1185,10 @@
       task: () => (!flag("c:believe") ? "It is the fifteenth for half an hour more. See what the day is for." : !flag("c:end") ? "Back to the Street of the Chain." : "Done."),
       views: [{ id: "dance", img: "v3-dance", cap: "The vineyard at sunset. Lanterns along the walls; a fiddle, a drum, a clarinet", go: { fwd: "room" },
           who: [{ id: "shira", name: "Shira, in the borrowed dress", act: "cdance" }],
-          hots: [{ box: [56, 14, 30, 22], label: "The roof of the hut", text: "The vinedresser is sitting on the roof with his back to the music, looking out over the vines.", f: "c:watch" },
-            { box: [10, 46, 60, 26], label: "The dancing", text: "The girls in white, going round between the rows. None of the dresses is the dancer's own.", f: "c:danc" }] },
-        { id: "room", img: "yoel-room-night", cap: "Yoel's room, 9 p.m. The door was locked, as you left it", go: { back: "dance" }, need: "c:sun2",
-          hots: [{ box: [56, 46, 12, 12], label: "On the table", act: "ccup" }, { box: [52, 37, 14, 8], label: "The photograph on the sill", act: "csill" }, { box: [68, 51, 17, 6], label: "The second book", act: "cbook7" }] }] }
+          hots: [{ box: [62, 13, 20, 12], label: "The roof of the hut", text: "The vinedresser is sitting on the roof with his back to the music, looking out over the vines.", f: "c:watch" },
+            { box: [24, 42, 74, 40], label: "The dancing", text: "The girls in white, going round between the rows. None of the dresses is the dancer's own.", f: "c:danc" }] },
+        { id: "room", img: "yoel-room-cup", cap: "Yoel's room, 9 p.m. The door was locked, as you left it", go: { back: "dance" }, need: "c:sun2",
+          hots: [{ box: [69, 46, 9, 10], label: "On the table", act: "ccup" }, { box: [54, 36, 8, 7], label: "The photograph on the sill", act: "csill" }, { box: [79, 50, 12, 5], label: "The second book", act: "cbook7" }] }] }
   );
   Object.assign(DONE, {
     c1: () => flag("c:strip") && flag("c:photo"), c2: () => flag("c:shira"), c3: () => flag("c:vd") && flag("c:hut"), c4: () => has("wheel") && flag("c:jar"),
@@ -1269,18 +1268,18 @@
   ACT.cshira = () => {
     if (flag("c:shira")) { K.say("“The car is at the back. Come.”", "Shira", 3000); return; }
     const asked = E().f["c:q"] || {}, all = asked.a && asked.b && asked.c;
-    const ask = (k, t) => () => { asked[k] = 1; set("c:q", asked); K.card('<div class="kick">The Temple Institute</div>' + face("shira") + t + '<button class="cta" data-act="x">Go on</button>', { x: ACT.cshira }); };
-    const leave = () => K.card('<div class="kick">The Temple Institute</div>' + face("shira") + "<h2>The cup</h2>" + (has("coffee2") ? "<p>She has seen the iced coffee in your bag, and its label.</p>" : said("Shira", "Has anyone been near the room?") + "<p>You open the journal at the page from Jaffa Gate.</p>") +
+    const ask = (k, t) => () => { asked[k] = 1; set("c:q", asked); K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + t + '<button class="cta" data-act="x">Go on</button>', { x: ACT.cshira }); };
+    const leave = () => K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<h2>The cup</h2>" + (has("coffee2") ? "<p>She has seen the iced coffee in your bag, and its label.</p>" : said("Shira", "Has anyone been near the room?") + "<p>You open the journal at the page from Jaffa Gate.</p>") +
       said("Shira", "Table. Whose table?") + "<p>A pause.</p>" + said("Shira", "He has been in the room. Then we do not leave by the front, and you do not tell me where you keep the book. If I do not know, I cannot be made to say.") +
-      '<button class="cta" data-act="x">Out by the back</button>', { x: () => K.card('<div class="kick">The road west</div>' + stamp("9:30 a.m.") + face("shira") + "<h2>Her car is small, and full of harvest crates</h2>" +
+      '<button class="cta" data-act="x">Out by the back</button>', { x: () => K.card('<div class="kick">The road west</div>' + stamp("9:30 a.m.") + face("shiradesk") + "<h2>Her car is small, and full of harvest crates</h2>" +
         said("Shira, driving", "My grandmother’s family worked those terraces. He asked her to marry him at that hut, on the fifteenth of Av. He leaves that out when he tells people it was Isaiah.") +
         '<button class="cta" data-act="x">Go on</button>', { x: () => { set("c:shira"); after(); } }) });
-    if (!flag("c:met")) { set("c:met"); return K.card('<div class="kick">The Temple Institute</div>' + face("shira") + "<h2>The woman in the photograph</h2><p>A few years older. A white dress in a dry-cleaner’s bag hangs on the door behind her.</p>" +
+    if (!flag("c:met")) { set("c:met"); return K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<h2>The woman in the photograph</h2><p>A few years older. A white dress in a dry-cleaner’s bag hangs on the door behind her.</p>" +
       said("Shira", (flag("c:morning") ? "You waited for the morning. He will tease you about that. " : "") + "Eight months. He said you would take a year. I said you would never come.") + '<button class="cta" data-act="x">Go on</button>', { x: ACT.cshira }); }
-    K.card('<div class="kick">The Temple Institute</div>' + face("shira") + "<h2>" + (all ? "She picks up her keys" : "What do you say?") + '</h2><div class="fsay">' +
+    K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<h2>" + (all ? "She picks up her keys" : "What do you say?") + '</h2><div class="fsay">' +
       '<button data-act="a"' + (asked.a ? ' class="asked"' : "") + ">“You are his granddaughter.”</button>" + '<button data-act="b"' + (asked.b ? ' class="asked"' : "") + ">“You could have told me in December.”</button>" + '<button data-act="c"' + (asked.c ? ' class="asked"' : "") + ">“Where is he?”</button></div>" +
-      (all ? '<button class="cta" data-act="go">Go on</button>' : "") + '<button class="cta alt" data-act="x">Step back</button>',
-      { x: after, go: leave, a: ask("a", said("Shira", "Shira. You may use it now.")),
+      (all ? '<button class="cta" data-act="go">Go on</button>' : "") + '<button class="cta alt" data-act="d">Look at the white dress on the door behind her</button><button class="cta alt" data-act="x">Step back</button>',
+      { x: after, go: leave, d: () => { set("c:dress"); K.card('<div class="kick">The Temple Institute</div>' + face("shiradesk") + "<h2>A white dress</h2><p>In a dry-cleaner’s bag, on the door behind the desk.</p>" + said("Shira", "It is the fifteenth. It is not mine. That is the rule: every girl wears a borrowed one, so no one is shamed who has none.") + '<button class="cta" data-act="x">Go on</button>', { x: ACT.cshira }); }, a: ask("a", said("Shira", "Shira. You may use it now.")),
         b: ask("b", said("Shira", "He asked me not to. He said anyone looking for him would come through this door sooner or later, and I was to help them and say nothing. He wanted to know whether you would follow the evidence or follow me. People will follow a granddaughter anywhere. They do not check her arithmetic.")),
         c: ask("c", said("Shira", "Watching. It is all he has ever done. He is well. He will see you when the page is filled, and not before. Please do not ask me twice. I am bad at saying no.")) });
   };
@@ -1506,7 +1505,7 @@
         { x: () => yoelCard("e2-3-three", () => { set("c:c3"); set("book:t15");
           K.card('<div class="kick">The journal · a new page</div><h2>15 Av</h2><p>With the many: lit. Israel and three more. It passes by one, and the one is the Republic of the man who made it strong. Two questions I have not been taught.</p><button class="cta" data-act="x">Close</button>', { x: after }); }, "Go on") }); } });
   };
-  FINISH.c6 = () => K.card('<div class="kick">At the foot of the stair</div>' + stamp("6:50 p.m.") + face("shira") + "<h2>Shira, in the borrowed white dress</h2>" + said("Shira", "It is the fifteenth for half an hour more. You have been in that room since the Ninth of Av. Come and see what the day is for.") + '<button class="cta" data-act="x">Go with her</button>', { x: () => go("c7") });
+  FINISH.c6 = () => K.card('<div class="kick">At the foot of the stair</div>' + stamp("6:50 p.m.") + face("shiradesk") + "<h2>Shira, in the borrowed white dress</h2>" + said("Shira", "It is the fifteenth for half an hour more. You have been in that room since the Ninth of Av. Come and see what the day is for.") + '<button class="cta" data-act="x">Go with her</button>', { x: () => go("c7") });
 
   /* ---- Scene 7: the dance, and the third cup ---- */
   ACT.cdance = () => {

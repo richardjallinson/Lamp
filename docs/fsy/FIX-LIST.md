@@ -523,3 +523,4 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Act 3 pictures 1 to 5 of 19 are in (18 Nov): Yoel's room with the moon (shown once the sun has gone), the Quarter steps, the vineyard track, the terraces, the hut. Tap spots moved to match; the winepress and cistern looks on the terraces became a basket and the ridge, since neither is in the picture | Done in code, waiting for the build |
+| 2 | Act 3 pictures 6 to 10 are in (18 Nov): inside the hut, Haller in the vines, the dance, Yoel's room with the cup (and the photograph standing on the sill), Shira at the desk (her face in Scenes 2 to 6). The Temple Institute scene now uses the Episode 1 hall photograph; the white dress is looked at from Shira's conversation | Done in code, waiting for the build |
