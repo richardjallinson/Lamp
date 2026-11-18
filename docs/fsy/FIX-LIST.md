@@ -534,3 +534,11 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 1 | Act 3 clip 1 of 6 (shira-desk): plays when you first meet Shira at the Institute. Gemini makes 1280×720; the game crops the middle square to 480×480 like the other character clips, so Richard does not need to crop | Done |
 | 2 | Act 3 clips 2 to 6 are in: Shira reading the cup's label (when she sees it), Haller holding out the page, Haller leaving, the vinedresser (his answer about the watchman), the dance (with the Mishnah card). All six Act 3 clips are done | Done |
 | 3 | Yoel's four Act 3 lines in his voice (Ergun Kalbak): e2-3-hut, e2-3-jar, e2-3-wheel, e2-3-three; originals in images/originals/fsy/audio/yoel | Done |
+
+## For the next build (v6r)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 3 music in: "Morning on the Hills" (e2-vineyard, scenes 3–4) and "Sunset Ring Dance" (e2-dance, scene 7), levelled to the other Episode 2 music | Done in code, waiting for the build |
+| 2 | Two songs in, so their moments now show for every player: "Watching or Marching" (inside Jaffa Gate after the street preacher, Episode 2 Act 2) and "Not My Will" / The Olive Press (the gravel path in Gethsemane, Episode 1 Act 4). Originals in images/originals/fsy/audio/music | Done in code, waiting for the build |
+| – | Still to come from Richard: "Even So, Come" (no place in the game yet: Episode 3) and the three background pieces (rooms, walking, puzzles) | – |
