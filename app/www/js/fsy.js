@@ -132,7 +132,7 @@
     "w-jaffa-outside", "w-ramparts-stairs", "w-ramparts-golgotha", "w-jewish-cardo", "w-jewish-wallsteps", "w-wall-plaza", "w-wilson-hall", "w-tunnels-entry", "w-wallagain-arch2", "w-wallagain-clear",
     "w-bazaar-steps", "w-bazaar-lamps", "w-gtomb-garden", "w-gtomb-bench", "w-tunnels-sign", "w-tunnels-warren", "w-jaffa-parcel", "w-ramparts-storm"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
-  const HAVE_M = new Set(["e2-vineyard", "e2-dance", "watching", "olivepress", "e2-sabbath", "e2-feast", "theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "risen-song", "amb-airport", "amb-train", "amb-market", "amb-tram", "song", "e2-wall", "e2-chain", "e2-table", "e2-roof"]);
+  const HAVE_M = new Set(["m16", "m17", "m18", "e2-vineyard", "e2-dance", "watching", "olivepress", "e2-sabbath", "e2-feast", "theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "risen-song", "amb-airport", "amb-train", "amb-market", "amb-tram", "song", "e2-wall", "e2-chain", "e2-table", "e2-roof"]);
   const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
@@ -140,7 +140,7 @@
   const FALL = { "e2-vineyard": "e2-sabbath", "e2-dance": "e2-feast", "e2-sabbath": "e2-table", "e2-feast": "e2-chain", reveal: "theme", gate: "hall", cliff: "theme", "amb-platform": "amb-olives", "amb-chamber": null, "amb-airport": "amb-street", "amb-train": "amb-street", "amb-market": "amb-street", "amb-tram": "amb-street",
     /* the new tracks for the walking route (M9–M25 in the doc): until Richard makes them, the nearest finished track plays */
     m9: "theme", m10: "hall", m11: "theme", m12: "olives", m13: "investigation", m14: "hall", m15: "puzzle", m16: "olives", m17: "theme", m18: "puzzle",
-    m19: "olives", m20: "hall", m21: "investigation", m22: "olives", m23: "olives", m24: "investigation", m25: "reveal" };
+    m19: "m17", m20: "m17", m21: "m17", m22: "m18", m23: "m16", m24: "investigation", m25: "reveal" };
   function M(music, amb) {
     if (!Lamp.score) return;
     let m = HAVE_M.has(music) ? music : FALL[music]; if (m && !HAVE_M.has(m)) m = FALL[m] || null;
