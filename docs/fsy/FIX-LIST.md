@@ -594,3 +594,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Pause button (Richard: "a pause button wherever you are"): a ❚❚ button in the top bar of every game screen, beside the hint. It freezes music and sounds (audio context suspended), the voice (resumes from the same word), clips and moving pictures, and covers the screen with "Paused", the place name and Resume. It also comes up by itself when the app goes to the background. Code: adventure.js pause()/resume(), store.js Lamp.audioHold, narration.js Lamp.narr.hold | Done in v6x |
+
+## Build v6y (19 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The woman at prayer in the Western Wall tunnels (Richard): the Holy of Holies is behind the wall and straight ahead, under the Dome of the Spirits, not the Dome of the Rock. Card reworded to match the author's view elsewhere in the game | Done in v6y |

@@ -274,7 +274,7 @@
       { id: "warren", img: "tunnel-warren", cap: "A glass sign on the rock: “Entrance gate to the Temple Mount”, Warren’s Gate. Beside it, a great stone with something scratched on it, hard to make out in the torchlight", go: { back: "master", fwd: "prayer" }, puzzle: "rubbing",
         hots: [{ box: [5, 25, 90, 50], label: "Read the sign", act: "warrenGate" }] },
       { id: "prayer", img: "tunnel-prayer", cap: "Under a low arch, a woman prays with her face to the stones, facing east", go: { back: "warren", right: "sign", fwd: "stairs" },
-        hots: [{ box: [40, 30, 50, 40], label: "The woman at prayer", text: "She stands as close as anyone can come to where tradition places the Holy of Holies, just beyond this wall, under the Dome of the Rock. People come here to pray for hours. Leave her in peace." }] },
+        hots: [{ box: [40, 30, 50, 40], label: "The woman at prayer", text: "She stands as close as anyone can come to the Holy of Holies: behind this wall and straight ahead, under the small Dome of the Spirits, not the Dome of the Rock. People come here to pray for hours. Leave her in peace." }] },
       { id: "sign", img: "tunnel-plaque", cap: "A lit glass plaque on the rock: “The site opposite the Holy of Holies”. The cracks of the Wall here are stuffed with folded prayers", go: { left: "prayer" }, puzzle: "lookup" },
       { id: "stairs", img: "tunnel-stairs", cap: "Further on, a metal stair climbs toward the far end of the tunnel and the light", go: { back: "prayer" } },
     ] });
