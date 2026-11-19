@@ -25,7 +25,7 @@
   const flag = (k) => !!E().f[k];
   const set = (k, v) => { E().f[k] = v === undefined ? 1 : v; save(); };
   /* Yoel's lines: subtitles now; they play aloud once the files exist (audio/narration/fsy-e2-*.mp3, listed here) */
-  const HAVE = new Set(Object.keys({ "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1 }));
+  const HAVE = new Set(Object.keys({ "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1, "e2-4-fourth": 1, "e2-4-fifth": 1, "e2-4-king": 1, "e2-4-pointer": 1 }));
   const LINES = {
     "e2-pro-1": "You know where. This is when. Come back on the ninth of Av. Bring the rod.",
     "e2-1-book1": "The ninth of Av. Both houses burned on this day, the first and the second, more than six hundred years apart. A people that remembers the day its house was destroyed is a people that has not given up on the house.",
@@ -2033,7 +2033,7 @@
     const id = SC.find((s) => !isDone(s.id)) ? (byId(e.at) && !isDone(e.at) ? e.at : SC.find((s) => !isDone(s.id)).id) : SC[SC.length - 1].id;
     scene = byId(id);
     if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Episode 2 · The Appointed Time</div><h2>A work of fiction</h2><p>This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 3 are finished. Act 4 is a prototype: no clips and no voice yet. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
+      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 3 are finished. Act 4 is a prototype: no clips yet. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
     go(id);
   }
   function devSkip() {
