@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["jq-cardo", "egate-gate", "v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["jq-cardo", "v4-cafe", "v4-gate", "v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -1575,7 +1575,7 @@
     ["t20", "20 Av · Is Israel in it?", "Lit. Israel is a party to it. Four lit. One covered, with two keyholes."],
     ["c5", "The fifth question, in two halves", "Peace, or safety? And the place: whose? “By the place I mean Jerusalem, or the Mount, by name. And naming it is not enough: the page must say who holds it. This is my test, not the prophet’s own wording. I have written it down so that I can be shown wrong. A door left open is not a house given.”"],
     ["t21", "21 Av · The last question", "Peace or safety: lit. The place and who holds it: dark. The Framework gives access. It gives the Mount to no one. Annex C is blank. Four and a half."],
-    ["coin", "Haller’s coin", "A Temple coin. On one side a temple and a dove. On the other, under a lamp, two faces: Cyrus, and behind him a second face worn smooth. Round the rim: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2. He quoted Isaiah 44:28 and meant every word."],
+    ["coin", "Haller’s coin", "A Temple coin. On one side a temple and a dove. On the other, under a lamp, two faces: Cyrus, and behind him a second face worn smooth. Round the rim, by his telling: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2. He quoted Isaiah 44:28 and meant every word."],
     ["king", "Give us a king", "“They have not rejected thee, but they have rejected me, that I should not reign over them.” 1 Samuel 8:7. “If another shall come in his own name, him ye will receive.” John 5:43. “Because they received not the love of the truth… God shall send them strong delusion, that they should believe a lie.” 2 Thessalonians 2:10–11."],
     ["own", "By his own act", "“Do not ask me who he is. I will not write a name, and you must not. A man is revealed by what he does, by his own act, in the sight of all. Until the hand moves, you hold a question. Keep it a question.” In the margin: 2 Thess. 2:3. First the falling away. Then the revealing. Then That Day. In that order."],
     ["backs", "On the backs of three slips", "THE SERGEANT · AT THE SHUT GATE · ON THE TWENTY-FOURTH."],
@@ -1652,7 +1652,7 @@
       views: [{ id: "cardo", img: "jq-cardo", cap: "The Cardo. A stair goes up to a terrace above the columns", go: { fwd: "cafe" } },
         { id: "cafe", img: "v4-cafe", cap: "A café terrace above the Cardo. Two coffees on the table. One is iced", go: { back: "cardo" },
           who: [{ id: "hallercoin", name: "Haller, already seated", act: "dhaller" }],
-          hots: [{ box: [30, 58, 40, 16], label: "Two coffees", text: "One hot, his. One iced, where you would sit. The ice has not begun to melt.", f: "d:two" }] }] },
+          hots: [{ box: [38, 54, 30, 11], label: "Two coffees", text: "One hot, his. One iced, where you would sit. The ice has not begun to melt.", f: "d:two" }] }] },
     { id: "d4", title: "Give us a king · 22 Av", act: "Scene 4 · Wednesday 25 August, 6:30 p.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("d:slips") ? "The second book has a page with a coin drawn at its head." : !flag("d:ezek") ? "Someone is calling in the street below." : "Done."),
       views: [{ id: "room", img: "yoel-room-dusk", cap: "Yoel's room in the last light. The twenty-third begins at about 7:12",
@@ -1668,7 +1668,7 @@
         who: [{ id: "hallerbench", name: "Haller", act: "dchoice" }] }] },
     { id: "d7", title: "The pointer · 24 Av", act: "Scene 7 · Friday 27 August, 4:30 p.m.", music: "e2-roof", amb: "olives",
       task: () => (!has("pointer") ? "The sergeant, at the shut gate, on the twenty-fourth." : !flag("d:seated") ? "Back to Yoel’s room. The instrument has one empty seat." : !flag("d:end") ? "The sun is going. Watch from the window." : "Done."),
-      views: [{ id: "gate", img: "egate-gate", cap: "The Eastern Gate from outside, in the afternoon shade. The Kidron below", go: { fwd: "room" },
+      views: [{ id: "gate", img: "v4-gate", cap: "The Eastern Gate from below, late on Friday afternoon. Olives and graves on the slope", go: { fwd: "room" },
           who: [{ id: "benami", name: "Sergeant Ben-Ami", act: "dbenami" }] },
         { id: "room", img: "yoel-room-dusk", cap: "Yoel's room, 6:40 p.m. Twenty-fifth of Av begins at 7:10", go: { back: "gate" }, need: "pointer",
           hots: [{ box: [62, 42, 9, 9], label: "Yoel's instrument", act: "dpoint" }, { box: [36, 9, 30, 30], label: "The window", act: "dwin" }, { box: [73, 40, 19, 10], label: "The five frames", act: "dframes" }] }] }
@@ -1800,9 +1800,9 @@
       said("Haller", "Four and a half. Don’t look surprised, I can count shutters through a window as well as anyone. The upper half lit, the lower half dark. The old man built a test that the best agreement in fifty years fails by half a frame.") +
       "<p>While he talks he turns a coin over and over on the table with one thumb.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); }
     const coin = () => { mark("coin"); K.card(T + face("hallercoin") + said("Haller", "A Temple coin. They struck them a few years ago.") + "<p>He slides it across.</p>" + said("Haller", "Go on.") + '<button class="cta" data-act="f">Look at the front</button>',
-      { f: () => K.card(T + "<h2>The front</h2>" + coinSVG(0) + "<p>A temple with tall pillars, and a dove carrying an olive sprig. No face on this side.</p>" + '<button class="cta" data-act="b">Turn it over</button>',
-        { b: () => { set("book:coin"); K.card(T + "<h2>The back</h2>" + coinSVG(1) + "<p>A seven-branched lamp, and under it two faces in profile, one behind the other. The nearer is a bearded king in an ancient crown, with his name beneath: CYRUS.</p><p>The one behind him has been rubbed almost flat. A jaw. The line of a collar.</p>" +
-          '<p class="fsmall">Round the rim, still sharp: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2. The rest of the lettering is worn to nothing where a thumb would rest.</p>' +
+      { f: () => K.card(T + "<h2>The front</h2>" + OBJ("e2-coin-front") + "<p>A temple with tall pillars, and a dove carrying an olive sprig. No face on this side.</p>" + '<button class="cta" data-act="b">Turn it over</button>',
+        { b: () => { set("book:coin"); K.card(T + "<h2>The back</h2>" + OBJ("e2-coin-back") + "<p>A seven-branched lamp, and under it two faces in profile, one behind the other. The nearer is a bearded king in an ancient crown, with his name beneath: CYRUS.</p><p>The one behind him has been rubbed almost flat. A jaw. The line of a collar.</p>" +
+          '<p class="fsmall">Round the rim the lettering is worn almost to nothing. Haller says it without looking: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2.</p>' +
           '<div class="fsay"><button data-act="w">“Who is the one behind him?”</button></div><button class="cta alt" data-act="x">Slide it back</button>',
           { x: ACT.dhaller, w: () => { mark("who"); K.card(T + face("hallercoin") + said("Haller", "The one who finishes what the first began.") + "<p>He takes the coin back and closes his hand on it.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); } }); } }) }); };
     const cyrus = () => { mark("cyrus"); K.card(T + face("hallercoin") + said("Haller", "You know your Isaiah. “That saith of Cyrus, He is my shepherd, and shall perform all my pleasure: even saying to Jerusalem, Thou shalt be built; and to the temple, Thy foundation shall be laid.” A pagan king. Not one of the faithful, and God called him my shepherd all the same, because He needed a house built and Cyrus could build it.") +
@@ -1866,14 +1866,14 @@
 
   /* ---- Scene 5: the annex, and the seal ---- */
   const annexHTML = () => '<div class="e2-paper"><b>Annex C. Arrangements concerning the holy esplanade</b><p>1. The esplanade shall be held by a Council of the Parties.</p><p>2. A house of prayer for Israel shall stand upon the esplanade, on the place measured in the Schedule.</p>' +
-    '<p class="fsmall"><i>Schedule: a line of cubits and bearings.</i></p>' + sealSVG(1, 0) + "</div>";
+    '<p class="fsmall"><i>Schedule: a line of cubits and bearings.</i></p></div>';
   ACT.dannex = () => {
     if (flag("d:seal")) { K.say("He is watching you over the rim of his cup.", "", 2800); return; }
     if (has("annex")) { K.say("“Take your time. I have coffee.”", "Haller", 3000); return; }
     const T = '<div class="kick">The Street of the Chain</div>';
     K.card(T + stamp("Thursday 26 August · 4:15 p.m. · 23 Av") + pic4("hallerbench") + "<h2>The bench under the clock</h2><p>Two paper cups beside him, and a stiff envelope on his knee.</p>" +
       said("Haller", "Sit. Last week I gave you a page an hour before the newspapers, and it matched. I would like you to remember that.") + '<button class="cta" data-act="x">Take the envelope</button>',
-      { x: () => { F.S("parchment", "click", 0.5); K.card(T + "<h2>One sheet of heavy paper</h2>" + annexHTML() + "<p>At the foot, the Republic’s seal, pressed into the paper.</p>" + '<button class="cta" data-act="x">Read the Schedule</button>',
+      { x: () => { F.S("parchment", "click", 0.5); K.card(T + "<h2>One sheet of heavy paper</h2>" + OBJ("e2-annex") + annexHTML() + "<p>At the foot, the Republic’s seal, pressed into the paper.</p>" + '<button class="cta" data-act="x">Read the Schedule</button>',
         { x: () => K.card(T + "<h2>The Schedule</h2><p>Cubits and bearings from a corner of the platform. You know the line before you reach the end of it. It is the measure from Yoel’s first book: the one you found in the winter.</p>" +
           '<p class="e2-jline">Those are Yoel’s numbers. On a government page. You never gave them to anyone.</p>' + said("Haller", "Sealed in the capital on Tuesday. Announced tomorrow. It names the place. It says who holds it. Take it up the stairs and your half-frame lights tonight.") +
           '<button class="cta" data-act="x">Go on</button>', { x: () => { give("annex"); set("book:annex");
