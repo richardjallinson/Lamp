@@ -209,3 +209,18 @@
 
 /* the Quit button, top left */
 #adv .abtn.quit{font:700 13px var(--ui);letter-spacing:.04em;padding:0 14px}
+
+/* the pause button and the pause screen (v6w) */
+#adv .abtn.pausebtn{padding:0;width:38px}
+#adv .abtn.pausebtn svg{width:16px;height:16px}
+#adv-paused{position:fixed;inset:0;max-width:560px;margin:0 auto;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:rgba(4,6,14,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;transition:opacity .25s ease;font-family:var(--ui);color:#FBF8F0}
+#adv-paused.on{opacity:1}
+#adv-paused .pbox{width:100%;max-width:340px;text-align:center}
+#adv-paused .picon{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;border:1px solid rgba(201,162,74,.6);display:flex;align-items:center;justify-content:center;color:#E3BC5C}
+#adv-paused .picon svg{width:26px;height:26px}
+#adv-paused h2{font:700 28px/1.2 var(--serif,Georgia,serif);margin:0 0 6px;color:#F3E9CE}
+#adv-paused .pplace{font:700 11px/1.3 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#E3BC5C;margin:0 0 14px}
+#adv-paused p{font-size:15px;line-height:1.5;color:#D9D2BE;margin:0 0 22px}
+#adv-paused .cta{display:block;width:100%;min-height:52px;border-radius:14px;border:0;background:#C9A24A;color:#141A33;font:700 17px var(--ui);cursor:pointer}
+body.lamp-paused #adv *,body.lamp-paused #narr *{animation-play-state:paused!important}

@@ -588,3 +588,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Stuck at the corner of King George Street (Richard): walking past the violinist without finding number 26 showed "Not quite done", and after that the arrows did nothing, so the player could not go back. Cause: in walk(), a place with nothing to solve tried to finish once every view had been seen and returned before the arrows were wired. Fixed for every place: no early return; the finish is tried once and the wait timer takes over. A saved game stuck there now works when it is opened | Done in v6w |
+
+## Build v6x (19 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Pause button (Richard: "a pause button wherever you are"): a ❚❚ button in the top bar of every game screen, beside the hint. It freezes music and sounds (audio context suspended), the voice (resumes from the same word), clips and moving pictures, and covers the screen with "Paused", the place name and Resume. It also comes up by itself when the app goes to the background. Code: adventure.js pause()/resume(), store.js Lamp.audioHold, narration.js Lamp.narr.hold | Done in v6x |

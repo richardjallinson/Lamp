@@ -161,7 +161,7 @@
       if (!AC) return null;
       ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
     }
-    if (ctx.state !== "running") { try { ctx.resume(); } catch (e) {} }   // also after "interrupted" (iPhone: after the narration voice plays)
+    if (ctx.state !== "running" && !Lamp.paused) { try { ctx.resume(); } catch (e) {} }   // also after "interrupted" (iPhone: after the narration voice plays)
     if (!decoding && window.LAMP_SOUNDS) {
       decoding = true;
       Object.keys(window.LAMP_SOUNDS).filter((k) => !instKey(k)).forEach(decodeOne);
@@ -315,7 +315,13 @@
   }
   document.addEventListener("pointerdown", unlock, true);
   document.addEventListener("touchend", unlock, true);
-  document.addEventListener("visibilitychange", () => { if (ctx && !document.hidden && ctx.state !== "running") ctx.resume(); Lamp.musicUpdate(); Lamp.score.refresh(); });
+  document.addEventListener("visibilitychange", () => { if (Lamp.paused) return; if (ctx && !document.hidden && ctx.state !== "running") ctx.resume(); Lamp.musicUpdate(); Lamp.score.refresh(); });
+  /* the pause button (v6w): music, ambience and sounds stop where they are */
+  Lamp.audioHold = function (on) {
+    Lamp.paused = !!on;
+    if (!ctx) return;
+    try { if (on) ctx.suspend(); else ctx.resume(); } catch (e) {}
+  };
   Lamp.haptic = function (style) {
     if (!Lamp.state.settings.haptics) return;
     if (!Lamp.native("haptic", { style })) { try { navigator.vibrate && navigator.vibrate(style === "error" ? [20, 40, 20] : 12); } catch (e) {} }

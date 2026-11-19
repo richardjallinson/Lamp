@@ -74,6 +74,7 @@
     root.id = "adv"; root.setAttribute("role", "dialog"); root.setAttribute("aria-label", title);
     root.innerHTML = '<div class="adv-scene" id="adv-scene"></div>' +
       '<div class="adv-top"><button class="abtn quit" id="adv-x" aria-label="Quit the game">Quit</button><span class="ttl" id="adv-ttl">' + esc(title) + "</span>" +
+      '<button class="abtn pausebtn" id="adv-pause" aria-label="Pause the game"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></svg></button>' +
       '<button class="abtn" id="adv-hint" aria-label="Hint, costs one drop of oil">' + Lamp.ICON.hint + "<span>1</span></button></div>" +
       '<div class="say" id="adv-say" aria-live="polite"></div>' +
       (opts && opts.satchel ? '<div class="satchel" id="adv-satchel"></div>' : "");
@@ -82,6 +83,7 @@
     /* Quit asks first: players took the old ✕ for a back button */
     $("adv-x").onclick = () => { snd("tap"); card('<div class="kick">' + esc(title) + '</div><h2>Leave the game?</h2><p>Your progress is saved. You can carry on from here next time.</p>' +
       '<button class="cta" data-act="stay">Keep playing</button><button class="cta alt" data-act="leave">Leave the game</button>', { stay: () => {}, leave: () => shut() }); };
+    $("adv-pause").onclick = () => { snd("tap"); pause(); };
     $("adv-hint").style.visibility = opts && opts.hint ? "visible" : "hidden";
     $("adv-hint").onclick = () => {
       if (!opts.hint) return;
@@ -92,7 +94,40 @@
     if (opts && opts.satchel) satchel();
     return root;
   }
+  /* ---------- pause (v6w, Richard: "a pause button wherever you are") ----------
+     Freezes music, voice, clips and moving pictures, and covers the screen until Resume. Also comes up by itself when the app is
+     sent to the background, so the game is waiting, paused, when you come back. Progress is saved as you go, so nothing is lost. */
+  let pauseEl = null, heldVideos = [];
+  function pause() {
+    if (pauseEl || !root) return;
+    heldVideos = [...document.querySelectorAll("video")].filter((v) => !v.paused && !v.ended);
+    heldVideos.forEach((v) => { try { v.pause(); } catch (e) {} });
+    Lamp.narr && Lamp.narr.hold && Lamp.narr.hold(true);
+    Lamp.audioHold && Lamp.audioHold(true);
+    document.body.classList.add("lamp-paused");
+    const place = ($("adv-ttl") && $("adv-ttl").textContent.trim()) || (root.getAttribute("aria-label") || "");
+    pauseEl = document.createElement("div");
+    pauseEl.id = "adv-paused"; pauseEl.setAttribute("role", "dialog"); pauseEl.setAttribute("aria-label", "Paused");
+    pauseEl.innerHTML = '<div class="pbox"><div class="picon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></svg></div>' +
+      "<h2>Paused</h2>" + (place ? '<p class="pplace">' + esc(place) + "</p>" : "") + "<p>Everything has stopped where it was. Your progress is saved.</p>" +
+      '<button class="cta" id="adv-resume">Resume</button></div>';
+    document.body.appendChild(pauseEl);
+    requestAnimationFrame(() => pauseEl && pauseEl.classList.add("on"));
+    pauseEl.querySelector("#adv-resume").onclick = resume;
+  }
+  function resume() {
+    if (!pauseEl) return;
+    const el = pauseEl; pauseEl = null;
+    document.body.classList.remove("lamp-paused");
+    Lamp.audioHold && Lamp.audioHold(false);
+    Lamp.narr && Lamp.narr.hold && Lamp.narr.hold(false);
+    heldVideos.forEach((v) => { if (v.isConnected) { try { const p = v.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} } }); heldVideos = [];
+    snd("tap");
+    el.classList.remove("on"); setTimeout(() => el.remove(), 300);
+  }
+  document.addEventListener("visibilitychange", () => { if (document.hidden && root && !pauseEl) pause(); });
   function shut(quiet) {
+    if (pauseEl) { const el = pauseEl; pauseEl = null; document.body.classList.remove("lamp-paused"); Lamp.audioHold && Lamp.audioHold(false); heldVideos = []; el.remove(); }
     if (!root) return;
     Lamp.narr && Lamp.narr.stop(); Lamp.score && Lamp.score.stop();
     const r = root, cb = onClose; root = null; onClose = null; selected = null;
@@ -580,6 +615,7 @@
 
   /* ---------- what the rest of the game uses ---------- */
   Lamp.adv = {
+    pause, resume, isPaused: () => !!pauseEl,
     /* a story with an unbroken seal: the story-complete card offers it */
     pending(id) { return !!SEALS[id] && !A().seals[id]; },
     sealTitle(id) { return SEALS[id] && SEALS[id].title; },

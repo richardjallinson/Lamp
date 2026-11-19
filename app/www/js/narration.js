@@ -36,7 +36,7 @@
   audio.addEventListener("ended", () => { Lamp.audioOut && Lamp.audioOut(); Lamp.duck && Lamp.duck(false); const f = onEnd; onEnd = null; f && f(); });
   const voiceOn = () => Lamp.state.settings.narr !== false;
   function play(name, ended) {
-    stop();
+    stop(); heldPlaying = false;
     if (!voiceOn() || !name) return false;
     try {
       audio.src = "audio/narration/" + name + ".mp3"; audio.currentTime = 0; onEnd = ended || null;
@@ -78,9 +78,15 @@
       '<p class="ntext">' + esc(L.end[1]) + "</p>" + next, [[label, then]], L.end[0]);
   }
 
+  /* the pause button (v6w): stop the voice where it is and carry on from the same word */
+  let heldPlaying = false;
+  function hold(on) {
+    if (on) { heldPlaying = !!(audio.src && !audio.paused && !audio.ended); if (heldPlaying) { try { audio.pause(); } catch (e) {} } }
+    else if (heldPlaying) { heldPlaying = false; try { const p = audio.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+  }
   Lamp.narr = {
     has: (id, part) => !!(LINES[id] && LINES[id][part]),
-    play, stop,
+    play, stop, hold,
     /* the story's verse, read aloud on the story-complete card */
     verse(id) { if (LINES[id] && LINES[id].verse) play(LINES[id].verse); },
     /* moving on from a story: the ending first (if recorded), then carry on */
