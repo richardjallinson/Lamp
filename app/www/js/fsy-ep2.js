@@ -1818,7 +1818,7 @@
           '<p class="fsmall">Round the rim the lettering is worn almost to nothing. Haller says it without looking: “He hath charged me to build him an house at Jerusalem.” Ezra 1:2.</p>' +
           '<div class="fsay"><button data-act="w">“Who is the one behind him?”</button></div><button class="cta alt" data-act="x">Slide it back</button>',
           { x: ACT.dhaller, w: () => { mark("who"); K.card(T + face("hallercoin") + said("Haller", "The one who finishes what the first began.") + "<p>He takes the coin back and closes his hand on it.</p>" + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); } }); } }) }); };
-    const cyrus = () => { mark("cyrus"); K.card(T + face("hallercoin") + said("Haller", "You know your Isaiah. “That saith of Cyrus, He is my shepherd, and shall perform all my pleasure: even saying to Jerusalem, Thou shalt be built; and to the temple, Thy foundation shall be laid.” A pagan king. Not one of the faithful, and God called him my shepherd all the same, because He needed a house built and Cyrus could build it.") +
+    const cyrus = () => { mark("cyrus"); K.card(T + (clip("haller-coin") || face("hallercoin")) + said("Haller", "You know your Isaiah. “That saith of Cyrus, He is my shepherd, and shall perform all my pleasure: even saying to Jerusalem, Thou shalt be built; and to the temple, Thy foundation shall be laid.” A pagan king. Not one of the faithful, and God called him my shepherd all the same, because He needed a house built and Cyrus could build it.") +
       '<button class="cta" data-act="x">Go on</button>', { x: () => K.card(T + face("hallercoin") + said("Haller", "I have waited my whole life for a man strong enough to do it again. So have a great many people who pray harder than I do. And now there is a page on a table with her seal on it and his word behind it. Peace. Safety. A house, if the last half-frame lights. Tell me what part of that I am supposed to fear.") +
         '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }) }); };
     const pres = () => { mark("pres"); note("haller", "On 22 Av I asked him whether the President is the one the clock is waiting for. He laughed. “The one you are afraid of comes to destroy. This one builds.”");
@@ -2033,7 +2033,7 @@
     const id = SC.find((s) => !isDone(s.id)) ? (byId(e.at) && !isDone(e.at) ? e.at : SC.find((s) => !isDone(s.id)).id) : SC[SC.length - 1].id;
     scene = byId(id);
     if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Episode 2 · The Appointed Time</div><h2>A work of fiction</h2><p>This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 4 are playable. Act 4 is new: one clip (Haller with the coin) is still to come. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
+      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 4 are playable. Act 4 is new. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
     go(id);
   }
   function devSkip() {

@@ -575,9 +575,10 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 5 | Act 4 music in: "Polite Unease" (e2-annex: Haller's café, the bench, the choice) and "Ancient Hour" (e2-wait: Friday, the pointer, the last window). Originals in images/originals/fsy/audio/music | Done in v6u |
 | 6 | Episode 1 music, five more places (Richard, 19 Nov): "Sunrise Over the Mountain" (m25, the reveal on the Mount), "Olive Garden Prayer" (m23, Gethsemane), "Sealed Gate at Dusk" (m21, the Eastern Gate outside), "First Light at the Stones" (m24, dawn at Robinson's Arch and the Mughrabi Gate), "Valley of Old Stone" (m22, the Kidron Valley). The Southern Steps (m19) and the Dung Gate (m20) keep "Open Road Morning" (out of credits) | Done in v6u |
 
-## For the next build (v6v)
+## Build v6v (19 Nov 2026)
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Act 4 clips in (Richard, 19 Nov): haller-laugh (asking about the President), haller-stays and haller-leaves (the two endings of the choice), benami-parcel (the handover). Originals in images/originals/fsy/video/e2-act4. Still to come: haller-coin | Done in code, waiting for the build |
-| 2 | The pointer picture in (img/fsy/pz/e2-pointer.jpg), shown when the parcel is unwrapped | Done in code, waiting for the build |
+| 1 | Act 4 clips in (Richard, 19 Nov): haller-laugh (asking about the President), haller-stays and haller-leaves (the two endings of the choice), benami-parcel (the handover). Originals in images/originals/fsy/video/e2-act4. haller-coin too (its generated background music muted) | Done in v6v |
+| 2 | The pointer picture in (img/fsy/pz/e2-pointer.jpg), shown when the parcel is unwrapped | Done in v6v |
+| 3 | Act 4 now has all its pictures, clips, voice and music | Done in v6v |
