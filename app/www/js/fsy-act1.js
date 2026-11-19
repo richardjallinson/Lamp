@@ -88,7 +88,9 @@
   H.journalActs = () => ({ dan: daniel9 });
 
   /* ------------------------------------------------------------ people ------------------------------------------------------------ */
-  const portrait = (id, p) => PORTRAITS.has(id) ? '<img class="fface" src="' + PP + id + '.jpg" alt="">' : '<i class="fface fface-ph">' + esc(p.name.replace(/^The /, "")[0]) + "</i>";
+  /* (v7a) the same person met again under another id uses his first portrait: Avi at the north door had no picture of his own (a broken "?") */
+  const FACE = { avi2: "avi" };
+  const portrait = (id, p) => PORTRAITS.has(id) ? '<img class="fface" src="' + PP + (FACE[id] || id) + '.jpg" alt="">' : '<i class="fface fface-ph">' + esc(p.name.replace(/^The /, "")[0]) + "</i>";
   /* a reply card: what they say, then ask more or leave */
   function reply(pid, text, o) {
     const p = PEOPLE[pid]; o = o || {};

@@ -606,3 +606,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Stuck opposite the Holy of Holies on the iPad (Richard): after "Look up" and Noa's torch, the chalk lamp and the folded page were above the top of the picture box, so there was nothing to tap. "Look up" now slides the picture by its measured height (it was a fixed 34%), and the chalk lamp sits a little lower. Checked on iPad and iPhone sizes: the lamp and the ✉ page show, and tapping the page gives "A lamp in chalk, and a page" | Done in v6z |
+
+## Build v7a (19 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Avi at the north door (Back on the wall) showed a broken "?" instead of his face (Richard): the second meeting had its own id (avi2) and no picture. Portraits can now borrow another's: avi2 uses avi. Checked every Episode 1 portrait, every walk picture and every Episode 2 object: nothing else missing | Done in v7a |
