@@ -1722,7 +1722,7 @@
     if (has("upkey")) { K.say("Shira, laughing, on the Institute steps. The tape on the back is empty now.", "", 3600); return; }
     K.card('<div class="kick">On the sill</div>' + stamp("Tuesday 24 August · 9:30 a.m. · 21 Av") + "<h2>The photograph</h2>" + OBJ("e2-photo") + "<p>It has stood upright since the night of the fifteenth. You have looked at the front of it many times.</p>" +
       '<button class="cta" data-act="t">Take the back off the frame</button><button class="cta alt" data-act="x">Leave it</button>',
-      { x: after, t: () => { give("upkey"); F.S("lock", "click", 0.5); K.card('<div class="kick">Inside the back</div><h2>A small brass key</h2><p>Taped to the card, with a line in Yoel’s hand:</p>' +
+      { x: after, t: () => { give("upkey"); F.S("lock", "click", 0.5); K.card('<div class="kick">Inside the back</div><h2>A small brass key</h2>' + OBJ("e2-key") + '<p>Taped to the card, with a line in Yoel’s hand:</p>' +
         F.wnote("The upper one. She keeps the lower. I did not trust myself with both.") + '<button class="cta" data-act="x">Take the key</button>', { x: after }); } });
   };
   ACT.dfifth = () => {
@@ -2012,7 +2012,7 @@
     const id = SC.find((s) => !isDone(s.id)) ? (byId(e.at) && !isDone(e.at) ? e.at : SC.find((s) => !isDone(s.id)).id) : SC[SC.length - 1].id;
     scene = byId(id);
     if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Episode 2 · The Appointed Time</div><h2>A work of fiction</h2><p>This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 3 are finished. Act 4 is a prototype: one temporary picture, no clips, and no voice yet. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
+      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 3 are finished. Act 4 is a prototype: no clips and no voice yet. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
     go(id);
   }
   function devSkip() {
