@@ -61,6 +61,7 @@
     ["book1", "The ninth of Av", "“Both houses burned on this day… A people that remembers the day its house was destroyed is a people that has not given up on the house.”"],
     ["book2", "Seventeen days", "“I have marked seventeen days after it. I will tell you why when you have earned it. First, learn to see what is finished, and what is only promised.”"],
     ["address", "An address", "“The Street of the Chain. The room above the man who puts the hours back in order. Ask for the key in my name.”"],
+    ["reim", "Memorial candles, 9 Av", "At the back of the plaza, beside the candles, a photograph of a sign in a grove in the south: Re’im Grove, Memorial Site, October 7, 2023. Not every day of mourning is two thousand years old. Photo: Richard J. Allinson, Re’im, December 2024."],
     ["seventy", "Seventy weeks", "Seven, threescore and two, and one. “And he shall confirm the covenant with many for one week.” Daniel 9:27"],
     ["c1", "The first question: Done", "Is it a thing done, or a thing promised? A promise to negotiate stays dark. A completed agreement, announced, lights from the day it was announced (Yoel's rule D1, provisional). Grey is not dark: grey means we do not know."],
     ["trumpet", "The trumpeting place", "A drawing of a carved stone, and three words: The trumpeting place. The rest of his instrument is somewhere in the city."],
@@ -100,7 +101,8 @@
       task: () => (has("seventy") ? "Done here." : "Watch, from the back of the plaza."),
       views: [{ id: "plaza", img: "wall-9av", cap: "From the back: thousands sitting on the stone and on low stools, small lights, the Wall lit from below", go: { fwd: "edge" },
           hots: [{ box: [8, 66, 84, 26], label: "The people on the ground", text: "They sit on the ground, the way mourners do. Shoes of canvas, not leather. No one is talking.", f: "w1" },
-            { box: [28, 33, 52, 13], label: "The Wall", text: "The stones Herod's men laid, the lowest courses of the platform Yoel measured. Tonight nobody is measuring anything.", f: "w3" }] },
+            { box: [28, 33, 52, 13], label: "The Wall", text: "The stones Herod's men laid, the lowest courses of the platform Yoel measured. Tonight nobody is measuring anything.", f: "w3" },
+            { box: [0, 50, 22, 14], label: "Memorial candles", act: "reim" }] },
         { id: "edge", img: "wall-9av-edge", cap: "Closer, from the edge: people reading by candle and phone light", go: { back: "plaza" },
           hots: [{ box: [20, 45, 60, 35], label: "The reading", text: "The book of Lamentations, chanted low in a dozen groups at once, so the sounds overlap like water.", f: "w2" }] }] },
     { id: "chain", title: "The Street of the Chain · 9 Av", act: "Scene 5", music: "e2-chain", amb: "market",
@@ -335,6 +337,12 @@
       }
     }
   }
+  /* the Wall, 9 Av: a memorial (Richard's own photograph, Re'im, December 2024). Not a puzzle: nothing to find, nothing to earn. */
+  ACT.reim = () => { set("book:reim");
+    K.card('<div class="kick">The back of the plaza</div><h2>Memorial candles</h2><p>A row of small candles in glass along the back wall. Beside them someone has left a photograph: a plain sign at the edge of a eucalyptus grove in the south of the country.</p>' +
+      '<img class="e2-obj" src="img/fsy/pz/e2-reim.jpg" alt="A sign in a grove: Re’im Grove, Memorial Site, October 7, 2023"><p class="fsmall" style="text-align:center">Photo: Richard J. Allinson, Re’im, December 2024</p>' +
+      '<p class="e2-jline">Not every day of mourning is two thousand years old.</p><p class="e2-jline">“How doth the city sit solitary, that was full of people.”<br><small>Lamentations 1:1</small></p>' +
+      '<button class="cta" data-act="x">Stand a moment, then go on</button>', { x: after }); };
   /* Scene 5: the shops */
   ACT.shop = (which, reply) => {
     set("shop:" + which);
