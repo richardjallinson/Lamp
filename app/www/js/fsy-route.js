@@ -835,7 +835,9 @@
     if (!done && w.flags["ready:" + scene.id]) finish(scene.id);
     /* a scene with nothing to solve is finished once every viewpoint has been seen */
     w.flags["seen:" + scene.id + ":" + v.id] = 1; save();
-    if (!done && !scene.views.some((x) => x.puzzle) && scene.views.every((x) => w.flags["seen:" + scene.id + ":" + x.id])) { setTimeout(() => K.root() && finish(scene.id), 600); return; }
+    /* (v6w) no early return here: returning before the arrows were wired left the player stuck when the place still had someone to see
+       (Ben Yehuda: walked past the violinist to the corner, the arrows did nothing). Finish is tried once; after that the wait timer in gate() takes over. */
+    const sceneIdNow = scene.id, autoFin = !done && !w.flags["ready:" + scene.id] && !scene.views.some((x) => x.puzzle) && scene.views.every((x) => w.flags["seen:" + scene.id + ":" + x.id]);
     el.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => { F.S("step", "click", 0.5); walk(scene.views.find((x) => x.id === b.dataset.go)); }));
     el.querySelectorAll("[data-h]").forEach((b) => (b.onclick = () => { const h = v.hots[+b.dataset.h]; K.sfx("click"); if (h.act) ACTS_FN[h.act](h); else if (h.long) K.card('<div class="kick">' + esc(scene.title) + "</div><h2>" + esc(h.title || h.label) + "</h2>" + (h.sub ? '<p class="fsmall">' + esc(h.sub) + "</p>" : "") + '<div class="freadlong">' + (Array.isArray(h.text) ? h.text : [h.text]).map((t) => "<p>" + esc(t) + "</p>").join("") + '</div><button class="cta" data-act="x">Back</button>', { x: () => {} });
       else K.card('<div class="kick">' + esc(scene.title) + "</div><h2>" + esc(h.label) + "</h2><p>" + esc(h.text) + '</p><button class="cta" data-act="x">Back</button>', { x: () => {} }); }));
@@ -847,6 +849,7 @@
     fullscreen(el.querySelector(".fwimg"));
     if (H.wire) H.wire(el, scene, v);
     if (v.note && !w.flags["note:" + scene.id + ":" + v.id]) { w.flags["note:" + scene.id + ":" + v.id] = 1; save(); v.note(); }
+    if (autoFin) setTimeout(() => K.root() && scene && scene.id === sceneIdNow && finish(scene.id), 600);
   }
   /* size the picture box to the picture, as large as the space allows, so hotspots stay on their marks */
   function fitView(el) {

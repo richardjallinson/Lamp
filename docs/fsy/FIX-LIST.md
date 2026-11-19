@@ -582,3 +582,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 1 | Act 4 clips in (Richard, 19 Nov): haller-laugh (asking about the President), haller-stays and haller-leaves (the two endings of the choice), benami-parcel (the handover). Originals in images/originals/fsy/video/e2-act4. haller-coin too (its generated background music muted) | Done in v6v |
 | 2 | The pointer picture in (img/fsy/pz/e2-pointer.jpg), shown when the parcel is unwrapped | Done in v6v |
 | 3 | Act 4 now has all its pictures, clips, voice and music | Done in v6v |
+
+## Build v6w (19 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Stuck at the corner of King George Street (Richard): walking past the violinist without finding number 26 showed "Not quite done", and after that the arrows did nothing, so the player could not go back. Cause: in walk(), a place with nothing to solve tried to finish once every view had been seen and returned before the arrows were wired. Fixed for every place: no early return; the finish is tried once and the wait timer takes over. A saved game stuck there now works when it is opened | Done in v6w |
