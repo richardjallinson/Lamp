@@ -126,17 +126,23 @@ if want(10):
     still(104, PZ + "e2-act4/benamiparcel.png", 0.7, c10, 1.0, 1.03, fade_txt=False)
     still(105, PZ + "e2-act4/e2-coin-back.png", 0.7, c10, 1.0, 1.05, fade_txt=False)
     still(106, PZ + "e2-act4/hallerlaugh.png", 0.7, c10, 1.0, 1.03, fade_txt=False)
+if want(13):
+    clip(13, "e2-act3/dance", 5.0, 3.0, 352, caption("c13", ["Real places.", "Real Scripture."]))
+    clip(14, "people/noa-rod", 2.0, 3.0, 330, caption("c14", ["Clues hidden", "in the dark."]))
+    clip(15, "haller-toast", 3.0, 3.0, 380, caption("c15", ["Decide who to trust."]))
+    clip(16, "e2-act3/shira-desk", 2.5, 3.0, 240, caption("c16", ["Follow it as the", "real calendar turns."]))
+    clip(17, "haller-phone", 3.0, 3.0, 352, caption("c17", ["He is counting too."]))
 if want(11): clip(11, "roof-sunset", 2.0, 4.3, 704, c11, dark=0.06)
 if want(12):
     out = T + "sc/12.mp4"; tmp = T + "sc/tmp12.mp4"
     run(["-framerate", str(FPS), "-i", ce, "-vf", "format=yuv420p,loop=-1:1,trim=duration=4.5,fade=in:st=0:d=0.5,fade=out:st=3.9:d=0.6"] + ENC + [tmp]); finish(tmp, out)
 
-order = ["01", "02", "03", "04", "51", "52", "53", "06", "07", "08", "09", "101", "102", "103", "104", "105", "106", "11", "12"]
+order = ["01", "02", "03", "04", "51", "52", "53", "06", "07", "08", "09", "101", "102", "103", "104", "105", "106", "13", "14", "15", "16", "17", "11", "12"]
 open(T + "list.txt", "w").write("".join("file 'sc/%s.mp4'\n" % o for o in order))
 run(["-f", "concat", "-safe", "0", "-i", T + "list.txt", "-c", "copy", T + "silent.mp4"])
 # ---- sound: the song from 32.15 s, so its big entry (56.15 s) lands on the title at 24.0 s; Yoel's line in the breath before it ----
 MUS = R + "audio/music/fsy-song.mp3"; VO = R + "app/www/audio/narration/fsy-e2-pro-1.mp3"
-af = ("[1:a]atrim=32.15:74.15,asetpts=PTS-STARTPTS,afade=in:st=0:d=1.2,volume='if(between(t,20.6,24.0),0.5,1)':eval=frame,volume=0.9,afade=out:st=39.3:d=2.7[m];"
+af = ("[1:a]atrim=32.15:89.15,asetpts=PTS-STARTPTS,afade=in:st=0:d=1.2,volume='if(between(t,20.6,24.0),0.5,1)':eval=frame,volume=0.9,afade=out:st=54.0:d=3.0[m];"
       "[2:a]atrim=0:3.3,asetpts=PTS-STARTPTS,afade=out:st=3.1:d=0.2,volume=1.25,adelay=20800|20800[v];[m][v]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.89[a]")   # no loudnorm: it flattens the build before the title
-run(["-i", T + "silent.mp4", "-i", MUS, "-i", VO, "-filter_complex", af, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-t", "42", T + "tmp-out.mp4"])
+run(["-i", T + "silent.mp4", "-i", MUS, "-i", VO, "-filter_complex", af, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-t", "57", T + "tmp-out.mp4"])
 finish(T + "tmp-out.mp4", T + "Lamp-Trailer.mp4"); print("done")
