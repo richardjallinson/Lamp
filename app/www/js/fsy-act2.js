@@ -471,7 +471,15 @@ Object.assign(C.PUZZLES, {
         placed = true; delete A().items.note; save(); F.S("parchment", null, 0.6); b.classList.add("done"); el.querySelectorAll(".fcrack").forEach((x) => x.classList.add("off")); $("flup").disabled = false;
         K.say("You fold her prayer small and push it into the crack. It goes in as if the crack were made for it.", "", 3600);
       }));
-      $("flup").onclick = () => { up = true; $("flimg").classList.add("up"); $("fldark").classList.add("on"); $("flup").hidden = true; $("fllamp").hidden = false; K.say("Above the plaque the Wall goes up into the dark. Nothing to see without a light. Noa is beside you with her torch.", "", 3400); };
+      $("flup").onclick = () => { up = true; lift(); $("fldark").classList.add("on"); $("flup").hidden = true; $("fllamp").hidden = false; K.say("Above the plaque the Wall goes up into the dark. Nothing to see without a light. Noa is beside you with her torch.", "", 3400); };
+      /* (v6z) look up = slide the picture down until its top shows. A fixed 34% left the chalk lamp and the page above the box on an iPad
+         (wider box, taller picture), so the player saw nothing to tap after the torch. Now measured from the picture itself. */
+      function lift() {
+        const im = $("flimg"), box = $("flookup"); if (!im || !box) return;
+        const off = Math.max(0, im.offsetHeight - box.clientHeight);
+        im.classList.add("up"); im.style.transform = "translateY(" + off + "px)";
+      }
+      window.addEventListener("resize", () => { if (up && $("flimg")) lift(); });
       $("fllamp").onclick = () => {
         $("fldark").classList.add("torch");
         $("fchalk").classList.add("on"); $("fllamp").hidden = true; F.S("harp", null, 0.5); F.V("w-tunnels-sign");

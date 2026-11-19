@@ -866,8 +866,8 @@
 #adv .fcrack.off i{opacity:0}#adv .fcrack.done i{opacity:1;border-style:solid;background:#F3E9CE}
 #adv .flookup-dark{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.97) 0,rgba(0,0,0,.97) 40%,rgba(0,0,0,0) 62%);opacity:0;transition:opacity .8s}
 #adv .flookup-dark.on{opacity:1}
-#adv .flookup-dark.torch{background:radial-gradient(ellipse at 50% 22%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 90px,rgba(0,0,0,.92) 220px)}
-#adv .fchalklamp{position:absolute;left:38%;top:3%;width:26%;opacity:0;transition:opacity .8s;z-index:3}
+#adv .flookup-dark.torch{background:radial-gradient(ellipse at 50% 20%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 90px,rgba(0,0,0,.92) 220px)}
+#adv .fchalklamp{position:absolute;left:38%;top:12%;width:26%;opacity:0;transition:opacity .8s;z-index:3}
 #adv .fchalklamp.on{opacity:1}
 #adv .fchalklamp svg{display:block;width:100%;filter:drop-shadow(0 0 6px rgba(243,233,206,.7))}
 #adv .fpage7{position:absolute;left:50%;top:-44px;transform:translateX(-50%);border:none;background:#F3E9CE;color:#141A33;border-radius:6px;width:40px;height:30px;font-size:16px;box-shadow:0 0 10px rgba(243,233,206,.8)}
