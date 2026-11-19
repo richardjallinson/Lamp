@@ -61,7 +61,7 @@
     ["book1", "The ninth of Av", "“Both houses burned on this day… A people that remembers the day its house was destroyed is a people that has not given up on the house.”"],
     ["book2", "Seventeen days", "“I have marked seventeen days after it. I will tell you why when you have earned it. First, learn to see what is finished, and what is only promised.”"],
     ["address", "An address", "“The Street of the Chain. The room above the man who puts the hours back in order. Ask for the key in my name.”"],
-    ["reim", "Memorial candles, 9 Av", "At the back of the plaza, beside the candles, a photograph of a sign in a grove in the south: Re’im Grove, Memorial Site, October 7, 2023. Not every day of mourning is two thousand years old. Photo: Richard J. Allinson, Re’im, December 2024."],
+    ["reim", "Memorial candles, 9 Av", "At the back of the plaza, beside the candles, a photograph of a sign in a grove in the south: Re’im Grove, Memorial Site, October 7, 2023. Not every day of mourning is two thousand years old. Beside it, a second photograph: a volunteer's food truck near the grove that fed the soldiers, its walls covered in handwritten thanks. Photos: Richard J. Allinson, December 2024."],
     ["seventy", "Seventy weeks", "Seven, threescore and two, and one. “And he shall confirm the covenant with many for one week.” Daniel 9:27"],
     ["c1", "The first question: Done", "Is it a thing done, or a thing promised? A promise to negotiate stays dark. A completed agreement, announced, lights from the day it was announced (Yoel's rule D1, provisional). Grey is not dark: grey means we do not know."],
     ["trumpet", "The trumpeting place", "A drawing of a carved stone, and three words: The trumpeting place. The rest of his instrument is somewhere in the city."],
@@ -342,7 +342,11 @@
     K.card('<div class="kick">The back of the plaza</div><h2>Memorial candles</h2><p>A row of small candles in glass along the back wall. Beside them someone has left a photograph: a plain sign at the edge of a eucalyptus grove in the south of the country.</p>' +
       '<img class="e2-obj" src="img/fsy/pz/e2-reim.jpg" alt="A sign in a grove: Re’im Grove, Memorial Site, October 7, 2023"><p class="fsmall" style="text-align:center">Photo: Richard J. Allinson, Re’im, December 2024</p>' +
       '<p class="e2-jline">Not every day of mourning is two thousand years old.</p><p class="e2-jline">“How doth the city sit solitary, that was full of people.”<br><small>Lamentations 1:1</small></p>' +
-      '<button class="cta" data-act="x">Stand a moment, then go on</button>', { x: after }); };
+      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card('<div class="kick">The back of the plaza</div><h2>A second photograph</h2>' +
+        '<img class="e2-obj tall" src="img/fsy/pz/e2-reim-truck.jpg" alt="The side of a food truck under eucalyptus trees, covered in handwritten thanks, a flag above it"><p class="fsmall" style="text-align:center">Photo: Richard J. Allinson, near Re’im, December 2024</p>' +
+        "<p>Near the grove, a volunteer ran a food truck that fed the soldiers, day after day. People wrote their thanks on its walls in Hebrew and English until there was no room left.</p>" +
+        '<p class="e2-jline">“The LORD bless thee, and keep thee.”<br><small>Numbers 6:24</small></p>' +
+        '<button class="cta" data-act="x">Stand a moment, then go on</button>', { x: after }) }); };
   /* Scene 5: the shops */
   ACT.shop = (which, reply) => {
     set("shop:" + which);
