@@ -563,3 +563,9 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 2 | Act 4 places and objects in: the café terrace (v4-cafe), the Eastern Gate in afternoon light (v4-gate), the coin front and back, the annex, the key in the back of the photograph (img/fsy/pz/e2-coin-front, e2-coin-back, e2-annex, e2-key). Originals in images/originals/fsy/e2-act4. Act 4 has no stand-in pictures left | Done in v6t |
 | 3 | The coin's rim cannot be read in the picture, so Haller says the Ezra 1:2 line "without looking" | Done in v6t |
 | – | Still to make for Act 4: the pointer (a drawing for now); the two seals stay as drawings on purpose; clips; Yoel's four lines; music | – |
+
+## For the next build (v6u)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Episode 2, Act 4, scene 4 (22 Av, Yoel's window): after the street preacher calls up, the player finds his printed sheet in the wet street: Daniel 9:27 as a front-page headline over a photograph of a man with the face half washed away (img/fsy/pz/e2-newspaper.jpg; original images/originals/fsy/trailer-newspaper.png, the same picture as the trailer's last image). Two replies ("He has printed what Yoel will not write." / "A guess is not an act."), then Yoel's line "Until the hand moves, you hold a question." The player leaves it lying; the frame does not light for a photograph. Journal page "A printed sheet in the wet street". Richard's decision, 18 Nov 2026, after Gerry: a clue to investigate, not proof; the President is still never named | Done in code, waiting for the build |

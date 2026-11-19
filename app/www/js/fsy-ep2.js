@@ -1584,6 +1584,7 @@
     ["seal", "The seal on the annex", "Raised, hollow behind, and backwards. The Framework says every annex bears the same seals as its last page. This one does not. The seal is counterfeit. Who made the page, and whether its words are true, I cannot yet say."],
     ["t23a", "23 Av · I took Haller’s annex", "The lower half is grey. I wrote down what I did."],
     ["t23r", "23 Av · I gave it back", "Haller offered a page whose seal is not the Framework’s. It may be tomorrow’s words. It is not today’s proof. Dark."],
+    ["paper", "A printed sheet in the wet street", "The preacher's own printing, made up like a front page: Daniel 9:27 across the top, and under it a photograph of a man the evening water has half washed away. He has printed what Yoel will not write. A guess is not an act. Yoel's frame waits for the hand to move."],
     ["warned", "Said to Haller", "I told him. Ezekiel 33:6. He did not hear it. It was still mine to say."],
     ["pointer", "The pointer", "From Sergeant Ben-Ami, at the Eastern Gate, on 24 Av. The long count. It will not turn until a day is fixed."],
     ["t24", "24 Av · Watching the sun", "The instrument is whole. The President speaks tonight, a little after seven. If he speaks before the sun goes, it is still the twenty-fourth. If after, the twenty-fifth."]
@@ -1858,10 +1859,18 @@
     if (!flag("d:slips")) return K.card('<div class="kick">The window</div><h2>The Street of the Chain</h2><p>The shops are closing. The light is going out of the stone.</p><button class="cta" data-act="x">Back</button>', { x: after });
     if (flag("d:ezek")) { K.say("The street is empty. The twenty-third has begun.", "", 3000); return; }
     K.card('<div class="kick">The window</div>' + face("preacher") + "<h2>Below in the street</h2><p>The preacher from Jaffa Gate is walking home with his folded sign. He calls it up to nobody.</p>" + said("The street preacher", "Are you watching, or marching?") +
-      '<button class="cta" data-act="x">Back to the page</button>', { x: () => K.card('<div class="kick">The second book</div><h2>The last line</h2><p>Turned sideways, as if added later.</p>' +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card('<div class="kick">The Street of the Chain</div>' + stamp("6:50 p.m.") + "<h2>Something left behind</h2>" +
+        "<p>The shopkeepers are washing down the stones for the night. Where the preacher stood, one of his printed sheets lies against the wall, soaked through.</p>" + OBJ("e2-newspaper") +
+        "<p>It is made up like a front page. Across the top, the verse every frame on Yoel’s table is built on. Under it, a photograph of a man in a dark suit. The water has run across the face.</p>" +
+        '<div class="fsay"><button data-act="a">“He has printed what Yoel will not write.”</button><button data-act="b">“A guess is not an act.”</button></div>',
+        { a: () => pagePaper(), b: () => pagePaper() }) });
+    const pagePaper = () => { set("book:paper"); note("yoel", "On 22 Av, in the wet street under the window: the preacher's printed sheet, Daniel 9:27 over a photograph of a man the water had half washed away. Not evidence. A guess, printed.");
+      K.card('<div class="kick">The second book</div><h2>Keep it a question</h2>' + F.wnote("A man is not revealed by what we suspect of him. He is revealed by what he does, by his own act, in the sight of all. Until the hand moves, you hold a question.") +
+        "<p>You leave the sheet where it lies. The frame on Yoel’s table does not light for a photograph.</p>" + '<button class="cta" data-act="x">Back to the page</button>', { x: lastLine }); };
+    const lastLine = () => K.card('<div class="kick">The second book</div><h2>The last line</h2><p>Turned sideways, as if added later.</p>' +
         F.wnote("And if you meet the one who carries the coin, remember he is not your enemy. Ezekiel 33:6. If the watchman sees the sword come and blows not the trumpet, the blood is on the watchman. You have seen. So blow it, even for him. Most of all for him.") +
         '<button class="cta" data-act="x">Go on</button>', { x: () => { set("d:ezek"); set("book:watch");
-          K.card('<div class="kick">The journal</div><h2>22 Av</h2><p>Give us a king. Another, in his own name. The lie believed because the truth was not loved. Yoel will not write a name. Revealed by his own act.</p><p class="e2-jline">And a duty I did not want: warn Haller.</p><button class="cta" data-act="x">Close</button>', { x: after }); } }) });
+          K.card('<div class="kick">The journal</div><h2>22 Av</h2><p>Give us a king. Another, in his own name. The lie believed because the truth was not loved. Yoel will not write a name. Revealed by his own act.</p><p class="e2-jline">And a duty I did not want: warn Haller.</p><button class="cta" data-act="x">Close</button>', { x: after }); } });
   };
 
   /* ---- Scene 5: the annex, and the seal ---- */
@@ -1971,7 +1980,7 @@
       "<p>The instrument is whole. The sun is a hand’s width above the roofs, and the twenty-fifth of Av begins at 7:10.</p>" +
       '<p class="fsmall">Prototype: Act 5, The Twenty-Fifth of Av, is not written yet.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 4 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A4.forEach((id) => { delete e.done[id]; });
-        Object.keys(e.f).forEach((k) => { if (/^(d:|book:(c4|t20|c5|t21|coin|king|own|backs|watch|annex|seal|t23a|t23r|warned|pointer|t24)|heard:e2-4|seenAct:d|hint:d)/.test(k)) delete e.f[k]; });
+        Object.keys(e.f).forEach((k) => { if (/^(d:|book:(c4|t20|c5|t21|coin|king|own|backs|watch|paper|annex|seal|t23a|t23r|warned|pointer|t24)|heard:e2-4|seenAct:d|hint:d)/.test(k)) delete e.f[k]; });
         ["upkey", "lowkey", "annex", "pointer"].forEach((k) => delete e.items[k]); save(); go("d1"); } });
   }
   function hint4(id) {
