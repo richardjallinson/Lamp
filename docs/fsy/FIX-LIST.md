@@ -633,3 +633,10 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | 3 | When the journal is taken on the stair, the card says the sheet, the note and the newspaper stay in the satchel; the 26 Av entry is headed "A loose sheet" until Haller returns it. The proof never needed the journal. | Done in v7c |
 | 4 | Lines: "You proved the act yourself"; "His car was following the same trail"; "The speeches continue." | Done in v7c |
 | 5 | Signing photograph: already rests on three things together (picture, official notice, typist's sheet). Picture must read at phone size when drawn. | Noted for the art |
+
+## Build v7d (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 5 pictures, first set (Richard): Yoel's room with the radio (scene 1), the typist's table, Avi's booth, the Quarter steps and the newspaper seller (race), the dark stair, Yoel measuring the sun on the roof; objects: radio, typist's sheet, the clocks (OURS/THEIRS added), the newspaper photograph (heading given as game text), the seal and tracing, the loose sheet. The signer in the photograph is seen from behind with nothing to identify him. | Done in v7d |
+| 2 | Still to come: the young man's portrait (stairman), the desk drawer with Haller's coin (redo), optionally the roof redo with the arm held out. | Waiting for pictures |
