@@ -1265,3 +1265,40 @@
 #adv .e2-frame.split span.shut{background:repeating-linear-gradient(180deg,#B08A3A 0 5px,#8A6A22 5px 7px);color:#F4EBD2}
 #adv .e2-coin{display:block;width:min(56%,200px);margin:6px auto 10px}
 #adv .e2-seal{display:block;width:min(86%,300px);margin:6px auto 8px;border-radius:6px;border:1px solid #D9CFB6}
+
+/* Episode 2, Act 5: the timed passages (the sun, the live radio, the count on the stair) */
+#adv .e2-live{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(60px + env(safe-area-inset-top,0px)) 16px calc(20px + env(safe-area-inset-bottom,0px));background:#0A0E22;color:#F3E9CE;overflow-y:auto}
+#adv .e2-live.dusk .e2-sky{background:linear-gradient(180deg,#2A3566 0%,#5A4A78 55%,#2A2440 100%)}
+#adv .e2-live small{color:#B9B09A;font:600 12px var(--ui)}
+#adv .e2-radio{display:flex;justify-content:space-between;align-items:baseline;width:100%;max-width:420px;font:800 13px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:#E3BC5C}
+#adv .e2-radio em{font-style:normal;color:#F3E9CE;font-size:15px}
+#adv .e2-line{width:100%;max-width:420px;min-height:230px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+#adv .e2-line .e2-said{font:500 19px/1.45 var(--serif,Georgia,serif);color:#F6EED8;margin:0}
+#adv .e2-line .e2-said b{display:block;font:800 12px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:#E3BC5C;margin-bottom:6px}
+#adv .e2-line .cut{text-align:center;font:italic 500 18px/1.5 var(--serif,Georgia,serif);color:#B9B09A}
+#adv .e2-tab{align-self:stretch;min-height:64px;border-radius:14px;border:2px solid #7A5A12;background:linear-gradient(180deg,#F5D98A,#C9A24A);color:#2A1E06;font:800 17px var(--ui);cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.4)}
+#adv .e2-tab small{display:block;color:#4A3A12;font:600 12px var(--ui);margin-top:2px}
+#adv .e2-tab.in{background:#2A3A2A;border-color:#5A8A5A;color:#CFE8CF;box-shadow:none}
+#adv .e2-tab.in small{color:#9FC09F}
+#adv .e2-bar{width:100%;max-width:420px;height:6px;border-radius:3px;background:#262B45;overflow:hidden}
+#adv .e2-bar i{display:block;height:100%;width:100%;background:#E3BC5C;transition:width .1s linear}
+#adv .e2-live.paused .e2-bar i{background:#7A7A8A}
+#adv .e2-pins{display:flex;gap:8px;align-items:center;font-size:18px;color:#5A5F7A}
+#adv .e2-pins .in{color:#E3BC5C}
+#adv .e2-pins small{margin-left:8px}
+#adv .e2-live .cta{max-width:420px}
+#adv .e2-live .fsay{width:100%;max-width:420px}
+#adv .e2-live .fsay button small{display:block;font-weight:600;opacity:.75}
+#adv .e2-live.stair .e2-said{font:500 20px/1.4 var(--serif,Georgia,serif);color:#F6EED8;text-align:center}
+#adv .e2-live.stair .e2-said b{display:block;font:800 12px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:#E3BC5C;margin-bottom:6px}
+#adv .e2-marks{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:320px}
+#adv .e2-marks i{width:22px;height:34px;border-radius:5px;background:#262B45;border:1px solid #3A4060}
+#adv .e2-marks i.on{background:linear-gradient(180deg,#F5D98A,#C9A24A);border-color:#7A5A12}
+#adv .e2-candles{display:flex;justify-content:center;gap:10px;margin:14px 0 12px}
+#adv .e2-candles i{position:relative;width:9px;height:30px;border-radius:2px;background:linear-gradient(180deg,#F4EBD2,#CDBF9C)}
+#adv .e2-candles i::before{content:"";position:absolute;left:50%;top:-13px;width:8px;height:13px;margin-left:-4px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#FFF3C4,#F5A93A 70%);box-shadow:0 0 10px 3px rgba(245,170,60,.55)}
+#adv .e2-live .fsay{display:flex;flex-direction:column;gap:10px}
+#adv .e2-live .fsay button{width:100%;min-height:58px;padding:10px 14px;border-radius:14px;border:2px solid #7A5A12;background:#F6EED8;color:#1A2038;font:700 16px var(--ui);text-align:left;cursor:pointer}
+#adv .e2-live .fsay button small{display:block;font:600 12px var(--ui);color:#5A5340;opacity:1;margin-top:2px}
+#adv .e2-live .cta.alt{background:transparent;border:2px solid #5A5F7A;color:#F3E9CE}
+#adv .fsay button small{font-weight:600;opacity:.7}

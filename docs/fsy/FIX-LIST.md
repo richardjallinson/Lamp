@@ -612,3 +612,12 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Avi at the north door (Back on the wall) showed a broken "?" instead of his face (Richard): the second meeting had its own id (avi2) and no picture. Portraits can now borrow another's: avi2 uses avi. Checked every Episode 1 portrait, every walk picture and every Episode 2 object: nothing else missing | Done in v7a |
+
+## Build v7b (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Episode 2, Act 5 "The Twenty-Fifth of Av" built as a prototype (scenes e1–e7 in js/fsy-ep2.js, flags "e:"), from the second-draft script (Richard's answers and Gerry's review, 20 Nov). Reached from the end of Act 4. Every picture is reused from earlier acts; no voice, clips or music of its own | Done in v7b |
+| 2 | Three timed passages, none able to stop the player: the live broadcast (pin five lines; pause; missed lines are recovered at the typist's), the race (a clock, the grey car's visible schedule, checking costs twenty minutes), ten seconds on the stair (asked twice). "More time on timed parts" setting on each | Done in v7b |
+| 3 | Counting rule on the pointer (Richard, 20 Nov): the day of the act is not counted; the next day is the first. 25 Av + 1,260 = 15 Shevat, Sat 8 Feb 2031 | Done in v7b |
+| 4 | Both paths played through by script with no errors: refused the annex / clean run, and accepted the annex / missed pins / lost a place to the car / let the count run out | Checked |
