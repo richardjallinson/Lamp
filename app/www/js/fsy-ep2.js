@@ -12,7 +12,7 @@
   const esc = K.esc, $ = (id) => document.getElementById(id);
   const IMG = "img/fsy/w/", PP = "img/fsy/people/";
   /* pictures made for Episode 2 (the rest are stand-ins from Episode 1, labelled in tester builds) */
-  const REAL = new Set(["jq-cardo", "yoel-room-radio", "v4-cafe", "v4-gate", "v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
+  const REAL = new Set(["jq-cardo", "yoel-room-radio", "dark-stair", "v4-cafe", "v4-gate", "v3-press", "v3-wall", "v3-roof", "../ti-hall", "v3-hutin", "v3-haller", "v3-dance", "yoel-room-cup", "yoel-room-moon", "v3-steps", "v3-track", "v3-terraces", "v3-hut", "jaffa-celebration", "jaffa-preacher", "fallen-stones", "excavation-street", "excavation-ticket", "chain-shops-night", "yoel-room-sabbath", "yoel-room-night", "yoel-room-dusk", "home-table", "desk-day", "taxi-rank", "jaffa-dusk", "wall-9av", "wall-9av-edge", "chain-street", "chain-shops", "yoel-room", "roof-sunset", "airport-hall-august", "wallsteps-dusk", "passport-control", "train-board", "jq-cardo"]);
   const save = () => Lamp.save();
   const E = () => {
     const s = Lamp.state;
@@ -2063,8 +2063,8 @@
         hots: [{ box: [20, 30, 60, 40], label: "Your map of the Old City", act: "erace" }] }] },
     { id: "e4", title: "The stair · 26 Av", act: "Scene 4 · Saturday 28 August, 11:10 p.m.", music: "e2-annex", amb: "street",
       task: () => (!E().f["e:stair"] ? "The lamp on Yoel’s stair is out. Someone is standing on the fourth step." : "Done."),
-      views: [{ id: "street", img: "chain-shops-night", cap: "The watch repairer's shutter is down. Yoel's stair is dark",
-        hots: [{ box: [56, 20, 30, 56], label: "Yoel's stair", act: "estair" }] }] },
+      views: [{ id: "stair", img: "dark-stair", cap: "The watch repairer's shutter is down. The lamp on Yoel's stair is out",
+        hots: [{ box: [45, 18, 38, 60], label: "The man on the fourth step", act: "estair" }] }] },
     { id: "e5", title: "The proof · 26 Av", act: "Scene 5 · Sunday 29 August, 9:00 a.m.", music: "e2-table", amb: "indoor",
       task: () => (!flag("e:five") ? "The text, the hand and the hour. Lay them on Yoel’s table." : !flag("e:page") ? "The last page of the second book is still blank." : !flag("e:proved") ? "Three small things have changed. Look at the instrument." : "Done."),
       views: [{ id: "room", img: "yoel-room", cap: "Yoel's table on Sunday morning. Everything you have gathered since the Ninth of Av",
@@ -2096,7 +2096,7 @@
   const missed = () => Object.keys(PINS).filter((k) => !pins()[k]);
   ACT.elive = () => {
     if (flag("e:live")) { K.say("Car horns all over the city. Someone in the street is singing.", "", 3600); return; }
-    K.card('<div class="kick">The window</div>' + stamp("Friday 27 August · 6:55 p.m. · the last minutes of 24 Av") + "<h2>A hand’s width above the roofs</h2>" + OBJ("e2-radio") + "<p>The brass marker is under your thumb, as it was on the roof on the first night. Press it when the sun has gone, and not before.</p>" +
+    K.card('<div class="kick">The window</div>' + stamp("Friday 27 August · 6:55 p.m. · the last minutes of 24 Av") + "<h2>A hand’s width above the roofs</h2>" + (clip("sun-goes") || OBJ("e2-radio")) + "<p>The brass marker is under your thumb, as it was on the roof on the first night. Press it when the sun has gone, and not before.</p>" +
       '<p class="fsmall">Then the radio will begin, and it will not wait. Five things said on it matter. Tap the brass tab beside a line to pin it in your journal before it fades. You can pause.</p>' +
       '<button class="cta" data-act="x">Watch the sun</button>' + slowBtn(), { slow: () => { set("e:slow", slow() ? 0 : 1); ACT.elive(); }, x: sunGoes });
   };
@@ -2205,7 +2205,7 @@
   ACT.estair = () => {
     if (E().f["e:stair"]) { K.say("The stair is empty. The lamp lies broken on the third step.", "", 3200); return; }
     const T = '<div class="kick">Yoel’s stair</div>';
-    K.card(T + stamp("11:10 p.m.") + "<h2>Someone on the fourth step</h2>" + W5("dark-stair") + "<p>A young man in a good coat. Not Haller. He is polite, and he does not move aside.</p>" +
+    K.card(T + stamp("11:10 p.m.") + "<h2>Someone on the fourth step</h2>" + (clip("stair-man") || W5("dark-stair")) + "<p>A young man in a good coat. Not Haller. He is polite, and he does not move aside.</p>" +
       said("The man", "Mr Haller’s compliments. He asks for the old man’s book. For safekeeping, until Monday. I am told to be courteous and to count to ten.") + '<button class="cta" data-act="x">…</button>' + slowBtn(),
       { slow: () => { set("e:slow", slow() ? 0 : 1); ACT.estair(); }, x: () => count(slow() ? 20 : 10, false) });
     const done = (how) => { set("e:stair", how); set("book:stair"); F.S(how === "rod" ? "step" : "parchment", "click", 0.5);
@@ -2290,7 +2290,7 @@
         K.card('<div class="kick">The journal</div><h2>26 Av</h2><p>Haller. A third clause he had not seen: the Council may suspend the offerings. He read it twice. He left his coffee, and he left the coin.</p><p class="e2-jline">He still does not see it. But he has stopped being sure.</p><button class="cta" data-act="x">Close</button>', { x: after }); }; return { t: fin("t"), l: fin("l") }; })());
     const coin = () => K.card(T + OBJ("e2-coin-back") + "<p>He takes the coin out and sets it on the table, and for once he does not turn it. The worn face is up.</p>" + '<div class="fsay"><button data-act="w">“Who told you?”</button><button data-act="s">Say nothing</button></div>',
       { s: leave, w: () => K.card(T + face("hallercoin") + said("Haller", "A man I have never had cause to doubt.") + "<p>A pause the length of a breath.</p>" + said("Haller", "Until I am given cause, I will not.") + '<button class="cta" data-act="x">Go on</button>', { x: leave }) });
-    const clause = () => K.card(T + "<p>You lay the newspaper’s Annex C on the table. It has three clauses. His had two.</p>" + F.wnote("3. The Council may suspend the offerings there, for the peace of the Parties.") + said("Haller", "That was not in my draft.") +
+    const clause = () => K.card(T + clip("haller-reads") + "<p>You lay the newspaper’s Annex C on the table. It has three clauses. His had two.</p>" + F.wnote("3. The Council may suspend the offerings there, for the peace of the Parties.") + said("Haller", "That was not in my draft.") +
       "<p>He reads it again. It is the first time you have seen him read anything twice.</p>" + '<p class="e2-said"><b>You</b> “In the midst of the week he shall cause the sacrifice and the oblation to cease.”</p>' +
       said("Haller", "A provision. Every treaty has a clause nobody will ever use.") + "<p>He turns the page face down.</p>" + said("Haller", "It builds the house. That is what it does. That is what I was told it does.") + '<button class="cta" data-act="x">Go on</button>', { x: coin });
     K.card(T + stamp("Sunday 29 August · 6:00 p.m.") + pic4("hallercoin") + "<h2>Haller</h2><p>At the same table. He has the look of a man whose life’s work came in on time." + (a ? " The iced coffee is already there." : " One coffee on the table: his.") + "</p>" + back +
@@ -2323,7 +2323,7 @@
         h: Y("You carried up a page you did not know, and the frame went grey, and you wrote down what you had done. That is not the same as reading what was there. But it is the beginning of it. A man who records his own grey can be trusted with a count."),
         c: "<p>He is quiet a moment.</p>" + Y("The frame went grey before it went gold. I was not in the room. You were. I will remember that you said so.") }[k] + '<button class="cta" data-act="x">Go on</button>', { x: ask }); };
     if (E().f["e:said"]) return flag("e:asked") ? last() : ask();
-    K.card(T + stamp("Monday 30 August · 6:45 p.m. · the last of 27 Av") + W5("roof-yoel") + "<h2>Yoel</h2><p>An old man with a stick, his back to the stair, measuring the height of the sun with his hand held out at arm’s length.</p>" + Y("Three fingers. Twenty minutes, near enough. I have never needed the instrument for that.") + "<p>He turns. He is smaller than his voice.</p>" + Y("Show me the page.") + '<button class="cta" data-act="x">Hand him the second book</button>',
+    K.card(T + stamp("Monday 30 August · 6:45 p.m. · the last of 27 Av") + (clip("yoel-turns") || W5("roof-yoel")) + "<h2>Yoel</h2><p>An old man with a stick, his back to the stair, measuring the height of the sun with his hand held out at arm’s length.</p>" + Y("Three fingers. Twenty minutes, near enough. I have never needed the instrument for that.") + "<p>He turns. He is smaller than his voice.</p>" + Y("Show me the page.") + '<button class="cta" data-act="x">Hand him the second book</button>',
       { x: () => K.card(T + face("yoel") + "<p>He reads the three lines you set. He does not hurry.</p>" + Y("One question, and then you may ask me yours. Did the page tell you what you wanted, or did you read what was there?") + '<div class="fsay">' +
         (a ? '<button data-act="h">“I carried up a page I did not know. I wrote that down.”</button><button data-act="c">“I read what was there.”</button>' : '<button data-act="r">“I read what was there.”</button>') + "</div>", { r: () => answer("r"), h: () => answer("h"), c: () => answer("c") }) });
   };

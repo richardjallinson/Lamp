@@ -650,3 +650,11 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | 3 | Epilogue: the Lamplighter's own desk with the drawer open, the blank card and Haller's coin; then the coin turned over. | Done in v7e |
 | 4 | The roof: Yoel with his arm held out, measuring the sun (replaces the first try). | Done in v7e |
 | 5 | Act 5 picture set complete (15 of 15). Next: clips, then voice and music. | Noted |
+
+## Build v7f (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 5 clips (Richard), all muted: the sun goes and the radio dial brightens (scene 1); the man on the stair holds out his hand; Haller reads the page twice; Yoel lowers his arm and turns. | Done in v7f |
+| 2 | Scene 4 now opens on the dark stair itself, with the man on the fourth step to tap. | Done in v7f |
+| 3 | Waiting: Haller's coin redrawn with the Temple (the building reads as the White House); then the drawer picture and the drawer clip. | Waiting for the picture |
