@@ -25,7 +25,7 @@
   const flag = (k) => !!E().f[k];
   const set = (k, v) => { E().f[k] = v === undefined ? 1 : v; save(); };
   /* Yoel's lines: subtitles now; they play aloud once the files exist (audio/narration/fsy-e2-*.mp3, listed here) */
-  const HAVE = new Set(Object.keys({ "e2-5-hour": 1, "e2-5-revealed": 1, "e2-5-fingers": 1, "e2-5-question": 1, "e2-5-ans-r": 1, "e2-5-ans-h": 1, "e2-5-ans-c": 1, "e2-5-ask": 1, "e2-5-q-one": 1, "e2-5-q-who": 1, "e2-5-q-now": 1, "e2-5-marker": 1, "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1, "e2-4-fourth": 1, "e2-4-fifth": 1, "e2-4-king": 1, "e2-4-pointer": 1 }));
+  const HAVE = new Set(Object.keys({ "e2-5-radio-1": 1, "e2-5-radio-2": 1, "e2-5-radio-3": 1, "e2-5-radio-4": 1, "e2-5-radio-5": 1, "e2-5-radio-6": 1, "e2-5-radio-7": 1, "e2-5-hour": 1, "e2-5-revealed": 1, "e2-5-fingers": 1, "e2-5-question": 1, "e2-5-ans-r": 1, "e2-5-ans-h": 1, "e2-5-ans-c": 1, "e2-5-ask": 1, "e2-5-q-one": 1, "e2-5-q-who": 1, "e2-5-q-now": 1, "e2-5-marker": 1, "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1, "e2-4-fourth": 1, "e2-4-fifth": 1, "e2-4-king": 1, "e2-4-pointer": 1 }));
   const LINES = {
     "e2-pro-1": "You know where. This is when. Come back on the ninth of Av. Bring the rod.",
     "e2-1-book1": "The ninth of Av. Both houses burned on this day, the first and the second, more than six hundred years apart. A people that remembers the day its house was destroyed is a people that has not given up on the house.",
@@ -2113,18 +2113,20 @@
   }
   function broadcast() {
     const box = overlay("radio"); if (!box) return; const got = Object.assign({}, pins()); let i = -1, paused = false, left = 0, t = 0;
-    const per = () => (slow() ? 16 : 9) * 10;
+    const per = () => (slow() ? 16 : 9) * 10, VO = [1, 2, 3, 4, 0, 5, 7, 6];
+    const voice = () => { const n = VO[i]; if (n && Lamp.narr && HAVE.has("e2-5-radio-" + n)) Lamp.narr.play("fsy-e2-5-radio-" + n); };
     box.innerHTML = '<div class="e2-radio"><b>Avi’s radio</b><em id="e5clock">7:14 p.m.</em></div><div class="e2-line" id="e5line"></div><div class="e2-bar"><i id="e5bar"></i></div>' +
       '<div class="e2-pins" id="e5pins"></div><button class="cta alt" id="e5pause">Pause</button>';
     const drawPins = () => { box.querySelector("#e5pins").innerHTML = Object.keys(PINS).map((k) => '<span class="' + (got[k] ? "in" : "") + '">' + (got[k] ? "●" : "○") + "</span>").join("") + "<small>pinned " + Object.keys(got).filter((k) => got[k]).length + " of 5</small>"; };
-    const end = () => { clearInterval(t); set("e:pins", got); box.remove(); F.S("harp", null, 0.3); afterRadio(); };
+    const end = () => { clearInterval(t); Lamp.narr && Lamp.narr.stop && Lamp.narr.stop(); set("e:pins", got); box.remove(); F.S("harp", null, 0.3); afterRadio(); };
     const next = () => {
       i++; if (i >= RADIO.length) return end();
       const r = RADIO[i]; left = r[0] === "cut" ? 40 : per(); box.querySelector("#e5clock").textContent = i < 4 ? "7:14 p.m." : i === 4 ? "…" : i === 7 ? "7:21 p.m." : "7:20 p.m.";
       box.querySelector("#e5line").innerHTML = r[0] === "cut" ? '<p class="cut">' + r[2] + "</p>" : '<p class="e2-said"><b>' + r[1] + "</b> “" + r[2] + "”</p>" + (r[3] ? '<button class="e2-tab" id="e5tab">Pin this<small>' + r[4] + "</small></button>" : "");
       const tab = box.querySelector("#e5tab"); if (tab) tab.onclick = () => { got[r[3]] = 1; tab.classList.add("in"); tab.innerHTML = "Pinned<small>" + r[4] + "</small>"; tab.disabled = true; F.S("stamp", "click", 0.4); drawPins(); };
+      voice();
     };
-    box.querySelector("#e5pause").onclick = () => { paused = !paused; box.querySelector("#e5pause").textContent = paused ? "Go on listening" : "Pause"; box.classList.toggle("paused", paused); };
+    box.querySelector("#e5pause").onclick = () => { paused = !paused; if (paused) { Lamp.narr && Lamp.narr.stop && Lamp.narr.stop(); } else if (left > 30) voice(); box.querySelector("#e5pause").textContent = paused ? "Go on listening" : "Pause"; box.classList.toggle("paused", paused); };
     t = setInterval(() => { if (!box.isConnected) return clearInterval(t); if (paused) return; left--; const r = RADIO[i]; box.querySelector("#e5bar").style.width = Math.max(0, (left / (r && r[0] === "cut" ? 40 : per())) * 100) + "%";
       if (left <= 0) { const r0 = RADIO[i]; if (r0 && r0[3] && !got[r0[3]]) K.say("Missed. The typist will have it.", "", 2600); next(); } }, 100);
     drawPins(); next();

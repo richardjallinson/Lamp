@@ -673,3 +673,10 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | --- | --- | --- |
 | 1 | Yoel's Act 5 voice (Ergun Kalbak, 13 recordings, checked against the script by transcription): the rule of the hour, the declaration, and every line on the roof (three fingers / show me the page joined with a pause, the question, the three answers, "Now you may ask me yours", the three questions, the marker). Originals in images/originals/fsy/audio/yoel/e2-5-*.mp3. | Done in v7h |
 | 2 | Still to record: the radio announcer (6 lines) and the President's line; three music pieces after the credits reset. | Waiting |
+
+## Build v7i (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The broadcast is spoken: the announcer's six lines (ElevenLabs "Steven Dollenberg - Authentic Newsreader") and the President's line (stock voice "Wyatt - Wise Rustic Cowboy", no real person), all given a radio sound (narrow band, light crackle and hiss). Each plays as its line appears; Pause stops the voice and resuming replays the line if most of its time is left. Originals in images/originals/fsy/audio/radio. | Done in v7i |
+| 2 | Still to make: three music pieces (the broadcast, the race, the roof) after the credits reset. | Waiting |
