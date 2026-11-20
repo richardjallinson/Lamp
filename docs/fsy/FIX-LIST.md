@@ -640,3 +640,9 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | --- | --- | --- |
 | 1 | Act 5 pictures, first set (Richard): Yoel's room with the radio (scene 1), the typist's table, Avi's booth, the Quarter steps and the newspaper seller (race), the dark stair, Yoel measuring the sun on the roof; objects: radio, typist's sheet, the clocks (OURS/THEIRS added), the newspaper photograph (heading given as game text), the seal and tracing, the loose sheet. The signer in the photograph is seen from behind with nothing to identify him. | Done in v7d |
 | 2 | Still to come: the young man's portrait (stairman), the desk drawer with Haller's coin (redo), optionally the roof redo with the arm held out. | Waiting for pictures |
+
+## Next build (pending)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Newspaper photograph in the Act 5 proof: Richard chose the second version (signer seen from behind, fair hair) over the first (dark hair). His decision, 20 Nov, after Claude advised the first. No face, no name. | In, waiting for the next zip |
