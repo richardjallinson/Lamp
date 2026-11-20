@@ -2341,7 +2341,7 @@
   function endAct5() {
     K.card('<div class="kick">The Final Seven Years</div><div class="e2-acttitle"><small>Episode 2 · The Appointed Time</small><b>Complete</b></div>' +
       '<p style="text-align:center"><i>You know where. You know when. Now watch what he does in the middle.</i></p><p class="fsmall">A work of fiction. This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      '<p class="fsmall">Prototype: Episode 3 is not written yet.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 5 again</button>',
+      '<p class="fsmall">Episode 3 is still to come.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 5 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A5.forEach((id) => { delete e.done[id]; });
         Object.keys(e.f).forEach((k) => { if (/^(e:|book:(t25|hour|three5|t26r|stair|five|count|eight|clause3|roof5)|heard:e2-5|seenAct:e|hint:e)/.test(k)) delete e.f[k]; });
         ["tsheet", "clocks", "edition", "coin"].forEach((k) => delete e.items[k]); save(); go("e1"); } });
@@ -2384,7 +2384,7 @@
     const id = SC.find((s) => !isDone(s.id)) ? (byId(e.at) && !isDone(e.at) ? e.at : SC.find((s) => !isDone(s.id)).id) : SC[SC.length - 1].id;
     scene = byId(id);
     if (id === "pro" && !flag("pro")) { K.card('<div class="kick">Episode 2 · The Appointed Time</div><h2>A work of fiction</h2><p>This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      (Lamp.tester ? '<p class="fsmall">Tester build: Acts 1 to 4 are finished. Act 5 is a prototype: it reuses earlier pictures and has no voice, clips or music of its own yet. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
+      (Lamp.tester ? '<p class="fsmall">Tester build: all five acts are built. Your Episode 1 progress is not touched.</p>' : "") + '<button class="cta" data-act="x">Begin</button>', { x: () => go("pro") }); return; }
     go(id);
   }
   function devSkip() {

@@ -19,7 +19,7 @@
 
   const CHAPTERS = [
     { id: "temple", n: 1, title: EP, tease: "A Temple will stand again in Jerusalem. Follow the clues from the Temple Institute to the sealed Eastern Gate.", play: !!Lamp.fsyOpen },
-    { id: "weeks", n: 2, title: "The Seventy Weeks", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin?" },
+    { id: "weeks", n: 2, title: "The Appointed Time", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin?" },
     { id: "horns", n: 3, title: "The Ten Horns", tease: "Daniel saw ten kings rise together. Are they rising now?" },
     { id: "babylon", n: 4, title: "Mystery, Babylon the Great", tease: "A woman rides the beast and reigns over the kings of the earth. Who is she?" },
     { id: "witnesses", n: 5, title: "The Two Witnesses", tease: "Two olive trees, two lampstands, standing before the God of the earth." },
@@ -1227,7 +1227,7 @@
   }
   function ending() {
     V("24-cliffhanger"); if (!(Lamp.score && Lamp.score.playing && (Lamp.score.playing() || {}).music === "fsy-song")) M("cliff");   /* the closing song, if it is playing, carries on */
-    K.card('<div class="kick">Coming soon · Episode 2</div><h2>The Seventy Weeks</h2>' +
+    K.card('<div class="kick">Next · Episode 2</div><h2>The Appointed Time</h2>' +
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
       "<p>The place is found, and now it is known. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many: and the Temple Mount will be on the table.</p>" +
       "<p>Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b> And somewhere in Jerusalem, a watchman with blue ink and a small drawn lamp is waiting to tell you when.</p>" +
@@ -1278,7 +1278,7 @@
     card() {
       const p = P();
       return '<button class="fsycard" data-fsy="1"><span class="k">' + (Lamp.fsyOpen ? "Daniel · Revelation" : "Coming soon · Daniel · Revelation") + '</span><b>' + BOOK + '</b><span class="rule"></span>' +
-        "<small>" + (!Lamp.fsyOpen ? "Coming soon: a prophecy investigation through Daniel and Revelation, from the book by Richard J. Allinson." : p.gateDone ? "Episode 1 solved. Episode 2, The Seventy Weeks, is coming soon." : "New: a prophecy investigation. Play Episode 1, “The Jerusalem Mystery”.") + '</small><span class="go">' + (!Lamp.fsyOpen ? "See what’s coming" : p.gateDone ? "See the episodes" : p.began ? "Continue the investigation" : "Begin the investigation") + "</span></button>";
+        "<small>" + (!Lamp.fsyOpen ? "Coming soon: a prophecy investigation through Daniel and Revelation, from the book by Richard J. Allinson." : p.gateDone ? "Episode 1 solved. Next: Episode 2, The Appointed Time." : "New: a prophecy investigation. Play Episode 1, “The Jerusalem Mystery”.") + '</small><span class="go">' + (!Lamp.fsyOpen ? "See what’s coming" : p.gateDone ? "See the episodes" : p.began ? "Continue the investigation" : "Begin the investigation") + "</span></button>";
     },
   };
 })();

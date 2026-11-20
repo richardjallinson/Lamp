@@ -694,8 +694,9 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | --- | --- | --- |
 | 1 | Both episodes end on "City On the Hill" (Richard: "the watchman song", the song in the trailer). Episode 1 already did. Episode 2 now starts it on the final page of the second book and it carries through the desk, the drawer and the closing card. | Done in v7k |
 
-## Next build (pending, after v7k)
+## Build v7l (20 Nov 2026)
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | The stair: the man's portrait is large while he counts (was a small circle on a dark screen). | In, waiting for the next zip |
+| 1 | The stair: the man's portrait is large while he counts (was a small circle on a dark screen). | Done in v7l |
+| 2 | Stale wording found on a whole-app pass: the episode list said Episode 2 was "Acts 1 and 2 prototype" (now "Five acts · tester build", and "played" means Act 5 finished); Episode 1's closing card, the episode hub and the home line called Episode 2 "The Seventy Weeks" (now "The Appointed Time"); Episode 2's opening note said Act 5 had no voice, clips or music; its closing card said "Prototype". | Done in v7l |
