@@ -686,4 +686,10 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Act 5 music (Richard, ElevenLabs Music): "Dusk Signal" under the broadcast (scene 1, e2-broadcast), "Old Quarter Pursuit" under the race (scene 3, e2-race), "After the Last Light" on the roof and through the ending (scene 7, e2-last). Originals in images/originals/fsy/audio/music. | Done in v7j |
-| 2 | Richard wants "the watchman song" to end Episode 1 and Episode 2. Asked which song he means (City On the Hill, which already ends Episode 1; Watching or Marching; or a new one). | Waiting for his answer |
+| 2 | Richard wants "the watchman song" to end Episode 1 and Episode 2. Asked which song he means (City On the Hill, which already ends Episode 1; Watching or Marching; or a new one). | Answered: the trailer song, "City On the Hill" |
+
+## Build v7k (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Both episodes end on "City On the Hill" (Richard: "the watchman song", the song in the trailer). Episode 1 already did. Episode 2 now starts it on the final page of the second book and it carries through the desk, the drawer and the closing card. | Done in v7k |
