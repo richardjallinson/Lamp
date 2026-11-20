@@ -2216,7 +2216,7 @@
         "<p>The book itself has been rolled in the hollow handle of the rod since the sixth night of Hanukkah. He never thought to ask for a stick.</p>" +
         '<p class="e2-jline">He asked for the book. He did not ask for the instrument, the frames or the proof. Haller does not want to stop you. He wants to know what Yoel wrote next.</p><button class="cta" data-act="x">Go up</button>', { x: after }); };
     const count = (n, second) => { const box = overlay("stair"); if (!box) return; let left = n;
-      box.innerHTML = '<p class="e2-said"><b>The man</b> “' + (second ? "I will ask once more." : "One.") + '”</p><div class="e2-marks" id="e5marks"></div>' +
+      box.innerHTML = face("stairman") + '<p class="e2-said"><b>The man</b> “' + (second ? "I will ask once more." : "One.") + '”</p><div class="e2-marks" id="e5marks"></div>' +
         '<div class="fsay"><button data-k="page">Hand him the seventy weeks page<small> · the torn page, not the book</small></button><button data-k="journal">Hand him your journal<small> · he will read it</small></button><button data-k="rod">Refuse, and hold the rod<small> · give up nothing</small></button></div>';
       const marks = () => { box.querySelector("#e5marks").innerHTML = Array.from({ length: n }, (_, i) => '<i class="' + (i < left ? "on" : "") + '"></i>').join(""); };
       const t = setInterval(() => { if (!box.isConnected) return clearInterval(t); left--; marks(); K.sfx("click");
