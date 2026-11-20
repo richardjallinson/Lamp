@@ -693,3 +693,9 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Both episodes end on "City On the Hill" (Richard: "the watchman song", the song in the trailer). Episode 1 already did. Episode 2 now starts it on the final page of the second book and it carries through the desk, the drawer and the closing card. | Done in v7k |
+
+## Next build (pending, after v7k)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The stair: the man's portrait is large while he counts (was a small circle on a dark screen). | In, waiting for the next zip |

@@ -1302,3 +1302,5 @@
 #adv .e2-live .fsay button small{display:block;font:600 12px var(--ui);color:#5A5340;opacity:1;margin-top:2px}
 #adv .e2-live .cta.alt{background:transparent;border:2px solid #5A5F7A;color:#F3E9CE}
 #adv .fsay button small{font-weight:600;opacity:.7}
+/* the stair: the man's face large while he counts (v7l) */
+#adv .e2-live.stair img{width:min(62vw,240px);height:min(62vw,240px);border-radius:18px;object-fit:cover;border:2px solid #7A5A12;box-shadow:0 10px 30px rgba(0,0,0,.5)}
