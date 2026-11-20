@@ -621,3 +621,15 @@ Richard: the street preacher wrote the torn scroll (who he was is never told); 2
 | 2 | Three timed passages, none able to stop the player: the live broadcast (pin five lines; pause; missed lines are recovered at the typist's), the race (a clock, the grey car's visible schedule, checking costs twenty minutes), ten seconds on the stair (asked twice). "More time on timed parts" setting on each | Done in v7b |
 | 3 | Counting rule on the pointer (Richard, 20 Nov): the day of the act is not counted; the next day is the first. 25 Av + 1,260 = 15 Shevat, Sat 8 Feb 2031 | Done in v7b |
 | 4 | Both paths played through by script with no errors: refused the annex / clean run, and accepted the annex / missed pins / lost a place to the car / let the count run out | Checked |
+
+## Build v7c (20 Nov 2026)
+
+Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Race: each destination now shows when you would arrive beside when the grey car is due, so the route can be planned. Schedule checked: all three are reachable first; checking two on the spot is possible only in some orders; checking all three loses one. | Done in v7c |
+| 2 | The clocks stay on Avi's wall. The player carries a note of them, initialled by Avi (item and proof card reworded). | Done in v7c |
+| 3 | When the journal is taken on the stair, the card says the sheet, the note and the newspaper stay in the satchel; the 26 Av entry is headed "A loose sheet" until Haller returns it. The proof never needed the journal. | Done in v7c |
+| 4 | Lines: "You proved the act yourself"; "His car was following the same trail"; "The speeches continue." | Done in v7c |
+| 5 | Signing photograph: already rests on three things together (picture, official notice, typist's sheet). Picture must read at phone size when drawn. | Noted for the art |
