@@ -658,3 +658,11 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | 1 | Act 5 clips (Richard), all muted: the sun goes and the radio dial brightens (scene 1); the man on the stair holds out his hand; Haller reads the page twice; Yoel lowers his arm and turns. | Done in v7f |
 | 2 | Scene 4 now opens on the dark stair itself, with the man on the fourth step to tap. | Done in v7f |
 | 3 | Waiting: Haller's coin redrawn with the Temple (the building reads as the White House); then the drawer picture and the drawer clip. | Waiting for the picture |
+
+## Build v7g (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Haller's coin (Richard): the building read as the White House. Redrawn with the Temple (one great doorway, steps, lower wings), dove kept. Used in Act 4 and Act 5; the Act 4 line now says "The Temple, with its one great doorway". | Done in v7g |
+| 2 | The drawer picture carries the corrected coin (pasted in), and the drawer clip (camera moves in on the card and the coin) plays in the epilogue. | Done in v7g |
+| 3 | Act 5 pictures and clips complete. Next: voice and music. | Noted |
