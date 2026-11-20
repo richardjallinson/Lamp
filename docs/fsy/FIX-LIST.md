@@ -641,8 +641,12 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | 1 | Act 5 pictures, first set (Richard): Yoel's room with the radio (scene 1), the typist's table, Avi's booth, the Quarter steps and the newspaper seller (race), the dark stair, Yoel measuring the sun on the roof; objects: radio, typist's sheet, the clocks (OURS/THEIRS added), the newspaper photograph (heading given as game text), the seal and tracing, the loose sheet. The signer in the photograph is seen from behind with nothing to identify him. | Done in v7d |
 | 2 | Still to come: the young man's portrait (stairman), the desk drawer with Haller's coin (redo), optionally the roof redo with the arm held out. | Waiting for pictures |
 
-## Next build (pending)
+## Build v7e (20 Nov 2026)
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Newspaper photograph in the Act 5 proof: Richard chose the second version (signer seen from behind, fair hair) over the first (dark hair). His decision, 20 Nov, after Claude advised the first. No face, no name. | In, waiting for the next zip |
+| 1 | Newspaper photograph in the Act 5 proof: Richard chose the second version (signer seen from behind, fair hair) over the first (dark hair). His decision, 20 Nov, after Claude advised the first. No face, no name. | Done in v7e |
+| 2 | The young man on the stair has his portrait, shown beside his words during the count. | Done in v7e |
+| 3 | Epilogue: the Lamplighter's own desk with the drawer open, the blank card and Haller's coin; then the coin turned over. | Done in v7e |
+| 4 | The roof: Yoel with his arm held out, measuring the sun (replaces the first try). | Done in v7e |
+| 5 | Act 5 picture set complete (15 of 15). Next: clips, then voice and music. | Noted |
