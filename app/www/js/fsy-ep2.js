@@ -2049,7 +2049,7 @@
   function overlay(cls) { const root = K.root(); if (!root) return null; const box = document.createElement("div"); box.className = "e2-live " + (cls || ""); root.appendChild(box); return box; }
 
   SC.push(
-    { id: "e1", title: "The sun goes · 24 Av", act: "Scene 1 · Friday 27 August, 6:55 p.m.", music: "e2-wait", amb: "indoor",
+    { id: "e1", title: "The sun goes · 24 Av", act: "Scene 1 · Friday 27 August, 6:55 p.m.", music: "e2-broadcast", amb: "indoor",
       task: () => (!flag("e:live") ? "The sun is a hand’s width above the roofs. Watch from the window." : !flag("e:tried") ? "Try the fifth frame." : "Done."),
       views: [{ id: "room", img: "yoel-room-radio", cap: "Yoel's room. The instrument whole on the table. Avi's radio turned up on the stair",
         hots: [{ box: [36, 9, 30, 30], label: "The window", act: "elive" }, { box: [73, 40, 19, 10], label: "The five frames", act: "etry" }] }] },
@@ -2057,7 +2057,7 @@
       task: () => (!flag("e:rule") ? "The second book has a page that would not turn before last night." : !flag("e:shira") ? "Someone is on the stair." : "Done."),
       views: [{ id: "room", img: "yoel-room-sabbath", cap: "Yoel's room on the Sabbath. The street is shuttered. Four frames lit, and half of the fifth",
         hots: [{ box: [68, 51, 17, 6], label: "The second book", act: "erule" }, { box: [0, 30, 14, 50], label: "The stair", act: "eshira" }, { box: [73, 40, 19, 10], label: "The five frames", act: "eframes" }] }] },
-    { id: "e3", title: "The race · 26 Av", act: "Scene 3 · Saturday 28 August, 8:05 p.m.", music: "e2-chain", amb: "street",
+    { id: "e3", title: "The race · 26 Av", act: "Scene 3 · Saturday 28 August, 8:05 p.m.", music: "e2-race", amb: "street",
       task: () => (!flag("e:race") ? "Three places, and a grey car. Open the map." : "Done."),
       views: [{ id: "street", img: "chain-shops-night", cap: "The Street of the Chain. The Sabbath is out and the shutters are going up",
         hots: [{ box: [20, 30, 60, 40], label: "Your map of the Old City", act: "erace" }] }] },
@@ -2073,7 +2073,7 @@
       task: () => (!flag("e:haller") ? "A cup on the stair says FIVE. “The terrace. I’ll buy. Last time.”" : "Done."),
       views: [{ id: "cafe", img: "v4-cafe", cap: "The café terrace above the Cardo. The city below is still celebrating",
         who: [{ id: "hallercoin", name: "Haller, at the same table", act: "ehaller" }] }] },
-    { id: "e7", title: "The roof · 27 Av", act: "Scene 7 · Monday 30 August, 6:45 p.m.", music: "e2-roof", amb: "olives",
+    { id: "e7", title: "The roof · 27 Av", act: "Scene 7 · Monday 30 August, 6:45 p.m.", music: "e2-last", amb: "olives",
       task: () => (!flag("e:asked") ? "An old man with a stick is standing at the parapet." : !flag("e:end") ? "The last sunset of the seventeen days." : "Done."),
       views: [{ id: "roof", img: "roof-sunset", cap: "The roof above the Street of the Chain. The domes, the hills going gold. No crowd tonight",
         who: [{ id: "yoel", name: "An old man at the parapet", act: "eyoel" }] }] }

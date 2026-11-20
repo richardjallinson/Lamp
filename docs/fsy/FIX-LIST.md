@@ -680,3 +680,10 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | --- | --- | --- |
 | 1 | The broadcast is spoken: the announcer's six lines (ElevenLabs "Steven Dollenberg - Authentic Newsreader") and the President's line (stock voice "Wyatt - Wise Rustic Cowboy", no real person), all given a radio sound (narrow band, light crackle and hiss). Each plays as its line appears; Pause stops the voice and resuming replays the line if most of its time is left. Originals in images/originals/fsy/audio/radio. | Done in v7i |
 | 2 | Still to make: three music pieces (the broadcast, the race, the roof) after the credits reset. | Waiting |
+
+## Build v7j (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 5 music (Richard, ElevenLabs Music): "Dusk Signal" under the broadcast (scene 1, e2-broadcast), "Old Quarter Pursuit" under the race (scene 3, e2-race), "After the Last Light" on the roof and through the ending (scene 7, e2-last). Originals in images/originals/fsy/audio/music. | Done in v7j |
+| 2 | Richard wants "the watchman song" to end Episode 1 and Episode 2. Asked which song he means (City On the Hill, which already ends Episode 1; Watching or Marching; or a new one). | Waiting for his answer |
