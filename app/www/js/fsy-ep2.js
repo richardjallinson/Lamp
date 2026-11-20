@@ -25,7 +25,7 @@
   const flag = (k) => !!E().f[k];
   const set = (k, v) => { E().f[k] = v === undefined ? 1 : v; save(); };
   /* Yoel's lines: subtitles now; they play aloud once the files exist (audio/narration/fsy-e2-*.mp3, listed here) */
-  const HAVE = new Set(Object.keys({ "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1, "e2-4-fourth": 1, "e2-4-fifth": 1, "e2-4-king": 1, "e2-4-pointer": 1 }));
+  const HAVE = new Set(Object.keys({ "e2-5-hour": 1, "e2-5-revealed": 1, "e2-5-fingers": 1, "e2-5-question": 1, "e2-5-ans-r": 1, "e2-5-ans-h": 1, "e2-5-ans-c": 1, "e2-5-ask": 1, "e2-5-q-one": 1, "e2-5-q-who": 1, "e2-5-q-now": 1, "e2-5-marker": 1, "e2-pro-1": 1, "e2-1-book1": 1, "e2-1-book2": 1, "e2-1-wall": 1, "e2-1-room": 1, "e2-1-c1": 1, "e2-1-sunset": 1, "e2-2-stone": 1, "e2-2-c2": 1, "e2-2-plate": 1, "e2-2-thirteen": 1, "e2-2-radio": 1, "e2-3-hut": 1, "e2-3-jar": 1, "e2-3-wheel": 1, "e2-3-three": 1, "e2-4-fourth": 1, "e2-4-fifth": 1, "e2-4-king": 1, "e2-4-pointer": 1 }));
   const LINES = {
     "e2-pro-1": "You know where. This is when. Come back on the ninth of Av. Bring the rod.",
     "e2-1-book1": "The ninth of Av. Both houses burned on this day, the first and the second, more than six hundred years apart. A people that remembers the day its house was destroyed is a people that has not given up on the house.",
@@ -2301,7 +2301,7 @@
   /* ---- Scene 7: the roof. Yoel, in person. ---- */
   ACT.eyoel = () => {
     if (flag("e:end")) return endAct5();
-    const T = '<div class="kick">The roof</div>', Y = (t) => said("Yoel", t), a = choice4() === "a";
+    const T = '<div class="kick">The roof</div>', Y = (t) => said("Yoel", t), a = choice4() === "a", V = (id) => { if (Lamp.narr && HAVE.has("e2-5-" + id)) Lamp.narr.play("fsy-e2-5-" + id); };
     const sunset = () => { const box = overlay("sun"); if (!box) return; let sun = 40, gone = false;
       box.innerHTML = '<div class="e2-sky"><div class="e2-sun" id="e5sun"></div><div class="e2-roofs"></div><div class="e2-sunstate" id="e5state">The sun is still up.</div></div><button class="e2-now" id="e5now">now</button><small>Yoel’s hand over yours on the brass marker</small>';
       const t = setInterval(() => { if (!box.isConnected) return clearInterval(t); sun = Math.min(100, sun + 4); box.querySelector("#e5sun").style.top = (16 + sun * 0.7) + "%"; if (sun >= 100 && !gone) { gone = true; clearInterval(t); box.classList.add("dusk"); box.querySelector("#e5state").textContent = "The sun has gone."; } }, 300);
@@ -2311,21 +2311,24 @@
           { x: () => K.card('<div class="kick">The second book · the final page</div><div class="e2-paper"><b>THE COVENANT: CONFIRMED, 25 AV</b><b>THE MAN: REVEALED</b><b>THE COUNT: BEGUN</b></div><p class="e2-jline">“You know where. You know when. Now watch what he does in the middle.”</p><button class="cta" data-act="x">Go on</button>',
             { x: () => K.card('<div class="kick">Some days later</div><h2 class="e2-later">The desk at home</h2><img class="e2-obj tall" src="img/fsy/w/desk-day.jpg" alt=""><p>The Lamplighter’s desk, where it all began. The clock is still stopped at 9:27. The drawer that was locked, with the card “Not this time”, is open a finger’s width. The card has been turned over. On the back, in the Lamplighter’s hand:</p>' + F.wnote("This time.") + '<button class="cta" data-act="x">Open the drawer</button>',
               { x: () => K.card('<div class="kick">The drawer</div>' + (clip("drawer") || W5("desk-drawer")) + "<p>Inside the drawer, behind the card, there is one thing. A silver Temple coin. You turn it over.</p>" + OBJ("e2-coin-back") + "<p>Cyrus, and behind him a second face, worn smooth by a thumb.</p>" + '<p class="e2-jline">The same coin. The drawer does not say whose thumb wore it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("e:end"); E().done.e7 = 1; save(); endAct5(); } }) }) }) }); }; };
-    const last = () => K.card(T + face("yoel") + "<p>Yoel puts your hand on the brass marker himself.</p>" + Y("Seventeen days I marked. They close now. Press it when the sun has gone, and not before. I taught you that on this roof before I ever met you.") + '<button class="cta" data-act="x">Watch the sun</button>', { x: sunset });
+    const last = () => { V("marker"); K.card(T + face("yoel") + "<p>Yoel puts your hand on the brass marker himself.</p>" + Y("Seventeen days I marked. They close now. Press it when the sun has gone, and not before. I taught you that on this roof before I ever met you.") + '<button class="cta" data-act="x">Watch the sun</button>', { x: sunset }); };
     const QS = { one: ["“Is he the one?”", Y("You proved the act yourself and you still want it from my mouth. Yes. First the falling away. You have had coffee with it. Then the man revealed. You watched the hand. Then That Day. Do not ask me the day. I have a count to the middle, and I will not pretend to more.")],
       who: ["“Who gave them your measure?”", Y("Someone I loved, who thought he was protecting me.") + "<p>He looks out over the roofs.</p>" + Y("That is not for tonight.")],
       now: ["“What do I do now?”", Y("What a watchman does. You keep the count, you tell the truth about it, and you warn the ones who will listen and the one who will not. What is coming from the middle is Jacob’s trouble, and it is not small. But it has an end, and the end is not his.")] };
-    const ask = () => { const q = E().f["e:q"] || {}, acts = {}; Object.keys(QS).forEach((k) => (acts[k] = () => { q[k] = 1; set("e:q", q); K.card(T + face("yoel") + QS[k][1] + '<button class="cta" data-act="x">Go on</button>', { x: ask }); }));
+    const ask = () => { const q = E().f["e:q"] || {}, acts = {}; Object.keys(QS).forEach((k) => (acts[k] = () => { q[k] = 1; set("e:q", q); V("q-" + k); K.card(T + face("yoel") + QS[k][1] + '<button class="cta" data-act="x">Go on</button>', { x: ask }); }));
       if (Object.keys(QS).every((k) => q[k])) { set("e:asked"); return last(); }
+      if (!Object.keys(QS).some((k) => q[k])) V("ask");
       K.card(T + face("yoel") + Y("Now you may ask me yours.") + '<div class="fsay">' + Object.keys(QS).map((k) => '<button data-act="' + k + '"' + (q[k] ? ' class="asked"' : "") + ">" + QS[k][0] + "</button>").join("") + "</div>", acts); };
     const answer = (k) => { set("e:said", k); note("yoel", "On the roof, 27 Av, he asked whether I read what was there. " + { r: "I had sent a yes away because it came with the wrong seal.", h: "I told him I carried up a page I did not know, and wrote down what I had done.", c: "I said I read what was there. He said he would remember that I said so." }[k]);
+      V("ans-" + k);
       K.card(T + face("yoel") + { r: Y("You sent a yes away because it came with the wrong seal. Then you have read what was there. Most men cannot. I could not, at your age."),
         h: Y("You carried up a page you did not know, and the frame went grey, and you wrote down what you had done. That is not the same as reading what was there. But it is the beginning of it. A man who records his own grey can be trusted with a count."),
         c: "<p>He is quiet a moment.</p>" + Y("The frame went grey before it went gold. I was not in the room. You were. I will remember that you said so.") }[k] + '<button class="cta" data-act="x">Go on</button>', { x: ask }); };
     if (E().f["e:said"]) return flag("e:asked") ? last() : ask();
+    V("fingers");
     K.card(T + stamp("Monday 30 August · 6:45 p.m. · the last of 27 Av") + (clip("yoel-turns") || W5("roof-yoel")) + "<h2>Yoel</h2><p>An old man with a stick, his back to the stair, measuring the height of the sun with his hand held out at arm’s length.</p>" + Y("Three fingers. Twenty minutes, near enough. I have never needed the instrument for that.") + "<p>He turns. He is smaller than his voice.</p>" + Y("Show me the page.") + '<button class="cta" data-act="x">Hand him the second book</button>',
-      { x: () => K.card(T + face("yoel") + "<p>He reads the three lines you set. He does not hurry.</p>" + Y("One question, and then you may ask me yours. Did the page tell you what you wanted, or did you read what was there?") + '<div class="fsay">' +
-        (a ? '<button data-act="h">“I carried up a page I did not know. I wrote that down.”</button><button data-act="c">“I read what was there.”</button>' : '<button data-act="r">“I read what was there.”</button>') + "</div>", { r: () => answer("r"), h: () => answer("h"), c: () => answer("c") }) });
+      { x: () => { V("question"); K.card(T + face("yoel") + "<p>He reads the three lines you set. He does not hurry.</p>" + Y("One question, and then you may ask me yours. Did the page tell you what you wanted, or did you read what was there?") + '<div class="fsay">' +
+        (a ? '<button data-act="h">“I carried up a page I did not know. I wrote that down.”</button><button data-act="c">“I read what was there.”</button>' : '<button data-act="r">“I read what was there.”</button>') + "</div>", { r: () => answer("r"), h: () => answer("h"), c: () => answer("c") }); } });
   };
   FINISH.e7 = () => endAct5();
   function endAct5() {

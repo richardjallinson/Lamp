@@ -666,3 +666,10 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | 1 | Haller's coin (Richard): the building read as the White House. Redrawn with the Temple (one great doorway, steps, lower wings), dove kept. Used in Act 4 and Act 5; the Act 4 line now says "The Temple, with its one great doorway". | Done in v7g |
 | 2 | The drawer picture carries the corrected coin (pasted in), and the drawer clip (camera moves in on the card and the coin) plays in the epilogue. | Done in v7g |
 | 3 | Act 5 pictures and clips complete. Next: voice and music. | Noted |
+
+## Build v7h (20 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Yoel's Act 5 voice (Ergun Kalbak, 13 recordings, checked against the script by transcription): the rule of the hour, the declaration, and every line on the roof (three fingers / show me the page joined with a pause, the question, the three answers, "Now you may ask me yours", the three questions, the marker). Originals in images/originals/fsy/audio/yoel/e2-5-*.mp3. | Done in v7h |
+| 2 | Still to record: the radio announcer (6 lines) and the President's line; three music pieces after the credits reset. | Waiting |
