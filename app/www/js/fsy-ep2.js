@@ -82,7 +82,7 @@
         hots: [{ box: [20, 21, 16, 24], label: "The lamp", text: "Cold. The wick has been trimmed, cleanly, and never lit again.", f: "lamp" },
           { box: [34, 48, 34, 36], label: "The chair", text: "Pushed in, square to the desk. He always left it pulled out, as if he were coming back.", f: "chair" },
           { box: [69, 8, 21, 20], label: "A wall calendar", act: "calendar" },
-          { box: [72, 49, 21, 9], label: "The drawer", text: "Locked. A card taped to it in his hand: “Not this time.”", f: "drawer" },
+          { box: [72, 49, 21, 9], label: "The drawer", text: "Locked. A card taped to it in his hand: “Not this time.” When you try it, something small and heavy slides across the inside.", f: "drawer" },
           { box: [66, 32, 18, 11], label: "The telephone", act: "phone" }] }] },
     { id: "airport", title: "Ben Gurion · the eve of the fast", act: "Scene 2", music: "m9", amb: "airport",
       task: () => (has("coffee") ? "Done here." : "Through passport control, into the arrivals hall."),
@@ -1832,9 +1832,10 @@
       K.card(T + (clip("haller-laugh") || pic4("hallerlaugh")) + "<p>Haller laughs. It is not unkind, and it is not acted.</p>" + said("Haller", "The son of perdition? The man who gives Israel peace and her Temple? You have been alone with those pages too long. The one you are afraid of comes to destroy. This one builds.") +
         said("Haller", "It looks like salvation because it is.") + '<button class="cta" data-act="x">Go on</button>', { x: ACT.dhaller }); };
     const leave = () => K.card(T + face("hallercoin") + (asked.pres ? "" : said("Haller", "You have read the Framework. It looks like salvation because it is.")) +
-      said("Haller", "My employer says Annex C will be filled by Friday. He is not often wrong. You should hear him speak. People come out saying he could call fire down from the sky.") + "<p>He stands and leaves money under his saucer.</p>" +
+      said("Haller", "My employer says Annex C will be filled by Friday. He is not often wrong. You should hear him speak. People come out saying he could call fire down from the sky.") +
+      said("Haller", "The man who sent you keeps a tidy desk. A trimmed wick. A chair pushed in square. He always did finish things.") + "<p>You never told him about the desk.</p>" + "<p>He stands and leaves money under his saucer.</p>" +
       said("Haller", "Half a frame. Think about how small that is. Think about what is on the other side of it.") + '<button class="cta" data-act="x">Go on</button>',
-      { x: () => { set("d:coffee"); note("haller", "On 22 Av, on the terrace. He carries a Temple coin: Cyrus, and behind him a second face worn smooth. He quoted Isaiah 44:28 and meant every word.");
+      { x: () => { set("d:coffee"); note("lamplighter", "On 22 Av Haller described his desk: the trimmed wick, the chair pushed in square. I never told him about the desk."); note("haller", "On 22 Av, on the terrace. He carries a Temple coin: Cyrus, and behind him a second face worn smooth. He quoted Isaiah 44:28 and meant every word.");
         K.card('<div class="kick">The journal</div><h2>22 Av</h2><p>Haller. He carries a Temple coin: Cyrus, and behind him a second face worn smooth. He quoted Isaiah 44:28 and meant every word.' + (asked.pres ? " I asked him about the President." : "") + '</p><p class="e2-jline">He laughed. Then he looked at the coin again.</p><button class="cta" data-act="x">Close</button>', { x: after }); } });
     K.card(T + face("hallercoin") + '<h2>What do you say?</h2><div class="fsay">' +
       '<button data-act="coin"' + (asked.coin ? ' class="asked"' : "") + ">Ask about the coin he keeps turning</button>" +

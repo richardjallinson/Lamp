@@ -717,3 +717,9 @@ Richard: Episode 2's quest is two questions, set early: when the covenant of Dan
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Act 4: the preacher's rain-washed newspaper is back exactly as it was (Richard: "I want the newspaper back in exactly how it was"). Its removal in v7m came from a misread answer. The scene is restored byte for byte from v7l. | Done in v7n |
+
+## Next build (pending, after v7n)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Two small doubts about the Lamplighter planted before the drawer at the end (Richard: "do that"). Act 1, his desk: the locked drawer, "something small and heavy slides across the inside". Act 4, Haller's coffee: "The man who sent you keeps a tidy desk. A trimmed wick. A chair pushed in square. He always did finish things." / "You never told him about the desk." Noted in the journal under the Lamplighter. | In, waiting for the next zip |
