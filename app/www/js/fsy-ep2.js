@@ -58,6 +58,7 @@
   };
   const BOOKP = [
     ["pro", "The first page", "A drawing of a brass instrument with parts missing. “You know where. This is when. Come back on the ninth of Av. Bring the rod.”"],
+    ["two", "Two questions", "1. When is the covenant confirmed with the many? Find the day. Prove it. (Daniel 9:27)  2. Who is the son of perdition? (2 Thessalonians 2:3)  “Not by what you suspect of him. A man is revealed by what he does, by his own act. Until the hand moves, you hold a question.”"],
     ["book1", "The ninth of Av", "“Both houses burned on this day… A people that remembers the day its house was destroyed is a people that has not given up on the house.”"],
     ["book2", "Seventeen days", "“I have marked seventeen days after it. I will tell you why when you have earned it. First, learn to see what is finished, and what is only promised.”"],
     ["address", "An address", "“The Street of the Chain. The room above the man who puts the hours back in order. Ask for the key in my name.”"],
@@ -263,8 +264,14 @@
     const hk = Lamp.fsyWalk && Lamp.fsyWalk.hanukkiahHTML ? Lamp.fsyWalk.hanukkiahHTML(6) : "";
     K.card('<div class="kick">The sixth night of Hanukkah</div><h2>The sixth candle</h2>' + hk +
       "<p>The sixth night. Two more after this, and you will be at home for both.</p>" + '<button class="cta" data-act="x">Close the journal</button>',
+      { x: () => { set("book:two"); K.card('<div class="kick">The second book · inside the back cover</div><h2>Two questions</h2>' +
+        "<p>On the inside of the back cover, in the same blue ink, two lines numbered like a list.</p>" +
+        F.wnote("1. When is the covenant confirmed with the many? Find the day. Prove it.") + '<p class="fsmall">Daniel 9:27</p>' +
+        F.wnote("2. Who is the son of perdition?") + '<p class="fsmall">2 Thessalonians 2:3</p>' +
+        "<p>Under the second line, smaller, as if he had argued with himself:</p>" + F.wnote("Not by what you suspect of him. A man is revealed by what he does, by his own act. Until the hand moves, you hold a question.") +
+        '<p class="fsmall">Both questions go into the journal. This episode is the answer to them.</p><button class="cta" data-act="x">Go on</button>',
       { x: () => { set("pro"); K.card('<div class="kick">&nbsp;</div><h2 class="e2-later">Eight months later.</h2><p class="fsmall">From here on, the journal’s drawn hanukkiah is a marker in the story. The feast itself is in winter.</p>' +
-        '<div class="e2-acttitle"><small>The Final Seven Years · Episode 2 · The Appointed Time</small><b>Act 1 · The Ninth of Av</b></div><button class="cta" data-act="x">Begin</button>', { x: () => { E().done.pro = 1; save(); go("desk"); } }); } });
+        '<div class="e2-acttitle"><small>The Final Seven Years · Episode 2 · The Appointed Time</small><b>Act 1 · The Ninth of Av</b></div><button class="cta" data-act="x">Begin</button>', { x: () => { E().done.pro = 1; save(); go("desk"); } }); } }); } });
   }
   /* Scene 1 */
   ACT.calendar = () => {
@@ -1871,14 +1878,8 @@
     if (!flag("d:slips")) return K.card('<div class="kick">The window</div><h2>The Street of the Chain</h2><p>The shops are closing. The light is going out of the stone.</p><button class="cta" data-act="x">Back</button>', { x: after });
     if (flag("d:ezek")) { K.say("The street is empty. The twenty-third has begun.", "", 3000); return; }
     K.card('<div class="kick">The window</div>' + face("preacher") + "<h2>Below in the street</h2><p>The preacher from Jaffa Gate is walking home with his folded sign. He calls it up to nobody.</p>" + said("The street preacher", "Are you watching, or marching?") +
-      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card('<div class="kick">The Street of the Chain</div>' + stamp("6:50 p.m.") + "<h2>Something left behind</h2>" +
-        "<p>The shopkeepers are washing down the stones for the night. Where the preacher stood, one of his printed sheets lies against the wall, soaked through.</p>" + OBJ("e2-newspaper") +
-        "<p>It is made up like a front page. Across the top, the verse every frame on Yoel’s table is built on. Under it, a photograph of a man in a dark suit. The water has run across the face.</p>" +
-        '<div class="fsay"><button data-act="a">“He has printed what Yoel will not write.”</button><button data-act="b">“A guess is not an act.”</button></div>',
-        { a: () => pagePaper(), b: () => pagePaper() }) });
-    const pagePaper = () => { set("book:paper"); note("yoel", "On 22 Av, in the wet street under the window: the preacher's printed sheet, Daniel 9:27 over a photograph of a man the water had half washed away. Not evidence. A guess, printed.");
-      K.card('<div class="kick">The second book</div><h2>Keep it a question</h2>' + F.wnote("A man is not revealed by what we suspect of him. He is revealed by what he does, by his own act, in the sight of all. Until the hand moves, you hold a question.") +
-        "<p>You leave the sheet where it lies. The frame on Yoel’s table does not light for a photograph.</p>" + '<button class="cta" data-act="x">Back to the page</button>', { x: lastLine }); };
+      "<p>He does not wait for an answer. The question inside the back cover of the second book is still a question.</p>" +
+      '<button class="cta" data-act="x">Go on</button>', { x: () => lastLine() });
     const lastLine = () => K.card('<div class="kick">The second book</div><h2>The last line</h2><p>Turned sideways, as if added later.</p>' +
         F.wnote("And if you meet the one who carries the coin, remember he is not your enemy. Ezekiel 33:6. If the watchman sees the sword come and blows not the trumpet, the blood is on the watchman. You have seen. So blow it, even for him. Most of all for him.") +
         '<button class="cta" data-act="x">Go on</button>', { x: () => { set("d:ezek"); set("book:watch");
@@ -2016,7 +2017,7 @@
   ACTNAME[5] = "Act 5 · The Twenty-Fifth of Av";
   Object.assign(LINES, {
     "e2-5-hour": "Men will tell you the day he signed. They will give you the date on their wall. I do not count from their wall. A thing is done in the hour it is done, and here the day turns when the sun goes. Find the hour. Then ask on which side of the sunset it fell.",
-    "e2-5-revealed": "You did not suspect him into it. You did not want him into it. You have proved what he did, and when. That much is yours, and no one can take it from you. What it means is mine to say. I have measured it against what was written, and I will hold my tongue no longer. This is the one Paul called the son of perdition.",
+    "e2-5-revealed": "You did not suspect him into it. You did not want him into it. You have proved what he did, and when. That much is yours, and no one can take it from you.",
   });
   Object.assign(ITEMS, {
     tsheet: ["The typist’s sheet", "The broadcast, typed line by line, each line stamped with the hour it was spoken in the capital. Beside “The pen is down”: 12:21."],
@@ -2030,7 +2031,7 @@
     ["three5", "Three places", "The typist, who stamps every line with its hour. Avi’s two clocks. The newspaper, with the page, the seal and the hand. Haller knows them too."],
     ["t26r", "26 Av · The race", "The text, the hand and the hour, from three places. His car was following the same trail. Why does a man who believes the page want the proof of it taken off the street?"],
     ["stair", "The stair", "He asked for the book. He did not ask for the instrument, the frames or the proof. Haller does not want to stop you. He wants to know what Yoel wrote next."],
-    ["five", "26 Av · Five frames", "Confirmed with the many, by his own hand, on the night that began 25 Av. Yoel has said what it means: the son of perdition. “…and that man of sin be revealed, the son of perdition.” 2 Thessalonians 2:3. I filled the page."],
+    ["five", "26 Av · Five frames", "Confirmed with the many, by his own hand, on the night that began 25 Av. I filled the page. Yoel would not answer the second question for me. I answered it myself, at the photograph: the man at the desk. “…and that man of sin be revealed, the son of perdition.” 2 Thessalonians 2:3."],
     ["count", "The long count", "On the pointer, in Yoel’s hand: “Days, not hours. Evening to evening. The day of the act is not counted; the next day is the first.” 1,260 days from 25 Av: 15 Shevat. Saturday 8 February 2031. Beyond it, a second mark I cannot reach yet."],
     ["eight", "The table set for ten", "On the published page of seals, one of the three empty rings now holds a crowned seal. Seven have become eight. Two places still kept."],
     ["clause3", "A third clause", "“The Council may suspend the offerings there, for the peace of the Parties.” Haller had not seen it. He read it twice. He left his coffee, and he left the coin. He still does not see it. But he has stopped being sure."],
@@ -2261,11 +2262,20 @@
     const line = (i) => { if (i >= TYPE5.length) return said5();
       const order = [1, 0, 2].map((j) => (j + i) % 3), acts = {}; order.forEach((j) => (acts["o" + j] = () => { if (j !== 0) { K.snd("bad"); K.say("That is not what you proved.", "", 2800); return line(i); } F.S("stamp", "click", 0.5); line(i + 1); }));
       K.card('<div class="kick">The second book · the blank page</div><h2>Line ' + (i + 1) + " of 3</h2>" + TYPE5.slice(0, i).map((t) => F.wnote(t[0])).join("") + '<p class="fsmall">Brass type, in three trays. Set the line you can stand behind.</p><div class="fsay">' + order.map((j) => '<button data-act="o' + j + '">' + TYPE5[i][j] + "</button>").join("") + "</div>", acts); };
-    const said5 = () => { set("e:page"); set("book:five"); note("yoel", "On 26 Av I filled the blank page: confirmed with the many, by his own hand, the night that began 25 Av. Then he said what it means.");
+    const said5 = () => { set("e:page"); set("book:five"); note("yoel", "On 26 Av I filled the blank page: confirmed with the many, by his own hand, the night that began 25 Av. He would not answer the second question for me.");
       K.card('<div class="kick">The second book · the last page</div>' + TYPE5.map((t) => F.wnote(t[0])).join("") + '<p class="e2-jline">The page is filled.</p><button class="cta" data-act="x">Go on</button>',
-        { x: () => yoelCard("e2-5-revealed", () => K.card('<div class="kick">Under the page</div><h2>The strip unrolls by itself</h2>' + F.wnote("…and that man of sin be revealed, the son of perdition.") + '<p class="fsmall" style="text-align:center">2 Thessalonians 2:3</p><button class="cta" data-act="x">Go on</button>',
+        { x: () => yoelCard("e2-5-revealed", () => who5(() => K.card('<div class="kick">Under the page</div><h2>The strip unrolls by itself</h2>' + F.wnote("…and that man of sin be revealed, the son of perdition.") + '<p class="fsmall" style="text-align:center">2 Thessalonians 2:3</p><button class="cta" data-act="x">Go on</button>',
           { x: () => K.card('<div class="kick">From the stair</div>' + face("watchmaker") + "<h2>The clock downstairs</h2><p>The watch repairer calls up. The preacher’s clock, which does not run, has its one hand on the second mark.</p>" + said("The watchmaker", "Nobody touched it.") + '<button class="cta" data-act="x">Go on</button>',
-            { x: () => { set("book:eight"); K.card('<div class="kick">The newspaper · the page of seals</div><h2>Seven have become eight</h2>' + rowSVG5() + "<p>Under the witnesses, where there were seven crowned seals and three empty rings, one ring now holds a crowned seal.</p>" + '<p class="e2-jline">Two places still kept.</p><button class="cta" data-act="x">Go on</button>', { x: after }); } }) }), "Go on") }); };
+            { x: () => { set("book:eight"); K.card('<div class="kick">The newspaper · the page of seals</div><h2>Seven have become eight</h2>' + rowSVG5() + "<p>Under the witnesses, where there were seven crowned seals and three empty rings, one ring now holds a crowned seal.</p>" + '<p class="e2-jline">Two places still kept.</p><button class="cta" data-act="x">Go on</button>', { x: after }); } }) })), "Go on") }); };
+    /* the second question: the player names him, from the photograph; Yoel does not */
+    const who5 = (then) => K.card('<div class="kick">The second book · inside the back cover</div><h2>The second question</h2>' + F.wnote("2. Who is the son of perdition?") +
+        "<p>Yoel turns the newspaper toward you, to the photograph, and says nothing more. A man at a desk with his back to the room. His hand on the page. Four witnesses facing you.</p>" + OBJ("e2-edition") +
+        F.wnote("…for that day shall not come, except there come a falling away first, and that man of sin be revealed, the son of perdition.") + '<p class="fsmall">2 Thessalonians 2:3</p>' +
+        '<div class="fsay"><button data-act="y">“I know who he is. The man at the desk.”</button><button data-act="n">“Not yet.”</button></div>',
+      { y: () => { set("e:named"); F.S("stamp", "click", 0.5); K.buzz("success"); then(); },
+        n: () => K.card('<div class="kick">Yoel’s table</div><h2>What you hold</h2><p>Yoel does not help you. He lays out what you brought, one thing at a time, and waits.</p>' +
+          '<ol class="e2-three"><li>A falling away first: you have had coffee with it.</li><li>The covenant confirmed with the many, on the night that began 25 Av.</li><li>By his own hand, in the sight of all.</li></ol>' +
+          "<p>The hand has moved. It is no longer a question of suspicion.</p>" + '<button class="cta" data-act="x">Look again</button>', { x: () => who5(then) }) });
     line(0);
   };
   const rowSVG5 = () => '<svg class="e2-draw" viewBox="0 0 300 50" aria-hidden="true"><rect width="300" height="50" fill="#F4EBD2"/>' + Array.from({ length: 10 }, (_, i) => (i < 8 ? '<circle cx="' + (20 + i * 29) + '" cy="25" r="11" fill="' + (i === 7 ? "#C9A24A" : "#B23A2A") + '" stroke="#6A1A10"/><path d="M' + (14 + i * 29) + " 27l2 -7l4 4l4 -4l2 7z" + '" fill="#F4EBD2"/>' : '<circle cx="' + (20 + i * 29) + '" cy="25" r="11" fill="none" stroke="#8A7A5A" stroke-dasharray="3 3"/>')).join("") + "</svg>";
@@ -2314,7 +2324,7 @@
             { x: () => K.card('<div class="kick">Some days later</div><h2 class="e2-later">The desk at home</h2><img class="e2-obj tall" src="img/fsy/w/desk-day.jpg" alt=""><p>The Lamplighter’s desk, where it all began. The clock is still stopped at 9:27. The drawer that was locked, with the card “Not this time”, is open a finger’s width. The card has been turned over. On the back, in the Lamplighter’s hand:</p>' + F.wnote("This time.") + '<button class="cta" data-act="x">Open the drawer</button>',
               { x: () => K.card('<div class="kick">The drawer</div>' + (clip("drawer") || W5("desk-drawer")) + "<p>Inside the drawer, behind the card, there is one thing. A silver Temple coin. You turn it over.</p>" + OBJ("e2-coin-back") + "<p>Cyrus, and behind him a second face, worn smooth by a thumb.</p>" + '<p class="e2-jline">The same coin. The drawer does not say whose thumb wore it.</p><button class="cta" data-act="x">Go on</button>', { x: () => { set("e:end"); E().done.e7 = 1; save(); endAct5(); } }) }) }); } }); }; };
     const last = () => { V("marker"); K.card(T + face("yoel") + "<p>Yoel puts your hand on the brass marker himself.</p>" + Y("Seventeen days I marked. They close now. Press it when the sun has gone, and not before. I taught you that on this roof before I ever met you.") + '<button class="cta" data-act="x">Watch the sun</button>', { x: sunset }); };
-    const QS = { one: ["“Is he the one?”", Y("You proved the act yourself and you still want it from my mouth. Yes. First the falling away. You have had coffee with it. Then the man revealed. You watched the hand. Then That Day. Do not ask me the day. I have a count to the middle, and I will not pretend to more.")],
+    const QS = { one: ["“Is he the one?”", "<p>He looks at you a long moment, and does not give you the answer you already gave.</p>" + Y("First the falling away. You have had coffee with it. Then the man revealed. You watched the hand. Then That Day. Do not ask me the day. I have a count to the middle, and I will not pretend to more.")],
       who: ["“Who gave them your measure?”", Y("Someone I loved, who thought he was protecting me.") + "<p>He looks out over the roofs.</p>" + Y("That is not for tonight.")],
       now: ["“What do I do now?”", Y("What a watchman does. You keep the count, you tell the truth about it, and you warn the ones who will listen and the one who will not. What is coming from the middle is Jacob’s trouble, and it is not small. But it has an end, and the end is not his.")] };
     const ask = () => { const q = E().f["e:q"] || {}, acts = {}; Object.keys(QS).forEach((k) => (acts[k] = () => { q[k] = 1; set("e:q", q); V("q-" + k); K.card(T + face("yoel") + QS[k][1] + '<button class="cta" data-act="x">Go on</button>', { x: ask }); }));
@@ -2391,7 +2401,7 @@
     const sh = document.querySelector("#adv .asheet"); if (sh) { const b = sh.querySelector("[data-act]"); b && b.click(); return; }
     if (!scene) return;
     const e = E(), id = scene.id;
-    const fill = { pro: () => { set("handle"); give("rods"); give("book2"); set("book:pro"); set("pro"); }, desk: () => { set("calendar"); set("lamp"); },
+    const fill = { pro: () => { set("handle"); give("rods"); give("book2"); set("book:pro"); set("book:two"); set("pro"); }, desk: () => { set("calendar"); set("lamp"); },
       airport: () => give("coffee"), city: () => ["bookread", "taxi", "steps", "book:book1", "book:book2", "book:address"].forEach((k) => set(k)),
       wall: () => { ["w1", "w2", "w3"].forEach((k) => set(k)); give("seventy"); }, chain: () => { give("key"); set("room"); set("heard:e2-1-room"); },
       table: () => { set("c1r", { A: "lit", B: "dark", C: "lit", D: "grey" }); set("c1"); set("book:c1"); }, roof: () => { set("ring"); set("ringMarks", [11, 27]); set("open"); },
@@ -2408,7 +2418,7 @@
       d7: () => { give("pointer"); ["d:seated", "d:radio", "d:end", "book:pointer", "book:t24"].forEach((k) => set(k)); },
       e1: () => { set("e:pins", { hour: 1, annex: 1, place: 1, hand: 1, moment: 1 }); ["e:live", "e:tried", "book:t25"].forEach((k) => set(k)); }, e2: () => ["e:rule", "e:shira", "book:hour", "book:three5"].forEach((k) => set(k)),
       e3: () => { ["tsheet", "clocks", "edition"].forEach(give); set("e:r", { t: 555, got: { wall: 1, gate: 1, steps: 1 }, weak: {}, ver: {}, at: "" }); set("e:race"); set("book:t26r"); }, e4: () => { if (!E().f["e:stair"]) set("e:stair", "rod"); set("book:stair"); },
-      e5: () => { set("e:p", { text: 1, hand: 1, hour: 1 }); ["e:five", "e:page", "e:proved", "book:five", "book:count", "book:eight"].forEach((k) => set(k)); }, e6: () => { set("e:coin", "l"); set("e:haller"); set("book:clause3"); },
+      e5: () => { set("e:p", { text: 1, hand: 1, hour: 1 }); ["e:five", "e:page", "e:named", "e:proved", "book:five", "book:count", "book:eight"].forEach((k) => set(k)); }, e6: () => { set("e:coin", "l"); set("e:haller"); set("book:clause3"); },
       e7: () => { if (!E().f["e:said"]) set("e:said", choice4() === "a" ? "h" : "r"); ["e:asked", "e:end", "book:roof5"].forEach((k) => set(k)); } };
     fill[id](); e.done[id] = 1; save();
     const nx = SC[idx(id) + 1]; if (nx) go(nx.id); else endAct5();

@@ -700,3 +700,14 @@ Gerry's review of the Act 5 second draft (9/10), applied to the prototype.
 | --- | --- | --- |
 | 1 | The stair: the man's portrait is large while he counts (was a small circle on a dark screen). | Done in v7l |
 | 2 | Stale wording found on a whole-app pass: the episode list said Episode 2 was "Acts 1 and 2 prototype" (now "Five acts · tester build", and "played" means Act 5 finished); Episode 1's closing card, the episode hub and the home line called Episode 2 "The Seventy Weeks" (now "The Appointed Time"); Episode 2's opening note said Act 5 had no voice, clips or music; its closing card said "Prototype". | Done in v7l |
+
+## Build v7m (20 Nov 2026)
+
+Richard: Episode 2's quest is two questions, set early: when the covenant of Daniel 9:27 is confirmed (and proving it), and who is the son of perdition. The player answers the second himself, at the signing photograph. "First the apostasy, second the revealing, third our gathering. 2 Th 2:3." That Day belongs mostly to Episode 3.
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Prologue: new card "Two questions", inside the back cover of the second book: 1. When is the covenant confirmed with the many? Find the day. Prove it. (Dan 9:27) 2. Who is the son of perdition? (2 Thess 2:3), with Yoel's rule "Not by what you suspect of him… Until the hand moves, you hold a question." Also a journal page. | Done in v7m |
+| 2 | Act 4: the preacher's rain-washed newspaper is removed (the back-turned signing photo is now the only picture of him). The preacher still passes below the window; the second question is noted as still open. | Done in v7m |
+| 3 | Act 5: Yoel no longer names him. His line ends at "That much is yours, and no one can take it from you." (recording trimmed). New card "The second question": the signing photograph and 2 Thess 2:3; the player answers "I know who he is. The man at the desk." or "Not yet." (Yoel lays out the falling away, the confirmation and the hand, and the question returns). | Done in v7m |
+| 4 | The roof, "Is he the one?": Yoel does not give the answer the player already gave; his line starts at "First the falling away" (recording trimmed). Journal entry rewritten: "I answered it myself, at the photograph." | Done in v7m |
