@@ -711,3 +711,9 @@ Richard: Episode 2's quest is two questions, set early: when the covenant of Dan
 | 2 | Act 4: the preacher's rain-washed newspaper is removed (the back-turned signing photo is now the only picture of him). The preacher still passes below the window; the second question is noted as still open. | Done in v7m |
 | 3 | Act 5: Yoel no longer names him. His line ends at "That much is yours, and no one can take it from you." (recording trimmed). New card "The second question": the signing photograph and 2 Thess 2:3; the player answers "I know who he is. The man at the desk." or "Not yet." (Yoel lays out the falling away, the confirmation and the hand, and the question returns). | Done in v7m |
 | 4 | The roof, "Is he the one?": Yoel does not give the answer the player already gave; his line starts at "First the falling away" (recording trimmed). Journal entry rewritten: "I answered it myself, at the photograph." | Done in v7m |
+
+## Build v7n (21 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Act 4: the preacher's rain-washed newspaper is back exactly as it was (Richard: "I want the newspaper back in exactly how it was"). Its removal in v7m came from a misread answer. The scene is restored byte for byte from v7l. | Done in v7n |

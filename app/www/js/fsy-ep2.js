@@ -1878,8 +1878,14 @@
     if (!flag("d:slips")) return K.card('<div class="kick">The window</div><h2>The Street of the Chain</h2><p>The shops are closing. The light is going out of the stone.</p><button class="cta" data-act="x">Back</button>', { x: after });
     if (flag("d:ezek")) { K.say("The street is empty. The twenty-third has begun.", "", 3000); return; }
     K.card('<div class="kick">The window</div>' + face("preacher") + "<h2>Below in the street</h2><p>The preacher from Jaffa Gate is walking home with his folded sign. He calls it up to nobody.</p>" + said("The street preacher", "Are you watching, or marching?") +
-      "<p>He does not wait for an answer. The question inside the back cover of the second book is still a question.</p>" +
-      '<button class="cta" data-act="x">Go on</button>', { x: () => lastLine() });
+      '<button class="cta" data-act="x">Go on</button>', { x: () => K.card('<div class="kick">The Street of the Chain</div>' + stamp("6:50 p.m.") + "<h2>Something left behind</h2>" +
+        "<p>The shopkeepers are washing down the stones for the night. Where the preacher stood, one of his printed sheets lies against the wall, soaked through.</p>" + OBJ("e2-newspaper") +
+        "<p>It is made up like a front page. Across the top, the verse every frame on Yoel’s table is built on. Under it, a photograph of a man in a dark suit. The water has run across the face.</p>" +
+        '<div class="fsay"><button data-act="a">“He has printed what Yoel will not write.”</button><button data-act="b">“A guess is not an act.”</button></div>',
+        { a: () => pagePaper(), b: () => pagePaper() }) });
+    const pagePaper = () => { set("book:paper"); note("yoel", "On 22 Av, in the wet street under the window: the preacher's printed sheet, Daniel 9:27 over a photograph of a man the water had half washed away. Not evidence. A guess, printed.");
+      K.card('<div class="kick">The second book</div><h2>Keep it a question</h2>' + F.wnote("A man is not revealed by what we suspect of him. He is revealed by what he does, by his own act, in the sight of all. Until the hand moves, you hold a question.") +
+        "<p>You leave the sheet where it lies. The frame on Yoel’s table does not light for a photograph.</p>" + '<button class="cta" data-act="x">Back to the page</button>', { x: lastLine }); };
     const lastLine = () => K.card('<div class="kick">The second book</div><h2>The last line</h2><p>Turned sideways, as if added later.</p>' +
         F.wnote("And if you meet the one who carries the coin, remember he is not your enemy. Ezekiel 33:6. If the watchman sees the sword come and blows not the trumpet, the blood is on the watchman. You have seen. So blow it, even for him. Most of all for him.") +
         '<button class="cta" data-act="x">Go on</button>', { x: () => { set("d:ezek"); set("book:watch");
