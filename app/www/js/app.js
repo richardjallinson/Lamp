@@ -90,7 +90,7 @@
     /* tester builds only: the Episode 2 prototype (js/fsy-ep2.js) */
     if (Lamp.tester && Lamp.ep2) { const e2 = Lamp.state.ep2, d2 = e2 && e2.done && e2.done.e7;
       h += '<button class="epx ep2t" data-ep2="1"><span class="lock" aria-hidden="true">' + ICON.lamp + '</span><span><b>Episode 2 · The Appointed Time</b><small>' + (d2 ? "All five acts played · tester build" : e2 && e2.began ? "Continue · five acts · tester build" : "Five acts · tester build") + "</small></span></button>"; }
-    for (let n = (Lamp.tester && Lamp.ep2) ? 3 : 2; n <= EPISODES; n++) h += '<div class="epx"><span class="lock" aria-label="Locked">' + ICON.lock + '</span><span><b>Episode ' + n + (n === 3 ? " · The King Returns" : "") + "</b><small>" + (n === 3 ? "The final episode · coming soon" : "Coming soon") + "</small></span></div>";
+    for (let n = (Lamp.tester && Lamp.ep2) ? 3 : 2; n <= EPISODES; n++) h += '<div class="epx"><span class="lock" aria-label="Locked">' + ICON.lock + '</span><span><b>Episode ' + n + (n === 3 ? " · The King Returns" : n === 2 ? " · The Appointed Time" : "") + "</b><small>" + (n === 3 ? "The final episode · coming soon" : "Coming soon") + "</small></span></div>";
     h += "</div>";
     h += '<p class="small-print">Every photograph and painting is by Richard J. Allinson, taken and made in Israel.</p>';
     return h;

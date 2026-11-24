@@ -796,3 +796,18 @@ Richard: the seven further episodes cannot be built one by one; roll them into o
 | --- | --- | --- |
 | 1 | The "All places" list (from Richard's screenshots): the act headings and their one-line descriptions were pale gold and cream on a white card, almost unreadable. Now dark. | Done in v7x |
 | 2 | Every place in the list shows its map number (1 to 36), with a tick after the name when done, so the numbers on the map can be matched to names. | Done in v7x |
+
+## App Store build 1.0 (5) (24 Nov 2026)
+
+Richard finished Episode 1 on his iPad and said "Make the App Store build". Episode 2 waits until January (his play-through), then opens in an update.
+
+| # | Setting | State |
+| --- | --- | --- |
+| 1 | dev.js TESTER = false: Episode 2 shows "Coming soon" and cannot be opened; no Skip button, no tester tools, no stand-in labels. | Done |
+| 2 | release.js: OPEN_ACTS false (no jumping ahead), FRESH_EACH_BUILD false (updates keep the saved game), PART1_ONLY false (all five acts of Episode 1), BUILD "1.0-5". | Done |
+| 3 | Xcode: version 1.0, build number 4 → 5. | Done |
+| 4 | Episodes screen names Episode 2 ("The Appointed Time · Coming soon") and Episode 3 ("The King Returns"). Episode 1's closing card: "The investigation continues in Episode 2, The Appointed Time, coming soon." | Done |
+| 5 | Checked by script: a new player starts at Act 1 with 3 drops of oil; tapping Episode 2 says it is coming soon; no tester wording in Settings. | Done |
+
+To go back to testing Episode 2 in January: dev.js TESTER = true.
+Not done, known: two Episode 1 music pieces (Southern Steps, Dung Gate) borrow other tracks; nobody but Richard has played it.

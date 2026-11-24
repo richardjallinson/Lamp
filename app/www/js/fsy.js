@@ -1228,7 +1228,7 @@
       '<div class="v">“And he shall confirm the covenant with many for one week: and in the midst of the week he shall cause the sacrifice and the oblation to cease.”</div><div class="r">Daniel 9:27 · KJV</div>' +
       "<p>The place is found, and now it is known. The gate is shut, waiting for the Prince. But before the King comes, another will come first, and confirm a covenant with many: and the Temple Mount will be on the table.</p>" +
       "<p>Sixty-nine of Daniel’s seventy weeks are fulfilled. <b>One week remains.</b> And somewhere in Jerusalem, a watchman with blue ink and a small drawn lamp is waiting to tell you when.</p>" +
-      '<p class="fgo">The investigation continues in new episodes, coming soon. Follow <b>THE FINAL SEVEN YEARS</b> on Facebook to hear first.</p>' +
+      '<p class="fgo">The investigation continues in Episode 2, <b>The Appointed Time</b>, coming soon. Follow <b>THE FINAL SEVEN YEARS</b> on Facebook to hear first.</p>' +
       '<button class="cta" data-act="list">See the episodes ahead</button><button class="cta alt" data-act="x">Back to the journey</button>',
       { list: hub, x: () => K.shut() });
   }
