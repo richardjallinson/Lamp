@@ -19,13 +19,10 @@
 
   const CHAPTERS = [
     { id: "temple", n: 1, title: EP, tease: "A Temple will stand again in Jerusalem. Follow the clues from the Temple Institute to the sealed Eastern Gate.", play: !!Lamp.fsyOpen },
-    { id: "weeks", n: 2, title: "The Appointed Time", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin?" },
-    { id: "horns", n: 3, title: "The Ten Horns", tease: "Daniel saw ten kings rise together. Are they rising now?" },
-    { id: "babylon", n: 4, title: "Mystery, Babylon the Great", tease: "A woman rides the beast and reigns over the kings of the earth. Who is she?" },
-    { id: "witnesses", n: 5, title: "The Two Witnesses", tease: "Two olive trees, two lampstands, standing before the God of the earth." },
-    { id: "tishri", n: 6, title: "The Tishri Corridor", tease: "The appointed times hold a pattern. Daniel's numbers point to one feast." },
-    { id: "seals", n: 7, title: "The Scroll with Seven Seals", tease: "Who is worthy to open the book, and to loose the seals thereof?" },
-    { id: "king", n: 8, title: "The King Returns", tease: "The gate that is shut shall be opened. His feet shall stand upon the mount of Olives." },
+    /* Richard, 24 Nov 2026: the game is three episodes, not eight. The six later subjects (the ten horns, Mystery Babylon,
+       the two witnesses, the Tishri corridor, the seven seals, the King's return) become the acts of one final episode. */
+    { id: "weeks", n: 2, title: "The Appointed Time", tease: "Sixty-nine weeks are fulfilled. One week remains. When does it begin, and who confirms it?", ep2: true },
+    { id: "king", n: 3, title: "The King Returns", tease: "Ten horns, a woman on the beast, two witnesses, a sealed scroll. The gate that is shut shall be opened, and His feet shall stand upon the mount of Olives." },
   ];
 
   K.A(); // make sure the adventure state exists
@@ -1240,12 +1237,15 @@
   function hub() {
     if (!K.root()) K.open(BOOK, {}, "fsy-hub");
     M("theme");
-    const p = P();
+    const p = P(); const ttl = $("adv-ttl"); if (ttl) ttl.textContent = "";   // the top bar sits over this scrolling list: no title to collide with it
+    const open2 = (c) => !!(c.ep2 && Lamp.tester && Lamp.ep2), done2 = () => { const e = Lamp.state.ep2; return !!(e && e.done && e.done.e7); };
     stage('<img class="fcover" src="img/start/fsy-cover.jpg" alt="The Final Seven Years, by Richard Allinson"><div class="fsub">The investigation through Daniel and Revelation, from the book by Richard J. Allinson</div><div class="fchap">' +
-      CHAPTERS.map((c) => '<button class="fch' + (c.play ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (c.play && p.gateDone ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (c.play ? "" : "<em>Coming soon</em>") + "</span></button>").join("") + "</div>");
+      CHAPTERS.map((c) => { const can = c.play || open2(c), tick = (c.play && p.gateDone) || (open2(c) && done2());
+        return '<button class="fch' + (can ? "" : " soon") + '" data-ch="' + c.id + '"><i>' + c.n + "</i><span><b>" + esc(c.title) + (tick ? " ✓" : "") + "</b><small>" + esc(c.tease) + "</small>" + (can ? "" : "<em>Coming soon</em>") + "</span></button>"; }).join("") + "</div>");
     $("adv-scene").querySelectorAll("[data-ch]").forEach((b) => (b.onclick = () => {
       const c = CHAPTERS.find((x) => x.id === b.dataset.ch);
       if (c.play) { K.sfx("click"); episode(); return; }
+      if (open2(c)) { K.sfx("click"); Lamp.ep2.play(); return; }
       K.say("“" + c.title + "” is coming soon. Follow THE FINAL SEVEN YEARS on Facebook to hear when it arrives.", "", 4200);
     }));
   }

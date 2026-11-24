@@ -772,3 +772,13 @@ Richard: "Set at 5 a full lamp. Make it part of the strategy of the game to have
 | --- | --- | --- |
 | 1 | Richard: the blurred block in some photos is distracting. Three pictures replaced with his own versions, the person removed with his tool: the path along the wall and the steps among the graves (Eastern Gate, outside), and the Pool of Siloam. No blur on them now. | Done in v7u |
 | 2 | The other four blurred pictures (the City of David tunnel, the Church of All Nations altar and door, the Skull Hill sign): Richard says they are OK. Left as they are. | No change |
+
+## Build v7v (24 Nov 2026)
+
+Richard: the seven further episodes cannot be built one by one; roll them into one final episode. Agreed: three episodes; the third is "The King Returns".
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The episode list inside the game shows three episodes, not eight: 1 The Jerusalem Mystery, 2 The Appointed Time (opens Episode 2; ticked when finished), 3 The King Returns (coming soon). | Done in v7v |
+| 2 | The Episodes screen: three episodes; "Episode 3 · The King Returns · The final episode · coming soon". Episode 2's closing card names it. | Done in v7v |
+| 3 | The jumbled words at the top of the episode list (the last scene's title printed over the scrolling text) are gone. | Done in v7v |
