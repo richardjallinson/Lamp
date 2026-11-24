@@ -732,3 +732,13 @@ Richard: Episode 2's quest is two questions, set early: when the covenant of Dan
 | 2 | Real thunder for the storm (Richard, ElevenLabs Sound Effects): three sounds, far, nearer and close, one per flash, each louder than the last. Originals in images/originals/fsy/audio/sfx. | Done in v7p |
 | 3 | Richard: "take out the admin button, the skip button". dev.js has a new switch TOOLS = false: no floating Skip button, no Tester tools group in Settings. TESTER stays on so Episode 2 still opens. | Done in v7p |
 | 4 | Richard: a hint the player can click, a question mark, that lights up when a person is stuck. The hint button in every scene of both episodes is now a "?". After 90 seconds with no progress it turns gold and pulses until tapped or until the player moves on. A hint uses a drop of oil when there is one and is free when the lamp is dry, so nobody is left stuck. | Done in v7p |
+
+## Build v7q (23 Nov 2026)
+
+Richard: "I don't think hints should be free… hints lighting up after 90 seconds should only be a vague hint." Dry lamp: "Soft."
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Two kinds of help. The nudge: when the ? lights up (90 seconds stuck), tapping it gives one vague line, free. The hint: any other tap asks "Use a drop of oil?" and, on yes, takes a drop and gives the real hint. | Done in v7q |
+| 2 | Earning oil: a drop for each place finished without a paid hint (both episodes), and a drop for each candle lit (Episode 1's seven lamps; Episode 2's seventh candle). | Done in v7q |
+| 3 | Dry lamp, soft rule: the first tap starts a two-minute wait and says so; after it, a tap gives the hint without oil. | Done in v7q |

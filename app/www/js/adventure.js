@@ -85,24 +85,46 @@
       '<button class="cta" data-act="stay">Keep playing</button><button class="cta alt" data-act="leave">Leave the game</button>', { stay: () => {}, leave: () => shut() }); };
     $("adv-pause").onclick = () => { snd("tap"); pause(); };
     $("adv-hint").style.visibility = opts && opts.hint ? "visible" : "hidden";
-    /* v7p (Richard): the hint is a question mark, always there, and it lights up by itself when the player seems stuck.
-       It uses a drop of oil when there is one; when the lamp is dry it is free, so nobody is ever left stuck. */
+    /* v7q (Richard, 23 Nov): hints are not free. Two kinds of help:
+       - the nudge: after 90 seconds stuck the ? lights up; tapping it then gives one vague line, free (where to look, never what to do);
+       - the hint: any other tap asks to spend a drop of oil, then gives the real hint (stronger each time).
+       Soft rule: with a dry lamp a hint can still be had, after a two-minute wait. */
+    const paid = () => { paidAt = Date.now(); unstick(); Lamp.save(); snd("hint"); opts.hint(); };
     $("adv-hint").onclick = () => {
       if (!opts.hint) return;
-      if (Lamp.state.oil > 0) Lamp.state.oil--;
-      unstick(); Lamp.save(); snd("hint"); opts.hint();
+      const h = $("adv-hint");
+      if (h.classList.contains("stuck")) { h.classList.remove("stuck"); lastMove = Date.now(); snd("tap");
+        say((opts.nudge && opts.nudge()) || "Not sure what to do? Look round this place again, slowly, and read your journal. For a real hint, tap ? once more.", "", 5200); return; }
+      const oil = Lamp.state.oil || 0;
+      if (oil > 0) return card('<div class="kick">A hint</div><h2>Use a drop of oil?</h2><p>A hint costs one drop. Your lamp holds ' + oil + " drop" + (oil === 1 ? "" : "s") + '.</p><p class="fsmall">You earn a drop for each place you finish without a hint, and one for each candle you light.</p>' +
+        '<button class="cta" data-act="y">Use a drop</button><button class="cta alt" data-act="n">Not yet</button>', { y: () => { Lamp.state.oil = oil - 1; paid(); }, n: () => {} });
+      /* dry lamp: wait two minutes */
+      if (!dryAt) { dryAt = Date.now(); return say("Your lamp is dry. Keep looking: if you are still stuck in two minutes, tap ? again and a hint will come.", "", 5600); }
+      const left = Math.ceil((DRY_MS - (Date.now() - dryAt)) / 1000);
+      if (left > 0) return say("Your lamp is dry. A hint will come in " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") + ".", "", 3600);
+      dryAt = 0; paid();
     };
-    unstick();
+    dryAt = 0; unstick();
     selected = null; onClose = opts && opts.onClose;
     if (opts && opts.satchel) satchel();
     return root;
   }
   /* ---------- the stuck glow: no progress for a while, and the ? starts to pulse ---------- */
-  const STUCK_MS = 90000;
-  let lastPrint = "", lastMove = Date.now();
+  const STUCK_MS = 90000, DRY_MS = 120000;
+  let lastPrint = "", lastMove = Date.now(), dryAt = 0, paidAt = 0, placesAt = -1, placesSince = 0;
+  /* a drop of oil for each place finished without a paid hint (counted from the saved game, so it works in both episodes) */
+  const places = () => { try { const st = Lamp.state, w = (((st.adv || {}).p || {}).fsy || {}).w || {}, e = (st.ep2 || {}).done || {};
+      return Object.keys(w.done || {}).filter((k) => k.indexOf(":") < 0 && w.done[k]).length + Object.keys(e).filter((k) => e[k]).length; } catch (x) { return 0; } };
+  function earn() {
+    const n = places(); if (placesAt < 0) { placesAt = n; placesSince = Date.now(); return; }
+    if (n > placesAt) { if (n === placesAt + 1 && paidAt < placesSince) { Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); setTimeout(() => root && say("A drop of oil for your lamp: finished without a hint.", "", 3600), 1800); }
+      placesAt = n; placesSince = Date.now(); }
+    else if (n < placesAt) placesAt = n;
+  }
   const print = () => { try { return JSON.stringify(Lamp.state, (k, v) => (/^seen/.test(k) || k === "view" || k === "settings" || k === "oil" || k === "hints" ? undefined : v)); } catch (e) { return ""; } };
   function unstick() { lastMove = Date.now(); lastPrint = print(); const h = $("adv-hint"); if (h) h.classList.remove("stuck"); }
   setInterval(() => {
+    if (root) earn(); else placesAt = -1;
     const h = $("adv-hint"); if (!root || !h || h.style.visibility === "hidden" || pauseEl) return;
     const p = print(); if (p !== lastPrint) { lastPrint = p; lastMove = Date.now(); h.classList.remove("stuck"); return; }
     if (Date.now() - lastMove > STUCK_MS) h.classList.add("stuck");

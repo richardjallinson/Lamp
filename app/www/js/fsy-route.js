@@ -36,7 +36,7 @@
   }
   function lightLamp(n, then) {
     const L = lamps(); if (L[n]) { then && then(); return; }
-    L[n] = 1; save(); const lp = LAMPS[n - 1], count = Object.keys(L).length;
+    L[n] = 1; Lamp.state.oil = (Lamp.state.oil || 0) + 1; save(); const lp = LAMPS[n - 1], count = Object.keys(L).length;
     F.S("harp", null, 0.8); setTimeout(() => F.S("shofar", null, 0.35), 500); K.buzz && K.buzz("success");
     const film = LAMP_FILMS.has(n) ? '<div class="flampfilm"><video src="video/fsy/lamp-' + n + '.mp4" poster="video/fsy/lamp-' + n + '.jpg" playsinline muted autoplay></video></div>' : menorahHTML(L, n);
     K.card('<div class="kick">The Seven Lamps · ' + count + " of 7 lit</div>" + film + "<h2>A lamp is lit</h2>" +
