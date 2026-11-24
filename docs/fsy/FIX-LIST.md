@@ -811,3 +811,7 @@ Richard finished Episode 1 on his iPad and said "Make the App Store build". Epis
 
 To go back to testing Episode 2 in January: dev.js TESTER = true.
 Not done, known: two Episode 1 music pieces (Southern Steps, Dung Gate) borrow other tracks; nobody but Richard has played it.
+
+## Tester play build v7y (24 Nov 2026)
+
+Richard asked to play Episode 2 now. A separate zip, lamp-Apple-v7y-PLAY-Episode2.zip: the App Store build with dev.js TESTER = true (Episode 2 opens; no Skip, no tools, no jumping ahead; saved game kept). Not for upload. The repository stays on the App Store settings (TESTER false, BUILD 1.0-5).
