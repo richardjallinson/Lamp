@@ -8,8 +8,8 @@
   /* Every new build starts from the very first scene (full start screen, Creation level 1), as Richard asked.
      The progress saved by an older build, here and in iCloud, is set aside.
      !! Turn FRESH_EACH_BUILD off before an UPDATE goes to real players, or their progress would be wiped. */
-  const BUILD = "v7s";
-  const FRESH_EACH_BUILD = true;   // off for TestFlight: testers keep their progress between updates
+  const BUILD = "v7t";
+  const FRESH_EACH_BUILD = false;   // off for TestFlight: testers keep their progress between updates
   /* The Final Seven Years: false = shown as a preview only, every chapter locked ("Coming soon").
      Set to true when Richard opens chapter 1. */
   const FSY_OPEN = true;   // Episode 1 is the game now (Oct 28): it stays open in the App Store build too

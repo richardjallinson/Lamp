@@ -759,3 +759,9 @@ Richard: "Set at 5 a full lamp. Make it part of the strategy of the game to have
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Richard: on the map he could tap any numbered place and jump ahead ("Testing · Jump ahead"), from 26 straight to 35. That was a tester tool left on (release.js OPEN_ACTS). Now off: a place ahead of you answers "first finish …" and does not open. Places already finished can still be revisited. | Done in v7s |
+
+## Build v7t (24 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Richard: he has played to the Eastern Gate and does not want to start again with each build. release.js FRESH_EACH_BUILD is now false: a new build keeps the saved game. (This replaces his earlier rule that every build opens at the beginning; switch it back to true if he asks.) To start over there is still Settings. | Done in v7t |
