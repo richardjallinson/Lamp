@@ -724,8 +724,11 @@ Richard: Episode 2's quest is two questions, set early: when the covenant of Dan
 | --- | --- | --- |
 | 1 | Two small doubts about the Lamplighter planted before the drawer at the end (Richard: "do that"). Act 1, his desk: the locked drawer, "something small and heavy slides across the inside". Act 4, Haller's coffee: "The man who sent you keeps a tidy desk. A trimmed wick. A chair pushed in square. He always did finish things." / "You never told him about the desk." Noted in the journal under the Lamplighter. | Done in v7o |
 
-## Next build (pending, after v7o)
+## Build v7p (23 Nov 2026)
 
 | # | Fix | State |
 | --- | --- | --- |
-| 1 | Episode 1, Act 2, the storm on the Ramparts Walk (Richard: "that puzzle doesn't work right, it's actually annoying"). No more tapping in time. The three flashes play by themselves, the seconds counted on the sky and the distance written under each; then "Closer, or farther?" (a wrong answer explains and returns); then the same choice of stair. "Watch it again" replays all three. About 20 seconds of watching. | In, waiting for the next zip |
+| 1 | Episode 1, Act 2, the storm on the Ramparts Walk (Richard: "that puzzle doesn't work right, it's actually annoying"). No more tapping in time. The three flashes play by themselves, the seconds counted on the sky and the distance written under each; then "Closer, or farther?" (a wrong answer explains and returns); then the same choice of stair. "Watch it again" replays all three. About 20 seconds of watching. | Done in v7p |
+| 2 | Real thunder for the storm (Richard, ElevenLabs Sound Effects): three sounds, far, nearer and close, one per flash, each louder than the last. Originals in images/originals/fsy/audio/sfx. | Done in v7p |
+| 3 | Richard: "take out the admin button, the skip button". dev.js has a new switch TOOLS = false: no floating Skip button, no Tester tools group in Settings. TESTER stays on so Episode 2 still opens. | Done in v7p |
+| 4 | Richard: a hint the player can click, a question mark, that lights up when a person is stuck. The hint button in every scene of both episodes is now a "?". After 90 seconds with no progress it turns gold and pulses until tapped or until the player moves on. A hint uses a drop of oil when there is one and is free when the lamp is dry, so nobody is left stuck. | Done in v7p |

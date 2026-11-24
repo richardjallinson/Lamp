@@ -224,3 +224,9 @@
 #adv-paused p{font-size:15px;line-height:1.5;color:#D9D2BE;margin:0 0 22px}
 #adv-paused .cta{display:block;width:100%;min-height:52px;border-radius:14px;border:0;background:#C9A24A;color:#141A33;font:700 17px var(--ui);cursor:pointer}
 body.lamp-paused #adv *,body.lamp-paused #narr *{animation-play-state:paused!important}
+
+/* v7p: the hint is a question mark, and it pulses gold when the player seems stuck */
+#adv .abtn.hintq{padding:0;width:38px;font:800 20px/1 var(--serif,Georgia,serif);color:#F3E9CE}
+#adv .abtn.hintq b{font-weight:800}
+#adv .abtn.hintq.stuck{background:#C9A24A;color:#1A1405;border-color:#F3D68A;animation:hintpulse 1.6s ease-in-out infinite}
+@keyframes hintpulse{0%,100%{box-shadow:0 0 0 0 rgba(243,214,138,.75);transform:scale(1)}50%{box-shadow:0 0 0 12px rgba(243,214,138,0);transform:scale(1.12)}}

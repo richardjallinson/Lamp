@@ -309,7 +309,7 @@ Object.assign(C.PUZZLES, {
       const say = (t) => { $("fsread").textContent = t; };
       const stop = () => { clearTimeout(timer); clearTimeout(wait); clearInterval(tick); $("fcount").textContent = ""; };
       const flash = () => { $("fflash").classList.add("on"); setTimeout(() => $("fflash").classList.remove("on"), 180); };
-      const boom = () => { const st = $("fstorm"), bm = $("fboom"); st.classList.add("shake"); bm.classList.add("on"); F.S("door", null, 0.9);
+      const boom = (i) => { const st = $("fstorm"), bm = $("fboom"); st.classList.add("shake"); bm.classList.add("on"); F.S("thunder" + (i + 1), "door", 1);
         setTimeout(() => { st.classList.remove("shake"); bm.classList.remove("on"); }, 900); };
       const counting = () => { let n = 0; $("fcount").textContent = ""; tick = setInterval(() => { n++; $("fcount").textContent = Array.from({ length: n }, (_, i) => i + 1).join(" · "); if (n > 12) clearInterval(tick); }, 1000); };
       const km = (gap) => Math.round(gap / 3 * 10) / 10;
@@ -318,7 +318,7 @@ Object.assign(C.PUZZLES, {
       const play = (i, then) => {
         say("Flash " + (i + 1) + " of 3. Watch the sky.");
         timer = setTimeout(() => { flash(); counting(); say("Flash. Count…");
-          timer = setTimeout(() => { boom(); stop(); got[i] = [GAPS[i], km(GAPS[i])]; list(); say("Thunder, " + GAPS[i].toFixed(1) + " seconds after the flash: about " + km(GAPS[i]) + " km away.");
+          timer = setTimeout(() => { boom(i); stop(); got[i] = [GAPS[i], km(GAPS[i])]; list(); say("Thunder, " + GAPS[i].toFixed(1) + " seconds after the flash: about " + km(GAPS[i]) + " km away.");
             wait = setTimeout(then, 1900); }, GAPS[i] * 1000); }, 1000);
       };
       const watch = () => { busy = true; stop(); got = []; list(); $("fagain").disabled = true; let i = 0; const next = () => (i < GAPS.length ? play(i++, next) : (busy = false, $("fagain").disabled = false, ask())); next(); };

@@ -9,7 +9,10 @@
      Garden Gate, mark the first three stories done, reset the adventure, replay the full start screen. */
 (function () {
   "use strict";
-  const TESTER = true;    // tester build v7o
+  const TESTER = true;    // tester build v7p
+  /* v7p (Richard, 23 Nov): "take out the admin button, the skip button". TOOLS = false hides the floating Skip button and the
+     Tester tools group in Settings. TESTER stays on so Episode 2 still opens. Set TOOLS = true to get them back. */
+  const TOOLS = false;
   const Lamp = (window.Lamp = window.Lamp || {});
   Lamp.tester = TESTER;
   if (!TESTER) return;
@@ -19,7 +22,7 @@
   /* ---------- the Skip button ---------- */
   const btn = document.createElement("button");
   btn.id = "devskip"; btn.type = "button"; btn.innerHTML = "⏭ Skip"; btn.setAttribute("aria-label", "Tester: skip this step");
-  document.addEventListener("DOMContentLoaded", () => document.body.appendChild(btn));
+  if (TOOLS) document.addEventListener("DOMContentLoaded", () => document.body.appendChild(btn));
 
   function where() {
     if ($("reveal")) return "reveal";
@@ -63,6 +66,7 @@
 
   /* ---------- Settings → Tester tools ---------- */
   Lamp.testerHTML = function () {
+    if (!TOOLS) return "";
     const st = Lamp.state.settings;
     const row = (act, title, small) => '<button class="row" data-dev="' + act + '"><span class="l"><b>' + title + "</b><small>" + small + "</small></span></button>";
     return '<div class="group tester"><div class="row"><span class="l"><b>Tester tools</b><small>For testing only. Turned off before the App Store.</small></span></div>' +

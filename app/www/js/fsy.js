@@ -133,7 +133,7 @@
     "w-bazaar-steps", "w-bazaar-lamps", "w-gtomb-garden", "w-gtomb-bench", "w-tunnels-sign", "w-tunnels-warren", "w-jaffa-parcel", "w-ramparts-storm"]);
   /* music and background sound for each place (audio/music/fsy-*.js); a track not made yet falls back to one that is */
   const HAVE_M = new Set(["e2-broadcast", "e2-race", "e2-last", "m21", "m22", "m23", "m24", "m25", "e2-annex", "e2-wait", "m16", "m17", "m18", "e2-vineyard", "e2-dance", "watching", "olivepress", "e2-sabbath", "e2-feast", "theme", "hall", "puzzle", "olives", "investigation", "reveal", "gate", "cliff", "amb-street", "amb-indoor", "amb-olives", "amb-platform", "amb-chamber", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "risen-song", "amb-airport", "amb-train", "amb-market", "amb-tram", "song", "e2-wall", "e2-chain", "e2-table", "e2-roof"]);
-  const HAVE_S = new Set(["wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
+  const HAVE_S = new Set(["thunder1", "thunder2", "thunder3", "wings", "wingsflap", "staves", "lock", "dial", "step", "parchment", "postcard", "journal", "knock", "harp", "stone", "shofar", "door", "rod", "stamp", "coin", "ticket", "pay", "trambell", "shopbell"]);
   /* a prop sound from Richard's recordings, or the game's own sound if that one isn't recorded yet */
   function S(name, fallback, vol) { if (Lamp.score && HAVE_S.has(name)) Lamp.score.sfx("fsy-sfx-" + name, vol); else if (fallback) K.sfx(fallback); }
   const preS = (...n) => Lamp.score && Lamp.score.preload(n.filter((x) => HAVE_S.has(x)).map((x) => "fsy-sfx-" + x));

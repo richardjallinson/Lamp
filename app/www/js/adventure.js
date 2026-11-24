@@ -75,7 +75,7 @@
     root.innerHTML = '<div class="adv-scene" id="adv-scene"></div>' +
       '<div class="adv-top"><button class="abtn quit" id="adv-x" aria-label="Quit the game">Quit</button><span class="ttl" id="adv-ttl">' + esc(title) + "</span>" +
       '<button class="abtn pausebtn" id="adv-pause" aria-label="Pause the game"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></svg></button>' +
-      '<button class="abtn" id="adv-hint" aria-label="Hint, costs one drop of oil">' + Lamp.ICON.hint + "<span>1</span></button></div>" +
+      '<button class="abtn hintq" id="adv-hint" aria-label="Hint: what do I do now?"><b>?</b></button></div>' +
       '<div class="say" id="adv-say" aria-live="polite"></div>' +
       (opts && opts.satchel ? '<div class="satchel" id="adv-satchel"></div>' : "");
     document.body.appendChild(root);
@@ -85,15 +85,28 @@
       '<button class="cta" data-act="stay">Keep playing</button><button class="cta alt" data-act="leave">Leave the game</button>', { stay: () => {}, leave: () => shut() }); };
     $("adv-pause").onclick = () => { snd("tap"); pause(); };
     $("adv-hint").style.visibility = opts && opts.hint ? "visible" : "hidden";
+    /* v7p (Richard): the hint is a question mark, always there, and it lights up by itself when the player seems stuck.
+       It uses a drop of oil when there is one; when the lamp is dry it is free, so nobody is ever left stuck. */
     $("adv-hint").onclick = () => {
       if (!opts.hint) return;
-      if (Lamp.state.oil < 1) { say("Your lamp is out of oil. Find bonus words in the stories to fill it."); return; }
-      Lamp.state.oil--; Lamp.save(); snd("hint"); opts.hint();
+      if (Lamp.state.oil > 0) Lamp.state.oil--;
+      unstick(); Lamp.save(); snd("hint"); opts.hint();
     };
+    unstick();
     selected = null; onClose = opts && opts.onClose;
     if (opts && opts.satchel) satchel();
     return root;
   }
+  /* ---------- the stuck glow: no progress for a while, and the ? starts to pulse ---------- */
+  const STUCK_MS = 90000;
+  let lastPrint = "", lastMove = Date.now();
+  const print = () => { try { return JSON.stringify(Lamp.state, (k, v) => (/^seen/.test(k) || k === "view" || k === "settings" || k === "oil" || k === "hints" ? undefined : v)); } catch (e) { return ""; } };
+  function unstick() { lastMove = Date.now(); lastPrint = print(); const h = $("adv-hint"); if (h) h.classList.remove("stuck"); }
+  setInterval(() => {
+    const h = $("adv-hint"); if (!root || !h || h.style.visibility === "hidden" || pauseEl) return;
+    const p = print(); if (p !== lastPrint) { lastPrint = p; lastMove = Date.now(); h.classList.remove("stuck"); return; }
+    if (Date.now() - lastMove > STUCK_MS) h.classList.add("stuck");
+  }, 5000);
   /* ---------- pause (v6w, Richard: "a pause button wherever you are") ----------
      Freezes music, voice, clips and moving pictures, and covers the screen until Resume. Also comes up by itself when the app is
      sent to the background, so the game is waiting, paused, when you come back. Progress is saved as you go, so nothing is lost. */
