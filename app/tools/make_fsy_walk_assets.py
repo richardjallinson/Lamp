@@ -94,7 +94,7 @@ PHOTOS = {
     "market-kaldron": "photos/oct27/market-lane-bakery.png",
     "market-fish": "photos/oct28/fish-counter-painting.png",
     "passport-control": "photos/oct28/passport-control-painting.png",   # painting   # painting (replaces the blurry crop of the photo, Oct 28)
-    "siloam-pool": ("photos/oct27/siloam-pool-steps.png", None, [(395, 1085, 535, 1330)]),   # person in the pool blurred
+    "siloam-pool": "photos/oct27/siloam-pool-steps-clear.png",   # Richard, 24 Nov: person removed with his tool (was blurred)
     "siloam-sign": "photos/oct27/siloam-pool-sign.png",
     "siloam-water": "photos/hezekiah/tunnel-exit-pool-columns.png",
     "synagogue-doors": "photos/oct27/great-synagogue-doors.png",
@@ -125,9 +125,9 @@ PHOTOS = {
     "bazaar-stalls": "photos/oct28/bazaar-stalls-painting.png",   # painting
     "bazaar-trader": "photos/oct28/bazaar-trader-painting.png",   # painting
     "bazaar-end": "photos/oct28/bazaar-end-painting.png",   # painting
-    # the Eastern Gate from outside (Richard blurred out of two of them)
-    "egate-path": ("photos/egate/path-along-wall-richard.png", None, [(600, 830, 730, 1190)]),
-    "egate-steps": ("photos/egate/graves-stairs-richard.png", None, [(495, 905, 625, 1245)]),
+    # the Eastern Gate from outside (Richard, 24 Nov: himself removed from two of them with his tool; they were blurred)
+    "egate-path": "photos/egate/path-along-wall-clear.png",
+    "egate-steps": "photos/egate/graves-stairs-clear.png",
     "egate-close": "photos/egate/gate-close-from-below.png",
     "egate-olives": "photos/egate/view-to-mount-of-olives-cemetery.png",
     "egate-gethsemane": "photos/egate/view-to-gethsemane-and-russian-church.png",

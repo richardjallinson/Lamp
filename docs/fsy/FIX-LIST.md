@@ -765,3 +765,10 @@ Richard: "Set at 5 a full lamp. Make it part of the strategy of the game to have
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Richard: he has played to the Eastern Gate and does not want to start again with each build. release.js FRESH_EACH_BUILD is now false: a new build keeps the saved game. (This replaces his earlier rule that every build opens at the beginning; switch it back to true if he asks.) To start over there is still Settings. | Done in v7t |
+
+## Build v7u (24 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Richard: the blurred block in some photos is distracting. Three pictures replaced with his own versions, the person removed with his tool: the path along the wall and the steps among the graves (Eastern Gate, outside), and the Pool of Siloam. No blur on them now. | Done in v7u |
+| 2 | The other four blurred pictures (the City of David tunnel, the Church of All Nations altar and door, the Skull Hill sign): Richard says they are OK. Left as they are. | No change |

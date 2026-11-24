@@ -9,7 +9,7 @@
      Garden Gate, mark the first three stories done, reset the adventure, replay the full start screen. */
 (function () {
   "use strict";
-  const TESTER = true;    // tester build v7t
+  const TESTER = true;    // tester build v7u
   /* v7p (Richard, 23 Nov): "take out the admin button, the skip button". TOOLS = false hides the floating Skip button and the
      Tester tools group in Settings. TESTER stays on so Episode 2 still opens. Set TOOLS = true to get them back. */
   const TOOLS = false;
