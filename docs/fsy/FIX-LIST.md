@@ -753,3 +753,9 @@ Richard: "Set at 5 a full lamp. Make it part of the strategy of the game to have
 | 2 | The lamp's five drops are always on screen, beside the ? button. | Done in v7r |
 | 3 | Spending asks first: "Are you sure you want to use one of your drops?" with the five drops drawn, "a drop spent is gone… the fewer drops you use, the better your watch", and "No, keep my oil" as the first button. | Done in v7r |
 | 4 | The count is shown as a score: "Your lamp: N of 5 drops" on each place's Done card in Episode 1, and "You end your watch with N of 5 drops in your lamp" on Episode 2's closing card. | Done in v7r |
+
+## Build v7s (24 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Richard: on the map he could tap any numbered place and jump ahead ("Testing · Jump ahead"), from 26 straight to 35. That was a tester tool left on (release.js OPEN_ACTS). Now off: a place ahead of you answers "first finish …" and does not open. Places already finished can still be revisited. | Done in v7s |
