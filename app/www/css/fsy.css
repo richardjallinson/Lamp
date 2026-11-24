@@ -1308,3 +1308,7 @@
 /* v7w: finished places keep their number on the map, with a small tick */
 #adv .fpin.done i{position:relative}
 #adv .fpin.done i u{position:absolute;right:-6px;top:-6px;width:15px;height:15px;border-radius:50%;background:#CDEFD6;color:#1E5A36;font:900 10px/15px var(--ui);text-decoration:none;text-align:center;text-shadow:none;box-shadow:0 1px 3px rgba(0,0,0,.5)}
+/* v7x: the "All places" list is a pale card: act headings were pale gold and cream on white, almost unreadable; and every place shows its number */
+#adv .asheet .fact b{color:#7A5A12}
+#adv .asheet .fact small{color:#4A4436}
+#adv .asheet .fstop.done i{font-size:11px}

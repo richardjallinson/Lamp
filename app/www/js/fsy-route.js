@@ -632,7 +632,7 @@
       h += '<div class="fact"><b>Act ' + a.n + " · " + esc(a.title) + "</b><small>" + esc(a.sub) + "</small></div>";
       R.filter((s) => s.act === a.n).forEach((s) => {
         const d = isDone(s.id), open = canOpen(s), here = nx && nx.id === s.id;
-        h += '<button class="fstop' + (d ? " done" : "") + (here ? " here" : "") + (!open && !d ? " locked" : "") + (s.optional ? " opt" : "") + '" data-act="' + s.id + '"><i>' + (d ? "✓" : s.n) + "</i><span><b>" + esc(s.title) + "</b><small>" + esc(s.kick) + (s.optional ? " · optional" : "") + "</small></span></button>";
+        h += '<button class="fstop' + (d ? " done" : "") + (here ? " here" : "") + (!open && !d ? " locked" : "") + (s.optional ? " opt" : "") + '" data-act="' + s.id + '"><i>' + s.n + "</i><span><b>" + esc(s.title) + (d ? " ✓" : "") + "</b><small>" + esc(s.kick) + (s.optional ? " · optional" : "") + "</small></span></button>";
       });
     });
     const acts = { x: () => {} };

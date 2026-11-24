@@ -789,3 +789,10 @@ Richard: the seven further episodes cannot be built one by one; roll them into o
 | --- | --- | --- |
 | 1 | Richard was stuck at the Temple Institute: "Not enough" for the 35-shekel ticket, and no idea where to get money. Anywhere a payment fails, a card now says how much is needed and held, that the cash machine is beside the Jerusalem Hotel (place 8 on the Jerusalem map), and offers "Walk to the cash machine", which takes the player straight to it. | Done in v7w |
 | 2 | The map: finished places keep their number (green, with a small tick) instead of showing only a tick, so each can be told apart. "All places" still lists every place by name. | Done in v7w |
+
+## Build v7x (24 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | The "All places" list (from Richard's screenshots): the act headings and their one-line descriptions were pale gold and cream on a white card, almost unreadable. Now dark. | Done in v7x |
+| 2 | Every place in the list shows its map number (1 to 36), with a tick after the name when done, so the numbers on the map can be matched to names. | Done in v7x |
