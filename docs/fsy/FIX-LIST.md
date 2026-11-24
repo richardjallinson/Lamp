@@ -742,3 +742,14 @@ Richard: "I don't think hints should be free… hints lighting up after 90 secon
 | 1 | Two kinds of help. The nudge: when the ? lights up (90 seconds stuck), tapping it gives one vague line, free. The hint: any other tap asks "Use a drop of oil?" and, on yes, takes a drop and gives the real hint. | Done in v7q |
 | 2 | Earning oil: a drop for each place finished without a paid hint (both episodes), and a drop for each candle lit (Episode 1's seven lamps; Episode 2's seventh candle). | Done in v7q |
 | 3 | Dry lamp, soft rule: the first tap starts a two-minute wait and says so; after it, a tap gives the hint without oil. | Done in v7q |
+
+## Build v7r (23 Nov 2026)
+
+Richard: "Set at 5 a full lamp. Make it part of the strategy of the game to have as much oil in your lamp without using the oil. Using a drop costs you. And when a person uses it ask: are you sure you want to use one of your drops."
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | A full lamp is 5 drops (older saves above 5 are brought down to 5). Start is still 3. | Done in v7r |
+| 2 | The lamp's five drops are always on screen, beside the ? button. | Done in v7r |
+| 3 | Spending asks first: "Are you sure you want to use one of your drops?" with the five drops drawn, "a drop spent is gone… the fewer drops you use, the better your watch", and "No, keep my oil" as the first button. | Done in v7r |
+| 4 | The count is shown as a score: "Your lamp: N of 5 drops" on each place's Done card in Episode 1, and "You end your watch with N of 5 drops in your lamp" on Episode 2's closing card. | Done in v7r |

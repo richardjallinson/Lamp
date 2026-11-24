@@ -949,6 +949,7 @@
       const left = R.filter((x) => !w.done[x.id] && !x.optional).length;
       K.card('<div class="kick">Act ' + s.act + " · " + esc(s.title) + '</div><h2>✓ Done here</h2>' +
         "<p>" + esc(s.title) + " is finished. " + (left ? left + " place" + (left === 1 ? "" : "s") + " left in Episode 1." : "That was the last place.") + "</p>" +
+        '<p class="fsmall">Your lamp: ' + Math.min(5, Lamp.state.oil || 0) + " of 5 drops.</p>" +
         (nx ? '<button class="cta" data-act="n">Walk on › ' + esc(nx.title) + "</button>" : "") +
         '<button class="cta alt" data-act="x">Look around here first</button>', { n: () => go(nx), x: after });
     };

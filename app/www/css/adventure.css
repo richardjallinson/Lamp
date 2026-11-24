@@ -230,3 +230,11 @@ body.lamp-paused #adv *,body.lamp-paused #narr *{animation-play-state:paused!imp
 #adv .abtn.hintq b{font-weight:800}
 #adv .abtn.hintq.stuck{background:#C9A24A;color:#1A1405;border-color:#F3D68A;animation:hintpulse 1.6s ease-in-out infinite}
 @keyframes hintpulse{0%,100%{box-shadow:0 0 0 0 rgba(243,214,138,.75);transform:scale(1)}50%{box-shadow:0 0 0 12px rgba(243,214,138,0);transform:scale(1.12)}}
+
+/* v7r: the lamp's oil, five drops, always in view */
+#adv .oilg{display:inline-flex;gap:4px;align-items:center;margin-right:8px}
+#adv .oilg i,#adv .oilrow i{display:block;width:9px;height:13px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;border:1.5px solid rgba(201,162,74,.6);background:transparent}
+#adv .oilg i.on,#adv .oilrow i.on{background:#E3BC5C;border-color:#F3D68A;box-shadow:0 0 6px rgba(227,188,92,.7)}
+#adv .oilrow{display:flex;gap:9px;justify-content:center;margin:10px 0 6px}
+#adv .oilrow i{width:16px;height:23px;border-color:#B08A2E}
+#adv .oilrow i.on{background:#C9A24A;border-color:#8A6A1C;box-shadow:none}

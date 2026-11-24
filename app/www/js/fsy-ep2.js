@@ -2359,7 +2359,7 @@
   function endAct5() {
     K.card('<div class="kick">The Final Seven Years</div><div class="e2-acttitle"><small>Episode 2 · The Appointed Time</small><b>Complete</b></div>' +
       '<p style="text-align:center"><i>You know where. You know when. Now watch what he does in the middle.</i></p><p class="fsmall">A work of fiction. This episode imagines an agreement confirmed during a proposed future window, in an imagined 2027. Its characters and the agreement are fictional. Yoel’s calendar and test reflect an interpretation of prophecy and can be wrong.</p>' +
-      '<p class="fsmall">Episode 3 is still to come.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 5 again</button>',
+      '<p class="fsmall">You end your watch with ' + Math.min(5, Lamp.state.oil || 0) + ' of 5 drops in your lamp.</p><p class="fsmall">Episode 3 is still to come.</p><button class="cta" data-act="x">Back to the episodes</button><button class="cta alt" data-act="again">Play Act 5 again</button>',
       { x: () => K.shut(), again: () => { const e = E(); A5.forEach((id) => { delete e.done[id]; });
         Object.keys(e.f).forEach((k) => { if (/^(e:|book:(t25|hour|three5|t26r|stair|five|count|eight|clause3|roof5)|heard:e2-5|seenAct:e|hint:e)/.test(k)) delete e.f[k]; });
         ["tsheet", "clocks", "edition", "coin"].forEach((k) => delete e.items[k]); save(); go("e1"); } });

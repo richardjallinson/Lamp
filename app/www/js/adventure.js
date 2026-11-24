@@ -75,7 +75,7 @@
     root.innerHTML = '<div class="adv-scene" id="adv-scene"></div>' +
       '<div class="adv-top"><button class="abtn quit" id="adv-x" aria-label="Quit the game">Quit</button><span class="ttl" id="adv-ttl">' + esc(title) + "</span>" +
       '<button class="abtn pausebtn" id="adv-pause" aria-label="Pause the game"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></svg></button>' +
-      '<button class="abtn hintq" id="adv-hint" aria-label="Hint: what do I do now?"><b>?</b></button></div>' +
+      '<span class="oilg" id="adv-oil" aria-label="Oil in your lamp"></span><button class="abtn hintq" id="adv-hint" aria-label="Hint: what do I do now?"><b>?</b></button></div>' +
       '<div class="say" id="adv-say" aria-live="polite"></div>' +
       (opts && opts.satchel ? '<div class="satchel" id="adv-satchel"></div>' : "");
     document.body.appendChild(root);
@@ -92,39 +92,48 @@
     const paid = () => { paidAt = Date.now(); unstick(); Lamp.save(); snd("hint"); opts.hint(); };
     $("adv-hint").onclick = () => {
       if (!opts.hint) return;
-      const h = $("adv-hint");
+      gauge(); const h = $("adv-hint");
       if (h.classList.contains("stuck")) { h.classList.remove("stuck"); lastMove = Date.now(); snd("tap");
         say((opts.nudge && opts.nudge()) || "Not sure what to do? Look round this place again, slowly, and read your journal. For a real hint, tap ? once more.", "", 5200); return; }
       const oil = Lamp.state.oil || 0;
-      if (oil > 0) return card('<div class="kick">A hint</div><h2>Use a drop of oil?</h2><p>A hint costs one drop. Your lamp holds ' + oil + " drop" + (oil === 1 ? "" : "s") + '.</p><p class="fsmall">You earn a drop for each place you finish without a hint, and one for each candle you light.</p>' +
-        '<button class="cta" data-act="y">Use a drop</button><button class="cta alt" data-act="n">Not yet</button>', { y: () => { Lamp.state.oil = oil - 1; paid(); }, n: () => {} });
+      if (oil > 0) return card('<div class="kick">Your lamp · ' + oil + " of " + OIL_MAX + ' drops</div><h2>Are you sure you want to use one of your drops?</h2>' + gaugeHTML(oil) +
+        "<p>A hint costs one drop of oil, and a drop spent is gone. A watchman keeps his lamp full: the fewer drops you use, the better your watch.</p>" +
+        '<p class="fsmall">You earn a drop for each place you finish without a hint, and one for each candle you light. A full lamp holds ' + OIL_MAX + '.</p>' +
+        '<button class="cta alt" data-act="n">No, keep my oil</button><button class="cta" data-act="y">Yes, use a drop</button>', { y: () => { Lamp.state.oil = oil - 1; gauge(); paid(); }, n: () => {} });
       /* dry lamp: wait two minutes */
       if (!dryAt) { dryAt = Date.now(); return say("Your lamp is dry. Keep looking: if you are still stuck in two minutes, tap ? again and a hint will come.", "", 5600); }
       const left = Math.ceil((DRY_MS - (Date.now() - dryAt)) / 1000);
       if (left > 0) return say("Your lamp is dry. A hint will come in " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") + ".", "", 3600);
       dryAt = 0; paid();
     };
-    dryAt = 0; unstick();
+    dryAt = 0; unstick(); gauge();
     selected = null; onClose = opts && opts.onClose;
     if (opts && opts.satchel) satchel();
     return root;
   }
   /* ---------- the stuck glow: no progress for a while, and the ? starts to pulse ---------- */
-  const STUCK_MS = 90000, DRY_MS = 120000;
+  const STUCK_MS = 90000, DRY_MS = 120000, OIL_MAX = 5;   // v7r (Richard): a full lamp is 5 drops; keeping it full is part of the game
+  const gaugeHTML = (n) => '<div class="oilrow">' + Array.from({ length: OIL_MAX }, (_, i) => '<i class="' + (i < n ? "on" : "") + '"></i>').join("") + "</div>";
+  function gauge() {
+    if ((Lamp.state.oil || 0) > OIL_MAX) { Lamp.state.oil = OIL_MAX; Lamp.save(); }
+    const g = $("adv-oil"), n = Math.max(0, Lamp.state.oil || 0); if (!g) return;
+    if (g.dataset.n !== String(n)) { g.dataset.n = String(n); g.innerHTML = Array.from({ length: OIL_MAX }, (_, i) => '<i class="' + (i < n ? "on" : "") + '"></i>').join(""); g.setAttribute("aria-label", "Oil in your lamp: " + n + " of " + OIL_MAX); }
+  }
   let lastPrint = "", lastMove = Date.now(), dryAt = 0, paidAt = 0, placesAt = -1, placesSince = 0;
   /* a drop of oil for each place finished without a paid hint (counted from the saved game, so it works in both episodes) */
   const places = () => { try { const st = Lamp.state, w = (((st.adv || {}).p || {}).fsy || {}).w || {}, e = (st.ep2 || {}).done || {};
       return Object.keys(w.done || {}).filter((k) => k.indexOf(":") < 0 && w.done[k]).length + Object.keys(e).filter((k) => e[k]).length; } catch (x) { return 0; } };
   function earn() {
     const n = places(); if (placesAt < 0) { placesAt = n; placesSince = Date.now(); return; }
-    if (n > placesAt) { if (n === placesAt + 1 && paidAt < placesSince) { Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); setTimeout(() => root && say("A drop of oil for your lamp: finished without a hint.", "", 3600), 1800); }
+    if (n > placesAt) { if (n === placesAt + 1 && paidAt < placesSince) { const full = (Lamp.state.oil || 0) >= OIL_MAX; if (!full) { Lamp.state.oil = (Lamp.state.oil || 0) + 1; Lamp.save(); }
+        setTimeout(() => root && say(full ? "Finished without a hint. Your lamp is full: " + OIL_MAX + " of " + OIL_MAX + "." : "A drop of oil for your lamp: finished without a hint. " + Lamp.state.oil + " of " + OIL_MAX + ".", "", 3800), 1800); }
       placesAt = n; placesSince = Date.now(); }
     else if (n < placesAt) placesAt = n;
   }
   const print = () => { try { return JSON.stringify(Lamp.state, (k, v) => (/^seen/.test(k) || k === "view" || k === "settings" || k === "oil" || k === "hints" ? undefined : v)); } catch (e) { return ""; } };
   function unstick() { lastMove = Date.now(); lastPrint = print(); const h = $("adv-hint"); if (h) h.classList.remove("stuck"); }
   setInterval(() => {
-    if (root) earn(); else placesAt = -1;
+    if (root) { earn(); gauge(); } else placesAt = -1;
     const h = $("adv-hint"); if (!root || !h || h.style.visibility === "hidden" || pauseEl) return;
     const p = print(); if (p !== lastPrint) { lastPrint = p; lastMove = Date.now(); h.classList.remove("stuck"); return; }
     if (Date.now() - lastMove > STUCK_MS) h.classList.add("stuck");
