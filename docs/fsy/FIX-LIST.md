@@ -723,3 +723,9 @@ Richard: Episode 2's quest is two questions, set early: when the covenant of Dan
 | # | Fix | State |
 | --- | --- | --- |
 | 1 | Two small doubts about the Lamplighter planted before the drawer at the end (Richard: "do that"). Act 1, his desk: the locked drawer, "something small and heavy slides across the inside". Act 4, Haller's coffee: "The man who sent you keeps a tidy desk. A trimmed wick. A chair pushed in square. He always did finish things." / "You never told him about the desk." Noted in the journal under the Lamplighter. | Done in v7o |
+
+## Next build (pending, after v7o)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Episode 1, Act 2, the storm on the Ramparts Walk (Richard: "that puzzle doesn't work right, it's actually annoying"). No more tapping in time. The three flashes play by themselves, the seconds counted on the sky and the distance written under each; then "Closer, or farther?" (a wrong answer explains and returns); then the same choice of stair. "Watch it again" replays all three. About 20 seconds of watching. | In, waiting for the next zip |
