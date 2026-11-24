@@ -782,3 +782,10 @@ Richard: the seven further episodes cannot be built one by one; roll them into o
 | 1 | The episode list inside the game shows three episodes, not eight: 1 The Jerusalem Mystery, 2 The Appointed Time (opens Episode 2; ticked when finished), 3 The King Returns (coming soon). | Done in v7v |
 | 2 | The Episodes screen: three episodes; "Episode 3 · The King Returns · The final episode · coming soon". Episode 2's closing card names it. | Done in v7v |
 | 3 | The jumbled words at the top of the episode list (the last scene's title printed over the scrolling text) are gone. | Done in v7v |
+
+## Build v7w (24 Nov 2026)
+
+| # | Fix | State |
+| --- | --- | --- |
+| 1 | Richard was stuck at the Temple Institute: "Not enough" for the 35-shekel ticket, and no idea where to get money. Anywhere a payment fails, a card now says how much is needed and held, that the cash machine is beside the Jerusalem Hotel (place 8 on the Jerusalem map), and offers "Walk to the cash machine", which takes the player straight to it. | Done in v7w |
+| 2 | The map: finished places keep their number (green, with a small tick) instead of showing only a tick, so each can be told apart. "All places" still lists every place by name. | Done in v7w |

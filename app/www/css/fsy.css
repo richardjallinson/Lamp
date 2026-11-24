@@ -1304,3 +1304,7 @@
 #adv .fsay button small{font-weight:600;opacity:.7}
 /* the stair: the man's face large while he counts (v7l) */
 #adv .e2-live.stair img{width:min(62vw,240px);height:min(62vw,240px);border-radius:18px;object-fit:cover;border:2px solid #7A5A12;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+/* v7w: finished places keep their number on the map, with a small tick */
+#adv .fpin.done i{position:relative}
+#adv .fpin.done i u{position:absolute;right:-6px;top:-6px;width:15px;height:15px;border-radius:50%;background:#CDEFD6;color:#1E5A36;font:900 10px/15px var(--ui);text-decoration:none;text-align:center;text-shadow:none;box-shadow:0 1px 3px rgba(0,0,0,.5)}

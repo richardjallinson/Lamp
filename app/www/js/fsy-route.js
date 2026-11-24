@@ -580,14 +580,14 @@
       const [, x, y, far] = PIN[s.id], d = isDone(s.id), open = canOpen(s), here = nx && nx.id === s.id, you = at.id === s.id;
       return '<button class="fpin' + (d ? " done" : "") + (here ? " here" : "") + (you ? " you" : "") + (!open && !d ? " locked" : "") + (far ? " far" : "") +
         '" data-s="' + s.id + '" style="left:' + x + "%;top:" + y + '%" aria-label="' + esc(s.title) + '">' +
-        (far ? "<em>" + esc(far) + "</em>" : "<i>" + (d ? "✓" : s.n) + "</i>") + (here ? "<span>Next: " + esc(s.title) + "</span>" : "") + "</button>";
+        (far ? "<em>" + esc(far) + "</em>" : "<i>" + s.n + (d ? "<u>✓</u>" : "") + "</i>") + (here ? "<span>Next: " + esc(s.title) + "</span>" : "") + "</button>";
     }).join("");
     let h = '<div class="fkick">The Final Seven Years · Episode 1</div><h1>The Jerusalem Mystery</h1>' +
       '<div class="fsub">' + (nx ? "Next: " + esc(nx.title) + " · scene " + nx.n + " of " + R.length : "Episode 1 solved") + "</div>" +
       '<div class="fmaparea" id="fmaparea"><div class="fmap" id="fmapbox"><img src="' + IMG + "map-" + sheet + '.jpg" alt="Painted map of ' + (sheet === "old" ? "the Old City of Jerusalem" : "Jerusalem") + '" draggable="false">' + pins +
       (sheet === "city" ? '<button class="fpin far" data-sheet="old" style="left:72%;top:62%"><em>The Old City ›</em></button>' : "") + "</div></div>" +
       '<div class="fmapbottom"><div class="fmaptabs"><button data-sheet="city"' + (sheet === "city" ? ' class="on"' : "") + '>Jerusalem</button><button data-sheet="old"' + (sheet === "old" ? ' class="on"' : "") + ">The Old City</button></div>" +
-      '<div class="fmapkey"><span><i class="k here"></i>Next</span><span><i class="k done">✓</i>Done · tap to go back</span><span><i class="k locked"></i>Not yet</span></div>' +
+      '<div class="fmapkey"><span><i class="k here"></i>Next</span><span><i class="k done">✓</i>Green: done · tap to go back</span><span><i class="k locked"></i>Not yet</span></div>' +
       '<div class="fwtools"><button class="fwtool" data-j="1">' + journalIcon() + " Journal · " + pages + "/12</button><button class=\"fwtool\" data-b=\"1\">" + bagIcon() + " Backpack</button><button class=\"fwtool\" data-list=\"1\">All places</button></div>" +
       (nx ? "" : '<button class="fbtn" id="fend">What comes next</button>') + "</div>";
     const el = F.stage(h, "temple-painting.jpg");

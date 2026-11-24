@@ -38,7 +38,13 @@
   H.duckFor = duckFor;
   H.money = () => '<div class="fmoney"><b>' + A().money + '</b> shekels' + (has("card") ? " · Rav-Kav, <b>" + A().rides + "</b> ride" + (A().rides === 1 ? "" : "s") + " left" : "") + "</div>";
   H.pay = (n, what, quiet) => {
-    const a = A(); if (a.money < n) { K.say("Not enough. " + (what ? what[0].toUpperCase() + what.slice(1) : "That") + " costs " + n + " shekels and you have " + a.money + ".", "", 3600); return false; }
+    const a = A(); if (a.money < n) {
+      /* v7w (Richard was stuck at the Temple Institute with too little money and no idea where to go): say where the cash is, and offer to walk there */
+      K.card('<div class="kick">Not enough shekels</div><h2>' + esc(what ? what[0].toUpperCase() + what.slice(1) : "That") + " costs " + n + "</h2><p>You have " + a.money + " shekels.</p>" +
+        "<p>There is a cash machine beside the door of <b>the Jerusalem Hotel</b>: place 8 on the Jerusalem map. It takes the Lamplighter’s card and gives up to ₪200 each time you come back to it after finishing a place.</p>" +
+        '<button class="cta" data-act="go">Walk to the cash machine</button><button class="cta alt" data-act="x">Not now</button>',
+        { go: () => { if (Lamp.fsyWalk && Lamp.fsyWalk.go) Lamp.fsyWalk.go("hotel", "atm"); }, x: () => {} });
+      return false; }
     a.money -= n; save(); if (!quiet) F.S("pay", "click", 0.8); return true;
   };
   H.earn = (n, from) => { const a = A(); a.money += n; save(); F.S("harp", null, 0.5); K.say("+" + n + " shekels" + (from ? ", from " + from : "") + ". You have " + a.money + ".", "", 3600); };
